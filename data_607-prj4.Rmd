@@ -1,0 +1,56 @@
+---
+title: "project 4"
+author: "Nicholas Chung"
+date: "11/23/2019"
+output: 
+  html_document:
+    toc: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+# load packages
+library(rjson)
+library(tidyr)
+library(dplyr)
+library(jsonlite)
+library(xml2)
+library(XML)
+```
+
+# patent data collection
+
+## USPTO
+patent grant full text data (no images) Jan 
+Contains (JAN 2002 - present) the full text of each patent grant issued weekly (Tuesdays) (excludes images/drawings and reexaminations). The file format is eXtensible Markup Language (XML) in accordance with the Patent Grant International Common Element (ICE) Document Type Definition (DTD).
+
+# XML
+```{r}
+# load data from xml file
+#uspto.xml <- xmlParse("data/ipg191119.xml")
+#uspto.xml <- xmlToDataFrame(uspto.xml, stringsAsFactors = FALSE)
+#uspto.xml
+lines <- readLines("data/ipg191119.xml")
+start <- grep('<?xml version="1.0" encoding="UTF-8"?>', lines, fixed = T)
+end <- c(start[-1]-1, length(lines))
+get.xml <- function(i) {
+  txt <- paste(lines[start[i]:end[i]], collapse = "\n")
+  #print(i)
+  xmlTreeParse(txt, asText = T)
+}
+docs <- lapply(1:10, get.xml)
+#class(docs[[1]])
+docs[[1]]
+#sapply(docs,function(doc) xmlValue(doc["//invention-title"][[1]]))
+```
+
+# JSON
+```{r}
+# load data from json file
+books.json <- fromJSON("books.json")
+books.json <- books.json[[1]]
+books.json
+```
+
+# Observations
+For the most part, the XML, HTML, and JSON-derived dataframes have identical output. The JSON-derived dataframe stands out in having preserved the class that was implied by the lack of double-quotes that wrapped the integer values. 
