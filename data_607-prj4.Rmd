@@ -14,14 +14,14 @@ library(rjson)
 library(tidyr)
 library(dplyr)
 library(jsonlite)
-library(xml2)
+library(httr)
 library(XML)
 ```
 
 # patent data collection
 
 ## USPTO
-patent grant full text data (no images) Jan 
+Patent grant full text data (no images) (JAN 1976 - present) (1976 - 2001 Automated Patent System (APS) format is Green Book)
 Contains (JAN 2002 - present) the full text of each patent grant issued weekly (Tuesdays) (excludes images/drawings and reexaminations). The file format is eXtensible Markup Language (XML) in accordance with the Patent Grant International Common Element (ICE) Document Type Definition (DTD).
 
 # XML
@@ -44,13 +44,16 @@ docs[[1]]
 #sapply(docs,function(doc) xmlValue(doc["//invention-title"][[1]]))
 ```
 
-# JSON
+## NASA
+this dataset shows information pertaining to NASA held and pending patents.
+
+# API
 ```{r}
-# load data from json file
-books.json <- fromJSON("books.json")
-books.json <- books.json[[1]]
-books.json
+# 
+#https://data.nasa.gov/resource/gquh-watm.json
+url <- "https://data.nasa.gov/resource/nasa-patents.json"
+raw.result <- GET(url = url)
+raw.result
 ```
 
 # Observations
-For the most part, the XML, HTML, and JSON-derived dataframes have identical output. The JSON-derived dataframe stands out in having preserved the class that was implied by the lack of double-quotes that wrapped the integer values. 
