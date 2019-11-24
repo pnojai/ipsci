@@ -1,0 +1,49 @@
+---
+title: "ipsci"
+author: "Jai Jeffryes"
+date: "11/22/2019"
+output: 
+  html_document:
+    code_folding: hide
+    highlight: pygments
+    theme: flatly
+    toc: yes
+    toc_float: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r packages}
+library(readr)     # Read rectangular data.
+library(stringr)   # RegEx.
+```
+
+## NASA Patents
+- Data source: [NASA's Open Data Portal](https://data.nasa.gov/Raw-Data/NASA-Patents/gquh-watm). Includes column specification.
+- File: NASA_Patents.csv
+- Download date: 11/14/2019
+
+### Notes
+- Once you determine the data types of your columns,set the specifications and then use them for reading.
+- [`readr` blog post](https://blog.rstudio.com/2016/08/05/readr-1-0-0/). Illustrates the approach, although this syntax doesn't work anymore. The approach writes the specification to a file.
+- [readr - how to update col_spec object from spec()](https://stackoverflow.com/questions/39135129/readr-how-to-update-col-spec-object-from-spec). Greg H.'s answer on Stack Overflow doesn't require writing to a file. We use this approach. 
+
+```{r nasa}
+nasa_patents_fn <- "NASA_Patents.csv"
+
+# Specify datatypes.
+nasa_spec <- spec_csv(file = file.path("data", nasa_patents_fn))
+nasa_spec$cols[["Status"]] <- col_factor()
+nasa_spec$cols[["Patent Expiration Date"]] <- col_date("%m/%d/%Y")
+
+# Read patent file.
+nasa_patents <- readr::read_csv(file = file.path("data", nasa_patents_fn),
+                                col_types = nasa_spec)
+
+# In variable names, replace spaces.
+names(nasa_patents) <- str_replace_all(string = names(nasa_patents),
+                                       pattern = " ",
+                                       replacement = "_")
+```
