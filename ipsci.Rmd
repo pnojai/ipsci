@@ -55,6 +55,11 @@ nasa_patents <- readr::read_csv(file = file.path("data", nasa_patents_fn),
 names(nasa_patents) <- str_replace_all(string = names(nasa_patents),
                                        pattern = " ",
                                        replacement = "_")
+
+# Transform the application number to USPTO format
+nasa_patents <- nasa_patents %>%
+  mutate(Application_SN_uspto = str_c("US",
+        str_replace_all(Application_SN, "[[:punct:]]", "")))
 ```
 
 ## Retrieve patent data
@@ -86,10 +91,7 @@ get_patent_application <- function(app_num) {
 }
 
 # Need to review contents of JSON files.
-# Need to scrub nasa_patents$Application_SN.
-patent_app_list <- c("US14202699", "US12795356")
-
-for (app in patent_app_list) {
+for (app in nasa_patents$Application_SN_uspto) {
   get_patent_application(app)
 }
 
