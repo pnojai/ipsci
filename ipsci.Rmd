@@ -20,11 +20,13 @@ library(rplos)    # API to PLOS for journals.
 library(readr)    # Reading rectangular data.
 library(plyr)     # Wrangling data.
 library(dplyr)    # Wrangling data.
+library(tibble)   # Tidier table object.
 library(tidyr)    # Tidying data,
 library(stringr)  # Manipulating strings. Using RegEx.
 library(tm)       # Text mining.
 library(fulltext) # Text mining of open access journals.
 library(XML)      # Dealing with text in xml.
+library(jsonlite) # Getting and formatting JSON.
 ```
 
 ## NASA Patents
@@ -53,4 +55,45 @@ nasa_patents <- readr::read_csv(file = file.path("data", nasa_patents_fn),
 names(nasa_patents) <- str_replace_all(string = names(nasa_patents),
                                        pattern = " ",
                                        replacement = "_")
+
+# Transform the application number to USPTO format
+nasa_patents <- nasa_patents %>%
+  mutate(Application_SN_uspto = str_c("US",
+        str_replace_all(Application_SN, "[[:punct:]]", "")))
+```
+
+## Retrieve patent data
+USPTO has an api.
+
+```{r getpat}
+# Curl
+# curl -X GET --header 'Accept: application/json' 'https://developer.uspto.gov/ibd-api/v1/patent/application?applicationNumber=US14202699%2CUS12795356&start=0&rows=100'
+# Request URL
+# https://developer.uspto.gov/ibd-api/v1/patent/application?applicationNumber=US14202699%2CUS12795356&start=0&rows=100
+
+get_patent_application <- function(app_num) {
+  file_path <- file.path("data", str_c(app_num, ".json"))
+  
+  if (!file.exists(file_path)) {
+    req_url <- "https://developer.uspto.gov/ibd-api/v1/patent/application?APPSTUB&start=0&rows=100"
+    req_url <- str_replace(string = req_url,
+                           pattern = "APPSTUB",
+                           replacement = as.character(app_num))
+    print(str_c("Downloading application ",
+                as.character(app_num), "..."))
+    
+    patent_application <- fromJSON(req_url)
+    stream_out(x = patent_application[["response"]][["docs"]],
+               file(file_path))
+    
+    print(file_path)
+  }
+}
+
+# Need to review contents of JSON files.
+for (app in nasa_patents$Application_SN_uspto) {
+  get_patent_application(app)
+}
+
+print("Downloads complete.")
 ```
