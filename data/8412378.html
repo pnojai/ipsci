@@ -1,0 +1,3425 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>US8412378B2 - In-vivo tension calibration in tendon-driven manipulators 
+        - Google Patents</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="referrer" content="origin-when-crossorigin">
+    <link rel="canonical" href="https://patents.google.com/patent/US8412378B2/en">
+    <meta name="description" content="
+     A method for calibrating tension sensors on tendons in a tendon-driven manipulator without disassembling the manipulator and without external force references. The method calibrates the tensions against each other to produce results that are kinematically consistent. The results might not be absolutely accurate, however, they are optimized with respect to an initial or nominal calibration. The method includes causing the tendons to be slack and recording the sensor values from sensors that measure the tension on the tendons. The method further includes tensioning the tendons with the manipulator positioned so that it is not in contact with any obstacle or joint limit and again recording the sensor values. The method then performs a regression process to determine the sensor parameters that both satisfy a zero-torque constraint on the manipulator and minimize the error with respect to nominal calibration values. 
+   
+   ">
+    
+    <meta name="DC.type" content="patent">
+    
+    <meta name="DC.title" content="In-vivo tension calibration in tendon-driven manipulators 
+       ">
+    
+    <meta name="DC.date" content="2009-12-02" scheme="dateSubmitted">
+    
+    <meta name="DC.description" content="
+     A method for calibrating tension sensors on tendons in a tendon-driven manipulator without disassembling the manipulator and without external force references. The method calibrates the tensions against each other to produce results that are kinematically consistent. The results might not be absolutely accurate, however, they are optimized with respect to an initial or nominal calibration. The method includes causing the tendons to be slack and recording the sensor values from sensors that measure the tension on the tendons. The method further includes tensioning the tendons with the manipulator positioned so that it is not in contact with any obstacle or joint limit and again recording the sensor values. The method then performs a regression process to determine the sensor parameters that both satisfy a zero-torque constraint on the manipulator and minimize the error with respect to nominal calibration values. 
+   
+   ">
+    
+    <meta name="citation_patent_application_number" content="US:12/629,637">
+    
+    <meta name="citation_pdf_url" content="https://patentimages.storage.googleapis.com/d7/25/44/5f167eb543183b/US8412378.pdf">
+    
+    <meta name="citation_patent_number" content="US:8412378">
+    
+    <meta name="DC.date" content="2013-04-02" scheme="issue">
+    
+    <meta name="DC.contributor" content="Muhammad E. Abdallah" scheme="inventor">
+    
+    <meta name="DC.contributor" content="Robert Platt" scheme="inventor">
+    
+    <meta name="DC.contributor" content="GM Global Technology Operations LLC" scheme="assignee">
+    
+    <meta name="DC.contributor" content="National Aeronautics and Space Administration (NASA)" scheme="assignee">
+    
+    <meta name="DC.relation" content="US:4815006" scheme="references">
+    
+    <meta name="DC.relation" content="US:5297238" scheme="references">
+    
+    <meta name="DC.relation" content="US:5784542" scheme="references">
+    
+    <meta name="DC.relation" content="US:20030158463:A1" scheme="references">
+    
+    <meta name="DC.relation" content="US:7250028" scheme="references">
+    
+    <meta name="DC.relation" content="US:6791291" scheme="references">
+    
+    <meta name="DC.relation" content="US:20040139110:A1" scheme="references">
+    
+    <meta name="DC.relation" content="US:20050234566:A1" scheme="references">
+    
+    <meta name="DC.relation" content="US:20100077867:A1" scheme="references">
+    
+    <meta name="DC.relation" content="US:20100081969:A1" scheme="references">
+    
+    <meta name="DC.relation" content="US:20100121222:A1" scheme="references">
+    
+    <meta name="DC.relation" content="US:20100152898:A1" scheme="references">
+    
+    <meta name="DC.relation" content="US:20100280659:A1" scheme="references">
+    
+    <meta name="DC.relation" content="US:20110071678:A1" scheme="references">
+    
+    <meta name="citation_reference" content="Sato Daisuke, &#34;Human Intention Recognition System by a Robot with Sensors&#34; CD-ROM of 20th Anniversary Academic Lecture meeting of Robot Society of Japan, 2012." scheme="references">
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,400italic,500,500italic,700">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Product+Sans">
+    <style>
+      body { transition: none; }
+    </style>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-27188110-4', 'auto');
+
+      version = 'patent-search.search_20191120_RC00';
+
+      function sendFeedback() {
+        userfeedback.api.startFeedback({
+          'productId': '713680',
+          'bucket': 'patent-search-web',
+          'productVersion': version,
+        });
+      }
+
+      window.experiments = {};
+      window.experiments.patentCountries = "ae,ag,al,am,ao,ap,ar,at,au,aw,az,ba,bb,bd,be,bf,bg,bh,bj,bn,bo,br,bw,bx,by,bz,ca,cf,cg,ch,ci,cl,cm,cn,co,cr,cs,cu,cy,cz,dd,de,dj,dk,dm,do,dz,ea,ec,ee,eg,em,ep,es,fi,fr,ga,gb,gc,gd,ge,gh,gm,gn,gq,gr,gt,gw,hk,hn,hr,hu,ib,id,ie,il,in,ir,is,it,jo,jp,ke,kg,kh,km,kn,kp,kr,kw,kz,la,lc,li,lk,lr,ls,lt,lu,lv,ly,ma,mc,md,me,mg,mk,ml,mn,mo,mr,mt,mw,mx,my,mz,na,ne,ng,ni,nl,no,nz,oa,om,pa,pe,pg,ph,pl,pt,py,qa,ro,rs,ru,rw,sa,sc,sd,se,sg,si,sk,sl,sm,sn,st,su,sv,sy,sz,td,tg,th,tj,tm,tn,tr,tt,tw,tz,ua,ug,us,uy,uz,vc,ve,vn,wo,yu,za,zm,zw";
+      
+      
+      window.profilePicture = "";
+
+      window.Polymer = {
+        dom: 'shady',
+        lazyRegister: true,
+      };
+    </script>
+
+    <script src="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/webcomponentsjs/webcomponents-lite.min.js"></script>
+    
+    <link rel="import" href="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/search-app-vulcanized.html">
+    
+  </head>
+  <body unresolved>
+    
+    <script src="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/search-app-vulcanized.js"></script>
+    
+    <search-app>
+      
+      
+
+      <article class="result" itemscope itemtype="http://schema.org/ScholarlyArticle">
+  <h1 itemprop="pageTitle">US8412378B2 - In-vivo tension calibration in tendon-driven manipulators 
+        - Google Patents</h1>
+  <span itemprop="title">In-vivo tension calibration in tendon-driven manipulators 
+       </span>
+
+  <meta itemprop="type" content="patent">
+  <a href="https://patentimages.storage.googleapis.com/d7/25/44/5f167eb543183b/US8412378.pdf" itemprop="pdfLink">Download PDF</a>
+  <h2>Info</h2>
+
+  <dl>
+    <dt>Publication number</dt>
+    <dd itemprop="publicationNumber">US8412378B2</dd>
+    <meta itemprop="numberWithoutCodes" content="8412378">
+    <meta itemprop="kindCode" content="B2">
+    <meta itemprop="publicationDescription" content="Patent ( having previously published pre-grant publication)">
+    
+    <span>US8412378B2</span>
+    
+    <span>US12/629,637</span>
+    
+    <span>US62963709A</span>
+    
+    <span>US8412378B2</span>
+    
+    <span>US 8412378 B2</span>
+    
+    <span>US8412378 B2</span>
+    
+    <span>US 8412378B2</span>
+    
+    <span>  </span>
+    
+    <span> </span>
+    
+    <span> </span>
+    
+    <span>US 62963709 A</span>
+    
+    <span>US62963709 A</span>
+    
+    <span>US 62963709A</span>
+    
+    <span>US 8412378 B2</span>
+    
+    <span>US8412378 B2</span>
+    
+    <span>US 8412378B2</span>
+    
+
+    <dt>Authority</dt>
+    <dd itemprop="countryCode">US</dd>
+    <dd itemprop="countryName">United States</dd>
+
+    <dt>Prior art keywords</dt>
+    
+    <dd itemprop="priorArtKeywords" repeat>manipulator</dd>
+    <dd itemprop="priorArtKeywords" repeat>tendons</dd>
+    <dd itemprop="priorArtKeywords" repeat>tension</dd>
+    <dd itemprop="priorArtKeywords" repeat>calibration</dd>
+    <dd itemprop="priorArtKeywords" repeat>method</dd>
+
+    <dt>Prior art date</dt>
+    <dd><time itemprop="priorArtDate" datetime="2009-12-02">2009-12-02</time></dd>
+
+    <dt>Legal status (The legal status is an assumption and is not a legal conclusion. Google has not performed a legal analysis and makes no representation as to the accuracy of the status listed.)</dt>
+    <dd itemprop="legalStatusIfi" itemscope>
+      <span itemprop="status">Active</span>, expires <time itemprop="expiration" datetime="2031-09-03">2031-09-03</time>
+    </dd>
+  </dl>
+
+  <dt>Application number</dt>
+  <dd itemprop="applicationNumber">US12/629,637</dd>
+
+  
+
+  <dt>Other versions</dt>
+  <dd itemprop="directAssociations" itemscope repeat>
+    
+    <a href="/patent/US20110130879A1/en">
+      <span itemprop="publicationNumber">US20110130879A1</span>
+      (<span itemprop="primaryLanguage">en</span>
+    </a>
+  </dd>
+
+  <dt>Inventor</dt>
+  <dd itemprop="inventor" repeat>Muhammad E. Abdallah</dd>
+  <dd itemprop="inventor" repeat>Robert Platt</dd>
+  <dt>Current Assignee (The listed assignees may be inaccurate. Google has not performed a legal analysis and makes no representation or warranty as to the accuracy of the list.)</dt>
+  <dd itemprop="assigneeCurrent" repeat>
+    GM Global Technology Operations LLC
+  </dd><dd itemprop="assigneeCurrent" repeat>
+    National Aeronautics and Space Administration (NASA)
+  </dd>
+
+  <dt>Original Assignee</dt>
+  <dd itemprop="assigneeOriginal" repeat>GM Global Technology Operations LLC</dd><dd itemprop="assigneeOriginal" repeat>National Aeronautics and Space Administration (NASA)</dd>
+
+  <dt>Priority date (The priority date is an assumption and is not a legal conclusion. Google has not performed a legal analysis and makes no representation as to the accuracy of the date listed.)</dt>
+  <dd><time itemprop="priorityDate" datetime="2009-12-02">2009-12-02</time></dd>
+
+  <dt>Filing date</dt>
+  <dd><time itemprop="filingDate" datetime="2009-12-02">2009-12-02</time></dd>
+
+  <dt>Publication date</dt>
+  <dd><time itemprop="publicationDate" datetime="2013-04-02">2013-04-02</time></dd>
+
+  
+
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2009-12-02">2009-12-02</time>
+    <span itemprop="title">Application filed by GM Global Technology Operations LLC, National Aeronautics and Space Administration (NASA)</span>
+    <span itemprop="type">filed</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    <span itemprop="assigneeSearch">GM Global Technology Operations LLC</span>
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2009-12-02">2009-12-02</time>
+    <span itemprop="title">Priority to US12/629,637</span>
+    <span itemprop="type">priority</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    <span itemprop="documentId">patent/US8412378B2/en</span>
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2009-12-15">2009-12-15</time>
+    <span itemprop="title">Assigned to GM GLOBAL TECHNOLOGY OPERATIONS, INC.</span>
+    <span itemprop="type">reassignment</span>
+    
+    
+    
+    
+    <span itemprop="assigneeSearch">GM GLOBAL TECHNOLOGY OPERATIONS, INC.</span>
+    
+    
+    <span itemprop="description" repeat>ASSIGNMENT OF ASSIGNORS INTEREST (SEE DOCUMENT FOR DETAILS).</span>
+    
+    <span itemprop="description" repeat>Assignors: ABDALLAH, MUHAMMAD E.</span>
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2010-02-25">2010-02-25</time>
+    <span itemprop="title">Assigned to UAW RETIREE MEDICAL BENEFITS TRUST</span>
+    <span itemprop="type">reassignment</span>
+    
+    
+    
+    
+    <span itemprop="assigneeSearch">UAW RETIREE MEDICAL BENEFITS TRUST</span>
+    
+    
+    <span itemprop="description" repeat>SECURITY AGREEMENT</span>
+    
+    <span itemprop="description" repeat>Assignors: GM GLOBAL TECHNOLOGY OPERATIONS, INC.</span>
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2010-02-25">2010-02-25</time>
+    <span itemprop="title">Assigned to UNITED STATES DEPARTMENT OF THE TREASURY</span>
+    <span itemprop="type">reassignment</span>
+    
+    
+    
+    
+    <span itemprop="assigneeSearch">UNITED STATES DEPARTMENT OF THE TREASURY</span>
+    
+    
+    <span itemprop="description" repeat>SECURITY AGREEMENT</span>
+    
+    <span itemprop="description" repeat>Assignors: GM GLOBAL TECHNOLOGY OPERATIONS, INC.</span>
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2010-10-14">2010-10-14</time>
+    <span itemprop="title">Assigned to UNITED STATES OF AMERICA AS REPRESENTED BY THE ADMINISTRATOR OF THE NATIONAL AERONAUTICS AND SPACE ADMINISTRATION</span>
+    <span itemprop="type">reassignment</span>
+    
+    
+    
+    
+    <span itemprop="assigneeSearch">UNITED STATES OF AMERICA AS REPRESENTED BY THE ADMINISTRATOR OF THE NATIONAL AERONAUTICS AND SPACE ADMINISTRATION</span>
+    
+    
+    <span itemprop="description" repeat>ASSIGNMENT OF ASSIGNORS INTEREST (SEE DOCUMENT FOR DETAILS).</span>
+    
+    <span itemprop="description" repeat>Assignors: PLATT, ROBERT J., JR.</span>
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2010-11-04">2010-11-04</time>
+    <span itemprop="title">Assigned to GM GLOBAL TECHNOLOGY OPERATIONS, INC.</span>
+    <span itemprop="type">reassignment</span>
+    
+    
+    
+    
+    <span itemprop="assigneeSearch">GM GLOBAL TECHNOLOGY OPERATIONS, INC.</span>
+    
+    
+    <span itemprop="description" repeat>RELEASE BY SECURED PARTY (SEE DOCUMENT FOR DETAILS).</span>
+    
+    <span itemprop="description" repeat>Assignors: UNITED STATES DEPARTMENT OF THE TREASURY</span>
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2010-11-05">2010-11-05</time>
+    <span itemprop="title">Assigned to GM GLOBAL TECHNOLOGY OPERATIONS, INC.</span>
+    <span itemprop="type">reassignment</span>
+    
+    
+    
+    
+    <span itemprop="assigneeSearch">GM GLOBAL TECHNOLOGY OPERATIONS, INC.</span>
+    
+    
+    <span itemprop="description" repeat>RELEASE BY SECURED PARTY (SEE DOCUMENT FOR DETAILS).</span>
+    
+    <span itemprop="description" repeat>Assignors: UAW RETIREE MEDICAL BENEFITS TRUST</span>
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2010-11-08">2010-11-08</time>
+    <span itemprop="title">Assigned to WILMINGTON TRUST COMPANY</span>
+    <span itemprop="type">reassignment</span>
+    
+    
+    
+    
+    <span itemprop="assigneeSearch">WILMINGTON TRUST COMPANY</span>
+    
+    
+    <span itemprop="description" repeat>SECURITY AGREEMENT</span>
+    
+    <span itemprop="description" repeat>Assignors: GM GLOBAL TECHNOLOGY OPERATIONS, INC.</span>
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2011-02-10">2011-02-10</time>
+    <span itemprop="title">Assigned to GM Global Technology Operations LLC</span>
+    <span itemprop="type">reassignment</span>
+    
+    
+    
+    
+    <span itemprop="assigneeSearch">GM Global Technology Operations LLC</span>
+    
+    
+    <span itemprop="description" repeat>CHANGE OF NAME (SEE DOCUMENT FOR DETAILS).</span>
+    
+    <span itemprop="description" repeat>Assignors: GM GLOBAL TECHNOLOGY OPERATIONS, INC.</span>
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2011-06-02">2011-06-02</time>
+    <span itemprop="title">Publication of US20110130879A1</span>
+    <span itemprop="type">publication</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    <span itemprop="documentId">patent/US20110130879A1/en</span>
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2013-04-02">2013-04-02</time>
+    <span itemprop="title">Publication of US8412378B2</span>
+    <span itemprop="type">publication</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    <span itemprop="documentId">patent/US8412378B2/en</span>
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2013-04-02">2013-04-02</time>
+    <span itemprop="title">Application granted</span>
+    <span itemprop="type">granted</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2014-11-07">2014-11-07</time>
+    <span itemprop="title">Assigned to GM Global Technology Operations LLC</span>
+    <span itemprop="type">reassignment</span>
+    
+    
+    
+    
+    <span itemprop="assigneeSearch">GM Global Technology Operations LLC</span>
+    
+    
+    <span itemprop="description" repeat>RELEASE BY SECURED PARTY (SEE DOCUMENT FOR DETAILS).</span>
+    
+    <span itemprop="description" repeat>Assignors: WILMINGTON TRUST COMPANY</span>
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2019-11-25">2019-11-25</time>
+    <span itemprop="title">Application status is Active</span>
+    <span itemprop="type">legal-status</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2031-09-03">2031-09-03</time>
+    <span itemprop="title">Adjusted expiration</span>
+    <span itemprop="type">legal-status</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+
+  <h2>Links</h2>
+
+  <ul>
+    
+          <li itemprop="links" itemscope repeat>
+            <meta itemprop="id" content="usptoLink">
+            <a href="http://patft.uspto.gov/netacgi/nph-Parser?Sect1=PTO1&Sect2=HITOFF&p=1&u=/netahtml/PTO/srchnum.html&r=1&f=G&l=50&d=PALL&s1=8412378.PN." itemprop="url" target="_blank"><span itemprop="text">USPTO</span></a>
+          </li>
+        <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="usptoAssignmentLink">
+          <a href="https://assignment.uspto.gov/patent/index.html#/patent/search/resultFilter?searchInput=8412378" itemprop="url" target="_blank"><span itemprop="text">USPTO Assignment</span></a>
+        </li>
+
+    <li itemprop="links" itemscope repeat>
+        <meta itemprop="id" content="espacenetLink">
+        <a href="http://worldwide.espacenet.com/publicationDetails/biblio?CC=US&amp;NR=8412378B2&amp;KC=B2&amp;FT=D" itemprop="url" target="_blank"><span itemprop="text">Espacenet</span></a>
+      </li>
+      
+
+    
+
+    
+      <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="globalDossierLink">
+          <a href="http://globaldossier.uspto.gov/#/result/patent/US/8412378/1" itemprop="url" target="_blank"><span itemprop="text">Global Dossier</span></a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="stackexchangeLink">
+          <a href="https://patents.stackexchange.com/questions/tagged/US8412378" itemprop="url"><span itemprop="text">Discuss</span></a>
+        </li>
+      
+  </ul>
+
+  
+  <ul itemprop="concept" itemscope>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">210000002435</span>
+      <span itemprop="name">Tendons</span>
+      <span itemprop="domain">Anatomy</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>abstract</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>title</span>
+      
+      <span itemprop="count">19</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000000034</span>
+      <span itemprop="name">methods</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>abstract</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">27</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000001727</span>
+      <span itemprop="name">in vivo</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="sections" repeat>title</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">210000001145</span>
+      <span itemprop="name">Finger Joint</span>
+      <span itemprop="domain">Anatomy</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="count">3</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000004422</span>
+      <span itemprop="name">calculation algorithm</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">7</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000011159</span>
+      <span itemprop="name">matrix materials</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000005259</span>
+      <span itemprop="name">measurements</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">229910052782</span>
+      <span itemprop="name">aluminium</span>
+      <span itemprop="domain">Inorganic materials</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">XAGFODPZIPBFFR-UHFFFAOYSA-N</span>
+      <span itemprop="name">aluminum</span>
+      <span itemprop="domain">Chemical compound</span>
+      <span itemprop="svg_large">data:image/svg&#43;xml;base64,PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0naXNvLTg4NTktMSc/Pgo8c3ZnIHZlcnNpb249JzEuMScgYmFzZVByb2ZpbGU9J2Z1bGwnCiAgICAgICAgICAgICAgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJwogICAgICAgICAgICAgICAgICAgICAgeG1sbnM6cmRraXQ9J2h0dHA6Ly93d3cucmRraXQub3JnL3htbCcKICAgICAgICAgICAgICAgICAgICAgIHhtbG5zOnhsaW5rPSdodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rJwogICAgICAgICAgICAgICAgICB4bWw6c3BhY2U9J3ByZXNlcnZlJwp3aWR0aD0nMzAwcHgnIGhlaWdodD0nMzAwcHgnID4KPCEtLSBFTkQgT0YgSEVBREVSIC0tPgo8cmVjdCBzdHlsZT0nb3BhY2l0eToxLjA7ZmlsbDojRkZGRkZGO3N0cm9rZTpub25lJyB3aWR0aD0nMzAwJyBoZWlnaHQ9JzMwMCcgeD0nMCcgeT0nMCc&#43;IDwvcmVjdD4KPHRleHQgeD0nMTQxLjk5NicgeT0nMTU3LjUnIHN0eWxlPSdmb250LXNpemU6MTVweDtmb250LXN0eWxlOm5vcm1hbDtmb250LXdlaWdodDpub3JtYWw7ZmlsbC1vcGFjaXR5OjE7c3Ryb2tlOm5vbmU7Zm9udC1mYW1pbHk6c2Fucy1zZXJpZjt0ZXh0LWFuY2hvcjpzdGFydDtmaWxsOiMwMDAwMDAnID48dHNwYW4&#43;QWw8L3RzcGFuPjwvdGV4dD4KPC9zdmc&#43;Cg==</span>
+      <span itemprop="svg_small">data:image/svg&#43;xml;base64,PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0naXNvLTg4NTktMSc/Pgo8c3ZnIHZlcnNpb249JzEuMScgYmFzZVByb2ZpbGU9J2Z1bGwnCiAgICAgICAgICAgICAgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJwogICAgICAgICAgICAgICAgICAgICAgeG1sbnM6cmRraXQ9J2h0dHA6Ly93d3cucmRraXQub3JnL3htbCcKICAgICAgICAgICAgICAgICAgICAgIHhtbG5zOnhsaW5rPSdodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rJwogICAgICAgICAgICAgICAgICB4bWw6c3BhY2U9J3ByZXNlcnZlJwp3aWR0aD0nODVweCcgaGVpZ2h0PSc4NXB4JyA&#43;CjwhLS0gRU5EIE9GIEhFQURFUiAtLT4KPHJlY3Qgc3R5bGU9J29wYWNpdHk6MS4wO2ZpbGw6I0ZGRkZGRjtzdHJva2U6bm9uZScgd2lkdGg9Jzg1JyBoZWlnaHQ9Jzg1JyB4PScwJyB5PScwJz4gPC9yZWN0Pgo8dGV4dCB4PSczMy45OTU4JyB5PSc0OS41JyBzdHlsZT0nZm9udC1zaXplOjE0cHg7Zm9udC1zdHlsZTpub3JtYWw7Zm9udC13ZWlnaHQ6bm9ybWFsO2ZpbGwtb3BhY2l0eToxO3N0cm9rZTpub25lO2ZvbnQtZmFtaWx5OnNhbnMtc2VyaWY7dGV4dC1hbmNob3I6c3RhcnQ7ZmlsbDojMDAwMDAwJyA&#43;PHRzcGFuPkFsPC90c3Bhbj48L3RleHQ&#43;Cjwvc3ZnPgo=</span>
+      <span itemprop="smiles">[Al]</span>
+      <span itemprop="inchi_key">XAGFODPZIPBFFR-UHFFFAOYSA-N</span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001276</span>
+      <span itemprop="name">controlling effects</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000018109</span>
+      <span itemprop="name">developmental process</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000000463</span>
+      <span itemprop="name">materials</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000004048</span>
+      <span itemprop="name">modification</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000006011</span>
+      <span itemprop="name">modification</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+  </ul>
+  
+
+  <section>
+    <h2>Images</h2>
+    <ul>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/0b/76/5d/5229e81b784153/US08412378-20130402-D00000.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/78/f7/00/bec8fa96312f8e/US08412378-20130402-D00000.png">
+        <ul>
+          <li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="10">
+            <meta itemprop="label" content="finger">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="188">
+              <meta itemprop="top" content="330">
+              <meta itemprop="right" content="234">
+              <meta itemprop="bottom" content="385">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="12">
+            <meta itemprop="label" content="tip section">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="200">
+              <meta itemprop="top" content="819">
+              <meta itemprop="right" content="260">
+              <meta itemprop="bottom" content="879">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="14">
+            <meta itemprop="label" content="intermediate section">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="371">
+              <meta itemprop="top" content="674">
+              <meta itemprop="right" content="432">
+              <meta itemprop="bottom" content="735">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="16">
+            <meta itemprop="label" content="base section">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="749">
+              <meta itemprop="top" content="503">
+              <meta itemprop="right" content="797">
+              <meta itemprop="bottom" content="561">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="18">
+            <meta itemprop="label" content="pads">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="410">
+              <meta itemprop="top" content="1258">
+              <meta itemprop="right" content="474">
+              <meta itemprop="bottom" content="1322">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="20">
+            <meta itemprop="label" content="pads">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="732">
+              <meta itemprop="top" content="1114">
+              <meta itemprop="right" content="792">
+              <meta itemprop="bottom" content="1174">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="22">
+            <meta itemprop="label" content="pads">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1123">
+              <meta itemprop="top" content="870">
+              <meta itemprop="right" content="1200">
+              <meta itemprop="bottom" content="937">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="24">
+            <meta itemprop="label" content="shaft">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="590">
+              <meta itemprop="top" content="1176">
+              <meta itemprop="right" content="658">
+              <meta itemprop="bottom" content="1244">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="26">
+            <meta itemprop="label" content="shaft">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="889">
+              <meta itemprop="top" content="1022">
+              <meta itemprop="right" content="952">
+              <meta itemprop="bottom" content="1085">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="28">
+            <meta itemprop="label" content="tendons">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1195">
+              <meta itemprop="top" content="244">
+              <meta itemprop="right" content="1258">
+              <meta itemprop="bottom" content="307">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="32">
+            <meta itemprop="label" content="box">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="3164">
+              <meta itemprop="top" content="114">
+              <meta itemprop="right" content="3227">
+              <meta itemprop="bottom" content="177">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="34">
+            <meta itemprop="label" content="box">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="3187">
+              <meta itemprop="top" content="378">
+              <meta itemprop="right" content="3250">
+              <meta itemprop="bottom" content="441">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="36">
+            <meta itemprop="label" content="box">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="3188">
+              <meta itemprop="top" content="630">
+              <meta itemprop="right" content="3245">
+              <meta itemprop="bottom" content="687">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="38">
+            <meta itemprop="label" content="box">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="3191">
+              <meta itemprop="top" content="848">
+              <meta itemprop="right" content="3257">
+              <meta itemprop="bottom" content="917">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="40">
+            <meta itemprop="label" content="box">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="3206">
+              <meta itemprop="top" content="1086">
+              <meta itemprop="right" content="3261">
+              <meta itemprop="bottom" content="1152">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="42">
+            <meta itemprop="label" content="box">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="3206">
+              <meta itemprop="top" content="1349">
+              <meta itemprop="right" content="3269">
+              <meta itemprop="bottom" content="1416">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="44">
+            <meta itemprop="label" content="sensor">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1362">
+              <meta itemprop="top" content="192">
+              <meta itemprop="right" content="1428">
+              <meta itemprop="bottom" content="258">
+            </span>
+          </li>
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/0f/30/c5/9f124507264271/US08412378-20130402-D00001.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/4a/d1/12/c71e7fee58ab63/US08412378-20130402-D00001.png">
+        <ul>
+          <li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="10">
+            <meta itemprop="label" content="finger">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="217">
+              <meta itemprop="top" content="206">
+              <meta itemprop="right" content="262">
+              <meta itemprop="bottom" content="261">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="12">
+            <meta itemprop="label" content="tip section">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="220">
+              <meta itemprop="top" content="690">
+              <meta itemprop="right" content="286">
+              <meta itemprop="bottom" content="756">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="14">
+            <meta itemprop="label" content="intermediate section">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="412">
+              <meta itemprop="top" content="551">
+              <meta itemprop="right" content="457">
+              <meta itemprop="bottom" content="606">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="16">
+            <meta itemprop="label" content="base section">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="764">
+              <meta itemprop="top" content="377">
+              <meta itemprop="right" content="839">
+              <meta itemprop="bottom" content="442">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="18">
+            <meta itemprop="label" content="pads">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="434">
+              <meta itemprop="top" content="1139">
+              <meta itemprop="right" content="495">
+              <meta itemprop="bottom" content="1200">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="20">
+            <meta itemprop="label" content="pads">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="760">
+              <meta itemprop="top" content="992">
+              <meta itemprop="right" content="811">
+              <meta itemprop="bottom" content="1053">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="22">
+            <meta itemprop="label" content="pads">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1140">
+              <meta itemprop="top" content="756">
+              <meta itemprop="right" content="1216">
+              <meta itemprop="bottom" content="822">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="24">
+            <meta itemprop="label" content="shaft">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="607">
+              <meta itemprop="top" content="1057">
+              <meta itemprop="right" content="683">
+              <meta itemprop="bottom" content="1124">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="26">
+            <meta itemprop="label" content="shaft">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="914">
+              <meta itemprop="top" content="898">
+              <meta itemprop="right" content="978">
+              <meta itemprop="bottom" content="966">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="28">
+            <meta itemprop="label" content="tendons">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1224">
+              <meta itemprop="top" content="126">
+              <meta itemprop="right" content="1286">
+              <meta itemprop="bottom" content="188">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="32">
+            <meta itemprop="label" content="box">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1417">
+              <meta itemprop="top" content="1334">
+              <meta itemprop="right" content="1477">
+              <meta itemprop="bottom" content="1394">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="34">
+            <meta itemprop="label" content="box">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1435">
+              <meta itemprop="top" content="1597">
+              <meta itemprop="right" content="1496">
+              <meta itemprop="bottom" content="1658">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="36">
+            <meta itemprop="label" content="box">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1432">
+              <meta itemprop="top" content="1848">
+              <meta itemprop="right" content="1494">
+              <meta itemprop="bottom" content="1910">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="38">
+            <meta itemprop="label" content="box">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1437">
+              <meta itemprop="top" content="2066">
+              <meta itemprop="right" content="1497">
+              <meta itemprop="bottom" content="2139">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="40">
+            <meta itemprop="label" content="box">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1433">
+              <meta itemprop="top" content="2304">
+              <meta itemprop="right" content="1507">
+              <meta itemprop="bottom" content="2368">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="42">
+            <meta itemprop="label" content="box">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1430">
+              <meta itemprop="top" content="2567">
+              <meta itemprop="right" content="1516">
+              <meta itemprop="bottom" content="2634">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="44">
+            <meta itemprop="label" content="sensor">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1399">
+              <meta itemprop="top" content="80">
+              <meta itemprop="right" content="1479">
+              <meta itemprop="bottom" content="141">
+            </span>
+          </li>
+        </ul>
+      </li>
+      </ul>
+  </section>
+
+  <section>
+    <h2>Classifications</h2>
+    
+    <ul>
+      <li>
+        <ul itemprop="cpcs" itemscope repeat>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">B</span>&mdash;<span itemprop="Description">PERFORMING OPERATIONS; TRANSPORTING</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">B25</span>&mdash;<span itemprop="Description">HAND TOOLS; PORTABLE POWER-DRIVEN TOOLS; MANIPULATORS</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">B25J</span>&mdash;<span itemprop="Description">MANIPULATORS; CHAMBERS PROVIDED WITH MANIPULATION DEVICES</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">B25J9/00</span>&mdash;<span itemprop="Description">Programme-controlled manipulators</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">B25J9/16</span>&mdash;<span itemprop="Description">Programme controls</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">B25J9/1615</span>&mdash;<span itemprop="Description">Programme controls characterised by special kind of manipulator, e.g. planar, scara, gantry, cantilever, space, closed chain, passive/active joints and tendon driven manipulators</span>
+            <meta itemprop="Leaf" content="true">
+            
+            <meta itemprop="FirstCode" content="true">
+          </li>
+          </ul>
+      </li>
+      <li>
+        <ul itemprop="cpcs" itemscope repeat>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">B</span>&mdash;<span itemprop="Description">PERFORMING OPERATIONS; TRANSPORTING</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">B25</span>&mdash;<span itemprop="Description">HAND TOOLS; PORTABLE POWER-DRIVEN TOOLS; MANIPULATORS</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">B25J</span>&mdash;<span itemprop="Description">MANIPULATORS; CHAMBERS PROVIDED WITH MANIPULATION DEVICES</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">B25J15/00</span>&mdash;<span itemprop="Description">Gripping heads and other end effectors</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">B25J15/0009</span>&mdash;<span itemprop="Description">Gripping heads and other end effectors comprising multi-articulated fingers, e.g. resembling a human hand</span>
+            <meta itemprop="Leaf" content="true">
+            
+            
+          </li>
+          </ul>
+      </li>
+      <li>
+        <ul itemprop="cpcs" itemscope repeat>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">B</span>&mdash;<span itemprop="Description">PERFORMING OPERATIONS; TRANSPORTING</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">B25</span>&mdash;<span itemprop="Description">HAND TOOLS; PORTABLE POWER-DRIVEN TOOLS; MANIPULATORS</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">B25J</span>&mdash;<span itemprop="Description">MANIPULATORS; CHAMBERS PROVIDED WITH MANIPULATION DEVICES</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">B25J9/00</span>&mdash;<span itemprop="Description">Programme-controlled manipulators</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">B25J9/16</span>&mdash;<span itemprop="Description">Programme controls</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">B25J9/1679</span>&mdash;<span itemprop="Description">Programme controls characterised by the tasks executed</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">B25J9/1692</span>&mdash;<span itemprop="Description">Calibration of manipulator</span>
+            <meta itemprop="Leaf" content="true">
+            
+            
+          </li>
+          </ul>
+      </li>
+      <li>
+        <ul itemprop="cpcs" itemscope repeat>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G</span>&mdash;<span itemprop="Description">PHYSICS</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G05</span>&mdash;<span itemprop="Description">CONTROLLING; REGULATING</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G05B</span>&mdash;<span itemprop="Description">CONTROL OR REGULATING SYSTEMS IN GENERAL; FUNCTIONAL ELEMENTS OF SUCH SYSTEMS; MONITORING OR TESTING ARRANGEMENTS FOR SUCH SYSTEMS OR ELEMENTS</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G05B2219/00</span>&mdash;<span itemprop="Description">Program-control systems</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G05B2219/30</span>&mdash;<span itemprop="Description">Nc systems</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G05B2219/39</span>&mdash;<span itemprop="Description">Robotics, robotics to robotics hand</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G05B2219/39024</span>&mdash;<span itemprop="Description">Calibration of manipulator</span>
+            <meta itemprop="Leaf" content="true">
+            <meta itemprop="Additional" content="true">
+            
+          </li>
+          </ul>
+      </li>
+      <li>
+        <ul itemprop="cpcs" itemscope repeat>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G</span>&mdash;<span itemprop="Description">PHYSICS</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G05</span>&mdash;<span itemprop="Description">CONTROLLING; REGULATING</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G05B</span>&mdash;<span itemprop="Description">CONTROL OR REGULATING SYSTEMS IN GENERAL; FUNCTIONAL ELEMENTS OF SUCH SYSTEMS; MONITORING OR TESTING ARRANGEMENTS FOR SUCH SYSTEMS OR ELEMENTS</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G05B2219/00</span>&mdash;<span itemprop="Description">Program-control systems</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G05B2219/30</span>&mdash;<span itemprop="Description">Nc systems</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G05B2219/39</span>&mdash;<span itemprop="Description">Robotics, robotics to robotics hand</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G05B2219/39457</span>&mdash;<span itemprop="Description">Tendon drive</span>
+            <meta itemprop="Leaf" content="true">
+            <meta itemprop="Additional" content="true">
+            
+          </li>
+          </ul>
+      </li>
+      </ul>
+  </section>
+
+  <section itemprop="abstract" itemscope>
+    <h2>Abstract</h2>
+    
+    <div itemprop="content" html><abstract mxw-id="PA109702257" lang="EN" load-source="patent-office">
+    <div num="p-0001" class="abstract">A method for calibrating tension sensors on tendons in a tendon-driven manipulator without disassembling the manipulator and without external force references. The method calibrates the tensions against each other to produce results that are kinematically consistent. The results might not be absolutely accurate, however, they are optimized with respect to an initial or nominal calibration. The method includes causing the tendons to be slack and recording the sensor values from sensors that measure the tension on the tendons. The method further includes tensioning the tendons with the manipulator positioned so that it is not in contact with any obstacle or joint limit and again recording the sensor values. The method then performs a regression process to determine the sensor parameters that both satisfy a zero-torque constraint on the manipulator and minimize the error with respect to nominal calibration values.</div>
+  </abstract>
+  </div>
+  </section>
+
+  <section itemprop="description" itemscope>
+    <h2>Description</h2>
+    
+    <div itemprop="content" html><div mxw-id="PDES58502040" lang="EN" load-source="patent-office" class="description">
+    
+    <heading>STATEMENT REGARDING FEDERALLY SPONSORED RESEARCH OR DEVELOPMENT</heading>
+    <p num="p-0002">The invention described herein may be manufactured and used by or for the U.S. Government for U.S. Government (i.e., non-commercial) purposes without the payment of royalties thereon or therefore.</p>
+    
+    
+    <heading>BACKGROUND OF THE INVENTION</heading>
+    <p num="p-0003">1. Field of the Invention</p>
+    <p num="p-0004">This invention relates generally to a system and method for calibrating the tendons in a tendon-driven manipulator and, more particularly, to a system and method for providing in-vivo tendon tension calibration for a tendon-driven manipulator that calibrates the tensions against each other without the need for an external force reference.</p>
+    <p num="p-0005">2. Discussion of the Related Art</p>
+    <p num="p-0006">Dexterous robot systems typically comprise robot arms and hands that operate to grasp and manipulate objects or parts during assembly or other applications. The term “robot manipulator” is used to describe all or part of one or more robot arms and hands. Tendon-driven robot manipulators are actuated using tendons or cables that allow the actuators to be located outside of the part of the manipulator being controlled. Tendon transmissions are frequently used to actuate distal joints in robot manipulators. They can improve strength-to-weight ratios by allowing actuators to be located closer to the base of the manipulator. They also give the mechanical designer more flexibility in actuator selection and manipulator size. For example, when the manipulator is a tendon-driven finger in a humanoid robotic hand, the actuators are typically located in the forearm area of the robotic arm. In this case, tendons extend from the forearm actuators to the fingers, where they are attached.</p>
+    <p num="p-0007">Force and impedance control of tendon-driven manipulators improves with accurate tendon tension measurements. This relies on a consistent sensor output and an accurate calibration of the output. However, the output from the sensor for a particular tension can vary over time and with temperature, known as sensor drift. Further, discrete events may cause sudden changes to the sensor measurements, such as external impacts. Thus, the sensors need to be calibrated from time to time to compensate for these changes.</p>
+    <p num="p-0008">Because the tendon-driven manipulator requires more tendons than joints in such a redundant network, the tension on each individual tendon cannot be determined exclusively from external reference forces. Rather, a reference force must be applied to each tendon independently, where each sensor in the manipulator must be removed therefrom, and coupled to tension testing equipment. In other words, the sensors cannot be calibrated while they are within the manipulator using the testing equipment because there are multiple tendons controlling each joint. Hence, there are internal forces between the tendons that cannot be sensed externally. At the same time, disassembling the manipulator whenever calibration is required is not practical.</p>
+    <heading>SUMMARY OF THE INVENTION</heading>
+    <p num="p-0009">In accordance with the teachings of the present invention, a method is disclosed for calibrating tension sensors for tendons in a tendon-driven manipulator without disassembling the manipulator and without external force references. The method calibrates the tensions against each other to produce results that are kinematically consistent. The results might not be absolutely accurate, however, they are optimized with respect to an initial or nominal calibration. The method includes causing the tendons to have zero tension and recording sensor values from sensors that measure the tension on the tendons. The method further includes positioning the manipulator so that it is not in contact with any obstacle and none of the joints in the manipulator are at their limit. The method then puts tension on the tendons and records sensor tension values from the sensors when there is tension on the tendons. The method uses these two data points and a regression process to determine the sensor calibration parameters. The regression process finds the solution that satisfies the zero-torque constraint while minimizing the error compared to the initial, or nominal, calibration.</p>
+    <p num="p-0010">Additional features of the present invention will become apparent from the following description and appended claims, taken in conjunction with the accompanying drawings.</p>
+    
+    
+    <description-of-drawings>
+      <heading>BRIEF DESCRIPTION OF THE DRAWINGS</heading>
+      <p num="p-0011"> <figref idrefs="DRAWINGS">FIG. 1</figref> is a perspective view of a robotic finger manipulator including a plurality of tendon driven joints; and</p>
+      <p num="p-0012"> <figref idrefs="DRAWINGS">FIG. 2</figref> is a flow chart diagram showing a calibration process for the tendons in the manipulator shown in <figref idrefs="DRAWINGS">FIG. 1</figref>.</p>
+    </description-of-drawings>
+    
+    
+    <heading>DETAILED DESCRIPTION OF THE EMBODIMENTS</heading>
+    <p num="p-0013">The following discussion of the embodiments of the invention directed to a method for calibrating the tendons in a tendon-driven manipulator is merely exemplary in nature, and is in no way intended to limit the invention or its applications or uses.</p>
+    <p num="p-0014">As will be discussed in detail below, the present invention proposes a technique for calibrating the sensors in a tendon-driven manipulator without having to remove the sensors from the manipulator. Generally, the process includes starting with a nominal gain for each of the sensors in the manipulator based on previous calibration data. The process records the sensor readings at two data points. The first point involves de-tensioning the tendons so that they are all slack, and thus have zero tension on them. The second point involves tensioning all of the tendons so that they are taught and the manipulator is not pressed against any external forces. Hence, the tendon tensions all sum to produce zero net torque at the joints. This situation is referred to herein as a “balanced” configuration or the “zero-torque” constraint. A regression is then performed on these two data points to find a calibration that both satisfies the zero-torque constraint and produces the closest results possible (in a least-squares sense) to nominal calibration values. The method calibrates the tensions against each other to produce results that are kinematically consistent. This does not necessarily produce calibrated values that are accurate relative to an absolute reference; however, they will be accurate relative to each other. This relative accuracy between the tendons improves the performance of the manipulator controller.</p>
+    <p num="p-0015">The invention thus addresses the problem of how to provide a relative calibration among the tendons of the robotic manipulator. The calibration process improves the performance of the manipulator controller, although the actual value of the calibrated readings might not be accurate. Based on the nominal calibration, the calibration process will find the minimum error solution that satisfies a condition of zero external torque on the manipulator.</p>
+    <p num="p-0016"> <figref idrefs="DRAWINGS">FIG. 1</figref> is a perspective view of a robotic finger <b>10</b> for a robotic arm, where the finger <b>10</b> is driven by tendons <b>28</b>. Although this embodiment shows a robotic finger, the calibration process of the present invention is applicable to any tendon-driven manipulator. The robotic finger <b>10</b> includes three finger sections, namely, a tip section <b>12</b>, an intermediate section <b>14</b> and a base section <b>16</b>. The tip section <b>12</b> includes a pad <b>18</b>, the intermediate section <b>14</b> includes a pad <b>20</b> and the base section <b>16</b> includes a pad <b>22</b> that allow the finger <b>10</b> to effectively grasp a particular part (not shown). The finger sections <b>12</b>, <b>14</b> and <b>16</b> and the pads <b>18</b>, <b>20</b> and <b>22</b> can be made of any suitable material, such as aluminum, for a particular application. The tip section <b>12</b> pivots relative to the intermediate section <b>14</b> on a shaft <b>24</b> and the intermediate section <b>14</b> pivots relative to the base section <b>16</b> on a shaft <b>26</b>.</p>
+    <p num="p-0017">The joints of the finger <b>10</b> are manipulated by the tendons <b>28</b> in a manner that is well understood in the art. Each tendon <b>28</b> is coupled to a tension sensor <b>44</b>, typically in the forearm area of the robotic arm. The tension sensors <b>44</b> provide a signal of the tension in the tendons <b>28</b> that provides an indication of the force on the finger <b>10</b>. The tendons <b>28</b> provide a pulling force that is actuated by a suitable actuator.</p>
+    <p num="p-0018">Assuming that all joints in the finger <b>10</b> are revolute, the relationship between tendon tensions and joint torques can be described by:
+<br/>
+τ=<i>Rf</i>  (1)
+<br/>
+Where τ is the vector of n joint torques and f is a vector of m≧n+1 tendon tensions.
+</p>
+    <p num="p-0019">Note that by inverting this relationship, a set of tendon tensions that generates a specified torque can be calculated as:
+<br/>
+<i>f=R</i> <sup>+</sup> <i>τ+N</i>(<i>R</i>)λ  (2)
+<br/>
+Where R<sup>+</sup> is the pseudo-inverse of R and N(R) is the null space of R. λεR<sup>m-n </sup>is a vector of arbitrary tensions projected into the null-space. This null-space component represents the set of tensions that produce zero net torque on the finger <b>10</b>. In other words, they represent the internal forces between the tendons.
+</p>
+    <p num="p-0020">Assuming that a linear fit applies to the sensor <b>44</b>, each sensor reading s<sub>i </sub>is required to be calibrated using two parameters, namely, a gain m<sub>i </sub>and an offset b<sub>i</sub>. For each tendon <b>28</b>, the relationship for the tension sensor reading is given by:
+<br/>
+<i>f</i> <sub>i</sub> <i>=m</i> <sub>i</sub>(<i>s</i> <sub>i</sub> <i>−b</i> <sub>i</sub>)  (3)
+<br/>
+Where f<sub>i </sub>is the tension on tendon i.
+</p>
+    <p num="p-0021">For the whole set of n tendons, the n equations can be expressed in the following two matrix forms.
+<br/>
+<i>f=M</i>(<i>s−b</i>)  (4)
+<br/>
+<i>f</i>=(<i>S−B</i>)<i>m</i>  (5)
+</p>
+    <p num="p-0022">In this notation, capitalized symbols refer to diagonal matrices for the respective elements, and bold symbols refer to column matrices. For example:</p>
+    <p num="p-0023">
+      <maths id="MATH-US-00001" num="00001">
+        <math overflow="scroll">
+          <mtable>
+            <mtr>
+              <mtd>
+                <mrow>
+                  <mrow>
+                    <mi>M</mi>
+                    <mo>=</mo>
+                    <mrow>
+                      <mo>[</mo>
+                      <mtable>
+                        <mtr>
+                          <mtd>
+                            <msub>
+                              <mi>m</mi>
+                              <mn>1</mn>
+                            </msub>
+                          </mtd>
+                          <mtd>
+                            <mstyle>
+                              <mspace width="0.3em" height="0.3ex"> </mspace>
+                            </mstyle>
+                          </mtd>
+                          <mtd>
+                            <mn>0</mn>
+                          </mtd>
+                        </mtr>
+                        <mtr>
+                          <mtd>
+                            <mstyle>
+                              <mspace width="0.3em" height="0.3ex"> </mspace>
+                            </mstyle>
+                          </mtd>
+                          <mtd>
+                            <mi>⋱</mi>
+                          </mtd>
+                          <mtd>
+                            <mstyle>
+                              <mspace width="0.3em" height="0.3ex"> </mspace>
+                            </mstyle>
+                          </mtd>
+                        </mtr>
+                        <mtr>
+                          <mtd>
+                            <mn>0</mn>
+                          </mtd>
+                          <mtd>
+                            <mstyle>
+                              <mspace width="0.3em" height="0.3ex"> </mspace>
+                            </mstyle>
+                          </mtd>
+                          <mtd>
+                            <msub>
+                              <mi>m</mi>
+                              <mi>n</mi>
+                            </msub>
+                          </mtd>
+                        </mtr>
+                      </mtable>
+                      <mo>]</mo>
+                    </mrow>
+                  </mrow>
+                  <mo>,</mo>
+                  <mstyle>
+                    <mspace width="0.8em" height="0.8ex"> </mspace>
+                  </mstyle>
+                  <mo>⁢</mo>
+                  <mrow>
+                    <mi>m</mi>
+                    <mo>=</mo>
+                    <mrow>
+                      <mo>(</mo>
+                      <mtable>
+                        <mtr>
+                          <mtd>
+                            <msub>
+                              <mi>m</mi>
+                              <mn>1</mn>
+                            </msub>
+                          </mtd>
+                        </mtr>
+                        <mtr>
+                          <mtd>
+                            <mi>⋮</mi>
+                          </mtd>
+                        </mtr>
+                        <mtr>
+                          <mtd>
+                            <msub>
+                              <mi>m</mi>
+                              <mi>n</mi>
+                            </msub>
+                          </mtd>
+                        </mtr>
+                      </mtable>
+                      <mo>)</mo>
+                    </mrow>
+                  </mrow>
+                </mrow>
+              </mtd>
+              <mtd>
+                <mrow>
+                  <mo>(</mo>
+                  <mn>6</mn>
+                  <mo>)</mo>
+                </mrow>
+              </mtd>
+            </mtr>
+          </mtable>
+        </math>
+      </maths>
+    </p>
+    <p num="p-0024">Based on the design of the finger <b>10</b>, the relationship between the torques τ at the joints, and the tensions f at the tendons <b>28</b> follows as:
+<br/>
+τ=<i>Rf</i>  (7)
+<br/>
+Where R is known as a tendon map that contains the joint radii data mapping tendon tensions to joint torques.
+</p>
+    <p num="p-0025"> <figref idrefs="DRAWINGS">FIG. 2</figref> is a flow chart diagram <b>30</b> showing a calibration process for calibrating the tendons <b>28</b> in the finger <b>10</b>, as discussed above. The process starts at box <b>32</b> where the tendons <b>28</b> are de-tensioned so that there is no force on the tendons <b>28</b>, i.e., the tendons <b>28</b> are slack. Particularly, all of the actuators (not shown) that control the tendons <b>28</b> are moved forward so that the tendons <b>28</b> are slack and each tendon <b>28</b> sees zero tension. The algorithm records the sensor reading <sup>0</sup>s when the tendons <b>28</b> are in the slack position at box <b>34</b>.</p>
+    <p num="p-0026">Using this data, the offset b is determined for each sensor <b>44</b> in the manipulator <b>10</b>. There values are solved as:
+<br/>
+<i>f=M</i>(<sup>0</sup> <i>s−b</i>)=0
+<br/>
+<i>b=</i> <sup>0</sup> <i>s</i>  (8)
+</p>
+    <p num="p-0027">The next step is to tension all of the tendons <b>28</b> while ensuring that the finger <b>10</b> is not up against any joint stops or external forces. The algorithm thus causes the finger <b>10</b> to be positioned at a location at box <b>36</b> where it is away from any obstacles that could apply a force on the finger and all of the joints in the finger <b>10</b> are not at a joint limit. This ensures that the joint torques are all zero. Once in this position, the algorithm causes the actuators to increase the tendon tension at box <b>38</b>. The amount of force on the tendons <b>28</b> is not important so long as there is a force on the tendons <b>28</b>. With the finger <b>10</b> in this position, there should be zero torque on each joint in the finger <b>10</b> because the pulling force would be the same for both sides of the joint. The algorithm then records the sensor measurement values, <sup>1</sup>s. The recorded sensor values can be relative to the prior zero sensor values for each sensor <b>44</b> at box <b>40</b>. The joint torques and tensions at this moment are referred to with the pre-superscript of 1:
+<br/>
+<sup>1</sup> <i>τ=R</i> <sup>1</sup> <i>f=</i>0  (9)
+</p>
+    <p num="p-0028">The algorithm then uses the offset values and a regression process to determine sensor parameters that satisfy the zero-torque constraint at box <b>42</b>. The actual solution should lie in the null-space of R. The algorithm takes the force reading, based on the nominal calibration of the gains <sup>n</sup>m and projects it orthogonally into the null-space R. Referring to the second form of the calibration equation (5), that nominal force reading is:
+<br/>
+<sup>n</sup> <i>f</i>=(<sup>1</sup> <i>S−B</i>)<sup>n</sup> <i>m</i>  (10)
+</p>
+    <p num="p-0029">After projecting this minimal reading into the null space R, the calibration gain m can be solved as:
+<br/>
+<sup>1</sup> <i>f</i>=(<i>I−R</i> <sup>+</sup> <i>R</i>)<sup>n</sup> <i>f </i>
+<br/>
+<i>m</i>=(<sup>1</sup> <i>S−B</i>)<sup>−11</sup> <i>f</i>  (11)
+<br/>
+Where I is the identity matrix and R<sup>+</sup> is the pseudoinverse of R.
+</p>
+    <p num="p-0030">Alternatively, the individual elements of the gain m can be solved for as follows:</p>
+    <p num="p-0031">
+      <maths id="MATH-US-00002" num="00002">
+        <math overflow="scroll">
+          <mtable>
+            <mtr>
+              <mtd>
+                <mrow>
+                  <msub>
+                    <mi>m</mi>
+                    <mi>i</mi>
+                  </msub>
+                  <mo>=</mo>
+                  <mfrac>
+                    <mmultiscripts>
+                      <mi>f</mi>
+                      <mi>i</mi>
+                      <none> </none>
+                      <mprescripts> </mprescripts>
+                      <none> </none>
+                      <mn>1</mn>
+                    </mmultiscripts>
+                    <mrow>
+                      <mmultiscripts>
+                        <mi>s</mi>
+                        <mi>i</mi>
+                        <none> </none>
+                        <mprescripts> </mprescripts>
+                        <none> </none>
+                        <mn>1</mn>
+                      </mmultiscripts>
+                      <mo>-</mo>
+                      <msub>
+                        <mi>b</mi>
+                        <mi>i</mi>
+                      </msub>
+                    </mrow>
+                  </mfrac>
+                </mrow>
+              </mtd>
+              <mtd>
+                <mrow>
+                  <mo>(</mo>
+                  <mn>12</mn>
+                  <mo>)</mo>
+                </mrow>
+              </mtd>
+            </mtr>
+          </mtable>
+        </math>
+      </maths>
+    </p>
+    <p num="p-0032">Particularly, the algorithm minimizes the error between what the particular sensor is initially reading and what it should be reading. The regression operation can be any suitable process, such as a least-squares fit operation. The least-squares fit operation is performed for all of the sensor difference values simultaneously.</p>
+    <p num="p-0033">The foregoing discussion discloses and describes merely exemplary embodiments of the present invention. One skilled in the art will readily recognize from such discussion and from the accompanying drawings and claims that various changes, modifications and variations can be made therein without departing from the spirit and scope of the invention as defined in the following claims.</p>
+    
+  </div>
+  </div>
+  </section>
+
+  <section itemprop="claims" itemscope>
+    <h2>Claims (<span itemprop="count">15</span>)</h2>
+    
+    <div itemprop="content" html><div mxw-id="PCLM51489182" lang="EN" load-source="patent-office" class="claims">
+    <claim-statement>What is claimed is:</claim-statement>
+    <div class="claim"> <div id="CLM-00001" num="00001" class="claim">
+      <div class="claim-text">1. A method for calibrating the tension on a set of tendons that drive a manipulator without directly applying any external force references to either the manipulator or the tendons, said calibrating method comprising:
+<div class="claim-text">causing the tendons to have zero tension and recording sensor readings;</div>
+<div class="claim-text">positioning the manipulator so that it is not in contact with any obstacle and none of the joints in the manipulator are at their limit;</div>
+<div class="claim-text">putting a tension on the tendons and recording sensor readings; and</div>
+<div class="claim-text">solving for calibration parameters using a regression process that satisfies a zero-torque constraint on the manipulator.</div>
+</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00002" num="00002" class="claim">
+      <div class="claim-text">2. The method according to <claim-ref idref="CLM-00001">claim 1</claim-ref> wherein using the regression process includes determining that a solution of the regression process lies in a null-space.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00003" num="00003" class="claim">
+      <div class="claim-text">3. The method according to <claim-ref idref="CLM-00001">claim 1</claim-ref> wherein using the regression process includes performing a least-squares fit process.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00004" num="00004" class="claim">
+      <div class="claim-text">4. The method according to <claim-ref idref="CLM-00001">claim 1</claim-ref> wherein the manipulator is a robotic finger including finger joints.</div>
+    </div>
+    </div> <div class="claim"> <div id="CLM-00005" num="00005" class="claim">
+      <div class="claim-text">5. A method for calibrating the tension on a set of tendons that drive a manipulator without disassembling the manipulator or the tendons, or any part therein, said calibrating method comprising:
+<div class="claim-text">causing the tendons to have zero tension and recording sensor readings;</div>
+<div class="claim-text">positioning the manipulator so that it is not in contact with any obstacle and none of the joints in the manipulator are at their limit;</div>
+<div class="claim-text">putting a tension on the tendons and recording sensor readings; and</div>
+<div class="claim-text">solving for calibration parameters using a regression process that satisfies a zero-torque constraint on the manipulator, wherein using the regression process includes identifying that a solution to the regression processor lies in a null-space and solving for a sensor calibration gain using a least-squares fit process.</div>
+</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00006" num="00006" class="claim">
+      <div class="claim-text">6. The method according to <claim-ref idref="CLM-00005">claim 5</claim-ref> wherein the manipulator is a robotic finger including finger joints.</div>
+    </div>
+    </div> <div class="claim"> <div id="CLM-00007" num="00007" class="claim">
+      <div class="claim-text">7. A robotic system that calibrates the tension on tendons in a manipulator without disassembling the manipulator, said system comprising:
+<div class="claim-text">a manipulator having a revolute joint;</div>
+<div class="claim-text">a set of tendons attached to the revolute joint;</div>
+<div class="claim-text">a controller that calibrates the set of tendons using a method including:</div>
+<div class="claim-text">causing the tendons to have zero tension and recording sensor readings;</div>
+<div class="claim-text">positioning the manipulator so that it is not in contact with any obstacle and none of the joints in the manipulator are at their limit;</div>
+<div class="claim-text">putting a tension on the tendons and recording sensor readings; and</div>
+<div class="claim-text">solving for calibration parameters using a regression process that satisfies a zero-torque constraint on the manipulator.</div>
+</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00008" num="00008" class="claim">
+      <div class="claim-text">8. The system according to <claim-ref idref="CLM-00007">claim 7</claim-ref> wherein solving for calibration parameters using a regression process determines that a solution of the regression process lies in a null-space.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00009" num="00009" class="claim">
+      <div class="claim-text">9. The system according to <claim-ref idref="CLM-00007">claim 7</claim-ref> wherein performing a regression process performs a least-squares fit process.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00010" num="00010" class="claim">
+      <div class="claim-text">10. The system according to <claim-ref idref="CLM-00007">claim 7</claim-ref> wherein the manipulator is a robotic finger including finger joints.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00011" num="00011" class="claim">
+      <div class="claim-text">11. The system according to <claim-ref idref="CLM-00007">claim 7</claim-ref> wherein solving the calibration equations includes minimizing the error with respect to nominal calibration values.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00012" num="00012" class="claim">
+      <div class="claim-text">12. The method according to <claim-ref idref="CLM-00001">claim 1</claim-ref> wherein solving the calibration equations includes minimizing the error with respect to nominal calibration values.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00013" num="00013" class="claim">
+      <div class="claim-text">13. The method according to <claim-ref idref="CLM-00005">claim 5</claim-ref> wherein solving the calibration equations includes minimizing the error with respect to nominal calibration values.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00014" num="00014" class="claim">
+      <div class="claim-text">14. The method according to <claim-ref idref="CLM-00001">claim 1</claim-ref> wherein the manipulator joint is a revolute joint.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00015" num="00015" class="claim">
+      <div class="claim-text">15. The method according to <claim-ref idref="CLM-00005">claim 5</claim-ref> wherein the manipulator joint is a revolute joint. </div>
+    </div>
+  </div> </div>
+  </div>
+  </section>
+
+  <section itemprop="application" itemscope>
+
+    <section itemprop="metadata" itemscope>
+        <span itemprop="applicationNumber">US12/629,637</span>
+        <span itemprop="priorityDate">2009-12-02</span>
+        <span itemprop="filingDate">2009-12-02</span>
+        <span itemprop="title">In-vivo tension calibration in tendon-driven manipulators 
+       </span>
+        <span itemprop="ifiStatus">Active</span>
+        <span itemprop="ifiExpiration">2031-09-03</span>
+        <a href="/patent/US8412378B2/en">
+            <span itemprop="representativePublication">US8412378B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+        </a>
+    </section>
+
+    <h2>Priority Applications (1)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                    <th>Title</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="priorityApps" itemscope repeat>
+                <td>
+                   <span itemprop="applicationNumber">US12/629,637</span>
+                   
+                   <a href="/patent/US8412378B2/en">
+                        <span itemprop="representativePublication">US8412378B2</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                <td itemprop="priorityDate">2009-12-02</td>
+                <td itemprop="filingDate">2009-12-02</td>
+                <td itemprop="title">In-vivo tension calibration in tendon-driven manipulators 
+       </td>
+              </tr>
+           </tbody>
+       </table>
+
+    <h2>Applications Claiming Priority (3)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                    <th>Title</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="appsClaimingPriority" itemscope repeat>
+                <td>
+                   <span itemprop="applicationNumber">US12/629,637</span>
+                   <a href="/patent/US8412378B2/en">
+                        <span itemprop="representativePublication">US8412378B2</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                <td itemprop="priorityDate">2009-12-02</td>
+                <td itemprop="filingDate">2009-12-02</td>
+                <td itemprop="title">In-vivo tension calibration in tendon-driven manipulators 
+       </td>
+              </tr><tr itemprop="appsClaimingPriority" itemscope repeat>
+                <td>
+                   <span itemprop="applicationNumber">DE201010052692</span>
+                   <a href="/patent/DE102010052692A1/en">
+                        <span itemprop="representativePublication">DE102010052692A1</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                <td itemprop="priorityDate">2009-12-02</td>
+                <td itemprop="filingDate">2010-11-26</td>
+                <td itemprop="title">In-vivo tension calibration in tendon-driven manipulators 
+       </td>
+              </tr><tr itemprop="appsClaimingPriority" itemscope repeat>
+                <td>
+                   <span itemprop="applicationNumber">JP2010266689A</span>
+                   <a href="/patent/JP5242664B2/en">
+                        <span itemprop="representativePublication">JP5242664B2</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                <td itemprop="priorityDate">2009-12-02</td>
+                <td itemprop="filingDate">2010-11-30</td>
+                <td itemprop="title">In vivo tension calibration in tendon driven manipulators 
+       </td>
+              </tr>
+           </tbody>
+       </table>
+
+    
+
+    
+
+    <h2>Publications (2)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Publication Number</th>
+                    <th>Publication Date</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="pubs" itemscope repeat>
+                <td>
+                   <span itemprop="publicationNumber">US20110130879A1</span>
+                   
+                   <a href="/patent/US20110130879A1/en">US20110130879A1
+                       (<span itemprop="primaryLanguage">en</span>)
+                   </a>
+                </td>
+                <td itemprop="publicationDate">2011-06-02</td>
+              </tr><tr itemprop="pubs" itemscope repeat>
+                <td>
+                   <span itemprop="publicationNumber">US8412378B2</span>
+                   
+                   <span itemprop="thisPatent">true</span>
+                   <a href="/patent/US8412378B2/en">US8412378B2
+                       (<span itemprop="primaryLanguage">en</span>)
+                   </a>
+                </td>
+                <td itemprop="publicationDate">2013-04-02</td>
+              </tr>
+           </tbody>
+        </table>
+
+  </section>
+
+  <section itemprop="family" itemscope>
+    <h1>Family</h1>
+    <h2>ID=44069460</h2>
+
+    <h2>Family Applications (1)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Title</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="applications" itemscope repeat>
+                <td>
+                    <span itemprop="applicationNumber">US12/629,637</span>
+                    <span itemprop="ifiStatus">Active</span>
+                    <span itemprop="ifiExpiration">2031-09-03</span>
+                    <a href="/patent/US8412378B2/en">
+                        <span itemprop="representativePublication">US8412378B2</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                </td>
+                <td itemprop="priorityDate">2009-12-02</td>
+                <td itemprop="filingDate">2009-12-02</td>
+                <td itemprop="title">In-vivo tension calibration in tendon-driven manipulators 
+       </td>
+              </tr>
+           </tbody>
+        </table>
+
+    
+
+    
+
+    <h2>Country Status (3)</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Country</th>
+            <th>Link</th>
+          </tr>
+        </thead>
+        <tbody>
+        <tr itemprop="countryStatus" itemscope repeat>
+            <td>
+              <span itemprop="countryCode">US</span>
+                (<span itemprop="num">1</span>)
+              <meta itemprop="thisCountry" content="true">
+            </td>
+            <td>
+              <a href="/patent/US8412378B2/en">
+                <span itemprop="representativePublication">US8412378B2</span>
+                  (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            </td>
+          </tr><tr itemprop="countryStatus" itemscope repeat>
+            <td>
+              <span itemprop="countryCode">JP</span>
+                (<span itemprop="num">1</span>)
+              
+            </td>
+            <td>
+              <a href="/patent/JP5242664B2/en">
+                <span itemprop="representativePublication">JP5242664B2</span>
+                  (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            </td>
+          </tr><tr itemprop="countryStatus" itemscope repeat>
+            <td>
+              <span itemprop="countryCode">DE</span>
+                (<span itemprop="num">1</span>)
+              
+            </td>
+            <td>
+              <a href="/patent/DE102010052692A1/en">
+                <span itemprop="representativePublication">DE102010052692A1</span>
+                  (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+    <h2>Cited By (2)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US8660695B2/en">
+              <span itemprop="publicationNumber">US8660695B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2009-07-22</td>
+          <td itemprop="publicationDate">2014-02-25</td>
+          <td><span itemprop="assigneeOriginal">The Shadow Robot Company Limited</span></td>
+          <td itemprop="title">Robotic hand 
+       </td>
+        </tr><tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/EP3147085A4/en">
+              <span itemprop="publicationNumber">EP3147085A4</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2014-02-28</td>
+          <td itemprop="publicationDate">2018-04-18</td>
+          <td><span itemprop="assigneeOriginal">Olympus Corporation</span></td>
+          <td itemprop="title">Calibration method for manipulator, manipulator, and manipulator system 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Families Citing this family (5)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US8060250B2/en">
+              <span itemprop="publicationNumber">US8060250B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2008-12-15</td>
+          <td itemprop="publicationDate">2011-11-15</td>
+          <td><span itemprop="assigneeOriginal">GM Global Technology Operations LLC</span></td>
+          <td itemprop="title">Joint-space impedance control for tendon-driven manipulators 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US9149933B2/en">
+              <span itemprop="publicationNumber">US9149933B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2013-02-07</td>
+          <td itemprop="publicationDate">2015-10-06</td>
+          <td><span itemprop="assigneeOriginal">GM Global Technology Operations LLC</span></td>
+          <td itemprop="title">Grasp assist device with shared tendon actuator assembly 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/TWI549666B/en">
+              <span itemprop="publicationNumber">TWI549666B</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2015-01-05</td>
+          <td itemprop="publicationDate">2016-09-21</td>
+          <td><span itemprop="assigneeOriginal">Univ Nat Tsing Hua</span></td>
+          <td itemprop="title">  Rehabilitation system has a function of measuring the degree of stiffness  </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US9505132B1/en">
+              <span itemprop="publicationNumber">US9505132B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2015-03-30</td>
+          <td itemprop="publicationDate">2016-11-29</td>
+          <td><span itemprop="assigneeOriginal">X Development Llc</span></td>
+          <td itemprop="title">Methods and systems for calibrating a sensor of a robotic device 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US10350766B2/en">
+              <span itemprop="publicationNumber">US10350766B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2015-09-21</td>
+          <td itemprop="publicationDate">2019-07-16</td>
+          <td><span itemprop="assigneeOriginal">GM Global Technology Operations LLC</span></td>
+          <td itemprop="title">Extended-reach assist device for performing assembly tasks 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Citations (13)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US4815006A/en">
+              <span itemprop="publicationNumber">US4815006A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1986-09-29</td>
+          <td itemprop="publicationDate">1989-03-21</td>
+          <td><span itemprop="assigneeOriginal">Asea Aktiebolag</span></td>
+          <td itemprop="title">Method and device for calibrating a sensor on an industrial robot 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5297238A/en">
+              <span itemprop="publicationNumber">US5297238A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1991-08-30</td>
+          <td itemprop="publicationDate">1994-03-22</td>
+          <td><span itemprop="assigneeOriginal">Cimetrix Incorporated</span></td>
+          <td itemprop="title">Robot end-effector terminal control frame (TCF) calibration method and device 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5784542A/en">
+              <span itemprop="publicationNumber">US5784542A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1995-09-07</td>
+          <td itemprop="publicationDate">1998-07-21</td>
+          <td><span itemprop="assigneeOriginal">California Institute Of Technology</span></td>
+          <td itemprop="title">Decoupled six degree-of-freedom teleoperated robot system 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20030158463A1/en">
+              <span itemprop="publicationNumber">US20030158463A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1999-11-09</td>
+          <td itemprop="publicationDate">2003-08-21</td>
+          <td><span itemprop="assigneeOriginal">Intuitive Surgical, Inc.</span></td>
+          <td itemprop="title">Endoscopic beating-heart stabilizer and vessel occlusion fastener 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20040139110A1/en">
+              <span itemprop="publicationNumber">US20040139110A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2002-12-31</td>
+          <td itemprop="publicationDate">2004-07-15</td>
+          <td><span itemprop="assigneeOriginal">Lamarca Anthony G.</span></td>
+          <td itemprop="title">Sensor network control and calibration system 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6791291B2/en">
+              <span itemprop="publicationNumber">US6791291B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2001-10-01</td>
+          <td itemprop="publicationDate">2004-09-14</td>
+          <td><span itemprop="assigneeOriginal">Japan Servo Co., Ltd.</span></td>
+          <td itemprop="title">Multi-joint type industrial robot and arm unit thereof 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20050234566A1/en">
+              <span itemprop="publicationNumber">US20050234566A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2004-04-16</td>
+          <td itemprop="publicationDate">2005-10-20</td>
+          <td><span itemprop="assigneeOriginal">Frank Joublin</span></td>
+          <td itemprop="title">Self-calibrating orienting system for a manipulating device 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20100077867A1/en">
+              <span itemprop="publicationNumber">US20100077867A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2008-09-30</td>
+          <td itemprop="publicationDate">2010-04-01</td>
+          <td><span itemprop="assigneeOriginal">Gm Global Technology Operations, Inc.</span></td>
+          <td itemprop="title">Phalange tactile load cell 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20100081969A1/en">
+              <span itemprop="publicationNumber">US20100081969A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2008-09-30</td>
+          <td itemprop="publicationDate">2010-04-01</td>
+          <td><span itemprop="assigneeOriginal">Gm Global Technology Operations, Inc.</span></td>
+          <td itemprop="title">Tendon tension sensor 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20100121222A1/en">
+              <span itemprop="publicationNumber">US20100121222A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2008-11-12</td>
+          <td itemprop="publicationDate">2010-05-13</td>
+          <td><span itemprop="assigneeOriginal">Gm Global Technology Operations, Inc.</span></td>
+          <td itemprop="title">Sensing the tendon tension through the conduit reaction forces 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20100152898A1/en">
+              <span itemprop="publicationNumber">US20100152898A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2008-12-15</td>
+          <td itemprop="publicationDate">2010-06-17</td>
+          <td><span itemprop="assigneeOriginal">Gm Global Technology Operations, Inc.</span></td>
+          <td itemprop="title">Joint-space impedance control for tendon-driven manipulators 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20100280659A1/en">
+              <span itemprop="publicationNumber">US20100280659A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2009-04-30</td>
+          <td itemprop="publicationDate">2010-11-04</td>
+          <td><span itemprop="assigneeOriginal">Gm Global Technology Operations, Inc.</span></td>
+          <td itemprop="title">Tension distribution in a tendon-driven robotic finger 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20110071678A1/en">
+              <span itemprop="publicationNumber">US20110071678A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2009-09-22</td>
+          <td itemprop="publicationDate">2011-03-24</td>
+          <td><span itemprop="assigneeOriginal">Gm Global Technology Operations, Inc.</span></td>
+          <td itemprop="title">Tendon driven finger actuation system 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+
+    
+
+    
+    <ul>
+      
+      <li itemprop="applicationsByYear" itemscope repeat>
+        <span itemprop="year">2009</span>
+        <ul>
+          
+          <li itemprop="application" itemscope repeat>
+            <span itemprop="filingDate">2009-12-02</span>
+            <span itemprop="countryCode">US</span>
+            <span itemprop="applicationNumber">US12/629,637</span>
+            <a href="/patent/US8412378B2/en"><span itemprop="documentId">patent/US8412378B2/en</span></a>
+            <span itemprop="legalStatusCat">active</span>
+            <span itemprop="legalStatus">Active</span>
+            
+            <span itemprop="thisApp" content="true" bool></span>
+            
+          </li>
+          
+        </ul>
+      </li>
+      
+      <li itemprop="applicationsByYear" itemscope repeat>
+        <span itemprop="year">2010</span>
+        <ul>
+          
+          <li itemprop="application" itemscope repeat>
+            <span itemprop="filingDate">2010-11-26</span>
+            <span itemprop="countryCode">DE</span>
+            <span itemprop="applicationNumber">DE201010052692</span>
+            <a href="/patent/DE102010052692A1/en"><span itemprop="documentId">patent/DE102010052692A1/en</span></a>
+            <span itemprop="legalStatusCat">active</span>
+            <span itemprop="legalStatus">Pending</span>
+            
+          </li>
+          
+          <li itemprop="application" itemscope repeat>
+            <span itemprop="filingDate">2010-11-30</span>
+            <span itemprop="countryCode">JP</span>
+            <span itemprop="applicationNumber">JP2010266689A</span>
+            <a href="/patent/JP5242664B2/en"><span itemprop="documentId">patent/JP5242664B2/en</span></a>
+            <span itemprop="legalStatusCat">active</span>
+            <span itemprop="legalStatus">Active</span>
+            
+          </li>
+          
+        </ul>
+      </li>
+      
+    </ul>
+    
+
+    </section>
+
+  <section>
+    <h2>Patent Citations (14)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US4815006A/en">
+              <span itemprop="publicationNumber">US4815006A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1986-09-29</td>
+          <td itemprop="publicationDate">1989-03-21</td>
+          <td><span itemprop="assigneeOriginal">Asea Aktiebolag</span></td>
+          <td itemprop="title">Method and device for calibrating a sensor on an industrial robot 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5297238A/en">
+              <span itemprop="publicationNumber">US5297238A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1991-08-30</td>
+          <td itemprop="publicationDate">1994-03-22</td>
+          <td><span itemprop="assigneeOriginal">Cimetrix Incorporated</span></td>
+          <td itemprop="title">Robot end-effector terminal control frame (TCF) calibration method and device 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5784542A/en">
+              <span itemprop="publicationNumber">US5784542A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1995-09-07</td>
+          <td itemprop="publicationDate">1998-07-21</td>
+          <td><span itemprop="assigneeOriginal">California Institute Of Technology</span></td>
+          <td itemprop="title">Decoupled six degree-of-freedom teleoperated robot system 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20030158463A1/en">
+              <span itemprop="publicationNumber">US20030158463A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1999-11-09</td>
+          <td itemprop="publicationDate">2003-08-21</td>
+          <td><span itemprop="assigneeOriginal">Intuitive Surgical, Inc.</span></td>
+          <td itemprop="title">Endoscopic beating-heart stabilizer and vessel occlusion fastener 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7250028B2/en">
+              <span itemprop="publicationNumber">US7250028B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1999-11-09</td>
+          <td itemprop="publicationDate">2007-07-31</td>
+          <td><span itemprop="assigneeOriginal">Intuitive Surgical Inc</span></td>
+          <td itemprop="title">Endoscopic beating-heart stabilizer and vessel occlusion fastener 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6791291B2/en">
+              <span itemprop="publicationNumber">US6791291B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2001-10-01</td>
+          <td itemprop="publicationDate">2004-09-14</td>
+          <td><span itemprop="assigneeOriginal">Japan Servo Co., Ltd.</span></td>
+          <td itemprop="title">Multi-joint type industrial robot and arm unit thereof 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20040139110A1/en">
+              <span itemprop="publicationNumber">US20040139110A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2002-12-31</td>
+          <td itemprop="publicationDate">2004-07-15</td>
+          <td><span itemprop="assigneeOriginal">Lamarca Anthony G.</span></td>
+          <td itemprop="title">Sensor network control and calibration system 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20050234566A1/en">
+              <span itemprop="publicationNumber">US20050234566A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2004-04-16</td>
+          <td itemprop="publicationDate">2005-10-20</td>
+          <td><span itemprop="assigneeOriginal">Frank Joublin</span></td>
+          <td itemprop="title">Self-calibrating orienting system for a manipulating device 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20100077867A1/en">
+              <span itemprop="publicationNumber">US20100077867A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2008-09-30</td>
+          <td itemprop="publicationDate">2010-04-01</td>
+          <td><span itemprop="assigneeOriginal">Gm Global Technology Operations, Inc.</span></td>
+          <td itemprop="title">Phalange tactile load cell 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20100081969A1/en">
+              <span itemprop="publicationNumber">US20100081969A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2008-09-30</td>
+          <td itemprop="publicationDate">2010-04-01</td>
+          <td><span itemprop="assigneeOriginal">Gm Global Technology Operations, Inc.</span></td>
+          <td itemprop="title">Tendon tension sensor 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20100121222A1/en">
+              <span itemprop="publicationNumber">US20100121222A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2008-11-12</td>
+          <td itemprop="publicationDate">2010-05-13</td>
+          <td><span itemprop="assigneeOriginal">Gm Global Technology Operations, Inc.</span></td>
+          <td itemprop="title">Sensing the tendon tension through the conduit reaction forces 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20100152898A1/en">
+              <span itemprop="publicationNumber">US20100152898A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2008-12-15</td>
+          <td itemprop="publicationDate">2010-06-17</td>
+          <td><span itemprop="assigneeOriginal">Gm Global Technology Operations, Inc.</span></td>
+          <td itemprop="title">Joint-space impedance control for tendon-driven manipulators 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20100280659A1/en">
+              <span itemprop="publicationNumber">US20100280659A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2009-04-30</td>
+          <td itemprop="publicationDate">2010-11-04</td>
+          <td><span itemprop="assigneeOriginal">Gm Global Technology Operations, Inc.</span></td>
+          <td itemprop="title">Tension distribution in a tendon-driven robotic finger 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20110071678A1/en">
+              <span itemprop="publicationNumber">US20110071678A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2009-09-22</td>
+          <td itemprop="publicationDate">2011-03-24</td>
+          <td><span itemprop="assigneeOriginal">Gm Global Technology Operations, Inc.</span></td>
+          <td itemprop="title">Tendon driven finger actuation system 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Non-Patent Citations (1)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Sato Daisuke, "<a href='http://scholar.google.com/scholar?q="Human+Intention+Recognition+System+by+a+Robot+with+Sensors"'>Human Intention Recognition System by a Robot with Sensors</a>" CD-ROM of 20th Anniversary Academic Lecture meeting of Robot Society of Japan, 2012.</span>
+            
+            
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <h2>Cited By (3)</h2>
+  <table>
+    <caption>* Cited by examiner, † Cited by third party</caption>
+    <thead>
+      <tr>
+        <th>Publication number</th>
+        <th>Priority date</th>
+        <th>Publication date</th>
+        <th>Assignee</th>
+        <th>Title</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US8660695B2/en">
+            <span itemprop="publicationNumber">US8660695B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2009-07-22</td>
+        <td itemprop="publicationDate">2014-02-25</td>
+        <td><span itemprop="assigneeOriginal">The Shadow Robot Company Limited</span></td>
+        <td itemprop="title">Robotic hand 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/EP3147085A4/en">
+            <span itemprop="publicationNumber">EP3147085A4</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2014-02-28</td>
+        <td itemprop="publicationDate">2018-04-18</td>
+        <td><span itemprop="assigneeOriginal">Olympus Corporation</span></td>
+        <td itemprop="title">Calibration method for manipulator, manipulator, and manipulator system 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US10155316B2/en">
+            <span itemprop="publicationNumber">US10155316B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          
+          
+        </td>
+        <td itemprop="priorityDate">2014-02-28</td>
+        <td itemprop="publicationDate">2018-12-18</td>
+        <td><span itemprop="assigneeOriginal">Olympus Corporation</span></td>
+        <td itemprop="title">Manipulator-calibrating method, manipulator, and manipulator system 
+       </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <section>
+    <h2>Also Published As</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Publication date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="docdbFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/DE102010052692A1/en">
+              <span itemprop="publicationNumber">DE102010052692A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+          </td>
+          <td itemprop="publicationDate">2011-08-25</td>
+        </tr><tr itemprop="docdbFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/JP5242664B2/en">
+              <span itemprop="publicationNumber">JP5242664B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+          </td>
+          <td itemprop="publicationDate">2013-07-24</td>
+        </tr><tr itemprop="docdbFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20110130879A1/en">
+              <span itemprop="publicationNumber">US20110130879A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+          </td>
+          <td itemprop="publicationDate">2011-06-02</td>
+        </tr><tr itemprop="docdbFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/JP2011115938A/en">
+              <span itemprop="publicationNumber">JP2011115938A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+          </td>
+          <td itemprop="publicationDate">2011-06-16</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Similar Documents</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Publication</th>
+          <th>Publication Date</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="12153039036256222475">
+              <a href="/scholar/12153039036256222475"><span itemprop="scholarAuthors">Kane et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2000">2000</time>
+            
+          </td>
+          <td itemprop="title">A traction stress sensor array for use in high-resolution robotic tactile imaging</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US9346162B2/en">
+                <span itemprop="publicationNumber">US9346162B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2016-05-24">2016-05-24</time>
+            
+            
+          </td>
+          <td itemprop="title">Robot system, control device of robot, and robot control device 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US20040211238A1/en">
+                <span itemprop="publicationNumber">US20040211238A1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2004-10-28">2004-10-28</time>
+            
+            
+          </td>
+          <td itemprop="title">Method for calibrating an inertial measurement unit 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="13234925474296792043">
+              <a href="/scholar/13234925474296792043"><span itemprop="scholarAuthors">Atkeson et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1986">1986</time>
+            
+          </td>
+          <td itemprop="title">Estimation of inertial parameters of manipulator loads and links</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/CN103200896B/en">
+                <span itemprop="publicationNumber">CN103200896B</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2015-12-09">2015-12-09</time>
+            
+            
+          </td>
+          <td itemprop="title">  Multi-joint tension control actuation of the medical device in  </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US7765023B2/en">
+                <span itemprop="publicationNumber">US7765023B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2010-07-27">2010-07-27</time>
+            
+            
+          </td>
+          <td itemprop="title">Robot controller and robot controlling method 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US5261266A/en">
+                <span itemprop="publicationNumber">US5261266A</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="1993-11-16">1993-11-16</time>
+            
+            
+          </td>
+          <td itemprop="title">Sensor tip for a robotic gripper and method of manufacture 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/EP1647369A2/en">
+                <span itemprop="publicationNumber">EP1647369A2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2006-04-19">2006-04-19</time>
+            
+            
+          </td>
+          <td itemprop="title">Robot with learning control function and method for controlling the robot 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US4906907A/en">
+                <span itemprop="publicationNumber">US4906907A</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="1990-03-06">1990-03-06</time>
+            
+            
+          </td>
+          <td itemprop="title">Robot system 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/JP2015533658A/en">
+                <span itemprop="publicationNumber">JP2015533658A</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2015-11-26">2015-11-26</time>
+            
+            
+          </td>
+          <td itemprop="title">Robot sensor consistency monitoring 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/CN1024955C/en">
+                <span itemprop="publicationNumber">CN1024955C</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="1994-06-08">1994-06-08</time>
+            
+            
+          </td>
+          <td itemprop="title">Error correction device and method for robot 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/CN1980775A/en">
+                <span itemprop="publicationNumber">CN1980775A</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2007-06-13">2007-06-13</time>
+            
+            
+          </td>
+          <td itemprop="title">Robot-controlled optical measurement array, and method and auxiliary mechanism for calibrating said measurement array 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US4362977A/en">
+                <span itemprop="publicationNumber">US4362977A</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="1982-12-07">1982-12-07</time>
+            
+            
+          </td>
+          <td itemprop="title">Method and apparatus for calibrating a robot to compensate for inaccuracy of the robot 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US5497061A/en">
+                <span itemprop="publicationNumber">US5497061A</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="1996-03-05">1996-03-05</time>
+            
+            
+          </td>
+          <td itemprop="title">Method of controlling robot&amp;#39;s compliance 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="14554810672978811850">
+              <a href="/scholar/14554810672978811850"><span itemprop="scholarAuthors">Haddadin et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2017">2017</time>
+            
+          </td>
+          <td itemprop="title">Robot collisions: A survey on detection, isolation, and identification</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/JP6121351B2/en">
+                <span itemprop="publicationNumber">JP6121351B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2017-04-26">2017-04-26</time>
+            
+            
+          </td>
+          <td itemprop="title">A configuration for robust control of force and impedance of series elastic actuators 
+     </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/WO2006118899A1/en">
+                <span itemprop="publicationNumber">WO2006118899A1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2006-11-09">2006-11-09</time>
+            
+            
+          </td>
+          <td itemprop="title">Providing nonlinear temperature compensation for sensing means by use of padé approximant function emulators 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/EP2568910B1/en">
+                <span itemprop="publicationNumber">EP2568910B1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2018-10-03">2018-10-03</time>
+            
+            
+          </td>
+          <td itemprop="title">Drive force control in medical instrument providing position measurements 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/JP2012152890A/en">
+                <span itemprop="publicationNumber">JP2012152890A</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2012-08-16">2012-08-16</time>
+            
+            
+          </td>
+          <td itemprop="title">Mems sensor with zigzag torsion spring 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US20130000480A1/en">
+                <span itemprop="publicationNumber">US20130000480A1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2013-01-03">2013-01-03</time>
+            
+            
+          </td>
+          <td itemprop="title">Control apparatus, control method, and control program for elastic actuator drive mechanism 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/JPH05216514A/en">
+                <span itemprop="publicationNumber">JPH05216514A</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="1993-08-27">1993-08-27</time>
+            
+            
+          </td>
+          <td itemprop="title">Method for correcting position of robot arm joint to gravity vector 
+     </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/CY1116722T1/en">
+                <span itemprop="publicationNumber">CY1116722T1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2017-03-15">2017-03-15</time>
+            
+            
+          </td>
+          <td itemprop="title">  CALCULATION forces for system ROBOTIC SURGERY MINIMUM epemvatikotitas  </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US5010773A/en">
+                <span itemprop="publicationNumber">US5010773A</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="1991-04-30">1991-04-30</time>
+            
+            
+          </td>
+          <td itemprop="title">Sensor tip for a robotic gripper and method of manufacture 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/EP2298508B1/en">
+                <span itemprop="publicationNumber">EP2298508B1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2014-10-08">2014-10-08</time>
+            
+            
+          </td>
+          <td itemprop="title">Measurement of a manipulator 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/EP1645374A1/en">
+                <span itemprop="publicationNumber">EP1645374A1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2006-04-12">2006-04-12</time>
+            
+            
+          </td>
+          <td itemprop="title">Gripping hand with strain detecting means for adjusting its gripping force 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Legal Events</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Code</th>
+          <th>Title</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2009-12-15">2009-12-15</time></td>
+          <td itemprop="code">AS</td>
+          <td itemprop="title">Assignment</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Owner name</strong>:
+              <span itemprop="value">GM GLOBAL TECHNOLOGY OPERATIONS, INC., MICHIGAN</span>
+            </p>
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">ASSIGNMENT OF ASSIGNORS INTEREST;ASSIGNOR:ABDALLAH, MUHAMMAD E.;REEL/FRAME:023657/0158</span>
+            </p>
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Effective date</strong>:
+              <span itemprop="value">20091209</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2010-02-25">2010-02-25</time></td>
+          <td itemprop="code">AS</td>
+          <td itemprop="title">Assignment</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Owner name</strong>:
+              <span itemprop="value">UNITED STATES DEPARTMENT OF THE TREASURY, DISTRICT</span>
+            </p>
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">SECURITY AGREEMENT;ASSIGNOR:GM GLOBAL TECHNOLOGY OPERATIONS, INC.;REEL/FRAME:023989/0155</span>
+            </p>
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Effective date</strong>:
+              <span itemprop="value">20090710</span>
+            </p>
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Owner name</strong>:
+              <span itemprop="value">UAW RETIREE MEDICAL BENEFITS TRUST, MICHIGAN</span>
+            </p>
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">SECURITY AGREEMENT;ASSIGNOR:GM GLOBAL TECHNOLOGY OPERATIONS, INC.;REEL/FRAME:023990/0001</span>
+            </p>
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Effective date</strong>:
+              <span itemprop="value">20090710</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2010-10-14">2010-10-14</time></td>
+          <td itemprop="code">AS</td>
+          <td itemprop="title">Assignment</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Owner name</strong>:
+              <span itemprop="value">UNITED STATES OF AMERICA AS REPRESENTED BY THE ADM</span>
+            </p>
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">ASSIGNMENT OF ASSIGNORS INTEREST;ASSIGNOR:PLATT, ROBERT J., JR.;REEL/FRAME:025141/0773</span>
+            </p>
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Effective date</strong>:
+              <span itemprop="value">20101006</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2010-11-04">2010-11-04</time></td>
+          <td itemprop="code">AS</td>
+          <td itemprop="title">Assignment</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Owner name</strong>:
+              <span itemprop="value">GM GLOBAL TECHNOLOGY OPERATIONS, INC., MICHIGAN</span>
+            </p>
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">RELEASE BY SECURED PARTY;ASSIGNOR:UNITED STATES DEPARTMENT OF THE TREASURY;REEL/FRAME:025246/0234</span>
+            </p>
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Effective date</strong>:
+              <span itemprop="value">20100420</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2010-11-05">2010-11-05</time></td>
+          <td itemprop="code">AS</td>
+          <td itemprop="title">Assignment</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Owner name</strong>:
+              <span itemprop="value">GM GLOBAL TECHNOLOGY OPERATIONS, INC., MICHIGAN</span>
+            </p>
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">RELEASE BY SECURED PARTY;ASSIGNOR:UAW RETIREE MEDICAL BENEFITS TRUST;REEL/FRAME:025315/0136</span>
+            </p>
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Effective date</strong>:
+              <span itemprop="value">20101026</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2010-11-08">2010-11-08</time></td>
+          <td itemprop="code">AS</td>
+          <td itemprop="title">Assignment</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Owner name</strong>:
+              <span itemprop="value">WILMINGTON TRUST COMPANY, DELAWARE</span>
+            </p>
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">SECURITY AGREEMENT;ASSIGNOR:GM GLOBAL TECHNOLOGY OPERATIONS, INC.;REEL/FRAME:025327/0156</span>
+            </p>
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Effective date</strong>:
+              <span itemprop="value">20101027</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2011-02-10">2011-02-10</time></td>
+          <td itemprop="code">AS</td>
+          <td itemprop="title">Assignment</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Owner name</strong>:
+              <span itemprop="value">GM GLOBAL TECHNOLOGY OPERATIONS LLC, MICHIGAN</span>
+            </p>
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">CHANGE OF NAME;ASSIGNOR:GM GLOBAL TECHNOLOGY OPERATIONS, INC.;REEL/FRAME:025781/0299</span>
+            </p>
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Effective date</strong>:
+              <span itemprop="value">20101202</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2013-03-13">2013-03-13</time></td>
+          <td itemprop="code">STCF</td>
+          <td itemprop="title">Information on status: patent grant</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">PATENTED CASE</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2014-11-07">2014-11-07</time></td>
+          <td itemprop="code">AS</td>
+          <td itemprop="title">Assignment</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Owner name</strong>:
+              <span itemprop="value">GM GLOBAL TECHNOLOGY OPERATIONS LLC, MICHIGAN</span>
+            </p>
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">RELEASE BY SECURED PARTY;ASSIGNOR:WILMINGTON TRUST COMPANY;REEL/FRAME:034192/0299</span>
+            </p>
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Effective date</strong>:
+              <span itemprop="value">20141017</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2016-09-15">2016-09-15</time></td>
+          <td itemprop="code">FPAY</td>
+          <td itemprop="title">Fee payment</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Year of fee payment</strong>:
+              <span itemprop="value">4</span>
+            </p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+</article>
+
+    </search-app>
+    <script type="text/javascript" src="//www.gstatic.com/feedback/api.js"></script>
+    <script async="" defer="" src="//www.google.com/insights/consumersurveys/async_survey?site=cxkjf7ipxgbnnjy6k35ezcvbbe"></script>
+  </body>
+</html>

@@ -1,0 +1,2744 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>US7809521B1 - Precise delay measurement through combinatorial logic 
+        - Google Patents</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="referrer" content="origin-when-crossorigin">
+    <link rel="canonical" href="https://patents.google.com/patent/US7809521B1/en">
+    <meta name="description" content="
+     A high resolution circuit and method for facilitating precise measurement of on-chip delays for FPGAs for reliability studies. The circuit embeds a pulse generator on an FPGA chip having one or more groups of LUTS (the “LUT delay chain”), also on-chip. The circuit also embeds a pulse width measurement circuit on-chip, and measures the duration of the generated pulse through the delay chain. The pulse width of the output pulse represents the delay through the delay chain without any I/O delay. The pulse width measurement circuit uses an additional asynchronous clock autonomous from the main clock and the FPGA propagation delay can be displayed on a hex display continuously for testing purposes. 
+   
+   ">
+    
+    <meta name="DC.type" content="patent">
+    
+    <meta name="DC.title" content="Precise delay measurement through combinatorial logic 
+       ">
+    
+    <meta name="DC.date" content="2008-02-29" scheme="dateSubmitted">
+    
+    <meta name="DC.description" content="
+     A high resolution circuit and method for facilitating precise measurement of on-chip delays for FPGAs for reliability studies. The circuit embeds a pulse generator on an FPGA chip having one or more groups of LUTS (the “LUT delay chain”), also on-chip. The circuit also embeds a pulse width measurement circuit on-chip, and measures the duration of the generated pulse through the delay chain. The pulse width of the output pulse represents the delay through the delay chain without any I/O delay. The pulse width measurement circuit uses an additional asynchronous clock autonomous from the main clock and the FPGA propagation delay can be displayed on a hex display continuously for testing purposes. 
+   
+   ">
+    
+    <meta name="citation_patent_application_number" content="US:12/040,459">
+    
+    <meta name="citation_pdf_url" content="https://patentimages.storage.googleapis.com/f9/e5/25/db30ba2f552839/US7809521.pdf">
+    
+    <meta name="citation_patent_number" content="US:7809521">
+    
+    <meta name="DC.date" content="2010-10-05" scheme="issue">
+    
+    <meta name="DC.contributor" content="Gary R. Burke" scheme="inventor">
+    
+    <meta name="DC.contributor" content="Yuan Chen" scheme="inventor">
+    
+    <meta name="DC.contributor" content="Douglas J. Sheldon" scheme="inventor">
+    
+    <meta name="DC.contributor" content="National Aeronautics and Space Administration (NASA)" scheme="assignee">
+    
+    <meta name="DC.relation" content="US:5631596" scheme="references">
+    
+    <meta name="DC.relation" content="US:6075418" scheme="references">
+    
+    <meta name="DC.relation" content="US:6466520" scheme="references">
+    
+    <meta name="DC.relation" content="US:5923676" scheme="references">
+    
+    <meta name="DC.relation" content="US:5822228" scheme="references">
+    
+    <meta name="DC.relation" content="US:6081473" scheme="references">
+    
+    <meta name="DC.relation" content="US:20030098731:A1" scheme="references">
+    
+    <meta name="DC.relation" content="US:6538465" scheme="references">
+    
+    <meta name="DC.relation" content="US:6983394" scheme="references">
+    
+    <meta name="DC.relation" content="US:7256610" scheme="references">
+    
+    <meta name="DC.relation" content="US:20050149777:A1" scheme="references">
+    
+    <meta name="citation_reference" content="Abramovici M. and Stroud C. , &#34;BIST-based delay-fault testing in FPGAs,&#34; Journal of Electronic Testing, vol. 19, No. 5, pp. 549-558, Oct. 2003." scheme="references">
+    
+    <meta name="citation_reference" content="Chmelar E. &#34;FPGA interconnect delay fault testing,&#34; in IEEE Int. Test Conf., Charlotte, NC, Sep. 2003, pp. 1239-1247." scheme="references">
+    
+    <meta name="citation_reference" content="Mattia Ruffoni et al., &#34;Direct Measures of Path Delays on Commercial FPGA Chips&#34;, 6th IEE Workshop on. Proceedings volume Issue . 2002 pp. 157-159." scheme="references">
+    
+    <meta name="citation_reference" content="Premachandran R. et al.. Design-Specific Path Delay Testing in Lookup Table-based FPGAs, Transactions on Computer-Aided Design of Integrated Circuits . . . , vol. XX, No. Y (2005)." scheme="references">
+    
+    <meta name="citation_reference" content="Santos A, CMOS delay locked and sub-nanosecond time-to-digital converter chip, IEEE Trans on Nuclear Science, vol. 43, pp. 1717-1719, Jun. 1996." scheme="references">
+    
+    <meta name="citation_reference" content="Tahoori M. and Miltra S., &#34;Interconnect delay testing of designs on programmable logic devices,&#34; in IEEE Int. Test Conf., Charlotte, NC, Oct. 2004." scheme="references">
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,400italic,500,500italic,700">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Product+Sans">
+    <style>
+      body { transition: none; }
+    </style>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-27188110-4', 'auto');
+
+      version = 'patent-search.search_20191120_RC00';
+
+      function sendFeedback() {
+        userfeedback.api.startFeedback({
+          'productId': '713680',
+          'bucket': 'patent-search-web',
+          'productVersion': version,
+        });
+      }
+
+      window.experiments = {};
+      window.experiments.patentCountries = "ae,ag,al,am,ao,ap,ar,at,au,aw,az,ba,bb,bd,be,bf,bg,bh,bj,bn,bo,br,bw,bx,by,bz,ca,cf,cg,ch,ci,cl,cm,cn,co,cr,cs,cu,cy,cz,dd,de,dj,dk,dm,do,dz,ea,ec,ee,eg,em,ep,es,fi,fr,ga,gb,gc,gd,ge,gh,gm,gn,gq,gr,gt,gw,hk,hn,hr,hu,ib,id,ie,il,in,ir,is,it,jo,jp,ke,kg,kh,km,kn,kp,kr,kw,kz,la,lc,li,lk,lr,ls,lt,lu,lv,ly,ma,mc,md,me,mg,mk,ml,mn,mo,mr,mt,mw,mx,my,mz,na,ne,ng,ni,nl,no,nz,oa,om,pa,pe,pg,ph,pl,pt,py,qa,ro,rs,ru,rw,sa,sc,sd,se,sg,si,sk,sl,sm,sn,st,su,sv,sy,sz,td,tg,th,tj,tm,tn,tr,tt,tw,tz,ua,ug,us,uy,uz,vc,ve,vn,wo,yu,za,zm,zw";
+      
+      
+      window.profilePicture = "";
+
+      window.Polymer = {
+        dom: 'shady',
+        lazyRegister: true,
+      };
+    </script>
+
+    <script src="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/webcomponentsjs/webcomponents-lite.min.js"></script>
+    
+    <link rel="import" href="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/search-app-vulcanized.html">
+    
+  </head>
+  <body unresolved>
+    
+    <script src="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/search-app-vulcanized.js"></script>
+    
+    <search-app>
+      
+      
+
+      <article class="result" itemscope itemtype="http://schema.org/ScholarlyArticle">
+  <h1 itemprop="pageTitle">US7809521B1 - Precise delay measurement through combinatorial logic 
+        - Google Patents</h1>
+  <span itemprop="title">Precise delay measurement through combinatorial logic 
+       </span>
+
+  <meta itemprop="type" content="patent">
+  <a href="https://patentimages.storage.googleapis.com/f9/e5/25/db30ba2f552839/US7809521.pdf" itemprop="pdfLink">Download PDF</a>
+  <h2>Info</h2>
+
+  <dl>
+    <dt>Publication number</dt>
+    <dd itemprop="publicationNumber">US7809521B1</dd>
+    <meta itemprop="numberWithoutCodes" content="7809521">
+    <meta itemprop="kindCode" content="B1">
+    <meta itemprop="publicationDescription" content="Patent ( no pre-grant publication)">
+    
+    <span>US7809521B1</span>
+    
+    <span>US12/040,459</span>
+    
+    <span>US4045908A</span>
+    
+    <span>US7809521B1</span>
+    
+    <span>US 7809521 B1</span>
+    
+    <span>US7809521 B1</span>
+    
+    <span>US 7809521B1</span>
+    
+    <span>  </span>
+    
+    <span> </span>
+    
+    <span> </span>
+    
+    <span>US 4045908 A</span>
+    
+    <span>US4045908 A</span>
+    
+    <span>US 4045908A</span>
+    
+    <span>US 7809521 B1</span>
+    
+    <span>US7809521 B1</span>
+    
+    <span>US 7809521B1</span>
+    
+
+    <dt>Authority</dt>
+    <dd itemprop="countryCode">US</dd>
+    <dd itemprop="countryName">United States</dd>
+
+    <dt>Prior art keywords</dt>
+    
+    <dd itemprop="priorArtKeywords" repeat>pulse</dd>
+    <dd itemprop="priorArtKeywords" repeat>pulse width</dd>
+    <dd itemprop="priorArtKeywords" repeat>delay</dd>
+    <dd itemprop="priorArtKeywords" repeat>delay chain</dd>
+    <dd itemprop="priorArtKeywords" repeat>chip</dd>
+
+    <dt>Prior art date</dt>
+    <dd><time itemprop="priorArtDate" datetime="2008-02-29">2008-02-29</time></dd>
+
+    <dt>Legal status (The legal status is an assumption and is not a legal conclusion. Google has not performed a legal analysis and makes no representation as to the accuracy of the status listed.)</dt>
+    <dd itemprop="legalStatusIfi" itemscope>
+      <span itemprop="status">Expired - Fee Related</span>, expires <time itemprop="expiration" datetime="2029-01-31">2029-01-31</time>
+    </dd>
+  </dl>
+
+  <dt>Application number</dt>
+  <dd itemprop="applicationNumber">US12/040,459</dd>
+
+  
+
+  
+
+  <dt>Inventor</dt>
+  <dd itemprop="inventor" repeat>Gary R. Burke</dd>
+  <dd itemprop="inventor" repeat>Yuan Chen</dd>
+  <dd itemprop="inventor" repeat>Douglas J. Sheldon</dd>
+  <dt>Current Assignee (The listed assignees may be inaccurate. Google has not performed a legal analysis and makes no representation or warranty as to the accuracy of the list.)</dt>
+  <dd itemprop="assigneeCurrent" repeat>
+    National Aeronautics and Space Administration (NASA)
+  </dd>
+
+  <dt>Original Assignee</dt>
+  <dd itemprop="assigneeOriginal" repeat>National Aeronautics and Space Administration (NASA)</dd>
+
+  <dt>Priority date (The priority date is an assumption and is not a legal conclusion. Google has not performed a legal analysis and makes no representation as to the accuracy of the date listed.)</dt>
+  <dd><time itemprop="priorityDate" datetime="2008-02-29">2008-02-29</time></dd>
+
+  <dt>Filing date</dt>
+  <dd><time itemprop="filingDate" datetime="2008-02-29">2008-02-29</time></dd>
+
+  <dt>Publication date</dt>
+  <dd><time itemprop="publicationDate" datetime="2010-10-05">2010-10-05</time></dd>
+
+  
+
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2008-02-29">2008-02-29</time>
+    <span itemprop="title">Application filed by National Aeronautics and Space Administration (NASA)</span>
+    <span itemprop="type">filed</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    <span itemprop="assigneeSearch">National Aeronautics and Space Administration (NASA)</span>
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2008-02-29">2008-02-29</time>
+    <span itemprop="title">Priority to US12/040,459</span>
+    <span itemprop="type">priority</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    <span itemprop="documentId">patent/US7809521B1/en</span>
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2008-03-05">2008-03-05</time>
+    <span itemprop="title">Assigned to U.S. GOVERNMENT AS REPRESENTED BY THE ADMINISTRATOR OF THE NATIONAL AERONAUTICS AND SPACE ADMINISTRATION</span>
+    <span itemprop="type">reassignment</span>
+    
+    
+    
+    
+    <span itemprop="assigneeSearch">U.S. GOVERNMENT AS REPRESENTED BY THE ADMINISTRATOR OF THE NATIONAL AERONAUTICS AND SPACE ADMINISTRATION</span>
+    
+    
+    <span itemprop="description" repeat>ASSIGNMENT OF ASSIGNORS INTEREST (SEE DOCUMENT FOR DETAILS).</span>
+    
+    <span itemprop="description" repeat>Assignors: CALIFORNIA INSTITUTE OF TECHNOLOGY</span>
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2008-03-05">2008-03-05</time>
+    <span itemprop="title">Assigned to CALIFORNIA INSTITUTE OF TECHNOLOGY</span>
+    <span itemprop="type">reassignment</span>
+    
+    
+    
+    
+    <span itemprop="assigneeSearch">CALIFORNIA INSTITUTE OF TECHNOLOGY</span>
+    
+    
+    <span itemprop="description" repeat>ASSIGNMENT OF ASSIGNORS INTEREST (SEE DOCUMENT FOR DETAILS).</span>
+    
+    <span itemprop="description" repeat>Assignors: BURKE, GARY R., CHEN, YUAN, SHELDON, DOUGLAS J.</span>
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2010-10-05">2010-10-05</time>
+    <span itemprop="title">Application granted</span>
+    <span itemprop="type">granted</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2010-10-05">2010-10-05</time>
+    <span itemprop="title">Publication of US7809521B1</span>
+    <span itemprop="type">publication</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    <span itemprop="documentId">patent/US7809521B1/en</span>
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2019-11-25">2019-11-25</time>
+    <span itemprop="title">Application status is Expired - Fee Related</span>
+    <span itemprop="type">legal-status</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2029-01-31">2029-01-31</time>
+    <span itemprop="title">Adjusted expiration</span>
+    <span itemprop="type">legal-status</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+
+  <h2>Links</h2>
+
+  <ul>
+    
+          <li itemprop="links" itemscope repeat>
+            <meta itemprop="id" content="usptoLink">
+            <a href="http://patft.uspto.gov/netacgi/nph-Parser?Sect1=PTO1&Sect2=HITOFF&p=1&u=/netahtml/PTO/srchnum.html&r=1&f=G&l=50&d=PALL&s1=7809521.PN." itemprop="url" target="_blank"><span itemprop="text">USPTO</span></a>
+          </li>
+        <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="usptoAssignmentLink">
+          <a href="https://assignment.uspto.gov/patent/index.html#/patent/search/resultFilter?searchInput=7809521" itemprop="url" target="_blank"><span itemprop="text">USPTO Assignment</span></a>
+        </li>
+
+    <li itemprop="links" itemscope repeat>
+        <meta itemprop="id" content="espacenetLink">
+        <a href="http://worldwide.espacenet.com/publicationDetails/biblio?CC=US&amp;NR=7809521B1&amp;KC=B1&amp;FT=D" itemprop="url" target="_blank"><span itemprop="text">Espacenet</span></a>
+      </li>
+      
+
+    
+
+    
+      <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="globalDossierLink">
+          <a href="http://globaldossier.uspto.gov/#/result/patent/US/7809521/1" itemprop="url" target="_blank"><span itemprop="text">Global Dossier</span></a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="stackexchangeLink">
+          <a href="https://patents.stackexchange.com/questions/tagged/US7809521" itemprop="url"><span itemprop="text">Discuss</span></a>
+        </li>
+      
+  </ul>
+
+  
+  <ul itemprop="concept" itemscope>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001934</span>
+      <span itemprop="name">delay</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>abstract</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">19</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000009532</span>
+      <span itemprop="name">heart rate measurement</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">4</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000000051</span>
+      <span itemprop="name">modifying</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="count">4</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000005070</span>
+      <span itemprop="name">sampling</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">7</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000015654</span>
+      <span itemprop="name">memory</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">6</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000005259</span>
+      <span itemprop="name">measurements</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">5</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000004065</span>
+      <span itemprop="name">semiconductor</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">4</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000000034</span>
+      <span itemprop="name">methods</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">3</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000006011</span>
+      <span itemprop="name">modification</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">3</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000004048</span>
+      <span itemprop="name">modification</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">3</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000035611</span>
+      <span itemprop="name">feeding</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001360</span>
+      <span itemprop="name">synchronised</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000004606</span>
+      <span itemprop="name">Fillers/Extenders</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000000872</span>
+      <span itemprop="name">buffers</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001595</span>
+      <span itemprop="name">contractor</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001976</span>
+      <span itemprop="name">improved</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000011133</span>
+      <span itemprop="name">lead</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001902</span>
+      <span itemprop="name">propagating</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000000630</span>
+      <span itemprop="name">rising</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001960</span>
+      <span itemprop="name">triggered</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000000007</span>
+      <span itemprop="name">visual effect</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+  </ul>
+  
+
+  <section>
+    <h2>Images</h2>
+    <ul>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/c5/79/7f/e0d9db3c1506e5/US07809521-20101005-D00000.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/20/02/16/518a0f9fbc7f3e/US07809521-20101005-D00000.png">
+        <ul>
+          <li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="10">
+            <meta itemprop="label" content="clock">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="135">
+              <meta itemprop="top" content="539">
+              <meta itemprop="right" content="192">
+              <meta itemprop="bottom" content="583">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="125">
+            <meta itemprop="label" content="output lead">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="593">
+              <meta itemprop="top" content="435">
+              <meta itemprop="right" content="664">
+              <meta itemprop="bottom" content="473">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="14">
+            <meta itemprop="label" content="pulse generator">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="662">
+              <meta itemprop="top" content="362">
+              <meta itemprop="right" content="702">
+              <meta itemprop="bottom" content="403">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="16">
+            <meta itemprop="label" content="width measurement block">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="506">
+              <meta itemprop="top" content="1128">
+              <meta itemprop="right" content="560">
+              <meta itemprop="bottom" content="1184">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="18">
+            <meta itemprop="label" content="switch">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="336">
+              <meta itemprop="top" content="649">
+              <meta itemprop="right" content="387">
+              <meta itemprop="bottom" content="693">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="22">
+            <meta itemprop="label" content="MUX">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1803">
+              <meta itemprop="top" content="406">
+              <meta itemprop="right" content="1870">
+              <meta itemprop="bottom" content="463">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="24">
+            <meta itemprop="label" content="gate">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="2006">
+              <meta itemprop="top" content="383">
+              <meta itemprop="right" content="2057">
+              <meta itemprop="bottom" content="422">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="26">
+            <meta itemprop="label" content="display driver">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1004">
+              <meta itemprop="top" content="1139">
+              <meta itemprop="right" content="1057">
+              <meta itemprop="bottom" content="1184">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="61">
+            <meta itemprop="label" content="divider">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="480">
+              <meta itemprop="top" content="506">
+              <meta itemprop="right" content="530">
+              <meta itemprop="bottom" content="545">
+            </span>
+          </li>
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/a7/01/da/fe48b7a4776398/US07809521-20101005-D00001.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/aa/53/a0/9402215ef75616/US07809521-20101005-D00001.png">
+        <ul>
+          <li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="110">
+            <meta itemprop="label" content="test circuit">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="612">
+              <meta itemprop="top" content="609">
+              <meta itemprop="right" content="674">
+              <meta itemprop="bottom" content="701">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="115">
+            <meta itemprop="label" content="IC">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="776">
+              <meta itemprop="top" content="397">
+              <meta itemprop="right" content="838">
+              <meta itemprop="bottom" content="459">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="120">
+            <meta itemprop="label" content="Tester">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="584">
+              <meta itemprop="top" content="1791">
+              <meta itemprop="right" content="649">
+              <meta itemprop="bottom" content="1909">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="125">
+            <meta itemprop="label" content="output lead">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="786">
+              <meta itemprop="top" content="1529">
+              <meta itemprop="right" content="846">
+              <meta itemprop="bottom" content="1623">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="130">
+            <meta itemprop="label" content="input pin">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="834">
+              <meta itemprop="top" content="1371">
+              <meta itemprop="right" content="890">
+              <meta itemprop="bottom" content="1465">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="135">
+            <meta itemprop="label" content="input line">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="244">
+              <meta itemprop="top" content="781">
+              <meta itemprop="right" content="310">
+              <meta itemprop="bottom" content="907">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="140">
+            <meta itemprop="label" content="output pin">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="678">
+              <meta itemprop="top" content="138">
+              <meta itemprop="right" content="739">
+              <meta itemprop="bottom" content="249">
+            </span>
+          </li>
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/f4/8d/5f/cc79d890fe5621/US07809521-20101005-D00002.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/e9/d5/50/9c95961c951f0d/US07809521-20101005-D00002.png">
+        <ul>
+          <li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="2">
+            <meta itemprop="id" content="125">
+            <meta itemprop="label" content="output lead">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="462">
+              <meta itemprop="top" content="1737">
+              <meta itemprop="right" content="500">
+              <meta itemprop="bottom" content="1796">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="2">
+            <meta itemprop="id" content="14">
+            <meta itemprop="label" content="pulse generator">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="390">
+              <meta itemprop="top" content="1694">
+              <meta itemprop="right" content="431">
+              <meta itemprop="bottom" content="1721">
+            </span>
+          </li>
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/19/06/31/a2289a3d84007b/US07809521-20101005-D00003.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/9d/3d/c9/1179f4a867384c/US07809521-20101005-D00003.png">
+        <ul>
+          
+        </ul>
+      </li>
+      </ul>
+  </section>
+
+  <section>
+    <h2>Classifications</h2>
+    
+    <ul>
+      <li>
+        <ul itemprop="cpcs" itemscope repeat>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G</span>&mdash;<span itemprop="Description">PHYSICS</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G01</span>&mdash;<span itemprop="Description">MEASURING; TESTING</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G01R</span>&mdash;<span itemprop="Description">MEASURING ELECTRIC VARIABLES; MEASURING MAGNETIC VARIABLES</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G01R31/00</span>&mdash;<span itemprop="Description">Arrangements for testing electric properties; Arrangements for locating electric faults; Arrangements for electrical testing characterised by what is being tested not provided for elsewhere</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G01R31/28</span>&mdash;<span itemprop="Description">Testing of electronic circuits, e.g. by signal tracer</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G01R31/30</span>&mdash;<span itemprop="Description">Marginal testing, e.g. by varying supply voltage</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G01R31/3016</span>&mdash;<span itemprop="Description">Delay or race condition test, e.g. race hazard test</span>
+            <meta itemprop="Leaf" content="true">
+            
+            <meta itemprop="FirstCode" content="true">
+          </li>
+          </ul>
+      </li>
+      <li>
+        <ul itemprop="cpcs" itemscope repeat>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G</span>&mdash;<span itemprop="Description">PHYSICS</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G01</span>&mdash;<span itemprop="Description">MEASURING; TESTING</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G01R</span>&mdash;<span itemprop="Description">MEASURING ELECTRIC VARIABLES; MEASURING MAGNETIC VARIABLES</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G01R31/00</span>&mdash;<span itemprop="Description">Arrangements for testing electric properties; Arrangements for locating electric faults; Arrangements for electrical testing characterised by what is being tested not provided for elsewhere</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G01R31/28</span>&mdash;<span itemprop="Description">Testing of electronic circuits, e.g. by signal tracer</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G01R31/317</span>&mdash;<span itemprop="Description">Testing of digital circuits</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G01R31/3181</span>&mdash;<span itemprop="Description">Functional testing</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G01R31/3185</span>&mdash;<span itemprop="Description">Reconfiguring for testing, e.g. LSSD, partitioning</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G01R31/318516</span>&mdash;<span itemprop="Description">Test of programmable logic devices [PLDs]</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G01R31/318519</span>&mdash;<span itemprop="Description">Test of field programmable gate arrays [FPGA]</span>
+            <meta itemprop="Leaf" content="true">
+            
+            
+          </li>
+          </ul>
+      </li>
+      <li>
+        <ul itemprop="cpcs" itemscope repeat>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">H</span>&mdash;<span itemprop="Description">ELECTRICITY</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">H03</span>&mdash;<span itemprop="Description">BASIC ELECTRONIC CIRCUITRY</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">H03K</span>&mdash;<span itemprop="Description">PULSE TECHNIQUE</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">H03K19/00</span>&mdash;<span itemprop="Description">Logic circuits, i.e. having at least two inputs acting on one output; Inverting circuits</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">H03K19/02</span>&mdash;<span itemprop="Description">Logic circuits, i.e. having at least two inputs acting on one output; Inverting circuits using specified components</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">H03K19/173</span>&mdash;<span itemprop="Description">Logic circuits, i.e. having at least two inputs acting on one output; Inverting circuits using specified components using elementary logic circuits as components</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">H03K19/177</span>&mdash;<span itemprop="Description">Logic circuits, i.e. having at least two inputs acting on one output; Inverting circuits using specified components using elementary logic circuits as components arranged in matrix form</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">H03K19/17748</span>&mdash;<span itemprop="Description">Structural details of configuration resources</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">H03K19/17764</span>&mdash;<span itemprop="Description">Structural details of configuration resources for reliability</span>
+            <meta itemprop="Leaf" content="true">
+            
+            
+          </li>
+          </ul>
+      </li>
+      <li>
+        <ul itemprop="cpcs" itemscope repeat>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">H</span>&mdash;<span itemprop="Description">ELECTRICITY</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">H03</span>&mdash;<span itemprop="Description">BASIC ELECTRONIC CIRCUITRY</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">H03K</span>&mdash;<span itemprop="Description">PULSE TECHNIQUE</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">H03K19/00</span>&mdash;<span itemprop="Description">Logic circuits, i.e. having at least two inputs acting on one output; Inverting circuits</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">H03K19/02</span>&mdash;<span itemprop="Description">Logic circuits, i.e. having at least two inputs acting on one output; Inverting circuits using specified components</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">H03K19/173</span>&mdash;<span itemprop="Description">Logic circuits, i.e. having at least two inputs acting on one output; Inverting circuits using specified components using elementary logic circuits as components</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">H03K19/177</span>&mdash;<span itemprop="Description">Logic circuits, i.e. having at least two inputs acting on one output; Inverting circuits using specified components using elementary logic circuits as components arranged in matrix form</span>
+            <meta itemprop="Leaf" content="true">
+            <meta itemprop="Additional" content="true">
+            
+          </li>
+          </ul>
+      </li>
+      </ul>
+  </section>
+
+  <section itemprop="abstract" itemscope>
+    <h2>Abstract</h2>
+    
+    <div itemprop="content" html><abstract mxw-id="PA80880071" lang="EN" load-source="patent-office">
+    <div num="p-0001" class="abstract">A high resolution circuit and method for facilitating precise measurement of on-chip delays for FPGAs for reliability studies. The circuit embeds a pulse generator on an FPGA chip having one or more groups of LUTS (the “LUT delay chain”), also on-chip. The circuit also embeds a pulse width measurement circuit on-chip, and measures the duration of the generated pulse through the delay chain. The pulse width of the output pulse represents the delay through the delay chain without any I/O delay. The pulse width measurement circuit uses an additional asynchronous clock autonomous from the main clock and the FPGA propagation delay can be displayed on a hex display continuously for testing purposes.</div>
+  </abstract>
+  </div>
+  </section>
+
+  <section itemprop="description" itemscope>
+    <h2>Description</h2>
+    
+    <div itemprop="content" html><div mxw-id="PDES38639576" lang="EN" load-source="patent-office" class="description">
+    
+    <heading>STATEMENT OF GOVERNMENT INTEREST</heading>
+    <p num="p-0002">The invention described hereunder was made in the performance of work under a NASA contract, and is subject to the provisions of Public Law #96-517 (35 U.S.C. 202) in which the Contractor has elected not to retain title.</p>
+    
+    
+    <heading>BACKGROUND OF THE INVENTION</heading>
+    <p num="p-0003">1. Field of the Invention</p>
+    <p num="p-0004">The present invention relates to digital electronic circuits and, more particularly, to a method and system for measuring on-chip delays for Field Programmable Gate Arrays (FPGAs) for reliability testing.</p>
+    <p num="p-0005">2. Description of Prior Art</p>
+    <p num="p-0006">A Field Programmable Gate Array or FPGA is a semiconductor device containing programmable logic components that can be programmed to duplicate the functionality of basic logic gates such as AND, OR, XOR, NOT or more complex combinatorial functions such as decoders or simple math functions. The FPGA also contains sequential logic in the form of configurable flip/flops. Many FPGAs also include memory elements such as RAMs.</p>
+    <p num="p-0007">An FPGA typically includes an array of configurable logic blocks (CLBs) surrounded by a ring of programmable input/output blocks (IOBs). The CLBs and IOBs are interconnected by a programmable interconnect structure. The CLBs typically include several “lookup tables” (LUTs). A LUT is an addressable memory array that is typically loaded with data during the configuration process. For example, some commercial CLBs includes eight LUTS and eight flip/flops. Each LUT has four data input terminals that address the configurable memory. By storing predetermined values in the appropriate memory locations, the LUT can be configured to provide any function of up to four variables. Indeed, all of the CLBs, IOBs, and interconnect structure are typically programmed by loading a stream of configuration data (bitstream) into internal configuration memory that define how the CLBs, IOBs, and interconnect structure are configured. The collective states of the individual memory determine the function of the FPGA. As the size and complexity of FPGAs grow, manufactures are becoming more concerned with measuring the speed and performance of their designs.</p>
+    <p num="p-0008"> <figref idrefs="DRAWINGS">FIG. 1</figref> depicts a conventional test configuration <b>100</b> for determining the signal propagation delay of a test circuit <b>110</b> in a conventional IC <b>115</b>. A tester <b>120</b> includes an output lead <b>125</b> connected to an input pin <b>130</b> of IC <b>115</b>. Tester <b>120</b> also includes an input line <b>135</b> connected to an output pin <b>140</b> of IC <b>115</b>. Tester <b>120</b> applies an input signal to input pin <b>130</b> and measures how long the signal takes to propagate through test circuit <b>110</b> from input pin <b>130</b> to output pin <b>140</b>. The resulting time period is the timing parameter for test circuit <b>110</b>, the path of interest.</p>
+    <p num="p-0009">The above-noted test procedure is problematic with FPGAs because many of the signal paths internal to the chip are not accessible via input and output pins, and therefore cannot be measured directly.</p>
+    <p num="p-0010">Other techniques have been developed to measure signal propagation delays in FPGAs.</p>
+    <p num="p-0011">Traditionally, a delay chain of inverters is placed on the FPGA, with an input port feeding the inverter chain and an output port driving the output of the chain off-chip. Unfortunately, this is inaccurate since the input and output delays are included.</p>
+    <p num="p-0012">Another method arranges the delay chain as a ring oscillator. For example, U.S. Pat. No. 6,075,418 to Kingsley, et al., entitled “System With Downstream Set or Clear for Measuring Signal Propagation Delays on Integrated Circuits,” issued Jun. 13, 2000, describes methods of measuring signal-propagation delays by including signal paths of interest in ring oscillators. The ring oscillators oscillate at frequencies that area function of the delays through signal paths of interest. The oscillation frequencies of such oscillators are therefore indicative of the delays through various paths of interest.</p>
+    <p num="p-0013">See, also, Direct Measures of Path Delays on Commercial FPGA Chips” by Mania Ruffoni et al., 6<sup>th </sup>IEE Workshop, Proceedings volume issue, 2002, pages 157-159, which suggests a comparison between the operating frequency of a ring oscillator that includes the path under test, and that of a reference ring oscillator that does not. The ring oscillator approach suffers from the problem that it does not always oscillate as expected.</p>
+    <p num="p-0014">United States Patent Application 20030098731 by Tabatabaei, Sassan et al. published May 29, 2003 shows a high resolution time-to-digital converter (TDC) that uses a pair of digital oscillators. The periods of the oscillators differ. The oscillators are triggered by START and STOP pulses. A counter counts a number of pulses until reference points on the signals output by the oscillators coincide. Measurements may be made using a dual resolution method. Intrinsic jitter of the TDC can be determined by comparing sets of measurements in which the switch in resolutions is made at different points. A range extender circuit may be provided to extend a valid measurement range of the TDC.</p>
+    <p num="p-0015">U.S. Pat. No. 6,983,394 to Morrison et al. (Xilinx) issued Jan. 3, 2006 shows a method and apparatus for clock signal performance measurement using a digital delay in conjunction with a processing circuit to continuously measure the jitter of an input clock signal. A pair of digital delay circuits is used to continuously measure the skew or delay between a reference clock signal and a input clock signal, thus providing a measurement of the skew of the input clock signal over time. The digital delay circuit(s) are formed on-chip, and thus an on-chip determination of jitter or skew may be provided.</p>
+    <p num="p-0016">Santos, A CMOS delay locked and sub-nanosecond time-to-digital converter chip, IEEE Trans on Nuclear Science, vol. 43, pp. 1717-1719, June, 1996 discloses a TDC based on the use of a delay chain. In this circuit, the output of the delay elements in the delay chain are set HIGH as the START rising edge travels through them. A delay locked loop (DLL) is used to calibrate the delay elements to a known delay. Such a calibration requires very good matching between all the delay elements in both the delay chain and the DLL.</p>
+    <p num="p-0017">M. Abramovici and C. Stroud, “BIST-based delay-fault testing in FPGAs,” Journal of Electronic Testing, vol. 19, no. 5, pp. 549-558, October 2003 discloses a comparison-based delay test method in which a number of identical paths are constructed in the FPGA under test and every LUT on these paths is programmed to propagate an input value to its output. A fault is detected when the difference between the arrival times at the destinations of the first and last signals exceeds a specified threshold.</p>
+    <p num="p-0018">Design-Specific Path Delay Testing in Lookup Table-based FPGAs, Premachandran R. Menoh et al., Transactions On Computer-Aided Design Of Integrated Cirtuits And Systems, Vol. XX, No. Y (2005) shows an approach for FPGA path delay testing which partitions target paths into subsets that are tested in the same test configuration. Each path is tested for all combinations of signal inversions along the path length. Each configuration consists of a sequence generator, response analyzer and circuitry for controlling inversions along tested paths, all of which are formed from FPGA resources not currently under test.</p>
+    <p num="p-0019">E. Chmelar, “FPGA interconnect delay fault testing,” in IEEE Int. Test Conf., Charlotte, N.C., September 2003, pp. 1239-1247 is a similar comparison-based delay approach to the Abramovici article.</p>
+    <p num="p-0020">M. Tahoori and S. Mitra, “Interconnect delay testing of designs on programmable logic devices,” in IEEE Int. Test Conf., Charlotte, N.C., October 2004 disclose a method of testing all paths in a combinational network for delay faults in which all paths are simultaneously tested for slow-to-rise faults by applying 0-&gt;1 transitions at all inputs. Slow-to-fall faults are similarly tested by changing LUT functions to ORs and applying 1-&gt;0 transitions at all inputs.</p>
+    <p num="p-0021">It would be greatly advantageous to provide an improved circuit architecture and method for built-in self-test (BIST) of FPGA propagation delay using available (unused) FPGA resources, that provides an actual and very precise measurement of the propagation delay through the delay chain-without any input and output delays.</p>
+    <heading>SUMMARY OF THE INVENTION</heading>
+    <p num="p-0022">It is a primary object of this invention to provide a built-in self-test (BIST) for FPGA propagation delay by configuring unused FPGA resources.</p>
+    <p num="p-0023">It is another object to provide a BIST test architecture configured from unused FPGA resources, and a method of testing propagation delays through the FPGA LUTs that eliminates input and output delays.</p>
+    <p num="p-0024">It is a more specific object to provide a built-in self-test (BIST) for FPGA propagation delay that embeds a pulse generator on the FPGA chip for propagating a pulse train through groupings of LUTs, and a pulse width measurement circuit (likewise on-chip) to measure the pulse width of the generated pulse through the delay chain, the pulse width representing the delay through the delay chain without any I/O delays, so that a determination of the propagation delay can be made very accurately.</p>
+    <p num="p-0025">It is still another object to provide a BIST architecture and test method as described above that uses an additional asynchronous clock autonomous from a main clock to increase the accuracy of the measurement of propagation delay.</p>
+    <p num="p-0026">In accordance with the foregoing objects, the present invention is a circuit that facilitates precise measurement of on-chip delays for FPGAs for reliability studies. The circuit incorporates an on-chip pulse generator, and on-chip pulse measurement circuitry programmed into a conventional semiconductor FPGA device to act as a performance monitor to measure the duration of a generated pulse through one or more groups of LUTS (the “LUT delay chain”) which are also on-chip.</p>
+    <p num="p-0027">A multiplexer multiplexes the pulse train Output from the groupings of LUTs, and a logic gate compares the multiplexer output with the input pulse train (all also on-chip). The pulse width measurement circuit measures the pulse width of the generated pulse through the delay chain, the pulse width representing the delay through the delay chain without any I/O delays, so that a determination of the propagation delay can be made very accurately.</p>
+    <p num="p-0028">Given the present architecture the I/O delays are no longer significant and the delay measurements can be made very accurately.</p>
+    <p num="p-0029">Moreover, the pulse width measurement circuit uses an additional asynchronous clock autonomous from a main clock to increase the accuracy of the measurement of propagation delay. The additional clock is not synchronized to the main clock and this vastly improves the sampling rate and resulting accuracy. The pulses are sampled and converted to an error value using state machines, counters and lookup tables. The result is displayed on an external multidigit hex display continuously.</p>
+    
+    
+    <description-of-drawings>
+      <heading>BRIEF DESCRIPTION OF THE DRAWINGS</heading>
+      <p num="p-0030">Other objects, features, and advantages of the present invention will become more apparent from the following detailed description of the preferred embodiments and certain modifications thereof when taken together with the accompanying drawings in which:</p>
+      <p num="p-0031"> <figref idrefs="DRAWINGS">FIG. 1</figref> depicts a conventional test configuration for determining the signal propagation delay of a test circuit in a conventional IC.</p>
+      <p num="p-0032"> <figref idrefs="DRAWINGS">FIG. 2</figref> is a block diagram of the circuit architecture of the present invention including major components and data paths.</p>
+      <p num="p-0033"> <figref idrefs="DRAWINGS">FIG. 3</figref> is a timing diagram illustrating the operation of the pulse width measurement of the present invention.</p>
+      <p num="p-0034"> <figref idrefs="DRAWINGS">FIG. 4</figref> is a more detailed block diagram of the pulse width measurement block configured from an unused delay chain on the FPGA.</p>
+    </description-of-drawings>
+    
+    
+    <heading>DETAILED DESCRIPTION OF THE PREFERRED EMBODIMENTS</heading>
+    <p num="p-0035">The present invention is a BIST test architecture and method for precise measurement of on-chip delays for FPGAs to be used in reliability studies. The architecture incorporates an on-chip pulse generator and on-chip pulse measurement circuitry to measure the duration of a generated pulse through one or more groups of LUTS (the “LUT delay chain”) also on-chip. The measured pulse width represents the delay through the LUT delay chain under test. Since the pulse is generated on-chip there are no significant I/O delays, and the delay measurements can be made very accurately. The on-chip pulse width measurement circuit uses an additional asynchronous clock autonomous from a main clock to greatly improve the sampling rate and resulting accuracy. The on-chip pulse measurement circuitry is configured to measure the pulse width of the output pulse, which is then converted to a hex value using state machines, counters and lookup tables. The result is displayed on a multidigit hex display continuously.</p>
+    <p num="p-0036"> <figref idrefs="DRAWINGS">FIG. 2</figref> is a block diagram of the circuit architecture including major components and data paths. The circuit is preferably programmed onto a conventional semiconductor FPGA device to act as a performance monitor.</p>
+    <p num="p-0037">The illustrated circuit includes a main clock implemented by an external (off-chip) clock crystal <b>10</b> and, in accordance with the invention, an additional asynchronous clock autonomous from the main clock. The second clock is here implemented as an additional external (off-chip) clock crystal <b>12</b>, which is independent and asynchronous relative, to the first. In the illustrated embodiment one clock <b>10</b> is set to 100/50 Mhz and the other is 32/33 Mhz. The 100/50 Mhz crystal <b>10</b> is used to test a majority of the FPGA logic, and its clock signal is fed into on-chip pulse generator <b>14</b>.</p>
+    <p num="p-0038">Pulse generator <b>14</b> is preferably configured from conventional combinatorial and sequential logic circuits including a high speed logic Counter/Divider configured from the combinational and sequential circuits on the FPGA, which is programmed to operate as a pulse generator.</p>
+    <p num="p-0039">More specifically, the pulse generator <b>14</b> includes a counter/divider <b>61</b> that divides the frequency (here 50 Mhz) from clock <b>10</b> down by a controllable factor that depends on setup switches on the board. The pulse generator <b>14</b> is programmed to produce two synchronous outputs: 1) a 1 pulse-per-second clock which is fed into a pulse width measurement block <b>16</b>; and 2) a nominal 125 KHz pulse train.</p>
+    <p num="p-0040">Pulse width measurement block <b>16</b> is likewise preferably configured from combinatorial logic on the FPGA, which is programmed to measure an output pulse width (to be described) by sampling at the 1 pulse-per-second clock rate.</p>
+    <p num="p-0041">The nominal 125 KHz pulse train is fed into a set of LUTs resident on the existing semiconductor FPGA device for propagation through the delay chain to be measured. The LUTs (lookuptables) are the universal logic gates that implement the combinational logic on the FPGA. They are programmed to be inverters or buffers depending on the position of a switch <b>18</b> on the FPGA board.</p>
+    <p num="p-0042">A multiplexer (MUX) <b>22</b> following the LUTs allows selection of the length of the delay chain to be tested. The MUX <b>22</b> allows selection of various size delay chains, which verifies the delay measurements. In the present embodiment the MUX <b>22</b> is programmed (from unused LUTs) as a 6-to-1 multiplexer which selects up to six separate taps on the delay chain. The LUTs under test are grouped into interconnected groups of 500 by pre-programming the FPGA input/output blocks (IOBs). Each multiplexer <b>22</b> input (DC<b>1</b>-DC<b>6</b>) is connected to the output of one group of 500 LUTs under test. Thus, up to six groups of 500 LUTs, or 3000 LUTs total, may be included in the delay chain to be tested. Of course, this number may vary depending on the size and number of inputs of the MUX <b>22</b>. The selector input S<b>1</b> comprises a binary bit value sufficient to control the given number of selector inputs, and to control six inputs DC<b>1</b>-DC<b>6</b> a three bit selector input S<b>1</b> is required from switch <b>20</b>. This way, switch <b>20</b> determines whether one, two, three, or up to all six groups of LUTs (anywhere from 500-3000) are included in the delay chain to be tested.</p>
+    <p num="p-0043">A logic AND gate <b>24</b> has one inverted input connected as shown to the output of the MUX <b>22</b> and another input connected to the 125 KHz pulse train of pulse generator <b>14</b>. Thus, the output of logic gate <b>24</b> is a pulse train (shown) with pulses that are shorter than the 125 KHz pulse train of pulse generator <b>14</b>. This is because the ANDing effectively limits the pulse width of the 125 KHz pulse train to the propagation delay time through the selected delay chain under test. Consequently, the width of this illustrated shortened pulse equals the delay through the LUTs. The output of the logic gate <b>24</b> is connected back around into the pulse width measurement block <b>16</b> and thereby feeds the shortened pulse into the pulse width measurement block <b>16</b> for measurement.</p>
+    <p num="p-0044"> <figref idrefs="DRAWINGS">FIG. 3</figref> is a timing diagram illustrating the operation of the pulse width measurement <b>16</b> of the present invention. At top the output pulse from AND gate <b>24</b> appears and this is a 125 KHz pulse train with pulse width equal to the delay through the delay chain. The 32/33 Mhz clock <b>12</b> appears at center. As shown at bottom, the top output pulse from AND gate <b>24</b> is sampled by the 32/33 Mhz clock <b>12</b> for a fixed period of, for example, one second. This is done by the pulse width measurement block <b>16</b>. The pulse width measurement block <b>16</b> then counts the sampled pulse train to determine the pulse width, and this is output to a hexadecimal display <b>28</b> (driven by a display driver <b>26</b>). The visual readout from the display <b>28</b> is thereby updated continuously to display the propagation delay through the delay chain.</p>
+    <p num="p-0045"> <figref idrefs="DRAWINGS">FIG. 4</figref> is a more detailed block diagram of the pulse width measurement block <b>16</b>, which again is preferably configured from combinatorial and sequential logic on the FPGA programmed to measure the output pulse width by sampling at the 1 pulse-per-second clock rate. The pulse generator <b>14</b> is also shown to the extent that the 1 pps clock from counter/divider <b>61</b> is used. The pulse width measurement block <b>16</b> is essentially another counter circuit comprising two synchronization circuits <b>62</b>, <b>64</b>, a 32-bit counter <b>66</b> that counts the sampled pulse train, and a 32-bit register to hold the count. More specifically, the 1 pps clock from counter/divider <b>61</b> is input to a 1 pps/32 Mhz synchronization circuit <b>62</b>, which synchronizes the 1 pps clock with the 32/33 Mhz clock <b>12</b> (see <figref idrefs="DRAWINGS">FIG. 2</figref>). The 1 pps/32 Mhz synchronization circuit <b>62</b> is in turn connected to the clear input of a 32-bit counter <b>66</b>. The sampled pulse train from <figref idrefs="DRAWINGS">FIG. 3</figref> (bottom) is likewise input to a 1 pps/32 Mhz synchronization circuit <b>64</b>, which is in turn connected to the enable input of the 32-bit counter <b>66</b>.</p>
+    <p num="p-0046">In order to give correct counter values, the counter <b>66</b> cannot have any asynchronous inputs. The two synchronization circuits <b>62</b>, <b>64</b> serve to re-synchronize the inputs to the counter <b>66</b> to avoid this problem. There are a variety of existing circuits that will suffice for the two synchronization circuits <b>62</b>, <b>64</b>, including a two stage synchronizer.</p>
+    <p num="p-0047">The counter <b>66</b> count value is fed to a 32-bit shift register <b>68</b> which records the number of times the pulse is ‘high’ during the 1-second sampling interval. At the end of the 1 second time interval the value of the counter <b>66</b> is transferred to shift register <b>68</b>, and the counter <b>66</b> is cleared.</p>
+    <p num="p-0048">It is noteworthy that the above-described circuit uses an additional asynchronous clock <b>12</b> autonomous from the main clock <b>10</b> and which operates autonomous therefrom. An individual pulse could only measured to an accuracy of 30 ns, but with two clocks there are 125000 pulses measured with different sampling points every time. The resulting accuracy is better than 0.25 ps. The key to the accuracy here is the use of the additional asynchronous clock. An additional sampling accuracy of the 1 pps second clock reduces the measurement accuracy to 30 ns, but this is averaged over 125K pulses, so it contributes only an additional 0.25 ps of error per pulse, and so the resulting accuracy is better than 0.25 ps.</p>
+    <p num="p-0049">Referring back to <figref idrefs="DRAWINGS">FIG. 2</figref>, the output from the 32-bit shift register <b>68</b> may be converted to a hex value using state machines, lookup tables, etc. The final two blocks in <figref idrefs="DRAWINGS">FIG. 2</figref> take the value in the shift register <b>68</b> of <figref idrefs="DRAWINGS">FIG. 4</figref> and convert it to a form which can be displayed. A display driver <b>26</b> is connected to a multidigit hex display <b>28</b> to continuously display the value.</p>
+    <p num="p-0050">For verification, the pulse generated in the internal logic through the delay chain may also be output off chip for corroboration of the pulse width on an external oscilloscope.</p>
+    <p num="p-0051">It should now be apparent that the above-described architecture and method provide a built-in self-test (BIST) for FPGA delay propagation using available (unused) FPGA resources, that eliminates input and output delays and provides far greater accuracy.</p>
+    <p num="p-0052">Having now fully set forth the preferred embodiment and certain modifications of the concept underlying the present invention, various other embodiments as well as certain variations and modifications of the embodiments herein shown and described will obviously occur to those skilled in the art upon becoming familiar with said underlying concept. It is to be understood, therefore, that the invention may be practiced otherwise than as specifically set forth in the appended claims.</p>
+    
+  </div>
+  </div>
+  </section>
+
+  <section itemprop="claims" itemscope>
+    <h2>Claims (<span itemprop="count">14</span>)</h2>
+    
+    <div itemprop="content" html><div mxw-id="PCLM33373650" lang="EN" load-source="patent-office" class="claims">
+    <div class="claim"> <div id="CLM-00001" num="00001" class="claim">
+      <div class="claim-text">1. A circuit architecture for built-in self-test (BIST) of propagation delay along a delay chain of an FPGA chip, comprising:
+<div class="claim-text">a pulse generator embedded on said FPGA chip and configured to generate an output pulse train at a first frequency, said output pulse train being input to the delay chain of the FPGA chip;</div>
+<div class="claim-text">a logic gate connected to an output of said delay chain and to said pulse generator for modulating a pulse width of said output pulse train to equal a propagation delay of said output pulse train through said delay chain; and,</div>
+<div class="claim-text">a pulse width measurement circuit embedded on said FPGA chip and configured to measure the modulated pulse width from said logic gate.</div>
+</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00002" num="00002" class="claim">
+      <div class="claim-text">2. The circuit architecture according to <claim-ref idref="CLM-00001">claim 1</claim-ref>, wherein said pulse width measurement circuit comprises two independent asynchronous clocks.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00003" num="00003" class="claim">
+      <div class="claim-text">3. The circuit architecture according to <claim-ref idref="CLM-00001">claim 1</claim-ref>, wherein a length of the delay chain of the FPGA chip is user-selectable.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00004" num="00004" class="claim">
+      <div class="claim-text">4. The circuit architecture according to <claim-ref idref="CLM-00003">claim 3</claim-ref>, further comprising a multiplexer for allowing user-selection of a length of the delay chain of the FPGA chip.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00005" num="00005" class="claim">
+      <div class="claim-text">5. The circuit architecture according to <claim-ref idref="CLM-00001">claim 1</claim-ref>, wherein said pulse width measurement circuit further comprises a counter and shift register.</div>
+    </div>
+    </div> <div class="claim"> <div id="CLM-00006" num="00006" class="claim">
+      <div class="claim-text">6. A method for a built-in self-test (BIST) of FPGA propagation delay, comprising the steps of:
+<div class="claim-text">embedding a pulse generator on an FPGA chip having a delay chain;</div>
+<div class="claim-text">embedding a pulse width measurement circuit on said FPGA chip;</div>
+<div class="claim-text">generating a test pulse train with said pulse generator at a first frequency and inputting said test pulse train to a delay chain under test on the FPGA chip;</div>
+<div class="claim-text">performing a logical operation on a pulse train output from said delay chain under test and said test pulse train to provide a pulse width modulated train with pulse width equal to a propagation delay of said test pulse train through said delay chain under test;</div>
+<div class="claim-text">measuring a modulated pulse width at said pulse width measurement circuit.</div>
+</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00007" num="00007" class="claim">
+      <div class="claim-text">7. The method according to <claim-ref idref="CLM-00006">claim 6</claim-ref>, further comprising the step of providing a digital display of said measured pulse width using an on-chip display driver.</div>
+    </div>
+    </div> <div class="claim"> <div id="CLM-00008" num="00008" class="claim">
+      <div class="claim-text">8. A method for built-in self-test (BIST) of FPGA delay chain faults, comprising the steps of:
+<div class="claim-text">incorporating an on-chip pulse generator and on-chip pulse width measurement circuit on an FPGA chip having a look up table (LUT) delay chain to be tested;</div>
+<div class="claim-text">generating a pulse at said pulse generator and inputting said pulse to said LUT delay chain;</div>
+<div class="claim-text">measuring a duration of said generated pulse through said LUT delay chain using said on-chip pulse measurement circuit;</div>
+<div class="claim-text">determining a delay through the LUT delay chain under test from said measured duration.</div>
+</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00009" num="00009" class="claim">
+      <div class="claim-text">9. The method according to <claim-ref idref="CLM-00008">claim 8</claim-ref>, wherein said input puke is generated on-chip.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00010" num="00010" class="claim">
+      <div class="claim-text">10. The method according to <claim-ref idref="CLM-00009">claim 9</claim-ref>, wherein said step of incorporating an on-chip pulse width measurement circuit comprises incorporating an on-chip pulse width measurement circuit having two independent asynchronous clocks.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00011" num="00011" class="claim">
+      <div class="claim-text">11. The method according to <claim-ref idref="CLM-00008">claim 8</claim-ref>, wherein said step of determining a delay through the LUT delay chain comprises converting the pulse width of an output pulse to a hex value and displaying the hex value on a display.</div>
+    </div>
+    </div> <div class="claim"> <div id="CLM-00012" num="00012" class="claim">
+      <div class="claim-text">12. A circuit for built-in self-test (BIST) of propagation delay along a delay chain of an FPGA chip, comprising:
+<div class="claim-text">a pulse generator embedded on said FPGA chip;</div>
+<div class="claim-text">a logic gate connected to an output of said delay chain and to said pulse generator; and</div>
+<div class="claim-text">a pulse width measurement circuit embedded on said FPGA chip further comprising two independent asynchronous clocks.</div>
+</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00013" num="00013" class="claim">
+      <div class="claim-text">13. The circuit according to <claim-ref idref="CLM-00012">claim 12</claim-ref>, further comprising a multiplexer for allowing user-selection of a length of the delay chain to be tested.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00014" num="00014" class="claim">
+      <div class="claim-text">14. The circuit according to <claim-ref idref="CLM-00012">claim 12</claim-ref>, wherein said pulse width measurement circuit further comprises a counter and shift register.</div>
+    </div>
+  </div> </div>
+  </div>
+  </section>
+
+  <section itemprop="application" itemscope>
+
+    <section itemprop="metadata" itemscope>
+        <span itemprop="applicationNumber">US12/040,459</span>
+        <span itemprop="priorityDate">2008-02-29</span>
+        <span itemprop="filingDate">2008-02-29</span>
+        <span itemprop="title">Precise delay measurement through combinatorial logic 
+       </span>
+        <span itemprop="ifiStatus">Expired - Fee Related</span>
+        
+        <a href="/patent/US7809521B1/en">
+            <span itemprop="representativePublication">US7809521B1</span>
+            (<span itemprop="primaryLanguage">en</span>)
+        </a>
+    </section>
+
+    <h2>Priority Applications (1)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                    <th>Title</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="priorityApps" itemscope repeat>
+                <td>
+                   <span itemprop="applicationNumber">US12/040,459</span>
+                   
+                   <a href="/patent/US7809521B1/en">
+                        <span itemprop="representativePublication">US7809521B1</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                <td itemprop="priorityDate">2008-02-29</td>
+                <td itemprop="filingDate">2008-02-29</td>
+                <td itemprop="title">Precise delay measurement through combinatorial logic 
+       </td>
+              </tr>
+           </tbody>
+       </table>
+
+    <h2>Applications Claiming Priority (1)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                    <th>Title</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="appsClaimingPriority" itemscope repeat>
+                <td>
+                   <span itemprop="applicationNumber">US12/040,459</span>
+                   <a href="/patent/US7809521B1/en">
+                        <span itemprop="representativePublication">US7809521B1</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                <td itemprop="priorityDate">2008-02-29</td>
+                <td itemprop="filingDate">2008-02-29</td>
+                <td itemprop="title">Precise delay measurement through combinatorial logic 
+       </td>
+              </tr>
+           </tbody>
+       </table>
+
+    
+
+    
+
+    <h2>Publications (1)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Publication Number</th>
+                    <th>Publication Date</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="pubs" itemscope repeat>
+                <td>
+                   <span itemprop="publicationNumber">US7809521B1</span>
+                   
+                   <span itemprop="thisPatent">true</span>
+                   <a href="/patent/US7809521B1/en">US7809521B1
+                       (<span itemprop="primaryLanguage">en</span>)
+                   </a>
+                </td>
+                <td itemprop="publicationDate">2010-10-05</td>
+              </tr>
+           </tbody>
+        </table>
+
+  </section>
+
+  <section itemprop="family" itemscope>
+    <h1>Family</h1>
+    <h2>ID=42797824</h2>
+
+    <h2>Family Applications (1)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Title</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="applications" itemscope repeat>
+                <td>
+                    <span itemprop="applicationNumber">US12/040,459</span>
+                    <span itemprop="ifiStatus">Expired - Fee Related</span>
+                    
+                    <a href="/patent/US7809521B1/en">
+                        <span itemprop="representativePublication">US7809521B1</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                </td>
+                <td itemprop="priorityDate">2008-02-29</td>
+                <td itemprop="filingDate">2008-02-29</td>
+                <td itemprop="title">Precise delay measurement through combinatorial logic 
+       </td>
+              </tr>
+           </tbody>
+        </table>
+
+    
+
+    
+
+    <h2>Country Status (1)</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Country</th>
+            <th>Link</th>
+          </tr>
+        </thead>
+        <tbody>
+        <tr itemprop="countryStatus" itemscope repeat>
+            <td>
+              <span itemprop="countryCode">US</span>
+                (<span itemprop="num">1</span>)
+              <meta itemprop="thisCountry" content="true">
+            </td>
+            <td>
+              <a href="/patent/US7809521B1/en">
+                <span itemprop="representativePublication">US7809521B1</span>
+                  (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+    <h2>Cited By (3)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20110038451A1/en">
+              <span itemprop="publicationNumber">US20110038451A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2009-08-14</td>
+          <td itemprop="publicationDate">2011-02-17</td>
+          <td><span itemprop="assigneeOriginal">Taiwan Semiconductor Manufacturing Company, Ltd.</span></td>
+          <td itemprop="title">Ultra high resolution timing measurement 
+       </td>
+        </tr><tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20120319752A1/en">
+              <span itemprop="publicationNumber">US20120319752A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2011-06-17</td>
+          <td itemprop="publicationDate">2012-12-20</td>
+          <td><span itemprop="assigneeOriginal">Telefonaktiebolaget Lm Ericsson(Publ)</span></td>
+          <td itemprop="title">Look-up tables for delay circuitry in field programmable gate array (fpga) chipsets 
+       </td>
+        </tr><tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/CN103368531A/en">
+              <span itemprop="publicationNumber">CN103368531A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2013-06-13</td>
+          <td itemprop="publicationDate">2013-10-23</td>
+          <td><span itemprop="assigneeOriginal">郑州威科姆科技股份有限公司</span></td>
+          <td itemprop="title">Complete timing pulse synchronous performance test method and device 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+
+    
+
+    <h2>Citations (11)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5631596A/en">
+              <span itemprop="publicationNumber">US5631596A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1994-08-09</td>
+          <td itemprop="publicationDate">1997-05-20</td>
+          <td><span itemprop="assigneeOriginal">Lsi Logic Corporation</span></td>
+          <td itemprop="title">Process monitor for CMOS integrated circuits 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5822228A/en">
+              <span itemprop="publicationNumber">US5822228A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1997-05-27</td>
+          <td itemprop="publicationDate">1998-10-13</td>
+          <td><span itemprop="assigneeOriginal">Lsi Logic Corporation</span></td>
+          <td itemprop="title">Method for using built in self test to characterize input-to-output delay time of embedded cores and other integrated circuits 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5923676A/en">
+              <span itemprop="publicationNumber">US5923676A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1996-12-20</td>
+          <td itemprop="publicationDate">1999-07-13</td>
+          <td><span itemprop="assigneeOriginal">Logic Vision, Inc.</span></td>
+          <td itemprop="title">Bist architecture for measurement of integrated circuit delays 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6075418A/en">
+              <span itemprop="publicationNumber">US6075418A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1996-09-17</td>
+          <td itemprop="publicationDate">2000-06-13</td>
+          <td><span itemprop="assigneeOriginal">Xilinx, Inc.</span></td>
+          <td itemprop="title">System with downstream set or clear for measuring signal propagation delays on integrated circuits 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6081473A/en">
+              <span itemprop="publicationNumber">US6081473A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1998-12-15</td>
+          <td itemprop="publicationDate">2000-06-27</td>
+          <td><span itemprop="assigneeOriginal">Lattice Semiconductor Corporation</span></td>
+          <td itemprop="title">FPGA integrated circuit having embedded sram memory blocks each with statically and dynamically controllable read mode 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6466520B1/en">
+              <span itemprop="publicationNumber">US6466520B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1996-09-17</td>
+          <td itemprop="publicationDate">2002-10-15</td>
+          <td><span itemprop="assigneeOriginal">Xilinx, Inc.</span></td>
+          <td itemprop="title">Built-in AC self test using pulse generators 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6538465B1/en">
+              <span itemprop="publicationNumber">US6538465B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2001-11-23</td>
+          <td itemprop="publicationDate">2003-03-25</td>
+          <td><span itemprop="assigneeOriginal">Mosaid Technologies Incorporated</span></td>
+          <td itemprop="title">Digitally controlled pulse width adjusting circuit 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20030098731A1/en">
+              <span itemprop="publicationNumber">US20030098731A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2000-03-17</td>
+          <td itemprop="publicationDate">2003-05-29</td>
+          <td><span itemprop="assigneeOriginal">Sassan Tabatabaei</span></td>
+          <td itemprop="title">High resolution time-to-digital converter 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20050149777A1/en">
+              <span itemprop="publicationNumber">US20050149777A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2003-12-18</td>
+          <td itemprop="publicationDate">2005-07-07</td>
+          <td><span itemprop="assigneeOriginal">Xilinx, Inc.</span></td>
+          <td itemprop="title">Characterizing circuit performance by separating device and interconnect impact on signal delay 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6983394B1/en">
+              <span itemprop="publicationNumber">US6983394B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2003-01-24</td>
+          <td itemprop="publicationDate">2006-01-03</td>
+          <td><span itemprop="assigneeOriginal">Xilinx, Inc.</span></td>
+          <td itemprop="title">Method and apparatus for clock signal performance measurement 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7256610B1/en">
+              <span itemprop="publicationNumber">US7256610B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2003-07-31</td>
+          <td itemprop="publicationDate">2007-08-14</td>
+          <td><span itemprop="assigneeOriginal">Actel Corporation</span></td>
+          <td itemprop="title">Programmable system on a chip for temperature monitoring and control 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+
+    
+
+    
+    <ul>
+      
+      <li itemprop="applicationsByYear" itemscope repeat>
+        <span itemprop="year">2008</span>
+        <ul>
+          
+          <li itemprop="application" itemscope repeat>
+            <span itemprop="filingDate">2008-02-29</span>
+            <span itemprop="countryCode">US</span>
+            <span itemprop="applicationNumber">US12/040,459</span>
+            <a href="/patent/US7809521B1/en"><span itemprop="documentId">patent/US7809521B1/en</span></a>
+            <span itemprop="legalStatusCat">not_active</span>
+            <span itemprop="legalStatus">Expired - Fee Related</span>
+            
+            <span itemprop="thisApp" content="true" bool></span>
+            
+          </li>
+          
+        </ul>
+      </li>
+      
+    </ul>
+    
+
+    </section>
+
+  <section>
+    <h2>Patent Citations (11)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5631596A/en">
+              <span itemprop="publicationNumber">US5631596A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1994-08-09</td>
+          <td itemprop="publicationDate">1997-05-20</td>
+          <td><span itemprop="assigneeOriginal">Lsi Logic Corporation</span></td>
+          <td itemprop="title">Process monitor for CMOS integrated circuits 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6075418A/en">
+              <span itemprop="publicationNumber">US6075418A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1996-09-17</td>
+          <td itemprop="publicationDate">2000-06-13</td>
+          <td><span itemprop="assigneeOriginal">Xilinx, Inc.</span></td>
+          <td itemprop="title">System with downstream set or clear for measuring signal propagation delays on integrated circuits 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6466520B1/en">
+              <span itemprop="publicationNumber">US6466520B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1996-09-17</td>
+          <td itemprop="publicationDate">2002-10-15</td>
+          <td><span itemprop="assigneeOriginal">Xilinx, Inc.</span></td>
+          <td itemprop="title">Built-in AC self test using pulse generators 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5923676A/en">
+              <span itemprop="publicationNumber">US5923676A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1996-12-20</td>
+          <td itemprop="publicationDate">1999-07-13</td>
+          <td><span itemprop="assigneeOriginal">Logic Vision, Inc.</span></td>
+          <td itemprop="title">Bist architecture for measurement of integrated circuit delays 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5822228A/en">
+              <span itemprop="publicationNumber">US5822228A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1997-05-27</td>
+          <td itemprop="publicationDate">1998-10-13</td>
+          <td><span itemprop="assigneeOriginal">Lsi Logic Corporation</span></td>
+          <td itemprop="title">Method for using built in self test to characterize input-to-output delay time of embedded cores and other integrated circuits 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6081473A/en">
+              <span itemprop="publicationNumber">US6081473A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1998-12-15</td>
+          <td itemprop="publicationDate">2000-06-27</td>
+          <td><span itemprop="assigneeOriginal">Lattice Semiconductor Corporation</span></td>
+          <td itemprop="title">FPGA integrated circuit having embedded sram memory blocks each with statically and dynamically controllable read mode 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20030098731A1/en">
+              <span itemprop="publicationNumber">US20030098731A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2000-03-17</td>
+          <td itemprop="publicationDate">2003-05-29</td>
+          <td><span itemprop="assigneeOriginal">Sassan Tabatabaei</span></td>
+          <td itemprop="title">High resolution time-to-digital converter 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6538465B1/en">
+              <span itemprop="publicationNumber">US6538465B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2001-11-23</td>
+          <td itemprop="publicationDate">2003-03-25</td>
+          <td><span itemprop="assigneeOriginal">Mosaid Technologies Incorporated</span></td>
+          <td itemprop="title">Digitally controlled pulse width adjusting circuit 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6983394B1/en">
+              <span itemprop="publicationNumber">US6983394B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2003-01-24</td>
+          <td itemprop="publicationDate">2006-01-03</td>
+          <td><span itemprop="assigneeOriginal">Xilinx, Inc.</span></td>
+          <td itemprop="title">Method and apparatus for clock signal performance measurement 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7256610B1/en">
+              <span itemprop="publicationNumber">US7256610B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2003-07-31</td>
+          <td itemprop="publicationDate">2007-08-14</td>
+          <td><span itemprop="assigneeOriginal">Actel Corporation</span></td>
+          <td itemprop="title">Programmable system on a chip for temperature monitoring and control 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20050149777A1/en">
+              <span itemprop="publicationNumber">US20050149777A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2003-12-18</td>
+          <td itemprop="publicationDate">2005-07-07</td>
+          <td><span itemprop="assigneeOriginal">Xilinx, Inc.</span></td>
+          <td itemprop="title">Characterizing circuit performance by separating device and interconnect impact on signal delay 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Non-Patent Citations (6)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Abramovici M. and Stroud C. , "<a href='http://scholar.google.com/scholar?q="BIST-based+delay-fault+testing+in+FPGAs%2C"'>BIST-based delay-fault testing in FPGAs,</a>" Journal of Electronic Testing, vol. 19, No. 5, pp. 549-558, Oct. 2003.</span>
+            
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Chmelar E. "<a href='http://scholar.google.com/scholar?q="FPGA+interconnect+delay+fault+testing%2C"'>FPGA interconnect delay fault testing,</a>" in IEEE Int. Test Conf., Charlotte, NC, Sep. 2003, pp. 1239-1247.</span>
+            
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Mattia Ruffoni et al., "<a href='http://scholar.google.com/scholar?q="Direct+Measures+of+Path+Delays+on+Commercial+FPGA+Chips"'>Direct Measures of Path Delays on Commercial FPGA Chips</a>", 6th IEE Workshop on. Proceedings volume Issue . 2002 pp. 157-159.</span>
+            
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Premachandran R. et al.. Design-Specific Path Delay Testing in Lookup Table-based FPGAs, Transactions on Computer-Aided Design of Integrated Circuits . . . , vol. XX, No. Y (2005).</span>
+            
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Santos A, CMOS delay locked and sub-nanosecond time-to-digital converter chip, IEEE Trans on Nuclear Science, vol. 43, pp. 1717-1719, Jun. 1996.</span>
+            
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Tahoori M. and Miltra S., "<a href='http://scholar.google.com/scholar?q="Interconnect+delay+testing+of+designs+on+programmable+logic+devices%2C"'>Interconnect delay testing of designs on programmable logic devices,</a>" in IEEE Int. Test Conf., Charlotte, NC, Oct. 2004.</span>
+            
+            
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <h2>Cited By (7)</h2>
+  <table>
+    <caption>* Cited by examiner, † Cited by third party</caption>
+    <thead>
+      <tr>
+        <th>Publication number</th>
+        <th>Priority date</th>
+        <th>Publication date</th>
+        <th>Assignee</th>
+        <th>Title</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US20110038451A1/en">
+            <span itemprop="publicationNumber">US20110038451A1</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2009-08-14</td>
+        <td itemprop="publicationDate">2011-02-17</td>
+        <td><span itemprop="assigneeOriginal">Taiwan Semiconductor Manufacturing Company, Ltd.</span></td>
+        <td itemprop="title">Ultra high resolution timing measurement 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US7986591B2/en">
+            <span itemprop="publicationNumber">US7986591B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2009-08-14</td>
+        <td itemprop="publicationDate">2011-07-26</td>
+        <td><span itemprop="assigneeOriginal">Taiwan Semiconductor Manufacturing Company, Ltd.</span></td>
+        <td itemprop="title">Ultra high resolution timing measurement 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US8305847B2/en">
+            <span itemprop="publicationNumber">US8305847B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          
+          
+        </td>
+        <td itemprop="priorityDate">2009-08-14</td>
+        <td itemprop="publicationDate">2012-11-06</td>
+        <td><span itemprop="assigneeOriginal">Taiwan Semiconductor Manufacturing Company, Ltd.</span></td>
+        <td itemprop="title">Ultra high resolution timing measurement 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US20120319752A1/en">
+            <span itemprop="publicationNumber">US20120319752A1</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2011-06-17</td>
+        <td itemprop="publicationDate">2012-12-20</td>
+        <td><span itemprop="assigneeOriginal">Telefonaktiebolaget Lm Ericsson(Publ)</span></td>
+        <td itemprop="title">Look-up tables for delay circuitry in field programmable gate array (fpga) chipsets 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/EP2561615A4/en">
+            <span itemprop="publicationNumber">EP2561615A4</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2011-06-17</td>
+        <td itemprop="publicationDate">2015-05-06</td>
+        <td><span itemprop="assigneeOriginal">Ericsson Telefon Ab L M</span></td>
+        <td itemprop="title">Look-up tables for delay circuitry in field programmable gate array (fpga) chipsets 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/CN103368531A/en">
+            <span itemprop="publicationNumber">CN103368531A</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2013-06-13</td>
+        <td itemprop="publicationDate">2013-10-23</td>
+        <td><span itemprop="assigneeOriginal">郑州威科姆科技股份有限公司</span></td>
+        <td itemprop="title">Complete timing pulse synchronous performance test method and device 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/CN103368531B/en">
+            <span itemprop="publicationNumber">CN103368531B</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2013-06-13</td>
+        <td itemprop="publicationDate">2015-10-28</td>
+        <td><span itemprop="assigneeOriginal">郑州威科姆科技股份有限公司</span></td>
+        <td itemprop="title">  Completeness timing pulse synchronization performance test method and apparatus  </td>
+      </tr>
+    </tbody>
+  </table>
+
+  
+
+  <section>
+    <h2>Similar Documents</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Publication</th>
+          <th>Publication Date</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US6442722B1/en">
+                <span itemprop="publicationNumber">US6442722B1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2002-08-27">2002-08-27</time>
+            
+            
+          </td>
+          <td itemprop="title">Method and apparatus for testing circuits with multiple clocks 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US5428626A/en">
+                <span itemprop="publicationNumber">US5428626A</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="1995-06-27">1995-06-27</time>
+            
+            
+          </td>
+          <td itemprop="title">Timing analyzer for embedded testing 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US5083299A/en">
+                <span itemprop="publicationNumber">US5083299A</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="1992-01-21">1992-01-21</time>
+            
+            
+          </td>
+          <td itemprop="title">Tester for measuring signal propagation delay through electronic components 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/DE60204597T2/en">
+                <span itemprop="publicationNumber">DE60204597T2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2006-03-16">2006-03-16</time>
+            
+            
+          </td>
+          <td itemprop="title">Compact automatic tester (ate) with timing stamp system 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US5796682A/en">
+                <span itemprop="publicationNumber">US5796682A</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="1998-08-18">1998-08-18</time>
+            
+            
+          </td>
+          <td itemprop="title">Method for measuring time and structure therefor 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US5923676A/en">
+                <span itemprop="publicationNumber">US5923676A</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="1999-07-13">1999-07-13</time>
+            
+            
+          </td>
+          <td itemprop="title">Bist architecture for measurement of integrated circuit delays 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US5867036A/en">
+                <span itemprop="publicationNumber">US5867036A</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="1999-02-02">1999-02-02</time>
+            
+            
+          </td>
+          <td itemprop="title">Domino scan architecture and domino scan flip-flop for the testing of domino and hybrid CMOS circuits 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US5099196A/en">
+                <span itemprop="publicationNumber">US5099196A</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="1992-03-24">1992-03-24</time>
+            
+            
+          </td>
+          <td itemprop="title">On-chip integrated circuit speed selection 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/EP0402134A2/en">
+                <span itemprop="publicationNumber">EP0402134A2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="1990-12-12">1990-12-12</time>
+            
+            
+          </td>
+          <td itemprop="title">Delay fault testing apparatus 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US6510534B1/en">
+                <span itemprop="publicationNumber">US6510534B1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2003-01-21">2003-01-21</time>
+            
+            
+          </td>
+          <td itemprop="title">Method and apparatus for testing high performance circuits 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US7421633B2/en">
+                <span itemprop="publicationNumber">US7421633B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2008-09-02">2008-09-02</time>
+            
+            
+          </td>
+          <td itemprop="title">Controller receiving combined TMS/TDI and suppyling separate TMS and TDI 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US6058496A/en">
+                <span itemprop="publicationNumber">US6058496A</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2000-05-02">2000-05-02</time>
+            
+            
+          </td>
+          <td itemprop="title">Self-timed AC CIO wrap method and apparatus 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US7519879B2/en">
+                <span itemprop="publicationNumber">US7519879B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2009-04-14">2009-04-14</time>
+            
+            
+          </td>
+          <td itemprop="title">Apparatus and method for dynamic in-circuit probing of field programmable gate arrays 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US6233205B1/en">
+                <span itemprop="publicationNumber">US6233205B1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2001-05-15">2001-05-15</time>
+            
+            
+          </td>
+          <td itemprop="title">Built-in self test method for measuring clock to out delays 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="7703057321949008535">
+              <a href="/scholar/7703057321949008535"><span itemprop="scholarAuthors">Ljuslin et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1994">1994</time>
+            
+          </td>
+          <td itemprop="title">An integrated 16-channel CMOS time to digital converter</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US6539508B1/en">
+                <span itemprop="publicationNumber">US6539508B1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2003-03-25">2003-03-25</time>
+            
+            
+          </td>
+          <td itemprop="title">Methods and circuits for testing programmable logic 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US7249298B2/en">
+                <span itemprop="publicationNumber">US7249298B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2007-07-24">2007-07-24</time>
+            
+            
+          </td>
+          <td itemprop="title">Multiple scan chains with pin sharing 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US8205125B2/en">
+                <span itemprop="publicationNumber">US8205125B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2012-06-19">2012-06-19</time>
+            
+            
+          </td>
+          <td itemprop="title">Enhanced control in scan tests of integrated circuits with partitioned scan chains 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US6668346B1/en">
+                <span itemprop="publicationNumber">US6668346B1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2003-12-23">2003-12-23</time>
+            
+            
+          </td>
+          <td itemprop="title">Digital process monitor 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US6219305B1/en">
+                <span itemprop="publicationNumber">US6219305B1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2001-04-17">2001-04-17</time>
+            
+            
+          </td>
+          <td itemprop="title">Method and system for measuring signal propagation delays using ring oscillators 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US5686855A/en">
+                <span itemprop="publicationNumber">US5686855A</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="1997-11-11">1997-11-11</time>
+            
+            
+          </td>
+          <td itemprop="title">Process monitor for CMOS integrated circuits 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US6466520B1/en">
+                <span itemprop="publicationNumber">US6466520B1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2002-10-15">2002-10-15</time>
+            
+            
+          </td>
+          <td itemprop="title">Built-in AC self test using pulse generators 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US7020862B1/en">
+                <span itemprop="publicationNumber">US7020862B1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2006-03-28">2006-03-28</time>
+            
+            
+          </td>
+          <td itemprop="title">Circuits and methods for analyzing timing characteristics of sequential logic elements 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/EP0632384A1/en">
+                <span itemprop="publicationNumber">EP0632384A1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="1995-01-04">1995-01-04</time>
+            
+            
+          </td>
+          <td itemprop="title">High speed and programmable array clock generator circuit for abist semiconductor memory chips 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/WO2002088759A1/en">
+                <span itemprop="publicationNumber">WO2002088759A1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2002-11-07">2002-11-07</time>
+            
+            
+          </td>
+          <td itemprop="title">Method and circuit for testing high frequency mixed signal circuits with low frequency signals 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Legal Events</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Code</th>
+          <th>Title</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2008-03-05">2008-03-05</time></td>
+          <td itemprop="code">AS</td>
+          <td itemprop="title">Assignment</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Owner name</strong>:
+              <span itemprop="value">CALIFORNIA INSTITUTE OF TECHNOLOGY, CALIFORNIA</span>
+            </p>
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">ASSIGNMENT OF ASSIGNORS INTEREST;ASSIGNORS:BURKE, GARY R.;CHEN, YUAN;SHELDON, DOUGLAS J.;REEL/FRAME:020606/0295</span>
+            </p>
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Effective date</strong>:
+              <span itemprop="value">20080229</span>
+            </p>
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Owner name</strong>:
+              <span itemprop="value">U.S. GOVERNMENT AS REPRESENTED BY THE ADMINISTRATO</span>
+            </p>
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">ASSIGNMENT OF ASSIGNORS INTEREST;ASSIGNOR:CALIFORNIA INSTITUTE OF TECHNOLOGY;REEL/FRAME:020606/0290</span>
+            </p>
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Effective date</strong>:
+              <span itemprop="value">20080305</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2014-03-27">2014-03-27</time></td>
+          <td itemprop="code">FPAY</td>
+          <td itemprop="title">Fee payment</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Year of fee payment</strong>:
+              <span itemprop="value">4</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2018-05-21">2018-05-21</time></td>
+          <td itemprop="code">FEPP</td>
+          <td itemprop="title">Fee payment procedure</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">MAINTENANCE FEE REMINDER MAILED (ORIGINAL EVENT CODE: REM.)</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2018-11-12">2018-11-12</time></td>
+          <td itemprop="code">LAPS</td>
+          <td itemprop="title">Lapse for failure to pay maintenance fees</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">PATENT EXPIRED FOR FAILURE TO PAY MAINTENANCE FEES (ORIGINAL EVENT CODE: EXP.); ENTITY STATUS OF PATENT OWNER: LARGE ENTITY</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2018-11-12">2018-11-12</time></td>
+          <td itemprop="code">STCH</td>
+          <td itemprop="title">Information on status: patent discontinuation</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">PATENT EXPIRED DUE TO NONPAYMENT OF MAINTENANCE FEES UNDER 37 CFR 1.362</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2018-12-04">2018-12-04</time></td>
+          <td itemprop="code">FP</td>
+          <td itemprop="title">Expired due to failure to pay maintenance fee</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Effective date</strong>:
+              <span itemprop="value">20181005</span>
+            </p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+</article>
+
+    </search-app>
+    <script type="text/javascript" src="//www.gstatic.com/feedback/api.js"></script>
+    <script async="" defer="" src="//www.google.com/insights/consumersurveys/async_survey?site=cxkjf7ipxgbnnjy6k35ezcvbbe"></script>
+  </body>
+</html>

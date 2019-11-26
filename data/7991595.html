@@ -1,0 +1,3689 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>US7991595B2 - Adaptive refinement tools for tetrahedral unstructured grids 
+        - Google Patents</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="referrer" content="origin-when-crossorigin">
+    <link rel="canonical" href="https://patents.google.com/patent/US7991595B2/en">
+    <meta name="description" content="
+     An exemplary embodiment providing one or more improvements includes software which is robust, efficient, and has a very fast run time for user directed grid enrichment and flow solution adaptive grid refinement. All user selectable options (e.g., the choice of functions, the choice of thresholds, etc.), other than a pre-marked cell list, can be entered on the command line. The ease of application is an asset for flow physics research and preliminary design CFD analysis where fast grid modification is often needed to deal with unanticipated development of flow details. 
+   
+   ">
+    
+    <meta name="DC.type" content="patent">
+    
+    <meta name="DC.title" content="Adaptive refinement tools for tetrahedral unstructured grids 
+       ">
+    
+    <meta name="DC.date" content="2008-06-13" scheme="dateSubmitted">
+    
+    <meta name="DC.description" content="
+     An exemplary embodiment providing one or more improvements includes software which is robust, efficient, and has a very fast run time for user directed grid enrichment and flow solution adaptive grid refinement. All user selectable options (e.g., the choice of functions, the choice of thresholds, etc.), other than a pre-marked cell list, can be entered on the command line. The ease of application is an asset for flow physics research and preliminary design CFD analysis where fast grid modification is often needed to deal with unanticipated development of flow details. 
+   
+   ">
+    
+    <meta name="citation_patent_application_number" content="US:12/138,768">
+    
+    <meta name="citation_pdf_url" content="https://patentimages.storage.googleapis.com/e1/0b/d3/c1cdc579a1e91b/US7991595.pdf">
+    
+    <meta name="citation_patent_number" content="US:7991595">
+    
+    <meta name="DC.date" content="2011-08-02" scheme="issue">
+    
+    <meta name="DC.contributor" content="S. Paul Pao" scheme="inventor">
+    
+    <meta name="DC.contributor" content="Khaled S. Abdol-Hamid" scheme="inventor">
+    
+    <meta name="DC.contributor" content="National Aeronautics and Space Administration (NASA)" scheme="assignee">
+    
+    <meta name="DC.relation" content="US:4711062" scheme="references">
+    
+    <meta name="DC.relation" content="US:5113490" scheme="references">
+    
+    <meta name="DC.relation" content="US:5603188" scheme="references">
+    
+    <meta name="DC.relation" content="US:5617322" scheme="references">
+    
+    <meta name="DC.relation" content="US:5768156" scheme="references">
+    
+    <meta name="DC.relation" content="US:5923329" scheme="references">
+    
+    <meta name="DC.relation" content="JP:2007265459:A" scheme="references">
+    
+    <meta name="DC.relation" content="US:6445390" scheme="references">
+    
+    <meta name="DC.relation" content="US:6088521" scheme="references">
+    
+    <meta name="DC.relation" content="US:6519553" scheme="references">
+    
+    <meta name="DC.relation" content="US:6654710" scheme="references">
+    
+    <meta name="DC.relation" content="US:6453275" scheme="references">
+    
+    <meta name="DC.relation" content="US:6356860" scheme="references">
+    
+    <meta name="DC.relation" content="US:7035782" scheme="references">
+    
+    <meta name="DC.relation" content="US:7043413" scheme="references">
+    
+    <meta name="DC.relation" content="US:7339584" scheme="references">
+    
+    <meta name="DC.relation" content="US:7200532" scheme="references">
+    
+    <meta name="DC.relation" content="US:7152017" scheme="references">
+    
+    <meta name="DC.relation" content="US:20050172249:A1" scheme="references">
+    
+    <meta name="DC.relation" content="US:7120544" scheme="references">
+    
+    <meta name="DC.relation" content="US:20050219445:A1" scheme="references">
+    
+    <meta name="DC.relation" content="US:20060025973:A1" scheme="references">
+    
+    <meta name="DC.relation" content="US:20060078172:A1" scheme="references">
+    
+    <meta name="DC.relation" content="US:20060058985:A1" scheme="references">
+    
+    <meta name="DC.relation" content="US:20080103742:A1" scheme="references">
+    
+    <meta name="DC.relation" content="JP:2007190827:A" scheme="references">
+    
+    <meta name="DC.relation" content="US:20070239414:A1" scheme="references">
+    
+    <meta name="DC.relation" content="US:20080015825:A1" scheme="references">
+    
+    <meta name="DC.relation" content="US:20080126046:A1" scheme="references">
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,400italic,500,500italic,700">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Product+Sans">
+    <style>
+      body { transition: none; }
+    </style>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-27188110-4', 'auto');
+
+      version = 'patent-search.search_20191120_RC00';
+
+      function sendFeedback() {
+        userfeedback.api.startFeedback({
+          'productId': '713680',
+          'bucket': 'patent-search-web',
+          'productVersion': version,
+        });
+      }
+
+      window.experiments = {};
+      window.experiments.patentCountries = "ae,ag,al,am,ao,ap,ar,at,au,aw,az,ba,bb,bd,be,bf,bg,bh,bj,bn,bo,br,bw,bx,by,bz,ca,cf,cg,ch,ci,cl,cm,cn,co,cr,cs,cu,cy,cz,dd,de,dj,dk,dm,do,dz,ea,ec,ee,eg,em,ep,es,fi,fr,ga,gb,gc,gd,ge,gh,gm,gn,gq,gr,gt,gw,hk,hn,hr,hu,ib,id,ie,il,in,ir,is,it,jo,jp,ke,kg,kh,km,kn,kp,kr,kw,kz,la,lc,li,lk,lr,ls,lt,lu,lv,ly,ma,mc,md,me,mg,mk,ml,mn,mo,mr,mt,mw,mx,my,mz,na,ne,ng,ni,nl,no,nz,oa,om,pa,pe,pg,ph,pl,pt,py,qa,ro,rs,ru,rw,sa,sc,sd,se,sg,si,sk,sl,sm,sn,st,su,sv,sy,sz,td,tg,th,tj,tm,tn,tr,tt,tw,tz,ua,ug,us,uy,uz,vc,ve,vn,wo,yu,za,zm,zw";
+      
+      
+      window.profilePicture = "";
+
+      window.Polymer = {
+        dom: 'shady',
+        lazyRegister: true,
+      };
+    </script>
+
+    <script src="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/webcomponentsjs/webcomponents-lite.min.js"></script>
+    
+    <link rel="import" href="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/search-app-vulcanized.html">
+    
+  </head>
+  <body unresolved>
+    
+    <script src="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/search-app-vulcanized.js"></script>
+    
+    <search-app>
+      
+      
+
+      <article class="result" itemscope itemtype="http://schema.org/ScholarlyArticle">
+  <h1 itemprop="pageTitle">US7991595B2 - Adaptive refinement tools for tetrahedral unstructured grids 
+        - Google Patents</h1>
+  <span itemprop="title">Adaptive refinement tools for tetrahedral unstructured grids 
+       </span>
+
+  <meta itemprop="type" content="patent">
+  <a href="https://patentimages.storage.googleapis.com/e1/0b/d3/c1cdc579a1e91b/US7991595.pdf" itemprop="pdfLink">Download PDF</a>
+  <h2>Info</h2>
+
+  <dl>
+    <dt>Publication number</dt>
+    <dd itemprop="publicationNumber">US7991595B2</dd>
+    <meta itemprop="numberWithoutCodes" content="7991595">
+    <meta itemprop="kindCode" content="B2">
+    <meta itemprop="publicationDescription" content="Patent ( having previously published pre-grant publication)">
+    
+    <span>US7991595B2</span>
+    
+    <span>US12/138,768</span>
+    
+    <span>US13876808A</span>
+    
+    <span>US7991595B2</span>
+    
+    <span>US 7991595 B2</span>
+    
+    <span>US7991595 B2</span>
+    
+    <span>US 7991595B2</span>
+    
+    <span>  </span>
+    
+    <span> </span>
+    
+    <span> </span>
+    
+    <span>US 13876808 A</span>
+    
+    <span>US13876808 A</span>
+    
+    <span>US 13876808A</span>
+    
+    <span>US 7991595 B2</span>
+    
+    <span>US7991595 B2</span>
+    
+    <span>US 7991595B2</span>
+    
+
+    <dt>Authority</dt>
+    <dd itemprop="countryCode">US</dd>
+    <dd itemprop="countryName">United States</dd>
+
+    <dt>Prior art keywords</dt>
+    
+    <dd itemprop="priorArtKeywords" repeat>edges</dd>
+    <dd itemprop="priorArtKeywords" repeat>edge</dd>
+    <dd itemprop="priorArtKeywords" repeat>means</dd>
+    <dd itemprop="priorArtKeywords" repeat>cells</dd>
+    <dd itemprop="priorArtKeywords" repeat>grid</dd>
+
+    <dt>Prior art date</dt>
+    <dd><time itemprop="priorArtDate" datetime="2007-06-13">2007-06-13</time></dd>
+
+    <dt>Legal status (The legal status is an assumption and is not a legal conclusion. Google has not performed a legal analysis and makes no representation as to the accuracy of the status listed.)</dt>
+    <dd itemprop="legalStatusIfi" itemscope>
+      <span itemprop="status">Expired - Fee Related</span>, expires <time itemprop="expiration" datetime="2029-06-07">2029-06-07</time>
+    </dd>
+  </dl>
+
+  <dt>Application number</dt>
+  <dd itemprop="applicationNumber">US12/138,768</dd>
+
+  
+
+  <dt>Other versions</dt>
+  <dd itemprop="directAssociations" itemscope repeat>
+    
+    <a href="/patent/US20080312887A1/en">
+      <span itemprop="publicationNumber">US20080312887A1</span>
+      (<span itemprop="primaryLanguage">en</span>
+    </a>
+  </dd>
+
+  <dt>Inventor</dt>
+  <dd itemprop="inventor" repeat>S. Paul Pao</dd>
+  <dd itemprop="inventor" repeat>Khaled S. Abdol-Hamid</dd>
+  <dt>Current Assignee (The listed assignees may be inaccurate. Google has not performed a legal analysis and makes no representation or warranty as to the accuracy of the list.)</dt>
+  <dd itemprop="assigneeCurrent" repeat>
+    National Aeronautics and Space Administration (NASA)
+  </dd>
+
+  <dt>Original Assignee</dt>
+  <dd itemprop="assigneeOriginal" repeat>National Aeronautics and Space Administration (NASA)</dd>
+
+  <dt>Priority date (The priority date is an assumption and is not a legal conclusion. Google has not performed a legal analysis and makes no representation as to the accuracy of the date listed.)</dt>
+  <dd><time itemprop="priorityDate" datetime="2007-06-13">2007-06-13</time></dd>
+
+  <dt>Filing date</dt>
+  <dd><time itemprop="filingDate" datetime="2008-06-13">2008-06-13</time></dd>
+
+  <dt>Publication date</dt>
+  <dd><time itemprop="publicationDate" datetime="2011-08-02">2011-08-02</time></dd>
+
+  
+
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2007-06-13">2007-06-13</time>
+    <span itemprop="title">Priority to US94363507P</span>
+    <span itemprop="type">priority</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2008-06-13">2008-06-13</time>
+    <span itemprop="title">Application filed by National Aeronautics and Space Administration (NASA)</span>
+    <span itemprop="type">filed</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    <span itemprop="assigneeSearch">National Aeronautics and Space Administration (NASA)</span>
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2008-06-13">2008-06-13</time>
+    <span itemprop="title">Priority to US12/138,768</span>
+    <span itemprop="type">priority</span>
+    
+    
+    
+    <span itemprop="documentId">patent/US7991595B2/en</span>
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2008-06-27">2008-06-27</time>
+    <span itemprop="title">Assigned to UNITED STATES OF AMERICA AS REPRESENTED BY THE ADMINISTRATOR OF THE NATIONAL AERONAUTICS AND SPACE ADMINISTRATION</span>
+    <span itemprop="type">reassignment</span>
+    
+    
+    
+    
+    <span itemprop="assigneeSearch">UNITED STATES OF AMERICA AS REPRESENTED BY THE ADMINISTRATOR OF THE NATIONAL AERONAUTICS AND SPACE ADMINISTRATION</span>
+    
+    
+    <span itemprop="description" repeat>ASSIGNMENT OF ASSIGNORS INTEREST (SEE DOCUMENT FOR DETAILS).</span>
+    
+    <span itemprop="description" repeat>Assignors: ABDOL-HAMID, KHALED S., PAO, S. PAUL</span>
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2008-12-18">2008-12-18</time>
+    <span itemprop="title">Publication of US20080312887A1</span>
+    <span itemprop="type">publication</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    <span itemprop="documentId">patent/US20080312887A1/en</span>
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2011-08-02">2011-08-02</time>
+    <span itemprop="title">Application granted</span>
+    <span itemprop="type">granted</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2011-08-02">2011-08-02</time>
+    <span itemprop="title">Publication of US7991595B2</span>
+    <span itemprop="type">publication</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    <span itemprop="documentId">patent/US7991595B2/en</span>
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2019-11-25">2019-11-25</time>
+    <span itemprop="title">Application status is Expired - Fee Related</span>
+    <span itemprop="type">legal-status</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2029-06-07">2029-06-07</time>
+    <span itemprop="title">Adjusted expiration</span>
+    <span itemprop="type">legal-status</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+
+  <h2>Links</h2>
+
+  <ul>
+    
+          <li itemprop="links" itemscope repeat>
+            <meta itemprop="id" content="usptoLink">
+            <a href="http://patft.uspto.gov/netacgi/nph-Parser?Sect1=PTO1&Sect2=HITOFF&p=1&u=/netahtml/PTO/srchnum.html&r=1&f=G&l=50&d=PALL&s1=7991595.PN." itemprop="url" target="_blank"><span itemprop="text">USPTO</span></a>
+          </li>
+        <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="usptoAssignmentLink">
+          <a href="https://assignment.uspto.gov/patent/index.html#/patent/search/resultFilter?searchInput=7991595" itemprop="url" target="_blank"><span itemprop="text">USPTO Assignment</span></a>
+        </li>
+
+    <li itemprop="links" itemscope repeat>
+        <meta itemprop="id" content="espacenetLink">
+        <a href="http://worldwide.espacenet.com/publicationDetails/biblio?CC=US&amp;NR=7991595B2&amp;KC=B2&amp;FT=D" itemprop="url" target="_blank"><span itemprop="text">Espacenet</span></a>
+      </li>
+      
+
+    
+
+    
+      <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="globalDossierLink">
+          <a href="http://globaldossier.uspto.gov/#/result/patent/US/7991595/1" itemprop="url" target="_blank"><span itemprop="text">Global Dossier</span></a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="stackexchangeLink">
+          <a href="https://patents.stackexchange.com/questions/tagged/US7991595" itemprop="url"><span itemprop="text">Discuss</span></a>
+        </li>
+      
+  </ul>
+
+  
+  <ul itemprop="concept" itemscope>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000003044</span>
+      <span itemprop="name">adaptive</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>abstract</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="sections" repeat>title</span>
+      
+      <span itemprop="count">7</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000004458</span>
+      <span itemprop="name">analytical methods</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>abstract</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">20</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000000034</span>
+      <span itemprop="name">methods</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">16</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000004301</span>
+      <span itemprop="name">light adaptation</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">13</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000000875</span>
+      <span itemprop="name">corresponding</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">5</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000006011</span>
+      <span itemprop="name">modification</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>abstract</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">4</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000004048</span>
+      <span itemprop="name">modification</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>abstract</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">4</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000015654</span>
+      <span itemprop="name">memory</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000018109</span>
+      <span itemprop="name">developmental process</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>abstract</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000007792</span>
+      <span itemprop="name">addition</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">4</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000000203</span>
+      <span itemprop="name">mixtures</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">4</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000032823</span>
+      <span itemprop="name">cell division</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">3</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000009826</span>
+      <span itemprop="name">distribution</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000005516</span>
+      <span itemprop="name">engineering processes</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000010410</span>
+      <span itemprop="name">layers</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000002411</span>
+      <span itemprop="name">adverse</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001721</span>
+      <span itemprop="name">combination</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000010276</span>
+      <span itemprop="name">construction</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000007796</span>
+      <span itemprop="name">conventional methods</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000011162</span>
+      <span itemprop="name">core materials</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000000694</span>
+      <span itemprop="name">effects</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000001914</span>
+      <span itemprop="name">filtration</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000007789</span>
+      <span itemprop="name">gases</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000000670</span>
+      <span itemprop="name">limiting</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000036961</span>
+      <span itemprop="name">partial</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000005192</span>
+      <span itemprop="name">partition</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000003863</span>
+      <span itemprop="name">physical function</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000002829</span>
+      <span itemprop="name">reduced</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000000717</span>
+      <span itemprop="name">retained</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000000926</span>
+      <span itemprop="name">separation method</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000035939</span>
+      <span itemprop="name">shock</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000000638</span>
+      <span itemprop="name">solvent extraction</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+  </ul>
+  
+
+  <section>
+    <h2>Images</h2>
+    <ul>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/1e/d8/8a/f4a92b880ca1bd/US07991595-20110802-D00000.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/51/e7/4e/1e3a4a23740cd2/US07991595-20110802-D00000.png">
+        <ul>
+          <li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="10">
+            <meta itemprop="label" content="step">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="698">
+              <meta itemprop="top" content="31">
+              <meta itemprop="right" content="773">
+              <meta itemprop="bottom" content="88">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="12">
+            <meta itemprop="label" content="step">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="40">
+              <meta itemprop="top" content="203">
+              <meta itemprop="right" content="120">
+              <meta itemprop="bottom" content="257">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="14">
+            <meta itemprop="label" content="step">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="286">
+              <meta itemprop="top" content="362">
+              <meta itemprop="right" content="366">
+              <meta itemprop="bottom" content="422">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="16">
+            <meta itemprop="label" content="step">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="248">
+              <meta itemprop="top" content="543">
+              <meta itemprop="right" content="323">
+              <meta itemprop="bottom" content="600">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="18">
+            <meta itemprop="label" content="step">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="159">
+              <meta itemprop="top" content="769">
+              <meta itemprop="right" content="234">
+              <meta itemprop="bottom" content="826">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="20">
+            <meta itemprop="label" content="step">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="216">
+              <meta itemprop="top" content="950">
+              <meta itemprop="right" content="302">
+              <meta itemprop="bottom" content="1006">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="22">
+            <meta itemprop="label" content="steps">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="221">
+              <meta itemprop="top" content="1132">
+              <meta itemprop="right" content="309">
+              <meta itemprop="bottom" content="1220">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="24">
+            <meta itemprop="label" content="steps">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="146">
+              <meta itemprop="top" content="1367">
+              <meta itemprop="right" content="222">
+              <meta itemprop="bottom" content="1424">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="26">
+            <meta itemprop="label" content="step">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="146">
+              <meta itemprop="top" content="1519">
+              <meta itemprop="right" content="222">
+              <meta itemprop="bottom" content="1576">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="28">
+            <meta itemprop="label" content="step">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="368">
+              <meta itemprop="top" content="1669">
+              <meta itemprop="right" content="455">
+              <meta itemprop="bottom" content="1726">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="32">
+            <meta itemprop="label" content="step">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="136">
+              <meta itemprop="top" content="1973">
+              <meta itemprop="right" content="220">
+              <meta itemprop="bottom" content="2029">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="34">
+            <meta itemprop="label" content="step">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="708">
+              <meta itemprop="top" content="2113">
+              <meta itemprop="right" content="784">
+              <meta itemprop="bottom" content="2170">
+            </span>
+          </li>
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/5f/f7/13/c83f8772f5cb86/US07991595-20110802-D00001.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/f1/7d/ca/0c82153c28b55c/US07991595-20110802-D00001.png">
+        <ul>
+          <li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="10">
+            <meta itemprop="label" content="step">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="723">
+              <meta itemprop="top" content="34">
+              <meta itemprop="right" content="809">
+              <meta itemprop="bottom" content="92">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="12">
+            <meta itemprop="label" content="step">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="72">
+              <meta itemprop="top" content="204">
+              <meta itemprop="right" content="151">
+              <meta itemprop="bottom" content="258">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="14">
+            <meta itemprop="label" content="step">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="326">
+              <meta itemprop="top" content="364">
+              <meta itemprop="right" content="392">
+              <meta itemprop="bottom" content="421">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="16">
+            <meta itemprop="label" content="step">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="279">
+              <meta itemprop="top" content="547">
+              <meta itemprop="right" content="352">
+              <meta itemprop="bottom" content="602">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="18">
+            <meta itemprop="label" content="step">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="184">
+              <meta itemprop="top" content="772">
+              <meta itemprop="right" content="260">
+              <meta itemprop="bottom" content="831">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="20">
+            <meta itemprop="label" content="step">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="253">
+              <meta itemprop="top" content="944">
+              <meta itemprop="right" content="334">
+              <meta itemprop="bottom" content="1023">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="22">
+            <meta itemprop="label" content="steps">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="246">
+              <meta itemprop="top" content="1144">
+              <meta itemprop="right" content="336">
+              <meta itemprop="bottom" content="1204">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="24">
+            <meta itemprop="label" content="steps">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="167">
+              <meta itemprop="top" content="1370">
+              <meta itemprop="right" content="248">
+              <meta itemprop="bottom" content="1425">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="26">
+            <meta itemprop="label" content="step">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="168">
+              <meta itemprop="top" content="1523">
+              <meta itemprop="right" content="242">
+              <meta itemprop="bottom" content="1579">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="28">
+            <meta itemprop="label" content="step">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="402">
+              <meta itemprop="top" content="1672">
+              <meta itemprop="right" content="478">
+              <meta itemprop="bottom" content="1728">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="32">
+            <meta itemprop="label" content="step">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="167">
+              <meta itemprop="top" content="1962">
+              <meta itemprop="right" content="250">
+              <meta itemprop="bottom" content="2045">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="34">
+            <meta itemprop="label" content="step">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="739">
+              <meta itemprop="top" content="2117">
+              <meta itemprop="right" content="812">
+              <meta itemprop="bottom" content="2173">
+            </span>
+          </li>
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/cf/64/98/0226e51ae2c27d/US07991595-20110802-D00002.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/e3/d8/7e/ff7e5f90a1b804/US07991595-20110802-D00002.png">
+        <ul>
+          
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/f7/c0/dd/657664e1f0e0e4/US07991595-20110802-D00003.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/f4/21/3e/a312343cac65b7/US07991595-20110802-D00003.png">
+        <ul>
+          <li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="3">
+            <meta itemprop="id" content="162">
+            <meta itemprop="label" content="Box">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="424">
+              <meta itemprop="top" content="33">
+              <meta itemprop="right" content="535">
+              <meta itemprop="bottom" content="90">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="3">
+            <meta itemprop="id" content="164">
+            <meta itemprop="label" content="Box">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="20">
+              <meta itemprop="top" content="356">
+              <meta itemprop="right" content="124">
+              <meta itemprop="bottom" content="413">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="3">
+            <meta itemprop="id" content="166">
+            <meta itemprop="label" content="Box">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="502">
+              <meta itemprop="top" content="763">
+              <meta itemprop="right" content="609">
+              <meta itemprop="bottom" content="820">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="3">
+            <meta itemprop="id" content="168">
+            <meta itemprop="label" content="Box">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1656">
+              <meta itemprop="top" content="572">
+              <meta itemprop="right" content="1759">
+              <meta itemprop="bottom" content="629">
+            </span>
+          </li>
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/bb/ab/fc/134b9f13ed420f/US07991595-20110802-D00004.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/7d/e1/18/cc520be869aac2/US07991595-20110802-D00004.png">
+        <ul>
+          <li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="4">
+            <meta itemprop="id" content="220">
+            <meta itemprop="label" content="substep">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="345">
+              <meta itemprop="top" content="37">
+              <meta itemprop="right" content="465">
+              <meta itemprop="bottom" content="93">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="4">
+            <meta itemprop="id" content="222">
+            <meta itemprop="label" content="substep">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="50">
+              <meta itemprop="top" content="741">
+              <meta itemprop="right" content="167">
+              <meta itemprop="bottom" content="796">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="4">
+            <meta itemprop="id" content="224">
+            <meta itemprop="label" content="Substeps">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="51">
+              <meta itemprop="top" content="870">
+              <meta itemprop="right" content="161">
+              <meta itemprop="bottom" content="926">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="4">
+            <meta itemprop="id" content="242">
+            <meta itemprop="label" content="substep">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="41">
+              <meta itemprop="top" content="1464">
+              <meta itemprop="right" content="147">
+              <meta itemprop="bottom" content="1522">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="4">
+            <meta itemprop="id" content="244">
+            <meta itemprop="label" content="subset">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="43">
+              <meta itemprop="top" content="1581">
+              <meta itemprop="right" content="153">
+              <meta itemprop="bottom" content="1637">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="4">
+            <meta itemprop="id" content="246">
+            <meta itemprop="label" content="substep">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="50">
+              <meta itemprop="top" content="1000">
+              <meta itemprop="right" content="162">
+              <meta itemprop="bottom" content="1057">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="4">
+            <meta itemprop="id" content="246">
+            <meta itemprop="label" content="substep">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="41">
+              <meta itemprop="top" content="1756">
+              <meta itemprop="right" content="147">
+              <meta itemprop="bottom" content="1813">
+            </span>
+          </li>
+        </ul>
+      </li>
+      </ul>
+  </section>
+
+  <section>
+    <h2>Classifications</h2>
+    
+    <ul>
+      <li>
+        <ul itemprop="cpcs" itemscope repeat>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G</span>&mdash;<span itemprop="Description">PHYSICS</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06</span>&mdash;<span itemprop="Description">COMPUTING; CALCULATING; COUNTING</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06F</span>&mdash;<span itemprop="Description">ELECTRIC DIGITAL DATA PROCESSING</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06F17/00</span>&mdash;<span itemprop="Description">Digital computing or data processing equipment or methods, specially adapted for specific functions</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06F17/50</span>&mdash;<span itemprop="Description">Computer-aided design</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06F17/5009</span>&mdash;<span itemprop="Description">Computer-aided design using simulation</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06F17/5018</span>&mdash;<span itemprop="Description">Computer-aided design using simulation using finite difference methods or finite element methods</span>
+            <meta itemprop="Leaf" content="true">
+            
+            <meta itemprop="FirstCode" content="true">
+          </li>
+          </ul>
+      </li>
+      <li>
+        <ul itemprop="cpcs" itemscope repeat>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G</span>&mdash;<span itemprop="Description">PHYSICS</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06</span>&mdash;<span itemprop="Description">COMPUTING; CALCULATING; COUNTING</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06F</span>&mdash;<span itemprop="Description">ELECTRIC DIGITAL DATA PROCESSING</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06F16/00</span>&mdash;<span itemprop="Description">Information retrieval; Database structures therefor; File system structures therefor</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06F16/20</span>&mdash;<span itemprop="Description">Information retrieval; Database structures therefor; File system structures therefor of structured data, e.g. relational data</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06F16/28</span>&mdash;<span itemprop="Description">Databases characterised by their database models, e.g. relational or object models</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06F16/284</span>&mdash;<span itemprop="Description">Relational databases</span>
+            <meta itemprop="Leaf" content="true">
+            
+            
+          </li>
+          </ul>
+      </li>
+      <li>
+        <ul itemprop="cpcs" itemscope repeat>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G</span>&mdash;<span itemprop="Description">PHYSICS</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06</span>&mdash;<span itemprop="Description">COMPUTING; CALCULATING; COUNTING</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06F</span>&mdash;<span itemprop="Description">ELECTRIC DIGITAL DATA PROCESSING</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06F2217/00</span>&mdash;<span itemprop="Description">Indexing scheme relating to computer aided design [CAD]</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06F2217/16</span>&mdash;<span itemprop="Description">Numerical modeling</span>
+            <meta itemprop="Leaf" content="true">
+            <meta itemprop="Additional" content="true">
+            
+          </li>
+          </ul>
+      </li>
+      </ul>
+  </section>
+
+  <section itemprop="abstract" itemscope>
+    <h2>Abstract</h2>
+    
+    <div itemprop="content" html><abstract mxw-id="PA87990712" lang="EN" load-source="patent-office">
+    <div num="p-0001" class="abstract">An exemplary embodiment providing one or more improvements includes software which is robust, efficient, and has a very fast run time for user directed grid enrichment and flow solution adaptive grid refinement. All user selectable options (e.g., the choice of functions, the choice of thresholds, etc.), other than a pre-marked cell list, can be entered on the command line. The ease of application is an asset for flow physics research and preliminary design CFD analysis where fast grid modification is often needed to deal with unanticipated development of flow details.</div>
+  </abstract>
+  </div>
+  </section>
+
+  <section itemprop="description" itemscope>
+    <h2>Description</h2>
+    
+    <div itemprop="content" html><div mxw-id="PDES44040292" lang="EN" load-source="patent-office" class="description">
+    
+    <heading>CROSS-REFERENCE TO RELATED APPLICATIONS</heading>
+    <p num="p-0002">This application claims priority from provisional application No. 60/943,635 filed Jun. 13, 2007.</p>
+    
+    
+    <heading>ORIGIN OF THE INVENTION</heading>
+    <p num="p-0003">The invention described herein was made by employees of the United States Government and may be manufactured and used by or for the Government for governmental purposes without payment of any royalties thereon or therefor.</p>
+    
+    
+    <heading>BACKGROUND OF THE INVENTION</heading>
+    <p num="p-0004">1. Field of the Invention</p>
+    <p num="p-0005">This disclosure relates to computer technology for implementing computational fluid dynamics analysis.</p>
+    <p num="p-0006">2. Description of the Related Art</p>
+    <p num="p-0007">Computational fluid dynamics (CFD) analysis is a complex technology involving strongly coupled non-linear partial differential equations which perform computations in a finite difference form supported by a discrete grid domain containing complex geometric shapes.</p>
+    <p num="p-0008">CFD analysis is often applied to flows typical of aerospace systems. Such flows often are characterized by the Mach number, which may range from 0 to 25. Such flows often have high Reynolds numbers resulting in regions of laminar flow becoming turbulent flow. Boundary layers are created by flows along body and inlet surfaces. Internal flows may have adverse pressure gradients. Shock waves, accompanied by separation of the boundary layer, may be present at transonic, supersonic and hypersonic speeds. Real gas effects may become important at hypersonic Mach numbers. The geometry of the system may be complex and unsteady flow may be present.</p>
+    <p num="p-0009">The efficacy of the CFD analysis depends on the manner of subdivision of the three-dimensional space. The numerical approximation of the Navier-Stokes equation contains errors that depend on the local density of tetrahedral subdivision and the local flow situation. Often times, deficiency of density distribution in the space is known only after the completion of a CFD analysis. Practitioners of the art have long desired to have an accurate, fast, and robust tool to modify the grid by h-refinement or some other means. However, modern computational mesh may contain more than 100 million cells. It is a monumental task for practitioners of the art to analyze both the solution and the mesh to decide where and how to perform mesh refinement efficiently within a reasonable amount of time and with a reasonable amount of effort.</p>
+    <p num="p-0010">Another impediment to applying the h-refinement procedure for advanced CFD analysis is that the conventional method of refinement subdivides each targeted cell into eight parts. Should refinement be required again at the location of the original cell, two steps of division would result in 64 parts, an unwieldy number. To make matters worse, the rules for grid integrity would require the subdivision of neighboring cells into eight, four, or two parts at each step of h-refinement.</p>
+    <p num="p-0011">The foregoing examples of the related art and limitations related therewith are intended to be illustrative and not exclusive. Other limitations of the related art will become apparent to those of skill in the art upon a reading of the specification and a study of the drawings.</p>
+    <p num="p-0012">Embodiments of the present disclosure meet the long-felt need for an accurate, fast, and robust tool to modify the grid by h-refinement.</p>
+    <heading>SUMMARY OF THE INVENTION</heading>
+    <p num="p-0013">In accordance with the present invention, a naturally occurring structure is recognized for the first time to facilitate cell subdivision into only two parts at each step. This naturally occurring structure has been termed herein a “pinwheel” and is comprised of a group of neighboring cells sharing only one common edge (as explained more fully below). At each h-refinement step, all cells in a pinwheel are partitioned each into two pas, with this partitioning occurring in preferred directions selected by the CFD practitioner. For example, the practitioner may choose directions with the highest local gradient of a flow quantity. Additionally, in accordance with the present invention, such subdivision of each pinwheel does not propagate to contiguous cells or pinwheels. This feature maintains grid integrity. Only the cells meeting desirable requirements of the CFD practitioner are divided, achieving the highest degree of functionality and having the economy of adding the least number of cells at each step. The pinwheel representation of the tetrahedral grid domain is complete and exhaustive because a pinwheel is associated with each edge, and edges are wherever a tetrahedral cell exists in the grid domain.</p>
+    <p num="p-0014">Additionally, the present invention will permit the practitioner to break up the large cells multiple times by repeated applications of this adaptive process.</p>
+    <p num="p-0015">Such embodiments of the present invention provide the benefit of robustness, economy of minimum cell addition, and very fast run time for user directed grid enrichment and flow solution adaptive grid refinement.</p>
+    <p num="p-0016">The following embodiments and aspects thereof are described and illustrated in conjunction with systems, tool, and methods which are meant to be exemplary and illustrative, not limiting in scope. In various embodiments, one or more of the above-described problems have been reduced or eliminated, while other embodiments are directed to other improvements, as will be apparent to those of skill in the art upon a reading of the specification and a study of the drawings.</p>
+    <p num="p-0017">The novel abilities and features of the embodiments of the present invention can also include placing the flow functions (e.g., flow quantity, pressure, velocity, turbulence, etc.) in the inventive code for instant access by the user, as well as allowing the user to select the function values or gradients to suit their particular applications without hindrance because the function set can contain all common CFD physical functions represented by the Navier-Stokes equation.</p>
+    <p num="p-0018">In accordance with the present invention, innovative numerical filtering algorithms are used in embodiments of the code to relieve the practitioner of the art from the time-consuming chores of performing calculations of statistical distribution of the flow function and then setting the h-refinement threshold amongst millions of tetrahedral cells. The fast and compact algorithms that are critical to the success of the h-refinement process do not exist outside of the inventive embodiments. The present invention automatically determines the adaptation numerical threshold for the selected flow function(s). For example, the practitioner may simply request to divide a certain percentage of the eligible cells (e.g., the top five percent), and the inventive code will automatically determine the correct numerical threshold for adaptation (or division) for the chosen function(s).</p>
+    <p num="p-0019">Embodiments of the present invention create a unique relational database for quickly identifying the edges and cells for division. The cell division process will not be efficient or robust without this unique relational database. This database recognizes a structure in the tetrahedral unstructured mesh, herein termed a “pinwheel.”</p>
+    <p num="p-0020">In the edge selection process based on the functions selected by the practitioners of the art, only the pole-edge (as defined and explained below) will be divided if the functional value within a pinwheel exceeds the threshold for adaptation (and this pinwheel is chosen for division). As a result, all selected cells are divided into only two, not four or eight as in other known methods which do not recognize the pinwheel structure in the tetrahedrons unstructured mesh.</p>
+    <p num="p-0021">Dividing a cell by only a factor of two has tremendous significance in practical applications of h-refinement. It allows the practitioners of the art to perform repeated adaptation without a huge increase in the final size of the computational grid, and the cells are divided only in regions where such division is warranted because the division does not propagate to the pinwheel&#39;s neighbors.</p>
+    <p num="p-0022">In addition to the exemplary aspects and embodiments described above, further aspects and embodiments of the present invention will become apparent by reference to the drawings and by study of the following descriptions.</p>
+    
+    
+    <description-of-drawings>
+      <heading>BRIEF DESCRIPTION OF THE DRAWINGS</heading>
+      <p num="p-0023"> <figref idrefs="DRAWINGS">FIG. 1</figref> is a flow chart of one embodiment showing the steps involved in generating the grid files for user applications.</p>
+      <p num="p-0024"> <figref idrefs="DRAWINGS">FIG. 2</figref> is a diagrammatic depiction of a pinwheel containing seven tetrahedrons.</p>
+      <p num="p-0025"> <figref idrefs="DRAWINGS">FIG. 3</figref> is a diagrammatic depiction of the division of an edge of a tetrahedron resulting in two new tetrahedrons.</p>
+      <p num="p-0026"> <figref idrefs="DRAWINGS">FIG. 4</figref> is a flow chart showing the databases and tables included in step <b>16</b> in <figref idrefs="DRAWINGS">FIG. 1</figref>.</p>
+      <p num="p-0027"> <figref idrefs="DRAWINGS">FIG. 5</figref> is a flow chart showing the steps included in steps <b>22</b> and <b>24</b> in <figref idrefs="DRAWINGS">FIG. 1</figref>.</p>
+    </description-of-drawings>
+    
+    
+    <heading>DETAILED DESCRIPTION OF THE INVENTION</heading>
+    <p num="p-0028">In embodiments of the present disclosure, the following terms have the indicated meanings. “Tetrahedral Cell” means a volume element in space bound by four vertices, six edges, and four triangular surfaces. “Tetrahedral Unstructured Grid” means a discretization of a three-dimensional volume of space in which the elementary units are tetrahedral cells. The organization of the tetrahedral cells in the grid follows a strict set of geometrical rules. “h-refinement” means a grid refinement by dividing existing cells into two, four, eight cells of the same geometric type, for example, tetrahedrons. “Pinwheel” means a feature in the tetrahedral mesh formed by all cells attached to a single edge (see <figref idrefs="DRAWINGS">FIG. 2</figref>). “Pole-edge” means the common edge for all the cells in a pinwheel.</p>
+    <p num="p-0029">Embodiments of the present invention have been written in standard Fortran-90 language. They can be complied and run on any Unix or Linux computer platform. Embodiments also can be adapted to run on a personal computer (PC) platform if desirable, or can be written in other languages, or for other platforms. Two versions of the code using different methodologies have been written to ensure reliable operation.</p>
+    <p num="p-0030">The novel features of the present code can include a very large collection of user selectable options, a very fast execution time with run time almost linearly scalable to the number of cells in the grid by construction of a unique internal database, the utilization of the pinwheel structure for cell partition into only two parts and without propagation of cell division outside of the pinwheel, grid integrity requirements being automatically satisfied (i.e., the known rules of grid integrity); an easy to understand syntax with input on the command line; and automation of grid modification, after preliminary CFD solutions are obtained.</p>
+    <p num="p-0031"> <figref idrefs="DRAWINGS">FIG. 1</figref> is a flow chart of one embodiment of the present invention showing the steps involved in generating the grid files for user applications.</p>
+    <p num="p-0032">In step <b>10</b> the user begins by choosing one of the three main branches of the code for adding grid. That is to say, the user chooses to add grid either according to a given list of cells, or in prescribed spatial domains, or by adaptive addition of cells according to flow functions. The implementation of the third option, the adaptive addition of cells according to flow function, includes all the steps in <figref idrefs="DRAWINGS">FIG. 1</figref>.</p>
+    <p num="p-0033">In step <b>12</b> the user indicated groups of files for grid geometry and solutions are transferred to computer memory.</p>
+    <p num="p-0034">In step <b>14</b>, the original grid database integrity according to established rules for grid connectivity between points, edges, and cells are verified.</p>
+    <p num="p-0035">In step <b>16</b>, innovative internal relational databases (e.g., tables) for accurate and fast execution of h-refinement according to user instructions are created. The creation, utilization, and the completeness of these internal relational databases are unique to the present invention (see <figref idrefs="DRAWINGS">FIG. 4</figref>, and its description below, for further details of these tables.).</p>
+    <p num="p-0036">In step <b>18</b>, the user instructions are decoded and organized according to easy-to-use and easy-to-remember syntax. A to-do list is generated for performing the requested h-refinement.</p>
+    <p num="p-0037">In step <b>20</b>, user requested flow variables from the five (expandable to seven or more, depending on physical composition of the fluid) primitive variables in the flow solution (however, other combinations can also be derived) are generated. Values of flow variables are associated with each cell, which are in turn transferable to edges and points in the grid.</p>
+    <p num="p-0038">In step <b>22</b> flow variable and gradient statistics for the values of each function are calculated and set an adaptation threshold for all cells and edges. (see, <figref idrefs="DRAWINGS">FIG. 5</figref> and its description below, for additional details)</p>
+    <p num="p-0039">In step <b>24</b> all the edges in the grid are examined and all edges which have functional values exceeding the threshold are marked. Within a small neighborhood of contiguous cells, the highest ranked marked edge is chosen as a “pole edge” around which a pin wheel is defined (and any other marked edges in the pinwheel are now “unmarked”). This is done repeatedly in the process until all qualified edges are exhausted (see, <figref idrefs="DRAWINGS">FIG. 5</figref> and its description below, for further details).</p>
+    <p num="p-0040">In step <b>26</b> all cells with one marked edge (the pole edges) are marked for division.</p>
+    <p num="p-0041">In step <b>28</b> each marked cell is divided by two.</p>
+    <p num="p-0042">In step <b>30</b> a new database is created for the adapted grid and the database is checked for integrity according to the same rules as in step <b>14</b>.</p>
+    <p num="p-0043">In step <b>32</b> the new grid is written into a set of files.</p>
+    <p num="p-0044">In step <b>34</b> the user is provided a summary of the results, for example, the statistics of the process, a new grid, and a new solution file with data corresponding to the new grid. If desired, the user can perform repeated adaptation from step <b>12</b> to further divide cells using the new grid and the new solution.</p>
+    <p num="p-0045">It should be noted that if in step <b>10</b> the user chooses to add grid either according to a given list of cells, or in prescribed spatial domains (rather than by adaptive addition of cells according to flow functions) then only steps <b>10</b>, <b>12</b>, <b>16</b>, <b>30</b>, <b>32</b> and <b>34</b> would apply.</p>
+    <p num="p-0046"> <figref idrefs="DRAWINGS">FIG. 2</figref> is a diagrammatic depiction of a pinwheel containing seven tetrahedron cells. The tetrahedrons represented are described by the lettered points; ABCD, ABDE, ABEF, ABFG, ABGH, ABHK, and ABKC. Division of the edge AB by midpoint M results in the division of each tetrahedron into two tetrahedrons.</p>
+    <p num="p-0047"> <figref idrefs="DRAWINGS">FIG. 3</figref> is a diagrammatic depiction of the division of an edge of a tetrahedron cell resulting in two new tetrahedron cells. Edge AB is divided into by mid-point M. The original tetrahedron ABCD is thereby divided into smaller tetrahedrons AMCD and MBCD.</p>
+    <p num="p-0048"> <figref idrefs="DRAWINGS">FIG. 4</figref> is a flow chart showing the databases and tables included in step <b>16</b> in <figref idrefs="DRAWINGS">FIG. 1</figref>. These four tables are linearly scalable and form the core of the internal high-speed search engine. In the original grid file, point and cell identities are sequential numbers determined as parts of the original grid generation process. In the embodiments of this software, each edge is given a unique identity number. Three tables are created to represent a complete relational databases to link points to edges, edges to cells, cells to edges, and edges to points</p>
+    <p num="p-0049">Box <b>162</b> entitled Cell-to-Points is a table of the original grid files.</p>
+    <p num="p-0050">Box <b>164</b> entitled Point-Pairs-to-Edge is a database arranged in sequential order. Each cell has six edges, and each edge has two end points. Each edge has a higher and a lower end-point identification number. The sequential order arrangement uses the higher number first, and then the lower number. In a first pass of the edge identification process, the embodiments count the numbers of edges having the same higher point number, and assigns sufficient space to accommodate all such edges in the edge table. In a second pass, all edges with the same high identification number are placed as a group within the assigned space in order of appearance into the table, the table item number for each edge becomes the unique identification number of each edge.</p>
+    <p num="p-0051">Box <b>166</b> entitled Edges-to-Cell is a table which allows quick search of pinwheels by the process of two steps. The first step creates a list of cell identification numbers in which all cell identifications related to a given edge are placed contiguously in the list. The second step creates a table of location keys and the number of attached cells for each edge. When the inventive code selects an edge and then needs to know all of the cells attached to it, the table can instantly provide the location of the cell group and provide all the cell identification numbers related to this edge.</p>
+    <p num="p-0052">Box <b>168</b> entitled Cells-to-Edges identifies the six edges of each cell which allows quick processing. The cells-to-edges table is novel to the disclosed inventive process. This new table, arranged in the order of the cell identity numbers, provides the identities of the six edges of each cell. The cell-to-edges-table facilitates instant access whenever the grid adaptation process requires such information for a cell. The four tables (cells-to-point, point-pairs-to-edges, edges-to-cells, and cells-to-edges) utilized together is a novel feature for providing a complete roadmap for the present invention.</p>
+    <p num="p-0053"> <figref idrefs="DRAWINGS">FIG. 5</figref> is a flow chart showing the substeps included in steps <b>22</b> and <b>24</b> in <figref idrefs="DRAWINGS">FIG. 1</figref>. Within step <b>22</b> the following substeps are performed: in substep <b>220</b>, the practioner chooses one or more desired function that he or she wishes to analyze, for example, pressure, velocity, turbulence, etc; in substep <b>222</b> hundreds of numerical bins are assigned to each function, between the maximum and minimum value of each function; in substep <b>224</b> the code calculates a function value for each edge and assigns each edge to the corresponding bin. The process proceeds by scanning through all the bins and counting the number of occurrences for the function value(s) belonging to each bin. A threshold is set to select, in accordance with specifications by the user of this software, a percentage of the total number of edges that bear significant function values (e.g., excluding constant values in regions representing by background flow properties, and other similar situations) In subset <b>226</b>, the inventive code determines the bins that contain edges that are above the threshold value and confers a rank on the edges, for example, between 1 through 16 according to how much the edge values have exceeded the threshold.</p>
+    <p num="p-0054">Substeps <b>224</b> and <b>226</b> are repeated through all the functions selected by the users in each application of this software. When an edge is qualified for adaptation under more than one function, the higher ranking amongst all qualifying functions is given to this edge.</p>
+    <p num="p-0055">Within step <b>24</b> the following substeps are performed: in substep <b>242</b> all edges selected for adaptation are marked in the grid; in subset <b>244</b>, from a small neighborhood of contiguous cells the highest ranked marked edge is chosen as a “pole edge” around which a pinwheel is defined. This is done repeatedly in the process until all qualified edges in the entire grid are exhausted. In substep <b>246</b> only one highest ranking edge (the “pole edge”) in each pinwheel is retained as marked for cell division, i.e., any other marked edge in a pinwheel is no longer “marked.”</p>
+    <p num="p-0056">While a number of exemplary aspects and embodiments have been discussed above, those of skill in the art will recognize certain modifications, permutations, additions, and sub-combinations thereof. It is therefore intended that the following appended claims and claims hereafter introduced are interpreted to include all such modifications, permutations, additions, and sub-combinations as are within their true spirit and scope.</p>
+    
+  </div>
+  </div>
+  </section>
+
+  <section itemprop="claims" itemscope>
+    <h2>Claims (<span itemprop="count">15</span>)</h2>
+    
+    <div itemprop="content" html><div mxw-id="PCLM38507162" lang="EN" load-source="patent-office" class="claims">
+    <div class="claim"> <div id="CLM-00001" num="00001" class="claim">
+      <div class="claim-text">1. A computer implemented method of computational fluid dynamics analysis comprising the steps:
+<div class="claim-text">a. transferring into memory selected files for grid geometry and solutions,</div>
+<div class="claim-text">b. verifying grid database integrity,</div>
+<div class="claim-text">c. creating databases linking points to edges, edges to cells, and cells to edges,</div>
+<div class="claim-text">d. computing flow variables for each edge,</div>
+<div class="claim-text">e. computing flow variable and gradient statistics for each function and setting adaptation threshold for each edge,</div>
+<div class="claim-text">f. examining all edges in the grid and marking all edges having functional values exceeding threshold and ranking all such marked edges,</div>
+<div class="claim-text">g. defining pinwheel structures in the grid, and retaining the marking on only the edge common to all cells in each pinwheel, such that each pinwheel has only one marked edge,</div>
+<div class="claim-text">h. marking all cells containing one marked edge,</div>
+<div class="claim-text">i. dividing by two all marked cells, and</div>
+<div class="claim-text">j. creating database for enhanced grid and verifying database integrity.</div>
+</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00002" num="00002" class="claim">
+      <div class="claim-text">2. The computer implemented method of computational fluid dynamics analysis of <claim-ref idref="CLM-00001">claim 1</claim-ref> wherein:
+<div class="claim-text">said step f. further comprises ranking the marked edges, and</div>
+<div class="claim-text">said step g. further comprises choosing highest ranked marked edges as the common edge for all the cells in a pinwheel.</div>
+</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00003" num="00003" class="claim">
+      <div class="claim-text">3. The computer implemented method of computational fluid dynamics analysis of <claim-ref idref="CLM-00001">claim 1</claim-ref> further comprising the step after step j.:
+<div class="claim-text">k. writing the enhanced grid into a set of files.</div>
+</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00004" num="00004" class="claim">
+      <div class="claim-text">4. The computer implemented method of computational fluid dynamics analysis of <claim-ref idref="CLM-00001">claim 1</claim-ref> further comprising the step after step j.:
+<div class="claim-text">k. calculating and reporting statistics of the process.</div>
+</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00005" num="00005" class="claim">
+      <div class="claim-text">5. The computer implemented method of computational fluid dynamics analysis of <claim-ref idref="CLM-00001">claim 1</claim-ref> wherein steps a. to j. are repeated using data from step j.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00006" num="00006" class="claim">
+      <div class="claim-text">6. The computer implemented method of computational fluid dynamics analysis of <claim-ref idref="CLM-00001">claim 1</claim-ref> further comprising the step a′. preceding step a.:
+<div class="claim-text">a′. selecting a code branch for application modality.</div>
+</div>
+    </div>
+    </div> <div class="claim"> <div id="CLM-00007" num="00007" class="claim">
+      <div class="claim-text">7. A system for computational fluid dynamics analysis comprising:
+<div class="claim-text">means for transferring into memory selected files for grid geometry and solutions,</div>
+<div class="claim-text">means for verifying grid database integrity,</div>
+<div class="claim-text">means for creating databases linking points to edges, edges to cells, and cells to edges,</div>
+<div class="claim-text">means for computing flow variables for each edge,</div>
+<div class="claim-text">means for computing flow variable and gradient statistics for each function and setting adaptation threshold for each edge,</div>
+<div class="claim-text">means for examining all edges in the grid and marking all edges with function values exceeding threshold;</div>
+<div class="claim-text">means for selecting marked edges to define pinwheel structures in the grid, wherein each selected edge is common to all cells in its corresponding pinwheel, and unmarking any unselected edges in the pinwheels,</div>
+<div class="claim-text">means for marking all cells containing one marked edge,</div>
+<div class="claim-text">means for dividing by two all marked cells, and</div>
+<div class="claim-text">means for creating database for enhanced grid and verifying database integrity.</div>
+</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00008" num="00008" class="claim">
+      <div class="claim-text">8. The system for computational fluid dynamics analysis of <claim-ref idref="CLM-00007">claim 7</claim-ref> further comprising:
+<div class="claim-text">means for writing the enhanced grid into a set of files.</div>
+</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00009" num="00009" class="claim">
+      <div class="claim-text">9. The system for computational fluid dynamics analysis of <claim-ref idref="CLM-00007">claim 7</claim-ref> further comprising:
+<div class="claim-text">means for calculating and reporting statistics of the process.</div>
+</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00010" num="00010" class="claim">
+      <div class="claim-text">10. The system for computation fluid dynamics analysis of <claim-ref idref="CLM-00007">claim 7</claim-ref> wherein:
+<div class="claim-text">said means for examining and marking the edges comprises means for ranking the marked edges, and</div>
+<div class="claim-text">said means for selecting and unmarking marked edges comprises means for choosing highly ranked marked edges as the selected edges for the common edge for all the cells in a pinwheel.</div>
+</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00011" num="00011" class="claim">
+      <div class="claim-text">11. The system for computational fluid dynamics analysis of <claim-ref idref="CLM-00007">claim 7</claim-ref> further comprising:
+<div class="claim-text">means for selecting a code branch for application modality.</div>
+</div>
+    </div>
+    </div> <div class="claim"> <div id="CLM-00012" num="00012" class="claim">
+      <div class="claim-text">12. A computer implemented method for creating edge-based internal data tables in which each edge is given a unique identity number from grid files in which point and cell identities are sequentially numbered comprising the steps:
+<div class="claim-text">a. generating a table of all edges in-sequential order by examining all cells according to cell identification number in sequence, entering each edge into a table first according to the higher identification number of the two ends and the lower identification number is entered in order of appearance,</div>
+<div class="claim-text">b. searching pinwheels formed by the cells by first placing all cell identifications related to a given edge contiguously in a list and creating a table of location key and the number of attached cells for each edge, and</div>
+<div class="claim-text">c. identifying all edges of each cell by creating a table in the order of cell identify numbers.</div>
+</div>
+    </div>
+    </div> <div class="claim"> <div id="CLM-00013" num="00013" class="claim">
+      <div class="claim-text">13. A system for creating edge-based internal data tables in which each edge is given a unique identity number from grid files in which point and cell identities are sequential numbered, comprising:
+<div class="claim-text">means for generating a table of all edges in sequential order by examining all cells according to cell identification number in sequence, entering each edge into a table first according to the higher identification number of the two ends and the lower identification number is entered in order of appearance,</div>
+<div class="claim-text">means for searching pinwheels formed by the cells by first placing all cell identifications related to a given edge contiguously in a list and creating a table of location key and the number of attached cells for each edge, and</div>
+<div class="claim-text">means for identifying all edges of each cell by creating a table in the order of cell identify numbers.</div>
+</div>
+    </div>
+    </div> <div class="claim"> <div id="CLM-00014" num="00014" class="claim">
+      <div class="claim-text">14. A computer implemented method for selecting edges in a three-dimensional pinwheel for division comprising the steps:
+<div class="claim-text">a. selecting one or more functions for analysis,</div>
+<div class="claim-text">b. assigning numerical bins between the maximum and minimum values of each function,</div>
+<div class="claim-text">c. calculating a function value for each edge,</div>
+<div class="claim-text">d. assigning each edge to the corresponding bin,</div>
+<div class="claim-text">e. determining the number of edges within the bins which exceed a threshold, ranking each edge,</div>
+<div class="claim-text">f. marking all edges selected for adaptation, and</div>
+<div class="claim-text">g. selecting the highest ranking edge in each pinwheel for division.</div>
+</div>
+    </div>
+    </div> <div class="claim"> <div id="CLM-00015" num="00015" class="claim">
+      <div class="claim-text">15. A system for selecting edges for division in a three-dimensional pinwheel comprising:
+<div class="claim-text">means for selecting one or more functions for analysis,</div>
+<div class="claim-text">means for assigning numerical bins between the maximum and minimum values of each function,</div>
+<div class="claim-text">means for calculating a function value for each edge,</div>
+<div class="claim-text">means for assigning each edge to the corresponding bin,</div>
+<div class="claim-text">means for determining the number of edges within the bins which exceed a threshold, ranking each edge,</div>
+<div class="claim-text">means for marking all edges selected for adaptation, and</div>
+<div class="claim-text">means for selecting the highest ranking edge in each pinwheel for division.</div>
+</div>
+    </div>
+  </div> </div>
+  </div>
+  </section>
+
+  <section itemprop="application" itemscope>
+
+    <section itemprop="metadata" itemscope>
+        <span itemprop="applicationNumber">US12/138,768</span>
+        <span itemprop="priorityDate">2007-06-13</span>
+        <span itemprop="filingDate">2008-06-13</span>
+        <span itemprop="title">Adaptive refinement tools for tetrahedral unstructured grids 
+       </span>
+        <span itemprop="ifiStatus">Expired - Fee Related</span>
+        
+        <a href="/patent/US7991595B2/en">
+            <span itemprop="representativePublication">US7991595B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+        </a>
+    </section>
+
+    <h2>Priority Applications (2)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                    <th>Title</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="priorityApps" itemscope repeat>
+                <td>
+                   <span itemprop="applicationNumber">US94363507P</span>
+                   <span itemprop="isUsProvisional">true</span>
+                   
+                <td itemprop="priorityDate">2007-06-13</td>
+                <td itemprop="filingDate">2007-06-13</td>
+                <td itemprop="title"></td>
+              </tr><tr itemprop="priorityApps" itemscope repeat>
+                <td>
+                   <span itemprop="applicationNumber">US12/138,768</span>
+                   
+                   <a href="/patent/US7991595B2/en">
+                        <span itemprop="representativePublication">US7991595B2</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                <td itemprop="priorityDate">2007-06-13</td>
+                <td itemprop="filingDate">2008-06-13</td>
+                <td itemprop="title">Adaptive refinement tools for tetrahedral unstructured grids 
+       </td>
+              </tr>
+           </tbody>
+       </table>
+
+    <h2>Applications Claiming Priority (1)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                    <th>Title</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="appsClaimingPriority" itemscope repeat>
+                <td>
+                   <span itemprop="applicationNumber">US12/138,768</span>
+                   <a href="/patent/US7991595B2/en">
+                        <span itemprop="representativePublication">US7991595B2</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                <td itemprop="priorityDate">2007-06-13</td>
+                <td itemprop="filingDate">2008-06-13</td>
+                <td itemprop="title">Adaptive refinement tools for tetrahedral unstructured grids 
+       </td>
+              </tr>
+           </tbody>
+       </table>
+
+    
+
+    
+
+    <h2>Publications (2)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Publication Number</th>
+                    <th>Publication Date</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="pubs" itemscope repeat>
+                <td>
+                   <span itemprop="publicationNumber">US20080312887A1</span>
+                   
+                   <a href="/patent/US20080312887A1/en">US20080312887A1
+                       (<span itemprop="primaryLanguage">en</span>)
+                   </a>
+                </td>
+                <td itemprop="publicationDate">2008-12-18</td>
+              </tr><tr itemprop="pubs" itemscope repeat>
+                <td>
+                   <span itemprop="publicationNumber">US7991595B2</span>
+                   
+                   <span itemprop="thisPatent">true</span>
+                   <a href="/patent/US7991595B2/en">US7991595B2
+                       (<span itemprop="primaryLanguage">en</span>)
+                   </a>
+                </td>
+                <td itemprop="publicationDate">2011-08-02</td>
+              </tr>
+           </tbody>
+        </table>
+
+  </section>
+
+  <section itemprop="family" itemscope>
+    <h1>Family</h1>
+    <h2>ID=40133128</h2>
+
+    <h2>Family Applications (1)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Title</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="applications" itemscope repeat>
+                <td>
+                    <span itemprop="applicationNumber">US12/138,768</span>
+                    <span itemprop="ifiStatus">Expired - Fee Related</span>
+                    
+                    <a href="/patent/US7991595B2/en">
+                        <span itemprop="representativePublication">US7991595B2</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                </td>
+                <td itemprop="priorityDate">2007-06-13</td>
+                <td itemprop="filingDate">2008-06-13</td>
+                <td itemprop="title">Adaptive refinement tools for tetrahedral unstructured grids 
+       </td>
+              </tr>
+           </tbody>
+        </table>
+
+    
+
+    
+
+    <h2>Country Status (2)</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Country</th>
+            <th>Link</th>
+          </tr>
+        </thead>
+        <tbody>
+        <tr itemprop="countryStatus" itemscope repeat>
+            <td>
+              <span itemprop="countryCode">US</span>
+                (<span itemprop="num">1</span>)
+              <meta itemprop="thisCountry" content="true">
+            </td>
+            <td>
+              <a href="/patent/US7991595B2/en">
+                <span itemprop="representativePublication">US7991595B2</span>
+                  (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            </td>
+          </tr><tr itemprop="countryStatus" itemscope repeat>
+            <td>
+              <span itemprop="countryCode">WO</span>
+                (<span itemprop="num">1</span>)
+              
+            </td>
+            <td>
+              <a href="/patent/WO2009035737A2/en">
+                <span itemprop="representativePublication">WO2009035737A2</span>
+                  (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+    <h2>Cited By (4)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US8727017B2/en">
+              <span itemprop="publicationNumber">US8727017B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2010-04-22</td>
+          <td itemprop="publicationDate">2014-05-20</td>
+          <td><span itemprop="assigneeOriginal">Exxonmobil Upstream Research Company</span></td>
+          <td itemprop="title">System and method for obtaining data on an unstructured grid 
+       </td>
+        </tr><tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US8731875B2/en">
+              <span itemprop="publicationNumber">US8731875B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2010-08-13</td>
+          <td itemprop="publicationDate">2014-05-20</td>
+          <td><span itemprop="assigneeOriginal">Exxonmobil Upstream Research Company</span></td>
+          <td itemprop="title">System and method for providing data corresponding to physical objects 
+       </td>
+        </tr><tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US8731873B2/en">
+              <span itemprop="publicationNumber">US8731873B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2010-04-26</td>
+          <td itemprop="publicationDate">2014-05-20</td>
+          <td><span itemprop="assigneeOriginal">Exxonmobil Upstream Research Company</span></td>
+          <td itemprop="title">System and method for providing data corresponding to physical objects 
+       </td>
+        </tr><tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US8731872B2/en">
+              <span itemprop="publicationNumber">US8731872B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2010-03-08</td>
+          <td itemprop="publicationDate">2014-05-20</td>
+          <td><span itemprop="assigneeOriginal">Exxonmobil Upstream Research Company</span></td>
+          <td itemprop="title">System and method for providing data corresponding to physical objects 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Families Citing this family (3)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US8731887B2/en">
+              <span itemprop="publicationNumber">US8731887B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2010-04-12</td>
+          <td itemprop="publicationDate">2014-05-20</td>
+          <td><span itemprop="assigneeOriginal">Exxonmobile Upstream Research Company</span></td>
+          <td itemprop="title">System and method for obtaining a model of data describing a physical structure 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/EP3095043A4/en">
+              <span itemprop="publicationNumber">EP3095043A4</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2014-01-15</td>
+          <td itemprop="publicationDate">2017-01-25</td>
+          <td><span itemprop="assigneeOriginal">Conoco Phillips Company</span></td>
+          <td itemprop="title">Automatic cartesian gridding with logarithmic refinement at arbitrary locations 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/CN104462829B/en">
+              <span itemprop="publicationNumber">CN104462829B</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2014-12-11</td>
+          <td itemprop="publicationDate">2019-01-18</td>
+          <td><span itemprop="assigneeOriginal">中国航天空气动力技术研究院</span></td>
+          <td itemprop="title">The processing method of complicated multi-region grid in space propultion solution 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Citations (29)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US4711062A/en">
+              <span itemprop="publicationNumber">US4711062A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1986-12-17</td>
+          <td itemprop="publicationDate">1987-12-08</td>
+          <td><span itemprop="assigneeOriginal">Gwilliam Tony S</span></td>
+          <td itemprop="title">Octet structures using tension and compression 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5113490A/en">
+              <span itemprop="publicationNumber">US5113490A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1989-06-19</td>
+          <td itemprop="publicationDate">1992-05-12</td>
+          <td><span itemprop="assigneeOriginal">Silicon Graphics, Inc.</span></td>
+          <td itemprop="title">Method for forming a computer model from an intersection of a cutting surface with a bounded volume 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5603188A/en">
+              <span itemprop="publicationNumber">US5603188A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1989-10-31</td>
+          <td itemprop="publicationDate">1997-02-18</td>
+          <td><span itemprop="assigneeOriginal">Robbin; Anthony S.</span></td>
+          <td itemprop="title">Architectural body having a quasicrystal structure 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5617322A/en">
+              <span itemprop="publicationNumber">US5617322A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1994-01-31</td>
+          <td itemprop="publicationDate">1997-04-01</td>
+          <td><span itemprop="assigneeOriginal">Nec Corporation</span></td>
+          <td itemprop="title">Mesh generator and generating method 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5768156A/en">
+              <span itemprop="publicationNumber">US5768156A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1995-10-25</td>
+          <td itemprop="publicationDate">1998-06-16</td>
+          <td><span itemprop="assigneeOriginal">Sandia Corporation</span></td>
+          <td itemprop="title">Connectivity-based, all-hexahedral mesh generation method and apparatus 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5923329A/en">
+              <span itemprop="publicationNumber">US5923329A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1996-06-24</td>
+          <td itemprop="publicationDate">1999-07-13</td>
+          <td><span itemprop="assigneeOriginal">National Research Council Of Canada</span></td>
+          <td itemprop="title">Method of grid generation about or within a 3 dimensional object 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6088521A/en">
+              <span itemprop="publicationNumber">US6088521A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1998-05-04</td>
+          <td itemprop="publicationDate">2000-07-11</td>
+          <td><span itemprop="assigneeOriginal">Ford Global Technologies, Inc.</span></td>
+          <td itemprop="title">Method and system for providing a virtual wind tunnel 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6356860B1/en">
+              <span itemprop="publicationNumber">US6356860B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1998-10-08</td>
+          <td itemprop="publicationDate">2002-03-12</td>
+          <td><span itemprop="assigneeOriginal">Sandia Corporation</span></td>
+          <td itemprop="title">Method of grid generation 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6445390B1/en">
+              <span itemprop="publicationNumber">US6445390B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1997-12-29</td>
+          <td itemprop="publicationDate">2002-09-03</td>
+          <td><span itemprop="assigneeOriginal">The United States Of America As Represented By The Adminstrator Of The National Aeronautics And Space Administration</span></td>
+          <td itemprop="title">Triangle geometry processing for surface modeling and cartesian grid generation 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6453275B1/en">
+              <span itemprop="publicationNumber">US6453275B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1998-06-19</td>
+          <td itemprop="publicationDate">2002-09-17</td>
+          <td><span itemprop="assigneeOriginal">Interuniversitair Micro-Elektronica Centrum (Imec Vzw)</span></td>
+          <td itemprop="title">Method for locally refining a mesh 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6519553B1/en">
+              <span itemprop="publicationNumber">US6519553B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1998-05-14</td>
+          <td itemprop="publicationDate">2003-02-11</td>
+          <td><span itemprop="assigneeOriginal">Sandia Corporation</span></td>
+          <td itemprop="title">Multiprocessor computer overset grid method and apparatus 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6654710B1/en">
+              <span itemprop="publicationNumber">US6654710B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1998-06-04</td>
+          <td itemprop="publicationDate">2003-11-25</td>
+          <td><span itemprop="assigneeOriginal">Alstom</span></td>
+          <td itemprop="title">Method for designing a flow device 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20050172249A1/en">
+              <span itemprop="publicationNumber">US20050172249A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2002-08-28</td>
+          <td itemprop="publicationDate">2005-08-04</td>
+          <td><span itemprop="assigneeOriginal">Micron Technology, Inc.</span></td>
+          <td itemprop="title">Pattern generation on a semiconductor surface 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20050219445A1/en">
+              <span itemprop="publicationNumber">US20050219445A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2004-03-23</td>
+          <td itemprop="publicationDate">2005-10-06</td>
+          <td><span itemprop="assigneeOriginal">Sharp Kabushiki Kaisha</span></td>
+          <td itemprop="title">Liquid crystal display device and electronic apparatus 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20060025973A1/en">
+              <span itemprop="publicationNumber">US20060025973A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2004-04-21</td>
+          <td itemprop="publicationDate">2006-02-02</td>
+          <td><span itemprop="assigneeOriginal">Taehyoun Kim</span></td>
+          <td itemprop="title">Methods and systems for model reduction and system identification of dynamic systems with multiple inputs 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20060058985A1/en">
+              <span itemprop="publicationNumber">US20060058985A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2004-08-31</td>
+          <td itemprop="publicationDate">2006-03-16</td>
+          <td><span itemprop="assigneeOriginal">Supersonic Aerospace International, Llc</span></td>
+          <td itemprop="title">Adjoint-based design variable adaptation 
+     </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20060078172A1/en">
+              <span itemprop="publicationNumber">US20060078172A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2004-06-03</td>
+          <td itemprop="publicationDate">2006-04-13</td>
+          <td><span itemprop="assigneeOriginal">Arizona Board Of Regents, A Body Corporate Of The State Of Arizona</span></td>
+          <td itemprop="title">3D face authentication and recognition based on bilateral symmetry analysis 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7035782B2/en">
+              <span itemprop="publicationNumber">US7035782B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2000-06-02</td>
+          <td itemprop="publicationDate">2006-04-25</td>
+          <td><span itemprop="assigneeOriginal">Cadence Design Systems, Inc.</span></td>
+          <td itemprop="title">Method and device for multi-interval collocation for efficient high accuracy circuit simulation 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7043413B2/en">
+              <span itemprop="publicationNumber">US7043413B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2000-06-29</td>
+          <td itemprop="publicationDate">2006-05-09</td>
+          <td><span itemprop="assigneeOriginal">Object Reservoir, Inc.</span></td>
+          <td itemprop="title">Method for modeling an arbitrary well path in a hydrocarbon reservoir using adaptive meshing 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7120544B2/en">
+              <span itemprop="publicationNumber">US7120544B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2003-11-12</td>
+          <td itemprop="publicationDate">2006-10-10</td>
+          <td><span itemprop="assigneeOriginal">Automotive Aerodynamics, Inc.</span></td>
+          <td itemprop="title">Software and method for turbulent flow analysis 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7152017B2/en">
+              <span itemprop="publicationNumber">US7152017B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2002-07-04</td>
+          <td itemprop="publicationDate">2006-12-19</td>
+          <td><span itemprop="assigneeOriginal">Keio University</span></td>
+          <td itemprop="title">Numerical analysis system using hybrid grid adaptation method 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7200532B1/en">
+              <span itemprop="publicationNumber">US7200532B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2002-06-14</td>
+          <td itemprop="publicationDate">2007-04-03</td>
+          <td><span itemprop="assigneeOriginal">University Of Kentucky Research Foundation</span></td>
+          <td itemprop="title">Subdivision surface-based geometric modeling system 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/JP2007190827A/en">
+              <span itemprop="publicationNumber">JP2007190827A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2006-01-19</td>
+          <td itemprop="publicationDate">2007-08-02</td>
+          <td><span itemprop="assigneeOriginal">Toyo Tire &amp; Rubber Co Ltd</span></td>
+          <td itemprop="title">Flow simulation method for viscoelastic fluid 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/JP2007265459A/en">
+              <span itemprop="publicationNumber">JP2007265459A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1997-04-03</td>
+          <td itemprop="publicationDate">2007-10-11</td>
+          <td><span itemprop="assigneeOriginal">Microsoft Corp</span></td>
+          <td itemprop="title">Method and device for adaptive refinement of progressive mesh 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20070239414A1/en">
+              <span itemprop="publicationNumber">US20070239414A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2006-04-05</td>
+          <td itemprop="publicationDate">2007-10-11</td>
+          <td><span itemprop="assigneeOriginal">Oh-Young Song</span></td>
+          <td itemprop="title">Method of simulating detailed movements of fluids using derivative particles 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20080015825A1/en">
+              <span itemprop="publicationNumber">US20080015825A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2006-07-11</td>
+          <td itemprop="publicationDate">2008-01-17</td>
+          <td><span itemprop="assigneeOriginal">Georgi Kalitzin</span></td>
+          <td itemprop="title">Method for computing turbulent flow using a near-wall eddy-viscosity formulation 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7339584B1/en">
+              <span itemprop="publicationNumber">US7339584B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2002-05-29</td>
+          <td itemprop="publicationDate">2008-03-04</td>
+          <td><span itemprop="assigneeOriginal">Sandia Corporation</span></td>
+          <td itemprop="title">Method of generating a surface mesh 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20080103742A1/en">
+              <span itemprop="publicationNumber">US20080103742A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2005-08-17</td>
+          <td itemprop="publicationDate">2008-05-01</td>
+          <td><span itemprop="assigneeOriginal">Jiun-Der Yu</span></td>
+          <td itemprop="title">Coupled Algorithms on Quadrilateral Grids for Generalized Axi-Symmetric Viscoelastic Fluid Flows 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20080126046A1/en">
+              <span itemprop="publicationNumber">US20080126046A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2006-08-14</td>
+          <td itemprop="publicationDate">2008-05-29</td>
+          <td><span itemprop="assigneeOriginal">Jiun-Der Yu</span></td>
+          <td itemprop="title">Odd Times Refined Quadrilateral Mesh for Level Set 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Family Cites Families (2)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="backwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6266062B1/en">
+              <span itemprop="publicationNumber">US6266062B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1997-10-08</td>
+          <td itemprop="publicationDate">2001-07-24</td>
+          <td><span itemprop="assigneeOriginal">Maria-Cecilia Rivara</span></td>
+          <td itemprop="title">Longest-edge refinement and derefinement system and method for automatic mesh generation 
+       </td>
+        </tr><tr itemprop="backwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6816820B1/en">
+              <span itemprop="publicationNumber">US6816820B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1999-09-24</td>
+          <td itemprop="publicationDate">2004-11-09</td>
+          <td><span itemprop="assigneeOriginal">Moldflow Ireland, Ltd.</span></td>
+          <td itemprop="title">Method and apparatus for modeling injection of a fluid in a mold cavity 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+
+    
+    <ul>
+      
+      <li itemprop="applicationsByYear" itemscope repeat>
+        <span itemprop="year">2008</span>
+        <ul>
+          
+          <li itemprop="application" itemscope repeat>
+            <span itemprop="filingDate">2008-06-13</span>
+            <span itemprop="countryCode">US</span>
+            <span itemprop="applicationNumber">US12/138,768</span>
+            <a href="/patent/US7991595B2/en"><span itemprop="documentId">patent/US7991595B2/en</span></a>
+            <span itemprop="legalStatusCat">not_active</span>
+            <span itemprop="legalStatus">Expired - Fee Related</span>
+            
+            <span itemprop="thisApp" content="true" bool></span>
+            
+          </li>
+          
+          <li itemprop="application" itemscope repeat>
+            <span itemprop="filingDate">2008-06-13</span>
+            <span itemprop="countryCode">WO</span>
+            <span itemprop="applicationNumber">PCT/US2008/066922</span>
+            <a href="/patent/WO2009035737A2/en"><span itemprop="documentId">patent/WO2009035737A2/en</span></a>
+            <span itemprop="legalStatusCat">active</span>
+            <span itemprop="legalStatus">Application Filing</span>
+            
+          </li>
+          
+        </ul>
+      </li>
+      
+    </ul>
+    
+
+    </section>
+
+  <section>
+    <h2>Patent Citations (29)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US4711062A/en">
+              <span itemprop="publicationNumber">US4711062A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1986-12-17</td>
+          <td itemprop="publicationDate">1987-12-08</td>
+          <td><span itemprop="assigneeOriginal">Gwilliam Tony S</span></td>
+          <td itemprop="title">Octet structures using tension and compression 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5113490A/en">
+              <span itemprop="publicationNumber">US5113490A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1989-06-19</td>
+          <td itemprop="publicationDate">1992-05-12</td>
+          <td><span itemprop="assigneeOriginal">Silicon Graphics, Inc.</span></td>
+          <td itemprop="title">Method for forming a computer model from an intersection of a cutting surface with a bounded volume 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5603188A/en">
+              <span itemprop="publicationNumber">US5603188A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1989-10-31</td>
+          <td itemprop="publicationDate">1997-02-18</td>
+          <td><span itemprop="assigneeOriginal">Robbin; Anthony S.</span></td>
+          <td itemprop="title">Architectural body having a quasicrystal structure 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5617322A/en">
+              <span itemprop="publicationNumber">US5617322A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1994-01-31</td>
+          <td itemprop="publicationDate">1997-04-01</td>
+          <td><span itemprop="assigneeOriginal">Nec Corporation</span></td>
+          <td itemprop="title">Mesh generator and generating method 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5768156A/en">
+              <span itemprop="publicationNumber">US5768156A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1995-10-25</td>
+          <td itemprop="publicationDate">1998-06-16</td>
+          <td><span itemprop="assigneeOriginal">Sandia Corporation</span></td>
+          <td itemprop="title">Connectivity-based, all-hexahedral mesh generation method and apparatus 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5923329A/en">
+              <span itemprop="publicationNumber">US5923329A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1996-06-24</td>
+          <td itemprop="publicationDate">1999-07-13</td>
+          <td><span itemprop="assigneeOriginal">National Research Council Of Canada</span></td>
+          <td itemprop="title">Method of grid generation about or within a 3 dimensional object 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/JP2007265459A/en">
+              <span itemprop="publicationNumber">JP2007265459A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1997-04-03</td>
+          <td itemprop="publicationDate">2007-10-11</td>
+          <td><span itemprop="assigneeOriginal">Microsoft Corp</span></td>
+          <td itemprop="title">Method and device for adaptive refinement of progressive mesh 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6445390B1/en">
+              <span itemprop="publicationNumber">US6445390B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1997-12-29</td>
+          <td itemprop="publicationDate">2002-09-03</td>
+          <td><span itemprop="assigneeOriginal">The United States Of America As Represented By The Adminstrator Of The National Aeronautics And Space Administration</span></td>
+          <td itemprop="title">Triangle geometry processing for surface modeling and cartesian grid generation 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6088521A/en">
+              <span itemprop="publicationNumber">US6088521A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1998-05-04</td>
+          <td itemprop="publicationDate">2000-07-11</td>
+          <td><span itemprop="assigneeOriginal">Ford Global Technologies, Inc.</span></td>
+          <td itemprop="title">Method and system for providing a virtual wind tunnel 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6519553B1/en">
+              <span itemprop="publicationNumber">US6519553B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1998-05-14</td>
+          <td itemprop="publicationDate">2003-02-11</td>
+          <td><span itemprop="assigneeOriginal">Sandia Corporation</span></td>
+          <td itemprop="title">Multiprocessor computer overset grid method and apparatus 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6654710B1/en">
+              <span itemprop="publicationNumber">US6654710B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1998-06-04</td>
+          <td itemprop="publicationDate">2003-11-25</td>
+          <td><span itemprop="assigneeOriginal">Alstom</span></td>
+          <td itemprop="title">Method for designing a flow device 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6453275B1/en">
+              <span itemprop="publicationNumber">US6453275B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1998-06-19</td>
+          <td itemprop="publicationDate">2002-09-17</td>
+          <td><span itemprop="assigneeOriginal">Interuniversitair Micro-Elektronica Centrum (Imec Vzw)</span></td>
+          <td itemprop="title">Method for locally refining a mesh 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6356860B1/en">
+              <span itemprop="publicationNumber">US6356860B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1998-10-08</td>
+          <td itemprop="publicationDate">2002-03-12</td>
+          <td><span itemprop="assigneeOriginal">Sandia Corporation</span></td>
+          <td itemprop="title">Method of grid generation 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7035782B2/en">
+              <span itemprop="publicationNumber">US7035782B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2000-06-02</td>
+          <td itemprop="publicationDate">2006-04-25</td>
+          <td><span itemprop="assigneeOriginal">Cadence Design Systems, Inc.</span></td>
+          <td itemprop="title">Method and device for multi-interval collocation for efficient high accuracy circuit simulation 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7043413B2/en">
+              <span itemprop="publicationNumber">US7043413B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2000-06-29</td>
+          <td itemprop="publicationDate">2006-05-09</td>
+          <td><span itemprop="assigneeOriginal">Object Reservoir, Inc.</span></td>
+          <td itemprop="title">Method for modeling an arbitrary well path in a hydrocarbon reservoir using adaptive meshing 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7339584B1/en">
+              <span itemprop="publicationNumber">US7339584B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2002-05-29</td>
+          <td itemprop="publicationDate">2008-03-04</td>
+          <td><span itemprop="assigneeOriginal">Sandia Corporation</span></td>
+          <td itemprop="title">Method of generating a surface mesh 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7200532B1/en">
+              <span itemprop="publicationNumber">US7200532B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2002-06-14</td>
+          <td itemprop="publicationDate">2007-04-03</td>
+          <td><span itemprop="assigneeOriginal">University Of Kentucky Research Foundation</span></td>
+          <td itemprop="title">Subdivision surface-based geometric modeling system 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7152017B2/en">
+              <span itemprop="publicationNumber">US7152017B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2002-07-04</td>
+          <td itemprop="publicationDate">2006-12-19</td>
+          <td><span itemprop="assigneeOriginal">Keio University</span></td>
+          <td itemprop="title">Numerical analysis system using hybrid grid adaptation method 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20050172249A1/en">
+              <span itemprop="publicationNumber">US20050172249A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2002-08-28</td>
+          <td itemprop="publicationDate">2005-08-04</td>
+          <td><span itemprop="assigneeOriginal">Micron Technology, Inc.</span></td>
+          <td itemprop="title">Pattern generation on a semiconductor surface 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7120544B2/en">
+              <span itemprop="publicationNumber">US7120544B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2003-11-12</td>
+          <td itemprop="publicationDate">2006-10-10</td>
+          <td><span itemprop="assigneeOriginal">Automotive Aerodynamics, Inc.</span></td>
+          <td itemprop="title">Software and method for turbulent flow analysis 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20050219445A1/en">
+              <span itemprop="publicationNumber">US20050219445A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2004-03-23</td>
+          <td itemprop="publicationDate">2005-10-06</td>
+          <td><span itemprop="assigneeOriginal">Sharp Kabushiki Kaisha</span></td>
+          <td itemprop="title">Liquid crystal display device and electronic apparatus 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20060025973A1/en">
+              <span itemprop="publicationNumber">US20060025973A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2004-04-21</td>
+          <td itemprop="publicationDate">2006-02-02</td>
+          <td><span itemprop="assigneeOriginal">Taehyoun Kim</span></td>
+          <td itemprop="title">Methods and systems for model reduction and system identification of dynamic systems with multiple inputs 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20060078172A1/en">
+              <span itemprop="publicationNumber">US20060078172A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2004-06-03</td>
+          <td itemprop="publicationDate">2006-04-13</td>
+          <td><span itemprop="assigneeOriginal">Arizona Board Of Regents, A Body Corporate Of The State Of Arizona</span></td>
+          <td itemprop="title">3D face authentication and recognition based on bilateral symmetry analysis 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20060058985A1/en">
+              <span itemprop="publicationNumber">US20060058985A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2004-08-31</td>
+          <td itemprop="publicationDate">2006-03-16</td>
+          <td><span itemprop="assigneeOriginal">Supersonic Aerospace International, Llc</span></td>
+          <td itemprop="title">Adjoint-based design variable adaptation 
+     </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20080103742A1/en">
+              <span itemprop="publicationNumber">US20080103742A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2005-08-17</td>
+          <td itemprop="publicationDate">2008-05-01</td>
+          <td><span itemprop="assigneeOriginal">Jiun-Der Yu</span></td>
+          <td itemprop="title">Coupled Algorithms on Quadrilateral Grids for Generalized Axi-Symmetric Viscoelastic Fluid Flows 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/JP2007190827A/en">
+              <span itemprop="publicationNumber">JP2007190827A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2006-01-19</td>
+          <td itemprop="publicationDate">2007-08-02</td>
+          <td><span itemprop="assigneeOriginal">Toyo Tire &amp; Rubber Co Ltd</span></td>
+          <td itemprop="title">Flow simulation method for viscoelastic fluid 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20070239414A1/en">
+              <span itemprop="publicationNumber">US20070239414A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2006-04-05</td>
+          <td itemprop="publicationDate">2007-10-11</td>
+          <td><span itemprop="assigneeOriginal">Oh-Young Song</span></td>
+          <td itemprop="title">Method of simulating detailed movements of fluids using derivative particles 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20080015825A1/en">
+              <span itemprop="publicationNumber">US20080015825A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2006-07-11</td>
+          <td itemprop="publicationDate">2008-01-17</td>
+          <td><span itemprop="assigneeOriginal">Georgi Kalitzin</span></td>
+          <td itemprop="title">Method for computing turbulent flow using a near-wall eddy-viscosity formulation 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20080126046A1/en">
+              <span itemprop="publicationNumber">US20080126046A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2006-08-14</td>
+          <td itemprop="publicationDate">2008-05-29</td>
+          <td><span itemprop="assigneeOriginal">Jiun-Der Yu</span></td>
+          <td itemprop="title">Odd Times Refined Quadrilateral Mesh for Level Set 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  
+
+  <h2>Cited By (4)</h2>
+  <table>
+    <caption>* Cited by examiner, † Cited by third party</caption>
+    <thead>
+      <tr>
+        <th>Publication number</th>
+        <th>Priority date</th>
+        <th>Publication date</th>
+        <th>Assignee</th>
+        <th>Title</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US8731872B2/en">
+            <span itemprop="publicationNumber">US8731872B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          
+          
+        </td>
+        <td itemprop="priorityDate">2010-03-08</td>
+        <td itemprop="publicationDate">2014-05-20</td>
+        <td><span itemprop="assigneeOriginal">Exxonmobil Upstream Research Company</span></td>
+        <td itemprop="title">System and method for providing data corresponding to physical objects 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US8727017B2/en">
+            <span itemprop="publicationNumber">US8727017B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          
+          
+        </td>
+        <td itemprop="priorityDate">2010-04-22</td>
+        <td itemprop="publicationDate">2014-05-20</td>
+        <td><span itemprop="assigneeOriginal">Exxonmobil Upstream Research Company</span></td>
+        <td itemprop="title">System and method for obtaining data on an unstructured grid 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US8731873B2/en">
+            <span itemprop="publicationNumber">US8731873B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          
+          
+        </td>
+        <td itemprop="priorityDate">2010-04-26</td>
+        <td itemprop="publicationDate">2014-05-20</td>
+        <td><span itemprop="assigneeOriginal">Exxonmobil Upstream Research Company</span></td>
+        <td itemprop="title">System and method for providing data corresponding to physical objects 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US8731875B2/en">
+            <span itemprop="publicationNumber">US8731875B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          
+          
+        </td>
+        <td itemprop="priorityDate">2010-08-13</td>
+        <td itemprop="publicationDate">2014-05-20</td>
+        <td><span itemprop="assigneeOriginal">Exxonmobil Upstream Research Company</span></td>
+        <td itemprop="title">System and method for providing data corresponding to physical objects 
+       </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <section>
+    <h2>Also Published As</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Publication date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="docdbFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20080312887A1/en">
+              <span itemprop="publicationNumber">US20080312887A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+          </td>
+          <td itemprop="publicationDate">2008-12-18</td>
+        </tr><tr itemprop="docdbFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/WO2009035737A3/en">
+              <span itemprop="publicationNumber">WO2009035737A3</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+          </td>
+          <td itemprop="publicationDate">2010-05-27</td>
+        </tr><tr itemprop="docdbFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/WO2009035737A2/en">
+              <span itemprop="publicationNumber">WO2009035737A2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+          </td>
+          <td itemprop="publicationDate">2009-03-19</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Similar Documents</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Publication</th>
+          <th>Publication Date</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="5188326379241743291">
+              <a href="/scholar/5188326379241743291"><span itemprop="scholarAuthors">Chen et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1998">1998</time>
+            
+          </td>
+          <td itemprop="title">Second order elliptic equations and elliptic systems</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="8603819179049718002">
+              <a href="/scholar/8603819179049718002"><span itemprop="scholarAuthors">Verfürth</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2013">2013</time>
+            
+          </td>
+          <td itemprop="title">A posteriori error estimation techniques for finite element methods</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="16837483069684534638">
+              <a href="/scholar/16837483069684534638"><span itemprop="scholarAuthors">Lakshmikantham et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2002">2002</time>
+            
+          </td>
+          <td itemprop="title">Theory of Difference Equations Numerical Methods and Applications</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="17294548832064027575">
+              <a href="/scholar/17294548832064027575"><span itemprop="scholarAuthors">Cheney</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2013">2013</time>
+            
+          </td>
+          <td itemprop="title">Analysis for applied mathematics</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="7835621001436259153">
+              <a href="/scholar/7835621001436259153"><span itemprop="scholarAuthors">Bungartz et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2014">2014</time>
+            
+          </td>
+          <td itemprop="title">Modeling and Simulation</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="15564918969148488670">
+              <a href="/scholar/15564918969148488670"><span itemprop="scholarAuthors">Earley</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1971">1971</time>
+            
+          </td>
+          <td itemprop="title">Toward an understanding of data structures</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="599135904063033856">
+              <a href="/scholar/599135904063033856"><span itemprop="scholarAuthors">Robert et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2013">2013</time>
+            
+          </td>
+          <td itemprop="title">Monte Carlo statistical methods</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="12441641966962137833">
+              <a href="/scholar/12441641966962137833"><span itemprop="scholarAuthors">Litovski et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1996">1996</time>
+            
+          </td>
+          <td itemprop="title">VLSI circuit simulation and optimization</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="13532962378659278184">
+              <a href="/scholar/13532962378659278184"><span itemprop="scholarAuthors">Devadas et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1988">1988</time>
+            
+          </td>
+          <td itemprop="title">On the verification of sequential machines at differing levels of abstraction</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="15506465706499485403">
+              <a href="/scholar/15506465706499485403"><span itemprop="scholarAuthors">Shephard et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2004">2004</time>
+            
+          </td>
+          <td itemprop="title">Toward simulation-based design</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="8298419793780112994">
+              <a href="/scholar/8298419793780112994"><span itemprop="scholarAuthors">Wienands et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2004">2004</time>
+            
+          </td>
+          <td itemprop="title">Practical Fourier analysis for multigrid methods</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="3028311813780454021">
+              <a href="/scholar/3028311813780454021"><span itemprop="scholarAuthors">Powell et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2009">2009</time>
+            
+          </td>
+          <td itemprop="title">Block-diagonal preconditioning for spectral stochastic finite-element systems</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="2141377440046281963">
+              <a href="/scholar/2141377440046281963"><span itemprop="scholarAuthors">Siegelmann</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2012">2012</time>
+            
+          </td>
+          <td itemprop="title">Neural networks and analog computation: beyond the Turing limit</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="10811442536792995781">
+              <a href="/scholar/10811442536792995781"><span itemprop="scholarAuthors">Pachpatte</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2001">2001</time>
+            
+          </td>
+          <td itemprop="title">Inequalities for finite difference equations</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="5397823926441157409">
+              <a href="/scholar/5397823926441157409"><span itemprop="scholarAuthors">Mihram</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1972">1972</time>
+            
+          </td>
+          <td itemprop="title">Simulation Statistical Foundations and Methodology</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="979354534368678435">
+              <a href="/scholar/979354534368678435"><span itemprop="scholarAuthors">Young et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1991">1991</time>
+            
+          </td>
+          <td itemprop="title">A locally refined rectangular grid finite element method: application to computational fluid dynamics and computational physics</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="13187907130517760404">
+              <a href="/scholar/13187907130517760404"><span itemprop="scholarAuthors">Graham et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2013">2013</time>
+            
+          </td>
+          <td itemprop="title">Stochastic simulation and Monte Carlo methods: mathematical foundations of stochastic simulation</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="5026029632558880634">
+              <a href="/scholar/5026029632558880634"><span itemprop="scholarAuthors">Coirier</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1994">1994</time>
+            
+          </td>
+          <td itemprop="title">An adaptively-refined, Cartesian cell-based scheme for the Euler and Navier-Stokes equations</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="2601395422273984995">
+              <a href="/scholar/2601395422273984995"><span itemprop="scholarAuthors">Aftosmis</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1997">1997</time>
+            
+          </td>
+          <td itemprop="title">Solution adaptive Cartesian grid methods for aerodynamic flows with complex geometries</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="9175917099732601248">
+              <a href="/scholar/9175917099732601248"><span itemprop="scholarAuthors">Stump et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2009">2009</time>
+            
+          </td>
+          <td itemprop="title">Visual steering commands for trade space exploration: User-guided sampling with example</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="8871406013127639592">
+              <a href="/scholar/8871406013127639592"><span itemprop="scholarAuthors">Gikhman et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2015">2015</time>
+            
+          </td>
+          <td itemprop="title">The theory of stochastic processes I</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="10282177901160492726">
+              <a href="/scholar/10282177901160492726"><span itemprop="scholarAuthors">Geloun et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2013">2013</time>
+            
+          </td>
+          <td itemprop="title">3D tensor field theory: renormalization and one-loop β-functions</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="9345780901447313167">
+              <a href="/scholar/9345780901447313167"><span itemprop="scholarAuthors">Bajaj et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1998">1998</time>
+            
+          </td>
+          <td itemprop="title">Visualization of scalar topology for structural enhancement</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="14891952303161644183">
+              <a href="/scholar/14891952303161644183"><span itemprop="scholarAuthors">Arnold et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1996">1996</time>
+            
+          </td>
+          <td itemprop="title">Toward an understanding of stochastic Hopf bifurcation: a case study</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="17696242391394116983">
+              <a href="/scholar/17696242391394116983"><span itemprop="scholarAuthors">Mavriplis</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1991">1991</time>
+            
+          </td>
+          <td itemprop="title">Three dimensional unstructured multigrid for the Euler equations</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Legal Events</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Code</th>
+          <th>Title</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2008-06-27">2008-06-27</time></td>
+          <td itemprop="code">AS</td>
+          <td itemprop="title">Assignment</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Owner name</strong>:
+              <span itemprop="value">UNITED STATES OF AMERICA AS REPRESENTED BY THE ADM</span>
+            </p>
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">ASSIGNMENT OF ASSIGNORS INTEREST;ASSIGNORS:PAO, S. PAUL;ABDOL-HAMID, KHALED S.;REEL/FRAME:021159/0513</span>
+            </p>
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Effective date</strong>:
+              <span itemprop="value">20080623</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2011-07-13">2011-07-13</time></td>
+          <td itemprop="code">STCF</td>
+          <td itemprop="title">Information on status: patent grant</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">PATENTED CASE</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2015-01-30">2015-01-30</time></td>
+          <td itemprop="code">FPAY</td>
+          <td itemprop="title">Fee payment</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Year of fee payment</strong>:
+              <span itemprop="value">4</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2019-03-25">2019-03-25</time></td>
+          <td itemprop="code">FEPP</td>
+          <td itemprop="title">Fee payment procedure</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">MAINTENANCE FEE REMINDER MAILED (ORIGINAL EVENT CODE: REM.); ENTITY STATUS OF PATENT OWNER: LARGE ENTITY</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2019-09-09">2019-09-09</time></td>
+          <td itemprop="code">LAPS</td>
+          <td itemprop="title">Lapse for failure to pay maintenance fees</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">PATENT EXPIRED FOR FAILURE TO PAY MAINTENANCE FEES (ORIGINAL EVENT CODE: EXP.); ENTITY STATUS OF PATENT OWNER: LARGE ENTITY</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2019-09-09">2019-09-09</time></td>
+          <td itemprop="code">STCH</td>
+          <td itemprop="title">Information on status: patent discontinuation</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">PATENT EXPIRED DUE TO NONPAYMENT OF MAINTENANCE FEES UNDER 37 CFR 1.362</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2019-10-01">2019-10-01</time></td>
+          <td itemprop="code">FP</td>
+          <td itemprop="title">Expired due to failure to pay maintenance fee</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Effective date</strong>:
+              <span itemprop="value">20190802</span>
+            </p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+</article>
+
+    </search-app>
+    <script type="text/javascript" src="//www.gstatic.com/feedback/api.js"></script>
+    <script async="" defer="" src="//www.google.com/insights/consumersurveys/async_survey?site=cxkjf7ipxgbnnjy6k35ezcvbbe"></script>
+  </body>
+</html>

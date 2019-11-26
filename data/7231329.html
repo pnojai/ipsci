@@ -1,0 +1,2036 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>US7231329B1 - Enhanced elliptic grid generation 
+        - Google Patents</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="referrer" content="origin-when-crossorigin">
+    <link rel="canonical" href="https://patents.google.com/patent/US7231329B1/en">
+    <meta name="description" content="
+     Method and system for generating an elliptic grid in generalized coordinates in two or three dimensions, where one or more decay parameters near a boundary segment of a grid are determined as part of the grid solution, rather than being prescribed initially by a user. The decay parameters may vary with one or more generalized coordinates and determine the rate(s) at which separation distances between adjacent grid lines change as one moves toward or away from a grid boundary segment. 
+   
+   ">
+    
+    <meta name="DC.type" content="patent">
+    
+    <meta name="DC.title" content="Enhanced elliptic grid generation 
+       ">
+    
+    <meta name="DC.date" content="2003-11-07" scheme="dateSubmitted">
+    
+    <meta name="DC.description" content="
+     Method and system for generating an elliptic grid in generalized coordinates in two or three dimensions, where one or more decay parameters near a boundary segment of a grid are determined as part of the grid solution, rather than being prescribed initially by a user. The decay parameters may vary with one or more generalized coordinates and determine the rate(s) at which separation distances between adjacent grid lines change as one moves toward or away from a grid boundary segment. 
+   
+   ">
+    
+    <meta name="citation_patent_application_number" content="US:10/706,478">
+    
+    <meta name="citation_pdf_url" content="https://patentimages.storage.googleapis.com/c0/5f/ff/2d782c62cfd83f/US7231329.pdf">
+    
+    <meta name="citation_patent_number" content="US:7231329">
+    
+    <meta name="DC.date" content="2007-06-12" scheme="issue">
+    
+    <meta name="DC.contributor" content="Upender K. Kaul" scheme="inventor">
+    
+    <meta name="DC.contributor" content="National Aeronautics and Space Administration (NASA)" scheme="assignee">
+    
+    <meta name="DC.relation" content="US:5923329" scheme="references">
+    
+    <meta name="DC.relation" content="US:6064810" scheme="references">
+    
+    <meta name="citation_reference" content="Akcelik et al., Nearly Orthogonal Two-Dimensional Grid Generation with Aspect Ratio Control, J. Comput. Phys, Aug. 10, 2001, 805-821, 171, Academic Press." scheme="references">
+    
+    <meta name="citation_reference" content="Alter, et al., Elliptic volume grid generation for viscous CFD parametri . . . , Proceedings of AIAA Fluid Dynamics Conference, 27th, New Orleans, LA, Jun. 17-20, 1996, AIAA, Inc." scheme="references">
+    
+    <meta name="citation_reference" content="Eca, &#34;2D Orthogonal Grid Generation with Boundary Point Distribution Control&#34;, J computer Physics, May 1996, pp. 440-453 Academic Press, Inc." scheme="references">
+    
+    <meta name="citation_reference" content="ECA, 2D Orthogonal Grid Generation with Boundary Point Distribution Control, J. Comput. Phys., May 1996, 440-453, 125, Academic Press, Inc." scheme="references">
+    
+    <meta name="citation_reference" content="Houstis, et al., &#34;PELLPACK: A Problem-Solving Enivironment for PDE-Based Applications on Multicomputer Platforms&#34;, ACM Transactions on Mathematical Coftware, Mar. 1998, vol. 24, No. 1, pp. 30-73." scheme="references">
+    
+    <meta name="citation_reference" content="Jeng, et al., Two-Dimensional Elliptic Grid Solver Using Boundary Grid Control and Curvature Correction, AIAA J., Feb. 2000, 217-224, 38-2, AIAA, Inc." scheme="references">
+    
+    <meta name="citation_reference" content="Judy Challinger, &#34;Scalable Parallel Volumne Raycasting for Nonrectilinear Computational Grids&#34;, IEEE, 1993, pp. 81-88, 111." scheme="references">
+    
+    <meta name="citation_reference" content="Kaul, et al., A. Comparative Study of the Parabolized Navier-Stokes Code Using Various Grid-Generation Tecni . . . , Computers & Fluids, 1985, 421-441, 13-4, Pergamon Press Ltd." scheme="references">
+    
+    <meta name="citation_reference" content="Kaul, et al., Automated Gear Teeth Grid Generation via Solution of Ellipt . . . , Proceedings of SIAM Conference on Geometric Design and Computing, Nov. 5-8, 2001, Sacramento, CA." scheme="references">
+    
+    <meta name="citation_reference" content="Kaul, et al., Elliptic Grid Generation of Spiral-Bevel Pinion Gear Typical of OH-58 Helicopter Transmission, Feb. 2002, NASA TM-2002-210932." scheme="references">
+    
+    <meta name="citation_reference" content="Kaul, New boundary constraints for elliptic systems used in grid generation problems, J. Comput. Phys., 2003, 476-492, 189, Elsevier Science B. V." scheme="references">
+    
+    <meta name="citation_reference" content="Ryskin, et al., Orthogonal Mapping, J. Comput. Phys., 1983, 71-100, 50, Academic Press, Inc." scheme="references">
+    
+    <meta name="citation_reference" content="Sorenson, Three-Dimensional Elliptic Grid generation About Fighter Aircraft for Zonal Finit . . . , Proceeds of AIAA 24th Aerospace Sciences Meeting, Jan. 6-9, 1986, Reno, Nevada." scheme="references">
+    
+    <meta name="citation_reference" content="Steger, et al., Automatic Mesh-Point Clustering Near a Boundary in Grid Generation with Elliptic Partial Differential Equations, J. Comput. Phys., 1979, 405-410, 33." scheme="references">
+    
+    <meta name="citation_reference" content="Thompson, et al., Automatic Numerical Generation of Body-fitted Curvilinear Coordinate System for Field Contai . . . , J. Comput. Phys., 1974, 299-319, 15, Academic Press, Inc." scheme="references">
+    
+    <meta name="citation_reference" content="Thompson, et al., Boundary-Fitted Coordinate Systems for Numerical Solution Partial Differential Equations-- . . . , J. Comput. Phys., 1982, 1-108, 47, Academic Press, Inc." scheme="references">
+    
+    <meta name="citation_reference" content="Thompson, et al., TOMCAT-A Code for Numerical Generation of Boundary-Fitted Curvilinear Coordinate Systems . . . , J. Comput. Phys., 1977, 274-302, 24, Academic Press, Inc." scheme="references">
+    
+    <meta name="citation_reference" content="Thompson, Grid Generation Techniques in Computational Fluid Dynamics, AIAA J., 1984, 1505-1523, 22-11, AIAA, Inc." scheme="references">
+    
+    <meta name="citation_reference" content="Visbal, et al., Generation of Orthogonal and Nearly Orthogonal Coordinates with Grid Control Near Boundaries, AIAA J., 1982, 305-315, 20-3, AIAA, Inc." scheme="references">
+    
+    <meta name="citation_reference" content="Weissbein et al., &#34;Solution of the 3-D Euler Equations for the Flow About a Fighter Aircraft Configuration Using a Hypercube Parallel Processor&#34;, ACM, 1988, pp. 1127-1136." scheme="references">
+    
+    <meta name="citation_reference" content="Zheng et al., &#34;Development of Three-Dimesional DRAGON Grid Technology&#34;, NASA, Nov. 1999, 36 pgs." scheme="references">
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,400italic,500,500italic,700">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Product+Sans">
+    <style>
+      body { transition: none; }
+    </style>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-27188110-4', 'auto');
+
+      version = 'patent-search.search_20191120_RC00';
+
+      function sendFeedback() {
+        userfeedback.api.startFeedback({
+          'productId': '713680',
+          'bucket': 'patent-search-web',
+          'productVersion': version,
+        });
+      }
+
+      window.experiments = {};
+      window.experiments.patentCountries = "ae,ag,al,am,ao,ap,ar,at,au,aw,az,ba,bb,bd,be,bf,bg,bh,bj,bn,bo,br,bw,bx,by,bz,ca,cf,cg,ch,ci,cl,cm,cn,co,cr,cs,cu,cy,cz,dd,de,dj,dk,dm,do,dz,ea,ec,ee,eg,em,ep,es,fi,fr,ga,gb,gc,gd,ge,gh,gm,gn,gq,gr,gt,gw,hk,hn,hr,hu,ib,id,ie,il,in,ir,is,it,jo,jp,ke,kg,kh,km,kn,kp,kr,kw,kz,la,lc,li,lk,lr,ls,lt,lu,lv,ly,ma,mc,md,me,mg,mk,ml,mn,mo,mr,mt,mw,mx,my,mz,na,ne,ng,ni,nl,no,nz,oa,om,pa,pe,pg,ph,pl,pt,py,qa,ro,rs,ru,rw,sa,sc,sd,se,sg,si,sk,sl,sm,sn,st,su,sv,sy,sz,td,tg,th,tj,tm,tn,tr,tt,tw,tz,ua,ug,us,uy,uz,vc,ve,vn,wo,yu,za,zm,zw";
+      
+      
+      window.profilePicture = "";
+
+      window.Polymer = {
+        dom: 'shady',
+        lazyRegister: true,
+      };
+    </script>
+
+    <script src="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/webcomponentsjs/webcomponents-lite.min.js"></script>
+    
+    <link rel="import" href="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/search-app-vulcanized.html">
+    
+  </head>
+  <body unresolved>
+    
+    <script src="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/search-app-vulcanized.js"></script>
+    
+    <search-app>
+      
+      
+
+      <article class="result" itemscope itemtype="http://schema.org/ScholarlyArticle">
+  <h1 itemprop="pageTitle">US7231329B1 - Enhanced elliptic grid generation 
+        - Google Patents</h1>
+  <span itemprop="title">Enhanced elliptic grid generation 
+       </span>
+
+  <meta itemprop="type" content="patent">
+  <a href="https://patentimages.storage.googleapis.com/c0/5f/ff/2d782c62cfd83f/US7231329.pdf" itemprop="pdfLink">Download PDF</a>
+  <h2>Info</h2>
+
+  <dl>
+    <dt>Publication number</dt>
+    <dd itemprop="publicationNumber">US7231329B1</dd>
+    <meta itemprop="numberWithoutCodes" content="7231329">
+    <meta itemprop="kindCode" content="B1">
+    <meta itemprop="publicationDescription" content="Patent ( no pre-grant publication)">
+    
+    <span>US7231329B1</span>
+    
+    <span>US10/706,478</span>
+    
+    <span>US70647803A</span>
+    
+    <span>US7231329B1</span>
+    
+    <span>US 7231329 B1</span>
+    
+    <span>US7231329 B1</span>
+    
+    <span>US 7231329B1</span>
+    
+    <span>  </span>
+    
+    <span> </span>
+    
+    <span> </span>
+    
+    <span>US 70647803 A</span>
+    
+    <span>US70647803 A</span>
+    
+    <span>US 70647803A</span>
+    
+    <span>US 7231329 B1</span>
+    
+    <span>US7231329 B1</span>
+    
+    <span>US 7231329B1</span>
+    
+
+    <dt>Authority</dt>
+    <dd itemprop="countryCode">US</dd>
+    <dd itemprop="countryName">United States</dd>
+
+    <dt>Prior art keywords</dt>
+    
+    <dd itemprop="priorArtKeywords" repeat>grid</dd>
+    <dd itemprop="priorArtKeywords" repeat>η</dd>
+    <dd itemprop="priorArtKeywords" repeat>ξ</dd>
+    <dd itemprop="priorArtKeywords" repeat>ζ</dd>
+    <dd itemprop="priorArtKeywords" repeat>grid system</dd>
+
+    <dt>Prior art date</dt>
+    <dd><time itemprop="priorArtDate" datetime="2002-11-07">2002-11-07</time></dd>
+
+    <dt>Legal status (The legal status is an assumption and is not a legal conclusion. Google has not performed a legal analysis and makes no representation as to the accuracy of the status listed.)</dt>
+    <dd itemprop="legalStatusIfi" itemscope>
+      <span itemprop="status">Expired - Fee Related</span>, expires <time itemprop="expiration" datetime="2025-03-11">2025-03-11</time>
+    </dd>
+  </dl>
+
+  <dt>Application number</dt>
+  <dd itemprop="applicationNumber">US10/706,478</dd>
+
+  
+
+  
+
+  <dt>Inventor</dt>
+  <dd itemprop="inventor" repeat>Upender K. Kaul</dd>
+  <dt>Current Assignee (The listed assignees may be inaccurate. Google has not performed a legal analysis and makes no representation or warranty as to the accuracy of the list.)</dt>
+  <dd itemprop="assigneeCurrent" repeat>
+    National Aeronautics and Space Administration (NASA)
+  </dd>
+
+  <dt>Original Assignee</dt>
+  <dd itemprop="assigneeOriginal" repeat>National Aeronautics and Space Administration (NASA)</dd>
+
+  <dt>Priority date (The priority date is an assumption and is not a legal conclusion. Google has not performed a legal analysis and makes no representation as to the accuracy of the date listed.)</dt>
+  <dd><time itemprop="priorityDate" datetime="2002-11-07">2002-11-07</time></dd>
+
+  <dt>Filing date</dt>
+  <dd><time itemprop="filingDate" datetime="2003-11-07">2003-11-07</time></dd>
+
+  <dt>Publication date</dt>
+  <dd><time itemprop="publicationDate" datetime="2007-06-12">2007-06-12</time></dd>
+
+  
+
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2002-11-07">2002-11-07</time>
+    <span itemprop="title">Priority to US42575002P</span>
+    <span itemprop="type">priority</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2003-11-07">2003-11-07</time>
+    <span itemprop="title">Application filed by National Aeronautics and Space Administration (NASA)</span>
+    <span itemprop="type">filed</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    <span itemprop="assigneeSearch">National Aeronautics and Space Administration (NASA)</span>
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2003-11-07">2003-11-07</time>
+    <span itemprop="title">Priority to US10/706,478</span>
+    <span itemprop="type">priority</span>
+    
+    
+    
+    <span itemprop="documentId">patent/US7231329B1/en</span>
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2004-03-19">2004-03-19</time>
+    <span itemprop="title">Assigned to NATIONAL AERONAUTICS AND SPACE ADMINISTRATION, UNITED STATES OF AMERICA, THE, AS REPRESENTED BY THE SECRETARY</span>
+    <span itemprop="type">reassignment</span>
+    
+    
+    
+    
+    <span itemprop="assigneeSearch">NATIONAL AERONAUTICS AND SPACE ADMINISTRATION, UNITED STATES OF AMERICA, THE, AS REPRESENTED BY THE SECRETARY</span>
+    
+    
+    <span itemprop="description" repeat>ASSIGNMENT OF ASSIGNORS INTEREST (SEE DOCUMENT FOR DETAILS).</span>
+    
+    <span itemprop="description" repeat>Assignors: KAUL, UPENDER K.</span>
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2007-06-12">2007-06-12</time>
+    <span itemprop="title">Application granted</span>
+    <span itemprop="type">granted</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2007-06-12">2007-06-12</time>
+    <span itemprop="title">Publication of US7231329B1</span>
+    <span itemprop="type">publication</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    <span itemprop="documentId">patent/US7231329B1/en</span>
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2019-11-25">2019-11-25</time>
+    <span itemprop="title">Application status is Expired - Fee Related</span>
+    <span itemprop="type">legal-status</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2025-03-11">2025-03-11</time>
+    <span itemprop="title">Adjusted expiration</span>
+    <span itemprop="type">legal-status</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+
+  <h2>Links</h2>
+
+  <ul>
+    
+          <li itemprop="links" itemscope repeat>
+            <meta itemprop="id" content="usptoLink">
+            <a href="http://patft.uspto.gov/netacgi/nph-Parser?Sect1=PTO1&Sect2=HITOFF&p=1&u=/netahtml/PTO/srchnum.html&r=1&f=G&l=50&d=PALL&s1=7231329.PN." itemprop="url" target="_blank"><span itemprop="text">USPTO</span></a>
+          </li>
+        <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="usptoAssignmentLink">
+          <a href="https://assignment.uspto.gov/patent/index.html#/patent/search/resultFilter?searchInput=7231329" itemprop="url" target="_blank"><span itemprop="text">USPTO Assignment</span></a>
+        </li>
+
+    <li itemprop="links" itemscope repeat>
+        <meta itemprop="id" content="espacenetLink">
+        <a href="http://worldwide.espacenet.com/publicationDetails/biblio?CC=US&amp;NR=7231329B1&amp;KC=B1&amp;FT=D" itemprop="url" target="_blank"><span itemprop="text">Espacenet</span></a>
+      </li>
+      
+
+    
+
+    
+      <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="globalDossierLink">
+          <a href="http://globaldossier.uspto.gov/#/result/patent/US/7231329/1" itemprop="url" target="_blank"><span itemprop="text">Global Dossier</span></a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="stackexchangeLink">
+          <a href="https://patents.stackexchange.com/questions/tagged/US7231329" itemprop="url"><span itemprop="text">Discuss</span></a>
+        </li>
+      
+  </ul>
+
+  
+  <ul itemprop="concept" itemscope>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001419</span>
+      <span itemprop="name">dependent</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">11</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000036961</span>
+      <span itemprop="name">partial</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">6</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000000926</span>
+      <span itemprop="name">separation method</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>abstract</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000000034</span>
+      <span itemprop="name">methods</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">8</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000000875</span>
+      <span itemprop="name">corresponding</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">5</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000004458</span>
+      <span itemprop="name">analytical methods</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">4</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000003780</span>
+      <span itemprop="name">insertion</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">101700019351</span>
+      <span itemprop="name">TRYM family</span>
+      <span itemprop="domain">Proteins</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000007792</span>
+      <span itemprop="name">addition</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000018109</span>
+      <span itemprop="name">developmental process</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000002708</span>
+      <span itemprop="name">enhancing</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000002529</span>
+      <span itemprop="name">flux</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000009472</span>
+      <span itemprop="name">formulation</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000000203</span>
+      <span itemprop="name">mixtures</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000003068</span>
+      <span itemprop="name">static</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001131</span>
+      <span itemprop="name">transforming</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+  </ul>
+  
+
+  <section>
+    <h2>Images</h2>
+    <ul>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/thumbnails/US7231329B1/US07231329-20070612-D00000.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/US7231329B1/US07231329-20070612-D00000.png">
+        <ul>
+          
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/thumbnails/US7231329B1/US07231329-20070612-D00001.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/US7231329B1/US07231329-20070612-D00001.png">
+        <ul>
+          
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/thumbnails/US7231329B1/US07231329-20070612-D00002.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/US7231329B1/US07231329-20070612-D00002.png">
+        <ul>
+          
+        </ul>
+      </li>
+      </ul>
+  </section>
+
+  <section>
+    <h2>Classifications</h2>
+    
+    <ul>
+      <li>
+        <ul itemprop="cpcs" itemscope repeat>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G</span>&mdash;<span itemprop="Description">PHYSICS</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06</span>&mdash;<span itemprop="Description">COMPUTING; CALCULATING; COUNTING</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06F</span>&mdash;<span itemprop="Description">ELECTRIC DIGITAL DATA PROCESSING</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06F17/00</span>&mdash;<span itemprop="Description">Digital computing or data processing equipment or methods, specially adapted for specific functions</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06F17/50</span>&mdash;<span itemprop="Description">Computer-aided design</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06F17/5009</span>&mdash;<span itemprop="Description">Computer-aided design using simulation</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06F17/5018</span>&mdash;<span itemprop="Description">Computer-aided design using simulation using finite difference methods or finite element methods</span>
+            <meta itemprop="Leaf" content="true">
+            
+            <meta itemprop="FirstCode" content="true">
+          </li>
+          </ul>
+      </li>
+      <li>
+        <ul itemprop="cpcs" itemscope repeat>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G</span>&mdash;<span itemprop="Description">PHYSICS</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06</span>&mdash;<span itemprop="Description">COMPUTING; CALCULATING; COUNTING</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06F</span>&mdash;<span itemprop="Description">ELECTRIC DIGITAL DATA PROCESSING</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06F2217/00</span>&mdash;<span itemprop="Description">Indexing scheme relating to computer aided design [CAD]</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06F2217/16</span>&mdash;<span itemprop="Description">Numerical modeling</span>
+            <meta itemprop="Leaf" content="true">
+            <meta itemprop="Additional" content="true">
+            
+          </li>
+          </ul>
+      </li>
+      </ul>
+  </section>
+
+  <section itemprop="abstract" itemscope>
+    <h2>Abstract</h2>
+    
+    <div itemprop="content" html><abstract mxw-id="PA51162327" lang="EN" load-source="patent-office">
+    <div num="p-0001" class="abstract">Method and system for generating an elliptic grid in generalized coordinates in two or three dimensions, where one or more decay parameters near a boundary segment of a grid are determined as part of the grid solution, rather than being prescribed initially by a user. The decay parameters may vary with one or more generalized coordinates and determine the rate(s) at which separation distances between adjacent grid lines change as one moves toward or away from a grid boundary segment.</div>
+  </abstract>
+  </div>
+  </section>
+
+  <section itemprop="description" itemscope>
+    <h2>Description</h2>
+    
+    <div itemprop="content" html><div mxw-id="PDES16245217" lang="EN" load-source="patent-office" class="description">
+
+  <heading>CROSS REFERENCE TO RELATED APPLICATIONS</heading>
+  <p num="p-0002">This application claims the benefit of U.S. Provisional Application 60/425,750 filed Nov. 7, 2002.</p>
+
+
+  <heading>ORIGIN OF THE INVENTION</heading>
+  <p num="p-0003">The invention described herein was made by an employee of the United States Government and may be manufactured and used by or for the Government for governmental purposes without the payment of any royalties thereon or therefor.</p>
+  <heading>TECHNICAL FIELD</heading>
+  <p num="p-0004">The present invention is a method for eliminating requirements for parameter inputs for generalized grid generation in modeling of engineering systems.</p>
+  <heading>BACKGROUND OF THE INVENTION</heading>
+  <p num="p-0005">A large amount of effort has been devoted to developing, enhancing and using grid generation techniques, through solution of elliptic partial differential equations (“PDEs”). Elliptic grid generation methods generally focus on developing body-conforming grids around bodies for simulations of external fluid flow. The grids thus generated are smooth, having at least continuous first and second derivatives, appropriately stretched or clustered, and are orthogonal over most of the grid domain. Inclusion of inhomogeneous terms in the PDEs allows a grid to satisfy clustering and orthogonality properties in the vicinity of specific surfaces in three dimensions and in the vicinity of specific lines in two dimensions.</p>
+  <p num="p-0006">Following the work of Thompson, Thames and Mastin, Jour. Computational Physics, vol. 24, 1977, pp. 274–302, three-dimensional governing equations for elliptic grid generation are often expressed as:
+<br/>
+ξ<sub>xx</sub>+ξ<sub>yy</sub>+ξ<sub>zz</sub> <i>=P</i>(ξ,η,ζ)=−<i>a</i> <sub>i</sub> <i>·sgn</i>(ξ−ξ<sub>i</sub>)exp{<i>−b</i> <sub>i</sub>|ξ−ξ<sub>i</sub>|},  (1A)
+<br/>
+η<sub>xx</sub>+η<sub>yy</sub>+η<sub>zz</sub> <i>=Q</i>(ξ,η,ζ)=−<i>c</i> <sub>i</sub> <i>·sgn</i>(η−η<sub>i</sub>)exp{<i>−d</i> <sub>i</sub>|η−η<sub>i</sub>|},  (1B)
+<br/>
+ζ<sub>xx</sub>+ζ<sub>yy</sub>+ζ<sub>zz</sub> <i>=R</i>(ξ,η,ζ)=<i>−e</i> <sub>i</sub> <i>·sgn</i>(ζ−ζ<sub>i</sub>)exp{−<i>f</i> <sub>i</sub>|ζ−ζ<sub>i</sub>|},  (1C)
+<br/>
+where ξ, η, and ζ are generalized curvilinear coordinates, x, y and z are Cartesian coordinates, and P(ξ,η,ζ), Q(ξ,η,ζ) and R(ξ,η,ζ), are inhomogeneous terms, a<sub>i</sub>, b<sub>i</sub>, c<sub>i</sub>, d<sub>i</sub>, e<sub>i </sub>and f<sub>i </sub>are manually selected constants, and the subscript “i” refers to a particular boundary component associated with the problem.
+</p>
+  <p num="p-0007">In a two dimensional study by Steger and Sorensen, Jour. Computational Physics, vol. 33, 1979, pp 405–410, the authors use the following governing equations,
+<br/>
+ξ<sub>xx</sub>+ξ<sub>yy</sub> <i>=−a</i> <sub>i</sub> <i>·sgn</i>(η−η<sub>i</sub>)exp{<i>−d</i> <sub>i</sub>|η−η<sub>i</sub>|},  (1D)
+<br/>
+η<sub>xx</sub>+η<sub>yy</sub> <i>=−c</i> <sub>i</sub> <i>·sgn</i>(η−η<sub>i</sub>)exp{−<i>d</i> <sub>i</sub>|η−η<sub>i</sub>|},  (1E)
+<br/>
+for a given η boundary. The quantities a<sub>i </sub>and c<sub>i </sub>are generalized to functions a<sub>i</sub>(ξ) and c<sub>i</sub>(ξ), respectively, and the values of these quantities are computed as part of the solution by requiring a specified spacing between a given η boundary and an adjacent grid line, and grid orthogonality at this η boundary. In any two dimensional problem, the decay parameters, such as d<sub>i</sub>, must be prescribed or manually inserted for each of the boundaries in any coordinate direction. However, as will be seen in the subsequent development, these values of d<sub>i </sub>are coupled with the values computed for the quantities a<sub>i </sub>and c<sub>i </sub>respectively so that explicit prescriptions of values for the parameters d<sub>i </sub>are in conflict with the values computed for a<sub>i </sub>and for c<sub>i</sub>. Further, the process of selecting the two values for the parameters d<sub>i </sub>for two opposing boundaries, and, by extension, four values for four boundaries in a two dimensional problem, is cumbersome for static grids and is infeasible where dynamically changing grids are required. In three dimensions, the parameter values need to be prescribed for six boundaries, one for each of six boundaries.
+</p>
+  <p num="p-0008">What is needed is an approach that provides an automatic procedure for generating an elliptic grid that does not require manual insertion or user prescription of these decay parameters for a two dimensional or three dimensional grid generation problem. Preferably, these decay parameters should allow for a variable rate of decay from different points on any grid boundary, should arise automatically in the formulation and solution of the problem and should permit an interpretation in terms of one or more physical quantities associated with the problem.</p>
+  <heading>SUMMARY OF THE INVENTION</heading>
+  <p num="p-0009">These needs are met by the invention, which provides a process for generating an elliptic grid in which (1) grid points tend to cluster near a boundary at a desired rate, which may vary from point to point where one or more coordinate variables may undergo a relatively large change in value), (2) grid lines corresponding to a constant value of a coordinate are approximately parallel to or perpendicular to the local boundary line, and (3) user prescription or manual insertion of parameters to achieve a desired grid behavior in terms of clustering and orthogonality near boundaries is not required (or allowed). The process includes the following steps:</p>
+  <p num="p-0010">providing defining equations, valid near at least one boundary segment in a generalized coordinate system, of a selected grid system, where each of the defining equations has at least two independent Cartesian coordinate variables, has at least one generalized coordinate as a dependent variable, and comprises a partial differential equation, expressed in at least one generalized coordinate;</p>
+  <p num="p-0011">providing a selected group of boundary constraints for the grid system, valid near the at least one boundary segment, where a decay parameter for at least one of the generalized coordinate dependent variables near the at least one boundary segment is determined as part of a solution for the grid system, rather than being prescribed initially;</p>
+  <p num="p-0012">providing defining equations and selected boundary conditions, having at least two independent coordinate variables and at least one dependent variable, for steady state heat transfer on a long thin fin, and providing a correspondence between the at least two independent coordinate variables for the grid system near the at least one grid boundary segment with the at least two independent coordinate variables for the heat transfer problem;</p>
+  <p num="p-0013">providing a correspondence between a selected power of at least one heat transfer coefficient for the heat transfer problem and at least one decay parameter for the grid system near the at least one grid boundary segment; and</p>
+  <p num="p-0014">determining a solution of the grid system near the at least one grid boundary segment that incorporates at least one boundary constraint comprising the at least one decay parameter determined for the grid system.</p>
+
+
+  <description-of-drawings>
+    <heading>BRIEF DESCRIPTION OF THE DRAWINGS</heading>
+    <p num="p-0015"> <figref idrefs="DRAWINGS">FIG. 1</figref> is a flow chart of a procedure for practicing the invention.</p>
+    <p num="p-0016"> <figref idrefs="DRAWINGS">FIGS. 2 and 3</figref> illustrate grids, computed using the invention, for a two dimensional annular region and for a two dimensional convex region, illustrating clustering of grid points near an inner boundary and near an upper boundary, respectively.</p>
+  </description-of-drawings>
+
+
+  <heading>DESCRIPTION OF BEST MODES OF THE INVENTION</heading>
+  <p num="p-0017">The equations (1A), (1B) and (1C) are modified here in the context of equations (1D) and (1E) and are written in the following form, as a six-equation set for each of the (ξ,η,ζ) boundaries, where a<sub>k,i</sub>=a<sub>k,i</sub>(η,ζ)c<sub>k,i</sub>=c<sub>k,i</sub>(ξ,ζ), and e<sub>k,i</sub>=e<sub>k,i</sub>(ξ,η) (k=1, 2, 3). The decay parameters b<sub>i</sub>, d<sub>i </sub>and f<sub>i </sub>are (positive) constants for any given boundary segment and are expressed as parameter functions, b<sub>i</sub>(η,ζ), d<sub>1</sub>(ξ,ζ), and f<sub>i</sub>(ξ,η). Without loss of generality, one can assume that near a given ξ-boundary segment i, ξ−ξ<sub>i</sub>,≧0, in a selected region on one side of this boundary segment, where sgn(ξ−ξ<sub>i</sub>)&gt;0. Treatment of a situation with sgn(ξ−ξ<sub>i</sub>)&lt;0 is analogous. In a region close to this boundary segment, where b<sub>i</sub>(η,ζ)|ξ−ξ<sub>i</sub>|&lt;&lt;1, the defining equations and the nonhomogeneous terms have the forms
+<br/>
+ξ<sub>xx</sub>+ξ<sub>yy</sub>+ξ<sub>zz</sub> <i>=p</i> <sub>1</sub>(ξ,η,ζ),  (2A)
+<br/>
+η<sub>xx</sub>+η<sub>yy</sub>η<sub>zz</sub> <i>=q</i> <sub>1</sub>(ξ,η,ζ),  (2B)
+<br/>
+ζ<sub>xx</sub>+ζ<sub>yy</sub>+ζzz<i>=r</i> <sub>1</sub>(ξ,η,ζ),  (2C)
+<br/>
+<i>p</i> <sub>1</sub>(ξ,η,ζ)=<i>−a</i> <sub>1,i</sub>(η,ζ)<i>sgn</i>(ξ−ξ<sub>i</sub>)exp{−<i>b</i> <sub>i</sub>(η,ζ)|ξ−ξ<sub>i</sub>|},  (2D)
+<br/>
+≈<i>−a</i> <sub>i,1</sub>(η,ζ)+<i>a</i> <sub>1,i</sub>(η,ζ)(ξ−ξ<sub>i</sub>),  (2E)
+<br/>
+<i>q</i> <sub>1</sub>(ξ,η,ζ)=−<i>c</i> <sub>i,1</sub>(η,ζ)<i>sgn</i>(ξ−ξ<sub>i</sub>exp{−<i>b</i> <sub>i</sub>(η,ζ)|ξ−ξ<sub>i</sub>|},  (2F)
+<br/>
+≈−<i>c</i> <sub>1,i</sub>(η,ζ)<i>+c</i> <sub>1,i</sub>(η,ζ)(ξ−ξ<sub>i</sub>),  (2G)
+<br/>
+<i>r</i> <sub>1</sub>(ξ,η,ζ)=−<i>e</i> <sub>1,i</sub>(η,ζ)<i>b</i> <sub>i</sub>(η,ζ)(ξ−ξ<sub>i</sub>),  (2H)
+<br/>
+≈<i>−e</i> <sub>1,i</sub>(η,ζ)+<i>e</i> <sub>1,i</sub>(η,ζ)(ξ−ξ<sub>i</sub>),  (2I)
+<br/>
+In a region close to an η-boundary segment, where d<sub>i</sub>(ξ,ζ)|η−η<sub>i</sub>|&lt;&lt;1 and η−η<sub>i</sub>≧0, the defining equations and the nonhomogeneous terms have the forms
+<br/>
+ξ<sub>xx</sub>+ξ<sub>yy</sub>+ξ<sub>zz</sub> <i>=p</i> <sub>2</sub>(ξ,η,ζ),  (3A)
+<br/>
+η<sub>xx</sub>+η<sub>yy</sub>+η<sub>zz</sub> <i>=q</i> <sub>2</sub>(ξ,η,ζ),  (3B)
+<br/>
+ζ<sub>xx</sub>+ζ<sub>yy</sub>+ζ<sub>zz</sub> <i>=r</i> <sub>2</sub>(ξ,η,ζ),  (3C)
+<br/>
+<i>p</i> <sub>2</sub>(ξ,η,ζ)=−<i>a</i> <sub>2,i</sub>(ξ,ζ)<i>sgn</i>(η−η<sub>i</sub>)exp{−<i>d</i> <sub>i</sub>(ξ,ζ)|η−η<sub>i</sub>|},  (3D)
+<br/>
+≈−<i>a</i> <sub>2,i</sub>(ξ,ζ)+<i>a</i> <sub>2,i</sub>(ξ,ζ)<i>d</i> <sub>i</sub>(ξ,ζ)(η−ζ<sub>i</sub>),  (3E)
+<br/>
+<i>q</i> <sub>2</sub>(ξ,η,ζ)=−<i>c</i> <sub>2,i</sub>(ξ,ζ)<i>sgn</i>(η−η<sub>i</sub>)exp{−<i>d</i> <sub>i</sub>(ξ,ζ)|η−η<sub>i</sub>|},  (3F)
+<br/>
+≈−<i>c</i> <sub>2,i</sub>(ξ,ζ)<i>d</i> <sub>i</sub>(ξ,ζ)(η−η<sub>i</sub>),  (3G)
+<br/>
+<i>r</i> <sub>2</sub>(ξ,η,ζ)=−<i>e</i> <sub>2,i</sub>(ξ,ζ)<i>sgn</i>(η−η<sub>i</sub>)exp{−<i>d</i> <sub>i</sub>(ξ,ζ)|η−η<sub>i</sub>|},  (3H)
+<br/>
+≈−<i>e</i> <sub>2,i</sub>(ξ,ζ)+<i>e</i> <sub>2,i</sub>(ξ,ζ)<i>d</i> <sub>i</sub>(ξ,ζ)(η−η<sub>i</sub>),  (3I)
+<br/>
+In a region close to an ξ-boundary segment, where f<sub>i</sub>(ξ,η)|ζ−ζ<sub>i</sub>&lt;&lt;1 and ζ−ζ<sub>i</sub>≧0, the defining equations and the nonhomogeneous terms have the forms
+<br/>
+ξ<sub>xx</sub>+ξ<sub>yy</sub>+ξ<sub>zz</sub> <i>=p</i> <sub>3</sub>(ξ,η,ζ),  (4A)
+<br/>
+η<sub>xx</sub>+η<sub>yy</sub>η<sub>zz</sub> <i>=q</i> <sub>3</sub>(ξ,η,ζ),  (4B)
+<br/>
+ζ<sub>xx</sub>+ζ<sub>yy</sub>+ζ<sub>zz</sub> <i>=r</i> <sub>3</sub>(ξ,η,ζ),  (4C)
+<br/>
+<i>p</i> <sub>3</sub>(ξ,η,ζ)=−<i>a</i> <sub>3,i</sub>(ξ,η)<i>sgn</i>(ζ−ζ<sub>i</sub>)exp{−<i>f</i> <sub>i</sub>(ξ,η)|ζ−ζ<sub>i</sub>|},  (4D)
+<br/>
+≈<i>−a</i> <sub>3,i</sub>(ξ,η)+<i>a</i> <sub>3,i</sub>(ξ,η)<i>f</i> <sub>i</sub>(ξ,η)(ζ−ζ<sub>i</sub>),  (4E)
+<br/>
+<i>q</i> <sub>3</sub>(ξ,η,ζ)=−<i>c</i> <sub>3,i</sub>(ξ,η)<i>sgn</i>(ζ−ζ<sub>i</sub>)exp{−<i>f</i> <sub>i</sub>(ξ,η)|ζ−ζ<sub>i</sub>|},  (4F)
+<br/>
+≈−<i>c</i> <sub>3,i</sub>(ξ,η)+<i>c</i> <sub>3,i</sub>(ξ,η)<i>f</i> <sub>i</sub>(ξ,η)(ζ−ζ<sub>i</sub>),  (4G)
+<br/>
+<i>r</i> <sub>3</sub>(ξ,η,ζ)=−<i>e</i> <sub>3,i</sub>(ξ,η)<i>sgn</i>(ζ−ζ<sub>i</sub>)exp{−<i>f</i> <sub>i</sub>(ξ,η)|ζ−ζ<sub>i</sub>|},  (4H)
+<br/>
+≈−<i>e</i> <sub>3,i</sub>(ξ,η)+<i>e</i> <sub>3,i</sub>(ξ,η)<i>f</i> <sub>i</sub>(ξ,η)(ζ−ζ<sub>i</sub>),  (4I)
+<br/>
+Where the preceding approximations, near a boundary segment ζ=ζ<sub>i</sub>, for example, are used, the defining equations for ζ become
+<br/>
+ξ<sub>xx</sub>+ξ<sub>yy</sub>+ξ<sub>zz</sub> <i>−a</i> <sub>3,i</sub>(ξ,η)<i>f</i> <sub>i</sub>(ξ,η)(ζ−ζ<sub>i</sub>)=−<i>a</i> <sub>3,i</sub>(ξ,η)<i>sgn</i>(ζ−ζ<sub>i</sub>),  (5A)
+<br/>
+η<sub>xx</sub>+η<sub>yy</sub>+η<sub>zz</sub> <i>−c</i> <sub>3,i</sub>(ξ,η)<i>f</i> <sub>i</sub>(ξ,η)(ζ−ζ<sub>i</sub>)=<i>−c</i> <sub>3,i</sub>(ξ,η)<i>sgn</i>(ζ−ζ<sub>i</sub>),  (5B)
+<br/>
+ζ<sub>xx</sub>+ζ<sub>yy</sub>+ζ<sub>zz</sub> <i>−e</i> <sub>3,i</sub>(ξ,η)<i>f</i> <sub>i</sub>(ξ,η)(ζ−ζ<sub>i</sub>)=<i>−e</i> <sub>3,i</sub>(ξ,η)<i>sgn</i>(ζ−ζ<sub>i</sub>).  (5C)
+<br/>
+If one ignores the nonhomogeneous terms on the right hand side of Eq. (5C) and ignores the dependence upon z (or ζ), this relation is seen to represent a steady state heat transfer equation for a long, thin fin of width or height <b>2</b>L, with corresponding “temperature” θ=ζ−ζ<sub>1</sub>, discussed, for example, by V. S. Arpaci in <i>Conduction Heat Transfer</i>, Addition Wesley, Reading, Mass., 1966, pp. 145–147 and 201–205:
+<br/>
+∂<sup>2</sup> <i>θ/∂x</i> <sup>2</sup>+∂<sup>2</sup> <i>θ/∂y</i> <sup>2</sup> <i>−m</i> <sup>2</sup>θ=0,  (6)
+<br/>
+<i>m</i> <sup>2</sup>=2 h/kδ.  (7)
+<br/>
+where h is a heat transfer coefficient in a selected (z−) direction, k is a thermal conductivity coefficient and δ(&lt;&lt;L) is thickness of the fin. Similar equations apply for θ=ξ−ξ<sub>1</sub>, and θ=η−η<sub>1</sub>.
+</p>
+  <p num="p-0018">The heat transfer coefficient h corresponds to or is proportional to, for example, a decay parameter, such as the coefficient e<sub>3,i</sub>(ξ,η)·f<sub>i</sub>(ξ,ζ) in Eq. (4I). Similar equations are developed for the choices θ=ξ−ξ<sub>1</sub>, or θ=η−η<sub>1</sub>.</p>
+  <p num="p-0019">Where the heat transfer coefficient h in the z-direction is small, the thermal gradient is correspondingly large normal to the corresponding boundary in the xy-space, which requires a close clustering of isothermal lines, or of the corresponding time evolving grid lines. This provides a physical basis for the observation that clustering near a given boundary increases as a decay parameter (e.g., m<sup>2 </sup>in Eq. (7)) decreases, and inversely. However, for a grid whose grid lines show a general dependence upon both coordinates, x and y (as in <figref idrefs="DRAWINGS">FIGS. 2 and 3</figref>, discussed in the following), a similar conclusion is arrived at using the following physical argument. As the heat transfer coefficient h in the z-direction decreases, the temperature gradient near a y-boundary increases correspondingly, for a given heat flux, and this leads to a denser clustering of isothermal lines (or, equivalently, of grid lines for the time evolving grid).</p>
+  <p num="p-0020">Boundary constraints, valid in a one-sided neighborhood of each of the four (two dimensional) or six (three dimensional) boundary segments, are incorporated by applying Green&#39;s theorem in three dimensions for each of the Eqs. (2E), (3G) and (4I) for the ξ, η and ζ boundaries, respectively:
+<br/>
+∫<sub>S</sub>(∂θ/∂<i>n</i>)<i>dσ=∫</i> <sub>V</sub> <i>{−a</i> <sub>1,i</sub>(η,ζ)<i>sgn</i>(ξ−ξ<sub>i</sub>)+<i>a</i> <sub>1,i</sub>(η,ζ)<i>b</i> <sub>i</sub>(η,ζ)θ}<i>dτ,</i>  (8)
+<br/>
+∫<sub>S</sub>(∂θ/∂<i>n</i>)<i>dσ=∫</i> <sub>V</sub> <i>{−c</i> <sub>2,i</sub>(ξ,ζ)<i>sgn</i>(η−η<sub>i</sub>)+<i>c</i> <sub>2,i</sub>(ξ,ζ)<i>d</i> <sub>i</sub>(ξ,ζ)θ}<i>dτ,</i>  (9)
+<br/>
+∫<sub>S</sub>(∂θ/∂<i>n</i>)∂θ/∂<i>n</i>)<i>dσ=∫</i> <sub>V</sub> <i>{−e</i> <sub>3,i</sub>(ξ,η)<i>sgn</i>(ζ−ζ<sub>i</sub>)+<i>e</i> <sub>3,i</sub>(ξ,η)<i>f</i> <sub>i</sub>(ξ,η)θ}}<i>dτ,</i>  (10)
+<br/>
+where n refers to a direction that is locally normal to a surface S representing a totality of six surfaces including the boundary segments of interest and V is a volume enclosed or defined by the totality of these six surfaces. These integral-type boundary constraints can be used to calculate the decay parameter analogs, a<sub>1,i</sub>(η,ζ)b<sub>i</sub>(η,ζ), c<sub>2,i</sub>(η,ζ)d<sub>i</sub>(ξ,ζ) and e<sub>3,i</sub>(η,ξ)f<sub>i</sub>(ξ,η). When expressed in terms of the generalized coordinates (ξ,η,ζ), the boundary constraints set forth in Eqs. (8), (9) and (10) are transformed, for ζ for example, as follows.
+<br/>
+∫<sub>S</sub> <i>I dσ=∫</i> <sub>S</sub>(∂θ/∂<i>n</i>)<i>dσ=∫</i> <sub>S</sub>(∂ζ/∂<i>n</i>)<i>dσ</i>  (11)
+</p>
+  <p num="p-0021">The integral ∫<sub>S </sub>I dσ in Eq. (14) can be written as an algebraic sum of six integrals, evaluated over the indicated boundary segments:
+<br/>
+∫<sub>S</sub> <i>I dσ=∫</i> <sub>ξmax</sub> <i>I dσ+∫</i> <sub>ηmax</sub> <i>I dσ+∫</i> <sub>ζmax</sub> <i>I dσ−∫</i> <sub>ξmin</sub> <i>I dσ−∫</i> <sub>ηmin</sub> <i>I dσ−∫</i> <sub>ζmin</sub> <i>I dσ,</i>  (12)
+<br/>
+where the surface configurations ξmax, ξmin, etc. represent the corresponding boundary segments that together make up the surface S. For the first and fourth integral pair, the second and fifth integral pair, and the third and sixth integral pair in Eq. (15), the following respective relations may be verified:
+<br/>
+∫<sub>ξ</sub> <i>dσ=∫</i> <sub>ξ</sub>(1/<i>J√α</i> <sub>11</sub>)α<sub>13</sub>[(η<sub>2</sub> <i>+y</i> <sub>η</sub> <sup>2</sup> <i>+z</i> <sub>η</sub> <sup>2</sup>)(<i>x</i> <sub>ζ</sub> <sup>2</sup> <i>+y</i> <sub>ζ</sub> <sup>2</sup> <i>+z</i> <sub>70 </sub> <sup>2</sup>)]<sup>1/2</sup> <i>dζdη.</i>  (13)
+<br/>
+∫<sub>η</sub> <i>I dσ=∫</i> <sub>η</sub>(1/<i>J√α</i> <sub>22</sub>)α<sub>23</sub>[(<i>x</i> <sub>ξ</sub> <sup>2</sup> <i>+z</i> <sub>η</sub> <sup>2</sup>)(<i>x</i> <sub>ζ</sub> <sup>2</sup> <i>+y</i> <sub>ζ</sub> <sup>2</sup> <i>+z</i> <sub>ζ</sub> <sup>2</sup>)]<sup>1/2</sup> <i>dξdζ,</i>  (14)
+<br/>
+∫<sub>ζ</sub> <i>I dσ=∫</i> <sub>ζ</sub>(1/<i>J</i>)[α<sub>33</sub>(<i>x</i> <sub>η</sub> <sup>2</sup> <i>+y</i> <sub>η</sub> <sup>2</sup> <i>+z</i> <sub>η</sub> <sup>2</sup>)(<i>x</i> <sub>ξ</sub> <sup>2</sup> <i>+y</i> <sub>ξ</sub> <sup>2</sup> <i>+z</i> <sup>ξ</sup> <sup>2</sup>)]<sup>1/2</sup> <i>dηdξ,</i>  (15)
+<br/>
+α<sub>11</sub> <i>=J</i> <sup>2</sup>(ξ<sub>x</sub> <sup>2</sup>+ξ<sub>y</sub> <sup>2</sup>+ξ<sub>z</sub> <sup>2</sup>),  (16A)
+<br/>
+α<sub>22</sub> <i>=J</i> <sup>2</sup>(η<sub>x</sub> <sup>2</sup>+η<sub>y</sub> <sup>2</sup>+η<sub>z</sub> <sup>2</sup>),  (16B)
+<br/>
+α<sub>33</sub> <i>=J</i> <sup>2</sup>(ζ<sub>x</sub> <sup>2</sup>+ζ<sub>y</sub> <sup>2</sup>+ζ<sub>z</sub> <sup>2</sup>),  (16C)
+<br/>
+α<sub>12</sub> <i>=J</i> <sup>2</sup>(ξ<sub>x</sub>η<sub>x</sub>+ξ<sub>y</sub>η<sub>y</sub>+ξ<sub>z</sub>η<sub>z</sub>),  (16D)
+<br/>
+α<sub>13</sub> <i>=J</i> <sup>2</sup>(ξ<sub>x</sub>ζ<sub>x</sub>+ξ<sub>y</sub>ζ<sub>y</sub>+ξ<sub>z</sub>ζ<sub>z</sub>),  (16E)
+<br/>
+α<sub>23</sub> <i>=J</i> <sup>2</sup>(η<sub>x</sub>ζ<sub>x</sub>+η<sub>y</sub>ζ<sub>y</sub>+η<sub>z</sub>ζ<sub>z</sub>),  (16F)
+<br/>
+where J=J((x,y,z)/(ξ,η,ζ)) is a Jacobian of the transformation (x,y,z)- -&gt;(ξ,ψ,ζ).
+</p>
+  <p num="p-0022">Equations (13)–(15) can be used to express the boundary constraints in the computational space (generalized variables (ξ,ψ,ζ)), analogous to the Eqs. (8)–(10) expressed in Cartesian coordinate space. The defining equations in computational space that are solved, subject to the boundary constraints set forth in Eq. (4I) for a ζ-boundary, are
+<br/>
+α<sub>11</sub> <i>x</i> <sub>i,ξξ</sub>+α<sub>22</sub> <i>x</i> <sub>i,ηη</sub>+α<sub>33</sub> <i>x</i> <sub>i,ζζ</sub>+2{α<sub>12</sub> <i>x</i> <sub>i,ξη</sub>+α<sub>13</sub> <i>x</i> <sub>i,ξζ</sub>+α<sub>23</sub> <i>x</i> <sub>i,ηζ</sub>)=<i>−J</i> <sup>2</sup> <i>{p</i> <sub>3</sub> <i>x</i> <sub>i,ξ</sub> <i>+q</i> <sub>3</sub> <i>x</i> <sub>i,η</sub> <i>+r</i> <sub>3</sub> <i>x</i> <sub>i,ζ</sub>},  (17)
+<br/>
+<i>x</i> <sub>i</sub> <i>=x, y </i>or <i>z.</i>  (18)
+</p>
+  <p num="p-0023"> <figref idrefs="DRAWINGS">FIG. 1</figref> is a flow chart of a suitable procedure for practicing the invention for a two dimensional or three dimensional grid system. In step <b>11</b>, the system provides defining equations, valid near one or more grid boundary segments in a generalized coordinate system, of a selected grid system, where each of the defining equations has at least two independent Cartesian coordinate variables, has at one generalized coordinate as a dependent variable, and comprises a partial differential equation, expressed in at least one generalized coordinate.</p>
+  <p num="p-0024">In step <b>13</b>, the system provides a selected group of boundary constraints for the grid system, valid near the one or more boundary segments, where a decay parameter for at least one of the generalized coordinate dependent variables near the one or more boundary segments is determined as part of a solution of the defining equations, rather than being prescribed initially.</p>
+  <p num="p-0025">In step <b>15</b>, the system provides defining equations and selected boundary conditions, having at least two independent coordinate variables, for steady state heat transfer on a long thin fin, and the system provides a correspondence between the at least two independent coordinate variables for the grid system near at least one grid boundary segment with the at least two independent coordinate variables for the heat transfer problem.</p>
+  <p num="p-0026">In step <b>17</b>, the system provides a correspondence a selected power of at least one heat transfer coefficient for the heat transfer problem and at least one decay parameter for the grid system near the at least one grid boundary segment.</p>
+  <p num="p-0027">In step <b>19</b>, the system determines a solution of the grid system near the at least one grid boundary segment that incorporates at least one boundary constraint comprising the at least one decay parameter determined for the grid system.</p>
+  <p num="p-0028"> <figref idrefs="DRAWINGS">FIG. 2</figref> illustrates a result of application of the invention to a two dimensional annular region to provide a grid in which grid points cluster near an inner boundary of the annulus. Where a geometrical system, such as an annulus, evolves with time, a grid according to the invention is developed at each of a selected sequence of times, with the parameters subject to the boundary constraints being allowed to vary from one time to another time. Each of these grids can be used to perform a finite element or finite difference analysis on the geometrical object that represents the time evolving system at one of these times.</p>
+  <p num="p-0029"> <figref idrefs="DRAWINGS">FIG. 3</figref> illustrates a result of application of the invention to a two dimensional convex-concave geometry region to provide a grid in which grid points cluster near an upper boundary of the region.</p>
+  <p num="p-0030">A decay parameter, such as e<sub>3,i</sub>(ξ,η)·f<sub>i</sub>(ξ,η), may vary with one or more of the generalized coordinates, such as ξ and/or η, rather than being constant; and this variation is determined as part of the solution of the grid problem, rather than being prescribed initially by the user. A grid solution can be determined for a temporally constant environment. Alternatively, a time evolving environment can be allowed to vary at each of a sequence of times, and a grid solution can be determined for each of this sequence of times, using the preceding analysis at each of these times.</p>
+  <p num="p-0031">The preceding analysis has focused on neighborhoods of the grid boundary segments. As noted in the preceding, in an interior region, far from the grid boundary segments, the defining partial differential equations (PDEs) become homogeneous, and standard analysis of elliptic PDEs is applied to determine an interior solution, which is automatically matched in the solution process across a selected interior boundary to the solution obtained for the grid boundary segments.</p>
+
+</div>
+  </div>
+  </section>
+
+  <section itemprop="claims" itemscope>
+    <h2>Claims (<span itemprop="count">8</span>)</h2>
+    
+    <div itemprop="content" html><div mxw-id="PCLM9222673" lang="EN" load-source="patent-office" class="claims">
+  <div class="claim"> <div id="CLM-00001" num="00001" class="claim">
+    <div class="claim-text">1. A method for generating an elliptic grid of coordinates in two dimensions or in three dimensions, the method comprising:
+<div class="claim-text">providing defining equations, valid near at least one boundary segment in a generalized coordinate system, of a selected grid system, where each of the defining equations has at least two independent Cartesian coordinate variables, has at least one generalized coordinate as a dependent variable, and comprises a partial differential equation, expressed in at least one generalized coordinate;</div>
+<div class="claim-text">providing a selected group of boundary constraints for the grid system, valid near the at least one boundary segment, where a decay parameter for at least one of the generalized coordinate dependent variables near the at least one boundary segment is determined as part of a solution for the grid system, rather than being prescribed initially;</div>
+<div class="claim-text">providing defining equations and selected boundary conditions, having at least two independent coordinate variables and at least one dependent variable, for steady state heat transfer on a long thin fin, and providing a correspondence between the at least two independent coordinate variables for the grid system near the at least one grid boundary segment with the at least two independent coordinate variables for the heat transfer problem;</div>
+<div class="claim-text">providing a correspondence between a selected power of at least one heat transfer coefficient for the heat transfer problem and at least one decay parameter for the grid system near the at least one grid boundary segment;</div>
+<div class="claim-text">determining a solution of the grid system near the at least one grid boundary segment that incorporates at least one boundary constraint comprising the at least one decay parameter determined for the grid system; and displaying the solution of the grid system.</div>
+</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00002" num="00002" class="claim">
+    <div class="claim-text">2. The method of <claim-ref idref="CLM-00001">claim 1</claim-ref>, further comprising selecting said grid system decay parameter to be directly proportional to said heat transfer coefficient.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00003" num="00003" class="claim">
+    <div class="claim-text">3. The method of <claim-ref idref="CLM-00001">claim 1</claim-ref>, further comprising permitting said at least one decay parameter to vary with at least one of said at least two generalized coordinates.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00004" num="00004" class="claim">
+    <div class="claim-text">4. The method of <claim-ref idref="CLM-00001">claim 1</claim-ref>, further comprising:
+<div class="claim-text">allowing an environment for said defining equations for said grid system to vary from a first time to a second time; and</div>
+<div class="claim-text">applying said method and said defining equations at the first time and at the second time to determine said solution of said grid system at each of the first and second times.</div>
+</div>
+  </div>
+  </div> <div class="claim"> <div id="CLM-00005" num="00005" class="claim">
+    <div class="claim-text">5. A system for generating an elliptic grid of coordinates in two dimensions or in three dimensions, the system comprising a computer that is programmed:
+<div class="claim-text">to provide defining equations, valid near at least one boundary segment in a generalized coordinate system, of a selected grid system, where each of the defining equations has at least two independent Cartesian coordinate variables, has at least one generalized coordinate as a dependent variable, and comprises a partial differential equation, expressed in at least one generalized coordinate;</div>
+<div class="claim-text">to provide a selected group of boundary constraints for the grid system, valid near the at least one boundary segment, where a decay parameter for at least one of the generalized coordinate dependent variables near the at least one boundary segment is determined as part of a solution for the grid system, rather than being prescribed initially;</div>
+<div class="claim-text">to provide defining equations and selected boundary conditions, having at least two independent coordinate variables and at least one dependent variable, for steady state heat transfer on a long thin fin, and to provide a correspondence between the at least two independent coordinate variables for the grid system near the at least one grid boundary segment with the at least two independent coordinate variables for the heat transfer problem;</div>
+<div class="claim-text">to provide a correspondence between a selected power of at least one heat transfer coefficient for the heat transfer problem and at least one decay parameter for the grid system near the at least one grid boundary segment; and</div>
+<div class="claim-text">to determine a solution of the grid system near the at least one grid boundary segment that incorporates at least one boundary constraint comprising the at least one decay parameter determined for the grid system; and to display the solution of the grid system.</div>
+</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00006" num="00006" class="claim">
+    <div class="claim-text">6. The system of <claim-ref idref="CLM-00005">claim 5</claim-ref>, wherein said grid system decay parameter is directly proportional to said heat transfer coefficient.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00007" num="00007" class="claim">
+    <div class="claim-text">7. The system of <claim-ref idref="CLM-00005">claim 5</claim-ref>, wherein said at least one decay parameter varies with at least one of said at least two generalized coordinates.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00008" num="00008" class="claim">
+    <div class="claim-text">8. The system of <claim-ref idref="CLM-00005">claim 5</claim-ref>, wherein said computer is further programmed:
+<div class="claim-text">to allow an environment for said defining equations for said grid system to vary from a first time to a second time; and</div>
+<div class="claim-text">to apply said method and said defining equations at the first time and at the second time to determine said solution of said grid system at each of the first and second times.</div>
+</div>
+  </div>
+</div> </div>
+  </div>
+  </section>
+
+  <section itemprop="application" itemscope>
+
+    <section itemprop="metadata" itemscope>
+        <span itemprop="applicationNumber">US10/706,478</span>
+        <span itemprop="priorityDate">2002-11-07</span>
+        <span itemprop="filingDate">2003-11-07</span>
+        <span itemprop="title">Enhanced elliptic grid generation 
+       </span>
+        <span itemprop="ifiStatus">Expired - Fee Related</span>
+        
+        <a href="/patent/US7231329B1/en">
+            <span itemprop="representativePublication">US7231329B1</span>
+            (<span itemprop="primaryLanguage">en</span>)
+        </a>
+    </section>
+
+    <h2>Priority Applications (2)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                    <th>Title</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="priorityApps" itemscope repeat>
+                <td>
+                   <span itemprop="applicationNumber">US42575002P</span>
+                   <span itemprop="isUsProvisional">true</span>
+                   
+                <td itemprop="priorityDate">2002-11-07</td>
+                <td itemprop="filingDate">2002-11-07</td>
+                <td itemprop="title"></td>
+              </tr><tr itemprop="priorityApps" itemscope repeat>
+                <td>
+                   <span itemprop="applicationNumber">US10/706,478</span>
+                   
+                   <a href="/patent/US7231329B1/en">
+                        <span itemprop="representativePublication">US7231329B1</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                <td itemprop="priorityDate">2002-11-07</td>
+                <td itemprop="filingDate">2003-11-07</td>
+                <td itemprop="title">Enhanced elliptic grid generation 
+       </td>
+              </tr>
+           </tbody>
+       </table>
+
+    <h2>Applications Claiming Priority (1)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                    <th>Title</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="appsClaimingPriority" itemscope repeat>
+                <td>
+                   <span itemprop="applicationNumber">US10/706,478</span>
+                   <a href="/patent/US7231329B1/en">
+                        <span itemprop="representativePublication">US7231329B1</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                <td itemprop="priorityDate">2002-11-07</td>
+                <td itemprop="filingDate">2003-11-07</td>
+                <td itemprop="title">Enhanced elliptic grid generation 
+       </td>
+              </tr>
+           </tbody>
+       </table>
+
+    
+
+    
+
+    <h2>Publications (1)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Publication Number</th>
+                    <th>Publication Date</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="pubs" itemscope repeat>
+                <td>
+                   <span itemprop="publicationNumber">US7231329B1</span>
+                   
+                   <span itemprop="thisPatent">true</span>
+                   <a href="/patent/US7231329B1/en">US7231329B1
+                       (<span itemprop="primaryLanguage">en</span>)
+                   </a>
+                </td>
+                <td itemprop="publicationDate">2007-06-12</td>
+              </tr>
+           </tbody>
+        </table>
+
+  </section>
+
+  <section itemprop="family" itemscope>
+    <h1>Family</h1>
+    <h2>ID=38120586</h2>
+
+    <h2>Family Applications (1)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Title</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="applications" itemscope repeat>
+                <td>
+                    <span itemprop="applicationNumber">US10/706,478</span>
+                    <span itemprop="ifiStatus">Expired - Fee Related</span>
+                    
+                    <a href="/patent/US7231329B1/en">
+                        <span itemprop="representativePublication">US7231329B1</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                </td>
+                <td itemprop="priorityDate">2002-11-07</td>
+                <td itemprop="filingDate">2003-11-07</td>
+                <td itemprop="title">Enhanced elliptic grid generation 
+       </td>
+              </tr>
+           </tbody>
+        </table>
+
+    
+
+    
+
+    <h2>Country Status (1)</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Country</th>
+            <th>Link</th>
+          </tr>
+        </thead>
+        <tbody>
+        <tr itemprop="countryStatus" itemscope repeat>
+            <td>
+              <span itemprop="countryCode">US</span>
+                (<span itemprop="num">1</span>)
+              <meta itemprop="thisCountry" content="true">
+            </td>
+            <td>
+              <a href="/patent/US7231329B1/en">
+                <span itemprop="representativePublication">US7231329B1</span>
+                  (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+    <h2>Cited By (2)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7574338B1/en">
+              <span itemprop="publicationNumber">US7574338B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2005-01-19</td>
+          <td itemprop="publicationDate">2009-08-11</td>
+          <td><span itemprop="assigneeOriginal">The United States Of America As Represented By The Administrator Of The National Aeronautics And Space Administration</span></td>
+          <td itemprop="title">Finite-difference simulation and visualization of elastodynamics in time-evolving generalized curvilinear coordinates 
+       </td>
+        </tr><tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/WO2014067410A1/en">
+              <span itemprop="publicationNumber">WO2014067410A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2012-10-31</td>
+          <td itemprop="publicationDate">2014-05-08</td>
+          <td><span itemprop="assigneeOriginal">飞天诚信科技股份有限公司</span></td>
+          <td itemprop="title">Method for rapidly generating coordinate point in embedded system 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+
+    
+
+    <h2>Citations (2)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5923329A/en">
+              <span itemprop="publicationNumber">US5923329A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1996-06-24</td>
+          <td itemprop="publicationDate">1999-07-13</td>
+          <td><span itemprop="assigneeOriginal">National Research Council Of Canada</span></td>
+          <td itemprop="title">Method of grid generation about or within a 3 dimensional object 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6064810A/en">
+              <span itemprop="publicationNumber">US6064810A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1996-09-27</td>
+          <td itemprop="publicationDate">2000-05-16</td>
+          <td><span itemprop="assigneeOriginal">Southern Methodist University</span></td>
+          <td itemprop="title">System and method for predicting the behavior of a component 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+
+    
+
+    
+    <ul>
+      
+      <li itemprop="applicationsByYear" itemscope repeat>
+        <span itemprop="year">2003</span>
+        <ul>
+          
+          <li itemprop="application" itemscope repeat>
+            <span itemprop="filingDate">2003-11-07</span>
+            <span itemprop="countryCode">US</span>
+            <span itemprop="applicationNumber">US10/706,478</span>
+            <a href="/patent/US7231329B1/en"><span itemprop="documentId">patent/US7231329B1/en</span></a>
+            <span itemprop="legalStatusCat">not_active</span>
+            <span itemprop="legalStatus">Expired - Fee Related</span>
+            
+            <span itemprop="thisApp" content="true" bool></span>
+            
+          </li>
+          
+        </ul>
+      </li>
+      
+    </ul>
+    
+
+    </section>
+
+  <section>
+    <h2>Patent Citations (2)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5923329A/en">
+              <span itemprop="publicationNumber">US5923329A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1996-06-24</td>
+          <td itemprop="publicationDate">1999-07-13</td>
+          <td><span itemprop="assigneeOriginal">National Research Council Of Canada</span></td>
+          <td itemprop="title">Method of grid generation about or within a 3 dimensional object 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6064810A/en">
+              <span itemprop="publicationNumber">US6064810A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1996-09-27</td>
+          <td itemprop="publicationDate">2000-05-16</td>
+          <td><span itemprop="assigneeOriginal">Southern Methodist University</span></td>
+          <td itemprop="title">System and method for predicting the behavior of a component 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Non-Patent Citations (21)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Akcelik et al., Nearly Orthogonal Two-Dimensional Grid Generation with Aspect Ratio Control, J. Comput. Phys, Aug. 10, 2001, 805-821, 171, Academic Press.</span>
+            
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Alter, et al., Elliptic volume grid generation for viscous CFD parametri . . . , Proceedings of AIAA Fluid Dynamics Conference, 27th, New Orleans, LA, Jun. 17-20, 1996, AIAA, Inc.</span>
+            
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Eca, "<a href='http://scholar.google.com/scholar?q="2D+Orthogonal+Grid+Generation+with+Boundary+Point+Distribution+Control"'>2D Orthogonal Grid Generation with Boundary Point Distribution Control</a>", J computer Physics, May 1996, pp. 440-453 Academic Press, Inc.</span>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">ECA, 2D Orthogonal Grid Generation with Boundary Point Distribution Control, J. Comput. Phys., May 1996, 440-453, 125, Academic Press, Inc.</span>
+            
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Houstis, et al., "<a href='http://scholar.google.com/scholar?q="PELLPACK%3A+A+Problem-Solving+Enivironment+for+PDE-Based+Applications+on+Multicomputer+Platforms"'>PELLPACK: A Problem-Solving Enivironment for PDE-Based Applications on Multicomputer Platforms</a>", ACM Transactions on Mathematical Coftware, Mar. 1998, vol. 24, No. 1, pp. 30-73.</span>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Jeng, et al., Two-Dimensional Elliptic Grid Solver Using Boundary Grid Control and Curvature Correction, AIAA J., Feb. 2000, 217-224, 38-2, AIAA, Inc.</span>
+            
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Judy Challinger, "<a href='http://scholar.google.com/scholar?q="Scalable+Parallel+Volumne+Raycasting+for+Nonrectilinear+Computational+Grids"'>Scalable Parallel Volumne Raycasting for Nonrectilinear Computational Grids</a>", IEEE, 1993, pp. 81-88, 111.</span>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Kaul, et al., A. Comparative Study of the Parabolized Navier-Stokes Code Using Various Grid-Generation Tecni . . . , Computers &amp; Fluids, 1985, 421-441, 13-4, Pergamon Press Ltd.</span>
+            
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Kaul, et al., Automated Gear Teeth Grid Generation via Solution of Ellipt . . . , Proceedings of SIAM Conference on Geometric Design and Computing, Nov. 5-8, 2001, Sacramento, CA.</span>
+            
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Kaul, et al., Elliptic Grid Generation of Spiral-Bevel Pinion Gear Typical of OH-58 Helicopter Transmission, Feb. 2002, NASA TM-2002-210932.</span>
+            
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Kaul, New boundary constraints for elliptic systems used in grid generation problems, J. Comput. Phys., 2003, 476-492, 189, Elsevier Science B. V.</span>
+            
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Ryskin, et al., Orthogonal Mapping, J. Comput. Phys., 1983, 71-100, 50, Academic Press, Inc.</span>
+            
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Sorenson, Three-Dimensional Elliptic Grid generation About Fighter Aircraft for Zonal Finit . . . , Proceeds of AIAA 24th Aerospace Sciences Meeting, Jan. 6-9, 1986, Reno, Nevada.</span>
+            
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Steger, et al., Automatic Mesh-Point Clustering Near a Boundary in Grid Generation with Elliptic Partial Differential Equations, J. Comput. Phys., 1979, 405-410, 33.</span>
+            
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Thompson, et al., Automatic Numerical Generation of Body-fitted Curvilinear Coordinate System for Field Contai . . . , J. Comput. Phys., 1974, 299-319, 15, Academic Press, Inc.</span>
+            
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Thompson, et al., Boundary-Fitted Coordinate Systems for Numerical Solution Partial Differential Equations-- . . . , J. Comput. Phys., 1982, 1-108, 47, Academic Press, Inc.</span>
+            
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Thompson, et al., TOMCAT-A Code for Numerical Generation of Boundary-Fitted Curvilinear Coordinate Systems . . . , J. Comput. Phys., 1977, 274-302, 24, Academic Press, Inc.</span>
+            
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Thompson, Grid Generation Techniques in Computational Fluid Dynamics, AIAA J., 1984, 1505-1523, 22-11, AIAA, Inc.</span>
+            
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Visbal, et al., Generation of Orthogonal and Nearly Orthogonal Coordinates with Grid Control Near Boundaries, AIAA J., 1982, 305-315, 20-3, AIAA, Inc.</span>
+            
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Weissbein et al., "<a href='http://scholar.google.com/scholar?q="Solution+of+the+3-D+Euler+Equations+for+the+Flow+About+a+Fighter+Aircraft+Configuration+Using+a+Hypercube+Parallel+Processor"'>Solution of the 3-D Euler Equations for the Flow About a Fighter Aircraft Configuration Using a Hypercube Parallel Processor</a>", ACM, 1988, pp. 1127-1136.</span>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Zheng et al., "<a href='http://scholar.google.com/scholar?q="Development+of+Three-Dimesional+DRAGON+Grid+Technology"'>Development of Three-Dimesional DRAGON Grid Technology</a>", NASA, Nov. 1999, 36 pgs.</span>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <h2>Cited By (3)</h2>
+  <table>
+    <caption>* Cited by examiner, † Cited by third party</caption>
+    <thead>
+      <tr>
+        <th>Publication number</th>
+        <th>Priority date</th>
+        <th>Publication date</th>
+        <th>Assignee</th>
+        <th>Title</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US7574338B1/en">
+            <span itemprop="publicationNumber">US7574338B1</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          
+          
+        </td>
+        <td itemprop="priorityDate">2005-01-19</td>
+        <td itemprop="publicationDate">2009-08-11</td>
+        <td><span itemprop="assigneeOriginal">The United States Of America As Represented By The Administrator Of The National Aeronautics And Space Administration</span></td>
+        <td itemprop="title">Finite-difference simulation and visualization of elastodynamics in time-evolving generalized curvilinear coordinates 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/WO2014067410A1/en">
+            <span itemprop="publicationNumber">WO2014067410A1</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2012-10-31</td>
+        <td itemprop="publicationDate">2014-05-08</td>
+        <td><span itemprop="assigneeOriginal">飞天诚信科技股份有限公司</span></td>
+        <td itemprop="title">Method for rapidly generating coordinate point in embedded system 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US9667420B2/en">
+            <span itemprop="publicationNumber">US9667420B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          
+          
+        </td>
+        <td itemprop="priorityDate">2012-10-31</td>
+        <td itemprop="publicationDate">2017-05-30</td>
+        <td><span itemprop="assigneeOriginal">Feitian Technologies Co., Ltd.</span></td>
+        <td itemprop="title">Method for rapidly generating coordinate point in embedded system 
+       </td>
+      </tr>
+    </tbody>
+  </table>
+
+  
+
+  <section>
+    <h2>Similar Documents</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Publication</th>
+          <th>Publication Date</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="2212763471003702378">
+              <a href="/scholar/2212763471003702378"><span itemprop="scholarAuthors">Marshall et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1997">1997</time>
+            
+          </td>
+          <td itemprop="title">Hydrostatic, quasi‐hydrostatic, and nonhydrostatic ocean modeling</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="11544227476976242177">
+              <a href="/scholar/11544227476976242177"><span itemprop="scholarAuthors">Voller</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1990">1990</time>
+            
+          </td>
+          <td itemprop="title">Fast implicit finite-difference method for the analysis of phase change problems</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="1152965228507079942">
+              <a href="/scholar/1152965228507079942"><span itemprop="scholarAuthors">Hammel et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1988">1988</time>
+            
+          </td>
+          <td itemprop="title">Numerical orbits of chaotic processes represent true orbits</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="13137871856588231289">
+              <a href="/scholar/13137871856588231289"><span itemprop="scholarAuthors">Senturia et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1992">1992</time>
+            
+          </td>
+          <td itemprop="title">A computer-aided design system for microelectromechanical systems (MEMCAD)</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="9378763053443002771">
+              <a href="/scholar/9378763053443002771"><span itemprop="scholarAuthors">Zienkiewicz et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1977">1977</time>
+            
+          </td>
+          <td itemprop="title">The coupling of the finite element method and boundary solution procedures</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="14784007631926742417">
+              <a href="/scholar/14784007631926742417"><span itemprop="scholarAuthors">Lutes et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2004">2004</time>
+            
+          </td>
+          <td itemprop="title">Random vibrations: analysis of structural and mechanical systems</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="3675178117867065292">
+              <a href="/scholar/3675178117867065292"><span itemprop="scholarAuthors">Coakley</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1983">1983</time>
+            
+          </td>
+          <td itemprop="title">Turbulence modeling methods for the compressible Navier-Stokes equations</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="10286477877510916344">
+              <a href="/scholar/10286477877510916344"><span itemprop="scholarAuthors">Nikravesh et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1985">1985</time>
+            
+          </td>
+          <td itemprop="title">Euler parameters in computational kinematics and dynamics. Part 1</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="2077301592726363938">
+              <a href="/scholar/2077301592726363938"><span itemprop="scholarAuthors">Lin et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1999">1999</time>
+            
+          </td>
+          <td itemprop="title">Finite element modelling of fatigue crack growth of surface cracked plates: Part I: The numerical technique</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="420903536993230155">
+              <a href="/scholar/420903536993230155"><span itemprop="scholarAuthors">Liu et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2006">2006</time>
+            
+          </td>
+          <td itemprop="title">Fast dynamic grid deformation based on Delaunay graph mapping</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="12846163186955993398">
+              <a href="/scholar/12846163186955993398"><span itemprop="scholarAuthors">Wu et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1990">1990</time>
+            
+          </td>
+          <td itemprop="title">Error estimation and adaptivity in Navier-Stokes incompressible flows</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="6628553153741961666">
+              <a href="/scholar/6628553153741961666"><span itemprop="scholarAuthors">Hardee et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1999">1999</time>
+            
+          </td>
+          <td itemprop="title">A CAD-based design parameterization for shape optimization of elastic solids</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="11246788192871534480">
+              <a href="/scholar/11246788192871534480"><span itemprop="scholarAuthors">Hesselink et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1997">1997</time>
+            
+          </td>
+          <td itemprop="title">The topology of symmetric, second-order 3D tensor fields</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="1595165943053574920">
+              <a href="/scholar/1595165943053574920"><span itemprop="scholarAuthors">Vemaganti et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2001">2001</time>
+            
+          </td>
+          <td itemprop="title">Estimation of local modeling error and goal-oriented adaptive modeling of heterogeneous materials: Part II: a computational environment for adaptive modeling of heterogeneous elastic solids</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="17711621198039074549">
+              <a href="/scholar/17711621198039074549"><span itemprop="scholarAuthors">Swanson et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1985">1985</time>
+            
+          </td>
+          <td itemprop="title">A multistage time-stepping scheme for the Navier-Stokes equations</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="9035765765052979197">
+              <a href="/scholar/9035765765052979197"><span itemprop="scholarAuthors">Mavriplis et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1990">1990</time>
+            
+          </td>
+          <td itemprop="title">Multigrid solution of the Navier-Stokes equations on triangular meshes</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="9893607798093592656">
+              <a href="/scholar/9893607798093592656"><span itemprop="scholarAuthors">Tonon et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2001">2001</time>
+            
+          </td>
+          <td itemprop="title">Green’s functions and boundary element method formulation for 3D anisotropic media</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="5079153881925795524">
+              <a href="/scholar/5079153881925795524"><span itemprop="scholarAuthors">Gal-Chen et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1975">1975</time>
+            
+          </td>
+          <td itemprop="title">Numerical solution of the Navier-Stokes equations with topography</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="13133488071477518446">
+              <a href="/scholar/13133488071477518446"><span itemprop="scholarAuthors">Ramaswamy et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1992">1992</time>
+            
+          </td>
+          <td itemprop="title">Semi‐implicit and explicit finite element schemes for coupled fluid/thermal problems</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="12795035667593530352">
+              <a href="/scholar/12795035667593530352"><span itemprop="scholarAuthors">Gravouil et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2002">2002</time>
+            
+          </td>
+          <td itemprop="title">Non‐planar 3D crack growth by the extended finite element and level sets—Part II: Level set update</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US7647211B2/en">
+                <span itemprop="publicationNumber">US7647211B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2010-01-12">2010-01-12</time>
+            
+            
+          </td>
+          <td itemprop="title">Constraint-based method of designing a route for a transport element 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="17340734154465687211">
+              <a href="/scholar/17340734154465687211"><span itemprop="scholarAuthors">Matsumori et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2013">2013</time>
+            
+          </td>
+          <td itemprop="title">Topology optimization for fluid–thermal interaction problems under constant input power</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="2097162759032453542">
+              <a href="/scholar/2097162759032453542"><span itemprop="scholarAuthors">Poliakov et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1992">1992</time>
+            
+          </td>
+          <td itemprop="title">Diapirism and topography</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="7620738214308232550">
+              <a href="/scholar/7620738214308232550"><span itemprop="scholarAuthors">Director et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1977">1977</time>
+            
+          </td>
+          <td itemprop="title">The simplicial approximation approach to design centering</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="966552610630179046">
+              <a href="/scholar/966552610630179046"><span itemprop="scholarAuthors">Belytschko et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1996">1996</time>
+            
+          </td>
+          <td itemprop="title">Smoothing and accelerated computations in the element free Galerkin method</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Legal Events</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Code</th>
+          <th>Title</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2004-03-19">2004-03-19</time></td>
+          <td itemprop="code">AS</td>
+          <td itemprop="title">Assignment</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Owner name</strong>:
+              <span itemprop="value">NATIONAL AERONAUTICS AND SPACE ADMINISTRATION, UNI</span>
+            </p>
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">ASSIGNMENT OF ASSIGNORS INTEREST;ASSIGNOR:KAUL, UPENDER K.;REEL/FRAME:014444/0669</span>
+            </p>
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Effective date</strong>:
+              <span itemprop="value">20031107</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2011-01-17">2011-01-17</time></td>
+          <td itemprop="code">REMI</td>
+          <td itemprop="title">Maintenance fee reminder mailed</td>
+          <td>
+            
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2011-06-07">2011-06-07</time></td>
+          <td itemprop="code">SULP</td>
+          <td itemprop="title">Surcharge for late payment</td>
+          <td>
+            
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2011-06-07">2011-06-07</time></td>
+          <td itemprop="code">FPAY</td>
+          <td itemprop="title">Fee payment</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Year of fee payment</strong>:
+              <span itemprop="value">4</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2015-01-23">2015-01-23</time></td>
+          <td itemprop="code">REMI</td>
+          <td itemprop="title">Maintenance fee reminder mailed</td>
+          <td>
+            
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2015-06-12">2015-06-12</time></td>
+          <td itemprop="code">LAPS</td>
+          <td itemprop="title">Lapse for failure to pay maintenance fees</td>
+          <td>
+            
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2015-07-13">2015-07-13</time></td>
+          <td itemprop="code">STCH</td>
+          <td itemprop="title">Information on status: patent discontinuation</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">PATENT EXPIRED DUE TO NONPAYMENT OF MAINTENANCE FEES UNDER 37 CFR 1.362</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2015-08-04">2015-08-04</time></td>
+          <td itemprop="code">FP</td>
+          <td itemprop="title">Expired due to failure to pay maintenance fee</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Effective date</strong>:
+              <span itemprop="value">20150612</span>
+            </p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+</article>
+
+    </search-app>
+    <script type="text/javascript" src="//www.gstatic.com/feedback/api.js"></script>
+    <script async="" defer="" src="//www.google.com/insights/consumersurveys/async_survey?site=cxkjf7ipxgbnnjy6k35ezcvbbe"></script>
+  </body>
+</html>

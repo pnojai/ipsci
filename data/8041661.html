@@ -1,0 +1,2292 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>US8041661B2 - System and method for determining stability of a neural system 
+        - Google Patents</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="referrer" content="origin-when-crossorigin">
+    <link rel="canonical" href="https://patents.google.com/patent/US8041661B2/en">
+    <meta name="description" content="
+     Disclosed are methods, systems, and computer-readable media for determining stability of a neural system. The method includes tracking a function world line of an N element neural system within at least one behavioral space, determining whether the tracking function world line is approaching a psychological stability surface, and implementing a quantitative solution that corrects instability if the tracked function world line is approaching the psychological stability surface. 
+   
+   ">
+    
+    <meta name="DC.type" content="patent">
+    
+    <meta name="DC.title" content="System and method for determining stability of a neural system 
+       ">
+    
+    <meta name="DC.date" content="2007-09-26" scheme="dateSubmitted">
+    
+    <meta name="DC.description" content="
+     Disclosed are methods, systems, and computer-readable media for determining stability of a neural system. The method includes tracking a function world line of an N element neural system within at least one behavioral space, determining whether the tracking function world line is approaching a psychological stability surface, and implementing a quantitative solution that corrects instability if the tracked function world line is approaching the psychological stability surface. 
+   
+   ">
+    
+    <meta name="citation_patent_application_number" content="US:11/861,687">
+    
+    <meta name="citation_pdf_url" content="https://patentimages.storage.googleapis.com/7f/28/56/9367e36532d224/US8041661.pdf">
+    
+    <meta name="citation_patent_number" content="US:8041661">
+    
+    <meta name="DC.date" content="2011-10-18" scheme="issue">
+    
+    <meta name="DC.contributor" content="Steven A. Curtis" scheme="inventor">
+    
+    <meta name="DC.contributor" content="National Aeronautics and Space Administration (NASA)" scheme="assignee">
+    
+    <meta name="citation_reference" content="Doebbler et al., J., &#34;Improved Adaptive-Reinforcement Learning Control for Morphing Unmanned Air Vehicles&#34;, Infoteach@Aerospace, pp. 1-19, Sep. 26-29, 2005." scheme="references">
+    
+    <meta name="citation_reference" content="Horng, J., &#34;Neural adaptive tracking control of a DC motor&#34;, Information Sciences 118, pp. 1-13, 1999." scheme="references">
+    
+    <meta name="citation_reference" content="Mills et al., F., &#34;Intelligent Agents-Belief, Desire, & Intent Framework Using LORA: A Program Independent Approach&#34;, Business Research Yearbook: Global Business Perspectives vol. XIII, pp. 280-285, 2006." scheme="references">
+    
+    <meta name="citation_reference" content="Mills et al., F., &#34;Intelligent Agents—Belief, Desire, & Intent Framework Using LORA: A Program Independent Approach&#34;, Business Research Yearbook: Global Business Perspectives vol. XIII, pp. 280-285, 2006." scheme="references">
+    
+    <meta name="citation_reference" content="Mills et al., F., &#34;Intelligent Agents-Belief, Desire, and Intentions Framework Implementation Using LORA&#34;, Decision Line, pp. 16-25, Mar. 2004." scheme="references">
+    
+    <meta name="citation_reference" content="Mills et al., F., &#34;Intelligent Agents—Belief, Desire, and Intentions Framework Implementation Using LORA&#34;, Decision Line, pp. 16-25, Mar. 2004." scheme="references">
+    
+    <meta name="citation_reference" content="Negnevitsky et al., M., &#34;Accelerated Learning in Multi-Layer Neural Networks&#34;, IEEE, pp. 1167-1171, 1999." scheme="references">
+    
+    <meta name="citation_reference" content="Valasek et al., J., &#34;A Reinforcement Learning-Adaptive Control Architecture for Morphing&#34;, Journal of Aerospace Computing, Information, and Communication vol. 2, pp. 174-195, Apr. 2005." scheme="references">
+    
+    <meta name="citation_reference" content="Valasek et al., J., &#34;A Reinforcement Learning—Adaptive Control Architecture for Morphing&#34;, Journal of Aerospace Computing, Information, and Communication vol. 2, pp. 174-195, Apr. 2005." scheme="references">
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,400italic,500,500italic,700">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Product+Sans">
+    <style>
+      body { transition: none; }
+    </style>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-27188110-4', 'auto');
+
+      version = 'patent-search.search_20191120_RC00';
+
+      function sendFeedback() {
+        userfeedback.api.startFeedback({
+          'productId': '713680',
+          'bucket': 'patent-search-web',
+          'productVersion': version,
+        });
+      }
+
+      window.experiments = {};
+      window.experiments.patentCountries = "ae,ag,al,am,ao,ap,ar,at,au,aw,az,ba,bb,bd,be,bf,bg,bh,bj,bn,bo,br,bw,bx,by,bz,ca,cf,cg,ch,ci,cl,cm,cn,co,cr,cs,cu,cy,cz,dd,de,dj,dk,dm,do,dz,ea,ec,ee,eg,em,ep,es,fi,fr,ga,gb,gc,gd,ge,gh,gm,gn,gq,gr,gt,gw,hk,hn,hr,hu,ib,id,ie,il,in,ir,is,it,jo,jp,ke,kg,kh,km,kn,kp,kr,kw,kz,la,lc,li,lk,lr,ls,lt,lu,lv,ly,ma,mc,md,me,mg,mk,ml,mn,mo,mr,mt,mw,mx,my,mz,na,ne,ng,ni,nl,no,nz,oa,om,pa,pe,pg,ph,pl,pt,py,qa,ro,rs,ru,rw,sa,sc,sd,se,sg,si,sk,sl,sm,sn,st,su,sv,sy,sz,td,tg,th,tj,tm,tn,tr,tt,tw,tz,ua,ug,us,uy,uz,vc,ve,vn,wo,yu,za,zm,zw";
+      
+      
+      window.profilePicture = "";
+
+      window.Polymer = {
+        dom: 'shady',
+        lazyRegister: true,
+      };
+    </script>
+
+    <script src="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/webcomponentsjs/webcomponents-lite.min.js"></script>
+    
+    <link rel="import" href="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/search-app-vulcanized.html">
+    
+  </head>
+  <body unresolved>
+    
+    <script src="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/search-app-vulcanized.js"></script>
+    
+    <search-app>
+      
+      
+
+      <article class="result" itemscope itemtype="http://schema.org/ScholarlyArticle">
+  <h1 itemprop="pageTitle">US8041661B2 - System and method for determining stability of a neural system 
+        - Google Patents</h1>
+  <span itemprop="title">System and method for determining stability of a neural system 
+       </span>
+
+  <meta itemprop="type" content="patent">
+  <a href="https://patentimages.storage.googleapis.com/7f/28/56/9367e36532d224/US8041661.pdf" itemprop="pdfLink">Download PDF</a>
+  <h2>Info</h2>
+
+  <dl>
+    <dt>Publication number</dt>
+    <dd itemprop="publicationNumber">US8041661B2</dd>
+    <meta itemprop="numberWithoutCodes" content="8041661">
+    <meta itemprop="kindCode" content="B2">
+    <meta itemprop="publicationDescription" content="Patent ( having previously published pre-grant publication)">
+    
+    <span>US8041661B2</span>
+    
+    <span>US11/861,687</span>
+    
+    <span>US86168707A</span>
+    
+    <span>US8041661B2</span>
+    
+    <span>US 8041661 B2</span>
+    
+    <span>US8041661 B2</span>
+    
+    <span>US 8041661B2</span>
+    
+    <span>  </span>
+    
+    <span> </span>
+    
+    <span> </span>
+    
+    <span>US 86168707 A</span>
+    
+    <span>US86168707 A</span>
+    
+    <span>US 86168707A</span>
+    
+    <span>US 8041661 B2</span>
+    
+    <span>US8041661 B2</span>
+    
+    <span>US 8041661B2</span>
+    
+
+    <dt>Authority</dt>
+    <dd itemprop="countryCode">US</dd>
+    <dd itemprop="countryName">United States</dd>
+
+    <dt>Prior art keywords</dt>
+    
+    <dd itemprop="priorArtKeywords" repeat>neural system</dd>
+    <dd itemprop="priorArtKeywords" repeat>world line</dd>
+    <dd itemprop="priorArtKeywords" repeat>tracking</dd>
+    <dd itemprop="priorArtKeywords" repeat>psychological</dd>
+    <dd itemprop="priorArtKeywords" repeat>neural</dd>
+
+    <dt>Prior art date</dt>
+    <dd><time itemprop="priorArtDate" datetime="2007-09-26">2007-09-26</time></dd>
+
+    <dt>Legal status (The legal status is an assumption and is not a legal conclusion. Google has not performed a legal analysis and makes no representation as to the accuracy of the status listed.)</dt>
+    <dd itemprop="legalStatusIfi" itemscope>
+      <span itemprop="status">Active</span>, expires <time itemprop="expiration" datetime="2030-04-05">2030-04-05</time>
+    </dd>
+  </dl>
+
+  <dt>Application number</dt>
+  <dd itemprop="applicationNumber">US11/861,687</dd>
+
+  
+
+  <dt>Other versions</dt>
+  <dd itemprop="directAssociations" itemscope repeat>
+    
+    <a href="/patent/US20090083201A1/en">
+      <span itemprop="publicationNumber">US20090083201A1</span>
+      (<span itemprop="primaryLanguage">en</span>
+    </a>
+  </dd>
+
+  <dt>Inventor</dt>
+  <dd itemprop="inventor" repeat>Steven A. Curtis</dd>
+  <dt>Current Assignee (The listed assignees may be inaccurate. Google has not performed a legal analysis and makes no representation or warranty as to the accuracy of the list.)</dt>
+  <dd itemprop="assigneeCurrent" repeat>
+    National Aeronautics and Space Administration (NASA)
+  </dd>
+
+  <dt>Original Assignee</dt>
+  <dd itemprop="assigneeOriginal" repeat>National Aeronautics and Space Administration (NASA)</dd>
+
+  <dt>Priority date (The priority date is an assumption and is not a legal conclusion. Google has not performed a legal analysis and makes no representation as to the accuracy of the date listed.)</dt>
+  <dd><time itemprop="priorityDate" datetime="2007-09-26">2007-09-26</time></dd>
+
+  <dt>Filing date</dt>
+  <dd><time itemprop="filingDate" datetime="2007-09-26">2007-09-26</time></dd>
+
+  <dt>Publication date</dt>
+  <dd><time itemprop="publicationDate" datetime="2011-10-18">2011-10-18</time></dd>
+
+  
+
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2007-09-26">2007-09-26</time>
+    <span itemprop="title">Application filed by National Aeronautics and Space Administration (NASA)</span>
+    <span itemprop="type">filed</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    <span itemprop="assigneeSearch">National Aeronautics and Space Administration (NASA)</span>
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2007-09-26">2007-09-26</time>
+    <span itemprop="title">Priority to US11/861,687</span>
+    <span itemprop="type">priority</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    <span itemprop="documentId">patent/US8041661B2/en</span>
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2007-12-03">2007-12-03</time>
+    <span itemprop="title">Assigned to UNITED STATES OF AMERICA AS REPRESENTED BY THE ADMINISTRATOR OF THE NATIONAL AERONAUTICS AND SPACE ADMINISTRATION</span>
+    <span itemprop="type">reassignment</span>
+    
+    
+    
+    
+    <span itemprop="assigneeSearch">UNITED STATES OF AMERICA AS REPRESENTED BY THE ADMINISTRATOR OF THE NATIONAL AERONAUTICS AND SPACE ADMINISTRATION</span>
+    
+    
+    <span itemprop="description" repeat>ASSIGNMENT OF ASSIGNORS INTEREST (SEE DOCUMENT FOR DETAILS).</span>
+    
+    <span itemprop="description" repeat>Assignors: CURTIS, STEVEN A., MR.</span>
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2009-03-26">2009-03-26</time>
+    <span itemprop="title">Publication of US20090083201A1</span>
+    <span itemprop="type">publication</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    <span itemprop="documentId">patent/US20090083201A1/en</span>
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2011-10-18">2011-10-18</time>
+    <span itemprop="title">Application granted</span>
+    <span itemprop="type">granted</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2011-10-18">2011-10-18</time>
+    <span itemprop="title">Publication of US8041661B2</span>
+    <span itemprop="type">publication</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    <span itemprop="documentId">patent/US8041661B2/en</span>
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2019-11-25">2019-11-25</time>
+    <span itemprop="title">Application status is Active</span>
+    <span itemprop="type">legal-status</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2030-04-05">2030-04-05</time>
+    <span itemprop="title">Adjusted expiration</span>
+    <span itemprop="type">legal-status</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+
+  <h2>Links</h2>
+
+  <ul>
+    
+          <li itemprop="links" itemscope repeat>
+            <meta itemprop="id" content="usptoLink">
+            <a href="http://patft.uspto.gov/netacgi/nph-Parser?Sect1=PTO1&Sect2=HITOFF&p=1&u=/netahtml/PTO/srchnum.html&r=1&f=G&l=50&d=PALL&s1=8041661.PN." itemprop="url" target="_blank"><span itemprop="text">USPTO</span></a>
+          </li>
+        <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="usptoAssignmentLink">
+          <a href="https://assignment.uspto.gov/patent/index.html#/patent/search/resultFilter?searchInput=8041661" itemprop="url" target="_blank"><span itemprop="text">USPTO Assignment</span></a>
+        </li>
+
+    <li itemprop="links" itemscope repeat>
+        <meta itemprop="id" content="espacenetLink">
+        <a href="http://worldwide.espacenet.com/publicationDetails/biblio?CC=US&amp;NR=8041661B2&amp;KC=B2&amp;FT=D" itemprop="url" target="_blank"><span itemprop="text">Espacenet</span></a>
+      </li>
+      
+
+    
+
+    
+      <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="globalDossierLink">
+          <a href="http://globaldossier.uspto.gov/#/result/patent/US/8041661/1" itemprop="url" target="_blank"><span itemprop="text">Global Dossier</span></a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="stackexchangeLink">
+          <a href="https://patents.stackexchange.com/questions/tagged/US8041661" itemprop="url"><span itemprop="text">Discuss</span></a>
+        </li>
+      
+  </ul>
+
+  
+  <ul itemprop="concept" itemscope>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001537</span>
+      <span itemprop="name">neural</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>abstract</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="sections" repeat>title</span>
+      
+      <span itemprop="count">101</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000003542</span>
+      <span itemprop="name">behavioural</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>abstract</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">28</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000002609</span>
+      <span itemprop="name">media</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>abstract</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">7</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000004590</span>
+      <span itemprop="name">computer program</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000015654</span>
+      <span itemprop="name">memory</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">10</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000006399</span>
+      <span itemprop="name">behavior</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">6</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000003993</span>
+      <span itemprop="name">interaction</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">5</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000003044</span>
+      <span itemprop="name">adaptive</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">4</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000002068</span>
+      <span itemprop="name">genetic</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">4</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000000203</span>
+      <span itemprop="name">mixtures</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">4</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000003860</span>
+      <span itemprop="name">storage</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">4</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000004422</span>
+      <span itemprop="name">calculation algorithm</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">3</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000000694</span>
+      <span itemprop="name">effects</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">3</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000005516</span>
+      <span itemprop="name">engineering processes</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">3</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000004301</span>
+      <span itemprop="name">light adaptation</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">3</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000000670</span>
+      <span itemprop="name">limiting</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">3</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000004458</span>
+      <span itemprop="name">analytical methods</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000011162</span>
+      <span itemprop="name">core materials</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000000875</span>
+      <span itemprop="name">corresponding</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000018109</span>
+      <span itemprop="name">developmental process</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001965</span>
+      <span itemprop="name">increased</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000011159</span>
+      <span itemprop="name">matrix materials</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000036961</span>
+      <span itemprop="name">partial</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000004044</span>
+      <span itemprop="name">response</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000036962</span>
+      <span itemprop="name">time dependent</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">241000282412</span>
+      <span itemprop="name">Homo</span>
+      <span itemprop="domain">Species</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">241000282414</span>
+      <span itemprop="name">Homo sapiens</span>
+      <span itemprop="domain">Species</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">241000257303</span>
+      <span itemprop="name">Hymenoptera</span>
+      <span itemprop="domain">Species</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000032683</span>
+      <span itemprop="name">aging</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000002567</span>
+      <span itemprop="name">autonomic</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001721</span>
+      <span itemprop="name">combination</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000005094</span>
+      <span itemprop="name">computer simulation</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000002939</span>
+      <span itemprop="name">deleterious</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">229920003013</span>
+      <span itemprop="name">deoxyribonucleic acids</span>
+      <span itemprop="domain">Polymers</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000005225</span>
+      <span itemprop="name">electronics</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001747</span>
+      <span itemprop="name">exhibited</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000009472</span>
+      <span itemprop="name">formulation</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001976</span>
+      <span itemprop="name">improved</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001788</span>
+      <span itemprop="name">irregular</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000013016</span>
+      <span itemprop="name">learning</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000035800</span>
+      <span itemprop="name">maturation</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000000034</span>
+      <span itemprop="name">methods</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000003032</span>
+      <span itemprop="name">molecular docking</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000003387</span>
+      <span itemprop="name">muscular</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">210000002569</span>
+      <span itemprop="name">neurons</span>
+      <span itemprop="domain">Anatomy</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000003287</span>
+      <span itemprop="name">optical</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000005457</span>
+      <span itemprop="name">optimization</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000002093</span>
+      <span itemprop="name">peripheral</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000004033</span>
+      <span itemprop="name">plastic</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">229920003023</span>
+      <span itemprop="name">plastics</span>
+      <span itemprop="domain">Polymers</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000000047</span>
+      <span itemprop="name">products</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000002104</span>
+      <span itemprop="name">routine</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">201000010874</span>
+      <span itemprop="name">syndrome</span>
+      <span itemprop="domain">Diseases</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000002123</span>
+      <span itemprop="name">temporal effects</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+  </ul>
+  
+
+  <section>
+    <h2>Images</h2>
+    <ul>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/fd/ba/7b/339d5979ca5605/US08041661-20111018-D00000.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/a5/31/a0/dc947b5713bb5d/US08041661-20111018-D00000.png">
+        <ul>
+          
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/5d/50/e3/3ef5ba771227b0/US08041661-20111018-D00001.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/1d/73/17/0c029fdb87d657/US08041661-20111018-D00001.png">
+        <ul>
+          <li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="100">
+            <meta itemprop="label" content="computing device">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="499">
+              <meta itemprop="top" content="256">
+              <meta itemprop="right" content="578">
+              <meta itemprop="bottom" content="309">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="120">
+            <meta itemprop="label" content="processing unit">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1290">
+              <meta itemprop="top" content="1017">
+              <meta itemprop="right" content="1372">
+              <meta itemprop="bottom" content="1072">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="130">
+            <meta itemprop="label" content="Other system memory">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="889">
+              <meta itemprop="top" content="370">
+              <meta itemprop="right" content="972">
+              <meta itemprop="bottom" content="426">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="140">
+            <meta itemprop="label" content="ROM">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1211">
+              <meta itemprop="top" content="374">
+              <meta itemprop="right" content="1293">
+              <meta itemprop="bottom" content="429">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="160">
+            <meta itemprop="label" content="hard disk drive">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="86">
+              <meta itemprop="top" content="478">
+              <meta itemprop="right" content="168">
+              <meta itemprop="bottom" content="534">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="170">
+            <meta itemprop="label" content="device output">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="85">
+              <meta itemprop="top" content="672">
+              <meta itemprop="right" content="176">
+              <meta itemprop="bottom" content="727">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="180">
+            <meta itemprop="label" content="communications interface">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="87">
+              <meta itemprop="top" content="898">
+              <meta itemprop="right" content="167">
+              <meta itemprop="bottom" content="953">
+            </span>
+          </li>
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/e5/d9/79/203954f1bcf519/US08041661-20111018-D00002.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/ec/09/25/e4a8e81c03947e/US08041661-20111018-D00002.png">
+        <ul>
+          <li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="2">
+            <meta itemprop="id" content="308">
+            <meta itemprop="label" content="PSS">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1191">
+              <meta itemprop="top" content="487">
+              <meta itemprop="right" content="1261">
+              <meta itemprop="bottom" content="541">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="2">
+            <meta itemprop="id" content="330">
+            <meta itemprop="label" content="SBS">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1420">
+              <meta itemprop="top" content="245">
+              <meta itemprop="right" content="1496">
+              <meta itemprop="bottom" content="313">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="2">
+            <meta itemprop="id" content="410">
+            <meta itemprop="label" content="stable world line">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1432">
+              <meta itemprop="top" content="1596">
+              <meta itemprop="right" content="1503">
+              <meta itemprop="bottom" content="1651">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="2">
+            <meta itemprop="id" content="412">
+            <meta itemprop="label" content="unstable world line">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1503">
+              <meta itemprop="top" content="1748">
+              <meta itemprop="right" content="1578">
+              <meta itemprop="bottom" content="1805">
+            </span>
+          </li>
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/b1/c8/48/f7fd6f68c87d68/US08041661-20111018-D00003.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/fa/82/00/45c564f783ad1d/US08041661-20111018-D00003.png">
+        <ul>
+          
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/20/f0/c3/81d58565f6510f/US08041661-20111018-D00004.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/d7/79/51/56071e14c3c304/US08041661-20111018-D00004.png">
+        <ul>
+          
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/e0/c8/33/8b3947bb088b2a/US08041661-20111018-D00005.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/f5/aa/06/2f493e7d6e051c/US08041661-20111018-D00005.png">
+        <ul>
+          
+        </ul>
+      </li>
+      </ul>
+  </section>
+
+  <section>
+    <h2>Classifications</h2>
+    
+    <ul>
+      <li>
+        <ul itemprop="cpcs" itemscope repeat>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G</span>&mdash;<span itemprop="Description">PHYSICS</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06</span>&mdash;<span itemprop="Description">COMPUTING; CALCULATING; COUNTING</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06N</span>&mdash;<span itemprop="Description">COMPUTER SYSTEMS BASED ON SPECIFIC COMPUTATIONAL MODELS</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06N3/00</span>&mdash;<span itemprop="Description">Computer systems based on biological models</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06N3/02</span>&mdash;<span itemprop="Description">Computer systems based on biological models using neural network models</span>
+            <meta itemprop="Leaf" content="true">
+            
+            <meta itemprop="FirstCode" content="true">
+          </li>
+          </ul>
+      </li>
+      </ul>
+  </section>
+
+  <section itemprop="abstract" itemscope>
+    <h2>Abstract</h2>
+    
+    <div itemprop="content" html><abstract mxw-id="PA88037157" lang="EN" load-source="patent-office">
+    <div num="p-0001" class="abstract">Disclosed are methods, systems, and computer-readable media for determining stability of a neural system. The method includes tracking a function world line of an N element neural system within at least one behavioral space, determining whether the tracking function world line is approaching a psychological stability surface, and implementing a quantitative solution that corrects instability if the tracked function world line is approaching the psychological stability surface.</div>
+  </abstract>
+  </div>
+  </section>
+
+  <section itemprop="description" itemscope>
+    <h2>Description</h2>
+    
+    <div itemprop="content" html><div mxw-id="PDES44090870" lang="EN" load-source="patent-office" class="description">
+    
+    <heading>ORIGIN OF THE INVENTION</heading>
+    <p num="p-0002">The invention described herein was made by employees of the United States Government and may be manufactured and used by or for the Government for governmental purposes without the payment of any royalties thereon or therefor.</p>
+    
+    
+    <heading>BACKGROUND</heading>
+    <p num="p-0003">1. Field of the Invention</p>
+    <p num="p-0004">The invention relates generally to neural systems, and more specifically, to determining the stability of synthetic, natural, or mixed neural systems in the context of a behavioral hyper space.</p>
+    <p num="p-0005">2. Introduction</p>
+    <p num="p-0006">Neural systems are mathematical or computational models consisting of an interconnected group of nodes, otherwise known as neurons or simple processing elements, which process information in a connectionist approach. Some neural systems may be constructed so as to adapt their structure based on internal or external factors. In order to create a neural system that demonstrates reasonable behavior, the neural system must have a certain level of complexity. Ideally, that complexity is stable. However, with additional complexity come additional stability problems. In humans, additional complexity may come in the form of psychological conditions or tendencies, such as Narcissistic Entitlement Syndrome, overly perfectionist tendencies, etc. In machines, the additional complexity comes from the various subsystems and/or the interactions between the various subsystems.</p>
+    <p num="p-0007">An example application of a complex neural system with many subsystems could be the robotic architecture called Autonomic Nano Technology Swarm (ANTS) described at http://ants.gsfc.nasa.gov. ANTS forms a complex neural system containing many subsystems such as Lower Level Neural System that provides security and safety, a Higher Level Neural System that provides more purposeful behavior such as problem solving, planning, or scheduling, an Evolvable Neural Interface to coordinate efforts between the higher and lower level subsystems, and the skeletal/muscular system of the frame itself. Some subsystems are complex neural systems in and of themselves.</p>
+    <p num="p-0008">Another example application of a neural system is the artificial intelligence “game”20Q which may be found at http://www.20q.net. 20Q employs a neural system to ask 20 questions about an item and guess what the item is at the end of the question period.</p>
+    <p num="p-0009">Indeed, a neural network is a particular software realization of just higher or heuristic level of the Neural Basis Function Synthetic Neural System (NBF SNS) which has already been demonstrated to be capable of very rapid learning and development.</p>
+    <p num="p-0010">One prior approach is to create a rule-driven system, but every rule-driven system will encounter exceptions to the rules and must be made adaptive. Prior systems address increasing instability with increasing complexity are qualitative and lack the precision needed to correct unstable systems. Prior systems also provide a rigorous approach to neural system stability analysis, attempting to catalog every possible state in the neural system, which results in a prohibitively high number of states. Such systems include requirements to identify unstable interactions between elements of neural systems and to provide guidance on their correction. Accordingly, what is needed in the art is a way to quantify stability analysis of synthetic and natural neural systems.</p>
+    <heading>SUMMARY</heading>
+    <p num="p-0011">Additional features and advantages of the invention will be set forth in the description which follows, and in part will be obvious from the description, or may be learned by practice of the invention. The features and advantages of the invention may be realized and obtained by means of the instruments and combinations particularly pointed out in the appended claims. These and other features of the present invention will become more fully apparent from the following description and appended claims, or may be learned by the practice of the invention as set forth herein.</p>
+    <p num="p-0012">Disclosed herein are systems, methods, and computer-readable media for determining stability of a neural system. The exemplary method embodiment includes tracking a function world line of an N element neural system within behavioral spaces, determining whether the tracking function world line is approaching a psychological stability surface, and implementing a quantitative solution that corrects instability if the tracked function world line is approaching the psychological stability surface.</p>
+    <p num="p-0013">The principles of the invention may be utilized to provide clear identification of causes of neural system instabilities and provide quantitative solutions to correct neural system instabilities in arbitrarily complex neural systems.</p>
+    
+    
+    <description-of-drawings>
+      <heading>BRIEF DESCRIPTION OF THE DRAWINGS</heading>
+      <p num="p-0014">In order to describe the manner in which the above-recited and other advantages and features of the invention can be obtained, a more particular description of the invention briefly described above will be rendered by reference to specific embodiments thereof which are illustrated in the appended drawings. Understanding that these drawings depict only exemplary embodiments of the invention and are not therefore to be considered to be limiting of its scope, the invention will be described and explained with additional specificity and detail through the use of the accompanying drawings in which:</p>
+      <p num="p-0015"> <figref idrefs="DRAWINGS">FIG. 1</figref> illustrates a basic system or computing device according to a first exemplary embodiment of the invention;</p>
+      <p num="p-0016"> <figref idrefs="DRAWINGS">FIG. 2</figref> illustrates a method according to a second exemplary embodiment of the invention;</p>
+      <p num="p-0017"> <figref idrefs="DRAWINGS">FIG. 3</figref> illustrates a Stability Algorithm for Neural Entities (SANE) Behavioral Space (SBS);</p>
+      <p num="p-0018"> <figref idrefs="DRAWINGS">FIG. 4</figref> illustrates stable and unstable trajectories depending on the Psychological State Vector (PSV);</p>
+      <p num="p-0019"> <figref idrefs="DRAWINGS">FIG. 5</figref> illustrates the behavioral function dependence on f(PSV) in an empirical example;</p>
+      <p num="p-0020"> <figref idrefs="DRAWINGS">FIG. 6</figref> illustrates an example neural map for a neural basis function of a synthetic neural system called Autonomous Nano Technology Swarm (ANTS); and</p>
+      <p num="p-0021"> <figref idrefs="DRAWINGS">FIG. 7</figref> illustrates a SANE time evolution of a Psychological Stability Vector (PSV).</p>
+    </description-of-drawings>
+    
+    
+    <heading>DETAILED DESCRIPTION</heading>
+    <p num="p-0022">Various embodiments of the invention are discussed in detail below. While specific implementations are discussed, it should be understood that this is done for illustration purposes only. A person skilled in the relevant art will recognize that other components and configurations may be used without parting from the spirit and scope of the invention.</p>
+    <p num="p-0023">With reference to <figref idrefs="DRAWINGS">FIG. 1</figref>, an exemplary system includes a general-purpose computing device <b>100</b>, including a processing unit (CPU) <b>120</b> and a system bus <b>110</b> that couples various system components including the system memory such as read only memory (ROM) <b>140</b> and random access memory (RAM) <b>150</b> to the processing unit <b>120</b>. Other system memory <b>130</b> may be available for use as well. It can be appreciated that the system may operate on a computing device with more than one CPU <b>120</b> or on a group or cluster of computing devices networked together to provide greater processing capability. The system bus <b>110</b> may be any of several types of bus structures including a memory bus or memory controller, a peripheral bus, and a local bus using any of a variety of bus architectures. A basic input/output (BIOS) stored in ROM <b>140</b> or the like, may provide the basic routine that helps to transfer information between elements within the computing device <b>100</b>, such as during start-up. The computing device <b>100</b> further includes storage device, such as a hard disk drive <b>160</b>, a magnetic disk drive, an optical disk drive, tape drive, or the like. The storage device <b>160</b> is connected to the system bus <b>110</b> by a drive interface. The drives and the associated computer readable media provide non-volatile storage of computer readable instructions, data structures, program modules, and other data for the computing device <b>100</b>. The basic components are known to those of skill in the art and appropriate variations are contemplated depending on the type of device, such as whether the device is a small, handheld computing device, a desktop computer, or a computer server.</p>
+    <p num="p-0024">Although the exemplary environment described herein employs the hard disk, it should be appreciated by those skilled in the art that other types of computer readable media which can store data that are accessible by a computer, such as magnetic cassettes, flash memory cards, digital versatile disks, cartridges, random access memories (RAMs), read only memory (ROM), a cable or wireless signal containing a bit stream, and the like, may also be used in the exemplary operating environment.</p>
+    <p num="p-0025">To enable user interaction with the computing device <b>100</b>, an input device <b>190</b> represents any number of input mechanisms, such as a microphone for speech, a touch sensitive screen for gesture or graphical input, keyboard, mouse, motion input, speech, and so forth. For example, the input may be used by the presenter to indicate the beginning of a speech search query. The device output <b>170</b> can also be one or more of a number of output devices. In some instances, multimodal systems enable a user to provide multiple types of input to communicate with the computing device <b>100</b>. The communications interface <b>180</b> generally governs and manages the user input and system output. There is no restriction on the system operating on any particular hardware arrangement and therefore the basic features here may be substituted for improved hardware or firmware arrangements as they are developed.</p>
+    <p num="p-0026">For clarity of explanation, <figref idrefs="DRAWINGS">FIG. 1</figref> illustrates the exemplary computing device <b>100</b> as including individual functional blocks (including the functional block labeled as a “processor”). The functions these blocks represent may be provided through the use of either shared or dedicated hardware, including, but not limited to, hardware capable of executing software. For example, the functions of one or more processors presented in FIG. <b>1</b> may be provided by a single shared processor or multiple processors. (Use of the term “processor” should not be construed to refer exclusively to hardware capable of executing software.) Illustrative embodiments may include microprocessor and/or digital signal processor (DSP) hardware, read-only memory (ROM) for storing software performing the operations discussed below, and random access memory (RAM) for storing results. Very large scale integration (VLSI) hardware embodiments, as well as custom VLSI circuitry in combination with a general purpose DSP circuit, may also be provided.</p>
+    <p num="p-0027"> <figref idrefs="DRAWINGS">FIG. 2</figref> illustrates a method embodiment of the invention. First, the method tracks a function world line of an N element neural system within behavioral space (<b>202</b>). There may be one behavioral space or a plurality of behavioral spaces. A function world line is a linear representation of how a given neural system executes in a time-dependent situation. The function world line is similar to a vector in that it indicates a direction and magnitude of motion. A behavioral space is an N-dimensional space that defines the universe of available options for a neural system. For example, in <figref idrefs="DRAWINGS">FIG. 3</figref> and <figref idrefs="DRAWINGS">FIG. 4</figref>, a 3-dimensional behavioral space is shown, the three dimensions being planning (or goal-making) (P), self-control (SC), and resilience (R). If resilience is not needed for a particular application, the behavioral space may be 2-dimensional, that is, having an axis P and an axis SC. If more factors are to be taken in to consideration for a particular application, then additional dimensions may be added. For example, if the energy cost of an action is to be taken in to consideration, then E may be added as a fourth dimension. No theoretical upper limit is placed on the number of dimensions or axes which may be used. The three dimensions listed in <figref idrefs="DRAWINGS">FIG. 3</figref> and <figref idrefs="DRAWINGS">FIG. 4</figref> are not limiting and may be replaced with other suitable factors for various applications. Related dimensions or axes could be collapsed or combined into one axis, if circumstances allow.</p>
+    <p num="p-0028">The neural system may be a natural neural system, a synthetic neural system, or a blended system including both natural and synthetic neural elements. Also, contemplated are cultivated biological neural systems.</p>
+    <p num="p-0029">Second, the method determines whether the tracking function world line is approaching a psychological stability surface (<b>204</b>). In a three-dimensional behavioral space, the psychological stability surface is the threshold above which the neural system is stable. The psychological stability surface may be depicted as a portion of a sphere intersecting the space, as in <figref idrefs="DRAWINGS">FIG. 3</figref> and <figref idrefs="DRAWINGS">FIG. 4</figref>, but the psychological stability surface may take other regular or irregular shapes as well. For example, the psychological stability surface may be a simple plane intersecting the three axes, making an inverted pyramid shape with the tip of the pyramid at the origin of the axes. The psychological stability surface may be frustro-conical, an Isosceles triangular prism shape, or any other shape not necessarily easily mathematically describable. In certain circumstances, multiple disconnected psychological stability surfaces may exist within which the neural system is unstable. For example, a semi-spherical surface may be located at the origin and further away from the origin, a second cube-shaped surface could exist indicating a second region where the neural system may become unstable. Likewise, pockets of stable surfaces may be located within and completely surrounded by unstable regions.</p>
+    <p num="p-0030">The tracking function world line may include tracking changes in an N-dimensional psychological state vector. The psychological state vector may be formed by the product of a 2×N psychological matrix and a 2-dimensional psychological perturbation vector composed of external and internal perturbations to the neural system. Tracked changes in the psychological state vector may include temporal evolution changes. Third, the method implements a quantitative solution that corrects instability if the tracked function world line is approaching the psychological instability surface (<b>206</b>). An exemplary implementation of a quantitative solution for correcting instability is Stability Algorithm for Neural Entities, or SANE.</p>
+    <p num="p-0031">SANE looks for instability by examining a psychological state vector&#39;s (PSV) trajectory in behavioral space based on large magnitude terms in the time derivative of the PSV that can indicate a large negative shift of the total time derivative PSV. SANE shows that instabilities arise in natural neural systems as the consequence of terms that can produce large positive behavioral gains under certain classes of perturbations. In natural neural systems, these tendencies are the consequences of how DNA is structured to maintain fitness under a broad set of conditions, even though these tendencies may produce deleterious effects on natural neural systems in more conventional times or perturbation conditions. Synthetic neural systems allow for development of additional complexity to deal with exceptional circumstances in order to maintain fitness under a broad set of conditions, as opposed to over-optimization (large magnitude terms in the time derivatives of the PSV) that can produce collapse under some circumstances.</p>
+    <p num="p-0032"> <figref idrefs="DRAWINGS">FIG. 3</figref> illustrates a SANE behavioral space (SBS). The SBS <b>330</b> can be a high dimensional hyperspace, however, for most neural systems, a 3-dimensional space suffices to demonstrate stability or lack thereof. The dimensions illustrated are planning (goal formulation) (P) <b>302</b>, self control (SC) <b>304</b>, and resilience (R) <b>306</b>. In the resulting three-dimensional space, a psychological stability surface (PSS) <b>308</b> exists, on the internal, or origin, side of which the neural system collapses. In contrast, outside of this stability surface, the system operates stably. Depending on the topology of the PSS <b>308</b>, stability can be maintained as long as at least one of the dimensions (<b>302</b>, <b>304</b>, or <b>306</b>) is occupied beyond the PSS <b>308</b>. As discussed above, more than three dimensions may be used, although the surface may be somewhat more difficult to visualize.</p>
+    <p num="p-0033"> <figref idrefs="DRAWINGS">FIG. 4</figref> illustrates stable and unstable trajectories depending on the Psychological State Vector (PSV). <figref idrefs="DRAWINGS">FIG. 4</figref> illustrates these trajectories in the context of a SANE Behavioral Space (SBS) <b>430</b>. In the resulting three-dimensional space, a Psychological Stability Surface (PSS) <b>408</b> exists, on the internal origin side of which the neural system collapses. In contrast, outside of this stability surface, the system operates stably. Depending on the topology of the PSS <b>408</b>, stability can be maintained as long as at least one of the dimensions (<b>402</b>, <b>404</b>, or <b>406</b>) is occupied beyond the PSS <b>408</b>. The existence of the PSS <b>408</b> may be based on observations of the collapse of natural neural systems as the behaviors decrease below a certain level.</p>
+    <p num="p-0034">Within this SBS <b>430</b>, a given neural system executes a time-dependent world line, two example trajectories of which are the stable world line <b>410</b> and the unstable world line <b>412</b>. As can be seen in the diagram, a stable world line <b>410</b> is a line that is not headed to the inside of the PSS <b>408</b>, while an unstable world line <b>412</b> is one that is headed to the inside of the PSS <b>408</b> or is already inside. For a neural system with N elements, world line location, direction, and evolution are determined by an N-dimensional vector whose magnitude maps into a value on each of the behavioral axes (<b>402</b>, <b>404</b>, <b>406</b>) in the SBS <b>430</b>.</p>
+    <p num="p-0035">One of the strengths of SANE is that a specification of the PSV is not required; only the total time derivative of the PSV is required. The total time derivative can be empirically determined from activity and responses in a given behavioral space. The time derivatives embodied in the total time derivative represent a combinatorial collection of all possible time derivatives of the psychological elements (PE) that the PSV includes. In that way, possible paths to the future are calculable and hence possible interactions are accounted for a given neural system. Thus, the cause, or perturbations to the PSV, may be separated from the effect, performance in a behavioral space, in the psychology of synthetic or natural neural systems.</p>
+    <p num="p-0036">The total time derivative contains a convective part (with the psychological matrix, a reactive and adaptive response to environmental perturbations both internal and external) and a partial derivative with respect to time which represents evolutionary change. In the PSV time derivative, the reactive, adaptive, and evolutionary time scales are separate. In synthetic neural systems, these time scales may be collapsed, but in order to do so, precise stability control is needed. In natural neural systems, these time scales are widely separated because the tendency for behavioral collapse due to psychological instability would be overwhelming otherwise. In synthetic neural systems, where machine performance requirements do not allow the luxury of long time scales to adapt or evolve in harsh or alien environments, collapsing the time scale may be desirable. For example, if a synthetic neural system is employed on a deep space probe where human intervention is not feasible or impossible, there is no chance for evolution or adaptation; the synthetic neural system literally has only one chance to succeed.</p>
+    <p num="p-0037"> <figref idrefs="DRAWINGS">FIG. 5</figref> illustrates the behavioral function dependence on f(PSV) in an empirical example, the Behavioral Function (BF) giving the collapse state characteristics inside the PSS for a given magnitude of f, f. The map to the behavior dimensions is also given. Since behaviors map in a similar manner in the SBS as shown in <figref idrefs="DRAWINGS">FIG. 3</figref> and <figref idrefs="DRAWINGS">FIG. 4</figref>, perturbations will exhibit similar functional characteristics. For example, internal and external perturbations that can drive f, will scale similarly. The BF is a direct function of f.</p>
+    <p num="p-0038"> <figref idrefs="DRAWINGS">FIG. 6</figref> illustrates an example neural map for a neural basis function of a synthetic neural system called Autonomous Nano Technology Swarm (ANTS). In general, a synthetic neural system includes multiple neural basis functions (NBF) interconnected through one or more evolvable neural interfaces (ENI). The two requirements for additional NBFs are that they are stable in and of themselves and that their interactions with other NBFs do not drive the system to instability. In the SANE framework, individual NBFs may be identified with psychological elements (PE) which are the x(k) as shown in <figref idrefs="DRAWINGS">FIG. 7</figref>. As mentioned above, the three time scales relevant to SANE are reactive time scales on the scale of the applied internal and external perturbations, adaptation times on the time scales over which it takes the genetic algorithms to advance the ENI, the low level neural system, and the high level neural system, and the evolution time scales on the scale of the times needed for the genetic algorithms to evolve the core genetic codes of the low level neural system and the high level neural system.</p>
+    <p num="p-0039">While most synthetic neural systems generally follow the time scale ordering of a natural neural system (reactive being shorter than adaptive, which is shorter yet than evolutionary), a synthetic neural system with sufficient computational bandwidth could collapse three time scales to comparable values. With the ability to collapse multiple time scales, synthetic neural networks may achieve neural shape shifting. If a neurally shape-shifting synthetic neural system were to be embedded in a physically shape shifting mobile architecture, extremely plastic behavior would be possible. Such a neurally shape-shifting neural system must be psychologically stable to be of any use. To ensure stability, some psychological stability algorithm is needed, such as SANE.</p>
+    <p num="p-0040"> <figref idrefs="DRAWINGS">FIG. 7</figref> illustrates a SANE time evolution of a Psychological Stability Vector (PSV). The training sequence for a synthetic neural system follows a path similar to that of a natural neural system to which perturbations have been applied over an adaptation time scale. However, the synthetic neural system also allows intervention on an evolutionary time scale corresponding to cross-generational, aging, or maturation time scales in a natural neural system. For a natural neural system, these time scales are not accessible. However, in a synthetic neural system, SANE can be directly applied to the core genetic code which can be directly altered to attenuate psychological instabilities. This corresponds to the second terms in the equations in <figref idrefs="DRAWINGS">FIG. 7</figref> containing explicit time partial derivatives of the x(k) of NBFs.</p>
+    <p num="p-0041">Computer-executable instructions include, for example, instructions and data which cause a general purpose computer, special purpose computer, or special purpose processing device to perform a certain function or group of functions. Computer-executable instructions also include program modules that are executed by computers in stand-alone or network environments. Generally, program modules include routines, programs, objects, components, and data structures, etc. that perform particular tasks or implement particular abstract data types. Computer-executable instructions, associated data structures, and program modules represent examples of the program code implementations for executing steps of the methods disclosed herein. The particular sequence of such executable instructions or associated data structures represents examples of corresponding acts for implementing the functions described in such steps.</p>
+    <p num="p-0042">Those of skill in the art will appreciate that other embodiments of the invention may be practiced in network computing environments with many types of computer system configurations, including personal computers, hand-held devices, multi-processor systems, microprocessor-based or programmable consumer electronics, network PCs, minicomputers, mainframe computers, and the like. Embodiments may also be practiced in distributed computing environments where tasks are performed by local and remote processing devices that are linked (either by hardwired links, wireless links, or by a combination thereof through a communications network. In a distributed computing environment, program modules may be located in both local and remote memory storage devices.</p>
+    <p num="p-0043">Although the above description provides specific details, these details should not be construed as limiting the claims in any way. Other configurations of the described embodiments of the invention are part of the scope of this invention. For example, the method could be used to train complex, robust neural systems docking systems or roving robot systems. Accordingly, the appended claims and their legal equivalents should only define the invention, rather than any specific examples given.</p>
+    
+  </div>
+  </div>
+  </section>
+
+  <section itemprop="claims" itemscope>
+    <h2>Claims (<span itemprop="count">6</span>)</h2>
+    
+    <div itemprop="content" html><div mxw-id="PCLM38557740" lang="EN" load-source="patent-office" class="claims">
+    <div class="claim"> <div id="CLM-00001" num="00001" class="claim">
+      <div class="claim-text">1. A method of maintaining stability of a neural system, the method comprising:
+<div class="claim-text">tracking a function world line of an N element neural system within behavioral spaces;</div>
+<div class="claim-text">determining whether the tracking function world line is approaching a psychological stability surface; and</div>
+<div class="claim-text">if the tracked function world line is approaching the psychological stability surface, then implementing a quantitative solution that prevents instability by ensuring said tracked function world line does not intersect said psychological stability surface thereby maintaining stability of said neural system;</div>
+<div class="claim-text">wherein tracking the function world line further comprises tracking changes in an N dimensional psychological state vector (PSV).</div>
+</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00002" num="00002" class="claim">
+      <div class="claim-text">2. The method of <claim-ref idref="CLM-00001">claim 1</claim-ref>, wherein the neural system is one of a natural and a synthetic neural system.</div>
+    </div>
+    </div> <div class="claim"> <div id="CLM-00003" num="00003" class="claim">
+      <div class="claim-text">3. A method of determining stability of a neural system, the method comprising:
+<div class="claim-text">tracking a function world line of an N element neural system within behavioral spaces;</div>
+<div class="claim-text">determining whether the tracking function world line is approaching a psychological stability surface; and</div>
+<div class="claim-text">if the tracked function world line is approaching the psychological stability surface, then implementing a quantitative solution that corrects instability, wherein the behavioral space is a 3 dimensional space comprising a planning axis, a self control axis and a resilience axis.</div>
+</div>
+    </div>
+    </div> <div class="claim"> <div id="CLM-00004" num="00004" class="claim">
+      <div class="claim-text">4. A non-transitory computer-readable medium storing a computer program having instructions for maintaining stability of a neural system, the instructions comprising:
+<div class="claim-text">tracking a function world line of an N element neural system within behavioral spaces;</div>
+<div class="claim-text">determining whether the tracking function world line is approaching a psychological stability surface; and</div>
+<div class="claim-text">if the tracked function world line is approaching the psychological stability surface, then implementing a quantitative solution that prevents instability by ensuring said tracked function world line does not intersect said psychological stability surface thereby maintaining stability of said neural system;</div>
+<div class="claim-text">wherein tracking the function world line further comprises tracking changes in an N dimensional psychological state vector (PSV).</div>
+</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00005" num="00005" class="claim">
+      <div class="claim-text">5. The computer-readable medium of <claim-ref idref="CLM-00004">claim 4</claim-ref>, wherein the neural system is one of a natural and a synthetic neural system.</div>
+    </div>
+    </div> <div class="claim"> <div id="CLM-00006" num="00006" class="claim">
+      <div class="claim-text">6. A non-transitory computer-readable medium storing a computer program having instructions for determining stability of a neural system, the instructions comprising:
+<div class="claim-text">tracking a function world line of an N element neural system within behavioral spaces;</div>
+<div class="claim-text">determining whether the tracking function world line is approaching a psychological stability surface; and</div>
+<div class="claim-text">if the tracked function world line is approaching the psychological stability surface, then implementing a quantitative solution that corrects instability, wherein the behavioral space is a 3 dimensional space comprising a planning axis, a self control axis and a resilience axis.</div>
+</div>
+    </div>
+  </div> </div>
+  </div>
+  </section>
+
+  <section itemprop="application" itemscope>
+
+    <section itemprop="metadata" itemscope>
+        <span itemprop="applicationNumber">US11/861,687</span>
+        <span itemprop="priorityDate">2007-09-26</span>
+        <span itemprop="filingDate">2007-09-26</span>
+        <span itemprop="title">System and method for determining stability of a neural system 
+       </span>
+        <span itemprop="ifiStatus">Active</span>
+        <span itemprop="ifiExpiration">2030-04-05</span>
+        <a href="/patent/US8041661B2/en">
+            <span itemprop="representativePublication">US8041661B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+        </a>
+    </section>
+
+    <h2>Priority Applications (1)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                    <th>Title</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="priorityApps" itemscope repeat>
+                <td>
+                   <span itemprop="applicationNumber">US11/861,687</span>
+                   
+                   <a href="/patent/US8041661B2/en">
+                        <span itemprop="representativePublication">US8041661B2</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                <td itemprop="priorityDate">2007-09-26</td>
+                <td itemprop="filingDate">2007-09-26</td>
+                <td itemprop="title">System and method for determining stability of a neural system 
+       </td>
+              </tr>
+           </tbody>
+       </table>
+
+    <h2>Applications Claiming Priority (1)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                    <th>Title</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="appsClaimingPriority" itemscope repeat>
+                <td>
+                   <span itemprop="applicationNumber">US11/861,687</span>
+                   <a href="/patent/US8041661B2/en">
+                        <span itemprop="representativePublication">US8041661B2</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                <td itemprop="priorityDate">2007-09-26</td>
+                <td itemprop="filingDate">2007-09-26</td>
+                <td itemprop="title">System and method for determining stability of a neural system 
+       </td>
+              </tr>
+           </tbody>
+       </table>
+
+    
+
+    
+
+    <h2>Publications (2)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Publication Number</th>
+                    <th>Publication Date</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="pubs" itemscope repeat>
+                <td>
+                   <span itemprop="publicationNumber">US20090083201A1</span>
+                   
+                   <a href="/patent/US20090083201A1/en">US20090083201A1
+                       (<span itemprop="primaryLanguage">en</span>)
+                   </a>
+                </td>
+                <td itemprop="publicationDate">2009-03-26</td>
+              </tr><tr itemprop="pubs" itemscope repeat>
+                <td>
+                   <span itemprop="publicationNumber">US8041661B2</span>
+                   
+                   <span itemprop="thisPatent">true</span>
+                   <a href="/patent/US8041661B2/en">US8041661B2
+                       (<span itemprop="primaryLanguage">en</span>)
+                   </a>
+                </td>
+                <td itemprop="publicationDate">2011-10-18</td>
+              </tr>
+           </tbody>
+        </table>
+
+  </section>
+
+  <section itemprop="family" itemscope>
+    <h1>Family</h1>
+    <h2>ID=40472760</h2>
+
+    <h2>Family Applications (1)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Title</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="applications" itemscope repeat>
+                <td>
+                    <span itemprop="applicationNumber">US11/861,687</span>
+                    <span itemprop="ifiStatus">Active</span>
+                    <span itemprop="ifiExpiration">2030-04-05</span>
+                    <a href="/patent/US8041661B2/en">
+                        <span itemprop="representativePublication">US8041661B2</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                </td>
+                <td itemprop="priorityDate">2007-09-26</td>
+                <td itemprop="filingDate">2007-09-26</td>
+                <td itemprop="title">System and method for determining stability of a neural system 
+       </td>
+              </tr>
+           </tbody>
+        </table>
+
+    
+
+    
+
+    <h2>Country Status (1)</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Country</th>
+            <th>Link</th>
+          </tr>
+        </thead>
+        <tbody>
+        <tr itemprop="countryStatus" itemscope repeat>
+            <td>
+              <span itemprop="countryCode">US</span>
+                (<span itemprop="num">1</span>)
+              <meta itemprop="thisCountry" content="true">
+            </td>
+            <td>
+              <a href="/patent/US8041661B2/en">
+                <span itemprop="representativePublication">US8041661B2</span>
+                  (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+    
+
+    
+
+    
+
+    
+
+    
+    <ul>
+      
+      <li itemprop="applicationsByYear" itemscope repeat>
+        <span itemprop="year">2007</span>
+        <ul>
+          
+          <li itemprop="application" itemscope repeat>
+            <span itemprop="filingDate">2007-09-26</span>
+            <span itemprop="countryCode">US</span>
+            <span itemprop="applicationNumber">US11/861,687</span>
+            <a href="/patent/US8041661B2/en"><span itemprop="documentId">patent/US8041661B2/en</span></a>
+            <span itemprop="legalStatusCat">active</span>
+            <span itemprop="legalStatus">Active</span>
+            
+            <span itemprop="thisApp" content="true" bool></span>
+            
+          </li>
+          
+        </ul>
+      </li>
+      
+    </ul>
+    
+
+    </section>
+
+  
+
+  <section>
+    <h2>Non-Patent Citations (9)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Doebbler et al., J., "<a href='http://scholar.google.com/scholar?q="Improved+Adaptive-Reinforcement+Learning+Control+for+Morphing+Unmanned+Air+Vehicles"'>Improved Adaptive-Reinforcement Learning Control for Morphing Unmanned Air Vehicles</a>", Infoteach@Aerospace, pp. 1-19, Sep. 26-29, 2005.</span>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Horng, J., "<a href='http://scholar.google.com/scholar?q="Neural+adaptive+tracking+control+of+a+DC+motor"'>Neural adaptive tracking control of a DC motor</a>", Information Sciences 118, pp. 1-13, 1999.</span>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Mills et al., F., "<a href='http://scholar.google.com/scholar?q="Intelligent+Agents-Belief%2C+Desire%2C+%26amp%3B+Intent+Framework+Using+LORA%3A+A+Program+Independent+Approach"'>Intelligent Agents-Belief, Desire, &amp; Intent Framework Using LORA: A Program Independent Approach</a>", Business Research Yearbook: Global Business Perspectives vol. XIII, pp. 280-285, 2006.</span>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Mills et al., F., "<a href='http://scholar.google.com/scholar?q="Intelligent+Agents%E2%80%94Belief%2C+Desire%2C+%26amp%3B+Intent+Framework+Using+LORA%3A+A+Program+Independent+Approach"'>Intelligent Agents—Belief, Desire, &amp; Intent Framework Using LORA: A Program Independent Approach</a>", Business Research Yearbook: Global Business Perspectives vol. XIII, pp. 280-285, 2006.</span>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Mills et al., F., "<a href='http://scholar.google.com/scholar?q="Intelligent+Agents-Belief%2C+Desire%2C+and+Intentions+Framework+Implementation+Using+LORA"'>Intelligent Agents-Belief, Desire, and Intentions Framework Implementation Using LORA</a>", Decision Line, pp. 16-25, Mar. 2004.</span>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Mills et al., F., "<a href='http://scholar.google.com/scholar?q="Intelligent+Agents%E2%80%94Belief%2C+Desire%2C+and+Intentions+Framework+Implementation+Using+LORA"'>Intelligent Agents—Belief, Desire, and Intentions Framework Implementation Using LORA</a>", Decision Line, pp. 16-25, Mar. 2004.</span>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Negnevitsky et al., M., "<a href='http://scholar.google.com/scholar?q="Accelerated+Learning+in+Multi-Layer+Neural+Networks"'>Accelerated Learning in Multi-Layer Neural Networks</a>", IEEE, pp. 1167-1171, 1999.</span>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Valasek et al., J., "<a href='http://scholar.google.com/scholar?q="A+Reinforcement+Learning-Adaptive+Control+Architecture+for+Morphing"'>A Reinforcement Learning-Adaptive Control Architecture for Morphing</a>", Journal of Aerospace Computing, Information, and Communication vol. 2, pp. 174-195, Apr. 2005.</span>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Valasek et al., J., "<a href='http://scholar.google.com/scholar?q="A+Reinforcement+Learning%E2%80%94Adaptive+Control+Architecture+for+Morphing"'>A Reinforcement Learning—Adaptive Control Architecture for Morphing</a>", Journal of Aerospace Computing, Information, and Communication vol. 2, pp. 174-195, Apr. 2005.</span>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  
+
+  <section>
+    <h2>Also Published As</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Publication date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="docdbFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20090083201A1/en">
+              <span itemprop="publicationNumber">US20090083201A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+          </td>
+          <td itemprop="publicationDate">2009-03-26</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Similar Documents</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Publication</th>
+          <th>Publication Date</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="2999803371069459469">
+              <a href="/scholar/2999803371069459469"><span itemprop="scholarAuthors">Kaveh</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2014">2014</time>
+            
+          </td>
+          <td itemprop="title">Advances in metaheuristic algorithms for optimal design of structures</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="4776639135351919780">
+              <a href="/scholar/4776639135351919780"><span itemprop="scholarAuthors">Duan et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2016">2016</time>
+            
+          </td>
+          <td itemprop="title">Benchmarking deep reinforcement learning for continuous control</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="3501317100113339890">
+              <a href="/scholar/3501317100113339890"><span itemprop="scholarAuthors">Schaal et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2010">2010</time>
+            
+          </td>
+          <td itemprop="title">Learning control in robotics</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="4104020308484084934">
+              <a href="/scholar/4104020308484084934"><span itemprop="scholarAuthors">Kurban et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2009">2009</time>
+            
+          </td>
+          <td itemprop="title">A comparison of RBF neural network training algorithms for inertial sensor based terrain classification</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="3481471310214816264">
+              <a href="/scholar/3481471310214816264"><span itemprop="scholarAuthors">Marwala</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2009">2009</time>
+            
+          </td>
+          <td itemprop="title">Computational Intelligence for Missing Data Imputation, Estimation, and Management: Knowledge Optimization Techniques: Knowledge Optimization Techniques</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="11569699037524508570">
+              <a href="/scholar/11569699037524508570"><span itemprop="scholarAuthors">Holzinger</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2016">2016</time>
+            
+          </td>
+          <td itemprop="title">Interactive machine learning for health informatics: when do we need the human-in-the-loop?</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="7121756137694446635">
+              <a href="/scholar/7121756137694446635"><span itemprop="scholarAuthors">Eden</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2007">2007</time>
+            
+          </td>
+          <td itemprop="title">Three paradigms of computer science</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="644123441210499125">
+              <a href="/scholar/644123441210499125"><span itemprop="scholarAuthors">Simon</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2013">2013</time>
+            
+          </td>
+          <td itemprop="title">Evolutionary optimization algorithms</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="7770337549292225501">
+              <a href="/scholar/7770337549292225501"><span itemprop="scholarAuthors">Latané</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1996">1996</time>
+            
+          </td>
+          <td itemprop="title">Dynamic social impact</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="17011418690661412520">
+              <a href="/scholar/17011418690661412520"><span itemprop="scholarAuthors">Večerík et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2017">2017</time>
+            
+          </td>
+          <td itemprop="title">Leveraging demonstrations for deep reinforcement learning on robotics problems with sparse rewards</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="11872662335592527563">
+              <a href="/scholar/11872662335592527563"><span itemprop="scholarAuthors">Liu et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2004">2004</time>
+            
+          </td>
+          <td itemprop="title">Autonomy oriented computing: from problem solving to complex systems modeling</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="15378811975568162496">
+              <a href="/scholar/15378811975568162496"><span itemprop="scholarAuthors">Baranes et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2013">2013</time>
+            
+          </td>
+          <td itemprop="title">Active learning of inverse models with intrinsically motivated goal exploration in robots</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="783153961520257720">
+              <a href="/scholar/783153961520257720"><span itemprop="scholarAuthors">Sayama</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2015">2015</time>
+            
+          </td>
+          <td itemprop="title">Introduction to the modeling and analysis of complex systems</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="13299650887884577253">
+              <a href="/scholar/13299650887884577253"><span itemprop="scholarAuthors">Lynch</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2014">2014</time>
+            
+          </td>
+          <td itemprop="title">Dynamical systems with applications using Matlab®</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="15919675426645575904">
+              <a href="/scholar/15919675426645575904"><span itemprop="scholarAuthors">Eberbach et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2004">2004</time>
+            
+          </td>
+          <td itemprop="title">Turing’s ideas and models of computation</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="15609215239524632272">
+              <a href="/scholar/15609215239524632272"><span itemprop="scholarAuthors">Wang</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2007">2007</time>
+            
+          </td>
+          <td itemprop="title">The theoretical framework of cognitive informatics</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="16711968718515661826">
+              <a href="/scholar/16711968718515661826"><span itemprop="scholarAuthors">Carello et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1984">1984</time>
+            
+          </td>
+          <td itemprop="title">Inadequacies of the computer metaphor</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="12457551505350217152">
+              <a href="/scholar/12457551505350217152"><span itemprop="scholarAuthors">Xiao</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2009">2009</time>
+            
+          </td>
+          <td itemprop="title">A tutorial on analysis and simulation of boolean gene regulatory network models</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="16354971161520350975">
+              <a href="/scholar/16354971161520350975"><span itemprop="scholarAuthors">Wang et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2008">2008</time>
+            
+          </td>
+          <td itemprop="title">Stochastic dynamic modeling of short gene expression time-series data</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="8636466091152355708">
+              <a href="/scholar/8636466091152355708"><span itemprop="scholarAuthors">Gilbert</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1999">1999</time>
+            
+          </td>
+          <td itemprop="title">Simulation: A new way of doing social science</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="8285373781088604699">
+              <a href="/scholar/8285373781088604699"><span itemprop="scholarAuthors">Chen et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2012">2012</time>
+            
+          </td>
+          <td itemprop="title">RETRACTED: Review of an autonomous humanoid robot and its mechanical control</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="9697627660362021678">
+              <a href="/scholar/9697627660362021678"><span itemprop="scholarAuthors">Stromatias et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2013">2013</time>
+            
+          </td>
+          <td itemprop="title">Power analysis of large-scale, real-time neural networks on SpiNNaker</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="6292972130028985679">
+              <a href="/scholar/6292972130028985679"><span itemprop="scholarAuthors">Martius et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2013">2013</time>
+            
+          </td>
+          <td itemprop="title">Information driven self-organization of complex robotic behaviors</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="17277221263092623958">
+              <a href="/scholar/17277221263092623958"><span itemprop="scholarAuthors">Carlson et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2014">2014</time>
+            
+          </td>
+          <td itemprop="title">An efficient automated parameter tuning framework for spiking neural networks</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="16272947498288738932">
+              <a href="/scholar/16272947498288738932"><span itemprop="scholarAuthors">Yavuz et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2016">2016</time>
+            
+          </td>
+          <td itemprop="title">GeNN: a code generation framework for accelerated brain simulations</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Legal Events</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Code</th>
+          <th>Title</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2007-12-03">2007-12-03</time></td>
+          <td itemprop="code">AS</td>
+          <td itemprop="title">Assignment</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Owner name</strong>:
+              <span itemprop="value">UNITED STATES OF AMERICA AS REPRESENTED BY THE ADM</span>
+            </p>
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">ASSIGNMENT OF ASSIGNORS INTEREST;ASSIGNOR:CURTIS, STEVEN A., MR.;REEL/FRAME:020188/0111</span>
+            </p>
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Effective date</strong>:
+              <span itemprop="value">20071009</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2011-09-28">2011-09-28</time></td>
+          <td itemprop="code">STCF</td>
+          <td itemprop="title">Information on status: patent grant</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">PATENTED CASE</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2015-05-29">2015-05-29</time></td>
+          <td itemprop="code">REMI</td>
+          <td itemprop="title">Maintenance fee reminder mailed</td>
+          <td>
+            
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2015-06-24">2015-06-24</time></td>
+          <td itemprop="code">FPAY</td>
+          <td itemprop="title">Fee payment</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Year of fee payment</strong>:
+              <span itemprop="value">4</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2015-06-24">2015-06-24</time></td>
+          <td itemprop="code">SULP</td>
+          <td itemprop="title">Surcharge for late payment</td>
+          <td>
+            
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2019-06-10">2019-06-10</time></td>
+          <td itemprop="code">FEPP</td>
+          <td itemprop="title">Fee payment procedure</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">MAINTENANCE FEE REMINDER MAILED (ORIGINAL EVENT CODE: REM.); ENTITY STATUS OF PATENT OWNER: LARGE ENTITY</span>
+            </p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+</article>
+
+    </search-app>
+    <script type="text/javascript" src="//www.gstatic.com/feedback/api.js"></script>
+    <script async="" defer="" src="//www.google.com/insights/consumersurveys/async_survey?site=cxkjf7ipxgbnnjy6k35ezcvbbe"></script>
+  </body>
+</html>

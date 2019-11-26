@@ -1,0 +1,3566 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>US7543274B2 - System and method for deriving a process-based specification 
+        - Google Patents</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="referrer" content="origin-when-crossorigin">
+    <link rel="canonical" href="https://patents.google.com/patent/US7543274B2/en">
+    <meta name="description" content="
+     A system and method for deriving a process-based specification for a system is disclosed. The process-based specification is mathematically inferred from a trace-based specification. The trace-based specification is derived from a non-empty set of traces or natural language scenarios. The process-based specification is mathematically equivalent to the trace-based specification. Code is generated, if applicable, from the process-based specification. A process, or phases of a process, using the features disclosed can be reversed and repeated to allow for an interactive development and modification of legacy systems. The process is applicable to any class of system, including, but not limited to, biological and physical systems, electrical and electro-mechanical systems in addition to software, hardware and hybrid hardware-software systems. 
+   
+   ">
+    
+    <meta name="DC.type" content="patent">
+    
+    <meta name="DC.title" content="System and method for deriving a process-based specification 
+       ">
+    
+    <meta name="DC.date" content="2004-02-25" scheme="dateSubmitted">
+    
+    <meta name="DC.description" content="
+     A system and method for deriving a process-based specification for a system is disclosed. The process-based specification is mathematically inferred from a trace-based specification. The trace-based specification is derived from a non-empty set of traces or natural language scenarios. The process-based specification is mathematically equivalent to the trace-based specification. Code is generated, if applicable, from the process-based specification. A process, or phases of a process, using the features disclosed can be reversed and repeated to allow for an interactive development and modification of legacy systems. The process is applicable to any class of system, including, but not limited to, biological and physical systems, electrical and electro-mechanical systems in addition to software, hardware and hybrid hardware-software systems. 
+   
+   ">
+    
+    <meta name="citation_patent_application_number" content="US:10/789,028">
+    
+    <meta name="citation_pdf_url" content="https://patentimages.storage.googleapis.com/64/08/85/cd1a1386b288d1/US7543274.pdf">
+    
+    <meta name="citation_patent_number" content="US:7543274">
+    
+    <meta name="DC.date" content="2009-06-02" scheme="issue">
+    
+    <meta name="DC.contributor" content="Michael Gerard Hinchey" scheme="inventor">
+    
+    <meta name="DC.contributor" content="James Larry Rash" scheme="inventor">
+    
+    <meta name="DC.contributor" content="Christopher A. ROUFF" scheme="inventor">
+    
+    <meta name="DC.contributor" content="National Aeronautics and Space Administration (NASA)" scheme="assignee">
+    
+    <meta name="DC.relation" content="US:5163016" scheme="references">
+    
+    <meta name="DC.relation" content="US:5353371" scheme="references">
+    
+    <meta name="DC.relation" content="US:5535322" scheme="references">
+    
+    <meta name="DC.relation" content="US:5495567" scheme="references">
+    
+    <meta name="DC.relation" content="US:5623499" scheme="references">
+    
+    <meta name="DC.relation" content="US:6275976" scheme="references">
+    
+    <meta name="DC.relation" content="US:5799193" scheme="references">
+    
+    <meta name="DC.relation" content="US:6314555" scheme="references">
+    
+    <meta name="DC.relation" content="US:6289502" scheme="references">
+    
+    <meta name="DC.relation" content="US:6353896" scheme="references">
+    
+    <meta name="DC.relation" content="US:6343372" scheme="references">
+    
+    <meta name="DC.relation" content="US:20010052108:A1" scheme="references">
+    
+    <meta name="DC.relation" content="US:6405364" scheme="references">
+    
+    <meta name="DC.relation" content="US:6662357" scheme="references">
+    
+    <meta name="DC.relation" content="US:20020032900:A1" scheme="references">
+    
+    <meta name="DC.relation" content="US:20020029231:A1" scheme="references">
+    
+    <meta name="DC.relation" content="US:7114149" scheme="references">
+    
+    <meta name="DC.relation" content="US:20020104071:A1" scheme="references">
+    
+    <meta name="DC.relation" content="US:20020116702:A1" scheme="references">
+    
+    <meta name="DC.relation" content="US:6907546" scheme="references">
+    
+    <meta name="DC.relation" content="US:20050193269:A1" scheme="references">
+    
+    <meta name="DC.relation" content="US:7047518" scheme="references">
+    
+    <meta name="DC.relation" content="US:20020091990:A1" scheme="references">
+    
+    <meta name="DC.relation" content="US:20020100015:A1" scheme="references">
+    
+    <meta name="DC.relation" content="US:20030067481:A1" scheme="references">
+    
+    <meta name="DC.relation" content="US:7086009" scheme="references">
+    
+    <meta name="DC.relation" content="US:7051317" scheme="references">
+    
+    <meta name="DC.relation" content="US:6804686" scheme="references">
+    
+    <meta name="DC.relation" content="US:7472374" scheme="references">
+    
+    <meta name="DC.relation" content="US:20050022155:A1" scheme="references">
+    
+    <meta name="citation_reference" content="B-Core Limited., &#34;The B-Toolkit&#34;, pp. 1-9, 02/22." scheme="references">
+    
+    <meta name="citation_reference" content="C.J. Fidge, &#34;A Formal Definition of Prority in CSP&#34;, Sep. 1993, ACM Press vol. 15 Issue 4, pp. 681-705." scheme="references">
+    
+    <meta name="citation_reference" content="Mattew Hennessy, et al. &#34;Algebraic Laws for Nondeterminism andconcurrency&#34;, Jan. 1985, ACM Press, Journal of the ACM (JACM), vol. 32 Issue 1, pp. 137-161." scheme="references">
+    
+    <meta name="citation_reference" content="Michael Butler, &#34;csp2B: A Practical Approach To Combining CSP and B&#34;; Declarative Systems and Software Engineering Group, Technical Report DSSE-TR-99-2, Department of Electronics and Computer Science, University of Southampton, Feb. 1999, pp. 1-16, Highfield, Southampton SO17 1BJ, United Kingdom." scheme="references">
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,400italic,500,500italic,700">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Product+Sans">
+    <style>
+      body { transition: none; }
+    </style>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-27188110-4', 'auto');
+
+      version = 'patent-search.search_20191120_RC00';
+
+      function sendFeedback() {
+        userfeedback.api.startFeedback({
+          'productId': '713680',
+          'bucket': 'patent-search-web',
+          'productVersion': version,
+        });
+      }
+
+      window.experiments = {};
+      window.experiments.patentCountries = "ae,ag,al,am,ao,ap,ar,at,au,aw,az,ba,bb,bd,be,bf,bg,bh,bj,bn,bo,br,bw,bx,by,bz,ca,cf,cg,ch,ci,cl,cm,cn,co,cr,cs,cu,cy,cz,dd,de,dj,dk,dm,do,dz,ea,ec,ee,eg,em,ep,es,fi,fr,ga,gb,gc,gd,ge,gh,gm,gn,gq,gr,gt,gw,hk,hn,hr,hu,ib,id,ie,il,in,ir,is,it,jo,jp,ke,kg,kh,km,kn,kp,kr,kw,kz,la,lc,li,lk,lr,ls,lt,lu,lv,ly,ma,mc,md,me,mg,mk,ml,mn,mo,mr,mt,mw,mx,my,mz,na,ne,ng,ni,nl,no,nz,oa,om,pa,pe,pg,ph,pl,pt,py,qa,ro,rs,ru,rw,sa,sc,sd,se,sg,si,sk,sl,sm,sn,st,su,sv,sy,sz,td,tg,th,tj,tm,tn,tr,tt,tw,tz,ua,ug,us,uy,uz,vc,ve,vn,wo,yu,za,zm,zw";
+      
+      
+      window.profilePicture = "";
+
+      window.Polymer = {
+        dom: 'shady',
+        lazyRegister: true,
+      };
+    </script>
+
+    <script src="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/webcomponentsjs/webcomponents-lite.min.js"></script>
+    
+    <link rel="import" href="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/search-app-vulcanized.html">
+    
+  </head>
+  <body unresolved>
+    
+    <script src="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/search-app-vulcanized.js"></script>
+    
+    <search-app>
+      
+      
+
+      <article class="result" itemscope itemtype="http://schema.org/ScholarlyArticle">
+  <h1 itemprop="pageTitle">US7543274B2 - System and method for deriving a process-based specification 
+        - Google Patents</h1>
+  <span itemprop="title">System and method for deriving a process-based specification 
+       </span>
+
+  <meta itemprop="type" content="patent">
+  <a href="https://patentimages.storage.googleapis.com/64/08/85/cd1a1386b288d1/US7543274.pdf" itemprop="pdfLink">Download PDF</a>
+  <h2>Info</h2>
+
+  <dl>
+    <dt>Publication number</dt>
+    <dd itemprop="publicationNumber">US7543274B2</dd>
+    <meta itemprop="numberWithoutCodes" content="7543274">
+    <meta itemprop="kindCode" content="B2">
+    <meta itemprop="publicationDescription" content="Patent ( having previously published pre-grant publication)">
+    
+    <span>US7543274B2</span>
+    
+    <span>US10/789,028</span>
+    
+    <span>US78902804A</span>
+    
+    <span>US7543274B2</span>
+    
+    <span>US 7543274 B2</span>
+    
+    <span>US7543274 B2</span>
+    
+    <span>US 7543274B2</span>
+    
+    <span>  </span>
+    
+    <span> </span>
+    
+    <span> </span>
+    
+    <span>US 78902804 A</span>
+    
+    <span>US78902804 A</span>
+    
+    <span>US 78902804A</span>
+    
+    <span>US 7543274 B2</span>
+    
+    <span>US7543274 B2</span>
+    
+    <span>US 7543274B2</span>
+    
+
+    <dt>Authority</dt>
+    <dd itemprop="countryCode">US</dd>
+    <dd itemprop="countryName">United States</dd>
+
+    <dt>Prior art keywords</dt>
+    
+    <dd itemprop="priorArtKeywords" repeat>process</dd>
+    <dd itemprop="priorArtKeywords" repeat>based specification</dd>
+    <dd itemprop="priorArtKeywords" repeat>set</dd>
+    <dd itemprop="priorArtKeywords" repeat>specification</dd>
+    <dd itemprop="priorArtKeywords" repeat>based</dd>
+
+    <dt>Prior art date</dt>
+    <dd><time itemprop="priorArtDate" datetime="2003-12-22">2003-12-22</time></dd>
+
+    <dt>Legal status (The legal status is an assumption and is not a legal conclusion. Google has not performed a legal analysis and makes no representation as to the accuracy of the status listed.)</dt>
+    <dd itemprop="legalStatusIfi" itemscope>
+      <span itemprop="status">Active</span>, expires <time itemprop="expiration" datetime="2025-08-30">2025-08-30</time>
+    </dd>
+  </dl>
+
+  <dt>Application number</dt>
+  <dd itemprop="applicationNumber">US10/789,028</dd>
+
+  
+
+  <dt>Other versions</dt>
+  <dd itemprop="directAssociations" itemscope repeat>
+    
+    <a href="/patent/US20050138602A1/en">
+      <span itemprop="publicationNumber">US20050138602A1</span>
+      (<span itemprop="primaryLanguage">en</span>
+    </a>
+  </dd>
+
+  <dt>Inventor</dt>
+  <dd itemprop="inventor" repeat>Michael Gerard Hinchey</dd>
+  <dd itemprop="inventor" repeat>James Larry Rash</dd>
+  <dd itemprop="inventor" repeat>Christopher A. ROUFF</dd>
+  <dt>Current Assignee (The listed assignees may be inaccurate. Google has not performed a legal analysis and makes no representation or warranty as to the accuracy of the list.)</dt>
+  <dd itemprop="assigneeCurrent" repeat>
+    National Aeronautics and Space Administration (NASA)
+  </dd>
+
+  <dt>Original Assignee</dt>
+  <dd itemprop="assigneeOriginal" repeat>National Aeronautics and Space Administration (NASA)</dd>
+
+  <dt>Priority date (The priority date is an assumption and is not a legal conclusion. Google has not performed a legal analysis and makes no representation as to the accuracy of the date listed.)</dt>
+  <dd><time itemprop="priorityDate" datetime="2003-12-22">2003-12-22</time></dd>
+
+  <dt>Filing date</dt>
+  <dd><time itemprop="filingDate" datetime="2004-02-25">2004-02-25</time></dd>
+
+  <dt>Publication date</dt>
+  <dd><time itemprop="publicationDate" datetime="2009-06-02">2009-06-02</time></dd>
+
+  
+
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2003-12-22">2003-12-22</time>
+    <span itemprop="title">Priority to US53337603P</span>
+    <span itemprop="type">priority</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2004-02-25">2004-02-25</time>
+    <span itemprop="title">Application filed by National Aeronautics and Space Administration (NASA)</span>
+    <span itemprop="type">filed</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    <span itemprop="assigneeSearch">National Aeronautics and Space Administration (NASA)</span>
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2004-02-25">2004-02-25</time>
+    <span itemprop="title">Priority to US10/789,028</span>
+    <span itemprop="type">priority</span>
+    
+    
+    
+    <span itemprop="documentId">patent/US7543274B2/en</span>
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2004-02-25">2004-02-25</time>
+    <span itemprop="title">Assigned to NATIONAL AERONAUTICS AND SPACE ADMINISTRATION, UNITED STATES OF AMERICA AS REPRESENTED BY THE ADMINISTRATOR OF THE</span>
+    <span itemprop="type">reassignment</span>
+    
+    
+    
+    
+    <span itemprop="assigneeSearch">NATIONAL AERONAUTICS AND SPACE ADMINISTRATION, UNITED STATES OF AMERICA AS REPRESENTED BY THE ADMINISTRATOR OF THE</span>
+    
+    
+    <span itemprop="description" repeat>ASSIGNMENT OF ASSIGNORS INTEREST (SEE DOCUMENT FOR DETAILS).</span>
+    
+    <span itemprop="description" repeat>Assignors: HINCHEY, MICHAEL GERARD, RASH, JAMES LARRY, ROUFF, CHRISTOPHER A.</span>
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2005-06-23">2005-06-23</time>
+    <span itemprop="title">Publication of US20050138602A1</span>
+    <span itemprop="type">publication</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    <span itemprop="documentId">patent/US20050138602A1/en</span>
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2005-08-12">2005-08-12</time>
+    <span itemprop="title">Priority claimed from US11/203,586</span>
+    <span itemprop="type">external-priority</span>
+    
+    
+    
+    <span itemprop="documentId">patent/US7752608B1/en</span>
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2005-08-12">2005-08-12</time>
+    <span itemprop="title">Priority claimed from US11/203,590</span>
+    <span itemprop="type">external-priority</span>
+    
+    
+    
+    <span itemprop="documentId">patent/US7739671B1/en</span>
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2006-08-01">2006-08-01</time>
+    <span itemprop="title">Priority claimed from US11/461,669</span>
+    <span itemprop="type">external-priority</span>
+    
+    
+    
+    <span itemprop="documentId">patent/US20070074180A1/en</span>
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2009-06-02">2009-06-02</time>
+    <span itemprop="title">Publication of US7543274B2</span>
+    <span itemprop="type">publication</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    <span itemprop="documentId">patent/US7543274B2/en</span>
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2009-06-02">2009-06-02</time>
+    <span itemprop="title">Application granted</span>
+    <span itemprop="type">granted</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2019-11-25">2019-11-25</time>
+    <span itemprop="title">Application status is Active</span>
+    <span itemprop="type">legal-status</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2025-08-30">2025-08-30</time>
+    <span itemprop="title">Adjusted expiration</span>
+    <span itemprop="type">legal-status</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+
+  <h2>Links</h2>
+
+  <ul>
+    
+          <li itemprop="links" itemscope repeat>
+            <meta itemprop="id" content="usptoLink">
+            <a href="http://patft.uspto.gov/netacgi/nph-Parser?Sect1=PTO1&Sect2=HITOFF&p=1&u=/netahtml/PTO/srchnum.html&r=1&f=G&l=50&d=PALL&s1=7543274.PN." itemprop="url" target="_blank"><span itemprop="text">USPTO</span></a>
+          </li>
+        <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="usptoAssignmentLink">
+          <a href="https://assignment.uspto.gov/patent/index.html#/patent/search/resultFilter?searchInput=7543274" itemprop="url" target="_blank"><span itemprop="text">USPTO Assignment</span></a>
+        </li>
+
+    <li itemprop="links" itemscope repeat>
+        <meta itemprop="id" content="espacenetLink">
+        <a href="http://worldwide.espacenet.com/publicationDetails/biblio?CC=US&amp;NR=7543274B2&amp;KC=B2&amp;FT=D" itemprop="url" target="_blank"><span itemprop="text">Espacenet</span></a>
+      </li>
+      
+
+    
+
+    
+      <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="globalDossierLink">
+          <a href="http://globaldossier.uspto.gov/#/result/patent/US/7543274/1" itemprop="url" target="_blank"><span itemprop="text">Global Dossier</span></a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="stackexchangeLink">
+          <a href="https://patents.stackexchange.com/questions/tagged/US7543274" itemprop="url"><span itemprop="text">Discuss</span></a>
+        </li>
+      
+  </ul>
+
+  
+  <ul itemprop="concept" itemscope>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000000034</span>
+      <span itemprop="name">methods</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>abstract</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="sections" repeat>title</span>
+      
+      <span itemprop="count">131</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000018109</span>
+      <span itemprop="name">developmental process</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>abstract</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">20</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000004458</span>
+      <span itemprop="name">analytical methods</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">8</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000004044</span>
+      <span itemprop="name">response</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">7</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000006011</span>
+      <span itemprop="name">modification</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>abstract</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">5</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000004048</span>
+      <span itemprop="name">modification</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>abstract</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">5</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000000694</span>
+      <span itemprop="name">effects</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">3</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000014509</span>
+      <span itemprop="name">gene expression</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000002609</span>
+      <span itemprop="name">media</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000002452</span>
+      <span itemprop="name">interceptive</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>abstract</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000007781</span>
+      <span itemprop="name">pre-processing</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000000844</span>
+      <span itemprop="name">transformation</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001131</span>
+      <span itemprop="name">transforming</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000006399</span>
+      <span itemprop="name">behavior</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">13</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000003795</span>
+      <span itemprop="name">chemical substance by application</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">13</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000002829</span>
+      <span itemprop="name">reduced</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">3</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000003542</span>
+      <span itemprop="name">behavioural</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001721</span>
+      <span itemprop="name">combination</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000005516</span>
+      <span itemprop="name">engineering processes</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000003993</span>
+      <span itemprop="name">interaction</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000004519</span>
+      <span itemprop="name">manufacturing process</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000033772</span>
+      <span itemprop="name">system development</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000003905</span>
+      <span itemprop="name">agrochemical</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000031018</span>
+      <span itemprop="name">biological process</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000004422</span>
+      <span itemprop="name">calculation algorithm</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000006243</span>
+      <span itemprop="name">chemical reaction</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000004891</span>
+      <span itemprop="name">communication</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000000470</span>
+      <span itemprop="name">constituents</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000000875</span>
+      <span itemprop="name">corresponding</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000004870</span>
+      <span itemprop="name">electrical engineering</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001747</span>
+      <span itemprop="name">exhibited</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000009740</span>
+      <span itemprop="name">moulding (composite fabrication)</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000005365</span>
+      <span itemprop="name">production</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000000047</span>
+      <span itemprop="name">products</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000000135</span>
+      <span itemprop="name">prohibitive</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001603</span>
+      <span itemprop="name">reducing</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000006722</span>
+      <span itemprop="name">reduction reaction</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000000126</span>
+      <span itemprop="name">substances</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+  </ul>
+  
+
+  <section>
+    <h2>Images</h2>
+    <ul>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/thumbnails/US7543274B2/US07543274-20090602-D00000.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/US7543274B2/US07543274-20090602-D00000.png">
+        <ul>
+          
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/thumbnails/US7543274B2/US07543274-20090602-D00001.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/US7543274B2/US07543274-20090602-D00001.png">
+        <ul>
+          
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/thumbnails/US7543274B2/US07543274-20090602-D00002.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/US7543274B2/US07543274-20090602-D00002.png">
+        <ul>
+          
+        </ul>
+      </li>
+      </ul>
+  </section>
+
+  <section>
+    <h2>Classifications</h2>
+    
+    <ul>
+      <li>
+        <ul itemprop="cpcs" itemscope repeat>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G</span>&mdash;<span itemprop="Description">PHYSICS</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06</span>&mdash;<span itemprop="Description">COMPUTING; CALCULATING; COUNTING</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06F</span>&mdash;<span itemprop="Description">ELECTRIC DIGITAL DATA PROCESSING</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06F8/00</span>&mdash;<span itemprop="Description">Arrangements for software engineering</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06F8/20</span>&mdash;<span itemprop="Description">Software design</span>
+            <meta itemprop="Leaf" content="true">
+            
+            <meta itemprop="FirstCode" content="true">
+          </li>
+          </ul>
+      </li>
+      <li>
+        <ul itemprop="cpcs" itemscope repeat>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G</span>&mdash;<span itemprop="Description">PHYSICS</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06</span>&mdash;<span itemprop="Description">COMPUTING; CALCULATING; COUNTING</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06F</span>&mdash;<span itemprop="Description">ELECTRIC DIGITAL DATA PROCESSING</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06F8/00</span>&mdash;<span itemprop="Description">Arrangements for software engineering</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06F8/30</span>&mdash;<span itemprop="Description">Creation or generation of source code</span>
+            <meta itemprop="Leaf" content="true">
+            
+            
+          </li>
+          </ul>
+      </li>
+      </ul>
+  </section>
+
+  <section itemprop="abstract" itemscope>
+    <h2>Abstract</h2>
+    
+    <div itemprop="content" html><abstract mxw-id="PA53249143" lang="EN" load-source="patent-office">
+    <div num="p-0001" class="abstract">A system and method for deriving a process-based specification for a system is disclosed. The process-based specification is mathematically inferred from a trace-based specification. The trace-based specification is derived from a non-empty set of traces or natural language scenarios. The process-based specification is mathematically equivalent to the trace-based specification. Code is generated, if applicable, from the process-based specification. A process, or phases of a process, using the features disclosed can be reversed and repeated to allow for an interactive development and modification of legacy systems. The process is applicable to any class of system, including, but not limited to, biological and physical systems, electrical and electro-mechanical systems in addition to software, hardware and hybrid hardware-software systems.</div>
+  </abstract>
+  </div>
+  </section>
+
+  <section itemprop="description" itemscope>
+    <h2>Description</h2>
+    
+    <div itemprop="content" html><div mxw-id="PDES18539933" lang="EN" load-source="patent-office" class="description">
+
+  <p num="p-0002">This application for patent hereby claims priority to U.S. Provisional Patent Application Ser. No. 60/533,376 entitled “System and Method for deriving a Process-Based Specification” by Hinchey et al., which was filed on Dec. 22, 2003. This provisional patent application is hereby incorporated by reference.</p>
+
+
+  <heading>ORIGIN OF THE INVENTION</heading>
+  <p num="p-0003">The invention described herein was made by employees of the United States Government, and may be implemented or manufactured and used by or for the Government for governmental purposes without the payment of any royalties thereon or therefor.</p>
+
+
+  <heading>FIELD OF THE INVENTION</heading>
+  <p num="p-0004">The present invention relates to computer and software engineering environments, and more particularly, the present invention relates to software development, requirements definition, formal methods, system validation and verification, and code generation, both automatic and manual. Additionally, the herein disclosed invention relates to the fields of chemical or biological process design or mechanical system design, and, generally to any field where the behaviors exhibited by a process to be designed is described by means of a set of scenarios expressed in natural language, or some appropriate graphical notation.</p>
+  <heading>BACKGROUND OF THE INVENTION</heading>
+  <p num="p-0005">Complex (software and hardware) systems are developed for numerous applications and processes, including the automated control of spacecraft operations and ground systems. Complex software and hardware systems, however, may encounter problems. The cause of potential faults and defects, such as redundancies, deadlocks, and omissions, may be difficult to determine, especially when the system is distributed and has parallel execution paths. Formal specification methods provide a means for avoiding or discovering such defects. Currently available techniques to formally specify software and hardware, however, can be difficult and time consuming to use.</p>
+  <p num="p-0006">Conventional processes for (hardware and software) system development include code generation (either automated or manual) from a specification that includes a specification language along with a tool kit. These processes enable model checking, verification, and automatic code generation. Disadvantages with these approaches include the user specifying every low-level detail of the system in advance. Thus, a system specification might be difficult to develop, understand, and modify. Further, difficulties may exist in establishing that the resulting code represents the customer&#39;s requirements, because the requirements are in natural language, and not in a specification language that is amenable to analysis.</p>
+  <p num="p-0007">Other conventional approaches include state-based approaches, employing, for example, statecharts or use-cases. These approaches may not offer the capability to check for errors, deadlocks, omissions, and the like, which formal specification languages provide, unless additional constraints are added. These constraints can be unwieldy or introduce inefficiencies into the development process, or indeed result in the incorrect system being developed. The same difficulties described above (i.e., the difficulty of establishing that the resulting code represents the customer&#39;s requirements) also apply to these other conventional approaches.</p>
+  <heading>SUMMARY OF THE INVENTION</heading>
+  <p num="p-0008">Accordingly, the disclosed embodiments of the present invention are directed toward system and methods for deriving a process-based specification that solves or reduces the problems within the conventional art. According to the disclosed embodiments of the present invention, a method for deriving a process-based specification for a system is disclosed. The method includes deriving a trace-based specification from a non-empty set of traces. The method includes mathematically inferring that the process-based specification is mathematically equivalent to the trace-based specification. Accordingly, the disclosed embodiments of the present invention are directed toward said methods for deriving a process-based specification that solves or reduces the problems within the conventional art.</p>
+  <p num="p-0009">Additional features or advantages of the disclosed embodiments are set forth in the description that follows, and in part will be implied from the description, or may be learned by practice of the invention. The objectives and other advantages of the invention are realized and obtained by the structure and methods particularly pointed out in the written description and the claims as well as the appended drawings.</p>
+
+
+  <description-of-drawings>
+    <heading>BRIEF DESCRIPTION OF THE DRAWINGS</heading>
+    <p num="p-0010">The accompanying drawings, which are included to provide further understanding of the disclosed invention, illustrate embodiments of the invention, and together with the descriptions serve to explain the principles of the invention. In the drawings:</p>
+    <p num="p-0011"> <figref idrefs="DRAWINGS">FIG. 1</figref> illustrates a software development system according to the disclosed embodiments.</p>
+    <p num="p-0012"> <figref idrefs="DRAWINGS">FIG. 2</figref> illustrates a flowchart for deriving formal specifications and code from scenarios according to the disclosed embodiments.</p>
+  </description-of-drawings>
+
+
+  <heading>DETAILED DESCRIPTION OF THE PREFERRED EMBODIMENTS</heading>
+  <p num="p-0013">Aspects of the invention are disclosed in the accompanying description. Alternate embodiments of the present invention may be derived without parting from the spirit or scope of the present invention. It should be noted that like elements in the figures are indicated by like reference numbers.</p>
+  <p num="p-0014"> <figref idrefs="DRAWINGS">FIG. 1</figref> illustrates a software development system <b>100</b> according to the disclosed embodiments. Software development system <b>100</b> includes a data flow and processing points for the data. Software development system <b>100</b> is representative of (i) computer applications and electrical engineering applications such as chip design and other electrical circuit design, (ii) business management applications in areas such as workflow analysis, (iii) artificial intelligence applications in areas such as knowledge-based systems and agent-based systems, (iv) highly parallel and highly-distributed applications involving computer command and control and computer-based monitoring, and (v) any other area involving process, sequence or algorithm design. According to the disclosed embodiments, software development system <b>100</b> mechanically converts different types of specifications (either natural language scenarios or descriptions, or trace specifications, which are effectively pre-processed scenarios) into process-based formal specifications on which model checking and other mathematics-based verifications are performed, and then optionally converts the formal specification into code.</p>
+  <p num="p-0015">Software development system <b>100</b> receives natural language scenarios <b>110</b>. A scenario is natural language text that describes the software&#39;s actions in response to incoming data and the internal goals of the software. Scenarios also may describe communication protocols between systems and between the components within the systems. Scenarios also may be known as use-cases. A scenario describes one or more potential executions of a system, describing what happens in a particular situation, and what range of behaviors is expected from or omitted by the system under various conditions.</p>
+  <p num="p-0016">The set of natural language scenarios <b>110</b> is constructed in terms of individual scenarios written in a structured natural language. Different scenarios may be written by different stakeholders of the system, corresponding to the different views they have of how the system will perform. Natural language scenarios <b>110</b> may be generated by a user with or without mechanical or computer aid. The set of natural language scenarios <b>110</b> provides the descriptions of actions that occur as the software executes. Some of these actions will be explicit and required, while others may be due to errors arising, or as a result of adapting to changing conditions as the system executes.</p>
+  <p num="p-0017">For example, if the system involves commanding space satellites, scenarios for that system may include sending commands to the satellites and processing data received in response to the commands. Natural language scenarios <b>110</b> should be specific to the technology or application domain to which it is applied. A fully automated general purpose approach covering all domains is technically prohibitive to implement in a way that is both complete and consistent. To ensure consistency, the domain of application must be specific-purpose. For example, scenarios for satellite systems may not be applicable as scenarios for systems that manufacture agricultural chemicals.</p>
+  <p num="p-0018">Natural language scenarios <b>110</b> are input to a context sensitive editor <b>120</b>. Context sensitive editor <b>120</b> also has access to a database of domain parameters <b>115</b>. Domain parameters reside in a database of parameters <b>115</b> that describes the terms usable and allowable in natural language scenarios <b>110</b>, that is, the “context”. The parameters allow for a wide range of domains and applications to be used with specialized terms in the scenarios. Different vocabulary applies to different areas of technology, and the vocabulary may change for different applications and different domains. Database of domain parameters <b>115</b> may comprise any terms or language that may be defined using grammar. Database of parameters <b>115</b> also will contain a dictionary of application-related events and actions.</p>
+  <p num="p-0019">Context sensitive editor <b>120</b> takes natural language scenarios <b>110</b> and database of domain parameters <b>115</b>, and produces a trace specification <b>130</b> based on the inputted scenarios. Trace specification <b>130</b> correlates to natural language scenarios <b>110</b>. In formal methods, and other areas of software engineering, a trace is a sequence of events that a process has engaged in up to a given point in time. The set of all possible behavior patterns of a process is represented by the set of traces of that process. Context sensitive editor <b>120</b> produces trace specification <b>130</b> from natural language scenarios <b>110</b>. Context sensitive editor <b>120</b> may perform these actions automatically.</p>
+  <p num="p-0020">Trace specification <b>130</b> includes traces that are a list of all possible orderings of actions as described by the developers that are taking place within the scenarios. More specifically, traces are lists of computational actions. Traces list the actions in a sequential manner. In other words, the traces of trace specification <b>130</b> may not include conditional statements or actions. Conditions in the input scenarios <b>110</b> are maintained in the set of traces <b>130</b> by introducing multiple traces describing alternate execution patterns. As a result, the number of traces in the set of traces <b>130</b> is likely to exceed the number of scenarios in the set of natural language scenarios <b>110</b>. Traces also may be known as sequences, events, or event-traces.</p>
+  <p num="p-0021">Traces also may be known as a sequence of steps. Trace specification, or set of traces, <b>130</b> incorporates a mathematical language that is behavioral. The set of traces <b>130</b> describes all possible behavior patterns of the system as described by the developers and/or users in the natural language scenarios <b>110</b>. From this behavioral description, the disclosed embodiments can mathematically infer a more general description from specific descriptions. Specific execution paths within natural language scenarios <b>110</b> may be input, and generalized executions generated from the specific executions. The more generalized description is amenable to analysis and enables the highlighting of erroneous or problematic execution paths.</p>
+  <p num="p-0022">Inference Engine <b>150</b> is a theorem prover, also known as an automatice theorem prover, in which laws of concurrency <b>145</b> have been embedded. Laws of concurrency <b>145</b> are rules detailing equivalences between sets of processes combined in various ways, and/or relating process-based descriptions of systems or system components to equivalent sets of traces. The embedding may be “shallow” in which case the theorem prover operates on syntactic equivalences. The embedding may be “deep”, in which case the theorem prover operates at the level of semantic equivalence. The latter is preferred, but the disclosed embodiments also may operate at a shallow level.</p>
+  <p num="p-0023">The embedding of laws of concurrency <b>145</b> in inference engine <b>150</b> may be validated by using the embedding to prove the laws of concurrency, which are known to be correct. An example of the laws of concurrency <b>145</b> are given in “Concurrent Systems: Formal Development in CSP” by M. G. Hinchey and S. A. Jarvis, McGraw-Hill International Series in Software Engineering, New York and London, 1995, herein incorporated by reference.</p>
+  <p num="p-0024">Laws of concurrency <b>145</b> may be expressed in any suitable language for describing concurrency. These languages include, but are not limited to, CSP (Communicating Sequential Processes), CCS (Calculus of Communicating Systems), and variants of these languages. The theorem prover forming the basis of inference engine <b>150</b> may be any available conventional commercial or academic theorem prover, or a bespoke theorem prover.</p>
+  <p num="p-0025">Inference engine <b>150</b> involves a deep embedding of the laws of concurrency expressed in CSP in the freely-available theorem prover ACL<b>2</b>. Other embeddings of laws of concurrency (or equivalence of combinations of processes) expressed in other languages and implemented in other theorem provers also embody the disclosures described herein, and may be substituted for inference engine <b>150</b> and are equivalent to the disclosed embodiments of the present invention.</p>
+  <p num="p-0026">Inference engine <b>150</b> takes as input trace specification <b>130</b>, and combined with its embedding of the laws of concurrency <b>145</b>, reverses the laws of concurrency <b>145</b> to infer a process-based specification <b>160</b>. The process-based specification <b>160</b> is mathematically and provably equivalent to the trace-based specification <b>130</b>. Mathematically equivalent does not necessarily mean mathematically equal. Mathematical equivalence of A and B means that A implies B and B implies A. Note that applying the laws of concurrency <b>145</b> to the process-based specification <b>160</b> would allow for the retrieval of a trace-based specification that is equivalent to the trace-based specification <b>130</b>. Note that the process-based specification is mathematically equivalent to rather than necessarily equal to the original trace-based specification <b>130</b>. This feature indicates the process may be reversed, allowing for reverse engineering of existing systems, or for iterative development of more complex systems.</p>
+  <p num="p-0027">The mechanism by which the inference engine <b>150</b> will infer the process-based specification <b>160</b> will vary depending on the theorem prover that is used as the basis of the inference engine <b>150</b>. This feature generally involves a combination of rule rewriting and searching a tree of possible rewritings to determine which process combinations correspond to the traces in the trace-based specification <b>130</b>. The choice of theorem prover used as the basis of the inference engine <b>160</b> will, combined with the completeness of the embedding of the laws of concurrency <b>145</b>, determine the performance of the system.</p>
+  <p num="p-0028">Formal specification analyzer <b>170</b> receives as input the process-based formal specification <b>160</b>. Formal specification analyzer <b>170</b> allows the user to manipulate the formal specification <b>160</b> in various ways. Alternate implementations, on different hardware and software architectures, may be considered. The formal specification analyzer <b>170</b> allows the user to examine the system described by the natural language scenarios <b>110</b>, and to manipulate it so as to execute on a different combination of (local or distributed) processors. The process-based formal specification <b>160</b> may be analyzed to highlight undesirable behavior, such as race conditions, and equally important, to point out errors of omission in the original natural language scenarios <b>110</b> and/or the trace specification <b>130</b>. The formal specification analyzer <b>170</b> is an optional but useful stage in the disclosed embodiments of the present invention. If the formal specification analyzer <b>170</b> is not used, then the process-based specification <b>160</b> and the revised formal specification <b>175</b> are identical. Hence, if the formal specification analyzer <b>170</b> is not used then all references to the revised formal specification <b>175</b> disclosed below also apply to the process-based specification <b>160</b>.</p>
+  <p num="p-0029">Revised formal specification <b>175</b> highlights behavior patterns that were previously not considered possible, based on the description given in the natural language scenarios <b>110</b> and/or the trace-based specification <b>130</b>. In reality, the behavior of the system is much more complex than considered in the natural language scenarios <b>110</b> and/or the trace specification <b>130</b> due to interactions between components, which users (and often developers) do not consider. As a result, other behavior patterns prove to be possible and revised formal specification <b>175</b> is easier to examine and highlights error conditions to be addressed.</p>
+  <p num="p-0030">Revised Formal specification <b>175</b> allows model checking that is performed to detect omissions and race conditions. Revised Formal specification <b>175</b> also allows verification of the requirements established by natural language scenarios <b>110</b>. Revised formal specification <b>175</b> provides for the formal analysis of interactions between processes and the proofs of properties, such as the presence or absence of livelock or deadlock. A deadlock condition is defined as one where nothing happens after an action is taken. A livelock condition is defined as one where unpredictable results occur after an action. These conditions can be fatal in the software development process. Many other behaviors, such as avoidance of particular conditions, or recovery from particular conditions, can also be proven.</p>
+  <p num="p-0031">Formal specification converter <b>180</b> is a converter for formal specification <b>175</b>. Formal specification converter <b>180</b> takes the higher level formal specification <b>170</b> and converts it to a lower-level specification <b>185</b> (possibly written in a different formal specification language or notation) that is suitable for input into a code generator <b>190</b>. Preferably, low level specification <b>185</b> is in the B specification language, or some other specification language or notation. Further, code generator <b>190</b>, preferably, is (part of) a B specification language toolkit. Code generator <b>190</b> generates code <b>195</b>.</p>
+  <p num="p-0032">Code <b>195</b> preferably comprises a sequence of instructions to be executed as a software system. Code <b>195</b> is an accurate description of the system defined by natural language scenarios <b>110</b> that is mathematically provable. Code <b>195</b> is used for verification <b>196</b> of the natural language scenarios <b>110</b> as well as trace specification <b>130</b>. Further, code <b>195</b> may be used as a basis for model checking <b>197</b>. Code <b>195</b> comprises executable computer code, which may be translated before execution. Translator <b>200</b> receives code <b>195</b>. Translator <b>200</b> is a compiler, interpreter, translator, transformer, and the like that generates instructions at a low level, such as machine code.</p>
+  <p num="p-0033">Either at the point of generating code <b>195</b>, or ideally at the time of generating a revised formal specification <b>175</b>, errors and problems are likely to arise, especially during the first iteration, as in all development situations. Incompatible scenarios are likely to raise the need for adjustments, improvements, and corrections. Natural language scenarios <b>110</b> may have to be corrected or changed. In these instances, software development system <b>100</b> allows for the modification of (or accepts the user&#39;s modifications to) the natural language scenarios <b>110</b> and re-executes the actions disclosed above. Moreover, if the requirements change, natural language scenarios <b>110</b> may be modified accordingly. Thus, natural language scenarios <b>110</b> are adaptable. Advanced users may wish to make amendments at the level of the traces specification <b>130</b> or the process-based specification <b>160</b> or even at the level of the revised formal specification <b>175</b>. This action is permitted, but means that changes only take effect from that point on, and the mathematically provable equivalence to the natural language scenarios <b>110</b> is not maintained.</p>
+  <p num="p-0034">According to the disclosed embodiments of the present invention, software development system <b>100</b> provides mathematical traceability in that it allows for mathematical logic to demonstrate what was produced as code <b>195</b> matches what was defined by natural language scenarios <b>110</b>. Thus, code <b>195</b> is provably correct with respect to natural language scenarios <b>110</b>. Further, executable code <b>195</b> may be mechanically regenerated when requirements dictate a change in the high level specifications. Any change in the system defined by natural language scenarios <b>110</b> introduces the risk of new errors that necessitate re-testing and re-validation. This risk is reduced according to the disclosed embodiments.</p>
+  <p num="p-0035">The use of natural language scenarios <b>110</b> is effective in specifying a wide range of types of software. Automating the translation from natural language scenarios <b>110</b> to formal specification <b>185</b> reduces the need for testing yet produces high quality software systems. The need for testing is important, especially in those classes of systems where all possible execution paths cannot be tested. Any reduction in this need is desirable. The benefits of formal specification and development provide assurance that the software is operating correctly. Due to the high assurance techniques the amount of testing is reduced and less time is spent on coding and developing test cases. The result is reduced development time, higher quality systems, and less expense.</p>
+  <p num="p-0036">The disclosed embodiments provide for full automatic code generation that is efficient, that reduces the opportunity for programming errors, and that supports the whole system development life cycle. The disclosed embodiments also fit with existing processes. Specifically, through formal methods, the disclosed embodiments augment an informal case-based approach based on scenarios, thus bringing the benefits of correctness, precision, concision, accuracy, proof, and automatic code generation. The disclosed embodiments accept scenario-level specifications as input and convert them into a mathematics-based formal specification language. From the formal specification language, model checking and proofs of correctness are undertaken.</p>
+  <p num="p-0037">Once the specification is checked and corrections are made (involving a re-iteration of the development described above), the formal specification is converted into executable computer code. The formal specification provides means to check the scenarios for potential errors that would be difficult or nearly impossible to detect if those specifications had no underlying formal mathematical foundation. Thus, an end-to-end tool is provided that allows the creation of the high level specification for a software, or other, system, the conversion into a formal specification language, a verification of the formal specification for errors, and the production of executable computer code correctly representing the original high level specification. Thus, the disclosed invention realizes the long-sought goal in computer science of a tractable, automated means to obtain executable code that is provably equivalent to the application requirements (that is, the high level specification of the application).</p>
+  <p num="p-0038">In resolving conflicts between the behaviors described in natural language scenarios <b>110</b>, an acceptable set of behaviors is determined and used in deriving the requirements specification of the system. Natural language scenarios <b>110</b> are expressed stating the actions that the system performs in response to various stimuli, external or internal. The actions and stimuli are chosen from a dictionary (representing the application domain context) of previously determined parameters for given processes and the proposed system.</p>
+  <p num="p-0039">In formal methods, a trace is the sequence of the events that a process is engaged in up to any given point in time. The set of traces of a process represents the set of all possible behavior patterns of that process. In many cases, the set of traces is an infinite set of finite sequences of events. The set of traces of a system is calculated from the sets of traces of its constituent processes, using the rules of a suitable formal specification language. In essence, a scenario is a constrained natural language description of some subset of the set of traces of the system.</p>
+  <p num="p-0040">Moreover, the use of the trace semantics is highly tractable. It is not necessary, however, to be able to list all of the traces of the system. Rather, the set of traces is given in intention; that is, a formula for calculating the set of traces is given, and manipulated, again using rules given in the formal specification language. Given a sequence of events, it is possible to determine whether it denotes acceptable execution of the system by determining whether or not it is a valid member of the set of traces of that system.</p>
+  <p num="p-0041">Therefore, from natural language scenarios <b>110</b>, using a dictionary of events and actions written in a constrained way embodying domain parameters <b>115</b>, it is possible to go to trace specification <b>130</b> of the system behavior. The disclosed embodiments then devise a mechanism for extracting a more useful process-based formal specification from trace specification <b>130</b>.</p>
+  <p num="p-0042"> <figref idrefs="DRAWINGS">FIG. 2</figref> is a flowchart for deriving formal specifications and code from scenarios according to the disclosed embodiments. <figref idrefs="DRAWINGS">FIG. 1</figref>, however, is not limited by the embodiments disclosed by <figref idrefs="DRAWINGS">FIG. 2</figref>.</p>
+  <p num="p-0043">Step <b>202</b> executes by inputting scenarios written according to proposed system natural language text. Example 1 of the disclosed embodiments below, is a natural language scenario for a software system of an autonomous, agent-based ground system for satellite control.</p>
+  <heading>EXAMPLE 1 OF THE DISCLOSED EMBODIMENTS</heading>
+  <p num="p-0044">If the Spacecraft Monitoring Agent receives a “fault” advisory from the spacecraft</p>
+  <p num="p-0045">The agent sends the fault to the Fault Resolution Agent</p>
+  <p num="p-0046">OR</p>
+  <p num="p-0047">If the Spacecraft Monitoring Agent receives engineering data from the spacecraft</p>
+  <p num="p-0048">The agent will send the data to the Trending Agent</p>
+  <p num="p-0049">The software system uses agents as surrogates for human spacecraft controllers. In Example 1, the natural language scenario specifies that, when the agent receives a spacecraft fault, it will then send it on to a fault resolution agent that will analyze it for possible actions to take. The natural language scenario also states that if the agent receives engineering data from the spacecraft, it will send it to a trending agent.</p>
+  <p num="p-0050">Step <b>204</b> executes by inputting domain parameters from a database. The database of parameters includes domain specific terms to help define the scenarios. Such databases are developed for specific domains and inputted into the software development process, such as software development system <b>100</b> of <figref idrefs="DRAWINGS">FIG. 1</figref>.</p>
+  <p num="p-0051">Step <b>206</b> executes by generating traces for the natural language scenarios. Example 2 of the disclosed embodiments below discloses the equivalent structured text of a trace that the natural language scenario disclosed in Example 1 would be converted into.</p>
+  <heading>EXAMPLE 2 OF THE DISCLOSED EMBODIMENTS</heading>
+  <p num="p-0052">inSCMA?fault from Spacecraft</p>
+  <p num="p-0053">then outSCMA! to FRA</p>
+  <p num="p-0054">else</p>
+  <p num="p-0055">inengSCMA!data from Spacecraft</p>
+  <p num="p-0056">then outengSCMA!data to TREND</p>
+  <p num="p-0057">Example 3 of the disclosed embodiments below discloses the traces of the specification derived from the structured text.</p>
+  <heading>EXAMPLE 3 OF THE DISCLOSED EMBODIMENTS</heading>
+  <p num="p-0058">1. tSCMA<u>⊃</u>{&lt;&gt;, &lt;inSCMAfault, outSCMAfault&gt;}</p>
+  <p num="p-0059">2. +{&lt;&gt;,&lt;inengSCMAdata&gt;&lt;inengSCMAdata, outSCMAdata&gt;}</p>
+  <p num="p-0060">Step <b>208</b> executes by producing the process-based formal specification from the traces. Example 4 of the disclosed embodiments discloses the formal specification produced from the traces. Also, following Step <b>208</b>, error checking and trouble-shooting may occur.</p>
+  <heading>EXAMPLE 4 OF THE DISCLOSED EMBODIMENTS</heading>
+  <p num="p-0061">SCMA=in SCMA?fault→(outSCMA!fault→STOP)</p>
+  <p num="p-0062">|(inengSCMA?data→outengSCMA!data→STOP)</p>
+  <p num="p-0063">Step <b>210</b> executes by generating code from the lower level specification. The derived code is executable computer code that is a sequence of instructions in a suitable notation for execution within a software system. The generated code includes commands for the domain specified earlier. The derived code is an accurate description of the desired software system that exactly and mathematically provably corresponds to the natural language scenarios given as input in step <b>202</b>. Step <b>212</b> executes by translating the code into machine code or other low level instructions for use in the subject satellite system.</p>
+  <p num="p-0064">The flowchart of <figref idrefs="DRAWINGS">FIG. 2</figref> allows for verification and validation between Step <b>202</b> and Step <b>212</b>. As indicated on the flowchart, the disclosed process may be repeated at any time to correct mistakes, change requirements, and the like. In other words, at any step in the disclosed process, the disclosed embodiments may repeat a step or a series of steps, or may be interrupted by the user, if an error is found, or if the user wishes simply to repeat the step, or steps, or to make a change that may not represent an error but rather a desired change or enhancement. Further, the process may be revisited at a later time to modify the software requirements or specifications. Thus, the disclosed embodiments provide flexibility over conventional systems by allowing testing and validation to occur, and to easily modify the system.</p>
+  <p num="p-0065">Further, according to the disclosed embodiments of the present invention, the disclosure of <figref idrefs="DRAWINGS">FIG. 2</figref> allows for the reverse process to be implemented. In other words, generated code may be “reverse engineered” to derive formal specifications, which may be analyzed more easily and often may be understood more easily. This approach may even be used to derive traces and natural language scenarios as a means of explaining (or paraphrasing) the operation of existing systems. This feature is desirable for legacy systems or those systems where the original specifications or requirements are not available. Once the natural language scenarios are derived, they can be modified to update, correct, or change the requirements of the software system. Further, the disclosed embodiments are not just applicable to software systems. The disclosed embodiments are applicable to any system, device, or process that uses instructions to perform an action. For example, the disclosed embodiments are applicable to systems that describe or generate instructions for systems that result in the manufacture of products or items.</p>
+  <p num="p-0066">It will be apparent to those skilled in the art that various modifications and variations can be made in the present invention without departing form the spirit or scope of the invention. Thus, it is intended that the present invention covers the modifications and variations of this invention provided that they come within the scope of any claims and their equivalents.</p>
+
+</div>
+  </div>
+  </section>
+
+  <section itemprop="claims" itemscope>
+    <h2>Claims (<span itemprop="count">26</span>)</h2>
+    
+    <div itemprop="content" html><div mxw-id="PCLM13152895" lang="EN" load-source="patent-office" class="claims">
+  <div class="claim"> <div id="CLM-00001" num="00001" class="claim">
+    <div class="claim-text">1. A method for deriving a process-based specification for a system, comprising:
+<div class="claim-text">deriving a trace-based specification from a non-empty set of traces by a processor, wherein a trace is a sequence of actions expressed as strings representing a history of an execution of a process;</div>
+<div class="claim-text">mathematically inferring the process-based specification from the trace-based specification, wherein mathematically inferring includes applying Laws of Concurrency in reverse to a set of system traces to determine the process-based specification, wherein the process-based specification is mathematically equivalent to the trace-based specification, and whereby the Laws of Concurrency are algebraic laws that (a) allow at least one process to be manipulated and analyzed, (b) permit formal reasoning about equivalences between processes, and (c) determine traces from the at least one process;</div>
+<div class="claim-text">generating the process-based specification using an inference engine, wherein the inference engine iteratively applies a set of rules to a set of data representing a problem to determine a solution to the problem by logical manipulation and analysis of the set of data; and</div>
+<div class="claim-text">analyzing the process-based specification to examine possible implementations of the process-based specification in different configurations, whereby analyzing includes identifying at least one equivalent alternative process-based specification and characterizing differences between the process-based specification and the at least one alternative process-based specification, wherein differences include number of processes, deterministic behavior, and competition for resources.</div>
+</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00002" num="00002" class="claim">
+    <div class="claim-text">2. The method of <claim-ref idref="CLM-00001">claim 1</claim-ref>, wherein the process-based specification is provably equivalent to the trace-based specification.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00003" num="00003" class="claim">
+    <div class="claim-text">3. The method of <claim-ref idref="CLM-00001">claim 1</claim-ref>, wherein the Laws of Concurrency are used by the inference engine to generate the process-based specification.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00004" num="00004" class="claim">
+    <div class="claim-text">4. The method of <claim-ref idref="CLM-00003">claim 3</claim-ref>, wherein the laws of concurrency are reversed by embedding the Laws of Concurrency in the inference engine.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00005" num="00005" class="claim">
+    <div class="claim-text">5. The method of <claim-ref idref="CLM-00004">claim 4</claim-ref>, wherein the embedding is syntactic or shallow.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00006" num="00006" class="claim">
+    <div class="claim-text">6. The method of <claim-ref idref="CLM-00004">claim 4</claim-ref>, wherein the embedding is semantic or deep.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00007" num="00007" class="claim">
+    <div class="claim-text">7. The method of <claim-ref idref="CLM-00003">claim 3</claim-ref>, wherein the Laws of Concurrency are reversed so that an equivalent process expression is output in response to a given input of at least one trace.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00008" num="00008" class="claim">
+    <div class="claim-text">8. The method of <claim-ref idref="CLM-00007">claim 7</claim-ref>, wherein multiple process expressions are given as output in response to inputs of the at least one trace.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00009" num="00009" class="claim">
+    <div class="claim-text">9. The method of <claim-ref idref="CLM-00001">claim 1</claim-ref>, wherein the various possible implementations of the process-based specification are based on transformations of the process-based specification by applying the Law of Concurrency to derive various implementations.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00010" num="00010" class="claim">
+    <div class="claim-text">10. The method of <claim-ref idref="CLM-00009">claim 9</claim-ref>, wherein the various equivalent implementations are mathematically equivalent to the process-based specification.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00011" num="00011" class="claim">
+    <div class="claim-text">11. The method of <claim-ref idref="CLM-00010">claim 10</claim-ref>, wherein the various equivalent implementations are provable equivalent to the process-based specification.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00012" num="00012" class="claim">
+    <div class="claim-text">12. The method of <claim-ref idref="CLM-00011">claim 11</claim-ref>, wherein multiple correct process-based specifications are possible.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00013" num="00013" class="claim">
+    <div class="claim-text">13. The method of <claim-ref idref="CLM-00012">claim 12</claim-ref>, further comprising:
+<div class="claim-text">deciding which of the multiple correct process-based specifications are most appropriate.</div>
+</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00014" num="00014" class="claim">
+    <div class="claim-text">14. The method of <claim-ref idref="CLM-00013">claim 13</claim-ref>, wherein the process-based specification is used as a basis for generation of alternate representations.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00015" num="00015" class="claim">
+    <div class="claim-text">15. The method of <claim-ref idref="CLM-00014">claim 14</claim-ref>, wherein the alternate representations are sets of instructions.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00016" num="00016" class="claim">
+    <div class="claim-text">16. The method of <claim-ref idref="CLM-00001">claim 1</claim-ref>, wherein the set of traces is a set of sequences of events or activities specific to an application domain.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00017" num="00017" class="claim">
+    <div class="claim-text">17. The method of <claim-ref idref="CLM-00001">claim 1</claim-ref>, wherein the set of traces is derived by pre-processing a set of scenarios given as input by a user to a context sensitive editor.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00018" num="00018" class="claim">
+    <div class="claim-text">18. The method of <claim-ref idref="CLM-00017">claim 17</claim-ref>, wherein the set of scenarios is natural language text describing intended system behavior, and the elements of the set of traces are sequences of events or activities in a given application domain.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00019" num="00019" class="claim">
+    <div class="claim-text">19. The method of <claim-ref idref="CLM-00018">claim 18</claim-ref>, wherein the set of scenarios is represented by various graphical notations.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00020" num="00020" class="claim">
+    <div class="claim-text">20. The method of <claim-ref idref="CLM-00001">claim 1</claim-ref>, wherein the deriving step is repeated.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00021" num="00021" class="claim">
+    <div class="claim-text">21. The method of <claim-ref idref="CLM-00001">claim 1</claim-ref>, wherein the inferring step is repeated.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00022" num="00022" class="claim">
+    <div class="claim-text">22. The method of <claim-ref idref="CLM-00001">claim 1</claim-ref>, further comprising:
+<div class="claim-text">reverse engineering an existing system using the deriving step and the inferring step, whereby reverse engineering includes analyzing a process-based specification and applying the Laws of Concurrency using an inference engine having domain knowledge to infer a set of traces equivalent to the process-based specification and to derive a set of scenarios for the system equivalent to the process-based specification, wherein the scenarios are natural language text that describes the system&#39;s actions in response to incoming data and the internal goals of the system.</div>
+</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00023" num="00023" class="claim">
+    <div class="claim-text">23. The method of <claim-ref idref="CLM-00001">claim 1</claim-ref>, further comprising:
+<div class="claim-text">reverse engineering an existing system back to a set of traces using the deriving step and the inferring step, whereby reverse engineering includes analyzing a process-based specification and applying the Laws of Concurrency using an inference engine having domain knowledge to infer a set of traces equivalent to the process-based specification and to derive a set of scenarios for the system equivalent to the process-based specification, wherein the scenarios are natural language text that describes the system&#39;s actions in response to incoming data and the internal goals of the system.</div>
+</div>
+  </div>
+  </div> <div class="claim"> <div id="CLM-00024" num="00024" class="claim">
+    <div class="claim-text">24. a system adapted for deriving a process-based specification, comprising:
+<div class="claim-text">at least one natural language scenario;</div>
+<div class="claim-text">a computer-readable medium having instructions stored thereon for deriving a trace-based specification from the at least one natural language scenario;</div>
+<div class="claim-text">an inference engine for mathematically inferring the process-based specification from the trace-based specification, wherein mathematically inferring includes applying Laws of Concurrency in reverse to a set of system traces to determine the process-based specification, wherein the process-based specification is mathematically equivalent to the trace-based specification, and whereby the Laws of Concurrency are algebraic laws that (a) allow at least one process to be manipulated and analyzed, (b) permit formal reasoning about equivalences between processes, and (c) determine traces from the at least one process;</div>
+<div class="claim-text">a generating engine for generating the process-based specification using an inference engine, wherein the inference engine iteratively applies a set of rules to a set of data representing a problem to determine a solution to the problem by logical manipulation and analysis of the set of data; and</div>
+<div class="claim-text">an analyzing engine for analyzing the process-based specification to examine possible implementations of the process-based specification in different configurations, whereby analyzing includes identifying at least one equivalent alternative process-based specification and characterizing differences between the process-based specification and the at least one alternative process-based specification, wherein differences include number of processes, deterministic behavior, and competition for resources.</div>
+</div>
+  </div>
+  </div> <div class="claim"> <div id="CLM-00025" num="00025" class="claim">
+    <div class="claim-text">25. A system adapted for deriving a process-based specification, comprising:
+<div class="claim-text">a non-empty set of traces;</div>
+<div class="claim-text">a computer-readable medium having instructions stored thereon for deriving a trace-based specification from the set of traces, wherein a trace is a sequence of actions expressed as strings representing a history of an execution of a process;</div>
+<div class="claim-text">an inference engine for mathematically inferring the process-based specification from the trace-based specification, wherein mathematically inferring includes applying Laws of Concurrency in reverse to a set of system traces to determine the process-based specification, wherein the process-based specification is mathematically equivalent to the trace-based specification, and whereby the Laws of Concurrency are algebraic laws that (a) allow at least one process to be manipulated and analyzed, (b) permit formal reasoning about equivalences between processes, and (c) determine traces from the at least one process;</div>
+<div class="claim-text">a generating engine for generating the process-based specification using an inference engine, wherein the inference engine iteratively applies a set of rules to a set of data representing a problem to determine a solution to the problem by logical manipulation and analysis of the set of data; and</div>
+<div class="claim-text">an analyzing engine for analyzing the process-based specification to examine possible implementations of the process-based specification in different configurations, whereby analyzing includes identifying at least one equivalent alternative process-based specification and characterizing differences between the process-based specification and the at least one alternative process-based specification, wherein differences include number of processes, deterministic behavior, and competition for resources.</div>
+</div>
+  </div>
+  </div> <div class="claim"> <div id="CLM-00026" num="00026" class="claim">
+    <div class="claim-text">26. A method for deriving a process-based specification for a system, wherein the system performs actions, comprising:
+<div class="claim-text">receiving at least one natural language scenario describing the actions;</div>
+<div class="claim-text">generating a trace-based specification from the at least one natural language scenario by a processor;</div>
+<div class="claim-text">mathematically inferring the process-based specification from the trace-based specification, wherein mathematically inferring includes applying Laws of Concurrency in reverse to a set of system traces to determine the process-based specification, wherein the process-based specification is mathematically equivalent to the actions defined above, whereby the Laws of Concurrency are algebraic laws that (a) allow at least one process to be manipulated and analyzed, (b) permit formal reasoning about equivalences between processes, and (c) determine traces from the at least one process;</div>
+<div class="claim-text">generating the process-based specification using an inference engine, wherein the inference engine iteratively applies a set of rules to a set of data representing a problem to determine a solution to the problem by logical manipulation and analysis of the set of data; and</div>
+<div class="claim-text">analyzing the process-based specification to examine possible implementations of the process-based specification in different configurations, whereby analyzing includes identifying at least one equivalent alternative process-based specification and characterizing differences between the process-based specification and the at least one alternative process-based specification, wherein differences include number of processes, deterministic behavior, and competition for resources. </div>
+</div>
+  </div>
+</div> </div>
+  </div>
+  </section>
+
+  <section itemprop="application" itemscope>
+
+    <section itemprop="metadata" itemscope>
+        <span itemprop="applicationNumber">US10/789,028</span>
+        <span itemprop="priorityDate">2003-12-22</span>
+        <span itemprop="filingDate">2004-02-25</span>
+        <span itemprop="title">System and method for deriving a process-based specification 
+       </span>
+        <span itemprop="ifiStatus">Active</span>
+        <span itemprop="ifiExpiration">2025-08-30</span>
+        <a href="/patent/US7543274B2/en">
+            <span itemprop="representativePublication">US7543274B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+        </a>
+    </section>
+
+    <h2>Priority Applications (2)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                    <th>Title</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="priorityApps" itemscope repeat>
+                <td>
+                   <span itemprop="applicationNumber">US53337603P</span>
+                   <span itemprop="isUsProvisional">true</span>
+                   
+                <td itemprop="priorityDate">2003-12-22</td>
+                <td itemprop="filingDate">2003-12-22</td>
+                <td itemprop="title"></td>
+              </tr><tr itemprop="priorityApps" itemscope repeat>
+                <td>
+                   <span itemprop="applicationNumber">US10/789,028</span>
+                   
+                   <a href="/patent/US7543274B2/en">
+                        <span itemprop="representativePublication">US7543274B2</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                <td itemprop="priorityDate">2003-12-22</td>
+                <td itemprop="filingDate">2004-02-25</td>
+                <td itemprop="title">System and method for deriving a process-based specification 
+       </td>
+              </tr>
+           </tbody>
+       </table>
+
+    <h2>Applications Claiming Priority (5)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                    <th>Title</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="appsClaimingPriority" itemscope repeat>
+                <td>
+                   <span itemprop="applicationNumber">US10/789,028</span>
+                   <a href="/patent/US7543274B2/en">
+                        <span itemprop="representativePublication">US7543274B2</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                <td itemprop="priorityDate">2003-12-22</td>
+                <td itemprop="filingDate">2004-02-25</td>
+                <td itemprop="title">System and method for deriving a process-based specification 
+       </td>
+              </tr><tr itemprop="appsClaimingPriority" itemscope repeat>
+                <td>
+                   <span itemprop="applicationNumber">PCT/US2004/014573</span>
+                   <a href="/patent/WO2005067415A2/en">
+                        <span itemprop="representativePublication">WO2005067415A2</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                <td itemprop="priorityDate">2003-12-22</td>
+                <td itemprop="filingDate">2004-05-11</td>
+                <td itemprop="title">System and method for deriving a process-based specification 
+       </td>
+              </tr><tr itemprop="appsClaimingPriority" itemscope repeat>
+                <td>
+                   <span itemprop="applicationNumber">US11/203,590</span>
+                   <a href="/patent/US7739671B1/en">
+                        <span itemprop="representativePublication">US7739671B1</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                <td itemprop="priorityDate">2003-12-22</td>
+                <td itemprop="filingDate">2005-08-12</td>
+                <td itemprop="title">Systems, methods and apparatus for implementation of formal specifications derived from informal requirements 
+       </td>
+              </tr><tr itemprop="appsClaimingPriority" itemscope repeat>
+                <td>
+                   <span itemprop="applicationNumber">US11/203,586</span>
+                   <a href="/patent/US7752608B1/en">
+                        <span itemprop="representativePublication">US7752608B1</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                <td itemprop="priorityDate">2003-12-22</td>
+                <td itemprop="filingDate">2005-08-12</td>
+                <td itemprop="title">Systems, methods and apparatus for verification of knowledge-based systems 
+       </td>
+              </tr><tr itemprop="appsClaimingPriority" itemscope repeat>
+                <td>
+                   <span itemprop="applicationNumber">US11/461,669</span>
+                   <a href="/patent/US20070074180A1/en">
+                        <span itemprop="representativePublication">US20070074180A1</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                <td itemprop="priorityDate">2003-12-22</td>
+                <td itemprop="filingDate">2006-08-01</td>
+                <td itemprop="title">Systems, Methods and Apparatus for Procedure Development and Verification 
+       </td>
+              </tr>
+           </tbody>
+       </table>
+
+    
+
+    <h2>Related Child Applications (3)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Title</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="childApps" itemscope repeat>
+                <td>
+                   <span itemprop="applicationNumber">US11/203,586</span>
+                    <span itemprop="relationType">Continuation-In-Part</span>
+                    <a href="/patent/US7752608B1/en">
+                        <span itemprop="representativePublication">US7752608B1</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                <td itemprop="priorityDate">2003-12-22</td>
+                <td itemprop="filingDate">2005-08-12</td>
+                <td itemprop="title">Systems, methods and apparatus for verification of knowledge-based systems 
+       </td>
+              </tr><tr itemprop="childApps" itemscope repeat>
+                <td>
+                   <span itemprop="applicationNumber">US11/203,590</span>
+                    <span itemprop="relationType">Continuation-In-Part</span>
+                    <a href="/patent/US7739671B1/en">
+                        <span itemprop="representativePublication">US7739671B1</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                <td itemprop="priorityDate">2003-12-22</td>
+                <td itemprop="filingDate">2005-08-12</td>
+                <td itemprop="title">Systems, methods and apparatus for implementation of formal specifications derived from informal requirements 
+       </td>
+              </tr><tr itemprop="childApps" itemscope repeat>
+                <td>
+                   <span itemprop="applicationNumber">US11/461,669</span>
+                    <span itemprop="relationType">Continuation-In-Part</span>
+                    <a href="/patent/US20070074180A1/en">
+                        <span itemprop="representativePublication">US20070074180A1</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                <td itemprop="priorityDate">2003-12-22</td>
+                <td itemprop="filingDate">2006-08-01</td>
+                <td itemprop="title">Systems, Methods and Apparatus for Procedure Development and Verification 
+       </td>
+              </tr>
+           </tbody>
+        </table>
+
+    <h2>Publications (2)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Publication Number</th>
+                    <th>Publication Date</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="pubs" itemscope repeat>
+                <td>
+                   <span itemprop="publicationNumber">US20050138602A1</span>
+                   
+                   <a href="/patent/US20050138602A1/en">US20050138602A1
+                       (<span itemprop="primaryLanguage">en</span>)
+                   </a>
+                </td>
+                <td itemprop="publicationDate">2005-06-23</td>
+              </tr><tr itemprop="pubs" itemscope repeat>
+                <td>
+                   <span itemprop="publicationNumber">US7543274B2</span>
+                   
+                   <span itemprop="thisPatent">true</span>
+                   <a href="/patent/US7543274B2/en">US7543274B2
+                       (<span itemprop="primaryLanguage">en</span>)
+                   </a>
+                </td>
+                <td itemprop="publicationDate">2009-06-02</td>
+              </tr>
+           </tbody>
+        </table>
+
+  </section>
+
+  <section itemprop="family" itemscope>
+    <h1>Family</h1>
+    <h2>ID=34681696</h2>
+
+    <h2>Family Applications (1)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Title</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="applications" itemscope repeat>
+                <td>
+                    <span itemprop="applicationNumber">US10/789,028</span>
+                    <span itemprop="ifiStatus">Active</span>
+                    <span itemprop="ifiExpiration">2025-08-30</span>
+                    <a href="/patent/US7543274B2/en">
+                        <span itemprop="representativePublication">US7543274B2</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                </td>
+                <td itemprop="priorityDate">2003-12-22</td>
+                <td itemprop="filingDate">2004-02-25</td>
+                <td itemprop="title">System and method for deriving a process-based specification 
+       </td>
+              </tr>
+           </tbody>
+        </table>
+
+    
+
+    
+
+    <h2>Country Status (2)</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Country</th>
+            <th>Link</th>
+          </tr>
+        </thead>
+        <tbody>
+        <tr itemprop="countryStatus" itemscope repeat>
+            <td>
+              <span itemprop="countryCode">US</span>
+                (<span itemprop="num">1</span>)
+              <meta itemprop="thisCountry" content="true">
+            </td>
+            <td>
+              <a href="/patent/US7543274B2/en">
+                <span itemprop="representativePublication">US7543274B2</span>
+                  (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            </td>
+          </tr><tr itemprop="countryStatus" itemscope repeat>
+            <td>
+              <span itemprop="countryCode">WO</span>
+                (<span itemprop="num">1</span>)
+              
+            </td>
+            <td>
+              <a href="/patent/WO2005067415A2/en">
+                <span itemprop="representativePublication">WO2005067415A2</span>
+                  (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+    <h2>Cited By (4)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20080263506A1/en">
+              <span itemprop="publicationNumber">US20080263506A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2004-05-05</td>
+          <td itemprop="publicationDate">2008-10-23</td>
+          <td><span itemprop="assigneeOriginal">Silverdata Limited</span></td>
+          <td itemprop="title">Analytical Software Design System 
+       </td>
+        </tr><tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20090094573A1/en">
+              <span itemprop="publicationNumber">US20090094573A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2007-08-09</td>
+          <td itemprop="publicationDate">2009-04-09</td>
+          <td><span itemprop="assigneeOriginal">Skriletz Richard A</span></td>
+          <td itemprop="title">Method and system for defining a software application as a specification 
+       </td>
+        </tr><tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20090094272A1/en">
+              <span itemprop="publicationNumber">US20090094272A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2007-08-09</td>
+          <td itemprop="publicationDate">2009-04-09</td>
+          <td><span itemprop="assigneeOriginal">Skriletz Richard A</span></td>
+          <td itemprop="title">Method and system for constructing a software application 
+       </td>
+        </tr><tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US9292423B1/en">
+              <span itemprop="publicationNumber">US9292423B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2015-03-11</td>
+          <td itemprop="publicationDate">2016-03-22</td>
+          <td><span itemprop="assigneeOriginal">Amazon Technologies, Inc.</span></td>
+          <td itemprop="title">Monitoring applications for compatibility issues 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Families Citing this family (5)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/WO2006033159A1/en">
+              <span itemprop="publicationNumber">WO2006033159A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2004-09-24</td>
+          <td itemprop="publicationDate">2006-03-30</td>
+          <td><span itemprop="assigneeOriginal">Fujitsu Limited</span></td>
+          <td itemprop="title">Program, method, and apparatus for assisting creation of business model chart 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US8079018B2/en">
+              <span itemprop="publicationNumber">US8079018B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2007-11-22</td>
+          <td itemprop="publicationDate">2011-12-13</td>
+          <td><span itemprop="assigneeOriginal">Microsoft Corporation</span></td>
+          <td itemprop="title">Test impact feedback system for software developers 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20100299650A1/en">
+              <span itemprop="publicationNumber">US20100299650A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2009-05-20</td>
+          <td itemprop="publicationDate">2010-11-25</td>
+          <td><span itemprop="assigneeOriginal">International Business Machines Corporation</span></td>
+          <td itemprop="title">Team and individual performance in the development and maintenance of software 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US9626432B2/en">
+              <span itemprop="publicationNumber">US9626432B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2013-09-09</td>
+          <td itemprop="publicationDate">2017-04-18</td>
+          <td><span itemprop="assigneeOriginal">International Business Machines Corporation</span></td>
+          <td itemprop="title">Defect record classification 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US9792095B2/en">
+              <span itemprop="publicationNumber">US9792095B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2014-11-25</td>
+          <td itemprop="publicationDate">2017-10-17</td>
+          <td><span itemprop="assigneeOriginal">Symbol Technologies, Llc</span></td>
+          <td itemprop="title">Apparatus and method for converting a procedure manual to an automated program 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Citations (27)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5163016A/en">
+              <span itemprop="publicationNumber">US5163016A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1990-03-06</td>
+          <td itemprop="publicationDate">1992-11-10</td>
+          <td><span itemprop="assigneeOriginal">At&amp;T Bell Laboratories</span></td>
+          <td itemprop="title">Analytical development and verification of control-intensive systems 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5353371A/en">
+              <span itemprop="publicationNumber">US5353371A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1990-09-28</td>
+          <td itemprop="publicationDate">1994-10-04</td>
+          <td><span itemprop="assigneeOriginal">Kabushiki Kaisha Toshiba</span></td>
+          <td itemprop="title">Apparatus and methods for generating a program by synthesizing an object described in an object-oriented language 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5495567A/en">
+              <span itemprop="publicationNumber">US5495567A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1992-11-06</td>
+          <td itemprop="publicationDate">1996-02-27</td>
+          <td><span itemprop="assigneeOriginal">Ricoh Company Ltd.</span></td>
+          <td itemprop="title">Automatic interface layout generator for database systems 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5535322A/en">
+              <span itemprop="publicationNumber">US5535322A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1992-10-27</td>
+          <td itemprop="publicationDate">1996-07-09</td>
+          <td><span itemprop="assigneeOriginal">International Business Machines Corporation</span></td>
+          <td itemprop="title">Data processing system with improved work flow system and method 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5623499A/en">
+              <span itemprop="publicationNumber">US5623499A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1994-06-27</td>
+          <td itemprop="publicationDate">1997-04-22</td>
+          <td><span itemprop="assigneeOriginal">Lucent Technologies Inc.</span></td>
+          <td itemprop="title">Method and apparatus for generating conformance test data sequences 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5799193A/en">
+              <span itemprop="publicationNumber">US5799193A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1996-04-29</td>
+          <td itemprop="publicationDate">1998-08-25</td>
+          <td><span itemprop="assigneeOriginal">Siemens Corporate Research, Inc.</span></td>
+          <td itemprop="title">Scenario based iterative method for development of an object oriented system model 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6275976B1/en">
+              <span itemprop="publicationNumber">US6275976B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1996-03-15</td>
+          <td itemprop="publicationDate">2001-08-14</td>
+          <td><span itemprop="assigneeOriginal">Joseph M. Scandura</span></td>
+          <td itemprop="title">Automated method for building and maintaining software including methods for verifying that systems are internally consistent and correct relative to their specifications 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6289502B1/en">
+              <span itemprop="publicationNumber">US6289502B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1997-09-26</td>
+          <td itemprop="publicationDate">2001-09-11</td>
+          <td><span itemprop="assigneeOriginal">Massachusetts Institute Of Technology</span></td>
+          <td itemprop="title">Model-based software design and validation 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6314555B1/en">
+              <span itemprop="publicationNumber">US6314555B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1997-07-25</td>
+          <td itemprop="publicationDate">2001-11-06</td>
+          <td><span itemprop="assigneeOriginal">British Telecommunications Public Limited Company</span></td>
+          <td itemprop="title">Software system generation 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20010052108A1/en">
+              <span itemprop="publicationNumber">US20010052108A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1999-08-31</td>
+          <td itemprop="publicationDate">2001-12-13</td>
+          <td><span itemprop="assigneeOriginal">Michel K. Bowman-Amuah</span></td>
+          <td itemprop="title">System, method and article of manufacturing for a development architecture framework 
+     </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6343372B1/en">
+              <span itemprop="publicationNumber">US6343372B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1999-06-11</td>
+          <td itemprop="publicationDate">2002-01-29</td>
+          <td><span itemprop="assigneeOriginal">Lucent Technologies Inc.</span></td>
+          <td itemprop="title">Methods and apparatus for generating a verified algorithm for transforming a program from a first form to a second form 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6353896B1/en">
+              <span itemprop="publicationNumber">US6353896B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1998-12-15</td>
+          <td itemprop="publicationDate">2002-03-05</td>
+          <td><span itemprop="assigneeOriginal">Lucent Technologies Inc.</span></td>
+          <td itemprop="title">Method and apparatus for testing event driven software 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20020029231A1/en">
+              <span itemprop="publicationNumber">US20020029231A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1999-10-05</td>
+          <td itemprop="publicationDate">2002-03-07</td>
+          <td><span itemprop="assigneeOriginal">Alexander Aptus</span></td>
+          <td itemprop="title">Navigation links in generated documentation 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20020032900A1/en">
+              <span itemprop="publicationNumber">US20020032900A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1999-10-05</td>
+          <td itemprop="publicationDate">2002-03-14</td>
+          <td><span itemprop="assigneeOriginal">Dietrich Charisius</span></td>
+          <td itemprop="title">Methods and systems for generating source code for object oriented elements 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6405364B1/en">
+              <span itemprop="publicationNumber">US6405364B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1999-08-31</td>
+          <td itemprop="publicationDate">2002-06-11</td>
+          <td><span itemprop="assigneeOriginal">Accenture Llp</span></td>
+          <td itemprop="title">Building techniques in a development architecture framework 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20020091990A1/en">
+              <span itemprop="publicationNumber">US20020091990A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2000-10-04</td>
+          <td itemprop="publicationDate">2002-07-11</td>
+          <td><span itemprop="assigneeOriginal">Todd Little</span></td>
+          <td itemprop="title">System for software application development and modeling 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20020100015A1/en">
+              <span itemprop="publicationNumber">US20020100015A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2000-12-28</td>
+          <td itemprop="publicationDate">2002-07-25</td>
+          <td><span itemprop="assigneeOriginal">Yeda Research And Development Co., Ltd.</span></td>
+          <td itemprop="title">Playing scenarios of system behavior 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20020104071A1/en">
+              <span itemprop="publicationNumber">US20020104071A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1999-10-05</td>
+          <td itemprop="publicationDate">2002-08-01</td>
+          <td><span itemprop="assigneeOriginal">Dietrich Charisius</span></td>
+          <td itemprop="title">Methods and systems for supporting and deploying distributed computing components 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20020116702A1/en">
+              <span itemprop="publicationNumber">US20020116702A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1999-10-05</td>
+          <td itemprop="publicationDate">2002-08-22</td>
+          <td><span itemprop="assigneeOriginal">Alexander Aptus</span></td>
+          <td itemprop="title">Diagrammatic control of software in a version control system 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20030067481A1/en">
+              <span itemprop="publicationNumber">US20030067481A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2001-03-31</td>
+          <td itemprop="publicationDate">2003-04-10</td>
+          <td><span itemprop="assigneeOriginal">Christopher Chedgey</span></td>
+          <td itemprop="title">System and method for computer-aided graph-based dependency analysis with integrated documentation 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6662357B1/en">
+              <span itemprop="publicationNumber">US6662357B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1999-08-31</td>
+          <td itemprop="publicationDate">2003-12-09</td>
+          <td><span itemprop="assigneeOriginal">Accenture Llp</span></td>
+          <td itemprop="title">Managing information in an integrated development architecture framework 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6804686B1/en">
+              <span itemprop="publicationNumber">US6804686B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2002-04-29</td>
+          <td itemprop="publicationDate">2004-10-12</td>
+          <td><span itemprop="assigneeOriginal">Borland Software Corporation</span></td>
+          <td itemprop="title">System and methodology for providing fixed UML layout for an object oriented class browser 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20050022155A1/en">
+              <span itemprop="publicationNumber">US20050022155A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2003-07-22</td>
+          <td itemprop="publicationDate">2005-01-27</td>
+          <td><span itemprop="assigneeOriginal">Lsi Logic Corporation</span></td>
+          <td itemprop="title">Process and apparatus for abstracting IC design files 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6907546B1/en">
+              <span itemprop="publicationNumber">US6907546B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2000-03-27</td>
+          <td itemprop="publicationDate">2005-06-14</td>
+          <td><span itemprop="assigneeOriginal">Accenture Llp</span></td>
+          <td itemprop="title">Language-driven interface for an automated testing framework 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7051317B2/en">
+              <span itemprop="publicationNumber">US7051317B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2001-06-29</td>
+          <td itemprop="publicationDate">2006-05-23</td>
+          <td><span itemprop="assigneeOriginal">National Instruments Corporation</span></td>
+          <td itemprop="title">System and method for specifying a computer-implemented process using different programming methodologies 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7086009B2/en">
+              <span itemprop="publicationNumber">US7086009B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2001-06-22</td>
+          <td itemprop="publicationDate">2006-08-01</td>
+          <td><span itemprop="assigneeOriginal">Invensys Systems, Inc.</span></td>
+          <td itemprop="title">Customizable system for creating supervisory process control and manufacturing information applications 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7472374B1/en">
+              <span itemprop="publicationNumber">US7472374B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2003-06-09</td>
+          <td itemprop="publicationDate">2008-12-30</td>
+          <td><span itemprop="assigneeOriginal">Unisys Corporation</span></td>
+          <td itemprop="title">System and method for using blueprints to provide a traceable software solution for an enterprise 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+
+    
+
+    
+    <ul>
+      
+      <li itemprop="applicationsByYear" itemscope repeat>
+        <span itemprop="year">2004</span>
+        <ul>
+          
+          <li itemprop="application" itemscope repeat>
+            <span itemprop="filingDate">2004-02-25</span>
+            <span itemprop="countryCode">US</span>
+            <span itemprop="applicationNumber">US10/789,028</span>
+            <a href="/patent/US7543274B2/en"><span itemprop="documentId">patent/US7543274B2/en</span></a>
+            <span itemprop="legalStatusCat">active</span>
+            <span itemprop="legalStatus">Active</span>
+            
+            <span itemprop="thisApp" content="true" bool></span>
+            
+          </li>
+          
+          <li itemprop="application" itemscope repeat>
+            <span itemprop="filingDate">2004-05-11</span>
+            <span itemprop="countryCode">WO</span>
+            <span itemprop="applicationNumber">PCT/US2004/014573</span>
+            <a href="/patent/WO2005067415A2/en"><span itemprop="documentId">patent/WO2005067415A2/en</span></a>
+            <span itemprop="legalStatusCat">active</span>
+            <span itemprop="legalStatus">Application Filing</span>
+            
+          </li>
+          
+        </ul>
+      </li>
+      
+    </ul>
+    
+
+    </section>
+
+  <section>
+    <h2>Patent Citations (30)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5163016A/en">
+              <span itemprop="publicationNumber">US5163016A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1990-03-06</td>
+          <td itemprop="publicationDate">1992-11-10</td>
+          <td><span itemprop="assigneeOriginal">At&amp;T Bell Laboratories</span></td>
+          <td itemprop="title">Analytical development and verification of control-intensive systems 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5353371A/en">
+              <span itemprop="publicationNumber">US5353371A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1990-09-28</td>
+          <td itemprop="publicationDate">1994-10-04</td>
+          <td><span itemprop="assigneeOriginal">Kabushiki Kaisha Toshiba</span></td>
+          <td itemprop="title">Apparatus and methods for generating a program by synthesizing an object described in an object-oriented language 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5535322A/en">
+              <span itemprop="publicationNumber">US5535322A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1992-10-27</td>
+          <td itemprop="publicationDate">1996-07-09</td>
+          <td><span itemprop="assigneeOriginal">International Business Machines Corporation</span></td>
+          <td itemprop="title">Data processing system with improved work flow system and method 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5495567A/en">
+              <span itemprop="publicationNumber">US5495567A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1992-11-06</td>
+          <td itemprop="publicationDate">1996-02-27</td>
+          <td><span itemprop="assigneeOriginal">Ricoh Company Ltd.</span></td>
+          <td itemprop="title">Automatic interface layout generator for database systems 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5623499A/en">
+              <span itemprop="publicationNumber">US5623499A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1994-06-27</td>
+          <td itemprop="publicationDate">1997-04-22</td>
+          <td><span itemprop="assigneeOriginal">Lucent Technologies Inc.</span></td>
+          <td itemprop="title">Method and apparatus for generating conformance test data sequences 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6275976B1/en">
+              <span itemprop="publicationNumber">US6275976B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1996-03-15</td>
+          <td itemprop="publicationDate">2001-08-14</td>
+          <td><span itemprop="assigneeOriginal">Joseph M. Scandura</span></td>
+          <td itemprop="title">Automated method for building and maintaining software including methods for verifying that systems are internally consistent and correct relative to their specifications 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5799193A/en">
+              <span itemprop="publicationNumber">US5799193A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1996-04-29</td>
+          <td itemprop="publicationDate">1998-08-25</td>
+          <td><span itemprop="assigneeOriginal">Siemens Corporate Research, Inc.</span></td>
+          <td itemprop="title">Scenario based iterative method for development of an object oriented system model 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6314555B1/en">
+              <span itemprop="publicationNumber">US6314555B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1997-07-25</td>
+          <td itemprop="publicationDate">2001-11-06</td>
+          <td><span itemprop="assigneeOriginal">British Telecommunications Public Limited Company</span></td>
+          <td itemprop="title">Software system generation 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6289502B1/en">
+              <span itemprop="publicationNumber">US6289502B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1997-09-26</td>
+          <td itemprop="publicationDate">2001-09-11</td>
+          <td><span itemprop="assigneeOriginal">Massachusetts Institute Of Technology</span></td>
+          <td itemprop="title">Model-based software design and validation 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6353896B1/en">
+              <span itemprop="publicationNumber">US6353896B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1998-12-15</td>
+          <td itemprop="publicationDate">2002-03-05</td>
+          <td><span itemprop="assigneeOriginal">Lucent Technologies Inc.</span></td>
+          <td itemprop="title">Method and apparatus for testing event driven software 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6343372B1/en">
+              <span itemprop="publicationNumber">US6343372B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1999-06-11</td>
+          <td itemprop="publicationDate">2002-01-29</td>
+          <td><span itemprop="assigneeOriginal">Lucent Technologies Inc.</span></td>
+          <td itemprop="title">Methods and apparatus for generating a verified algorithm for transforming a program from a first form to a second form 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20010052108A1/en">
+              <span itemprop="publicationNumber">US20010052108A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1999-08-31</td>
+          <td itemprop="publicationDate">2001-12-13</td>
+          <td><span itemprop="assigneeOriginal">Michel K. Bowman-Amuah</span></td>
+          <td itemprop="title">System, method and article of manufacturing for a development architecture framework 
+     </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6405364B1/en">
+              <span itemprop="publicationNumber">US6405364B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1999-08-31</td>
+          <td itemprop="publicationDate">2002-06-11</td>
+          <td><span itemprop="assigneeOriginal">Accenture Llp</span></td>
+          <td itemprop="title">Building techniques in a development architecture framework 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6662357B1/en">
+              <span itemprop="publicationNumber">US6662357B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1999-08-31</td>
+          <td itemprop="publicationDate">2003-12-09</td>
+          <td><span itemprop="assigneeOriginal">Accenture Llp</span></td>
+          <td itemprop="title">Managing information in an integrated development architecture framework 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20020032900A1/en">
+              <span itemprop="publicationNumber">US20020032900A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1999-10-05</td>
+          <td itemprop="publicationDate">2002-03-14</td>
+          <td><span itemprop="assigneeOriginal">Dietrich Charisius</span></td>
+          <td itemprop="title">Methods and systems for generating source code for object oriented elements 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20020029231A1/en">
+              <span itemprop="publicationNumber">US20020029231A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1999-10-05</td>
+          <td itemprop="publicationDate">2002-03-07</td>
+          <td><span itemprop="assigneeOriginal">Alexander Aptus</span></td>
+          <td itemprop="title">Navigation links in generated documentation 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7114149B2/en">
+              <span itemprop="publicationNumber">US7114149B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1999-10-05</td>
+          <td itemprop="publicationDate">2006-09-26</td>
+          <td><span itemprop="assigneeOriginal">Borland Software Corporation</span></td>
+          <td itemprop="title">Navigation links in generated documentation 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20020104071A1/en">
+              <span itemprop="publicationNumber">US20020104071A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1999-10-05</td>
+          <td itemprop="publicationDate">2002-08-01</td>
+          <td><span itemprop="assigneeOriginal">Dietrich Charisius</span></td>
+          <td itemprop="title">Methods and systems for supporting and deploying distributed computing components 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20020116702A1/en">
+              <span itemprop="publicationNumber">US20020116702A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1999-10-05</td>
+          <td itemprop="publicationDate">2002-08-22</td>
+          <td><span itemprop="assigneeOriginal">Alexander Aptus</span></td>
+          <td itemprop="title">Diagrammatic control of software in a version control system 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6907546B1/en">
+              <span itemprop="publicationNumber">US6907546B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2000-03-27</td>
+          <td itemprop="publicationDate">2005-06-14</td>
+          <td><span itemprop="assigneeOriginal">Accenture Llp</span></td>
+          <td itemprop="title">Language-driven interface for an automated testing framework 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20050193269A1/en">
+              <span itemprop="publicationNumber">US20050193269A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2000-03-27</td>
+          <td itemprop="publicationDate">2005-09-01</td>
+          <td><span itemprop="assigneeOriginal">Accenture Llp</span></td>
+          <td itemprop="title">System, method, and article of manufacture for synchronization in an automated scripting framework 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7047518B2/en">
+              <span itemprop="publicationNumber">US7047518B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2000-10-04</td>
+          <td itemprop="publicationDate">2006-05-16</td>
+          <td><span itemprop="assigneeOriginal">Bea Systems, Inc.</span></td>
+          <td itemprop="title">System for software application development and modeling 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20020091990A1/en">
+              <span itemprop="publicationNumber">US20020091990A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2000-10-04</td>
+          <td itemprop="publicationDate">2002-07-11</td>
+          <td><span itemprop="assigneeOriginal">Todd Little</span></td>
+          <td itemprop="title">System for software application development and modeling 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20020100015A1/en">
+              <span itemprop="publicationNumber">US20020100015A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2000-12-28</td>
+          <td itemprop="publicationDate">2002-07-25</td>
+          <td><span itemprop="assigneeOriginal">Yeda Research And Development Co., Ltd.</span></td>
+          <td itemprop="title">Playing scenarios of system behavior 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20030067481A1/en">
+              <span itemprop="publicationNumber">US20030067481A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2001-03-31</td>
+          <td itemprop="publicationDate">2003-04-10</td>
+          <td><span itemprop="assigneeOriginal">Christopher Chedgey</span></td>
+          <td itemprop="title">System and method for computer-aided graph-based dependency analysis with integrated documentation 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7086009B2/en">
+              <span itemprop="publicationNumber">US7086009B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2001-06-22</td>
+          <td itemprop="publicationDate">2006-08-01</td>
+          <td><span itemprop="assigneeOriginal">Invensys Systems, Inc.</span></td>
+          <td itemprop="title">Customizable system for creating supervisory process control and manufacturing information applications 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7051317B2/en">
+              <span itemprop="publicationNumber">US7051317B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2001-06-29</td>
+          <td itemprop="publicationDate">2006-05-23</td>
+          <td><span itemprop="assigneeOriginal">National Instruments Corporation</span></td>
+          <td itemprop="title">System and method for specifying a computer-implemented process using different programming methodologies 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6804686B1/en">
+              <span itemprop="publicationNumber">US6804686B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2002-04-29</td>
+          <td itemprop="publicationDate">2004-10-12</td>
+          <td><span itemprop="assigneeOriginal">Borland Software Corporation</span></td>
+          <td itemprop="title">System and methodology for providing fixed UML layout for an object oriented class browser 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7472374B1/en">
+              <span itemprop="publicationNumber">US7472374B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2003-06-09</td>
+          <td itemprop="publicationDate">2008-12-30</td>
+          <td><span itemprop="assigneeOriginal">Unisys Corporation</span></td>
+          <td itemprop="title">System and method for using blueprints to provide a traceable software solution for an enterprise 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20050022155A1/en">
+              <span itemprop="publicationNumber">US20050022155A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2003-07-22</td>
+          <td itemprop="publicationDate">2005-01-27</td>
+          <td><span itemprop="assigneeOriginal">Lsi Logic Corporation</span></td>
+          <td itemprop="title">Process and apparatus for abstracting IC design files 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Non-Patent Citations (4)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">B-Core Limited., "<a href='http://scholar.google.com/scholar?q="The+B-Toolkit"'>The B-Toolkit</a>", pp. 1-9, 02/22.</span>
+            
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">C.J. Fidge, "<a href='http://scholar.google.com/scholar?q="A+Formal+Definition+of+Prority+in+CSP"'>A Formal Definition of Prority in CSP</a>", Sep. 1993, ACM Press vol. 15 Issue 4, pp. 681-705.</span>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Mattew Hennessy, et al. "<a href='http://scholar.google.com/scholar?q="Algebraic+Laws+for+Nondeterminism+andconcurrency"'>Algebraic Laws for Nondeterminism andconcurrency</a>", Jan. 1985, ACM Press, Journal of the ACM (JACM), vol. 32 Issue 1, pp. 137-161.</span>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Michael Butler, "<a href='http://scholar.google.com/scholar?q="csp2B%3A+A+Practical+Approach+To+Combining+CSP+and+B"'>csp2B: A Practical Approach To Combining CSP and B</a>"; Declarative Systems and Software Engineering Group, Technical Report DSSE-TR-99-2, Department of Electronics and Computer Science, University of Southampton, Feb. 1999, pp. 1-16, Highfield, Southampton SO17 1BJ, United Kingdom.</span>
+            
+            
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <h2>Cited By (10)</h2>
+  <table>
+    <caption>* Cited by examiner, † Cited by third party</caption>
+    <thead>
+      <tr>
+        <th>Publication number</th>
+        <th>Priority date</th>
+        <th>Publication date</th>
+        <th>Assignee</th>
+        <th>Title</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US20080263506A1/en">
+            <span itemprop="publicationNumber">US20080263506A1</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2004-05-05</td>
+        <td itemprop="publicationDate">2008-10-23</td>
+        <td><span itemprop="assigneeOriginal">Silverdata Limited</span></td>
+        <td itemprop="title">Analytical Software Design System 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US8943465B2/en">
+            <span itemprop="publicationNumber">US8943465B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          
+          
+        </td>
+        <td itemprop="priorityDate">2004-05-05</td>
+        <td itemprop="publicationDate">2015-01-27</td>
+        <td><span itemprop="assigneeOriginal">Verum Holding B.V.</span></td>
+        <td itemprop="title">Analytical software design system 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US8370798B2/en">
+            <span itemprop="publicationNumber">US8370798B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2004-05-05</td>
+        <td itemprop="publicationDate">2013-02-05</td>
+        <td><span itemprop="assigneeOriginal">Silverdata Limited</span></td>
+        <td itemprop="title">Analytical software design system 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US20090094573A1/en">
+            <span itemprop="publicationNumber">US20090094573A1</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2007-08-09</td>
+        <td itemprop="publicationDate">2009-04-09</td>
+        <td><span itemprop="assigneeOriginal">Skriletz Richard A</span></td>
+        <td itemprop="title">Method and system for defining a software application as a specification 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US20090100401A1/en">
+            <span itemprop="publicationNumber">US20090100401A1</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2007-08-09</td>
+        <td itemprop="publicationDate">2009-04-16</td>
+        <td><span itemprop="assigneeOriginal">Skriletz Richard A</span></td>
+        <td itemprop="title">Method and system for analyzing a software design 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US8250534B2/en">
+            <span itemprop="publicationNumber">US8250534B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2007-08-09</td>
+        <td itemprop="publicationDate">2012-08-21</td>
+        <td><span itemprop="assigneeOriginal">Infonovus Technologies, Llc</span></td>
+        <td itemprop="title">Method and system for constructing a software application from a complete and consistent specification in a software development process 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US8386999B2/en">
+            <span itemprop="publicationNumber">US8386999B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          
+          
+        </td>
+        <td itemprop="priorityDate">2007-08-09</td>
+        <td itemprop="publicationDate">2013-02-26</td>
+        <td><span itemprop="assigneeOriginal">Infonovus Technologies, Llc</span></td>
+        <td itemprop="title">Method and system for analyzing a software design 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US8473910B2/en">
+            <span itemprop="publicationNumber">US8473910B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2007-08-09</td>
+        <td itemprop="publicationDate">2013-06-25</td>
+        <td><span itemprop="assigneeOriginal">Infonovus Technologies, Llc</span></td>
+        <td itemprop="title">Method and system for defining a software application as a complete and consistent specification in a software development process 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US20090094272A1/en">
+            <span itemprop="publicationNumber">US20090094272A1</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2007-08-09</td>
+        <td itemprop="publicationDate">2009-04-09</td>
+        <td><span itemprop="assigneeOriginal">Skriletz Richard A</span></td>
+        <td itemprop="title">Method and system for constructing a software application 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US9292423B1/en">
+            <span itemprop="publicationNumber">US9292423B1</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2015-03-11</td>
+        <td itemprop="publicationDate">2016-03-22</td>
+        <td><span itemprop="assigneeOriginal">Amazon Technologies, Inc.</span></td>
+        <td itemprop="title">Monitoring applications for compatibility issues 
+       </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <section>
+    <h2>Also Published As</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Publication date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="docdbFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20050138602A1/en">
+              <span itemprop="publicationNumber">US20050138602A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+          </td>
+          <td itemprop="publicationDate">2005-06-23</td>
+        </tr><tr itemprop="docdbFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/WO2005067415A2/en">
+              <span itemprop="publicationNumber">WO2005067415A2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+          </td>
+          <td itemprop="publicationDate">2005-07-28</td>
+        </tr><tr itemprop="docdbFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/WO2005067415A3/en">
+              <span itemprop="publicationNumber">WO2005067415A3</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+          </td>
+          <td itemprop="publicationDate">2009-04-09</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Similar Documents</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Publication</th>
+          <th>Publication Date</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="11111203709402588739">
+              <a href="/scholar/11111203709402588739"><span itemprop="scholarAuthors">Barr et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2014">2014</time>
+            
+          </td>
+          <td itemprop="title">The oracle problem in software testing: A survey</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="16787393911791140535">
+              <a href="/scholar/16787393911791140535"><span itemprop="scholarAuthors">Lehman</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1991">1991</time>
+            
+          </td>
+          <td itemprop="title">Software engineering, the software process and their support</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="5410431171338824014">
+              <a href="/scholar/5410431171338824014"><span itemprop="scholarAuthors">Heitmeyer et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1996">1996</time>
+            
+          </td>
+          <td itemprop="title">Automated consistency checking of requirements specifications</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/EP1085419A2/en">
+                <span itemprop="publicationNumber">EP1085419A2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2001-03-21">2001-03-21</time>
+            
+            
+          </td>
+          <td itemprop="title">Method and system for describing  predicates in disjuncts in procedures for test coverage estimation 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="5636371775860679102">
+              <a href="/scholar/5636371775860679102"><span itemprop="scholarAuthors">Chen et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2003">2003</time>
+            
+          </td>
+          <td itemprop="title">Towards monitoring-oriented programming: A paradigm combining specification and implementation</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US20030204834A1/en">
+                <span itemprop="publicationNumber">US20030204834A1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2003-10-30">2003-10-30</time>
+            
+            
+          </td>
+          <td itemprop="title">System and method for generating a predicate abstraction of a program 
+     </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="9415149837990629471">
+              <a href="/scholar/9415149837990629471"><span itemprop="scholarAuthors">Russo et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2002">2002</time>
+            
+          </td>
+          <td itemprop="title">An abductive approach for analysing event-based requirements specifications</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="8174865201545855022">
+              <a href="/scholar/8174865201545855022"><span itemprop="scholarAuthors">Blanchette et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2011">2011</time>
+            
+          </td>
+          <td itemprop="title">Automatic proof and disproof in Isabelle/HOL</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="17945406642839577698">
+              <a href="/scholar/17945406642839577698"><span itemprop="scholarAuthors">Heitmeyer et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1998">1998</time>
+            
+          </td>
+          <td itemprop="title">Using abstraction and model checking to detect safety violations in requirements specifications</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="9388826323326337095">
+              <a href="/scholar/9388826323326337095"><span itemprop="scholarAuthors">Fitzgerald et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2008">2008</time>
+            
+          </td>
+          <td itemprop="title">VDMTools: advances in support for formal modeling in VDM</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="14332920949254523768">
+              <a href="/scholar/14332920949254523768"><span itemprop="scholarAuthors">Archer</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2000">2000</time>
+            
+          </td>
+          <td itemprop="title">TAME: Using PVS strategies for special-purpose theorem proving</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="8020248954047061009">
+              <a href="/scholar/8020248954047061009"><span itemprop="scholarAuthors">Kapur et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2006">2006</time>
+            
+          </td>
+          <td itemprop="title">Interpolation for data structures</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="4151916605061620244">
+              <a href="/scholar/4151916605061620244"><span itemprop="scholarAuthors">Rahim et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2015">2015</time>
+            
+          </td>
+          <td itemprop="title">A survey of approaches for verifying model transformations</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US6289502B1/en">
+                <span itemprop="publicationNumber">US6289502B1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2001-09-11">2001-09-11</time>
+            
+            
+          </td>
+          <td itemprop="title">Model-based software design and validation 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="9022588802414156571">
+              <a href="/scholar/9022588802414156571"><span itemprop="scholarAuthors">Küster et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2006">2006</time>
+            
+          </td>
+          <td itemprop="title">Validation of model transformations–first experiences using a white box approach</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US7886273B2/en">
+                <span itemprop="publicationNumber">US7886273B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2011-02-08">2011-02-08</time>
+            
+            
+          </td>
+          <td itemprop="title">Systems, methods and apparatus for generation and verification of policies in autonomic computing systems 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="4976001833182606765">
+              <a href="/scholar/4976001833182606765"><span itemprop="scholarAuthors">Büttner et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2012">2012</time>
+            
+          </td>
+          <td itemprop="title">Verification of ATL transformations using transformation models and model finders</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="16143792695869427157">
+              <a href="/scholar/16143792695869427157"><span itemprop="scholarAuthors">Mitsch et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2016">2016</time>
+            
+          </td>
+          <td itemprop="title">ModelPlex: Verified runtime validation of verified cyber-physical system models</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="12801039198506156664">
+              <a href="/scholar/12801039198506156664"><span itemprop="scholarAuthors">Ardis et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1996">1996</time>
+            
+          </td>
+          <td itemprop="title">A framework for evaluating specification methods for reactive systems-experience report</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="13254533900072101617">
+              <a href="/scholar/13254533900072101617"><span itemprop="scholarAuthors">Wang et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2015">2015</time>
+            
+          </td>
+          <td itemprop="title">Automatic generation of system test cases from use case specifications</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="18326409038474015327">
+              <a href="/scholar/18326409038474015327"><span itemprop="scholarAuthors">Owre et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1994">1994</time>
+            
+          </td>
+          <td itemprop="title">A tutorial on using PVS for hardware verification</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="4852414800947673927">
+              <a href="/scholar/4852414800947673927"><span itemprop="scholarAuthors">Laleau et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2010">2010</time>
+            
+          </td>
+          <td itemprop="title">A first attempt to combine SysML requirements diagrams and B</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="6754723175604573244">
+              <a href="/scholar/6754723175604573244"><span itemprop="scholarAuthors">Feron</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2010">2010</time>
+            
+          </td>
+          <td itemprop="title">From control systems to control software</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="10102043908892563814">
+              <a href="/scholar/10102043908892563814"><span itemprop="scholarAuthors">Menzies et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2005">2005</time>
+            
+          </td>
+          <td itemprop="title">Verification and validation and artificial intelligence</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US20070277163A1/en">
+                <span itemprop="publicationNumber">US20070277163A1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2007-11-29">2007-11-29</time>
+            
+            
+          </td>
+          <td itemprop="title">Method and tool for automatic verification of software protocols 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Legal Events</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Code</th>
+          <th>Title</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2004-02-25">2004-02-25</time></td>
+          <td itemprop="code">AS</td>
+          <td itemprop="title">Assignment</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Owner name</strong>:
+              <span itemprop="value">NATIONAL AERONAUTICS AND SPACE ADMINISTRATION, UNI</span>
+            </p>
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">ASSIGNMENT OF ASSIGNORS INTEREST;ASSIGNORS:HINCHEY, MICHAEL GERARD;RASH, JAMES LARRY;ROUFF, CHRISTOPHER A.;REEL/FRAME:015032/0666;SIGNING DATES FROM 20040209 TO 20040218</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2009-05-13">2009-05-13</time></td>
+          <td itemprop="code">STCF</td>
+          <td itemprop="title">Information on status: patent grant</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">PATENTED CASE</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2012-06-04">2012-06-04</time></td>
+          <td itemprop="code">FPAY</td>
+          <td itemprop="title">Fee payment</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Year of fee payment</strong>:
+              <span itemprop="value">4</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2016-11-22">2016-11-22</time></td>
+          <td itemprop="code">FPAY</td>
+          <td itemprop="title">Fee payment</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Year of fee payment</strong>:
+              <span itemprop="value">8</span>
+            </p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+</article>
+
+    </search-app>
+    <script type="text/javascript" src="//www.gstatic.com/feedback/api.js"></script>
+    <script async="" defer="" src="//www.google.com/insights/consumersurveys/async_survey?site=cxkjf7ipxgbnnjy6k35ezcvbbe"></script>
+  </body>
+</html>

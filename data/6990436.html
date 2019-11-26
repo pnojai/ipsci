@@ -1,0 +1,2726 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>US6990436B1 - Computing frequency by using generalized zero-crossing applied to intrinsic mode functions 
+        - Google Patents</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="referrer" content="origin-when-crossorigin">
+    <link rel="canonical" href="https://patents.google.com/patent/US6990436B1/en">
+    <meta name="description" content="
+     This invention presents a method for computing Instantaneous Frequency by applying Empirical Mode Decomposition to a signal and using Generalized Zero-Crossing (GZC) and Extrema Sifting. The GZC approach is the most direct, local, and also the most accurate in the mean. Furthermore, this approach will also give a statistical measure of the scattering of the frequency value. For most practical applications, this mean frequency localized down to quarter of a wave period is already a well-accepted result. As this method physically measures the period, or part of it, the values obtained can serve as the best local mean over the period to which it applies. Through Extrema Sifting, instead of the cubic spline fitting, this invention constructs the upper envelope and the lower envelope by connecting local maxima points and local minima points of the signal with straight lines, respectively, when extracting a collection of Intrinsic Mode Functions (IMFs) from a signal under consideration. 
+   
+   ">
+    
+    <meta name="DC.type" content="patent">
+    
+    <meta name="DC.title" content="Computing frequency by using generalized zero-crossing applied to intrinsic mode functions 
+       ">
+    
+    <meta name="DC.date" content="2003-11-28" scheme="dateSubmitted">
+    
+    <meta name="DC.description" content="
+     This invention presents a method for computing Instantaneous Frequency by applying Empirical Mode Decomposition to a signal and using Generalized Zero-Crossing (GZC) and Extrema Sifting. The GZC approach is the most direct, local, and also the most accurate in the mean. Furthermore, this approach will also give a statistical measure of the scattering of the frequency value. For most practical applications, this mean frequency localized down to quarter of a wave period is already a well-accepted result. As this method physically measures the period, or part of it, the values obtained can serve as the best local mean over the period to which it applies. Through Extrema Sifting, instead of the cubic spline fitting, this invention constructs the upper envelope and the lower envelope by connecting local maxima points and local minima points of the signal with straight lines, respectively, when extracting a collection of Intrinsic Mode Functions (IMFs) from a signal under consideration. 
+   
+   ">
+    
+    <meta name="citation_patent_application_number" content="US:10/729,579">
+    
+    <meta name="citation_pdf_url" content="https://patentimages.storage.googleapis.com/40/6c/2a/1c16d741080b22/US6990436.pdf">
+    
+    <meta name="citation_patent_number" content="US:6990436">
+    
+    <meta name="DC.date" content="2006-01-24" scheme="issue">
+    
+    <meta name="DC.contributor" content="Norden E. Huang" scheme="inventor">
+    
+    <meta name="DC.contributor" content="National Aeronautics and Space Administration (NASA)" scheme="assignee">
+    
+    <meta name="DC.relation" content="US:3994284" scheme="references">
+    
+    <meta name="DC.relation" content="US:5105275" scheme="references">
+    
+    <meta name="DC.relation" content="US:5119432" scheme="references">
+    
+    <meta name="DC.relation" content="US:5893054" scheme="references">
+    
+    <meta name="DC.relation" content="US:5520052" scheme="references">
+    
+    <meta name="DC.relation" content="US:5568206" scheme="references">
+    
+    <meta name="DC.relation" content="US:6347542" scheme="references">
+    
+    <meta name="DC.relation" content="US:6311130" scheme="references">
+    
+    <meta name="DC.relation" content="US:5983162" scheme="references">
+    
+    <meta name="DC.relation" content="US:6631325" scheme="references">
+    
+    <meta name="DC.relation" content="US:6381559" scheme="references">
+    
+    <meta name="DC.relation" content="US:6738734" scheme="references">
+    
+    <meta name="DC.relation" content="US:6131071" scheme="references">
+    
+    <meta name="DC.relation" content="US:6130071" scheme="references">
+    
+    <meta name="DC.relation" content="US:6301967" scheme="references">
+    
+    <meta name="DC.relation" content="US:6192758" scheme="references">
+    
+    <meta name="DC.relation" content="US:6314813" scheme="references">
+    
+    <meta name="DC.relation" content="US:6507798" scheme="references">
+    
+    <meta name="DC.relation" content="US:20030033094:A1" scheme="references">
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,400italic,500,500italic,700">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Product+Sans">
+    <style>
+      body { transition: none; }
+    </style>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-27188110-4', 'auto');
+
+      version = 'patent-search.search_20191120_RC00';
+
+      function sendFeedback() {
+        userfeedback.api.startFeedback({
+          'productId': '713680',
+          'bucket': 'patent-search-web',
+          'productVersion': version,
+        });
+      }
+
+      window.experiments = {};
+      window.experiments.patentCountries = "ae,ag,al,am,ao,ap,ar,at,au,aw,az,ba,bb,bd,be,bf,bg,bh,bj,bn,bo,br,bw,bx,by,bz,ca,cf,cg,ch,ci,cl,cm,cn,co,cr,cs,cu,cy,cz,dd,de,dj,dk,dm,do,dz,ea,ec,ee,eg,em,ep,es,fi,fr,ga,gb,gc,gd,ge,gh,gm,gn,gq,gr,gt,gw,hk,hn,hr,hu,ib,id,ie,il,in,ir,is,it,jo,jp,ke,kg,kh,km,kn,kp,kr,kw,kz,la,lc,li,lk,lr,ls,lt,lu,lv,ly,ma,mc,md,me,mg,mk,ml,mn,mo,mr,mt,mw,mx,my,mz,na,ne,ng,ni,nl,no,nz,oa,om,pa,pe,pg,ph,pl,pt,py,qa,ro,rs,ru,rw,sa,sc,sd,se,sg,si,sk,sl,sm,sn,st,su,sv,sy,sz,td,tg,th,tj,tm,tn,tr,tt,tw,tz,ua,ug,us,uy,uz,vc,ve,vn,wo,yu,za,zm,zw";
+      
+      
+      window.profilePicture = "";
+
+      window.Polymer = {
+        dom: 'shady',
+        lazyRegister: true,
+      };
+    </script>
+
+    <script src="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/webcomponentsjs/webcomponents-lite.min.js"></script>
+    
+    <link rel="import" href="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/search-app-vulcanized.html">
+    
+  </head>
+  <body unresolved>
+    
+    <script src="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/search-app-vulcanized.js"></script>
+    
+    <search-app>
+      
+      
+
+      <article class="result" itemscope itemtype="http://schema.org/ScholarlyArticle">
+  <h1 itemprop="pageTitle">US6990436B1 - Computing frequency by using generalized zero-crossing applied to intrinsic mode functions 
+        - Google Patents</h1>
+  <span itemprop="title">Computing frequency by using generalized zero-crossing applied to intrinsic mode functions 
+       </span>
+
+  <meta itemprop="type" content="patent">
+  <a href="https://patentimages.storage.googleapis.com/40/6c/2a/1c16d741080b22/US6990436.pdf" itemprop="pdfLink">Download PDF</a>
+  <h2>Info</h2>
+
+  <dl>
+    <dt>Publication number</dt>
+    <dd itemprop="publicationNumber">US6990436B1</dd>
+    <meta itemprop="numberWithoutCodes" content="6990436">
+    <meta itemprop="kindCode" content="B1">
+    <meta itemprop="publicationDescription" content="Patent ( no pre-grant publication)">
+    
+    <span>US6990436B1</span>
+    
+    <span>US10/729,579</span>
+    
+    <span>US72957903A</span>
+    
+    <span>US6990436B1</span>
+    
+    <span>US 6990436 B1</span>
+    
+    <span>US6990436 B1</span>
+    
+    <span>US 6990436B1</span>
+    
+    <span>  </span>
+    
+    <span> </span>
+    
+    <span> </span>
+    
+    <span>US 72957903 A</span>
+    
+    <span>US72957903 A</span>
+    
+    <span>US 72957903A</span>
+    
+    <span>US 6990436 B1</span>
+    
+    <span>US6990436 B1</span>
+    
+    <span>US 6990436B1</span>
+    
+
+    <dt>Authority</dt>
+    <dd itemprop="countryCode">US</dd>
+    <dd itemprop="countryName">United States</dd>
+
+    <dt>Prior art keywords</dt>
+    
+    <dd itemprop="priorArtKeywords" repeat>physical signal</dd>
+    <dd itemprop="priorArtKeywords" repeat>signal</dd>
+    <dd itemprop="priorArtKeywords" repeat>step</dd>
+    <dd itemprop="priorArtKeywords" repeat>envelope</dd>
+    <dd itemprop="priorArtKeywords" repeat>implemented method</dd>
+
+    <dt>Prior art date</dt>
+    <dd><time itemprop="priorArtDate" datetime="2003-11-28">2003-11-28</time></dd>
+
+    <dt>Legal status (The legal status is an assumption and is not a legal conclusion. Google has not performed a legal analysis and makes no representation as to the accuracy of the status listed.)</dt>
+    <dd itemprop="legalStatusIfi" itemscope>
+      <span itemprop="status">Active</span>
+    </dd>
+  </dl>
+
+  <dt>Application number</dt>
+  <dd itemprop="applicationNumber">US10/729,579</dd>
+
+  
+
+  
+
+  <dt>Inventor</dt>
+  <dd itemprop="inventor" repeat>Norden E. Huang</dd>
+  <dt>Current Assignee (The listed assignees may be inaccurate. Google has not performed a legal analysis and makes no representation or warranty as to the accuracy of the list.)</dt>
+  <dd itemprop="assigneeCurrent" repeat>
+    National Aeronautics and Space Administration (NASA)
+  </dd>
+
+  <dt>Original Assignee</dt>
+  <dd itemprop="assigneeOriginal" repeat>National Aeronautics and Space Administration (NASA)</dd>
+
+  <dt>Priority date (The priority date is an assumption and is not a legal conclusion. Google has not performed a legal analysis and makes no representation as to the accuracy of the date listed.)</dt>
+  <dd><time itemprop="priorityDate" datetime="2003-11-28">2003-11-28</time></dd>
+
+  <dt>Filing date</dt>
+  <dd><time itemprop="filingDate" datetime="2003-11-28">2003-11-28</time></dd>
+
+  <dt>Publication date</dt>
+  <dd><time itemprop="publicationDate" datetime="2006-01-24">2006-01-24</time></dd>
+
+  
+
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2003-11-28">2003-11-28</time>
+    <span itemprop="title">Application filed by National Aeronautics and Space Administration (NASA)</span>
+    <span itemprop="type">filed</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    <span itemprop="assigneeSearch">National Aeronautics and Space Administration (NASA)</span>
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2003-11-28">2003-11-28</time>
+    <span itemprop="title">Priority to US10/729,579</span>
+    <span itemprop="type">priority</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    <span itemprop="documentId">patent/US6990436B1/en</span>
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2003-11-28">2003-11-28</time>
+    <span itemprop="title">Assigned to NATIONAL AERONAUTICS AND SPACE ADMINISTRATION, UNITED STATES OF AMERICA AS REPRESENTED BY THE ADMINISTRATOR OF THE</span>
+    <span itemprop="type">reassignment</span>
+    
+    
+    
+    
+    <span itemprop="assigneeSearch">NATIONAL AERONAUTICS AND SPACE ADMINISTRATION, UNITED STATES OF AMERICA AS REPRESENTED BY THE ADMINISTRATOR OF THE</span>
+    
+    
+    <span itemprop="description" repeat>ASSIGNMENT OF ASSIGNORS INTEREST (SEE DOCUMENT FOR DETAILS).</span>
+    
+    <span itemprop="description" repeat>Assignors: HUANG, NORDEN</span>
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2006-01-24">2006-01-24</time>
+    <span itemprop="title">Application granted</span>
+    <span itemprop="type">granted</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2006-01-24">2006-01-24</time>
+    <span itemprop="title">Publication of US6990436B1</span>
+    <span itemprop="type">publication</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    <span itemprop="documentId">patent/US6990436B1/en</span>
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2019-11-25">2019-11-25</time>
+    <span itemprop="title">Application status is Active</span>
+    <span itemprop="type">legal-status</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2023-11-28">2023-11-28</time>
+    <span itemprop="title">Anticipated expiration</span>
+    <span itemprop="type">legal-status</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+
+  <h2>Links</h2>
+
+  <ul>
+    
+          <li itemprop="links" itemscope repeat>
+            <meta itemprop="id" content="usptoLink">
+            <a href="http://patft.uspto.gov/netacgi/nph-Parser?Sect1=PTO1&Sect2=HITOFF&p=1&u=/netahtml/PTO/srchnum.html&r=1&f=G&l=50&d=PALL&s1=6990436.PN." itemprop="url" target="_blank"><span itemprop="text">USPTO</span></a>
+          </li>
+        <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="usptoAssignmentLink">
+          <a href="https://assignment.uspto.gov/patent/index.html#/patent/search/resultFilter?searchInput=6990436" itemprop="url" target="_blank"><span itemprop="text">USPTO Assignment</span></a>
+        </li>
+
+    <li itemprop="links" itemscope repeat>
+        <meta itemprop="id" content="espacenetLink">
+        <a href="http://worldwide.espacenet.com/publicationDetails/biblio?CC=US&amp;NR=6990436B1&amp;KC=B1&amp;FT=D" itemprop="url" target="_blank"><span itemprop="text">Espacenet</span></a>
+      </li>
+      
+
+    
+
+    
+      <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="globalDossierLink">
+          <a href="http://globaldossier.uspto.gov/#/result/patent/US/6990436/1" itemprop="url" target="_blank"><span itemprop="text">Global Dossier</span></a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="stackexchangeLink">
+          <a href="https://patents.stackexchange.com/questions/tagged/US6990436" itemprop="url"><span itemprop="text">Discuss</span></a>
+        </li>
+      
+  </ul>
+
+  
+  <ul itemprop="concept" itemscope>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000000354</span>
+      <span itemprop="name">decomposition</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>abstract</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">11</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000003534</span>
+      <span itemprop="name">oscillatory</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="count">4</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000000034</span>
+      <span itemprop="name">methods</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">8</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000001228</span>
+      <span itemprop="name">spectrum</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">3</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001721</span>
+      <span itemprop="name">combination</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000009826</span>
+      <span itemprop="name">distribution</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000000203</span>
+      <span itemprop="name">mixtures</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000006011</span>
+      <span itemprop="name">modification</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000004048</span>
+      <span itemprop="name">modification</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000036961</span>
+      <span itemprop="name">partial</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">QHGUCRYDKWKLMG-UHFFFAOYSA-N</span>
+      <span itemprop="name">Octopamine</span>
+      <span itemprop="domain">Chemical compound</span>
+      <span itemprop="svg_large">data:image/svg&#43;xml;base64,PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0naXNvLTg4NTktMSc/Pgo8c3ZnIHZlcnNpb249JzEuMScgYmFzZVByb2ZpbGU9J2Z1bGwnCiAgICAgICAgICAgICAgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJwogICAgICAgICAgICAgICAgICAgICAgeG1sbnM6cmRraXQ9J2h0dHA6Ly93d3cucmRraXQub3JnL3htbCcKICAgICAgICAgICAgICAgICAgICAgIHhtbG5zOnhsaW5rPSdodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rJwogICAgICAgICAgICAgICAgICB4bWw6c3BhY2U9J3ByZXNlcnZlJwp3aWR0aD0nMzAwcHgnIGhlaWdodD0nMzAwcHgnID4KPCEtLSBFTkQgT0YgSEVBREVSIC0tPgo8cmVjdCBzdHlsZT0nb3BhY2l0eToxLjA7ZmlsbDojRkZGRkZGO3N0cm9rZTpub25lJyB3aWR0aD0nMzAwJyBoZWlnaHQ9JzMwMCcgeD0nMCcgeT0nMCc&#43;IDwvcmVjdD4KPHBhdGggY2xhc3M9J2JvbmQtMCcgZD0nTSA1NC44MDQ1LDEyMy45OTIgNjcuNzYzOSwxMjIuNzI5JyBzdHlsZT0nZmlsbDpub25lO2ZpbGwtcnVsZTpldmVub2RkO3N0cm9rZTojMDAwMEZGO3N0cm9rZS13aWR0aDoycHg7c3Ryb2tlLWxpbmVjYXA6YnV0dDtzdHJva2UtbGluZWpvaW46bWl0ZXI7c3Ryb2tlLW9wYWNpdHk6MScgLz4KPHBhdGggY2xhc3M9J2JvbmQtMCcgZD0nTSA2Ny43NjM5LDEyMi43MjkgODAuNzIzMywxMjEuNDY2JyBzdHlsZT0nZmlsbDpub25lO2ZpbGwtcnVsZTpldmVub2RkO3N0cm9rZTojMDAwMDAwO3N0cm9rZS13aWR0aDoycHg7c3Ryb2tlLWxpbmVjYXA6YnV0dDtzdHJva2UtbGluZWpvaW46bWl0ZXI7c3Ryb2tlLW9wYWNpdHk6MScgLz4KPHBhdGggY2xhc3M9J2JvbmQtMScgZD0nTSA4MC43MjMzLDEyMS40NjYgMTAzLjg5LDE1My44NjQnIHN0eWxlPSdmaWxsOm5vbmU7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOiMwMDAwMDA7c3Ryb2tlLXdpZHRoOjJweDtzdHJva2UtbGluZWNhcDpidXR0O3N0cm9rZS1saW5lam9pbjptaXRlcjtzdHJva2Utb3BhY2l0eToxJyAvPgo8cGF0aCBjbGFzcz0nYm9uZC0yJyBkPSdNIDEwMy44OSwxNTMuODY0IDk3LjE2MTIsMTY4LjY3Nicgc3R5bGU9J2ZpbGw6bm9uZTtmaWxsLXJ1bGU6ZXZlbm9kZDtzdHJva2U6IzAwMDAwMDtzdHJva2Utd2lkdGg6MnB4O3N0cm9rZS1saW5lY2FwOmJ1dHQ7c3Ryb2tlLWxpbmVqb2luOm1pdGVyO3N0cm9rZS1vcGFjaXR5OjEnIC8&#43;CjxwYXRoIGNsYXNzPSdib25kLTInIGQ9J00gOTcuMTYxMiwxNjguNjc2IDkwLjQzMiwxODMuNDg5JyBzdHlsZT0nZmlsbDpub25lO2ZpbGwtcnVsZTpldmVub2RkO3N0cm9rZTojRkYwMDAwO3N0cm9rZS13aWR0aDoycHg7c3Ryb2tlLWxpbmVjYXA6YnV0dDtzdHJva2UtbGluZWpvaW46bWl0ZXI7c3Ryb2tlLW9wYWNpdHk6MScgLz4KPHBhdGggY2xhc3M9J2JvbmQtMycgZD0nTSAxMDMuODksMTUzLjg2NCAxNDMuNTMyLDE1MCcgc3R5bGU9J2ZpbGw6bm9uZTtmaWxsLXJ1bGU6ZXZlbm9kZDtzdHJva2U6IzAwMDAwMDtzdHJva2Utd2lkdGg6MnB4O3N0cm9rZS1saW5lY2FwOmJ1dHQ7c3Ryb2tlLWxpbmVqb2luOm1pdGVyO3N0cm9rZS1vcGFjaXR5OjEnIC8&#43;CjxwYXRoIGNsYXNzPSdib25kLTQnIGQ9J00gMTQzLjUzMiwxNTAgMTYwLjAwNiwxMTMuNzM3JyBzdHlsZT0nZmlsbDpub25lO2ZpbGwtcnVsZTpldmVub2RkO3N0cm9rZTojMDAwMDAwO3N0cm9rZS13aWR0aDoycHg7c3Ryb2tlLWxpbmVjYXA6YnV0dDtzdHJva2UtbGluZWpvaW46bWl0ZXI7c3Ryb2tlLW9wYWNpdHk6MScgLz4KPHBhdGggY2xhc3M9J2JvbmQtNCcgZD0nTSAxNTMuMjU2LDE0Ny44NTUgMTY0Ljc4OCwxMjIuNDcyJyBzdHlsZT0nZmlsbDpub25lO2ZpbGwtcnVsZTpldmVub2RkO3N0cm9rZTojMDAwMDAwO3N0cm9rZS13aWR0aDoycHg7c3Ryb2tlLWxpbmVjYXA6YnV0dDtzdHJva2UtbGluZWpvaW46bWl0ZXI7c3Ryb2tlLW9wYWNpdHk6MScgLz4KPHBhdGggY2xhc3M9J2JvbmQtMTAnIGQ9J00gMTQzLjUzMiwxNTAgMTY2LjY5OSwxODIuMzk4JyBzdHlsZT0nZmlsbDpub25lO2ZpbGwtcnVsZTpldmVub2RkO3N0cm9rZTojMDAwMDAwO3N0cm9rZS13aWR0aDoycHg7c3Ryb2tlLWxpbmVjYXA6YnV0dDtzdHJva2UtbGluZWpvaW46bWl0ZXI7c3Ryb2tlLW9wYWNpdHk6MScgLz4KPHBhdGggY2xhc3M9J2JvbmQtNScgZD0nTSAxNjAuMDA2LDExMy43MzcgMTk5LjY0OCwxMDkuODczJyBzdHlsZT0nZmlsbDpub25lO2ZpbGwtcnVsZTpldmVub2RkO3N0cm9rZTojMDAwMDAwO3N0cm9rZS13aWR0aDoycHg7c3Ryb2tlLWxpbmVjYXA6YnV0dDtzdHJva2UtbGluZWpvaW46bWl0ZXI7c3Ryb2tlLW9wYWNpdHk6MScgLz4KPHBhdGggY2xhc3M9J2JvbmQtNicgZD0nTSAxOTkuNjQ4LDEwOS44NzMgMjIyLjgxNSwxNDIuMjcyJyBzdHlsZT0nZmlsbDpub25lO2ZpbGwtcnVsZTpldmVub2RkO3N0cm9rZTojMDAwMDAwO3N0cm9rZS13aWR0aDoycHg7c3Ryb2tlLWxpbmVjYXA6YnV0dDtzdHJva2UtbGluZWpvaW46bWl0ZXI7c3Ryb2tlLW9wYWNpdHk6MScgLz4KPHBhdGggY2xhc3M9J2JvbmQtNicgZD0nTSAxOTYuNjQzLDExOS4zNjYgMjEyLjg2LDE0Mi4wNDUnIHN0eWxlPSdmaWxsOm5vbmU7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOiMwMDAwMDA7c3Ryb2tlLXdpZHRoOjJweDtzdHJva2UtbGluZWNhcDpidXR0O3N0cm9rZS1saW5lam9pbjptaXRlcjtzdHJva2Utb3BhY2l0eToxJyAvPgo8cGF0aCBjbGFzcz0nYm9uZC03JyBkPSdNIDIyMi44MTUsMTQyLjI3MiAyMzYuNjU5LDE0MC45MjInIHN0eWxlPSdmaWxsOm5vbmU7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOiMwMDAwMDA7c3Ryb2tlLXdpZHRoOjJweDtzdHJva2UtbGluZWNhcDpidXR0O3N0cm9rZS1saW5lam9pbjptaXRlcjtzdHJva2Utb3BhY2l0eToxJyAvPgo8cGF0aCBjbGFzcz0nYm9uZC03JyBkPSdNIDIzNi42NTksMTQwLjkyMiAyNTAuNTAzLDEzOS41NzMnIHN0eWxlPSdmaWxsOm5vbmU7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOiNGRjAwMDA7c3Ryb2tlLXdpZHRoOjJweDtzdHJva2UtbGluZWNhcDpidXR0O3N0cm9rZS1saW5lam9pbjptaXRlcjtzdHJva2Utb3BhY2l0eToxJyAvPgo8cGF0aCBjbGFzcz0nYm9uZC04JyBkPSdNIDIyMi44MTUsMTQyLjI3MiAyMDYuMzQxLDE3OC41MzQnIHN0eWxlPSdmaWxsOm5vbmU7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOiMwMDAwMDA7c3Ryb2tlLXdpZHRoOjJweDtzdHJva2UtbGluZWNhcDpidXR0O3N0cm9rZS1saW5lam9pbjptaXRlcjtzdHJva2Utb3BhY2l0eToxJyAvPgo8cGF0aCBjbGFzcz0nYm9uZC05JyBkPSdNIDIwNi4zNDEsMTc4LjUzNCAxNjYuNjk5LDE4Mi4zOTgnIHN0eWxlPSdmaWxsOm5vbmU7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOiMwMDAwMDA7c3Ryb2tlLXdpZHRoOjJweDtzdHJva2UtbGluZWNhcDpidXR0O3N0cm9rZS1saW5lam9pbjptaXRlcjtzdHJva2Utb3BhY2l0eToxJyAvPgo8cGF0aCBjbGFzcz0nYm9uZC05JyBkPSdNIDE5OS42MjIsMTcxLjE4NiAxNzEuODczLDE3My44OTEnIHN0eWxlPSdmaWxsOm5vbmU7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOiMwMDAwMDA7c3Ryb2tlLXdpZHRoOjJweDtzdHJva2UtbGluZWNhcDpidXR0O3N0cm9rZS1saW5lam9pbjptaXRlcjtzdHJva2Utb3BhY2l0eToxJyAvPgo8dGV4dCB4PScyNy4zNTkxJyB5PScxMzIuNjMyJyBzdHlsZT0nZm9udC1zaXplOjEzcHg7Zm9udC1zdHlsZTpub3JtYWw7Zm9udC13ZWlnaHQ6bm9ybWFsO2ZpbGwtb3BhY2l0eToxO3N0cm9rZTpub25lO2ZvbnQtZmFtaWx5OnNhbnMtc2VyaWY7dGV4dC1hbmNob3I6c3RhcnQ7ZmlsbDojMDAwMEZGJyA&#43;PHRzcGFuPkg8L3RzcGFuPjx0c3BhbiBzdHlsZT0nYmFzZWxpbmUtc2hpZnQ6c3ViO2ZvbnQtc2l6ZTo5Ljc1cHg7Jz4yPC90c3Bhbj48dHNwYW4&#43;TjwvdHNwYW4&#43;PC90ZXh0Pgo8dGV4dCB4PSc3NS40NjI2JyB5PScxOTYuNzY1JyBzdHlsZT0nZm9udC1zaXplOjEzcHg7Zm9udC1zdHlsZTpub3JtYWw7Zm9udC13ZWlnaHQ6bm9ybWFsO2ZpbGwtb3BhY2l0eToxO3N0cm9rZTpub25lO2ZvbnQtZmFtaWx5OnNhbnMtc2VyaWY7dGV4dC1hbmNob3I6c3RhcnQ7ZmlsbDojRkYwMDAwJyA&#43;PHRzcGFuPk9IPC90c3Bhbj48L3RleHQ&#43;Cjx0ZXh0IHg9JzI1MC41MDMnIHk9JzE0NS4wNDYnIHN0eWxlPSdmb250LXNpemU6MTNweDtmb250LXN0eWxlOm5vcm1hbDtmb250LXdlaWdodDpub3JtYWw7ZmlsbC1vcGFjaXR5OjE7c3Ryb2tlOm5vbmU7Zm9udC1mYW1pbHk6c2Fucy1zZXJpZjt0ZXh0LWFuY2hvcjpzdGFydDtmaWxsOiNGRjAwMDAnID48dHNwYW4&#43;T0g8L3RzcGFuPjwvdGV4dD4KPC9zdmc&#43;Cg==</span>
+      <span itemprop="svg_small">data:image/svg&#43;xml;base64,PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0naXNvLTg4NTktMSc/Pgo8c3ZnIHZlcnNpb249JzEuMScgYmFzZVByb2ZpbGU9J2Z1bGwnCiAgICAgICAgICAgICAgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJwogICAgICAgICAgICAgICAgICAgICAgeG1sbnM6cmRraXQ9J2h0dHA6Ly93d3cucmRraXQub3JnL3htbCcKICAgICAgICAgICAgICAgICAgICAgIHhtbG5zOnhsaW5rPSdodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rJwogICAgICAgICAgICAgICAgICB4bWw6c3BhY2U9J3ByZXNlcnZlJwp3aWR0aD0nODVweCcgaGVpZ2h0PSc4NXB4JyA&#43;CjwhLS0gRU5EIE9GIEhFQURFUiAtLT4KPHJlY3Qgc3R5bGU9J29wYWNpdHk6MS4wO2ZpbGw6I0ZGRkZGRjtzdHJva2U6bm9uZScgd2lkdGg9Jzg1JyBoZWlnaHQ9Jzg1JyB4PScwJyB5PScwJz4gPC9yZWN0Pgo8cGF0aCBjbGFzcz0nYm9uZC0wJyBkPSdNIDE1LjAyOCwzNC42MzExIDE4LjY5OTgsMzQuMjczMicgc3R5bGU9J2ZpbGw6bm9uZTtmaWxsLXJ1bGU6ZXZlbm9kZDtzdHJva2U6IzAwMDBGRjtzdHJva2Utd2lkdGg6MnB4O3N0cm9rZS1saW5lY2FwOmJ1dHQ7c3Ryb2tlLWxpbmVqb2luOm1pdGVyO3N0cm9rZS1vcGFjaXR5OjEnIC8&#43;CjxwYXRoIGNsYXNzPSdib25kLTAnIGQ9J00gMTguNjk5OCwzNC4yNzMyIDIyLjM3MTYsMzMuOTE1Mycgc3R5bGU9J2ZpbGw6bm9uZTtmaWxsLXJ1bGU6ZXZlbm9kZDtzdHJva2U6IzAwMDAwMDtzdHJva2Utd2lkdGg6MnB4O3N0cm9rZS1saW5lY2FwOmJ1dHQ7c3Ryb2tlLWxpbmVqb2luOm1pdGVyO3N0cm9rZS1vcGFjaXR5OjEnIC8&#43;CjxwYXRoIGNsYXNzPSdib25kLTEnIGQ9J00gMjIuMzcxNiwzMy45MTUzIDI4LjkzNTYsNDMuMDk0OCcgc3R5bGU9J2ZpbGw6bm9uZTtmaWxsLXJ1bGU6ZXZlbm9kZDtzdHJva2U6IzAwMDAwMDtzdHJva2Utd2lkdGg6MnB4O3N0cm9rZS1saW5lY2FwOmJ1dHQ7c3Ryb2tlLWxpbmVqb2luOm1pdGVyO3N0cm9rZS1vcGFjaXR5OjEnIC8&#43;CjxwYXRoIGNsYXNzPSdib25kLTInIGQ9J00gMjguOTM1Niw0My4wOTQ4IDI3LjAyOSw0Ny4yOTE2JyBzdHlsZT0nZmlsbDpub25lO2ZpbGwtcnVsZTpldmVub2RkO3N0cm9rZTojMDAwMDAwO3N0cm9rZS13aWR0aDoycHg7c3Ryb2tlLWxpbmVjYXA6YnV0dDtzdHJva2UtbGluZWpvaW46bWl0ZXI7c3Ryb2tlLW9wYWNpdHk6MScgLz4KPHBhdGggY2xhc3M9J2JvbmQtMicgZD0nTSAyNy4wMjksNDcuMjkxNiAyNS4xMjI0LDUxLjQ4ODQnIHN0eWxlPSdmaWxsOm5vbmU7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOiNGRjAwMDA7c3Ryb2tlLXdpZHRoOjJweDtzdHJva2UtbGluZWNhcDpidXR0O3N0cm9rZS1saW5lam9pbjptaXRlcjtzdHJva2Utb3BhY2l0eToxJyAvPgo8cGF0aCBjbGFzcz0nYm9uZC0zJyBkPSdNIDI4LjkzNTYsNDMuMDk0OCA0MC4xNjc0LDQyJyBzdHlsZT0nZmlsbDpub25lO2ZpbGwtcnVsZTpldmVub2RkO3N0cm9rZTojMDAwMDAwO3N0cm9rZS13aWR0aDoycHg7c3Ryb2tlLWxpbmVjYXA6YnV0dDtzdHJva2UtbGluZWpvaW46bWl0ZXI7c3Ryb2tlLW9wYWNpdHk6MScgLz4KPHBhdGggY2xhc3M9J2JvbmQtNCcgZD0nTSA0MC4xNjc0LDQyIDQ0LjgzNTEsMzEuNzI1Nicgc3R5bGU9J2ZpbGw6bm9uZTtmaWxsLXJ1bGU6ZXZlbm9kZDtzdHJva2U6IzAwMDAwMDtzdHJva2Utd2lkdGg6MnB4O3N0cm9rZS1saW5lY2FwOmJ1dHQ7c3Ryb2tlLWxpbmVqb2luOm1pdGVyO3N0cm9rZS1vcGFjaXR5OjEnIC8&#43;CjxwYXRoIGNsYXNzPSdib25kLTQnIGQ9J00gNDIuOTIyNCw0MS4zOTI0IDQ2LjE4OTgsMzQuMjAwMycgc3R5bGU9J2ZpbGw6bm9uZTtmaWxsLXJ1bGU6ZXZlbm9kZDtzdHJva2U6IzAwMDAwMDtzdHJva2Utd2lkdGg6MnB4O3N0cm9rZS1saW5lY2FwOmJ1dHQ7c3Ryb2tlLWxpbmVqb2luOm1pdGVyO3N0cm9rZS1vcGFjaXR5OjEnIC8&#43;CjxwYXRoIGNsYXNzPSdib25kLTEwJyBkPSdNIDQwLjE2NzQsNDIgNDYuNzMxNCw1MS4xNzk2JyBzdHlsZT0nZmlsbDpub25lO2ZpbGwtcnVsZTpldmVub2RkO3N0cm9rZTojMDAwMDAwO3N0cm9rZS13aWR0aDoycHg7c3Ryb2tlLWxpbmVjYXA6YnV0dDtzdHJva2UtbGluZWpvaW46bWl0ZXI7c3Ryb2tlLW9wYWNpdHk6MScgLz4KPHBhdGggY2xhc3M9J2JvbmQtNScgZD0nTSA0NC44MzUxLDMxLjcyNTYgNTYuMDY2OSwzMC42MzA4JyBzdHlsZT0nZmlsbDpub25lO2ZpbGwtcnVsZTpldmVub2RkO3N0cm9rZTojMDAwMDAwO3N0cm9rZS13aWR0aDoycHg7c3Ryb2tlLWxpbmVjYXA6YnV0dDtzdHJva2UtbGluZWpvaW46bWl0ZXI7c3Ryb2tlLW9wYWNpdHk6MScgLz4KPHBhdGggY2xhc3M9J2JvbmQtNicgZD0nTSA1Ni4wNjY5LDMwLjYzMDggNjIuNjMwOSwzOS44MTAzJyBzdHlsZT0nZmlsbDpub25lO2ZpbGwtcnVsZTpldmVub2RkO3N0cm9rZTojMDAwMDAwO3N0cm9rZS13aWR0aDoycHg7c3Ryb2tlLWxpbmVjYXA6YnV0dDtzdHJva2UtbGluZWpvaW46bWl0ZXI7c3Ryb2tlLW9wYWNpdHk6MScgLz4KPHBhdGggY2xhc3M9J2JvbmQtNicgZD0nTSA1NS4yMTU2LDMzLjMyMDUgNTkuODEwNCwzOS43NDYyJyBzdHlsZT0nZmlsbDpub25lO2ZpbGwtcnVsZTpldmVub2RkO3N0cm9rZTojMDAwMDAwO3N0cm9rZS13aWR0aDoycHg7c3Ryb2tlLWxpbmVjYXA6YnV0dDtzdHJva2UtbGluZWpvaW46bWl0ZXI7c3Ryb2tlLW9wYWNpdHk6MScgLz4KPHBhdGggY2xhc3M9J2JvbmQtNycgZD0nTSA2Mi42MzA5LDM5LjgxMDMgNjYuNTUzNCwzOS40MjgnIHN0eWxlPSdmaWxsOm5vbmU7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOiMwMDAwMDA7c3Ryb2tlLXdpZHRoOjJweDtzdHJva2UtbGluZWNhcDpidXR0O3N0cm9rZS1saW5lam9pbjptaXRlcjtzdHJva2Utb3BhY2l0eToxJyAvPgo8cGF0aCBjbGFzcz0nYm9uZC03JyBkPSdNIDY2LjU1MzQsMzkuNDI4IDcwLjQ3NTgsMzkuMDQ1Nicgc3R5bGU9J2ZpbGw6bm9uZTtmaWxsLXJ1bGU6ZXZlbm9kZDtzdHJva2U6I0ZGMDAwMDtzdHJva2Utd2lkdGg6MnB4O3N0cm9rZS1saW5lY2FwOmJ1dHQ7c3Ryb2tlLWxpbmVqb2luOm1pdGVyO3N0cm9rZS1vcGFjaXR5OjEnIC8&#43;CjxwYXRoIGNsYXNzPSdib25kLTgnIGQ9J00gNjIuNjMwOSwzOS44MTAzIDU3Ljk2MzIsNTAuMDg0Nycgc3R5bGU9J2ZpbGw6bm9uZTtmaWxsLXJ1bGU6ZXZlbm9kZDtzdHJva2U6IzAwMDAwMDtzdHJva2Utd2lkdGg6MnB4O3N0cm9rZS1saW5lY2FwOmJ1dHQ7c3Ryb2tlLWxpbmVqb2luOm1pdGVyO3N0cm9rZS1vcGFjaXR5OjEnIC8&#43;CjxwYXRoIGNsYXNzPSdib25kLTknIGQ9J00gNTcuOTYzMiw1MC4wODQ3IDQ2LjczMTQsNTEuMTc5Nicgc3R5bGU9J2ZpbGw6bm9uZTtmaWxsLXJ1bGU6ZXZlbm9kZDtzdHJva2U6IzAwMDAwMDtzdHJva2Utd2lkdGg6MnB4O3N0cm9rZS1saW5lY2FwOmJ1dHQ7c3Ryb2tlLWxpbmVqb2luOm1pdGVyO3N0cm9rZS1vcGFjaXR5OjEnIC8&#43;CjxwYXRoIGNsYXNzPSdib25kLTknIGQ9J00gNTYuMDU5NSw0OC4wMDI2IDQ4LjE5NzIsNDguNzY5JyBzdHlsZT0nZmlsbDpub25lO2ZpbGwtcnVsZTpldmVub2RkO3N0cm9rZTojMDAwMDAwO3N0cm9rZS13aWR0aDoycHg7c3Ryb2tlLWxpbmVjYXA6YnV0dDtzdHJva2UtbGluZWpvaW46bWl0ZXI7c3Ryb2tlLW9wYWNpdHk6MScgLz4KPHRleHQgeD0nNy4yNTE3NCcgeT0nMzcuMDc5JyBzdHlsZT0nZm9udC1zaXplOjNweDtmb250LXN0eWxlOm5vcm1hbDtmb250LXdlaWdodDpub3JtYWw7ZmlsbC1vcGFjaXR5OjE7c3Ryb2tlOm5vbmU7Zm9udC1mYW1pbHk6c2Fucy1zZXJpZjt0ZXh0LWFuY2hvcjpzdGFydDtmaWxsOiMwMDAwRkYnID48dHNwYW4&#43;SDwvdHNwYW4&#43;PHRzcGFuIHN0eWxlPSdiYXNlbGluZS1zaGlmdDpzdWI7Zm9udC1zaXplOjIuMjVweDsnPjI8L3RzcGFuPjx0c3Bhbj5OPC90c3Bhbj48L3RleHQ&#43;Cjx0ZXh0IHg9JzIwLjg4MTEnIHk9JzU1LjI1MDEnIHN0eWxlPSdmb250LXNpemU6M3B4O2ZvbnQtc3R5bGU6bm9ybWFsO2ZvbnQtd2VpZ2h0Om5vcm1hbDtmaWxsLW9wYWNpdHk6MTtzdHJva2U6bm9uZTtmb250LWZhbWlseTpzYW5zLXNlcmlmO3RleHQtYW5jaG9yOnN0YXJ0O2ZpbGw6I0ZGMDAwMCcgPjx0c3Bhbj5PSDwvdHNwYW4&#43;PC90ZXh0Pgo8dGV4dCB4PSc3MC40NzU4JyB5PSc0MC41OTYzJyBzdHlsZT0nZm9udC1zaXplOjNweDtmb250LXN0eWxlOm5vcm1hbDtmb250LXdlaWdodDpub3JtYWw7ZmlsbC1vcGFjaXR5OjE7c3Ryb2tlOm5vbmU7Zm9udC1mYW1pbHk6c2Fucy1zZXJpZjt0ZXh0LWFuY2hvcjpzdGFydDtmaWxsOiNGRjAwMDAnID48dHNwYW4&#43;T0g8L3RzcGFuPjwvdGV4dD4KPC9zdmc&#43;Cg==</span>
+      <span itemprop="smiles">NCC(O)C1=CC=C(O)C=C1</span>
+      <span itemprop="inchi_key">QHGUCRYDKWKLMG-UHFFFAOYSA-N</span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">229960001576</span>
+      <span itemprop="name">Octopamine</span>
+      <span itemprop="domain">Drugs</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000003466</span>
+      <span itemprop="name">anti-cipated</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000004364</span>
+      <span itemprop="name">calculation methods</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000006243</span>
+      <span itemprop="name">chemical reaction</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000010779</span>
+      <span itemprop="name">crude oil</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000003247</span>
+      <span itemprop="name">decreasing</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000000605</span>
+      <span itemprop="name">extraction</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000000284</span>
+      <span itemprop="name">extracts</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000009432</span>
+      <span itemprop="name">framing</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000004807</span>
+      <span itemprop="name">localization</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000000051</span>
+      <span itemprop="name">modifying</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000003595</span>
+      <span itemprop="name">spectral</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+  </ul>
+  
+
+  
+
+  <section>
+    <h2>Classifications</h2>
+    
+    <ul>
+      <li>
+        <ul itemprop="cpcs" itemscope repeat>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G</span>&mdash;<span itemprop="Description">PHYSICS</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06</span>&mdash;<span itemprop="Description">COMPUTING; CALCULATING; COUNTING</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06F</span>&mdash;<span itemprop="Description">ELECTRIC DIGITAL DATA PROCESSING</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06F17/00</span>&mdash;<span itemprop="Description">Digital computing or data processing equipment or methods, specially adapted for specific functions</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06F17/10</span>&mdash;<span itemprop="Description">Complex mathematical operations</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06F17/14</span>&mdash;<span itemprop="Description">Fourier, Walsh or analogous domain transformations, e.g. Laplace, Hilbert, Karhunen-Loeve, transforms</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06F17/141</span>&mdash;<span itemprop="Description">Discrete Fourier transforms</span>
+            <meta itemprop="Leaf" content="true">
+            
+            <meta itemprop="FirstCode" content="true">
+          </li>
+          </ul>
+      </li>
+      </ul>
+  </section>
+
+  <section itemprop="abstract" itemscope>
+    <h2>Abstract</h2>
+    
+    <div itemprop="content" html><abstract mxw-id="PA50920688" lang="EN" load-source="patent-office">
+    <div num="p-0001" class="abstract">This invention presents a method for computing Instantaneous Frequency by applying Empirical Mode Decomposition to a signal and using Generalized Zero-Crossing (GZC) and Extrema Sifting. The GZC approach is the most direct, local, and also the most accurate in the mean. Furthermore, this approach will also give a statistical measure of the scattering of the frequency value. For most practical applications, this mean frequency localized down to quarter of a wave period is already a well-accepted result. As this method physically measures the period, or part of it, the values obtained can serve as the best local mean over the period to which it applies. Through Extrema Sifting, instead of the cubic spline fitting, this invention constructs the upper envelope and the lower envelope by connecting local maxima points and local minima points of the signal with straight lines, respectively, when extracting a collection of Intrinsic Mode Functions (IMFs) from a signal under consideration.</div>
+  </abstract>
+  </div>
+  </section>
+
+  <section itemprop="description" itemscope>
+    <h2>Description</h2>
+    
+    <div itemprop="content" html><div mxw-id="PDES15972741" lang="EN" load-source="patent-office" class="description">
+
+  <heading>ORIGIN OF INVENTION</heading>
+  <p num="p-0002">The inventor of the invention described herein is an employee of the United States Government. Therefore, the invention may be manufactured and used by or for the Government for governmental purposes without the payment of any royalties thereon or therefor.</p>
+
+
+  <heading>BACKGROUND OF THE INVENTION</heading>
+  <p num="p-0003">The need for instantaneous frequency (IF) is a real one for data from non-stationary and nonlinear processes. If the process is non-stationary, the frequency should be ever changing, albeit at a slow rate. Then, there is a need for frequency value as a function of time, for the value will not be constant throughout. For the nonlinear cases, the frequency is definitely modulating not only among different oscillations, but also within one period. A detailed explanation of IF is disclosed in related patent application Ser. No. 10/615,365, filed on Jul. 8, 2003, entitled “Computing Instantaneous Frequency by Normalizing Hilbert Transform”, inventor Norden E. Huang, which is incorporated by reference and assigned to the same assignee as this application. A computer implemented method of computing IF is disclosed in U.S. Pat. Nos. 5,983,162, 6,381,559, 6,311,130, all of which are also incorporated by reference.</p>
+  <p num="p-0004">The above-disclosed method of computing IF includes two essential steps and the associated presentation techniques of the results. The first step is a computer implemented Empirical Mode Decomposition to extract a collection of Intrinsic Mode Functions (IMF) from nonlinear, nonstationary signals. The decomposition is based on the direct extraction of the energy associated with various intrinsic time scales in the signal. Expressed in the IMF&#39;s, they have well-behaved Hilbert Transforms from which instantaneous frequencies can be calculated. The second step is the Hilbert Transform of the IMF. The final result is the Hilbert Spectrum. Thus, the method can localize any event on the time as well as the frequency axis. The decomposition can also be viewed as an expansion of the data in terms of the IMF&#39;s. Then, these IMF&#39;s, based on and derived from the data, can serve as the basis of that expansion. The local energy and the instantaneous frequency derived from the IMF&#39;s through the Hilbert transform give a full energy-frequency-time distribution of the data, which is designated as the Hilbert Spectrum.</p>
+  <p num="p-0005">However, there is a need for an alternative method to the Hilbert Transform in constructing an energy-frequency-time distribution. The Hilbert Transform is an intensive calculation process that requires powerful computers beyond many end users, including ordinary engineers and scientists, resources. Furthermore its results are not intuitive. If a signal to be analyzed has a surge-like behavior, i.e. the signal contains a very high amplitude for a short period time such as sound signal of a gunshot, the method disclosed in the above references may not generate reasonable results due to limitations imposed by spline fitting, which is used in the EMD in constructing extrema envelopes of the signal. The problem with spline fitting applied to the situation just mentioned, might result in both overshoot/undershoot problems and eventually divergence of IMF&#39;S.</p>
+  <p num="p-0006">Zero Crossing points are the point where the voltage polarity of a waveform changes from negative to positive (or vice-versa) as it crosses the zero axis. In the field of signal processing, for a subject signal, the zero crossing points are detected and counted for analyzing the signal or making a decision for further actions. For example, zero crossing points are used to define bandwidth of a signal, which is assumed to be stationary and Gaussian. The bandwidth can be defined in terms of spectral moments as follows. The expected number of zero crossings per unit time is given by 
+<maths id="MATH-US-00001" num="00001"> <math overflow="scroll"> <mrow> <mrow> <msub> <mi>N</mi> <mn>0</mn> </msub> <mo>=</mo> <mrow> <mfrac> <mn>1</mn> <mi>π</mi> </mfrac> <mo>⁢</mo> <msup> <mrow> <mo>(</mo> <mfrac> <msub> <mi>m</mi> <mn>2</mn> </msub> <msub> <mi>m</mi> <mn>0</mn> </msub> </mfrac> <mo>)</mo> </mrow> <mfrac> <mn>1</mn> <mn>2</mn> </mfrac> </msup> </mrow> </mrow> <mo>,</mo> </mrow> </math> </maths>
+<br/>
+where the expected number of extrema per unit time is given by 
+<maths id="MATH-US-00002" num="00002"> <math overflow="scroll"> <mrow> <mrow> <msub> <mi>N</mi> <mn>1</mn> </msub> <mo>=</mo> <mrow> <mfrac> <mn>1</mn> <mi>π</mi> </mfrac> <mo>⁢</mo> <msup> <mrow> <mo>(</mo> <mfrac> <msub> <mi>m</mi> <mn>4</mn> </msub> <msub> <mi>m</mi> <mn>2</mn> </msub> </mfrac> <mo>)</mo> </mrow> <mfrac> <mn>1</mn> <mn>2</mn> </mfrac> </msup> </mrow> </mrow> <mo>,</mo> </mrow> </math> </maths>
+<br/>
+in which m<sub>i </sub>is the ith moment of the spectrum Therefore, the parameter, v, defined as 
+<maths id="MATH-US-00003" num="00003"> <math overflow="scroll"> <mrow> <mrow> <mrow> <msubsup> <mi>N</mi> <mn>1</mn> <mn>2</mn> </msubsup> <mo>-</mo> <msubsup> <mi>N</mi> <mn>0</mn> <mn>2</mn> </msubsup> </mrow> <mo>=</mo> <mrow> <mrow> <mfrac> <mn>1</mn> <msup> <mi>π</mi> <mn>2</mn> </msup> </mfrac> <mo>⁢</mo> <mfrac> <mrow> <mrow> <msub> <mi>m</mi> <mn>4</mn> </msub> <mo>⁢</mo> <msub> <mi>m</mi> <mn>0</mn> </msub> </mrow> <mo>-</mo> <msubsup> <mi>m</mi> <mn>2</mn> <mn>2</mn> </msubsup> </mrow> <mrow> <msub> <mi>m</mi> <mn>2</mn> </msub> <mo>⁢</mo> <msub> <mi>m</mi> <mn>0</mn> </msub> </mrow> </mfrac> </mrow> <mo>=</mo> <mrow> <mfrac> <mn>1</mn> <msup> <mi>π</mi> <mn>2</mn> </msup> </mfrac> <mo>⁢</mo> <msup> <mi>v</mi> <mn>2</mn> </msup> </mrow> </mrow> </mrow> <mo>,</mo> </mrow> </math> </maths>
+<br/>
+offers a standard bandwidth measure. For a narrow band signal v=0, the expected numbers of extrema and zero crossings have to equal. However, the previous equation defines the bandwidth in the global sense; it is overly restrictive and lacks precision at the same time as there might be more than two extrema between two zero crossing points. Consequently, the bandwidth limitation on the Hilbert transform to give a meaningful instantaneous frequency has never been firmly established.
+</p>
+  <heading>SUMMARY OF THE INVENTION</heading>
+  <p num="p-0007">The present invention is directed to a computer implemented method of analyzing a physical signal. The method includes the steps of inputting the signal, extracting a set of Intrinsic Mode Functions from the signal, generating a set of mean frequency functions from the Intrinsic Mode Functions, and generating the instantaneous frequency based on critical points of the signal.</p>
+
+
+  <description-of-drawings>
+    <heading>BRIEF DESCRIPTION OF THE DRAWINGS</heading>
+    <p num="p-0008"> <figref idrefs="DRAWINGS">FIGS. 1(</figref> <i>a</i>)–(<i>b</i>) are high-level flowcharts describing the overall inventive method of extracting Intrinsic Mode Functions (IMFs) via Empirical Mode Decomposition (EMD) and using Generalized Zero Crossing to obtain the Instantaneous Frequency.</p>
+    <p num="p-0009"> <figref idrefs="DRAWINGS">FIG. 2</figref> is a graph illustrating an upper envelope, a lower envelope, an envelope mean and an original signal data.</p>
+    <p num="p-0010"> <figref idrefs="DRAWINGS">FIG. 3(</figref> <i>a</i>) is a graph of a sound signal of a gunshot.</p>
+    <p num="p-0011"> <figref idrefs="DRAWINGS">FIG. 3(</figref> <i>b</i>) is a graph describing the steps of constructing upper and lower envelopes of a part of the signal of <figref idrefs="DRAWINGS">FIG. 3(</figref> <i>a</i>) with cubic spline fitting and generating an envelope mean from the envelopes.</p>
+    <p num="p-0012"> <figref idrefs="DRAWINGS">FIG. 3(</figref> <i>c</i>) is a graph describing the steps of constructing upper and lower envelopes of a part of the signal of <figref idrefs="DRAWINGS">FIG. 3(</figref> <i>a</i>) with straight line fitting and generating an envelope mean from the envelopes.</p>
+    <p num="p-0013"> <figref idrefs="DRAWINGS">FIG. 3(</figref> <i>d</i>) is a graph displaying a collection of Intrinsic Mode Functions (IMFs) extracted via Empirical Mode Decomposition (EMD) with cubic spline fitting as in <figref idrefs="DRAWINGS">FIG. 3(</figref> <i>b</i>).</p>
+    <p num="p-0014"> <figref idrefs="DRAWINGS">FIG. 3(</figref> <i>e</i>) is a graph displaying a collection of Intrinsic Mode Functions (IMF) extracted via Empirical Mode Decomposition (EMD) with straight line fitting as in <figref idrefs="DRAWINGS">FIG. 3(</figref> <i>c</i>).</p>
+    <p num="p-0015"> <figref idrefs="DRAWINGS">FIGS. 4(</figref> <i>a</i>)–(<i>b</i>) are graphs of data describing the Generalized Zero-Crossing approach.</p>
+  </description-of-drawings>
+
+
+  <heading>DETAILED DESCRIPTION OF PREFERRED EMBODIMENT OF THE INVENTION</heading>
+  <p num="p-0016"> <figref idrefs="DRAWINGS">FIG. 1(</figref> <i>a</i>) illustrates the overall inventive method of extracting IMFs via EMD including the Sifting Process in steps <b>220</b> through <b>270</b>. First, the signal can be inputted in step <b>100</b>.</p>
+  <p num="p-0017">After inputting the signal in step <b>100</b>, the analog signal is converted to the digital domain suitable for computer processing in the A/D conversion step <b>105</b>. Depending upon whether the input signal is analog or digital step <b>105</b> may be bypassed. Thereafter, the Sifting Process (steps <b>107</b> through <b>270</b>) is applied to Sift the signal with the Empirical Mode Decomposition method and thereby extract the intrinsic mode function(s).</p>
+  <p num="p-0018">The signal from step <b>100</b> is first windowed by framing the end points in step <b>107</b>. Then, the Sifting Process begins at step <b>200</b> by identifying local maximum values of the digitized, framed physical signal from step <b>107</b>.</p>
+  <p num="p-0019">Then, the method constructs an upper envelope <b>20</b> of the signal <b>10</b> in step <b>210</b>. The upper envelope <b>20</b> is shown in <figref idrefs="DRAWINGS">FIG. 2</figref> using a dot-dashed line. This upper envelope <b>20</b> is constructed with a cubic spline that is fitted to the local maxima.</p>
+  <p num="p-0020">Next the local minimum values of the signal <b>10</b> are identified in step <b>220</b>. To complete the envelope, a lower envelope <b>30</b> is constructed from the local minimum values in step <b>230</b>. The lower envelope <b>30</b> is also shown in <figref idrefs="DRAWINGS">FIG. 2</figref> using a dot-dash line. Like the upper envelope <b>20</b>, the lower envelope <b>30</b> is constructed with a cubic spline that is fitted to the local minima.</p>
+  <p num="p-0021">The upper and lower envelopes <b>20</b>, <b>30</b> should encompass all the data within the physical signal <b>10</b>. From the upper and lower envelopes <b>20</b>, <b>30</b>, an envelope mean <b>40</b> is the determined in step <b>240</b>. The envelope mean <b>40</b> is the mean value of the upper and lower envelopes <b>20</b>, <b>30</b>. As can be seen in <figref idrefs="DRAWINGS">FIG. 2</figref>, the envelope mean <b>40</b> bisects the physical signal <b>10</b> quite well.</p>
+  <p num="p-0022">Referring to steps <b>300</b> through <b>330</b>, Generalized Zero-Crossing (GZC) is a method of computing the Instantaneous Frequency for a nonlinear and nonstationary signal based on full and partial periods around a data point <b>8</b> of the signal as shown in <figref idrefs="DRAWINGS">FIG. 4</figref>. Zero crossing points are points at which a signal under consideration crosses a zero value.</p>
+  <p num="p-0023">In the GZC approach, all zero-crossings <b>2</b> and local extrema <b>4</b>, <b>6</b> are defined as critical points. As shown in the <figref idrefs="DRAWINGS">FIG. 4(</figref> <i>a</i>), the local extrema consist of local maxima <b>4</b> and local minima <b>6</b>. For this approach, the signals to be analyzed are only meaningful Intrinsic Mode Functions (IMFs) when obtained via Empirical Mode Decomposition (EMD).</p>
+  <p num="p-0024">The time intervals between all the combinations of the critical points <b>2</b>, <b>4</b>, <b>6</b> are considered as the whole or partial wave period (T<sub>1</sub> <sup>x</sup>, T<sub>2</sub> <sup>y</sup>, and T<sub>4</sub>). For example, the period between two consecutive up (or down) zero-crossings or two consecutive maxima <b>4</b> (or minima <b>6</b>) can be counted as one period. Each given point along the time axis will have four different values from this class of period, designated as T<sub>1</sub>. Then, the period between consecutive zero-crossings (from up to the next down zero-crossing, or from down to the next up zero-crossing), or consecutive extrema (from maximum 4 to the next minimum 6, or from minimum 6 to the next maximum 4) can be counted as a half period. Each point along the time axis will have two different values from this class of period, designated as T<sub>2</sub>. Finally, the period between one kind of extrema to the next zero-crossing point, or from one kind of zero-crossings to the next extremum can be counted as a quarter period. Each point along the time axis will have one value from this class of period designated as T<sub>4</sub>. Clearly, the quarter class, T<sub>4</sub>, is the most local and the full wave class, T<sub>1</sub>, is the least local. In total, there exist seven different period values at each point along the time axis. As T<sub>4</sub>, T<sub>2</sub>, and T<sub>1 </sub>are weighted by factors of 4, 2 and 1, respectively, the weighted mean frequency at each point along the time axis can be computed as 
+<maths id="MATH-US-00004" num="00004"> <math overflow="scroll"> <mtable> <mtr> <mtd> <mrow> <mrow> <mi>ϖ</mi> <mo>=</mo> <mrow> <mfrac> <mn>1</mn> <mn>12</mn> </mfrac> <mo>⁢</mo> <mrow> <mo>{</mo> <mrow> <mfrac> <mn>1</mn> <msub> <mi>T</mi> <mn>4</mn> </msub> </mfrac> <mo>+</mo> <mrow> <mo>(</mo> <mrow> <mfrac> <mn>1</mn> <msubsup> <mi>T</mi> <mn>2</mn> <mn>1</mn> </msubsup> </mfrac> <mo>+</mo> <mfrac> <mn>1</mn> <msubsup> <mi>T</mi> <mn>2</mn> <mn>2</mn> </msubsup> </mfrac> </mrow> <mo>)</mo> </mrow> <mo>+</mo> <mrow> <mo>(</mo> <mrow> <mfrac> <mn>1</mn> <msubsup> <mi>T</mi> <mn>1</mn> <mn>1</mn> </msubsup> </mfrac> <mo>+</mo> <mfrac> <mn>1</mn> <msubsup> <mi>T</mi> <mn>1</mn> <mn>2</mn> </msubsup> </mfrac> <mo>+</mo> <mfrac> <mn>1</mn> <msubsup> <mi>T</mi> <mn>1</mn> <mn>3</mn> </msubsup> </mfrac> <mo>+</mo> <mfrac> <mn>1</mn> <msubsup> <mi>T</mi> <mn>1</mn> <mn>4</mn> </msubsup> </mfrac> </mrow> <mo>)</mo> </mrow> </mrow> <mo>}</mo> </mrow> </mrow> </mrow> <mo>,</mo> </mrow> </mtd> <mtd> <mrow> <mo>(</mo> <mn>1</mn> <mo>)</mo> </mrow> </mtd> </mtr> </mtable> </math> </maths>
+<br/>
+wherein
+</p> <ul> <li id="ul0001-0001" num="0000"> <ul> <li id="ul0002-0001" num="0024">ω is mean frequency;</li> <li id="ul0002-0002" num="0025">T<sub>1</sub> <sup>x </sup>are full periods (x=1, 2, 3, and 4) enclosing the point under consideration;</li> <li id="ul0002-0003" num="0026">T<sub>2</sub> <sup>y </sup>are half periods (y=1 and 2) enclosing the point under consideration; and</li> <li id="ul0002-0004" num="0027">T<sub>4 </sub>is a quarter period enclosing the point under consideration;</li> </ul> </li> </ul>
+
+  <p num="p-0025">An alternative is to compute a non-weighted as 
+<maths id="MATH-US-00005" num="00005"> <math overflow="scroll"> <mtable> <mtr> <mtd> <mrow> <mrow> <mi>ϖ</mi> <mo>=</mo> <mrow> <mfrac> <mn>1</mn> <mn>7</mn> </mfrac> <mo>⁢</mo> <mrow> <mo>{</mo> <mrow> <mfrac> <mn>1</mn> <mrow> <mn>4</mn> <mo>⁢</mo> <msub> <mi>T</mi> <mn>4</mn> </msub> </mrow> </mfrac> <mo>+</mo> <mrow> <mo>(</mo> <mrow> <mfrac> <mn>1</mn> <mrow> <mn>2</mn> <mo>⁢</mo> <msubsup> <mi>T</mi> <mn>2</mn> <mn>1</mn> </msubsup> </mrow> </mfrac> <mo>+</mo> <mfrac> <mn>1</mn> <mrow> <mn>2</mn> <mo>⁢</mo> <msubsup> <mi>T</mi> <mn>2</mn> <mn>2</mn> </msubsup> </mrow> </mfrac> </mrow> <mo>)</mo> </mrow> <mo>+</mo> <mrow> <mo>(</mo> <mrow> <mfrac> <mn>1</mn> <msubsup> <mi>T</mi> <mn>1</mn> <mn>1</mn> </msubsup> </mfrac> <mo>+</mo> <mfrac> <mn>1</mn> <msubsup> <mi>T</mi> <mn>1</mn> <mn>2</mn> </msubsup> </mfrac> <mo>+</mo> <mfrac> <mn>1</mn> <msubsup> <mi>T</mi> <mn>1</mn> <mn>3</mn> </msubsup> </mfrac> <mo>+</mo> <mfrac> <mn>1</mn> <msubsup> <mi>T</mi> <mn>1</mn> <mn>4</mn> </msubsup> </mfrac> </mrow> <mo>)</mo> </mrow> </mrow> <mo>}</mo> </mrow> </mrow> </mrow> <mo>,</mo> </mrow> </mtd> <mtd> <mrow> <mo>(</mo> <mn>2</mn> <mo>)</mo> </mrow> </mtd> </mtr> </mtable> </math> </maths>
+</p>
+  <p num="p-0026">It is to be noted that various combinations of the critical points and weights can be used to compute the mean frequency.</p>
+  <p num="p-0027">Referring to step <b>300</b>, a mean frequency function <b>42</b> of the signal <b>41</b> can be obtained based on a collection of the mean frequencies along the time axis as shown in <figref idrefs="DRAWINGS">FIG. 4</figref>. This process continues until all of the mean frequency functions are obtained for all of the IMFs as in steps <b>300</b> through <b>305</b>. Summing up the mean frequency functions (step <b>310</b>) generates a function of frequency versus time, which is the instantaneous frequency.</p>
+  <p num="p-0028">This approach is the most direct, local, and also the most accurate in the mean. Furthermore, this approach will also give a statistical measure of the scattering of the frequency value.</p>
+  <p num="p-0029">This approach provides its crude localization, only down to a quarter wavelength. This approach tends to display its inability to represent the detailed waveform distortion; it admits no harmonics. Unless the waveform contains asymmetries (either up and down, or left and right), the GZC will give it the same frequency as a sinusoidal wave. For most practical applications, this mean frequency localized down to quarter a wave period is already a well-accepted result. As this method physically measures the period, or part thereof, the values obtained can serve as the best local mean over the period to which it applies.</p>
+  <p num="p-0030">Referring to step <b>350</b> of <figref idrefs="DRAWINGS">FIG. 1(</figref> <i>a</i>), serious problems of the spline fitting can occur near the ends, where the cubic spline being fitted can have large swings. The end swings, if not fixed, can eventually propagate inward and corrupt the whole data span especially in the low frequency components. For example, if the signal contains a very high amplitude for a short period time such as the sound signal of a gunshot as shown in <figref idrefs="DRAWINGS">FIG. 3(</figref> <i>a</i>), the method disclosed in the above references may not generate reasonable results due to extreme overshoot in the cubic spline fitting. Referring to <figref idrefs="DRAWINGS">FIG. 3(</figref> <i>c</i>), which deals with a problematic area of the data of <figref idrefs="DRAWINGS">FIG. 3(</figref> <i>a</i>), the upper and lower envelopes <b>21</b>, <b>31</b> are constructed by connecting local maxima and minima with straight lines, respectively. For comparison, <figref idrefs="DRAWINGS">FIG. 3(</figref> <i>b</i>) shows the upper and lower envelopes <b>21</b>′, <b>31</b>′, which are constructed with the cubic spline fitting. As anticipated, the EMD based on the cubic spline fitting does not generate reasonable IMFs as shown in <figref idrefs="DRAWINGS">FIG. 3(</figref> <i>d</i>) whereas IMFs obtained through the straight line fitting gradually converge to a monotonically decreasing signal as shown in <figref idrefs="DRAWINGS">FIG. 3(</figref> <i>e</i>).</p>
+  <p num="p-0031">It is to be understood that the above-described arrangements are only illustrative of the application of the principles of the present invention. Numerous modifications and alternative arrangements may be devised by those skilled in the art without departing from the spirit and scope of the present invention and the appended claims are intended to cover such modifications and arrangements.</p>
+
+</div>
+  </div>
+  </section>
+
+  <section itemprop="claims" itemscope>
+    <h2>Claims (<span itemprop="count">14</span>)</h2>
+    
+    <div itemprop="content" html><div mxw-id="PCLM8950197" lang="EN" load-source="patent-office" class="claims">
+  <div class="claim"> <div id="CLM-00001" num="00001" class="claim">
+    <div class="claim-text">1. The computer implemented method of analyzing a physical signal from a physical device comprising the steps of;
+<div class="claim-text">a. inputting the physical signal;</div>
+<div class="claim-text">b. extracting a set of Intrinsic Mode Functions from the physical signal;</div>
+<div class="claim-text">c. generating a set of mean frequency functions from the Intrinsic Mode Functions, wherein the step of generating a set of mean frequency functions includes computing the mean frequency at a point along the time scale for one of the Intrinsic Mode Functions and continuing to perform the computing step for all of the Intrinsic Mode Functions; and,</div>
+<div class="claim-text">d. displaying said set of mean frequency functions.</div>
+</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00002" num="00002" class="claim">
+    <div class="claim-text">2. The computer implemented method as in <claim-ref idref="CLM-00001">claim 1</claim-ref>, wherein the mean frequency at a point under consideration is a weighted mean frequency.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00003" num="00003" class="claim">
+    <div class="claim-text">3. The computer implemented method as in <claim-ref idref="CLM-00001">claim 1</claim-ref>, wherein the extracting a set of Intrinsic Mode Functions from the physical signal comprises:
+<div class="claim-text">recursively sifting the physical signal via Empirical Mode Decomposition to extract an intrinsic mode function indicative of an intrinsic oscillatory mode;</div>
+<div class="claim-text">generating a residual signal by subtracting the intrinsic mode function from the physical signal;</div>
+<div class="claim-text">treating the residual signal as the physical signal during a next iteration of said recursive sifting step; and</div>
+<div class="claim-text">iterating to perform said recursive sifting to generate an n-th intrinsic mode function of an n-th intrinsic oscillatory mode until a stopping condition is met.</div>
+</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00004" num="00004" class="claim">
+    <div class="claim-text">4. The computer implemented method of analyzing a physical signal according to <claim-ref idref="CLM-00003">claim 3</claim-ref>, wherein said recursive sifting includes:
+<div class="claim-text">identifying local maximum values in the physical signal;</div>
+<div class="claim-text">constructing an upper envelope of said physical signal from the identified local maximum values;</div>
+<div class="claim-text">identifying local minimum values in said physical signal;</div>
+<div class="claim-text">constructing a lower envelope of said physical signal from identified local minimum values;</div>
+<div class="claim-text">determining an envelope mean from the upper and lower envelopes;</div>
+<div class="claim-text">generating a component signal by subtracting the envelope mean from said physical signal;</div>
+<div class="claim-text">treating the component signal as the physical signal; and</div>
+<div class="claim-text">recursively performing said sifting until successive component signals are substantially equal.</div>
+</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00005" num="00005" class="claim">
+    <div class="claim-text">5. The computer implemented method of analyzing a physical signal according to <claim-ref idref="CLM-00004">claim 4</claim-ref>, wherein the step of constructing a lower envelope of the physical signal includes connecting the identified local minimum values with straight lines; and the step of constructing an upper envelope of the physical signal includes connecting the identified local maximum values with straight lines.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00006" num="00006" class="claim">
+    <div class="claim-text">6. The computer implemented method of analyzing a physical signal according to <claim-ref idref="CLM-00004">claim 4</claim-ref>, wherein the step of constructing a lower envelope of the physical signal includes connecting the identified local minimum values with cubic spline fitting; and the step of constructing a upper envelope of said physical signal includes connecting the identified local maximum values with cubic spline fitting.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00007" num="00007" class="claim">
+    <div class="claim-text">7. The computer implemented method as in <claim-ref idref="CLM-00001">claim 1</claim-ref> further comprising: the step of summing up the mean frequency functions.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00008" num="00008" class="claim">
+    <div class="claim-text">8. The computer implemented method as in <claim-ref idref="CLM-00007">claim 7</claim-ref> further comprising the step of:
+<div class="claim-text">displaying the sum of the mean frequency functions.</div>
+</div>
+  </div>
+  </div> <div class="claim"> <div id="CLM-00009" num="00009" class="claim">
+    <div class="claim-text">9. A computer implemented method of analyzing a physical signal from a physical device comprising the steps of:
+<div class="claim-text">a. inputting the physical signal;</div>
+<div class="claim-text">b. extracting a set of Intrinsic Mode Functions from the physical signal;</div>
+<div class="claim-text">c. generating an instantaneous frequency based on critical points of the signal by generating a set of mean frequency functions from the Intrinsic Mode Functions, wherein the step of generating a set of mean frequency functions includes computing the mean frequency at a point along the time scale for one of the Intrinsic Mode Functions;</div>
+<div class="claim-text">d. continuing to perform the computing step for all of the Intrinsic Mode Functions; and,</div>
+<div class="claim-text">e. displaying said instantaneous frequency.</div>
+</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00010" num="00010" class="claim">
+    <div class="claim-text">10. The computer implemented method as in <claim-ref idref="CLM-00009">claim 9</claim-ref>, wherein the mean frequency at a point under consideration is a weighted mean frequency.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00011" num="00011" class="claim">
+    <div class="claim-text">11. The computer implemented method as in <claim-ref idref="CLM-00009">claim 9</claim-ref>, wherein extracting a set of Intrinsic Mode Functions from the physical signal comprises:
+<div class="claim-text">recursively sifting the physical signal via Empirical Mode Decomposition to extract an intrinsic mode function indicative of an intrinsic oscillatory mode;</div>
+<div class="claim-text">generating a residual signal by subtracting the intrinsic mode function from the physical signal;</div>
+<div class="claim-text">treating the residual signal as the physical signal during a next iteration of said recursive sifting step; and</div>
+<div class="claim-text">iterating to perform said recursive sifting to generate an n-th intrinsic mode function indicative of an n-th intrinsic oscillatory mode until a stopping condition is met.</div>
+</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00012" num="00012" class="claim">
+    <div class="claim-text">12. The computer implemented method of analyzing a physical signal according to <claim-ref idref="CLM-00011">claim 11</claim-ref>, wherein said recursive sifting including:
+<div class="claim-text">identifying local maximum values in the physical signal;</div>
+<div class="claim-text">constructing an upper envelope of the signal from the identified local maximum values;</div>
+<div class="claim-text">identifying local minimum values in the physical signal;</div>
+<div class="claim-text">constructing a lower envelope of said physical signal from the identified local minimum values;</div>
+<div class="claim-text">determining an envelope mean from the upper and lower envelopes;</div>
+<div class="claim-text">generating a component signal by subtracting the envelope mean from said physical signal;</div>
+<div class="claim-text">treating the component signal as the physical signal; and</div>
+<div class="claim-text">recursively performing said sifting until successive component signals are substantially equal.</div>
+</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00013" num="00013" class="claim">
+    <div class="claim-text">13. The computer implemented method or analyzing a physical signal according to <claim-ref idref="CLM-00012">claim 12</claim-ref>, wherein the step of constructing a lower envelope of the physical signal includes connecting the identified local minimum values with straight lines; and the step of constructing an upper envelope of the physical signal includes connecting the identified local maximum values with straight lines.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00014" num="00014" class="claim">
+    <div class="claim-text">14. The computer implemented method of analyzing a physical signal according to <claim-ref idref="CLM-00012">claim 12</claim-ref>, wherein the step of constructing a lower envelope of the physical signal includes connecting the identified local minimum values with cubic spline fitting; and the step of constructing a upper envelope of said physical signal includes connecting the identified local maximum values with cubic spline fitting.</div>
+  </div>
+</div> </div>
+  </div>
+  </section>
+
+  <section itemprop="application" itemscope>
+
+    <section itemprop="metadata" itemscope>
+        <span itemprop="applicationNumber">US10/729,579</span>
+        <span itemprop="priorityDate">2003-11-28</span>
+        <span itemprop="filingDate">2003-11-28</span>
+        <span itemprop="title">Computing frequency by using generalized zero-crossing applied to intrinsic mode functions 
+       </span>
+        <span itemprop="ifiStatus">Active</span>
+        
+        <a href="/patent/US6990436B1/en">
+            <span itemprop="representativePublication">US6990436B1</span>
+            (<span itemprop="primaryLanguage">en</span>)
+        </a>
+    </section>
+
+    <h2>Priority Applications (1)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                    <th>Title</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="priorityApps" itemscope repeat>
+                <td>
+                   <span itemprop="applicationNumber">US10/729,579</span>
+                   
+                   <a href="/patent/US6990436B1/en">
+                        <span itemprop="representativePublication">US6990436B1</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                <td itemprop="priorityDate">2003-11-28</td>
+                <td itemprop="filingDate">2003-11-28</td>
+                <td itemprop="title">Computing frequency by using generalized zero-crossing applied to intrinsic mode functions 
+       </td>
+              </tr>
+           </tbody>
+       </table>
+
+    <h2>Applications Claiming Priority (1)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                    <th>Title</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="appsClaimingPriority" itemscope repeat>
+                <td>
+                   <span itemprop="applicationNumber">US10/729,579</span>
+                   <a href="/patent/US6990436B1/en">
+                        <span itemprop="representativePublication">US6990436B1</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                <td itemprop="priorityDate">2003-11-28</td>
+                <td itemprop="filingDate">2003-11-28</td>
+                <td itemprop="title">Computing frequency by using generalized zero-crossing applied to intrinsic mode functions 
+       </td>
+              </tr>
+           </tbody>
+       </table>
+
+    
+
+    
+
+    <h2>Publications (1)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Publication Number</th>
+                    <th>Publication Date</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="pubs" itemscope repeat>
+                <td>
+                   <span itemprop="publicationNumber">US6990436B1</span>
+                   
+                   <span itemprop="thisPatent">true</span>
+                   <a href="/patent/US6990436B1/en">US6990436B1
+                       (<span itemprop="primaryLanguage">en</span>)
+                   </a>
+                </td>
+                <td itemprop="publicationDate">2006-01-24</td>
+              </tr>
+           </tbody>
+        </table>
+
+  </section>
+
+  <section itemprop="family" itemscope>
+    <h1>Family</h1>
+    <h2>ID=35614122</h2>
+
+    <h2>Family Applications (1)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Title</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="applications" itemscope repeat>
+                <td>
+                    <span itemprop="applicationNumber">US10/729,579</span>
+                    <span itemprop="ifiStatus">Active</span>
+                    
+                    <a href="/patent/US6990436B1/en">
+                        <span itemprop="representativePublication">US6990436B1</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                </td>
+                <td itemprop="priorityDate">2003-11-28</td>
+                <td itemprop="filingDate">2003-11-28</td>
+                <td itemprop="title">Computing frequency by using generalized zero-crossing applied to intrinsic mode functions 
+       </td>
+              </tr>
+           </tbody>
+        </table>
+
+    
+
+    
+
+    <h2>Country Status (1)</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Country</th>
+            <th>Link</th>
+          </tr>
+        </thead>
+        <tbody>
+        <tr itemprop="countryStatus" itemscope repeat>
+            <td>
+              <span itemprop="countryCode">US</span>
+                (<span itemprop="num">1</span>)
+              <meta itemprop="thisCountry" content="true">
+            </td>
+            <td>
+              <a href="/patent/US6990436B1/en">
+                <span itemprop="representativePublication">US6990436B1</span>
+                  (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+    <h2>Cited By (12)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7464006B1/en">
+              <span itemprop="publicationNumber">US7464006B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2003-10-09</td>
+          <td itemprop="publicationDate">2008-12-09</td>
+          <td><span itemprop="assigneeOriginal">The United States Of America As Represented By The Administrator Of The National Aeronautics And Space Administration</span></td>
+          <td itemprop="title">Analyzing nonstationary financial time series via hilbert-huang transform (HHT) 
+       </td>
+        </tr><tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20090116595A1/en">
+              <span itemprop="publicationNumber">US20090116595A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2007-05-21</td>
+          <td itemprop="publicationDate">2009-05-07</td>
+          <td><span itemprop="assigneeOriginal">Florida State University</span></td>
+          <td itemprop="title">System and methods for determining masking signals for applying empirical mode decomposition (emd) and for demodulating intrinsic mode functions obtained from application of emd 
+       </td>
+        </tr><tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20100074496A1/en">
+              <span itemprop="publicationNumber">US20100074496A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2008-09-23</td>
+          <td itemprop="publicationDate">2010-03-25</td>
+          <td><span itemprop="assigneeOriginal">Industrial Technology Research Institute</span></td>
+          <td itemprop="title">Multi-dimensional empirical mode decomposition (emd) method for image texture analysis 
+       </td>
+        </tr><tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20100179974A1/en">
+              <span itemprop="publicationNumber">US20100179974A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2009-01-10</td>
+          <td itemprop="publicationDate">2010-07-15</td>
+          <td><span itemprop="assigneeOriginal">Industrial Technology Research Institute</span></td>
+          <td itemprop="title">Signal Processing Method for Hierarchical Empirical Mode Decomposition and Apparatus Therefor 
+       </td>
+        </tr><tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20110052088A1/en">
+              <span itemprop="publicationNumber">US20110052088A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2009-08-31</td>
+          <td itemprop="publicationDate">2011-03-03</td>
+          <td><span itemprop="assigneeOriginal">Yuan Xiaoru</span></td>
+          <td itemprop="title">High dynamic range image mapping with empirical mode decomposition 
+       </td>
+        </tr><tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20120253694A1/en">
+              <span itemprop="publicationNumber">US20120253694A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2011-03-28</td>
+          <td itemprop="publicationDate">2012-10-04</td>
+          <td><span itemprop="assigneeOriginal">Hong-Tsu Young</span></td>
+          <td itemprop="title">Method and apparatus for judging status of mechanical system 
+       </td>
+        </tr><tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/CN102841251A/en">
+              <span itemprop="publicationNumber">CN102841251A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2012-08-14</td>
+          <td itemprop="publicationDate">2012-12-26</td>
+          <td><span itemprop="assigneeOriginal">华北电力大学</span></td>
+          <td itemprop="title">Electric car charging station harmonic wave detection method in microgrid 
+       </td>
+        </tr><tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US8660848B1/en">
+              <span itemprop="publicationNumber">US8660848B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2010-08-20</td>
+          <td itemprop="publicationDate">2014-02-25</td>
+          <td><span itemprop="assigneeOriginal">Worcester Polytechnic Institute</span></td>
+          <td itemprop="title">Methods and systems for detection from and analysis of physical signals 
+       </td>
+        </tr><tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US8732113B2/en">
+              <span itemprop="publicationNumber">US8732113B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2011-09-23</td>
+          <td itemprop="publicationDate">2014-05-20</td>
+          <td><span itemprop="assigneeOriginal">National Central University</span></td>
+          <td itemprop="title">Method for quantifying and modeling degree of nonlinearity, combined nonlinearity, and nonstationarity 
+       </td>
+        </tr><tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20150301984A1/en">
+              <span itemprop="publicationNumber">US20150301984A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2014-04-21</td>
+          <td itemprop="publicationDate">2015-10-22</td>
+          <td><span itemprop="assigneeOriginal">National Taiwan University</span></td>
+          <td itemprop="title">Signal decomposition system with low-latency empirical mode decomposition and method thereof 
+       </td>
+        </tr><tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/CN105160674A/en">
+              <span itemprop="publicationNumber">CN105160674A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2015-08-28</td>
+          <td itemprop="publicationDate">2015-12-16</td>
+          <td><span itemprop="assigneeOriginal">北京联合大学</span></td>
+          <td itemprop="title">Improved quick bidimensional empirical mode decomposition method 
+       </td>
+        </tr><tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/DE102006022948B4/en">
+              <span itemprop="publicationNumber">DE102006022948B4</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2006-05-17</td>
+          <td itemprop="publicationDate">2018-05-17</td>
+          <td><span itemprop="assigneeOriginal">Deuta-Werke Gmbh</span></td>
+          <td itemprop="title">Method and device for cost-effective determination of the speed from a microwave Doppler signal 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+
+    
+
+    <h2>Citations (18)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US3994284A/en">
+              <span itemprop="publicationNumber">US3994284A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1975-12-31</td>
+          <td itemprop="publicationDate">1976-11-30</td>
+          <td><span itemprop="assigneeOriginal">Systron Donner Corporation</span></td>
+          <td itemprop="title">Flow rate computer adjunct for use with an impedance plethysmograph and method 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5105275A/en">
+              <span itemprop="publicationNumber">US5105275A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1990-01-31</td>
+          <td itemprop="publicationDate">1992-04-14</td>
+          <td><span itemprop="assigneeOriginal">Sanyo Electric Co., Ltd.</span></td>
+          <td itemprop="title">Noise reduction circuit for video signal recording/reproduction device 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5119432A/en">
+              <span itemprop="publicationNumber">US5119432A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1990-11-09</td>
+          <td itemprop="publicationDate">1992-06-02</td>
+          <td><span itemprop="assigneeOriginal">Visidyne, Inc.</span></td>
+          <td itemprop="title">Frequency division, energy comparison signal processing system 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5520052A/en">
+              <span itemprop="publicationNumber">US5520052A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1994-02-10</td>
+          <td itemprop="publicationDate">1996-05-28</td>
+          <td><span itemprop="assigneeOriginal">The United States Of America As Represented By The United States Department Of Energy</span></td>
+          <td itemprop="title">Method and apparatus for determining material structural integrity 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5568206A/en">
+              <span itemprop="publicationNumber">US5568206A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1994-05-20</td>
+          <td itemprop="publicationDate">1996-10-22</td>
+          <td><span itemprop="assigneeOriginal">Ant Nachrichtentechnik Gmbh</span></td>
+          <td itemprop="title">Device for processing modulated rail analog television signal 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5893054A/en">
+              <span itemprop="publicationNumber">US5893054A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1993-09-07</td>
+          <td itemprop="publicationDate">1999-04-06</td>
+          <td><span itemprop="assigneeOriginal">Boeing North American, Inc.</span></td>
+          <td itemprop="title">Amplitude detection and automatic gain control of a sparsely sampled sinusoid by computation including a hilbert transform 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5983162A/en">
+              <span itemprop="publicationNumber">US5983162A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1996-08-12</td>
+          <td itemprop="publicationDate">1999-11-09</td>
+          <td><span itemprop="assigneeOriginal">The United States Of America As Represented By The Administrator Of The National Aeronautics And Space Administration</span></td>
+          <td itemprop="title">Computer implemented empirical mode decomposition method, apparatus and article of manufacture 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6130071A/en">
+              <span itemprop="publicationNumber">US6130071A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1997-02-05</td>
+          <td itemprop="publicationDate">2000-10-10</td>
+          <td><span itemprop="assigneeOriginal">Helsinki University Licensing, Ltd.</span></td>
+          <td itemprop="title">Vascular endothelial growth factor C (VEGF-C) ΔCys156 protein and gene, and uses thereof 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6131071A/en">
+              <span itemprop="publicationNumber">US6131071A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1996-12-06</td>
+          <td itemprop="publicationDate">2000-10-10</td>
+          <td><span itemprop="assigneeOriginal">Bp Amoco Corporation</span></td>
+          <td itemprop="title">Spectral decomposition for seismic interpretation 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6192758B1/en">
+              <span itemprop="publicationNumber">US6192758B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1998-12-14</td>
+          <td itemprop="publicationDate">2001-02-27</td>
+          <td><span itemprop="assigneeOriginal">Kang Huang</span></td>
+          <td itemprop="title">Structure safety inspection 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6301967B1/en">
+              <span itemprop="publicationNumber">US6301967B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1998-02-03</td>
+          <td itemprop="publicationDate">2001-10-16</td>
+          <td><span itemprop="assigneeOriginal">The Trustees Of The Stevens Institute Of Technology</span></td>
+          <td itemprop="title">Method and apparatus for acoustic detection and location of defects in structures or ice on structures 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6311130B1/en">
+              <span itemprop="publicationNumber">US6311130B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1996-08-12</td>
+          <td itemprop="publicationDate">2001-10-30</td>
+          <td><span itemprop="assigneeOriginal">The United States Of America As Represented By The Administrator Of The National Aeronautics And Space Administration</span></td>
+          <td itemprop="title">Computer implemented empirical mode decomposition method, apparatus, and article of manufacture for two-dimensional signals 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6314813B1/en">
+              <span itemprop="publicationNumber">US6314813B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2000-03-06</td>
+          <td itemprop="publicationDate">2001-11-13</td>
+          <td><span itemprop="assigneeOriginal">Daimlerchrysler Corporation</span></td>
+          <td itemprop="title">Method and apparatus for measuring vibration damping 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6347542B1/en">
+              <span itemprop="publicationNumber">US6347542B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1996-06-17</td>
+          <td itemprop="publicationDate">2002-02-19</td>
+          <td><span itemprop="assigneeOriginal">Dynalyze Ab</span></td>
+          <td itemprop="title">Method and arrangement for non-destructive determination of the properties of an object 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6381559B1/en">
+              <span itemprop="publicationNumber">US6381559B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1996-08-12</td>
+          <td itemprop="publicationDate">2002-04-30</td>
+          <td><span itemprop="assigneeOriginal">The United States Of America As Represented By The Administrator Of The National Aeronautics And Space Administration</span></td>
+          <td itemprop="title">Empirical mode decomposition apparatus, method and article of manufacture for analyzing biological signals and performing curve fitting 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6507798B1/en">
+              <span itemprop="publicationNumber">US6507798B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2000-10-12</td>
+          <td itemprop="publicationDate">2003-01-14</td>
+          <td><span itemprop="assigneeOriginal">The United States Of America As Represented By The Secretary Of The Navy</span></td>
+          <td itemprop="title">Time-frequency dependent damping via Hilbert damping spectrum 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20030033094A1/en">
+              <span itemprop="publicationNumber">US20030033094A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2001-02-14</td>
+          <td itemprop="publicationDate">2003-02-13</td>
+          <td><span itemprop="assigneeOriginal">Huang Norden E.</span></td>
+          <td itemprop="title">Empirical mode decomposition for analyzing acoustical signals 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6738734B1/en">
+              <span itemprop="publicationNumber">US6738734B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1996-08-12</td>
+          <td itemprop="publicationDate">2004-05-18</td>
+          <td><span itemprop="assigneeOriginal">The United States Of America As Represented By The Administrator Of The National Aeronautics And Space Administration</span></td>
+          <td itemprop="title">Empirical mode decomposition apparatus, method and article of manufacture for analyzing biological signals and performing curve fitting 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+
+    
+
+    
+    <ul>
+      
+      <li itemprop="applicationsByYear" itemscope repeat>
+        <span itemprop="year">2003</span>
+        <ul>
+          
+          <li itemprop="application" itemscope repeat>
+            <span itemprop="filingDate">2003-11-28</span>
+            <span itemprop="countryCode">US</span>
+            <span itemprop="applicationNumber">US10/729,579</span>
+            <a href="/patent/US6990436B1/en"><span itemprop="documentId">patent/US6990436B1/en</span></a>
+            <span itemprop="legalStatusCat">active</span>
+            <span itemprop="legalStatus">Active</span>
+            
+            <span itemprop="thisApp" content="true" bool></span>
+            
+          </li>
+          
+        </ul>
+      </li>
+      
+    </ul>
+    
+
+    </section>
+
+  <section>
+    <h2>Patent Citations (19)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US3994284A/en">
+              <span itemprop="publicationNumber">US3994284A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1975-12-31</td>
+          <td itemprop="publicationDate">1976-11-30</td>
+          <td><span itemprop="assigneeOriginal">Systron Donner Corporation</span></td>
+          <td itemprop="title">Flow rate computer adjunct for use with an impedance plethysmograph and method 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5105275A/en">
+              <span itemprop="publicationNumber">US5105275A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1990-01-31</td>
+          <td itemprop="publicationDate">1992-04-14</td>
+          <td><span itemprop="assigneeOriginal">Sanyo Electric Co., Ltd.</span></td>
+          <td itemprop="title">Noise reduction circuit for video signal recording/reproduction device 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5119432A/en">
+              <span itemprop="publicationNumber">US5119432A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1990-11-09</td>
+          <td itemprop="publicationDate">1992-06-02</td>
+          <td><span itemprop="assigneeOriginal">Visidyne, Inc.</span></td>
+          <td itemprop="title">Frequency division, energy comparison signal processing system 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5893054A/en">
+              <span itemprop="publicationNumber">US5893054A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1993-09-07</td>
+          <td itemprop="publicationDate">1999-04-06</td>
+          <td><span itemprop="assigneeOriginal">Boeing North American, Inc.</span></td>
+          <td itemprop="title">Amplitude detection and automatic gain control of a sparsely sampled sinusoid by computation including a hilbert transform 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5520052A/en">
+              <span itemprop="publicationNumber">US5520052A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1994-02-10</td>
+          <td itemprop="publicationDate">1996-05-28</td>
+          <td><span itemprop="assigneeOriginal">The United States Of America As Represented By The United States Department Of Energy</span></td>
+          <td itemprop="title">Method and apparatus for determining material structural integrity 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5568206A/en">
+              <span itemprop="publicationNumber">US5568206A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1994-05-20</td>
+          <td itemprop="publicationDate">1996-10-22</td>
+          <td><span itemprop="assigneeOriginal">Ant Nachrichtentechnik Gmbh</span></td>
+          <td itemprop="title">Device for processing modulated rail analog television signal 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6347542B1/en">
+              <span itemprop="publicationNumber">US6347542B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1996-06-17</td>
+          <td itemprop="publicationDate">2002-02-19</td>
+          <td><span itemprop="assigneeOriginal">Dynalyze Ab</span></td>
+          <td itemprop="title">Method and arrangement for non-destructive determination of the properties of an object 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6311130B1/en">
+              <span itemprop="publicationNumber">US6311130B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1996-08-12</td>
+          <td itemprop="publicationDate">2001-10-30</td>
+          <td><span itemprop="assigneeOriginal">The United States Of America As Represented By The Administrator Of The National Aeronautics And Space Administration</span></td>
+          <td itemprop="title">Computer implemented empirical mode decomposition method, apparatus, and article of manufacture for two-dimensional signals 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5983162A/en">
+              <span itemprop="publicationNumber">US5983162A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1996-08-12</td>
+          <td itemprop="publicationDate">1999-11-09</td>
+          <td><span itemprop="assigneeOriginal">The United States Of America As Represented By The Administrator Of The National Aeronautics And Space Administration</span></td>
+          <td itemprop="title">Computer implemented empirical mode decomposition method, apparatus and article of manufacture 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6631325B1/en">
+              <span itemprop="publicationNumber">US6631325B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1996-08-12</td>
+          <td itemprop="publicationDate">2003-10-07</td>
+          <td><span itemprop="assigneeOriginal">The United States As Represented By The Administrator Of The National Aeronautics And Space Administration</span></td>
+          <td itemprop="title">Computer implemented empirical mode decomposition method apparatus, and article of manufacture utilizing curvature extrema 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6381559B1/en">
+              <span itemprop="publicationNumber">US6381559B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1996-08-12</td>
+          <td itemprop="publicationDate">2002-04-30</td>
+          <td><span itemprop="assigneeOriginal">The United States Of America As Represented By The Administrator Of The National Aeronautics And Space Administration</span></td>
+          <td itemprop="title">Empirical mode decomposition apparatus, method and article of manufacture for analyzing biological signals and performing curve fitting 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6738734B1/en">
+              <span itemprop="publicationNumber">US6738734B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1996-08-12</td>
+          <td itemprop="publicationDate">2004-05-18</td>
+          <td><span itemprop="assigneeOriginal">The United States Of America As Represented By The Administrator Of The National Aeronautics And Space Administration</span></td>
+          <td itemprop="title">Empirical mode decomposition apparatus, method and article of manufacture for analyzing biological signals and performing curve fitting 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6131071A/en">
+              <span itemprop="publicationNumber">US6131071A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1996-12-06</td>
+          <td itemprop="publicationDate">2000-10-10</td>
+          <td><span itemprop="assigneeOriginal">Bp Amoco Corporation</span></td>
+          <td itemprop="title">Spectral decomposition for seismic interpretation 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6130071A/en">
+              <span itemprop="publicationNumber">US6130071A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1997-02-05</td>
+          <td itemprop="publicationDate">2000-10-10</td>
+          <td><span itemprop="assigneeOriginal">Helsinki University Licensing, Ltd.</span></td>
+          <td itemprop="title">Vascular endothelial growth factor C (VEGF-C) ΔCys156 protein and gene, and uses thereof 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6301967B1/en">
+              <span itemprop="publicationNumber">US6301967B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1998-02-03</td>
+          <td itemprop="publicationDate">2001-10-16</td>
+          <td><span itemprop="assigneeOriginal">The Trustees Of The Stevens Institute Of Technology</span></td>
+          <td itemprop="title">Method and apparatus for acoustic detection and location of defects in structures or ice on structures 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6192758B1/en">
+              <span itemprop="publicationNumber">US6192758B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1998-12-14</td>
+          <td itemprop="publicationDate">2001-02-27</td>
+          <td><span itemprop="assigneeOriginal">Kang Huang</span></td>
+          <td itemprop="title">Structure safety inspection 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6314813B1/en">
+              <span itemprop="publicationNumber">US6314813B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2000-03-06</td>
+          <td itemprop="publicationDate">2001-11-13</td>
+          <td><span itemprop="assigneeOriginal">Daimlerchrysler Corporation</span></td>
+          <td itemprop="title">Method and apparatus for measuring vibration damping 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6507798B1/en">
+              <span itemprop="publicationNumber">US6507798B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2000-10-12</td>
+          <td itemprop="publicationDate">2003-01-14</td>
+          <td><span itemprop="assigneeOriginal">The United States Of America As Represented By The Secretary Of The Navy</span></td>
+          <td itemprop="title">Time-frequency dependent damping via Hilbert damping spectrum 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20030033094A1/en">
+              <span itemprop="publicationNumber">US20030033094A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2001-02-14</td>
+          <td itemprop="publicationDate">2003-02-13</td>
+          <td><span itemprop="assigneeOriginal">Huang Norden E.</span></td>
+          <td itemprop="title">Empirical mode decomposition for analyzing acoustical signals 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  
+
+  <h2>Cited By (16)</h2>
+  <table>
+    <caption>* Cited by examiner, † Cited by third party</caption>
+    <thead>
+      <tr>
+        <th>Publication number</th>
+        <th>Priority date</th>
+        <th>Publication date</th>
+        <th>Assignee</th>
+        <th>Title</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US7464006B1/en">
+            <span itemprop="publicationNumber">US7464006B1</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2003-10-09</td>
+        <td itemprop="publicationDate">2008-12-09</td>
+        <td><span itemprop="assigneeOriginal">The United States Of America As Represented By The Administrator Of The National Aeronautics And Space Administration</span></td>
+        <td itemprop="title">Analyzing nonstationary financial time series via hilbert-huang transform (HHT) 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/DE102006022948B4/en">
+            <span itemprop="publicationNumber">DE102006022948B4</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          
+          
+        </td>
+        <td itemprop="priorityDate">2006-05-17</td>
+        <td itemprop="publicationDate">2018-05-17</td>
+        <td><span itemprop="assigneeOriginal">Deuta-Werke Gmbh</span></td>
+        <td itemprop="title">Method and device for cost-effective determination of the speed from a microwave Doppler signal 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US20090116595A1/en">
+            <span itemprop="publicationNumber">US20090116595A1</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2007-05-21</td>
+        <td itemprop="publicationDate">2009-05-07</td>
+        <td><span itemprop="assigneeOriginal">Florida State University</span></td>
+        <td itemprop="title">System and methods for determining masking signals for applying empirical mode decomposition (emd) and for demodulating intrinsic mode functions obtained from application of emd 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US7908103B2/en">
+            <span itemprop="publicationNumber">US7908103B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2007-05-21</td>
+        <td itemprop="publicationDate">2011-03-15</td>
+        <td><span itemprop="assigneeOriginal">Nilanjan Senroy</span></td>
+        <td itemprop="title">System and methods for determining masking signals for applying empirical mode decomposition (EMD) and for demodulating intrinsic mode functions obtained from application of EMD 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/TWI454248B/en">
+            <span itemprop="publicationNumber">TWI454248B</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2008-09-23</td>
+        <td itemprop="publicationDate">2014-10-01</td>
+        <td><span itemprop="assigneeOriginal">Ind Tech Res Inst</span></td>
+        <td itemprop="title">Method of multi-dimensional empirical mode decomposition for image morphology 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US20100074496A1/en">
+            <span itemprop="publicationNumber">US20100074496A1</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2008-09-23</td>
+        <td itemprop="publicationDate">2010-03-25</td>
+        <td><span itemprop="assigneeOriginal">Industrial Technology Research Institute</span></td>
+        <td itemprop="title">Multi-dimensional empirical mode decomposition (emd) method for image texture analysis 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US8428389B2/en">
+            <span itemprop="publicationNumber">US8428389B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          
+          
+        </td>
+        <td itemprop="priorityDate">2008-09-23</td>
+        <td itemprop="publicationDate">2013-04-23</td>
+        <td><span itemprop="assigneeOriginal">Industrial Technology Research Institute</span></td>
+        <td itemprop="title">Multi-dimensional empirical mode decomposition (EMD) method for image texture analysis 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US20100179974A1/en">
+            <span itemprop="publicationNumber">US20100179974A1</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2009-01-10</td>
+        <td itemprop="publicationDate">2010-07-15</td>
+        <td><span itemprop="assigneeOriginal">Industrial Technology Research Institute</span></td>
+        <td itemprop="title">Signal Processing Method for Hierarchical Empirical Mode Decomposition and Apparatus Therefor 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US20110052088A1/en">
+            <span itemprop="publicationNumber">US20110052088A1</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2009-08-31</td>
+        <td itemprop="publicationDate">2011-03-03</td>
+        <td><span itemprop="assigneeOriginal">Yuan Xiaoru</span></td>
+        <td itemprop="title">High dynamic range image mapping with empirical mode decomposition 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US8515167B2/en">
+            <span itemprop="publicationNumber">US8515167B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          
+          
+        </td>
+        <td itemprop="priorityDate">2009-08-31</td>
+        <td itemprop="publicationDate">2013-08-20</td>
+        <td><span itemprop="assigneeOriginal">Peking University</span></td>
+        <td itemprop="title">High dynamic range image mapping with empirical mode decomposition 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US8660848B1/en">
+            <span itemprop="publicationNumber">US8660848B1</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2010-08-20</td>
+        <td itemprop="publicationDate">2014-02-25</td>
+        <td><span itemprop="assigneeOriginal">Worcester Polytechnic Institute</span></td>
+        <td itemprop="title">Methods and systems for detection from and analysis of physical signals 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US20120253694A1/en">
+            <span itemprop="publicationNumber">US20120253694A1</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2011-03-28</td>
+        <td itemprop="publicationDate">2012-10-04</td>
+        <td><span itemprop="assigneeOriginal">Hong-Tsu Young</span></td>
+        <td itemprop="title">Method and apparatus for judging status of mechanical system 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US8732113B2/en">
+            <span itemprop="publicationNumber">US8732113B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          
+          
+        </td>
+        <td itemprop="priorityDate">2011-09-23</td>
+        <td itemprop="publicationDate">2014-05-20</td>
+        <td><span itemprop="assigneeOriginal">National Central University</span></td>
+        <td itemprop="title">Method for quantifying and modeling degree of nonlinearity, combined nonlinearity, and nonstationarity 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/CN102841251A/en">
+            <span itemprop="publicationNumber">CN102841251A</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2012-08-14</td>
+        <td itemprop="publicationDate">2012-12-26</td>
+        <td><span itemprop="assigneeOriginal">华北电力大学</span></td>
+        <td itemprop="title">Electric car charging station harmonic wave detection method in microgrid 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US20150301984A1/en">
+            <span itemprop="publicationNumber">US20150301984A1</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2014-04-21</td>
+        <td itemprop="publicationDate">2015-10-22</td>
+        <td><span itemprop="assigneeOriginal">National Taiwan University</span></td>
+        <td itemprop="title">Signal decomposition system with low-latency empirical mode decomposition and method thereof 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/CN105160674A/en">
+            <span itemprop="publicationNumber">CN105160674A</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2015-08-28</td>
+        <td itemprop="publicationDate">2015-12-16</td>
+        <td><span itemprop="assigneeOriginal">北京联合大学</span></td>
+        <td itemprop="title">Improved quick bidimensional empirical mode decomposition method 
+       </td>
+      </tr>
+    </tbody>
+  </table>
+
+  
+
+  <section>
+    <h2>Similar Documents</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Publication</th>
+          <th>Publication Date</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="11365454619169701698">
+              <a href="/scholar/11365454619169701698"><span itemprop="scholarAuthors">Cohen</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1989">1989</time>
+            
+          </td>
+          <td itemprop="title">Time-frequency distributions-a review</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="10212939025535503080">
+              <a href="/scholar/10212939025535503080"><span itemprop="scholarAuthors">Kadambe et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1992">1992</time>
+            
+          </td>
+          <td itemprop="title">A comparison of the existence of&#39;cross terms&#39; in the Wigner distribution and the squared magnitude of the wavelet transform and the short-time Fourier transform</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="6165983922974118000">
+              <a href="/scholar/6165983922974118000"><span itemprop="scholarAuthors">Huang et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2008">2008</time>
+            
+          </td>
+          <td itemprop="title">A review on Hilbert‐Huang transform: Method and its applications to geophysical studies</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="13617269386440953739">
+              <a href="/scholar/13617269386440953739"><span itemprop="scholarAuthors">Abbott et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2004">2004</time>
+            
+          </td>
+          <td itemprop="title">Analysis of first LIGO science data for stochastic gravitational waves</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="672229094067153072">
+              <a href="/scholar/672229094067153072"><span itemprop="scholarAuthors">Chen et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2006">2006</time>
+            
+          </td>
+          <td itemprop="title">A B-spline approach for empirical mode decompositions</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="5491871651467962303">
+              <a href="/scholar/5491871651467962303"><span itemprop="scholarAuthors">Boashash et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1987">1987</time>
+            
+          </td>
+          <td itemprop="title">An efficient real-time implementation of the Wigner-Ville distribution</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="13258479411218317803">
+              <a href="/scholar/13258479411218317803"><span itemprop="scholarAuthors">Goldstein et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1994">1994</time>
+            
+          </td>
+          <td itemprop="title">Properties of the fluctuating magnetic helicity in the inertial and dissipation ranges of solar wind turbulence</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="3001308036174424604">
+              <a href="/scholar/3001308036174424604"><span itemprop="scholarAuthors">Chugani et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1998">1998</time>
+            
+          </td>
+          <td itemprop="title">LabVIEW signal processing</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="14506431360734805542">
+              <a href="/scholar/14506431360734805542"><span itemprop="scholarAuthors">Huang et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2003">2003</time>
+            
+          </td>
+          <td itemprop="title">Applications of Hilbert–Huang transform to non‐stationary financial time series analysis</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="9097440215627607013">
+              <a href="/scholar/9097440215627607013"><span itemprop="scholarAuthors">Kodera et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1978">1978</time>
+            
+          </td>
+          <td itemprop="title">Analysis of time-varying signals with small BT values</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="11129866283244543814">
+              <a href="/scholar/11129866283244543814"><span itemprop="scholarAuthors">Lau et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1995">1995</time>
+            
+          </td>
+          <td itemprop="title">Climate signal detection using wavelet transform: How to make a time series sing</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="10046540008371465006">
+              <a href="/scholar/10046540008371465006"><span itemprop="scholarAuthors">Chung et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2004">2004</time>
+            
+          </td>
+          <td itemprop="title">Solution of time domain electric field integral equation using the Laguerre polynomials</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="16342418077632316971">
+              <a href="/scholar/16342418077632316971"><span itemprop="scholarAuthors">Marsch et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1990">1990</time>
+            
+          </td>
+          <td itemprop="title">On the radial evolution of MHD turbulence in the inner heliosphere</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="12718690083160753387">
+              <a href="/scholar/12718690083160753387"><span itemprop="scholarAuthors">Babak et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2013">2013</time>
+            
+          </td>
+          <td itemprop="title">Searching for gravitational waves from binary coalescence</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="12695936818402501209">
+              <a href="/scholar/12695936818402501209"><span itemprop="scholarAuthors">Mulgrew et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1999">1999</time>
+            
+          </td>
+          <td itemprop="title">Digital signal processing: concepts and applications</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="15240856611391004841">
+              <a href="/scholar/15240856611391004841"><span itemprop="scholarAuthors">Allen et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1999">1999</time>
+            
+          </td>
+          <td itemprop="title">Detecting a stochastic background of gravitational radiation: Signal processing strategies and sensitivities</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="367841119569561842">
+              <a href="/scholar/367841119569561842"><span itemprop="scholarAuthors">Fulop et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2006">2006</time>
+            
+          </td>
+          <td itemprop="title">Algorithms for computing the time-corrected instantaneous frequency (reassigned) spectrogram, with applications</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="197164835493898549">
+              <a href="/scholar/197164835493898549"><span itemprop="scholarAuthors">Gianfelici et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2007">2007</time>
+            
+          </td>
+          <td itemprop="title">Multicomponent AM–FM representations: an asymptotically exact approach</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="2019527442664229758">
+              <a href="/scholar/2019527442664229758"><span itemprop="scholarAuthors">Huang et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2003">2003</time>
+            
+          </td>
+          <td itemprop="title">A confidence limit for the empirical mode decomposition and Hilbert spectral analysis</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="13261235315502598199">
+              <a href="/scholar/13261235315502598199"><span itemprop="scholarAuthors">Cohen</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1992">1992</time>
+            
+          </td>
+          <td itemprop="title">What is a multicomponent signal?</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="16260965748581190354">
+              <a href="/scholar/16260965748581190354"><span itemprop="scholarAuthors">Dubinski et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1995">1995</time>
+            
+          </td>
+          <td itemprop="title">Turbulence in molecular clouds</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US7054792B2/en">
+                <span itemprop="publicationNumber">US7054792B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2006-05-30">2006-05-30</time>
+            
+            
+          </td>
+          <td itemprop="title">Method, computer program, and system for intrinsic timescale decomposition, filtering, and automated analysis of signals of arbitrary origin or timescale 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/EP0632899B1/en">
+                <span itemprop="publicationNumber">EP0632899B1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2000-06-07">2000-06-07</time>
+            
+            
+          </td>
+          <td itemprop="title">Method and apparatus for time varying spectrum analysis 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/EP0669003A4/en">
+                <span itemprop="publicationNumber">EP0669003A4</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="1997-04-16">1997-04-16</time>
+            
+            
+          </td>
+          <td itemprop="title">Precision ditigal multimeter and waveform synthesizer for multi-signals with distorted waveforms embedded in noise. 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="3416319280874946236">
+              <a href="/scholar/3416319280874946236"><span itemprop="scholarAuthors">Chassande-Mottin et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1999">1999</time>
+            
+          </td>
+          <td itemprop="title">On the Time–Frequency Detection of Chirps1</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Legal Events</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Code</th>
+          <th>Title</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2003-11-28">2003-11-28</time></td>
+          <td itemprop="code">AS</td>
+          <td itemprop="title">Assignment</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Owner name</strong>:
+              <span itemprop="value">NATIONAL AERONAUTICS AND SPACE ADMINISTRATION, UNI</span>
+            </p>
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">ASSIGNMENT OF ASSIGNORS INTEREST;ASSIGNOR:HUANG, NORDEN;REEL/FRAME:014791/0213</span>
+            </p>
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Effective date</strong>:
+              <span itemprop="value">20031126</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2006-01-04">2006-01-04</time></td>
+          <td itemprop="code">STCF</td>
+          <td itemprop="title">Information on status: patent grant</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">PATENTED CASE</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2009-06-25">2009-06-25</time></td>
+          <td itemprop="code">FPAY</td>
+          <td itemprop="title">Fee payment</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Year of fee payment</strong>:
+              <span itemprop="value">4</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2013-01-24">2013-01-24</time></td>
+          <td itemprop="code">FPAY</td>
+          <td itemprop="title">Fee payment</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Year of fee payment</strong>:
+              <span itemprop="value">8</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2017-07-21">2017-07-21</time></td>
+          <td itemprop="code">FPAY</td>
+          <td itemprop="title">Fee payment</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Year of fee payment</strong>:
+              <span itemprop="value">12</span>
+            </p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+</article>
+
+    </search-app>
+    <script type="text/javascript" src="//www.gstatic.com/feedback/api.js"></script>
+    <script async="" defer="" src="//www.google.com/insights/consumersurveys/async_survey?site=cxkjf7ipxgbnnjy6k35ezcvbbe"></script>
+  </body>
+</html>

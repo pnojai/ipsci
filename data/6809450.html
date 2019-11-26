@@ -1,0 +1,3960 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>US6809450B1 - Software for system for controlling a magnetically levitated rotor 
+        - Google Patents</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="referrer" content="origin-when-crossorigin">
+    <link rel="canonical" href="https://patents.google.com/patent/US6809450B1/en">
+    <meta name="description" content="
+     In a rotor assembly having a rotor supported for rotation by magnetic bearings, a processor controlled by software or firmware controls the generation of force vectors that position the rotor relative to its bearings in a “bounce” mode in which the rotor axis is displaced from the principal axis defined between the bearings and a “tilt” mode in which the rotor axis is tilted or inclined relative to the principal axis. Waveform driven perturbations are introduced to generate force vectors that excite the rotor in either the “bounce” or “tilt” modes. 
+   
+   ">
+    
+    <meta name="DC.type" content="patent">
+    
+    <meta name="DC.title" content="Software for system for controlling a magnetically levitated rotor 
+       ">
+    
+    <meta name="DC.date" content="2003-12-04" scheme="dateSubmitted">
+    
+    <meta name="DC.description" content="
+     In a rotor assembly having a rotor supported for rotation by magnetic bearings, a processor controlled by software or firmware controls the generation of force vectors that position the rotor relative to its bearings in a “bounce” mode in which the rotor axis is displaced from the principal axis defined between the bearings and a “tilt” mode in which the rotor axis is tilted or inclined relative to the principal axis. Waveform driven perturbations are introduced to generate force vectors that excite the rotor in either the “bounce” or “tilt” modes. 
+   
+   ">
+    
+    <meta name="citation_patent_application_number" content="US:10/729,580">
+    
+    <meta name="citation_pdf_url" content="https://patentimages.storage.googleapis.com/7e/95/b5/54e92397a6df4f/US6809450.pdf">
+    
+    <meta name="citation_patent_number" content="US:6809450">
+    
+    <meta name="DC.date" content="2004-10-26" scheme="issue">
+    
+    <meta name="DC.contributor" content="Carlos R. Morrison" scheme="inventor">
+    
+    <meta name="DC.contributor" content="National Aeronautics and Space Administration (NASA)" scheme="assignee">
+    
+    <meta name="DC.relation" content="US:4245869" scheme="references">
+    
+    <meta name="DC.relation" content="DE:3120691:A1" scheme="references">
+    
+    <meta name="DC.relation" content="US:4866318" scheme="references">
+    
+    <meta name="DC.relation" content="US:4874998" scheme="references">
+    
+    <meta name="DC.relation" content="US:5027280" scheme="references">
+    
+    <meta name="DC.relation" content="US:5355042" scheme="references">
+    
+    <meta name="DC.relation" content="US:5734108" scheme="references">
+    
+    <meta name="DC.relation" content="US:6130494" scheme="references">
+    
+    <meta name="DC.relation" content="US:5772564" scheme="references">
+    
+    <meta name="DC.relation" content="US:6078120" scheme="references">
+    
+    <meta name="DC.relation" content="US:6215218" scheme="references">
+    
+    <meta name="DC.relation" content="US:6606536" scheme="references">
+    
+    <meta name="DC.relation" content="US:6472787" scheme="references">
+    
+    <meta name="DC.relation" content="US:6664680" scheme="references">
+    
+    <meta name="DC.relation" content="US:6727618" scheme="references">
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,400italic,500,500italic,700">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Product+Sans">
+    <style>
+      body { transition: none; }
+    </style>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-27188110-4', 'auto');
+
+      version = 'patent-search.search_20191120_RC00';
+
+      function sendFeedback() {
+        userfeedback.api.startFeedback({
+          'productId': '713680',
+          'bucket': 'patent-search-web',
+          'productVersion': version,
+        });
+      }
+
+      window.experiments = {};
+      window.experiments.patentCountries = "ae,ag,al,am,ao,ap,ar,at,au,aw,az,ba,bb,bd,be,bf,bg,bh,bj,bn,bo,br,bw,bx,by,bz,ca,cf,cg,ch,ci,cl,cm,cn,co,cr,cs,cu,cy,cz,dd,de,dj,dk,dm,do,dz,ea,ec,ee,eg,em,ep,es,fi,fr,ga,gb,gc,gd,ge,gh,gm,gn,gq,gr,gt,gw,hk,hn,hr,hu,ib,id,ie,il,in,ir,is,it,jo,jp,ke,kg,kh,km,kn,kp,kr,kw,kz,la,lc,li,lk,lr,ls,lt,lu,lv,ly,ma,mc,md,me,mg,mk,ml,mn,mo,mr,mt,mw,mx,my,mz,na,ne,ng,ni,nl,no,nz,oa,om,pa,pe,pg,ph,pl,pt,py,qa,ro,rs,ru,rw,sa,sc,sd,se,sg,si,sk,sl,sm,sn,st,su,sv,sy,sz,td,tg,th,tj,tm,tn,tr,tt,tw,tz,ua,ug,us,uy,uz,vc,ve,vn,wo,yu,za,zm,zw";
+      
+      
+      window.profilePicture = "";
+
+      window.Polymer = {
+        dom: 'shady',
+        lazyRegister: true,
+      };
+    </script>
+
+    <script src="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/webcomponentsjs/webcomponents-lite.min.js"></script>
+    
+    <link rel="import" href="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/search-app-vulcanized.html">
+    
+  </head>
+  <body unresolved>
+    
+    <script src="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/search-app-vulcanized.js"></script>
+    
+    <search-app>
+      
+      
+
+      <article class="result" itemscope itemtype="http://schema.org/ScholarlyArticle">
+  <h1 itemprop="pageTitle">US6809450B1 - Software for system for controlling a magnetically levitated rotor 
+        - Google Patents</h1>
+  <span itemprop="title">Software for system for controlling a magnetically levitated rotor 
+       </span>
+
+  <meta itemprop="type" content="patent">
+  <a href="https://patentimages.storage.googleapis.com/7e/95/b5/54e92397a6df4f/US6809450.pdf" itemprop="pdfLink">Download PDF</a>
+  <h2>Info</h2>
+
+  <dl>
+    <dt>Publication number</dt>
+    <dd itemprop="publicationNumber">US6809450B1</dd>
+    <meta itemprop="numberWithoutCodes" content="6809450">
+    <meta itemprop="kindCode" content="B1">
+    <meta itemprop="publicationDescription" content="Patent ( no pre-grant publication)">
+    
+    <span>US6809450B1</span>
+    
+    <span>US10/729,580</span>
+    
+    <span>US72958003A</span>
+    
+    <span>US6809450B1</span>
+    
+    <span>US 6809450 B1</span>
+    
+    <span>US6809450 B1</span>
+    
+    <span>US 6809450B1</span>
+    
+    <span>  </span>
+    
+    <span> </span>
+    
+    <span> </span>
+    
+    <span>US 72958003 A</span>
+    
+    <span>US72958003 A</span>
+    
+    <span>US 72958003A</span>
+    
+    <span>US 6809450 B1</span>
+    
+    <span>US6809450 B1</span>
+    
+    <span>US 6809450B1</span>
+    
+
+    <dt>Authority</dt>
+    <dd itemprop="countryCode">US</dd>
+    <dd itemprop="countryName">United States</dd>
+
+    <dt>Prior art keywords</dt>
+    
+    <dd itemprop="priorArtKeywords" repeat>waveform</dd>
+    <dd itemprop="priorArtKeywords" repeat>rotor</dd>
+    <dd itemprop="priorArtKeywords" repeat>software</dd>
+    <dd itemprop="priorArtKeywords" repeat>longitudinal axis</dd>
+    <dd itemprop="priorArtKeywords" repeat>magnetic bearings</dd>
+
+    <dt>Prior art date</dt>
+    <dd><time itemprop="priorArtDate" datetime="2002-03-14">2002-03-14</time></dd>
+
+    <dt>Legal status (The legal status is an assumption and is not a legal conclusion. Google has not performed a legal analysis and makes no representation as to the accuracy of the status listed.)</dt>
+    <dd itemprop="legalStatusIfi" itemscope>
+      <span itemprop="status">Expired - Fee Related</span>
+    </dd>
+  </dl>
+
+  <dt>Application number</dt>
+  <dd itemprop="applicationNumber">US10/729,580</dd>
+
+  
+
+  
+
+  <dt>Inventor</dt>
+  <dd itemprop="inventor" repeat>Carlos R. Morrison</dd>
+  <dt>Current Assignee (The listed assignees may be inaccurate. Google has not performed a legal analysis and makes no representation or warranty as to the accuracy of the list.)</dt>
+  <dd itemprop="assigneeCurrent" repeat>
+    National Aeronautics and Space Administration (NASA)
+  </dd>
+
+  <dt>Original Assignee</dt>
+  <dd itemprop="assigneeOriginal" repeat>National Aeronautics and Space Administration (NASA)</dd>
+
+  <dt>Priority date (The priority date is an assumption and is not a legal conclusion. Google has not performed a legal analysis and makes no representation as to the accuracy of the date listed.)</dt>
+  <dd><time itemprop="priorityDate" datetime="2002-03-14">2002-03-14</time></dd>
+
+  <dt>Filing date</dt>
+  <dd><time itemprop="filingDate" datetime="2003-12-04">2003-12-04</time></dd>
+
+  <dt>Publication date</dt>
+  <dd><time itemprop="publicationDate" datetime="2004-10-26">2004-10-26</time></dd>
+
+  
+
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2002-03-14">2002-03-14</time>
+    <span itemprop="title">Priority to US36400202P</span>
+    <span itemprop="type">priority</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2003-03-12">2003-03-12</time>
+    <span itemprop="title">Priority to US10/390,256</span>
+    <span itemprop="type">priority</span>
+    
+    
+    
+    <span itemprop="documentId">patent/US7023118B1/en</span>
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2003-12-04">2003-12-04</time>
+    <span itemprop="title">Application filed by National Aeronautics and Space Administration (NASA)</span>
+    <span itemprop="type">filed</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    <span itemprop="assigneeSearch">National Aeronautics and Space Administration (NASA)</span>
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2003-12-04">2003-12-04</time>
+    <span itemprop="title">Priority to US10/729,580</span>
+    <span itemprop="type">priority</span>
+    
+    
+    
+    <span itemprop="documentId">patent/US6809450B1/en</span>
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2004-10-26">2004-10-26</time>
+    <span itemprop="title">Application granted</span>
+    <span itemprop="type">granted</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2004-10-26">2004-10-26</time>
+    <span itemprop="title">Publication of US6809450B1</span>
+    <span itemprop="type">publication</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    <span itemprop="documentId">patent/US6809450B1/en</span>
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2019-11-25">2019-11-25</time>
+    <span itemprop="title">Application status is Expired - Fee Related</span>
+    <span itemprop="type">legal-status</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2023-03-12">2023-03-12</time>
+    <span itemprop="title">Anticipated expiration</span>
+    <span itemprop="type">legal-status</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+
+  <h2>Links</h2>
+
+  <ul>
+    
+          <li itemprop="links" itemscope repeat>
+            <meta itemprop="id" content="usptoLink">
+            <a href="http://patft.uspto.gov/netacgi/nph-Parser?Sect1=PTO1&Sect2=HITOFF&p=1&u=/netahtml/PTO/srchnum.html&r=1&f=G&l=50&d=PALL&s1=6809450.PN." itemprop="url" target="_blank"><span itemprop="text">USPTO</span></a>
+          </li>
+        <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="usptoAssignmentLink">
+          <a href="https://assignment.uspto.gov/patent/index.html#/patent/search/resultFilter?searchInput=6809450" itemprop="url" target="_blank"><span itemprop="text">USPTO Assignment</span></a>
+        </li>
+
+    <li itemprop="links" itemscope repeat>
+        <meta itemprop="id" content="espacenetLink">
+        <a href="http://worldwide.espacenet.com/publicationDetails/biblio?CC=US&amp;NR=6809450B1&amp;KC=B1&amp;FT=D" itemprop="url" target="_blank"><span itemprop="text">Espacenet</span></a>
+      </li>
+      
+
+    
+
+    
+      <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="globalDossierLink">
+          <a href="http://globaldossier.uspto.gov/#/result/patent/US/6809450/1" itemprop="url" target="_blank"><span itemprop="text">Global Dossier</span></a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="stackexchangeLink">
+          <a href="https://patents.stackexchange.com/questions/tagged/US6809450" itemprop="url"><span itemprop="text">Discuss</span></a>
+        </li>
+      
+  </ul>
+
+  
+  <ul itemprop="concept" itemscope>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001276</span>
+      <span itemprop="name">controlling effects</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="sections" repeat>title</span>
+      
+      <span itemprop="count">9</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000004044</span>
+      <span itemprop="name">response</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">5</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000002609</span>
+      <span itemprop="name">media</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="count">3</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000006073</span>
+      <span itemprop="name">displacement</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">11</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000037250</span>
+      <span itemprop="name">Clearance</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">3</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000035512</span>
+      <span itemprop="name">clearance</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">3</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000015654</span>
+      <span itemprop="name">memory</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">3</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000000203</span>
+      <span itemprop="name">mixtures</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">3</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000035882</span>
+      <span itemprop="name">stress</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">3</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000003466</span>
+      <span itemprop="name">anti-cipated</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000006399</span>
+      <span itemprop="name">behavior</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000000875</span>
+      <span itemprop="name">corresponding</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000000694</span>
+      <span itemprop="name">effects</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001965</span>
+      <span itemprop="name">increased</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000011135</span>
+      <span itemprop="name">tin</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000004804</span>
+      <span itemprop="name">winding</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000003570</span>
+      <span itemprop="name">air</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000004458</span>
+      <span itemprop="name">analytical methods</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000000712</span>
+      <span itemprop="name">assembly</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000011805</span>
+      <span itemprop="name">balls</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001808</span>
+      <span itemprop="name">coupling</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000010168</span>
+      <span itemprop="name">coupling process</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000005859</span>
+      <span itemprop="name">coupling reaction</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001419</span>
+      <span itemprop="name">dependent</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000009826</span>
+      <span itemprop="name">distribution</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000005339</span>
+      <span itemprop="name">levitation</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000004048</span>
+      <span itemprop="name">modification</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000006011</span>
+      <span itemprop="name">modification</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000003094</span>
+      <span itemprop="name">perturbing</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000002035</span>
+      <span itemprop="name">prolonged</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000002829</span>
+      <span itemprop="name">reduced</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000002104</span>
+      <span itemprop="name">routine</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000003068</span>
+      <span itemprop="name">static</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001360</span>
+      <span itemprop="name">synchronised</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001052</span>
+      <span itemprop="name">transient</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+  </ul>
+  
+
+  <section>
+    <h2>Images</h2>
+    <ul>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/8c/30/0f/76f1e481abfed5/US06809450-20041026-D00000.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/5d/21/18/65840a964e0cc5/US06809450-20041026-D00000.png">
+        <ul>
+          <li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="10">
+            <meta itemprop="label" content="rotor system">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1346">
+              <meta itemprop="top" content="41">
+              <meta itemprop="right" content="1445">
+              <meta itemprop="bottom" content="108">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="12">
+            <meta itemprop="label" content="shaft">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1102">
+              <meta itemprop="top" content="1831">
+              <meta itemprop="right" content="1248">
+              <meta itemprop="bottom" content="1907">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="14">
+            <meta itemprop="label" content="thrust plate portion">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1350">
+              <meta itemprop="top" content="734">
+              <meta itemprop="right" content="1580">
+              <meta itemprop="bottom" content="843">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="16">
+            <meta itemprop="label" content="wheels">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1109">
+              <meta itemprop="top" content="2578">
+              <meta itemprop="right" content="1240">
+              <meta itemprop="bottom" content="2662">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="18">
+            <meta itemprop="label" content="wheels">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1138">
+              <meta itemprop="top" content="2755">
+              <meta itemprop="right" content="1237">
+              <meta itemprop="bottom" content="2822">
+            </span>
+          </li>
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/32/d8/65/26e3b43a6b0644/US06809450-20041026-D00001.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/87/ce/07/935b80bb91ee05/US06809450-20041026-D00001.png">
+        <ul>
+          <li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="10">
+            <meta itemprop="label" content="rotor system">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1344">
+              <meta itemprop="top" content="327">
+              <meta itemprop="right" content="1453">
+              <meta itemprop="bottom" content="400">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="12">
+            <meta itemprop="label" content="shaft">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1128">
+              <meta itemprop="top" content="2119">
+              <meta itemprop="right" content="1248">
+              <meta itemprop="bottom" content="2196">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="14">
+            <meta itemprop="label" content="thrust plate portion">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1424">
+              <meta itemprop="top" content="1035">
+              <meta itemprop="right" content="1577">
+              <meta itemprop="bottom" content="1113">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="16">
+            <meta itemprop="label" content="wheels">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1132">
+              <meta itemprop="top" content="2870">
+              <meta itemprop="right" content="1235">
+              <meta itemprop="bottom" content="2940">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="18">
+            <meta itemprop="label" content="wheels">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1136">
+              <meta itemprop="top" content="3044">
+              <meta itemprop="right" content="1233">
+              <meta itemprop="bottom" content="3110">
+            </span>
+          </li>
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/7c/84/61/c6f8ab958458f8/US06809450-20041026-D00002.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/f7/52/9f/d1ee221bd4cd47/US06809450-20041026-D00002.png">
+        <ul>
+          <li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="2">
+            <meta itemprop="id" content="10">
+            <meta itemprop="label" content="rotor system">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1358">
+              <meta itemprop="top" content="353">
+              <meta itemprop="right" content="1462">
+              <meta itemprop="bottom" content="424">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="2">
+            <meta itemprop="id" content="12">
+            <meta itemprop="label" content="shaft">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1124">
+              <meta itemprop="top" content="2142">
+              <meta itemprop="right" content="1257">
+              <meta itemprop="bottom" content="2216">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="2">
+            <meta itemprop="id" content="14">
+            <meta itemprop="label" content="thrust plate portion">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1406">
+              <meta itemprop="top" content="1053">
+              <meta itemprop="right" content="1580">
+              <meta itemprop="bottom" content="1145">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="2">
+            <meta itemprop="id" content="16">
+            <meta itemprop="label" content="wheels">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1146">
+              <meta itemprop="top" content="2889">
+              <meta itemprop="right" content="1252">
+              <meta itemprop="bottom" content="2964">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="2">
+            <meta itemprop="id" content="18">
+            <meta itemprop="label" content="wheels">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1140">
+              <meta itemprop="top" content="3064">
+              <meta itemprop="right" content="1256">
+              <meta itemprop="bottom" content="3131">
+            </span>
+          </li>
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/70/3d/5c/46223339669f13/US06809450-20041026-D00003.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/80/af/27/80512bec940271/US06809450-20041026-D00003.png">
+        <ul>
+          <li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="3">
+            <meta itemprop="id" content="12">
+            <meta itemprop="label" content="shaft">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="944">
+              <meta itemprop="top" content="1627">
+              <meta itemprop="right" content="1086">
+              <meta itemprop="bottom" content="1701">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="3">
+            <meta itemprop="id" content="12">
+            <meta itemprop="label" content="shaft">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1362">
+              <meta itemprop="top" content="1810">
+              <meta itemprop="right" content="1479">
+              <meta itemprop="bottom" content="1882">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="3">
+            <meta itemprop="id" content="6A">
+            <meta itemprop="label" content="lines">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="176">
+              <meta itemprop="top" content="1344">
+              <meta itemprop="right" content="274">
+              <meta itemprop="bottom" content="1418">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="3">
+            <meta itemprop="id" content="6A">
+            <meta itemprop="label" content="lines">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1098">
+              <meta itemprop="top" content="1340">
+              <meta itemprop="right" content="1202">
+              <meta itemprop="bottom" content="1410">
+            </span>
+          </li>
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/20/12/09/ac07baa1b4344b/US06809450-20041026-D00004.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/d4/d0/43/10269f7df24587/US06809450-20041026-D00004.png">
+        <ul>
+          <li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="4">
+            <meta itemprop="id" content="10">
+            <meta itemprop="label" content="rotor system">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="910">
+              <meta itemprop="top" content="244">
+              <meta itemprop="right" content="1021">
+              <meta itemprop="bottom" content="312">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="4">
+            <meta itemprop="id" content="10">
+            <meta itemprop="label" content="rotor system">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1318">
+              <meta itemprop="top" content="274">
+              <meta itemprop="right" content="1420">
+              <meta itemprop="bottom" content="342">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="4">
+            <meta itemprop="id" content="12">
+            <meta itemprop="label" content="shaft">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="820">
+              <meta itemprop="top" content="2048">
+              <meta itemprop="right" content="957">
+              <meta itemprop="bottom" content="2126">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="4">
+            <meta itemprop="id" content="12">
+            <meta itemprop="label" content="shaft">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="2018">
+              <meta itemprop="top" content="2035">
+              <meta itemprop="right" content="2128">
+              <meta itemprop="bottom" content="2110">
+            </span>
+          </li>
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/c8/50/11/d91ff663e6e6d7/US06809450-20041026-D00005.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/ae/b9/91/5be0784690bf0e/US06809450-20041026-D00005.png">
+        <ul>
+          <li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="5">
+            <meta itemprop="id" content="7A">
+            <meta itemprop="label" content="lines">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="280">
+              <meta itemprop="top" content="894">
+              <meta itemprop="right" content="374">
+              <meta itemprop="bottom" content="961">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="5">
+            <meta itemprop="id" content="7A">
+            <meta itemprop="label" content="lines">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1194">
+              <meta itemprop="top" content="883">
+              <meta itemprop="right" content="1297">
+              <meta itemprop="bottom" content="952">
+            </span>
+          </li>
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/bd/a5/d2/55fdcca5bbfbbe/US06809450-20041026-D00006.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/fb/52/bc/361f63b0345c67/US06809450-20041026-D00006.png">
+        <ul>
+          
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/e9/98/db/97f624105505f9/US06809450-20041026-D00007.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/a1/98/ec/15c0f7c498d76f/US06809450-20041026-D00007.png">
+        <ul>
+          
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/6b/75/9a/722a37b05a319e/US06809450-20041026-D00008.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/d9/9e/99/d34e5b494c220f/US06809450-20041026-D00008.png">
+        <ul>
+          <li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="8">
+            <meta itemprop="id" content="20">
+            <meta itemprop="label" content="computer system">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="422">
+              <meta itemprop="top" content="1917">
+              <meta itemprop="right" content="525">
+              <meta itemprop="bottom" content="2020">
+            </span>
+          </li>
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/fa/95/d7/10006c9dbbefef/US06809450-20041026-D00009.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/86/c5/84/b0fc2d1319bb58/US06809450-20041026-D00009.png">
+        <ul>
+          
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/4c/92/12/bd92fdb81c8be2/US06809450-20041026-D00010.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/1e/f3/95/561b8a3a8c6ec0/US06809450-20041026-D00010.png">
+        <ul>
+          
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/a4/1a/e4/06c482ea687b85/US06809450-20041026-D00011.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/ce/cc/ab/d1d5a5b52d15ae/US06809450-20041026-D00011.png">
+        <ul>
+          
+        </ul>
+      </li>
+      </ul>
+  </section>
+
+  <section>
+    <h2>Classifications</h2>
+    
+    <ul>
+      <li>
+        <ul itemprop="cpcs" itemscope repeat>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">F</span>&mdash;<span itemprop="Description">MECHANICAL ENGINEERING; LIGHTING; HEATING; WEAPONS; BLASTING</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">F16</span>&mdash;<span itemprop="Description">ENGINEERING ELEMENTS AND UNITS; GENERAL MEASURES FOR PRODUCING AND MAINTAINING EFFECTIVE FUNCTIONING OF MACHINES OR INSTALLATIONS; THERMAL INSULATION IN GENERAL</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">F16C</span>&mdash;<span itemprop="Description">SHAFTS; FLEXIBLE SHAFTS; ELEMENTS OR CRANKSHAFT MECHANISMS; ROTARY BODIES OTHER THAN GEARING ELEMENTS; BEARINGS</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">F16C32/00</span>&mdash;<span itemprop="Description">Bearings not otherwise provided for</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">F16C32/04</span>&mdash;<span itemprop="Description">Bearings not otherwise provided for using magnetic or electric supporting means</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">F16C32/0406</span>&mdash;<span itemprop="Description">Magnetic bearings</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">F16C32/044</span>&mdash;<span itemprop="Description">Active magnetic bearings</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">F16C32/0442</span>&mdash;<span itemprop="Description">Active magnetic bearings with devices affected by abnormal, undesired or non-standard conditions such as shock-load, power outage, start-up or touchdown</span>
+            <meta itemprop="Leaf" content="true">
+            
+            <meta itemprop="FirstCode" content="true">
+          </li>
+          </ul>
+      </li>
+      <li>
+        <ul itemprop="cpcs" itemscope repeat>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">F</span>&mdash;<span itemprop="Description">MECHANICAL ENGINEERING; LIGHTING; HEATING; WEAPONS; BLASTING</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">F16</span>&mdash;<span itemprop="Description">ENGINEERING ELEMENTS AND UNITS; GENERAL MEASURES FOR PRODUCING AND MAINTAINING EFFECTIVE FUNCTIONING OF MACHINES OR INSTALLATIONS; THERMAL INSULATION IN GENERAL</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">F16C</span>&mdash;<span itemprop="Description">SHAFTS; FLEXIBLE SHAFTS; ELEMENTS OR CRANKSHAFT MECHANISMS; ROTARY BODIES OTHER THAN GEARING ELEMENTS; BEARINGS</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">F16C32/00</span>&mdash;<span itemprop="Description">Bearings not otherwise provided for</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">F16C32/04</span>&mdash;<span itemprop="Description">Bearings not otherwise provided for using magnetic or electric supporting means</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">F16C32/0406</span>&mdash;<span itemprop="Description">Magnetic bearings</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">F16C32/044</span>&mdash;<span itemprop="Description">Active magnetic bearings</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">F16C32/0444</span>&mdash;<span itemprop="Description">Details of devices to control the actuation of the electromagnets</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">F16C32/0451</span>&mdash;<span itemprop="Description">Details of controllers, i.e. the units determining the power to be supplied, e.g. comparing elements, feedback arrangements with P.I.D. control</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">F16C32/0455</span>&mdash;<span itemprop="Description">Details of controllers, i.e. the units determining the power to be supplied, e.g. comparing elements, feedback arrangements with P.I.D. control including digital signal processing [DSP] and analog/digital conversion [A/D, D/A]</span>
+            <meta itemprop="Leaf" content="true">
+            
+            
+          </li>
+          </ul>
+      </li>
+      <li>
+        <ul itemprop="cpcs" itemscope repeat>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">F</span>&mdash;<span itemprop="Description">MECHANICAL ENGINEERING; LIGHTING; HEATING; WEAPONS; BLASTING</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">F16</span>&mdash;<span itemprop="Description">ENGINEERING ELEMENTS AND UNITS; GENERAL MEASURES FOR PRODUCING AND MAINTAINING EFFECTIVE FUNCTIONING OF MACHINES OR INSTALLATIONS; THERMAL INSULATION IN GENERAL</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">F16C</span>&mdash;<span itemprop="Description">SHAFTS; FLEXIBLE SHAFTS; ELEMENTS OR CRANKSHAFT MECHANISMS; ROTARY BODIES OTHER THAN GEARING ELEMENTS; BEARINGS</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">F16C32/00</span>&mdash;<span itemprop="Description">Bearings not otherwise provided for</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">F16C32/04</span>&mdash;<span itemprop="Description">Bearings not otherwise provided for using magnetic or electric supporting means</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">F16C32/0406</span>&mdash;<span itemprop="Description">Magnetic bearings</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">F16C32/044</span>&mdash;<span itemprop="Description">Active magnetic bearings</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">F16C32/0474</span>&mdash;<span itemprop="Description">Active magnetic bearings for rotary movement</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">F16C32/0489</span>&mdash;<span itemprop="Description">Active magnetic bearings for rotary movement with active support of five degrees of freedom, e.g. two radial magnetic bearings combined with an axial bearing</span>
+            <meta itemprop="Leaf" content="true">
+            
+            
+          </li>
+          </ul>
+      </li>
+      </ul>
+  </section>
+
+  <section itemprop="abstract" itemscope>
+    <h2>Abstract</h2>
+    
+    <div itemprop="content" html><abstract mxw-id="PA50739873" lang="EN" load-source="patent-office">
+    <div class="abstract">In a rotor assembly having a rotor supported for rotation by magnetic bearings, a processor controlled by software or firmware controls the generation of force vectors that position the rotor relative to its bearings in a “bounce” mode in which the rotor axis is displaced from the principal axis defined between the bearings and a “tilt” mode in which the rotor axis is tilted or inclined relative to the principal axis. Waveform driven perturbations are introduced to generate force vectors that excite the rotor in either the “bounce” or “tilt” modes.</div>
+  </abstract>
+  </div>
+  </section>
+
+  <section itemprop="description" itemscope>
+    <h2>Description</h2>
+    
+    <div itemprop="content" html><div mxw-id="PDES54323501" lang="EN" load-source="patent-office" class="description">
+    
+    <p>This is a divisional of application Ser. No. 10/390,256, which was filed on Mar. 12, 2003.</p>
+    <p>This patent application claims the benefit of U.S. Provisional Patent Application No. 60/364,002 filed Mar. 14, 2002, the disclosure of which is incorporated herein by reference.</p>
+    
+    
+    <p>The invention described herein was made by employees of the United States Government and may be manufactured and used by or for the Government of the United States of America for governmental purposes without the payment of any royalties thereon or therefor.</p>
+    
+    
+    <heading>BACKGROUND OF THE INVENTION</heading>
+    <p>The present invention relates to a software-implemented system for controlling the movement of a magnetically supported rotor and, more particularly, to such a software-implemented system for introducing selected perturbations into the movement of the rotor.</p>
+    <p>Turbomachinery, as a class, typically includes one or more rotor or rotor assemblies mounted on a bearing-supported shaft for rotation about a primary axis. In general, the rotor is subject to radially directed stress as a consequence of shaft rotation with that stress increasing with increasing rotations per unit time.</p>
+    <p>The control of unbalance forces is extremely important as rotational speeds increase. Small asymmetries in mass distribution creates rotation-dependent vibration. The fundamental frequency of the vibration, as well as the harmonics thereof, and concomitant force vectors that rapidly change magnitude and direction with each rotation can function as an operational limit on rotational speed and, with time, reduce the operating life of the components. For example, bearing life can be substantially reduced as a consequence of prolonged vibration and, in some cases, portions of the rotating mass can be subject to fatigue failures.</p>
+    <p>Various types of test beds are known for testing rotating machinery; historically, the rotor or rotor assembly is mounted in bearings and is driven at various speeds with sensors (including vibration sensors) providing a data stream for analysis.</p>
+    <heading>BRIEF SUMMARY OF THE INVENTION</heading>
+    <p>In view of the above, it is an object of the present invention, among others, to provide a software-implemented system for controlling the rotation of a magnetically levitated rotor or rotor assembly such that various types of perturbations can be introduced into the rotor or rotor assembly.</p>
+    <p>It is an another object of the present invention, among others, to provide a software-implemented system for controlling the rotation of a magnetically levitated rotor or rotor assembly such that various types of perturbations can be introduced into the rotor or rotor assembly in order to obtain information as to the manner by which the rotor or rotor assembly responds to those input perturbations.</p>
+    <p>In accordance with the above objects, and others, the present invention advantageously provides a rotor assembly that is suspended for rotation in magnetic bearings to attain speeds higher than that for conventional bearings (i.e., ball bearings) and in which sufficient clearance is provided to allow magnetically-induced perturbations to cause abaxial rotation as well as nutation of the rotating components in response to software-driven processor commands.</p>
+    <p>The present invention provides for the creation of various types of perturbations via software control to investigate the performance of the rotor or rotor assembly under differing conditions.</p>
+    <p>In a preferred form of the invention, software or firmware controlled perturbations are introduced into the magnetic bearings that magnetically support a rotor for rotation and/or nutation about an axis. The rotational position of the rotor with time is determined and perturbations synchronously introduced into the magnetic bearing fields to create a “bounce” mode and/or a “tilt” mode. In the bounce mode, the magnetic force vectors that locate the rotor in its bearings are controlled to cause abaxial or off-axis rotation. In the tilt mode, the force vectors are controlled to cause a “tilted” alignment of the rotor relative to the principal axis of the bearings; the rotor is caused to nutate about a pivot point that can be positionally adjusted.</p>
+    <p>The software/firmware of the preferred embodiment may be executed on a general or specific purpose computer and includes routines therein for effecting the desired motion. Preferably, the software/firmware includes a plurality of synthesized waveforms that can be applied to the magnetic support bearings to achieve the desired motion. For example, the waveforms can be generated by executing a recurring Fourier transform routine that create sine, sine squared, cosine, cosine squared, random, square, triangular (sawtooth) and/or other waveforms.</p>
+    <p>Other objects and further scope of applicability of the present invention will become apparent from the detailed description to follow, taken in conjunction with the accompanying drawings, in which like parts are designated by like reference characters.</p>
+    
+    
+    <heading>BRIEF DESCRIPTION OF THE DRAWING</heading>
+    <p>FIG. 1 illustrates a rotor assembly, in an idealized schematic form, suspended in magnetic bearings and aligned along a generally vertical axis of rotation;</p>
+    <p>FIG. 2 illustrates the rotor assembly of FIG. 1 in which the axis of the rotor has been displaced a selected distance from the principal axis defined by the magnetic bearings, as shown in dotted-line illustration;</p>
+    <p>FIGS. 3A and 3B illustrate the rotor assembly of FIG. 2, in somewhat greater detail, showing the side-to-side excursion of a shaft portion of the rotor assembly;</p>
+    <p>FIGS. 4A and 4B illustrate the rotor assembly of FIG. 1 in which the axis of the rotor has been tilted relative the principal axis defined between the bearings to cause the rotor assembly to nutate about the principal axis in response to engagement of a “one-per-revolution” feature, as illustrated in dotted-line illustration;</p>
+    <p>FIGS. 5A and 5B illustrate the rotor assembly of FIGS. 4A and 4B, somewhat greater detail showing the extent of the nutation of a shaft portion of the rotor assembly;</p>
+    <p>FIGS. 6A and 6B are force vector diagrams, shown in idealized schematic form, of the forces applied to the shaft portion of the rotor assembly by its magnetic bearing to induce the behavior of FIG. <b>2</b> and FIGS. 3A and 3B;</p>
+    <p>FIGS. 7A and 7B are force vector diagrams, shown in idealized schematic form, of the forces applied to the shaft portion of the rotor assembly by its magnetic bearing to induce the nutation behavior of FIGS. 4A and 4B and FIGS. 5A and 5B;</p>
+    <p>FIG. 8 is plan view of a radial bearing, shown in an idealized schematic form, with a perturbation waveform extending (in a symbolic manner) between two diametrically opposite poles;</p>
+    <p>FIG. 9 is a generalized schematic view of a processor-based computer-like controller for controlling the various magnetic bearings that support the rotor assembly;</p>
+    <p>FIGS. 10 and 11 are a representative flow diagram illustrating one possible instruction sequence in accordance with the present invention; and</p>
+    <p>FIG. 12 is a flow diagram illustrating one way in which a perturbing waveform can rotation in synchronism with the rotor.</p>
+    
+    
+    <heading>DESCRIPTION OF THE INVENTION</heading>
+    <p>The present invention is intended for use with rotor systems of the general type shown in FIG. <b>1</b> and designated therein generally by the reference character <b>10</b>. As shown, the rotor system <b>10</b> includes a rotor unit RU that is generally aligned in the vertical direction. The rotor unit RU includes a generally cylindrical shaft portion <b>12</b> (having a longitudinal axis A<sub>x</sub>) and a diametrically-enlarged thrust plate portion <b>14</b>. Typically, the rotor unit RU is fabricated from separate piece-parts that are joined together to form an assembly, although the rotor unit RU can also be fabricated as a unitary structure.</p>
+    <p>The rotor unit RU is designed to be received by and magnetically suspended in a set of magnetic bearings that can be controlled to displace the rotor unit RU in various ways, as shown in FIG. <b>2</b> through FIG. <b>5</b>B. The magnetic bearings include a thrust bearing assembly TB that includes an upper coil UC and a lower coil LC located on opposite sides of the trust plate <b>14</b> and designed, as explained below, to create an axially directed magnetic field therebetween sufficient to magnetically levitate the thrust plate <b>14</b> and its shaft <b>12</b>. The shaft <b>12</b> is received by a first radial bearing RB<b>1</b> adjacent the lower coil LC and a second radial bearing RB<b>2</b> that is spaced from the first radial bearing RB<b>1</b> and located, for example, adjacent the lower end of the rotor unit RU. The radial bearings RB<b>1</b> and RB<b>2</b> are coaxially aligned with each other to define a principal bearing axis (not specifically shown) therebetween. In FIG. 1, the clearances between the various bearings and the rotor unit RU have been exaggerated for reasons of clarity, the actual clearance being in the range of 0.254 mm (10 mils or 0.010″) or so for a rotor unit RU having an end-to-end length in the range of 0.8 meter or so, a shaft diameter of about 7-8 cm, and a weight of about 17-20 Kg.</p>
+    <p>The rotor unit RU is designed to be rotated, for example, in the clockwise direction as shown by arrow FIG. 1, by a drive unit (not specifically shown). For example, the rotor unit RU can include a rotary coupling or selectively operated clutch unit connected to one end of the rotor unit RU and which couples the rotor unit RU to a drive unit, such as an air turbine, that will drive the rotor unit RU throughout a range of speeds (typically in the 500 rpm-40,000 rpm range). While the system is described in the context of clockwise rotation, the system is equally usable when rotated in the anti-clockwise direction.</p>
+    <p>As described below, the rotor unit RU is appropriately instrumented and can include a sensor S<sub>pos-1 </sub>(FIG. 1) that accurately detects the rotary position of the rotor unit RU. The sensor S<sub>pos-1 </sub>can take the form of a reflective surface on the periphery of the shaft <b>12</b> that reflects a light beam, such as a laser beam, to a photosensor which outputs an appropriate signal. In the alternative and as shown at the lower end of the shaft <b>12</b>, first and second pick-off wheels <b>16</b> and <b>18</b> can be attached to the shaft <b>12</b> and a magnetic proximity detector S<sub>pos-2 </sub>associated with the first pick-off wheel and another detector S<sub>pos-2 </sub>associated with the second pick-off wheel. Suitable detectors include those manufactured by the Bentley-Nevada Corporation of Minden Nev. Each wheel can include one or more teeth or magnetic indentations/discontinuities so that each successive rotation of the pick-off wheels provides an appropriate output that can be processed to provide precise rotary position information and rotations per minute information.</p>
+    <p>The rotor system <b>10</b> can be used as a static or dynamic test bed for testing the rotating components used in turbomachinary. For example, turbine compressor blades can be mounted on a hub, or other test fixture, that is attached to the rotor unit RU (typically on the shaft <b>12</b> between the radial bearing RB<b>1</b> and the radial bearing RB<b>2</b>) and then subjected to various types of stresses over time to evaluate their performance.</p>
+    <p>The rotor unit RU is designed to be operated in one of several modes including a normal mode in which the longitudinal axis A<sub>x </sub>of the rotor unit RU coincides with the principal axis defined between the two radial bearings RB<b>1</b> and RB<b>2</b> and at least two further operating modes, i.e., a “bounce” mode (as shown in FIGS. 2, <b>3</b>A, <b>3</b>B, <b>6</b>A, and <b>6</b>B) and a “tilt” mode (as shown in FIGS. 4A, <b>4</b>B, <b>5</b>A, <b>5</b>B, <b>7</b>A, and <b>7</b>B).</p>
+    <p>The rotor unit RU is nominally mounted as shown in FIG. 1, that is, the longitudinal axis A<sub>x </sub>of the rotor unit RU is co-aligned with the principal axis defined by the superposed radial bearings RB<b>1</b> and RB<b>2</b>. As shown in FIG. <b>2</b> and explained below, the radially directed magnetic fields generated by the radial bearings RB<b>1</b> and RB<b>2</b> are controlled to displace the longitudinal axis A<sub>x </sub>of the rotor unit RU away from the principal bearing axis defined by the radial bearings RB<b>1</b> and RB<b>2</b> to establish the “bounce” mode.</p>
+    <p>FIGS. 3A and 3B illustrate the manner by which the radial bearings RB<b>1</b> and RB<b>2</b> direct magnetically generated force vectors to create the desired displacement of the rotor unit RU in the “bounce” mode. In FIG. <b>3</b>A and in those figures showing force vectors, the force vector is a force of attraction generated by magnet coil(s) (shown in symbolic form in FIG. 8, for example) in the radial bearing on the side of the shaft <b>12</b> opposite from the side on which the force vector is shown. For example and in the case of the upper radial bearing RB<b>1</b> shown in FIG. 3A, the longer leftward pointing force vector on the right side of the shaft <b>12</b> is generated in the radial bearing in a coil structure on the left side of the shaft <b>12</b> and the shorter rightward pointing force vector on the left-side of the shaft <b>12</b> is generated in the radial bearing in a coil structure on the right side of the shaft.</p>
+    <p>As shown in FIG. 3A, the rotor unit RU is displaced to the left when both radial bearings RB<b>1</b> and RB<b>2</b> generate opposing diametrically aligned magnetic force vectors in which the vectors pulling the rotor unit RU to the left have a magnitude greater than those pulling the rotor to the right. Conversely, the rotor unit RU is displaced to the right when both radial bearings RB<b>1</b> and RB<b>2</b> generate opposing diametrically aligned magnetic vectors in which the vectors pulling the rotor unit RU to the right have a magnitude greater than those pulling the rotor unit to the left. As can be appreciated, the ratio of the force vectors can be varied to control the magnitude of the off-set or displacement of the longitudinal axis A<sub>x </sub>of the rotor unit RU from the principal axis defined between the radial bearings RB<b>1</b> and RB<b>2</b>. As can be appreciated, the resultant force vectors for both the radial bearings RB<b>1</b> and RB<b>2</b> must be substantially equal in the “bounce” mode to maintain the longitudinal axis substantially parallel to the principal axis. When the displaced rotor unit RU and its force vectors are rotated about the principal axis defined between the radial bearings RB<b>1</b> and RB<b>2</b>, its longitudinal axis A<sub>x </sub>functions as a generatrix circumscribing a cylindrical body of revolution; an end view of the displaced rotor is represented by the dotted-line circle above the rotor unit RU in FIG. <b>2</b>.</p>
+    <p>FIGS. 4A and 4B illustrate, in a general manner, the “tilt” mode. As shown in FIG. 4A, the magnetically generated force vectors generated by the upper radial bearing RB<b>1</b> are controlled to displace the longitudinal axis A<sub>x </sub>of the rotor unit RU toward the right of the principal bearing axis defined by the radial bearings RB<b>1</b> and RB<b>2</b>, and the magnetically generated force vectors generated by the lower radial bearing RB<b>1</b> are controlled to displace the longitudinal axis Ax of the rotor unit RU toward the left of the principal bearing axis defined by the radial bearings RB<b>1</b> and RB<b>2</b>. As a consequence, the rotor unit RU is “tilted” to the right as shown. As shown in FIG. 4B, when the force vectors are the opposite that shown in FIG. 4A, the rotor unit RU will be “tilted” to the left.</p>
+    <p>FIGS. 5A and 5B illustrate the manner by which the radial bearings RB<b>1</b> and RB<b>2</b> direct magnetically generated force vectors of different forces to create the desired displacement of the rotor unit RU. As shown in FIG. 5A, the upper portion of the rotor unit RU is displaced to the right when the radial bearing RB<b>1</b> generates opposing diametrically aligned magnetic force vectors in which the vectors pulling the rotor unit RU to the right have a magnitude greater than the force vectors pulling the rotor unit RU to the left. Conversely, the lower portion of the rotor unit RU is displaced to the left when the radial bearing RB<b>2</b> generate opposing diametrically aligned magnetic vectors in which the vectors pulling the rotor unit to the left have a magnitude greater than those pulling the rotor unit RU to the right.</p>
+    <p>As shown in both FIGS. 5A and 5B, the rotor unit RU will “tilt” about some tilt or pivot point. If desired, the location of that pivot point can be varied upwardly or downwardly through a selected range by controlling the ratio of the displacement forces applied by the radial bearings RB<b>1</b> and RB<b>2</b>. For example, when the resultant displacement forces provided, respectively, by the radial bearings RB<b>1</b> and RB<b>2</b> are approximately equal (but in opposite directions), the pivot point will be located at or near the mid-point position between the radial bearings. Conversely, the resultant displacement force generated by the lower radial bearing RB<b>2</b> can be made larger than that of the upper radial bearing RB<b>1</b> to effectively cause the pivot point to be displaced upward toward the upper radial bearing RB<b>1</b>. As can be appreciated, the ratio of the resultant force vectors can be varied to control the upward or downward displacement of the pivot point prior to and during rotation of the rotor unit RU.</p>
+    <p>As explained below, when a “one-per-revolution” feature is engaged in the “tilt” mode and the rotor unit RU and the associated force vectors rotated about the principal axis defined between the radial bearings RB<b>1</b> and RB<b>2</b>, the longitudinal axis A<sub>x </sub>of the rotor unit functions as a generatrix circumscribing a conical body of revolution (not specifically shown).</p>
+    <p>FIGS. 6A-7B are plan views of the radial bearings RB<b>1</b> and RB<b>2</b> with each bearing shown in a schematic fashion as having four equispaced poles, each with an individual winding. The poles and their windings have been shown in schematic fashion; in practice, the pole pieces and their windings are differently configured.</p>
+    <p>FIGS. 6A and 6B are idealized plan views of the first and second radial bearings in their “bounce” mode taken along lines <b>6</b>A—<b>6</b>A and <b>6</b>B—<b>6</b>B of FIG. 3A where the rotor unit RU is rotated in the clockwise direction. As mentioned above, the system is equally functional in the anti-clockwise direction. As shown, the magnetic force vectors are such that the vectors on the right pulling the rotor leftward are larger than the forces on the left pulling the rotor to the right to result in a net resultant leftward shift of the rotor. As represented by the clockwise arrow, the force vectors are rotated in synchronism with the rotor unit RU so that the longitudinal axis A<sub>x </sub>of the rotor unit RU will describe a circle about the principal axis defined between the two radial bearings. As explained below, the resultant force vector can be driven by various user-selectable waveforms. Since the forces applied by the first and second radial bearing are substantially equal and synchronized in time, the rotor unit RU will not be subject to nutation.</p>
+    <p>FIGS. 7A and 7B are idealized plan views of the first and second radial bearings in their “tilt” mode taken along lines <b>7</b>A—<b>7</b>A and <b>7</b>B—<b>7</b>B of FIG. <b>5</b>A. As shown and in comparison to the FIGS. 6A and 6B, the magnetic force vectors of the radial bearings RB<b>1</b> and RB<b>2</b> are 180° out of phase to create the desired tilt posture of the rotor unit RU and the consequent nutation thereof when the ‘one per revolution’ mode of operation is engaged.</p>
+    <p>FIG. 8 is an idealized plan view of a radial bearing showing an X-Y reference frame. As explained below, perturbation waveforms are impressed on the magnetic field between poles to induce various excitations in the rotor unit RU and a device or devices under test (such as turbine rotor blades) carried by the rotor unit RU. In one operating mode, the waveform (which is shown in an exemplary form as a sine wave) can be established between the poles on the X axis (i.e., 0°). As the rotor unit RU rotates, it will be continuously subjected to the perturbation waveform. In the “one-per-revolution” mode of operation, the waveform is rotated (as indicated by the arrow in FIG. 8) in synchronism with the rotor unit RU. In general, one of a variety of different waveforms can be used (as explained below) in a frequency range of between 0 and 5000 Hz, although a range of 0-900 Hz is most commonly used. When the rotor unit RU is in the “tilt” mode and the “one-per-revolution” option is activated, the rotor unit RU will nutate about its pivot point with each end of the rotor unit revolving or orbiting around the principal axis, the longitudinal axis A<sub>x </sub>will describe a conical surface.</p>
+    <p>FIG. 9 is a generalized view of an exemplary computer system <b>20</b> for driving the various bearings in accordance with the software routine presented below. As shown, the computer system <b>20</b> includes a microprocessor μp, a user interface UI that can take the form of a conventional keyboard/display, an input/output port, and a memory that contains the software/firmware that is implemented to control motion of the rotor-unit RU. An excitation signal generator block SIGGEN is shown in symbolic form as overlaying a portion of the memory and a portion of the processor. In the preferred embodiment, the computer system <b>20</b> is a conventional personal computer using bus-mounted expansion cards to effect the input/output functions. The expansion cards can include voltage and/or current drivers (organized as conventional control channels) that respond to the instructions provided by the microprocessor to control the voltage and/or current to the various windings to thereby control the magnetic fields and related force vectors.</p>
+    <p>The excitation signal generator SIGGEN functions to generate a multiplicity of excitation waveforms for exciting various vibration modes in the rotor unit RU in the normal, bounce, or the tilt modes. In the preferred embodiment, the various waveforms are generated via Fourier transform instruction-sequences executed in the processor and which loop in a recurring manner to generate the waveforms. Although less preferred; the various waveforms can be stored as digital data in the memory and recalled at varying clock rates to function as the excitation waveform source.</p>
+    <p>While a computer system organized in a conventional manner has been shown in FIG. 9, other arrangements are equally suitable, including application specific integrated circuits (ASIC) and programmed logic arrays (PLA). The below-described software sequences can be implemented in software or firmware, or a combination thereof. The instructions are preferably implemented in native assembly language although complied C or C++ is suitable as well as a combination thereof. Interpreted languages are not excluded provided the combination of the hardware processor(s) and instruction sequences are sufficiently fast enough to enable a robust levitation and to generate the excitation waveforms commensurate with the highest anticipated revolutions per time unit of the rotor-unit RU.</p>
+    <p>As shown on the left in FIG. 9, each of the pole windings C<sub>1 </sub>. . . C<sub>n </sub>connect to the input/output port and receives time varying voltage/current to generate those force vectors that levitate the rotor unit RU, maintain the rotor unit RU during periods of normal rotation (i.e., when the longitudinal axis A<sub>x </sub>of the rotor unit RU is concentric with the principal axis defined between the radial bearings), and establish the desired bounce or tilt alignments while applying the selected excitation waveforms; the waveform excitation can be applied to the rotor unit during rotation and, if desired, while not rotating.</p>
+    <p>In addition to receiving the input from the rotary position sensor S<sub>pos</sub>, additional sensors include magnetic proximity sensors S<sub>1 </sub>. . . S<sub>n </sub>that measure the distance between the sensor and the rotor unit RU to obtain rotor displacement values and/or variations thereof. These sensors typically are mounted in or adjacent the radial bearing units and can take the form of eddy current type sensors or related proximity sensors available from, for example, the Bentley-Nevada Corporation of Minden, Nev. In general, a rotor displacement sensor can be functionally associated with each magnetic pole of the radial bearings to provide displacement information. The output of the respective sensors S<sub>1 </sub>. . . S<sub>n </sub>functions as part of a control loop whereby the current/voltage to the windings is adjusted to cause the rotor unit RU to assume a desired position as measured by the sensors. In the case of the preferred embodiment, six sensors are used, two sensors for each radial bearing and two sensors for the thrust bearing. The sensors provide rotor position information via the input/output port of the computer which then uses that information and variations thereof to increase or decrease current to the associated coil(s) to maintain the rotor in the desired alignment. The sensor/winding control system operates throughout the full range of operation of the rotor unit, from a stationary mode (i.e., non-rotating) to the maximum anticipated rotary speed.</p>
+    <p>FIGS. 10, <b>11</b>, and <b>12</b> illustrate an overall block diagram of the control/code sequence of the present invention for implementing the various motions described above and in accordance with one or more selected excitation waveforms.</p>
+    <p>As shown in FIG. 10, the system is initialized, including the setting or initializing of system variables, etc. Thereafter, a query is presented as to whether or not a perturbation waveform is to be applied. If so, a waveform is selected and a query is presented as to whether or not the selected waveform should be fixed or rotating. If the waveform is to be fixed, the angle of that waveform-driven force vector is selected. For example, the waveform (such as a sine wave or square wave) is applied across the various coil windings of the radial bearing at the selected rotary position relative to some predesignated reference position. Thus and as shown in FIG. 8, a sine wave can be applied at the zero degree position as shown. If a rotating force vector is required, the “one per revolution” flag is set in this case, the waveform-driven force vector rotates with the rotor unit RU, generally at the same rotary speed thereof in either the clockwise or the anti-clockwise direction as desired.</p>
+    <p>Thereafter and as shown in FIG. 11, a query is presented as to whether the normal mode or a bounce/tilt mode is desired. The normal mode positions the rotor unit RU so that its longitudinal axis A<sub>x </sub>is aligned along and coaxial with the principal axis defined between the upper and lower radial bearings RB<b>1</b> and RB<b>2</b>. If the bounce/tilt option is selected, another query is presented for the choice of the bounce mode or the tilt mode. If the tilt mode is selected, the values corresponding to the tilt force vectors are chosen to define the tilt angle as well as their ratio to position the pivot point. Conversely, if the bounce mode is selected, the values for the off-axis displacement between the longitudinal axis A<sub>x </sub>and principal axis defined between the upper and lower radial bearings RB<b>1</b> and RB<b>2</b> is selected.</p>
+    <p>Thereafter, the rotor unit RU is levitated with the program/instruction sequence looping back in a recurring manner to the entry point following the start/initialize block. As can be appreciated, the program execution sequence in FIGS. 10 and 11 can be varied from that shown</p>
+    <p>FIG. 12 illustrates one possible instruction sequence for rotating the perturbation waveform in synchronism with the rotor unit RU. As shown, for each rotary angle of the rotor unit, the selected waveform is resolved into its X,Y components for that angle and the corresponding values provided to the appropriate coil(s) of the radial bearings:</p>
+    <p>While not specifically shown in the figures, the waveform can be turn-on and off to investigate transient effects on any devices under test.</p>
+    <p>As will be apparent to those skilled in the art, various changes and modifications may be made to the illustrated rotor control system of the present invention without departing from the spirit and scope of the invention as determined in the appended claims and their legal equivalent.</p>
+    
+  </div>
+  </div>
+  </section>
+
+  <section itemprop="claims" itemscope>
+    <h2>Claims (<span itemprop="count">18</span>)</h2>
+    
+    <div itemprop="content" html><div mxw-id="PCLM8753268" lang="EN" load-source="patent-office" class="claims">
+    <claim-statement>What is claimed is: </claim-statement>
+    <div class="claim"> <div num="1" id="US-6809450-B1-CLM-00001" class="claim">
+      <div class="claim-text">1. Software stored in or on a computer-readable medium for causing a software-controlled processing device coupled to first and second magnetic bearings supporting a rotor to control positioning of the rotor in the first and second magnetic bearings, the rotor having a longitudinal axis and the first and second magnetic bearings defining a principal axis therebetween, each of the first and second magnetic bearings having at least four magnetic poles with respective magnet coils associated therewith, the voltage and/or current flow through the magnet coils generating magnetic field force vectors to support the rotor for rotation relative to the first and second magnetic bearings, the force vectors under the control of the processor to selectively position the longitudinal axis relative to the principal axis, the software causing the processing device to perform the function of:</div>
+      <div class="claim-text">controlling the force vectors to align the rotor in the first and second magnetic bearings so that the longitudinal axis thereof and the principal axis defined between the first and second magnetic bearings are not axially coincident with one another; and </div>
+      <div class="claim-text">providing a selected waveform to be impressed on the magnetic field of the first and second magnetic bearings to excite the rotor in response to the selected waveform, the waveform impressed on the rotor at a selected angle relative to a fixed reference coordinate system and remaining stationary in that coordinate system during periods of time when the rotor is in motion. </div>
+    </div>
+    </div> <div class="claim-dependent"> <div num="2" id="US-6809450-B1-CLM-00002" class="claim">
+      <div class="claim-text">2. The software of <claim-ref idref="US-6809450-B1-CLM-00001">claim 1</claim-ref>, wherein the longitudinal axis is off-set from the principal axis.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div num="3" id="US-6809450-B1-CLM-00003" class="claim">
+      <div class="claim-text">3. The software of <claim-ref idref="US-6809450-B1-CLM-00001">claim 1</claim-ref>, wherein the longitudinal axis is aligned non-parallel to the principal axis.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div num="4" id="US-6809450-B1-CLM-00004" class="claim">
+      <div class="claim-text">4. The software of <claim-ref idref="US-6809450-B1-CLM-00001">claim 1</claim-ref>, wherein the longitudinal axis is aligned non-parallel to the principal axis and defines a pivot point intermediate the ends of the rotor.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div num="5" id="US-6809450-B1-CLM-00005" class="claim">
+      <div class="claim-text">5. The software of <claim-ref idref="US-6809450-B1-CLM-00004">claim 4</claim-ref>, wherein the position of the pivot point along the longitudinal axis is determined as a function of the ratio of the force vectors applied by the first magnetic bearing and the second magnetic bearing.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div num="6" id="US-6809450-B1-CLM-00006" class="claim">
+      <div class="claim-text">6. The software of <claim-ref idref="US-6809450-B1-CLM-00001">claim 1</claim-ref>, wherein the waveform is selected from the group comprising sine waveform, sine squared waveform, cosine waveform, cosine squared waveform, random waveform, square waveform, squared pulse waveform, triangular waveform, single square waveform, single triangular waveform, sawtooth waveform.</div>
+    </div>
+    </div> <div class="claim"> <div num="7" id="US-6809450-B1-CLM-00007" class="claim">
+      <div class="claim-text">7. Software stored in or on a computer-readable medium for causing a software-controlled processing device coupled to first and second magnetic bearings supporting a rotor to control positioning of the rotor in the first and second magnetic bearings, the rotor having a longitudinal axis and the first and second magnetic bearings defining a principal axis therebetween, each of the first and second magnetic bearings having at least four magnetic poles with respective magnet coils associated therewith, a voltage and/or current flow through the magnet coils generating magnetic field force vectors to support the rotor for rotation relative to the first and second magnetic bearings, the force vectors under the control of the processing device to selectively position the longitudinal axis relative to the principal axis, the software causing the processing device to perform the function of:</div>
+      <div class="claim-text">controlling the force vectors to align the rotor in the first and second magnetic bearings so that the longitudinal axis thereof and the principal axis defined between the first and second magnetic bearings are not axially coincident with one another; and </div>
+      <div class="claim-text">providing a selected waveform to be impressed on the magnetic field of the first and second magnetic bearings to excite the rotor in response to the selected waveform, the waveform impressed on the rotor at a selected angle relative to a fixed reference coordinate and rotating with the rotor when the rotor is in motion. </div>
+    </div>
+    </div> <div class="claim-dependent"> <div num="8" id="US-6809450-B1-CLM-00008" class="claim">
+      <div class="claim-text">8. The software of <claim-ref idref="US-6809450-B1-CLM-00007">claim 7</claim-ref>, wherein the longitudinal axis is off-set from the principal axis.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div num="9" id="US-6809450-B1-CLM-00009" class="claim">
+      <div class="claim-text">9. The software of <claim-ref idref="US-6809450-B1-CLM-00007">claim 7</claim-ref>, wherein the longitudinal axis is aligned non-parallel to the principal axis.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div num="10" id="US-6809450-B1-CLM-00010" class="claim">
+      <div class="claim-text">10. The software of <claim-ref idref="US-6809450-B1-CLM-00007">claim 7</claim-ref>, wherein the longitudinal axis is aligned non-parallel to the principal axis and defines a pivot point intermediate the ends of the rotor.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div num="11" id="US-6809450-B1-CLM-00011" class="claim">
+      <div class="claim-text">11. The software of <claim-ref idref="US-6809450-B1-CLM-00010">claim 10</claim-ref>, wherein the position of the pivot point along the longitudinal axis is determined as a function of the ratio of the force vectors applied by the first magnetic bearing and the second magnetic bearing.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div num="12" id="US-6809450-B1-CLM-00012" class="claim">
+      <div class="claim-text">12. The software of <claim-ref idref="US-6809450-B1-CLM-00007">claim 7</claim-ref>, wherein the waveform rotates in synchronism with the rotor when the rotor is in motion.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div num="13" id="US-6809450-B1-CLM-00013" class="claim">
+      <div class="claim-text">13. The software of <claim-ref idref="US-6809450-B1-CLM-00007">claim 7</claim-ref>, wherein the waveform is selected from the group comprising sine waveform, sine squared waveform, cosine waveform, cosine squared waveform, random waveform, square waveform, squared pulse waveform, triangular waveform, single square waveform, single triangular waveform, sawtooth waveform.</div>
+    </div>
+    </div> <div class="claim"> <div num="14" id="US-6809450-B1-CLM-00014" class="claim">
+      <div class="claim-text">14. Software stored in or on a computer-readable medium for causing a software-controlled processing device coupled to first and second magnetic bearings supporting a rotor to control positioning of the rotor in the first and second magnetic bearings, the rotor having a longitudinal axis and the first and second magnetic bearings defining a principal axis therebetween, each of the first and second magnetic bearings having at least four magnetic poles with respective magnet coils associated therewith, a voltage and/or current flow through the magnet coils generating magnetic field force vectors to support the rotor for rotation relative to the first and second magnetic bearings, the force vectors under the control of the processing device to selectively position the longitudinal axis relative to the principal axis, the software causing the processing device to perform the function of:</div>
+      <div class="claim-text">controlling the force vectors to align the rotor in the first and second magnetic bearings so that the longitudinal axis thereof and the principal axis defined between the first and second magnetic bearings are not axially coincident with one another; and </div>
+      <div class="claim-text">providing a selected waveform to be impressed on the magnetic field of the first and second magnetic bearings to excite the rotor in response to the selected waveform, the waveform selected from the group comprising sine waveform, sine squared waveform, cosine waveform, cosine squared waveform, random waveform, square waveform, squared pulse waveform, triangular waveform, single square waveform, single triangular waveform, sawtooth waveform. </div>
+    </div>
+    </div> <div class="claim-dependent"> <div num="15" id="US-6809450-B1-CLM-00015" class="claim">
+      <div class="claim-text">15. The software of <claim-ref idref="US-6809450-B1-CLM-00014">claim 14</claim-ref>, wherein the longitudinal axis is off-set from the principal axis.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div num="16" id="US-6809450-B1-CLM-00016" class="claim">
+      <div class="claim-text">16. The software of <claim-ref idref="US-6809450-B1-CLM-00014">claim 14</claim-ref>, wherein the longitudinal axis is aligned non-parallel to the principal axis.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div num="17" id="US-6809450-B1-CLM-00017" class="claim">
+      <div class="claim-text">17. The software of <claim-ref idref="US-6809450-B1-CLM-00014">claim 14</claim-ref>, wherein the longitudinal axis is aligned non-parallel to the principal axis and defines a pivot point intermediate the ends of the rotor.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div num="18" id="US-6809450-B1-CLM-00018" class="claim">
+      <div class="claim-text">18. The software of <claim-ref idref="US-6809450-B1-CLM-00017">claim 17</claim-ref>, wherein the position of the pivot point along the longitudinal axis is determined as a function of the ratio of the force vectors applied by the first bearing and the second bearing.</div>
+    </div>
+  </div> </div>
+  </div>
+  </section>
+
+  <section itemprop="application" itemscope>
+
+    <section itemprop="metadata" itemscope>
+        <span itemprop="applicationNumber">US10/729,580</span>
+        <span itemprop="priorityDate">2002-03-14</span>
+        <span itemprop="filingDate">2003-12-04</span>
+        <span itemprop="title">Software for system for controlling a magnetically levitated rotor 
+       </span>
+        <span itemprop="ifiStatus">Expired - Fee Related</span>
+        
+        <a href="/patent/US6809450B1/en">
+            <span itemprop="representativePublication">US6809450B1</span>
+            (<span itemprop="primaryLanguage">en</span>)
+        </a>
+    </section>
+
+    <h2>Priority Applications (3)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                    <th>Title</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="priorityApps" itemscope repeat>
+                <td>
+                   <span itemprop="applicationNumber">US36400202P</span>
+                   <span itemprop="isUsProvisional">true</span>
+                   
+                <td itemprop="priorityDate">2002-03-14</td>
+                <td itemprop="filingDate">2002-03-14</td>
+                <td itemprop="title"></td>
+              </tr><tr itemprop="priorityApps" itemscope repeat>
+                <td>
+                   <span itemprop="applicationNumber">US10/390,256</span>
+                   
+                   <a href="/patent/US7023118B1/en">
+                        <span itemprop="representativePublication">US7023118B1</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                <td itemprop="priorityDate">2002-03-14</td>
+                <td itemprop="filingDate">2003-03-12</td>
+                <td itemprop="title">System for controlling a magnetically levitated rotor 
+       </td>
+              </tr><tr itemprop="priorityApps" itemscope repeat>
+                <td>
+                   <span itemprop="applicationNumber">US10/729,580</span>
+                   
+                   <a href="/patent/US6809450B1/en">
+                        <span itemprop="representativePublication">US6809450B1</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                <td itemprop="priorityDate">2002-03-14</td>
+                <td itemprop="filingDate">2003-12-04</td>
+                <td itemprop="title">Software for system for controlling a magnetically levitated rotor 
+       </td>
+              </tr>
+           </tbody>
+       </table>
+
+    <h2>Applications Claiming Priority (1)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                    <th>Title</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="appsClaimingPriority" itemscope repeat>
+                <td>
+                   <span itemprop="applicationNumber">US10/729,580</span>
+                   <a href="/patent/US6809450B1/en">
+                        <span itemprop="representativePublication">US6809450B1</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                <td itemprop="priorityDate">2002-03-14</td>
+                <td itemprop="filingDate">2003-12-04</td>
+                <td itemprop="title">Software for system for controlling a magnetically levitated rotor 
+       </td>
+              </tr>
+           </tbody>
+       </table>
+
+    <h2>Related Parent Applications (1)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Title</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="parentApps" itemscope repeat>
+                <td>
+                    <span itemprop="applicationNumber">US10/390,256</span>
+                    <span itemprop="relationType">Division</span>
+                    <a href="/patent/US7023118B1/en">
+                        <span itemprop="representativePublication">US7023118B1</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+
+                <td itemprop="">
+                <td itemprop="priorityDate">2002-03-14</td>
+                <td itemprop="filingDate">2003-03-12</td>
+                <td itemprop="title">System for controlling a magnetically levitated rotor 
+       </td>
+              </tr>
+           </tbody>
+        </table>
+
+    
+
+    <h2>Publications (1)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Publication Number</th>
+                    <th>Publication Date</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="pubs" itemscope repeat>
+                <td>
+                   <span itemprop="publicationNumber">US6809450B1</span>
+                   
+                   <span itemprop="thisPatent">true</span>
+                   <a href="/patent/US6809450B1/en">US6809450B1
+                       (<span itemprop="primaryLanguage">en</span>)
+                   </a>
+                </td>
+                <td itemprop="publicationDate">2004-10-26</td>
+              </tr>
+           </tbody>
+        </table>
+
+  </section>
+
+  <section itemprop="family" itemscope>
+    <h1>Family</h1>
+    <h2>ID=33161924</h2>
+
+    <h2>Family Applications (2)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Title</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="applications" itemscope repeat>
+                <td>
+                    <span itemprop="applicationNumber">US10/390,256</span>
+                    <span itemprop="ifiStatus">Expired - Fee Related</span>
+                    
+                    <a href="/patent/US7023118B1/en">
+                        <span itemprop="representativePublication">US7023118B1</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                </td>
+                <td itemprop="priorityDate">2002-03-14</td>
+                <td itemprop="filingDate">2003-03-12</td>
+                <td itemprop="title">System for controlling a magnetically levitated rotor 
+       </td>
+              </tr><tr itemprop="applications" itemscope repeat>
+                <td>
+                    <span itemprop="applicationNumber">US10/729,580</span>
+                    <span itemprop="ifiStatus">Expired - Fee Related</span>
+                    
+                    <a href="/patent/US6809450B1/en">
+                        <span itemprop="representativePublication">US6809450B1</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                </td>
+                <td itemprop="priorityDate">2002-03-14</td>
+                <td itemprop="filingDate">2003-12-04</td>
+                <td itemprop="title">Software for system for controlling a magnetically levitated rotor 
+       </td>
+              </tr>
+           </tbody>
+        </table>
+
+    <h2>Family Applications Before (1)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Title</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="beforeApplications" itemscope repeat>
+                <td>
+                    <span itemprop="applicationNumber">US10/390,256</span>
+                    <span itemprop="ifiStatus">Expired - Fee Related</span>
+                    
+                    <a href="/patent/US7023118B1/en">
+                        <span itemprop="representativePublication">US7023118B1</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                </td>
+                <td itemprop="priorityDate">2002-03-14</td>
+                <td itemprop="filingDate">2003-03-12</td>
+                <td itemprop="title">System for controlling a magnetically levitated rotor 
+       </td>
+              </tr>
+           </tbody>
+        </table>
+
+    
+
+    <h2>Country Status (1)</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Country</th>
+            <th>Link</th>
+          </tr>
+        </thead>
+        <tbody>
+        <tr itemprop="countryStatus" itemscope repeat>
+            <td>
+              <span itemprop="countryCode">US</span>
+                (<span itemprop="num">2</span>)
+              <meta itemprop="thisCountry" content="true">
+            </td>
+            <td>
+              <a href="/patent/US7023118B1/en">
+                <span itemprop="representativePublication">US7023118B1</span>
+                  (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+    <h2>Cited By (18)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20080012347A1/en">
+              <span itemprop="publicationNumber">US20080012347A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2004-12-30</td>
+          <td itemprop="publicationDate">2008-01-17</td>
+          <td><span itemprop="assigneeOriginal">Rozmus John J</span></td>
+          <td itemprop="title">Wind generator system using attractive magnetic forces to reduce the load on the bearings 
+       </td>
+        </tr><tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20080073993A1/en">
+              <span itemprop="publicationNumber">US20080073993A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2006-09-22</td>
+          <td itemprop="publicationDate">2008-03-27</td>
+          <td><span itemprop="assigneeOriginal">Sortore Christopher K</span></td>
+          <td itemprop="title">Magnetic bearing 
+       </td>
+        </tr><tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20080298944A1/en">
+              <span itemprop="publicationNumber">US20080298944A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2007-05-08</td>
+          <td itemprop="publicationDate">2008-12-04</td>
+          <td><span itemprop="assigneeOriginal">Brooks Automation, Inc.</span></td>
+          <td itemprop="title">Substrate transport apparatus 
+       </td>
+        </tr><tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20090022571A1/en">
+              <span itemprop="publicationNumber">US20090022571A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2007-07-17</td>
+          <td itemprop="publicationDate">2009-01-22</td>
+          <td><span itemprop="assigneeOriginal">Brooks Automation, Inc.</span></td>
+          <td itemprop="title">Substrate processing apparatus with motors integral to chamber walls 
+       </td>
+        </tr><tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20090265038A1/en">
+              <span itemprop="publicationNumber">US20090265038A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2008-04-18</td>
+          <td itemprop="publicationDate">2009-10-22</td>
+          <td><span itemprop="assigneeOriginal">Gary Ramsey</span></td>
+          <td itemprop="title">Magnetic Thrust Bearing with Integrated Electronics 
+       </td>
+        </tr><tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US8283813B2/en">
+              <span itemprop="publicationNumber">US8283813B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2007-06-27</td>
+          <td itemprop="publicationDate">2012-10-09</td>
+          <td><span itemprop="assigneeOriginal">Brooks Automation, Inc.</span></td>
+          <td itemprop="title">Robot drive with magnetic spindle bearings 
+       </td>
+        </tr><tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/CN103557036A/en">
+              <span itemprop="publicationNumber">CN103557036A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2013-10-21</td>
+          <td itemprop="publicationDate">2014-02-05</td>
+          <td><span itemprop="assigneeOriginal">陕西博尔能源科技有限公司</span></td>
+          <td itemprop="title">Integrated turbine set based on permanent magnetic and magnetic suspension technologies 
+       </td>
+        </tr><tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US8659205B2/en">
+              <span itemprop="publicationNumber">US8659205B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2007-06-27</td>
+          <td itemprop="publicationDate">2014-02-25</td>
+          <td><span itemprop="assigneeOriginal">Brooks Automation, Inc.</span></td>
+          <td itemprop="title">Motor stator with lift capability and reduced cogging characteristics 
+       </td>
+        </tr><tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US8698367B2/en">
+              <span itemprop="publicationNumber">US8698367B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2008-04-17</td>
+          <td itemprop="publicationDate">2014-04-15</td>
+          <td><span itemprop="assigneeOriginal">Synchrony, Inc.</span></td>
+          <td itemprop="title">High-speed permanent magnet motor and generator with low-loss metal rotor 
+       </td>
+        </tr><tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20140145534A1/en">
+              <span itemprop="publicationNumber">US20140145534A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2012-11-29</td>
+          <td itemprop="publicationDate">2014-05-29</td>
+          <td><span itemprop="assigneeOriginal">General Electric Company</span></td>
+          <td itemprop="title">Magnetic bearing systems and methods of controlling the same 
+       </td>
+        </tr><tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US8803513B2/en">
+              <span itemprop="publicationNumber">US8803513B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2007-06-27</td>
+          <td itemprop="publicationDate">2014-08-12</td>
+          <td><span itemprop="assigneeOriginal">Brooks Automation, Inc.</span></td>
+          <td itemprop="title">Multiple dimension position sensor 
+       </td>
+        </tr><tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US8823294B2/en">
+              <span itemprop="publicationNumber">US8823294B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2007-06-27</td>
+          <td itemprop="publicationDate">2014-09-02</td>
+          <td><span itemprop="assigneeOriginal">Brooks Automation, Inc.</span></td>
+          <td itemprop="title">Commutation of an electromagnetic propulsion and guidance system 
+       </td>
+        </tr><tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US8987959B2/en">
+              <span itemprop="publicationNumber">US8987959B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2010-06-23</td>
+          <td itemprop="publicationDate">2015-03-24</td>
+          <td><span itemprop="assigneeOriginal">Dresser-Rand Company</span></td>
+          <td itemprop="title">Split magnetic thrust bearing 
+       </td>
+        </tr><tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/CN106224378A/en">
+              <span itemprop="publicationNumber">CN106224378A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2016-08-29</td>
+          <td itemprop="publicationDate">2016-12-14</td>
+          <td><span itemprop="assigneeOriginal">镇江神风电磁轴承有限责任公司</span></td>
+          <td itemprop="title">  Magnetic bearing system  </td>
+        </tr><tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/CN106224377A/en">
+              <span itemprop="publicationNumber">CN106224377A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2016-08-29</td>
+          <td itemprop="publicationDate">2016-12-14</td>
+          <td><span itemprop="assigneeOriginal">解璟昊</span></td>
+          <td itemprop="title">Magnetic suspension bearing 
+       </td>
+        </tr><tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US9583991B2/en">
+              <span itemprop="publicationNumber">US9583991B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2009-06-24</td>
+          <td itemprop="publicationDate">2017-02-28</td>
+          <td><span itemprop="assigneeOriginal">Synchrony, Inc.</span></td>
+          <td itemprop="title">Systems, devices, and/or methods for managing magnetic bearings 
+       </td>
+        </tr><tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US9752615B2/en">
+              <span itemprop="publicationNumber">US9752615B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2007-06-27</td>
+          <td itemprop="publicationDate">2017-09-05</td>
+          <td><span itemprop="assigneeOriginal">Brooks Automation, Inc.</span></td>
+          <td itemprop="title">Reduced-complexity self-bearing brushless DC motor 
+       </td>
+        </tr><tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/WO2019037266A1/en">
+              <span itemprop="publicationNumber">WO2019037266A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2017-08-24</td>
+          <td itemprop="publicationDate">2019-02-28</td>
+          <td><span itemprop="assigneeOriginal">莱克电气股份有限公司</span></td>
+          <td itemprop="title">Hair dryer motor and hair dryer 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Families Citing this family (4)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/KR101532060B1/en">
+              <span itemprop="publicationNumber">KR101532060B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2007-06-27</td>
+          <td itemprop="publicationDate">2015-06-26</td>
+          <td><span itemprop="assigneeOriginal">브룩스 오토메이션 인코퍼레이티드</span></td>
+          <td itemprop="title">Position feedback for self bearing motor 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20120098371A1/en">
+              <span itemprop="publicationNumber">US20120098371A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2010-10-22</td>
+          <td itemprop="publicationDate">2012-04-26</td>
+          <td><span itemprop="assigneeOriginal">Spinlectrix Inc.</span></td>
+          <td itemprop="title">Stabilization of rotating machinery 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20120097570A1/en">
+              <span itemprop="publicationNumber">US20120097570A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2010-10-22</td>
+          <td itemprop="publicationDate">2012-04-26</td>
+          <td><span itemprop="assigneeOriginal">Spinlectrix Inc.</span></td>
+          <td itemprop="title">Vacuum chambers for flywheels 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US9853525B2/en">
+              <span itemprop="publicationNumber">US9853525B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2012-06-12</td>
+          <td itemprop="publicationDate">2017-12-26</td>
+          <td><span itemprop="assigneeOriginal">Abb Research Ltd.</span></td>
+          <td itemprop="title">Magnetic bearing assembly and arrangement of position sensors for a magnetic bearing assembly 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Citations (15)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US4245869A/en">
+              <span itemprop="publicationNumber">US4245869A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1978-08-07</td>
+          <td itemprop="publicationDate">1981-01-20</td>
+          <td><span itemprop="assigneeOriginal">Padana Ag</span></td>
+          <td itemprop="title">Magnetic bearings 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/DE3120691A1/en">
+              <span itemprop="publicationNumber">DE3120691A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1981-05-23</td>
+          <td itemprop="publicationDate">1982-12-16</td>
+          <td><span itemprop="assigneeOriginal">Teldix Gmbh</span></td>
+          <td itemprop="title">Magnetic bearing 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US4866318A/en">
+              <span itemprop="publicationNumber">US4866318A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1984-03-26</td>
+          <td itemprop="publicationDate">1989-09-12</td>
+          <td><span itemprop="assigneeOriginal">Societe Anonyme Styled: Societe Europeenne De Propulsion</span></td>
+          <td itemprop="title">Active radial magnetic bearing with solid rotor for damping critical frequencies 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US4874998A/en">
+              <span itemprop="publicationNumber">US4874998A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1987-06-11</td>
+          <td itemprop="publicationDate">1989-10-17</td>
+          <td><span itemprop="assigneeOriginal">International Business Machines Corporation</span></td>
+          <td itemprop="title">Magnetically levitated fine motion robot wrist with programmable compliance 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5027280A/en">
+              <span itemprop="publicationNumber">US5027280A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1987-06-11</td>
+          <td itemprop="publicationDate">1991-06-25</td>
+          <td><span itemprop="assigneeOriginal">Seiko Seiki Kabushiki Kaisha</span></td>
+          <td itemprop="title">Machining apparatus having a main spindle supported by magnetic bearings 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5355042A/en">
+              <span itemprop="publicationNumber">US5355042A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1988-09-09</td>
+          <td itemprop="publicationDate">1994-10-11</td>
+          <td><span itemprop="assigneeOriginal">University Of Virginia Patent Foundation</span></td>
+          <td itemprop="title">Magnetic bearings for pumps, compressors and other rotating machinery 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5734108A/en">
+              <span itemprop="publicationNumber">US5734108A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1992-04-10</td>
+          <td itemprop="publicationDate">1998-03-31</td>
+          <td><span itemprop="assigneeOriginal">Walker; Dana A.</span></td>
+          <td itemprop="title">System for sensing shaft displacement and strain 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5772564A/en">
+              <span itemprop="publicationNumber">US5772564A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1996-07-16</td>
+          <td itemprop="publicationDate">1998-06-30</td>
+          <td><span itemprop="assigneeOriginal">Koyo Seiko Co., Ltd.</span></td>
+          <td itemprop="title">Magnetic bearing spindle device for machine tools 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6078120A/en">
+              <span itemprop="publicationNumber">US6078120A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1998-03-10</td>
+          <td itemprop="publicationDate">2000-06-20</td>
+          <td><span itemprop="assigneeOriginal">Varian, Inc.</span></td>
+          <td itemprop="title">Vacuum pump with magnetic bearing system, backup bearings and sensors 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6130494A/en">
+              <span itemprop="publicationNumber">US6130494A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1995-08-18</td>
+          <td itemprop="publicationDate">2000-10-10</td>
+          <td><span itemprop="assigneeOriginal">Sulzer Electroncis Ag</span></td>
+          <td itemprop="title">Magnetic bearing apparatus and a method for operating the same 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6215218B1/en">
+              <span itemprop="publicationNumber">US6215218B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1998-04-09</td>
+          <td itemprop="publicationDate">2001-04-10</td>
+          <td><span itemprop="assigneeOriginal">Koyo Seiko Co., Ltd.</span></td>
+          <td itemprop="title">Control magnetic bearing 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6472787B1/en">
+              <span itemprop="publicationNumber">US6472787B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1999-07-29</td>
+          <td itemprop="publicationDate">2002-10-29</td>
+          <td><span itemprop="assigneeOriginal">Koyo Seiko Co., Ltd.</span></td>
+          <td itemprop="title">Controller of magnetic bearing 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6606536B1/en">
+              <span itemprop="publicationNumber">US6606536B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1999-02-25</td>
+          <td itemprop="publicationDate">2003-08-12</td>
+          <td><span itemprop="assigneeOriginal">Seiko Instruments Inc.</span></td>
+          <td itemprop="title">Magnetic bearing device and magnetic bearing control device 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6664680B1/en">
+              <span itemprop="publicationNumber">US6664680B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2000-12-20</td>
+          <td itemprop="publicationDate">2003-12-16</td>
+          <td><span itemprop="assigneeOriginal">Indigo Energy, Inc.</span></td>
+          <td itemprop="title">Flywheel device with active magnetic bearings 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6727618B1/en">
+              <span itemprop="publicationNumber">US6727618B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2002-06-10</td>
+          <td itemprop="publicationDate">2004-04-27</td>
+          <td><span itemprop="assigneeOriginal">The United States Of America, As Represented By The Administrator Of National Aeronautics And Space Administration</span></td>
+          <td itemprop="title">Bearingless switched reluctance motor 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Family Cites Families (2)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="backwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5578880A/en">
+              <span itemprop="publicationNumber">US5578880A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1994-07-18</td>
+          <td itemprop="publicationDate">1996-11-26</td>
+          <td><span itemprop="assigneeOriginal">General Electric Company</span></td>
+          <td itemprop="title">Fault tolerant active magnetic bearing electric system 
+       </td>
+        </tr><tr itemprop="backwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/JP2002013532A/en">
+              <span itemprop="publicationNumber">JP2002013532A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2000-06-28</td>
+          <td itemprop="publicationDate">2002-01-18</td>
+          <td><span itemprop="assigneeOriginal">Koyo Seiko Co Ltd</span></td>
+          <td itemprop="title">Magnetic bearing control system 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+
+    
+    <ul>
+      
+      <li itemprop="applicationsByYear" itemscope repeat>
+        <span itemprop="year">2003</span>
+        <ul>
+          
+          <li itemprop="application" itemscope repeat>
+            <span itemprop="filingDate">2003-03-12</span>
+            <span itemprop="countryCode">US</span>
+            <span itemprop="applicationNumber">US10/390,256</span>
+            <a href="/patent/US7023118B1/en"><span itemprop="documentId">patent/US7023118B1/en</span></a>
+            <span itemprop="legalStatusCat">not_active</span>
+            <span itemprop="legalStatus">Expired - Fee Related</span>
+            
+          </li>
+          
+          <li itemprop="application" itemscope repeat>
+            <span itemprop="filingDate">2003-12-04</span>
+            <span itemprop="countryCode">US</span>
+            <span itemprop="applicationNumber">US10/729,580</span>
+            <a href="/patent/US6809450B1/en"><span itemprop="documentId">patent/US6809450B1/en</span></a>
+            <span itemprop="legalStatusCat">not_active</span>
+            <span itemprop="legalStatus">Expired - Fee Related</span>
+            
+            <span itemprop="thisApp" content="true" bool></span>
+            
+          </li>
+          
+        </ul>
+      </li>
+      
+    </ul>
+    
+
+    </section>
+
+  <section>
+    <h2>Patent Citations (15)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US4245869A/en">
+              <span itemprop="publicationNumber">US4245869A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1978-08-07</td>
+          <td itemprop="publicationDate">1981-01-20</td>
+          <td><span itemprop="assigneeOriginal">Padana Ag</span></td>
+          <td itemprop="title">Magnetic bearings 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/DE3120691A1/en">
+              <span itemprop="publicationNumber">DE3120691A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1981-05-23</td>
+          <td itemprop="publicationDate">1982-12-16</td>
+          <td><span itemprop="assigneeOriginal">Teldix Gmbh</span></td>
+          <td itemprop="title">Magnetic bearing 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US4866318A/en">
+              <span itemprop="publicationNumber">US4866318A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1984-03-26</td>
+          <td itemprop="publicationDate">1989-09-12</td>
+          <td><span itemprop="assigneeOriginal">Societe Anonyme Styled: Societe Europeenne De Propulsion</span></td>
+          <td itemprop="title">Active radial magnetic bearing with solid rotor for damping critical frequencies 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US4874998A/en">
+              <span itemprop="publicationNumber">US4874998A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1987-06-11</td>
+          <td itemprop="publicationDate">1989-10-17</td>
+          <td><span itemprop="assigneeOriginal">International Business Machines Corporation</span></td>
+          <td itemprop="title">Magnetically levitated fine motion robot wrist with programmable compliance 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5027280A/en">
+              <span itemprop="publicationNumber">US5027280A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1987-06-11</td>
+          <td itemprop="publicationDate">1991-06-25</td>
+          <td><span itemprop="assigneeOriginal">Seiko Seiki Kabushiki Kaisha</span></td>
+          <td itemprop="title">Machining apparatus having a main spindle supported by magnetic bearings 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5355042A/en">
+              <span itemprop="publicationNumber">US5355042A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1988-09-09</td>
+          <td itemprop="publicationDate">1994-10-11</td>
+          <td><span itemprop="assigneeOriginal">University Of Virginia Patent Foundation</span></td>
+          <td itemprop="title">Magnetic bearings for pumps, compressors and other rotating machinery 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5734108A/en">
+              <span itemprop="publicationNumber">US5734108A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1992-04-10</td>
+          <td itemprop="publicationDate">1998-03-31</td>
+          <td><span itemprop="assigneeOriginal">Walker; Dana A.</span></td>
+          <td itemprop="title">System for sensing shaft displacement and strain 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6130494A/en">
+              <span itemprop="publicationNumber">US6130494A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1995-08-18</td>
+          <td itemprop="publicationDate">2000-10-10</td>
+          <td><span itemprop="assigneeOriginal">Sulzer Electroncis Ag</span></td>
+          <td itemprop="title">Magnetic bearing apparatus and a method for operating the same 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5772564A/en">
+              <span itemprop="publicationNumber">US5772564A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1996-07-16</td>
+          <td itemprop="publicationDate">1998-06-30</td>
+          <td><span itemprop="assigneeOriginal">Koyo Seiko Co., Ltd.</span></td>
+          <td itemprop="title">Magnetic bearing spindle device for machine tools 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6078120A/en">
+              <span itemprop="publicationNumber">US6078120A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1998-03-10</td>
+          <td itemprop="publicationDate">2000-06-20</td>
+          <td><span itemprop="assigneeOriginal">Varian, Inc.</span></td>
+          <td itemprop="title">Vacuum pump with magnetic bearing system, backup bearings and sensors 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6215218B1/en">
+              <span itemprop="publicationNumber">US6215218B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1998-04-09</td>
+          <td itemprop="publicationDate">2001-04-10</td>
+          <td><span itemprop="assigneeOriginal">Koyo Seiko Co., Ltd.</span></td>
+          <td itemprop="title">Control magnetic bearing 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6606536B1/en">
+              <span itemprop="publicationNumber">US6606536B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1999-02-25</td>
+          <td itemprop="publicationDate">2003-08-12</td>
+          <td><span itemprop="assigneeOriginal">Seiko Instruments Inc.</span></td>
+          <td itemprop="title">Magnetic bearing device and magnetic bearing control device 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6472787B1/en">
+              <span itemprop="publicationNumber">US6472787B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1999-07-29</td>
+          <td itemprop="publicationDate">2002-10-29</td>
+          <td><span itemprop="assigneeOriginal">Koyo Seiko Co., Ltd.</span></td>
+          <td itemprop="title">Controller of magnetic bearing 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6664680B1/en">
+              <span itemprop="publicationNumber">US6664680B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2000-12-20</td>
+          <td itemprop="publicationDate">2003-12-16</td>
+          <td><span itemprop="assigneeOriginal">Indigo Energy, Inc.</span></td>
+          <td itemprop="title">Flywheel device with active magnetic bearings 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6727618B1/en">
+              <span itemprop="publicationNumber">US6727618B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2002-06-10</td>
+          <td itemprop="publicationDate">2004-04-27</td>
+          <td><span itemprop="assigneeOriginal">The United States Of America, As Represented By The Administrator Of National Aeronautics And Space Administration</span></td>
+          <td itemprop="title">Bearingless switched reluctance motor 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  
+
+  <h2>Cited By (28)</h2>
+  <table>
+    <caption>* Cited by examiner, † Cited by third party</caption>
+    <thead>
+      <tr>
+        <th>Publication number</th>
+        <th>Priority date</th>
+        <th>Publication date</th>
+        <th>Assignee</th>
+        <th>Title</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US7391128B2/en">
+            <span itemprop="publicationNumber">US7391128B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2004-12-30</td>
+        <td itemprop="publicationDate">2008-06-24</td>
+        <td><span itemprop="assigneeOriginal">Rozlev Corp., Llc</span></td>
+        <td itemprop="title">Wind generator system using attractive magnetic forces to reduce the load on the bearings 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US20080012347A1/en">
+            <span itemprop="publicationNumber">US20080012347A1</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2004-12-30</td>
+        <td itemprop="publicationDate">2008-01-17</td>
+        <td><span itemprop="assigneeOriginal">Rozmus John J</span></td>
+        <td itemprop="title">Wind generator system using attractive magnetic forces to reduce the load on the bearings 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US20080073993A1/en">
+            <span itemprop="publicationNumber">US20080073993A1</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2006-09-22</td>
+        <td itemprop="publicationDate">2008-03-27</td>
+        <td><span itemprop="assigneeOriginal">Sortore Christopher K</span></td>
+        <td itemprop="title">Magnetic bearing 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US7471022B2/en">
+            <span itemprop="publicationNumber">US7471022B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          
+          
+        </td>
+        <td itemprop="priorityDate">2006-09-22</td>
+        <td itemprop="publicationDate">2008-12-30</td>
+        <td><span itemprop="assigneeOriginal">Sortore Christopher K</span></td>
+        <td itemprop="title">Magnetic bearing 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US8747050B2/en">
+            <span itemprop="publicationNumber">US8747050B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          
+          
+        </td>
+        <td itemprop="priorityDate">2007-05-08</td>
+        <td itemprop="publicationDate">2014-06-10</td>
+        <td><span itemprop="assigneeOriginal">Brooks Automation, Inc.</span></td>
+        <td itemprop="title">Substrate transport apparatus 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US20080298944A1/en">
+            <span itemprop="publicationNumber">US20080298944A1</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2007-05-08</td>
+        <td itemprop="publicationDate">2008-12-04</td>
+        <td><span itemprop="assigneeOriginal">Brooks Automation, Inc.</span></td>
+        <td itemprop="title">Substrate transport apparatus 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US8267636B2/en">
+            <span itemprop="publicationNumber">US8267636B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          
+          
+        </td>
+        <td itemprop="priorityDate">2007-05-08</td>
+        <td itemprop="publicationDate">2012-09-18</td>
+        <td><span itemprop="assigneeOriginal">Brooks Automation, Inc.</span></td>
+        <td itemprop="title">Substrate transport apparatus 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US8803513B2/en">
+            <span itemprop="publicationNumber">US8803513B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          
+          
+        </td>
+        <td itemprop="priorityDate">2007-06-27</td>
+        <td itemprop="publicationDate">2014-08-12</td>
+        <td><span itemprop="assigneeOriginal">Brooks Automation, Inc.</span></td>
+        <td itemprop="title">Multiple dimension position sensor 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US8659205B2/en">
+            <span itemprop="publicationNumber">US8659205B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          
+          
+        </td>
+        <td itemprop="priorityDate">2007-06-27</td>
+        <td itemprop="publicationDate">2014-02-25</td>
+        <td><span itemprop="assigneeOriginal">Brooks Automation, Inc.</span></td>
+        <td itemprop="title">Motor stator with lift capability and reduced cogging characteristics 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US9752615B2/en">
+            <span itemprop="publicationNumber">US9752615B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          
+          
+        </td>
+        <td itemprop="priorityDate">2007-06-27</td>
+        <td itemprop="publicationDate">2017-09-05</td>
+        <td><span itemprop="assigneeOriginal">Brooks Automation, Inc.</span></td>
+        <td itemprop="title">Reduced-complexity self-bearing brushless DC motor 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US8283813B2/en">
+            <span itemprop="publicationNumber">US8283813B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          
+          
+        </td>
+        <td itemprop="priorityDate">2007-06-27</td>
+        <td itemprop="publicationDate">2012-10-09</td>
+        <td><span itemprop="assigneeOriginal">Brooks Automation, Inc.</span></td>
+        <td itemprop="title">Robot drive with magnetic spindle bearings 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US9024488B2/en">
+            <span itemprop="publicationNumber">US9024488B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          
+          
+        </td>
+        <td itemprop="priorityDate">2007-06-27</td>
+        <td itemprop="publicationDate">2015-05-05</td>
+        <td><span itemprop="assigneeOriginal">Brooks Automation, Inc.</span></td>
+        <td itemprop="title">Robot drive with magnetic spindle bearings 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US8823294B2/en">
+            <span itemprop="publicationNumber">US8823294B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          
+          
+        </td>
+        <td itemprop="priorityDate">2007-06-27</td>
+        <td itemprop="publicationDate">2014-09-02</td>
+        <td><span itemprop="assigneeOriginal">Brooks Automation, Inc.</span></td>
+        <td itemprop="title">Commutation of an electromagnetic propulsion and guidance system 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US8008884B2/en">
+            <span itemprop="publicationNumber">US8008884B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          
+          
+        </td>
+        <td itemprop="priorityDate">2007-07-17</td>
+        <td itemprop="publicationDate">2011-08-30</td>
+        <td><span itemprop="assigneeOriginal">Brooks Automation, Inc.</span></td>
+        <td itemprop="title">Substrate processing apparatus with motors integral to chamber walls 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US20090022571A1/en">
+            <span itemprop="publicationNumber">US20090022571A1</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2007-07-17</td>
+        <td itemprop="publicationDate">2009-01-22</td>
+        <td><span itemprop="assigneeOriginal">Brooks Automation, Inc.</span></td>
+        <td itemprop="title">Substrate processing apparatus with motors integral to chamber walls 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US8237391B2/en">
+            <span itemprop="publicationNumber">US8237391B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          
+          
+        </td>
+        <td itemprop="priorityDate">2007-07-17</td>
+        <td itemprop="publicationDate">2012-08-07</td>
+        <td><span itemprop="assigneeOriginal">Brooks Automation, Inc.</span></td>
+        <td itemprop="title">Substrate processing apparatus with motors integral to chamber walls 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US8680803B2/en">
+            <span itemprop="publicationNumber">US8680803B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          
+          
+        </td>
+        <td itemprop="priorityDate">2007-07-17</td>
+        <td itemprop="publicationDate">2014-03-25</td>
+        <td><span itemprop="assigneeOriginal">Brooks Automation, Inc.</span></td>
+        <td itemprop="title">Substrate processing apparatus with motors integral to chamber walls 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US8698367B2/en">
+            <span itemprop="publicationNumber">US8698367B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          
+          
+        </td>
+        <td itemprop="priorityDate">2008-04-17</td>
+        <td itemprop="publicationDate">2014-04-15</td>
+        <td><span itemprop="assigneeOriginal">Synchrony, Inc.</span></td>
+        <td itemprop="title">High-speed permanent magnet motor and generator with low-loss metal rotor 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US20090265038A1/en">
+            <span itemprop="publicationNumber">US20090265038A1</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2008-04-18</td>
+        <td itemprop="publicationDate">2009-10-22</td>
+        <td><span itemprop="assigneeOriginal">Gary Ramsey</span></td>
+        <td itemprop="title">Magnetic Thrust Bearing with Integrated Electronics 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US8330311B2/en">
+            <span itemprop="publicationNumber">US8330311B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          
+          
+        </td>
+        <td itemprop="priorityDate">2008-04-18</td>
+        <td itemprop="publicationDate">2012-12-11</td>
+        <td><span itemprop="assigneeOriginal">Dresser-Rand Company</span></td>
+        <td itemprop="title">Magnetic thrust bearing with integrated electronics 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US9583991B2/en">
+            <span itemprop="publicationNumber">US9583991B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          
+          
+        </td>
+        <td itemprop="priorityDate">2009-06-24</td>
+        <td itemprop="publicationDate">2017-02-28</td>
+        <td><span itemprop="assigneeOriginal">Synchrony, Inc.</span></td>
+        <td itemprop="title">Systems, devices, and/or methods for managing magnetic bearings 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US8987959B2/en">
+            <span itemprop="publicationNumber">US8987959B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          
+          
+        </td>
+        <td itemprop="priorityDate">2010-06-23</td>
+        <td itemprop="publicationDate">2015-03-24</td>
+        <td><span itemprop="assigneeOriginal">Dresser-Rand Company</span></td>
+        <td itemprop="title">Split magnetic thrust bearing 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US20140145534A1/en">
+            <span itemprop="publicationNumber">US20140145534A1</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2012-11-29</td>
+        <td itemprop="publicationDate">2014-05-29</td>
+        <td><span itemprop="assigneeOriginal">General Electric Company</span></td>
+        <td itemprop="title">Magnetic bearing systems and methods of controlling the same 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/CN103557036B/en">
+            <span itemprop="publicationNumber">CN103557036B</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2013-10-21</td>
+        <td itemprop="publicationDate">2015-12-09</td>
+        <td><span itemprop="assigneeOriginal">陕西博尔能源科技有限公司</span></td>
+        <td itemprop="title">  Based on the integration of turbines permanent magnet and magnetic levitation technology  </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/CN103557036A/en">
+            <span itemprop="publicationNumber">CN103557036A</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2013-10-21</td>
+        <td itemprop="publicationDate">2014-02-05</td>
+        <td><span itemprop="assigneeOriginal">陕西博尔能源科技有限公司</span></td>
+        <td itemprop="title">Integrated turbine set based on permanent magnetic and magnetic suspension technologies 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/CN106224378A/en">
+            <span itemprop="publicationNumber">CN106224378A</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2016-08-29</td>
+        <td itemprop="publicationDate">2016-12-14</td>
+        <td><span itemprop="assigneeOriginal">镇江神风电磁轴承有限责任公司</span></td>
+        <td itemprop="title">  Magnetic bearing system  </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/CN106224377A/en">
+            <span itemprop="publicationNumber">CN106224377A</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2016-08-29</td>
+        <td itemprop="publicationDate">2016-12-14</td>
+        <td><span itemprop="assigneeOriginal">解璟昊</span></td>
+        <td itemprop="title">Magnetic suspension bearing 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/WO2019037266A1/en">
+            <span itemprop="publicationNumber">WO2019037266A1</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2017-08-24</td>
+        <td itemprop="publicationDate">2019-02-28</td>
+        <td><span itemprop="assigneeOriginal">莱克电气股份有限公司</span></td>
+        <td itemprop="title">Hair dryer motor and hair dryer 
+       </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <section>
+    <h2>Also Published As</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Publication date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="docdbFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7023118B1/en">
+              <span itemprop="publicationNumber">US7023118B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+          </td>
+          <td itemprop="publicationDate">2006-04-04</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Similar Documents</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Publication</th>
+          <th>Publication Date</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US6249067B1/en">
+                <span itemprop="publicationNumber">US6249067B1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2001-06-19">2001-06-19</time>
+            
+            
+          </td>
+          <td itemprop="title">Method and sensor arrangement for the determination of the radial position of a permanent magnetic rotor 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="4901754934953426002">
+              <a href="/scholar/4901754934953426002"><span itemprop="scholarAuthors">Ahrens et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1996">1996</time>
+            
+          </td>
+          <td itemprop="title">Performance of a magnetically suspended flywheel energy storage device</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="7899935610439257839">
+              <a href="/scholar/7899935610439257839"><span itemprop="scholarAuthors">Schoeb et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1997">1997</time>
+            
+          </td>
+          <td itemprop="title">Principle and application of a bearingless slice motor</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US6707200B2/en">
+                <span itemprop="publicationNumber">US6707200B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2004-03-16">2004-03-16</time>
+            
+            
+          </td>
+          <td itemprop="title">Integrated magnetic bearing 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/EP1705792B1/en">
+                <span itemprop="publicationNumber">EP1705792B1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2008-05-14">2008-05-14</time>
+            
+            
+          </td>
+          <td itemprop="title">Brush-less motor with control circuit 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US4003265A/en">
+                <span itemprop="publicationNumber">US4003265A</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="1977-01-18">1977-01-18</time>
+            
+            
+          </td>
+          <td itemprop="title">Mass balancing system for rotatable assemblies 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US3891905A/en">
+                <span itemprop="publicationNumber">US3891905A</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="1975-06-24">1975-06-24</time>
+            
+            
+          </td>
+          <td itemprop="title">Brushless d-c motor 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/KR100486129B1/en">
+                <span itemprop="publicationNumber">KR100486129B1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2005-08-31">2005-08-31</time>
+            
+            
+          </td>
+          <td itemprop="title">A angular rate sensor 
+     </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/EP0920109B1/en">
+                <span itemprop="publicationNumber">EP0920109B1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2004-11-17">2004-11-17</time>
+            
+            
+          </td>
+          <td itemprop="title">Bearingless rotary machine 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="14853176986104660524">
+              <a href="/scholar/14853176986104660524"><span itemprop="scholarAuthors">Muszynska</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1995">1995</time>
+            
+          </td>
+          <td itemprop="title">Vibrational diagnostics of rotating machinery malfunctions</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US6368075B1/en">
+                <span itemprop="publicationNumber">US6368075B1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2002-04-09">2002-04-09</time>
+            
+            
+          </td>
+          <td itemprop="title">Pump with a magnetically supported rotor 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/JP4390856B2/en">
+                <span itemprop="publicationNumber">JP4390856B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2009-12-24">2009-12-24</time>
+            
+            
+          </td>
+          <td itemprop="title">Rotary pump and driving method thereof 
+     </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/EP0566806A1/en">
+                <span itemprop="publicationNumber">EP0566806A1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="1993-10-27">1993-10-27</time>
+            
+            
+          </td>
+          <td itemprop="title">Magnetic bearing device 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US4114960A/en">
+                <span itemprop="publicationNumber">US4114960A</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="1978-09-19">1978-09-19</time>
+            
+            
+          </td>
+          <td itemprop="title">Radial displacement detector device for a magnetic bearing 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US6268674B1/en">
+                <span itemprop="publicationNumber">US6268674B1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2001-07-31">2001-07-31</time>
+            
+            
+          </td>
+          <td itemprop="title">Magnetic bearing apparatus 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US6268673B1/en">
+                <span itemprop="publicationNumber">US6268673B1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2001-07-31">2001-07-31</time>
+            
+            
+          </td>
+          <td itemprop="title">Control coil arrangement for a rotating machine rotor 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US4541772A/en">
+                <span itemprop="publicationNumber">US4541772A</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="1985-09-17">1985-09-17</time>
+            
+            
+          </td>
+          <td itemprop="title">Pump with magnetic bearings 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US4363984A/en">
+                <span itemprop="publicationNumber">US4363984A</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="1982-12-14">1982-12-14</time>
+            
+            
+          </td>
+          <td itemprop="title">Digitally controlled brushless motor 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US6634224B1/en">
+                <span itemprop="publicationNumber">US6634224B1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2003-10-21">2003-10-21</time>
+            
+            
+          </td>
+          <td itemprop="title">Method for the determination of the pressure in and/or of the through-flow through a pump 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US6205856B1/en">
+                <span itemprop="publicationNumber">US6205856B1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2001-03-27">2001-03-27</time>
+            
+            
+          </td>
+          <td itemprop="title">Angular velocity sensor 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/CN1136641C/en">
+                <span itemprop="publicationNumber">CN1136641C</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2004-01-28">2004-01-28</time>
+            
+            
+          </td>
+          <td itemprop="title">Magnetic bearing and rotary machine carried it and operating method of rotary machinery 
+     </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/WO1989012132A1/en">
+                <span itemprop="publicationNumber">WO1989012132A1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="1989-12-14">1989-12-14</time>
+            
+            
+          </td>
+          <td itemprop="title">A method of balancing a container which rotates about an essentially horizontal axis 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/EP0364993A2/en">
+                <span itemprop="publicationNumber">EP0364993A2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="1990-04-25">1990-04-25</time>
+            
+            
+          </td>
+          <td itemprop="title">Magnetic bearing system 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US4641080A/en">
+                <span itemprop="publicationNumber">US4641080A</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="1987-02-03">1987-02-03</time>
+            
+            
+          </td>
+          <td itemprop="title">Permanent magnet generator with fault detection 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US6236183B1/en">
+                <span itemprop="publicationNumber">US6236183B1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2001-05-22">2001-05-22</time>
+            
+            
+          </td>
+          <td itemprop="title">Device for sensing the angular position for controlling a synchronous motor excited by a permanent magnet 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Legal Events</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Code</th>
+          <th>Title</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2008-04-18">2008-04-18</time></td>
+          <td itemprop="code">FPAY</td>
+          <td itemprop="title">Fee payment</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Year of fee payment</strong>:
+              <span itemprop="value">4</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2012-06-11">2012-06-11</time></td>
+          <td itemprop="code">REMI</td>
+          <td itemprop="title">Maintenance fee reminder mailed</td>
+          <td>
+            
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2012-10-26">2012-10-26</time></td>
+          <td itemprop="code">LAPS</td>
+          <td itemprop="title">Lapse for failure to pay maintenance fees</td>
+          <td>
+            
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2012-10-26">2012-10-26</time></td>
+          <td itemprop="code">REIN</td>
+          <td itemprop="title">Reinstatement after maintenance fee payment confirmed</td>
+          <td>
+            
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2012-12-18">2012-12-18</time></td>
+          <td itemprop="code">FP</td>
+          <td itemprop="title">Expired due to failure to pay maintenance fee</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Effective date</strong>:
+              <span itemprop="value">20121026</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2013-09-11">2013-09-11</time></td>
+          <td itemprop="code">SULP</td>
+          <td itemprop="title">Surcharge for late payment</td>
+          <td>
+            
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2013-09-11">2013-09-11</time></td>
+          <td itemprop="code">FPAY</td>
+          <td itemprop="title">Fee payment</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Year of fee payment</strong>:
+              <span itemprop="value">8</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2013-10-28">2013-10-28</time></td>
+          <td itemprop="code">PRDP</td>
+          <td itemprop="title">Patent reinstated due to the acceptance of a late maintenance fee</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Effective date</strong>:
+              <span itemprop="value">20131031</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2016-06-03">2016-06-03</time></td>
+          <td itemprop="code">REMI</td>
+          <td itemprop="title">Maintenance fee reminder mailed</td>
+          <td>
+            
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2016-10-26">2016-10-26</time></td>
+          <td itemprop="code">LAPS</td>
+          <td itemprop="title">Lapse for failure to pay maintenance fees</td>
+          <td>
+            
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2016-11-21">2016-11-21</time></td>
+          <td itemprop="code">STCH</td>
+          <td itemprop="title">Information on status: patent discontinuation</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">PATENT EXPIRED DUE TO NONPAYMENT OF MAINTENANCE FEES UNDER 37 CFR 1.362</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2016-12-13">2016-12-13</time></td>
+          <td itemprop="code">FP</td>
+          <td itemprop="title">Expired due to failure to pay maintenance fee</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Effective date</strong>:
+              <span itemprop="value">20161026</span>
+            </p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+</article>
+
+    </search-app>
+    <script type="text/javascript" src="//www.gstatic.com/feedback/api.js"></script>
+    <script async="" defer="" src="//www.google.com/insights/consumersurveys/async_survey?site=cxkjf7ipxgbnnjy6k35ezcvbbe"></script>
+  </body>
+</html>

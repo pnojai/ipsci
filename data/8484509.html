@@ -1,0 +1,2842 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>US8484509B2 - Radiation-hardened processing system 
+        - Google Patents</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="referrer" content="origin-when-crossorigin">
+    <link rel="canonical" href="https://patents.google.com/patent/US8484509B2/en">
+    <meta name="description" content="
+     A processing system including an FPGA having a dual port RAM and for use in hostile environments. The FPGA includes three portions: a C&amp;DH portion; a first scratch pad portion receiving a first set of data, processing the first set of data, and outputting a first set of processed data to a first location of the RAM; and a second scratch pad portion receiving a second set of data identical to the first set of data, processing the second set of data in the same way that the first set of data is processed, and outputting a second set of processed data to a second location of the RAM. The C&amp;DH portion compares the first set of processed data to the second set of processed data and, if the first set of processed data is the same as the second set of processed data, outputs one set of processed data. 
+   
+   ">
+    
+    <meta name="DC.type" content="patent">
+    
+    <meta name="DC.title" content="Radiation-hardened processing system 
+       ">
+    
+    <meta name="DC.date" content="2010-08-11" scheme="dateSubmitted">
+    
+    <meta name="DC.description" content="
+     A processing system including an FPGA having a dual port RAM and for use in hostile environments. The FPGA includes three portions: a C&amp;DH portion; a first scratch pad portion receiving a first set of data, processing the first set of data, and outputting a first set of processed data to a first location of the RAM; and a second scratch pad portion receiving a second set of data identical to the first set of data, processing the second set of data in the same way that the first set of data is processed, and outputting a second set of processed data to a second location of the RAM. The C&amp;DH portion compares the first set of processed data to the second set of processed data and, if the first set of processed data is the same as the second set of processed data, outputs one set of processed data. 
+   
+   ">
+    
+    <meta name="citation_patent_application_number" content="US:12/854,546">
+    
+    <meta name="citation_pdf_url" content="https://patentimages.storage.googleapis.com/52/42/d8/0a2e524094e39f/US8484509.pdf">
+    
+    <meta name="citation_patent_number" content="US:8484509">
+    
+    <meta name="DC.date" content="2013-07-09" scheme="issue">
+    
+    <meta name="DC.contributor" content="Daniel C. Espinosa" scheme="inventor">
+    
+    <meta name="DC.contributor" content="Alessandro Geist" scheme="inventor">
+    
+    <meta name="DC.contributor" content="David J. Petrick" scheme="inventor">
+    
+    <meta name="DC.contributor" content="Thomas P. Flatley" scheme="inventor">
+    
+    <meta name="DC.contributor" content="Jeffrey C. Hosler" scheme="inventor">
+    
+    <meta name="DC.contributor" content="Gary A. Crum" scheme="inventor">
+    
+    <meta name="DC.contributor" content="Manuel Buenfil" scheme="inventor">
+    
+    <meta name="DC.contributor" content="National Aeronautics and Space Administration (NASA)" scheme="assignee">
+    
+    <meta name="DC.relation" content="US:6073251" scheme="references">
+    
+    <meta name="DC.relation" content="US:6560743" scheme="references">
+    
+    <meta name="DC.relation" content="US:6104211" scheme="references">
+    
+    <meta name="DC.relation" content="US:7620883" scheme="references">
+    
+    <meta name="DC.relation" content="US:7859292" scheme="references">
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,400italic,500,500italic,700">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Product+Sans">
+    <style>
+      body { transition: none; }
+    </style>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-27188110-4', 'auto');
+
+      version = 'patent-search.search_20191120_RC00';
+
+      function sendFeedback() {
+        userfeedback.api.startFeedback({
+          'productId': '713680',
+          'bucket': 'patent-search-web',
+          'productVersion': version,
+        });
+      }
+
+      window.experiments = {};
+      window.experiments.patentCountries = "ae,ag,al,am,ao,ap,ar,at,au,aw,az,ba,bb,bd,be,bf,bg,bh,bj,bn,bo,br,bw,bx,by,bz,ca,cf,cg,ch,ci,cl,cm,cn,co,cr,cs,cu,cy,cz,dd,de,dj,dk,dm,do,dz,ea,ec,ee,eg,em,ep,es,fi,fr,ga,gb,gc,gd,ge,gh,gm,gn,gq,gr,gt,gw,hk,hn,hr,hu,ib,id,ie,il,in,ir,is,it,jo,jp,ke,kg,kh,km,kn,kp,kr,kw,kz,la,lc,li,lk,lr,ls,lt,lu,lv,ly,ma,mc,md,me,mg,mk,ml,mn,mo,mr,mt,mw,mx,my,mz,na,ne,ng,ni,nl,no,nz,oa,om,pa,pe,pg,ph,pl,pt,py,qa,ro,rs,ru,rw,sa,sc,sd,se,sg,si,sk,sl,sm,sn,st,su,sv,sy,sz,td,tg,th,tj,tm,tn,tr,tt,tw,tz,ua,ug,us,uy,uz,vc,ve,vn,wo,yu,za,zm,zw";
+      
+      
+      window.profilePicture = "";
+
+      window.Polymer = {
+        dom: 'shady',
+        lazyRegister: true,
+      };
+    </script>
+
+    <script src="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/webcomponentsjs/webcomponents-lite.min.js"></script>
+    
+    <link rel="import" href="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/search-app-vulcanized.html">
+    
+  </head>
+  <body unresolved>
+    
+    <script src="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/search-app-vulcanized.js"></script>
+    
+    <search-app>
+      
+      
+
+      <article class="result" itemscope itemtype="http://schema.org/ScholarlyArticle">
+  <h1 itemprop="pageTitle">US8484509B2 - Radiation-hardened processing system 
+        - Google Patents</h1>
+  <span itemprop="title">Radiation-hardened processing system 
+       </span>
+
+  <meta itemprop="type" content="patent">
+  <a href="https://patentimages.storage.googleapis.com/52/42/d8/0a2e524094e39f/US8484509.pdf" itemprop="pdfLink">Download PDF</a>
+  <h2>Info</h2>
+
+  <dl>
+    <dt>Publication number</dt>
+    <dd itemprop="publicationNumber">US8484509B2</dd>
+    <meta itemprop="numberWithoutCodes" content="8484509">
+    <meta itemprop="kindCode" content="B2">
+    <meta itemprop="publicationDescription" content="Patent ( having previously published pre-grant publication)">
+    
+    <span>US8484509B2</span>
+    
+    <span>US12/854,546</span>
+    
+    <span>US85454610A</span>
+    
+    <span>US8484509B2</span>
+    
+    <span>US 8484509 B2</span>
+    
+    <span>US8484509 B2</span>
+    
+    <span>US 8484509B2</span>
+    
+    <span>  </span>
+    
+    <span> </span>
+    
+    <span> </span>
+    
+    <span>US 85454610 A</span>
+    
+    <span>US85454610 A</span>
+    
+    <span>US 85454610A</span>
+    
+    <span>US 8484509 B2</span>
+    
+    <span>US8484509 B2</span>
+    
+    <span>US 8484509B2</span>
+    
+
+    <dt>Authority</dt>
+    <dd itemprop="countryCode">US</dd>
+    <dd itemprop="countryName">United States</dd>
+
+    <dt>Prior art keywords</dt>
+    
+    <dd itemprop="priorArtKeywords" repeat>data</dd>
+    <dd itemprop="priorArtKeywords" repeat>set</dd>
+    <dd itemprop="priorArtKeywords" repeat>radiation</dd>
+    <dd itemprop="priorArtKeywords" repeat>processed</dd>
+    <dd itemprop="priorArtKeywords" repeat>processing system</dd>
+
+    <dt>Prior art date</dt>
+    <dd><time itemprop="priorArtDate" datetime="2009-09-30">2009-09-30</time></dd>
+
+    <dt>Legal status (The legal status is an assumption and is not a legal conclusion. Google has not performed a legal analysis and makes no representation as to the accuracy of the status listed.)</dt>
+    <dd itemprop="legalStatusIfi" itemscope>
+      <span itemprop="status">Active</span>, expires <time itemprop="expiration" datetime="2030-08-09">2030-08-09</time>
+    </dd>
+  </dl>
+
+  <dt>Application number</dt>
+  <dd itemprop="applicationNumber">US12/854,546</dd>
+
+  
+
+  <dt>Other versions</dt>
+  <dd itemprop="directAssociations" itemscope repeat>
+    
+    <a href="/patent/US20110107158A1/en">
+      <span itemprop="publicationNumber">US20110107158A1</span>
+      (<span itemprop="primaryLanguage">en</span>
+    </a>
+  </dd>
+
+  <dt>Inventor</dt>
+  <dd itemprop="inventor" repeat>Daniel C. Espinosa</dd>
+  <dd itemprop="inventor" repeat>Alessandro Geist</dd>
+  <dd itemprop="inventor" repeat>David J. Petrick</dd>
+  <dd itemprop="inventor" repeat>Thomas P. Flatley</dd>
+  <dd itemprop="inventor" repeat>Jeffrey C. Hosler</dd>
+  <dd itemprop="inventor" repeat>Gary A. Crum</dd>
+  <dd itemprop="inventor" repeat>Manuel Buenfil</dd>
+  <dt>Current Assignee (The listed assignees may be inaccurate. Google has not performed a legal analysis and makes no representation or warranty as to the accuracy of the list.)</dt>
+  <dd itemprop="assigneeCurrent" repeat>
+    National Aeronautics and Space Administration (NASA)
+  </dd>
+
+  <dt>Original Assignee</dt>
+  <dd itemprop="assigneeOriginal" repeat>National Aeronautics and Space Administration (NASA)</dd>
+
+  <dt>Priority date (The priority date is an assumption and is not a legal conclusion. Google has not performed a legal analysis and makes no representation as to the accuracy of the date listed.)</dt>
+  <dd><time itemprop="priorityDate" datetime="2009-09-30">2009-09-30</time></dd>
+
+  <dt>Filing date</dt>
+  <dd><time itemprop="filingDate" datetime="2010-08-11">2010-08-11</time></dd>
+
+  <dt>Publication date</dt>
+  <dd><time itemprop="publicationDate" datetime="2013-07-09">2013-07-09</time></dd>
+
+  
+
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2009-09-30">2009-09-30</time>
+    <span itemprop="title">Priority to US12/570,134</span>
+    <span itemprop="type">priority</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    <span itemprop="documentId">patent/US20110078498A1/en</span>
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2010-08-11">2010-08-11</time>
+    <span itemprop="title">Application filed by National Aeronautics and Space Administration (NASA)</span>
+    <span itemprop="type">filed</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    <span itemprop="assigneeSearch">National Aeronautics and Space Administration (NASA)</span>
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2010-08-11">2010-08-11</time>
+    <span itemprop="title">Priority to US12/854,546</span>
+    <span itemprop="type">priority</span>
+    
+    
+    
+    <span itemprop="documentId">patent/US8484509B2/en</span>
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2011-05-05">2011-05-05</time>
+    <span itemprop="title">Publication of US20110107158A1</span>
+    <span itemprop="type">publication</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    <span itemprop="documentId">patent/US20110107158A1/en</span>
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2013-07-09">2013-07-09</time>
+    <span itemprop="title">Application granted</span>
+    <span itemprop="type">granted</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2013-07-09">2013-07-09</time>
+    <span itemprop="title">Publication of US8484509B2</span>
+    <span itemprop="type">publication</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    <span itemprop="documentId">patent/US8484509B2/en</span>
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2015-04-21">2015-04-21</time>
+    <span itemprop="title">Assigned to UNITED STATES OF AMERICA AS REPRESENTED BY THE ADMINISTRATOR OF THE NATIONAL AERONAUTICS AND SPACE ADMINISTRATION</span>
+    <span itemprop="type">reassignment</span>
+    
+    
+    
+    
+    <span itemprop="assigneeSearch">UNITED STATES OF AMERICA AS REPRESENTED BY THE ADMINISTRATOR OF THE NATIONAL AERONAUTICS AND SPACE ADMINISTRATION</span>
+    
+    
+    <span itemprop="description" repeat>ASSIGNMENT OF ASSIGNORS INTEREST (SEE DOCUMENT FOR DETAILS).</span>
+    
+    <span itemprop="description" repeat>Assignors: CRUM, GARY, FLATLEY, THOMAS P., HOSLER, JEFFREY C., PETRICK, DAVID, BUENFIL, MANUEL, ESPINOSA, DANIEL C., GEIST, ALESSANDRO</span>
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2019-11-25">2019-11-25</time>
+    <span itemprop="title">Application status is Active</span>
+    <span itemprop="type">legal-status</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2030-08-09">2030-08-09</time>
+    <span itemprop="title">Adjusted expiration</span>
+    <span itemprop="type">legal-status</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+
+  <h2>Links</h2>
+
+  <ul>
+    
+          <li itemprop="links" itemscope repeat>
+            <meta itemprop="id" content="usptoLink">
+            <a href="http://patft.uspto.gov/netacgi/nph-Parser?Sect1=PTO1&Sect2=HITOFF&p=1&u=/netahtml/PTO/srchnum.html&r=1&f=G&l=50&d=PALL&s1=8484509.PN." itemprop="url" target="_blank"><span itemprop="text">USPTO</span></a>
+          </li>
+        <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="usptoAssignmentLink">
+          <a href="https://assignment.uspto.gov/patent/index.html#/patent/search/resultFilter?searchInput=8484509" itemprop="url" target="_blank"><span itemprop="text">USPTO Assignment</span></a>
+        </li>
+
+    <li itemprop="links" itemscope repeat>
+        <meta itemprop="id" content="espacenetLink">
+        <a href="http://worldwide.espacenet.com/publicationDetails/biblio?CC=US&amp;NR=8484509B2&amp;KC=B2&amp;FT=D" itemprop="url" target="_blank"><span itemprop="text">Espacenet</span></a>
+      </li>
+      
+
+    
+
+    
+      <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="globalDossierLink">
+          <a href="http://globaldossier.uspto.gov/#/result/patent/US/8484509/1" itemprop="url" target="_blank"><span itemprop="text">Global Dossier</span></a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="stackexchangeLink">
+          <a href="https://patents.stackexchange.com/questions/tagged/US8484509" itemprop="url"><span itemprop="text">Discuss</span></a>
+        </li>
+      
+  </ul>
+
+  
+  <ul itemprop="concept" itemscope>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000015654</span>
+      <span itemprop="name">memory</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">49</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000004891</span>
+      <span itemprop="name">communication</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">25</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000005510</span>
+      <span itemprop="name">radiation hardening</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">24</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000000034</span>
+      <span itemprop="name">methods</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">15</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000003860</span>
+      <span itemprop="name">storage</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">14</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000009826</span>
+      <span itemprop="name">distribution</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">7</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000000116</span>
+      <span itemprop="name">mitigating</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">6</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001066</span>
+      <span itemprop="name">destructive</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">5</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000036541</span>
+      <span itemprop="name">health</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">5</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000002245</span>
+      <span itemprop="name">particles</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">4</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000011162</span>
+      <span itemprop="name">core materials</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">3</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000009434</span>
+      <span itemprop="name">installation</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">3</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001702</span>
+      <span itemprop="name">transmitter</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">3</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000000694</span>
+      <span itemprop="name">effects</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001965</span>
+      <span itemprop="name">increased</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000000463</span>
+      <span itemprop="name">materials</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000006298</span>
+      <span itemprop="name">mdm</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001603</span>
+      <span itemprop="name">reducing</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000006722</span>
+      <span itemprop="name">reduction reaction</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000005201</span>
+      <span itemprop="name">scrubbing</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000011664</span>
+      <span itemprop="name">signaling</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000004458</span>
+      <span itemprop="name">analytical methods</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000000969</span>
+      <span itemprop="name">carrier</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001721</span>
+      <span itemprop="name">combination</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000007906</span>
+      <span itemprop="name">compression</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000002708</span>
+      <span itemprop="name">enhancing</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000000670</span>
+      <span itemprop="name">limiting</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000001301</span>
+      <span itemprop="name">oxygen</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">MYMOFIZGZYHOMD-UHFFFAOYSA-N</span>
+      <span itemprop="name">oxygen</span>
+      <span itemprop="domain">Chemical compound</span>
+      <span itemprop="svg_large">data:image/svg&#43;xml;base64,PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0naXNvLTg4NTktMSc/Pgo8c3ZnIHZlcnNpb249JzEuMScgYmFzZVByb2ZpbGU9J2Z1bGwnCiAgICAgICAgICAgICAgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJwogICAgICAgICAgICAgICAgICAgICAgeG1sbnM6cmRraXQ9J2h0dHA6Ly93d3cucmRraXQub3JnL3htbCcKICAgICAgICAgICAgICAgICAgICAgIHhtbG5zOnhsaW5rPSdodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rJwogICAgICAgICAgICAgICAgICB4bWw6c3BhY2U9J3ByZXNlcnZlJwp3aWR0aD0nMzAwcHgnIGhlaWdodD0nMzAwcHgnID4KPCEtLSBFTkQgT0YgSEVBREVSIC0tPgo8cmVjdCBzdHlsZT0nb3BhY2l0eToxLjA7ZmlsbDojRkZGRkZGO3N0cm9rZTpub25lJyB3aWR0aD0nMzAwJyBoZWlnaHQ9JzMwMCcgeD0nMCcgeT0nMCc&#43;IDwvcmVjdD4KPHBhdGggY2xhc3M9J2JvbmQtMCcgZD0nTSA3Mi45NjcxLDE2Ni44MDggMjI3LjAzMywxNjYuODA4JyBzdHlsZT0nZmlsbDpub25lO2ZpbGwtcnVsZTpldmVub2RkO3N0cm9rZTojRkYwMDAwO3N0cm9rZS13aWR0aDoycHg7c3Ryb2tlLWxpbmVjYXA6YnV0dDtzdHJva2UtbGluZWpvaW46bWl0ZXI7c3Ryb2tlLW9wYWNpdHk6MScgLz4KPHBhdGggY2xhc3M9J2JvbmQtMCcgZD0nTSA3Mi45NjcxLDEzMy4xOTIgMjI3LjAzMywxMzMuMTkyJyBzdHlsZT0nZmlsbDpub25lO2ZpbGwtcnVsZTpldmVub2RkO3N0cm9rZTojRkYwMDAwO3N0cm9rZS13aWR0aDoycHg7c3Ryb2tlLWxpbmVjYXA6YnV0dDtzdHJva2UtbGluZWpvaW46bWl0ZXI7c3Ryb2tlLW9wYWNpdHk6MScgLz4KPHRleHQgeD0nNTguOTU3NScgeT0nMTU3LjUnIHN0eWxlPSdmb250LXNpemU6MTVweDtmb250LXN0eWxlOm5vcm1hbDtmb250LXdlaWdodDpub3JtYWw7ZmlsbC1vcGFjaXR5OjE7c3Ryb2tlOm5vbmU7Zm9udC1mYW1pbHk6c2Fucy1zZXJpZjt0ZXh0LWFuY2hvcjpzdGFydDtmaWxsOiNGRjAwMDAnID48dHNwYW4&#43;TzwvdHNwYW4&#43;PC90ZXh0Pgo8dGV4dCB4PScyMjcuMDMzJyB5PScxNTcuNScgc3R5bGU9J2ZvbnQtc2l6ZToxNXB4O2ZvbnQtc3R5bGU6bm9ybWFsO2ZvbnQtd2VpZ2h0Om5vcm1hbDtmaWxsLW9wYWNpdHk6MTtzdHJva2U6bm9uZTtmb250LWZhbWlseTpzYW5zLXNlcmlmO3RleHQtYW5jaG9yOnN0YXJ0O2ZpbGw6I0ZGMDAwMCcgPjx0c3Bhbj5PPC90c3Bhbj48L3RleHQ&#43;Cjwvc3ZnPgo=</span>
+      <span itemprop="svg_small">data:image/svg&#43;xml;base64,PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0naXNvLTg4NTktMSc/Pgo8c3ZnIHZlcnNpb249JzEuMScgYmFzZVByb2ZpbGU9J2Z1bGwnCiAgICAgICAgICAgICAgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJwogICAgICAgICAgICAgICAgICAgICAgeG1sbnM6cmRraXQ9J2h0dHA6Ly93d3cucmRraXQub3JnL3htbCcKICAgICAgICAgICAgICAgICAgICAgIHhtbG5zOnhsaW5rPSdodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rJwogICAgICAgICAgICAgICAgICB4bWw6c3BhY2U9J3ByZXNlcnZlJwp3aWR0aD0nODVweCcgaGVpZ2h0PSc4NXB4JyA&#43;CjwhLS0gRU5EIE9GIEhFQURFUiAtLT4KPHJlY3Qgc3R5bGU9J29wYWNpdHk6MS4wO2ZpbGw6I0ZGRkZGRjtzdHJva2U6bm9uZScgd2lkdGg9Jzg1JyBoZWlnaHQ9Jzg1JyB4PScwJyB5PScwJz4gPC9yZWN0Pgo8cGF0aCBjbGFzcz0nYm9uZC0wJyBkPSdNIDI1LjYwMjIsNDYuNzYyMSA1OC4zOTc4LDQ2Ljc2MjEnIHN0eWxlPSdmaWxsOm5vbmU7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOiNGRjAwMDA7c3Ryb2tlLXdpZHRoOjJweDtzdHJva2UtbGluZWNhcDpidXR0O3N0cm9rZS1saW5lam9pbjptaXRlcjtzdHJva2Utb3BhY2l0eToxJyAvPgo8cGF0aCBjbGFzcz0nYm9uZC0wJyBkPSdNIDI1LjYwMjIsMzcuMjM3OSA1OC4zOTc4LDM3LjIzNzknIHN0eWxlPSdmaWxsOm5vbmU7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOiNGRjAwMDA7c3Ryb2tlLXdpZHRoOjJweDtzdHJva2UtbGluZWNhcDpidXR0O3N0cm9rZS1saW5lam9pbjptaXRlcjtzdHJva2Utb3BhY2l0eToxJyAvPgo8dGV4dCB4PScxMC43NzY1JyB5PSc0OS45MzY5JyBzdHlsZT0nZm9udC1zaXplOjE1cHg7Zm9udC1zdHlsZTpub3JtYWw7Zm9udC13ZWlnaHQ6bm9ybWFsO2ZpbGwtb3BhY2l0eToxO3N0cm9rZTpub25lO2ZvbnQtZmFtaWx5OnNhbnMtc2VyaWY7dGV4dC1hbmNob3I6c3RhcnQ7ZmlsbDojRkYwMDAwJyA&#43;PHRzcGFuPk88L3RzcGFuPjwvdGV4dD4KPHRleHQgeD0nNTguMzk3OCcgeT0nNDkuOTM2OScgc3R5bGU9J2ZvbnQtc2l6ZToxNXB4O2ZvbnQtc3R5bGU6bm9ybWFsO2ZvbnQtd2VpZ2h0Om5vcm1hbDtmaWxsLW9wYWNpdHk6MTtzdHJva2U6bm9uZTtmb250LWZhbWlseTpzYW5zLXNlcmlmO3RleHQtYW5jaG9yOnN0YXJ0O2ZpbGw6I0ZGMDAwMCcgPjx0c3Bhbj5PPC90c3Bhbj48L3RleHQ&#43;Cjwvc3ZnPgo=</span>
+      <span itemprop="smiles">O=O</span>
+      <span itemprop="inchi_key">MYMOFIZGZYHOMD-UHFFFAOYSA-N</span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000000737</span>
+      <span itemprop="name">periodic</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000002093</span>
+      <span itemprop="name">peripheral</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">229920000379</span>
+      <span itemprop="name">polypropylene carbonates</span>
+      <span itemprop="domain">Polymers</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000000047</span>
+      <span itemprop="name">products</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000002633</span>
+      <span itemprop="name">protecting</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000002285</span>
+      <span itemprop="name">radioactive</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000000717</span>
+      <span itemprop="name">retained</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001052</span>
+      <span itemprop="name">transient</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000004642</span>
+      <span itemprop="name">transportation engineering</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+  </ul>
+  
+
+  <section>
+    <h2>Images</h2>
+    <ul>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/36/6c/02/dfef4885a1a225/US08484509-20130709-D00000.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/74/8e/cb/c0b2813d787e66/US08484509-20130709-D00000.png">
+        <ul>
+          
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/b4/02/4e/06ce4eb68b412d/US08484509-20130709-D00001.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/81/8f/61/ecec3604b3d5cd/US08484509-20130709-D00001.png">
+        <ul>
+          
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/ff/9c/8a/ae2d0a8ee9a265/US08484509-20130709-D00002.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/b0/c6/eb/3afa4599ad7370/US08484509-20130709-D00002.png">
+        <ul>
+          
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/51/b5/cb/1c2a15fba2645b/US08484509-20130709-D00003.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/05/34/80/3ad9ac5016af08/US08484509-20130709-D00003.png">
+        <ul>
+          <li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="3">
+            <meta itemprop="id" content="1">
+            <meta itemprop="label" content="Processor">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="194">
+              <meta itemprop="top" content="851">
+              <meta itemprop="right" content="251">
+              <meta itemprop="bottom" content="860">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="3">
+            <meta itemprop="id" content="1">
+            <meta itemprop="label" content="Processor">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="420">
+              <meta itemprop="top" content="802">
+              <meta itemprop="right" content="477">
+              <meta itemprop="bottom" content="821">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="3">
+            <meta itemprop="id" content="2">
+            <meta itemprop="label" content="Processor">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="870">
+              <meta itemprop="top" content="798">
+              <meta itemprop="right" content="927">
+              <meta itemprop="bottom" content="817">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="3">
+            <meta itemprop="id" content="2">
+            <meta itemprop="label" content="Processor">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1092">
+              <meta itemprop="top" content="843">
+              <meta itemprop="right" content="1152">
+              <meta itemprop="bottom" content="853">
+            </span>
+          </li>
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/53/6d/da/2e1874baed2b74/US08484509-20130709-D00004.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/54/28/30/908611ad5eab17/US08484509-20130709-D00004.png">
+        <ul>
+          
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/84/3c/7b/c8230eddf2c5f6/US08484509-20130709-D00005.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/7c/df/80/d6b38c18212e04/US08484509-20130709-D00005.png">
+        <ul>
+          <li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="5">
+            <meta itemprop="id" content="1">
+            <meta itemprop="label" content="Processor">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="596">
+              <meta itemprop="top" content="311">
+              <meta itemprop="right" content="658">
+              <meta itemprop="bottom" content="333">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="5">
+            <meta itemprop="id" content="1">
+            <meta itemprop="label" content="Processor">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="751">
+              <meta itemprop="top" content="696">
+              <meta itemprop="right" content="803">
+              <meta itemprop="bottom" content="706">
+            </span>
+          </li>
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/c9/59/64/f6a753a70d0de7/US08484509-20130709-D00006.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/dc/7b/36/3526e81c38542c/US08484509-20130709-D00006.png">
+        <ul>
+          <li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="6">
+            <meta itemprop="id" content="1">
+            <meta itemprop="label" content="Processor">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="978">
+              <meta itemprop="top" content="2342">
+              <meta itemprop="right" content="1013">
+              <meta itemprop="bottom" content="2397">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="6">
+            <meta itemprop="id" content="1">
+            <meta itemprop="label" content="Processor">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="676">
+              <meta itemprop="top" content="2361">
+              <meta itemprop="right" content="712">
+              <meta itemprop="bottom" content="2418">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="6">
+            <meta itemprop="id" content="2">
+            <meta itemprop="label" content="Processor">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="679">
+              <meta itemprop="top" content="2538">
+              <meta itemprop="right" content="715">
+              <meta itemprop="bottom" content="2595">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="6">
+            <meta itemprop="id" content="2">
+            <meta itemprop="label" content="Processor">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="916">
+              <meta itemprop="top" content="2537">
+              <meta itemprop="right" content="946">
+              <meta itemprop="bottom" content="2601">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="6">
+            <meta itemprop="id" content="3">
+            <meta itemprop="label" content="Module">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="684">
+              <meta itemprop="top" content="2717">
+              <meta itemprop="right" content="710">
+              <meta itemprop="bottom" content="2773">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="6">
+            <meta itemprop="id" content="3">
+            <meta itemprop="label" content="Module">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="988">
+              <meta itemprop="top" content="2731">
+              <meta itemprop="right" content="1017">
+              <meta itemprop="bottom" content="2793">
+            </span>
+          </li>
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/f1/f7/7b/3f5b3019ee1b8d/US08484509-20130709-D00007.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/93/46/8a/9a98a3e20b29bc/US08484509-20130709-D00007.png">
+        <ul>
+          
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/f1/c5/e0/de06ea54dc8b16/US08484509-20130709-D00008.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/f0/a9/57/1b14767a8d48ed/US08484509-20130709-D00008.png">
+        <ul>
+          
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/58/12/03/1ee3adb5d264a2/US08484509-20130709-D00009.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/83/78/21/2d207565a90128/US08484509-20130709-D00009.png">
+        <ul>
+          <li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="9">
+            <meta itemprop="id" content="1">
+            <meta itemprop="label" content="Processor">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="372">
+              <meta itemprop="top" content="1087">
+              <meta itemprop="right" content="428">
+              <meta itemprop="bottom" content="1098">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="9">
+            <meta itemprop="id" content="1">
+            <meta itemprop="label" content="Processor">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="704">
+              <meta itemprop="top" content="1424">
+              <meta itemprop="right" content="758">
+              <meta itemprop="bottom" content="1442">
+            </span>
+          </li>
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/c5/92/bf/4a95a36ef9cac1/US08484509-20130709-D00010.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/dd/f8/9d/b901893cbba3a8/US08484509-20130709-D00010.png">
+        <ul>
+          <li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="10">
+            <meta itemprop="id" content="2">
+            <meta itemprop="label" content="Processor">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="683">
+              <meta itemprop="top" content="1655">
+              <meta itemprop="right" content="739">
+              <meta itemprop="bottom" content="1674">
+            </span>
+          </li>
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/31/3f/5d/7ef5c5c1bd8013/US08484509-20130709-D00011.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/35/67/f6/7e2c381ea53a3b/US08484509-20130709-D00011.png">
+        <ul>
+          <li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="11">
+            <meta itemprop="id" content="100">
+            <meta itemprop="label" content="processing payload">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1338">
+              <meta itemprop="top" content="795">
+              <meta itemprop="right" content="1415">
+              <meta itemprop="bottom" content="852">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="11">
+            <meta itemprop="id" content="100">
+            <meta itemprop="label" content="processing payload">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="911">
+              <meta itemprop="top" content="1991">
+              <meta itemprop="right" content="983">
+              <meta itemprop="bottom" content="2045">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="11">
+            <meta itemprop="id" content="200">
+            <meta itemprop="label" content="board data processor">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1544">
+              <meta itemprop="top" content="63">
+              <meta itemprop="right" content="1617">
+              <meta itemprop="bottom" content="119">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="11">
+            <meta itemprop="id" content="202">
+            <meta itemprop="label" content="more sensors">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="209">
+              <meta itemprop="top" content="1989">
+              <meta itemprop="right" content="282">
+              <meta itemprop="bottom" content="2045">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="11">
+            <meta itemprop="id" content="202">
+            <meta itemprop="label" content="more sensors">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="400">
+              <meta itemprop="top" content="257">
+              <meta itemprop="right" content="485">
+              <meta itemprop="bottom" content="322">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="11">
+            <meta itemprop="id" content="204">
+            <meta itemprop="label" content="Digital converter">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="708">
+              <meta itemprop="top" content="263">
+              <meta itemprop="right" content="782">
+              <meta itemprop="bottom" content="319">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="11">
+            <meta itemprop="id" content="206">
+            <meta itemprop="label" content="board storage">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1023">
+              <meta itemprop="top" content="265">
+              <meta itemprop="right" content="1095">
+              <meta itemprop="bottom" content="319">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="11">
+            <meta itemprop="id" content="208">
+            <meta itemprop="label" content="downlink">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1611">
+              <meta itemprop="top" content="1990">
+              <meta itemprop="right" content="1683">
+              <meta itemprop="bottom" content="2044">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="11">
+            <meta itemprop="id" content="208">
+            <meta itemprop="label" content="downlink">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1324">
+              <meta itemprop="top" content="259">
+              <meta itemprop="right" content="1413">
+              <meta itemprop="bottom" content="320">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="11">
+            <meta itemprop="id" content="250">
+            <meta itemprop="label" content="board data processor">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1346">
+              <meta itemprop="top" content="1785">
+              <meta itemprop="right" content="1429">
+              <meta itemprop="bottom" content="1848">
+            </span>
+          </li>
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/ed/90/cb/07c544e6eeed2a/US08484509-20130709-D00012.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/49/85/43/bcb40d90725e69/US08484509-20130709-D00012.png">
+        <ul>
+          
+        </ul>
+      </li>
+      </ul>
+  </section>
+
+  <section>
+    <h2>Classifications</h2>
+    
+    <ul>
+      <li>
+        <ul itemprop="cpcs" itemscope repeat>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G</span>&mdash;<span itemprop="Description">PHYSICS</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06</span>&mdash;<span itemprop="Description">COMPUTING; CALCULATING; COUNTING</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06F</span>&mdash;<span itemprop="Description">ELECTRIC DIGITAL DATA PROCESSING</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06F11/00</span>&mdash;<span itemprop="Description">Error detection; Error correction; Monitoring</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06F11/07</span>&mdash;<span itemprop="Description">Responding to the occurrence of a fault, e.g. fault tolerance</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06F11/08</span>&mdash;<span itemprop="Description">Error detection or correction by redundancy in data representation, e.g. by using checking codes</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06F11/10</span>&mdash;<span itemprop="Description">Adding special bits or symbols to the coded information, e.g. parity check, casting out 9&#39;s or 11&#39;s</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06F11/1008</span>&mdash;<span itemprop="Description">Adding special bits or symbols to the coded information, e.g. parity check, casting out 9&#39;s or 11&#39;s in individual solid state devices</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06F11/1048</span>&mdash;<span itemprop="Description">Adding special bits or symbols to the coded information, e.g. parity check, casting out 9&#39;s or 11&#39;s in individual solid state devices using arrangements adapted for a specific error detection or correction feature</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06F11/106</span>&mdash;<span itemprop="Description">Correcting systematically all correctable errors, i.e. scrubbing</span>
+            <meta itemprop="Leaf" content="true">
+            
+            <meta itemprop="FirstCode" content="true">
+          </li>
+          </ul>
+      </li>
+      <li>
+        <ul itemprop="cpcs" itemscope repeat>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">H</span>&mdash;<span itemprop="Description">ELECTRICITY</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">H03</span>&mdash;<span itemprop="Description">BASIC ELECTRONIC CIRCUITRY</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">H03M</span>&mdash;<span itemprop="Description">CODING; DECODING; CODE CONVERSION IN GENERAL</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">H03M13/00</span>&mdash;<span itemprop="Description">Coding, decoding or code conversion, for error detection or error correction; Coding theory basic assumptions; Coding bounds; Error probability evaluation methods; Channel models; Simulation or testing of codes</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">H03M13/03</span>&mdash;<span itemprop="Description">Error detection or forward error correction by redundancy in data representation, i.e. code words containing more digits than the source words</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">H03M13/05</span>&mdash;<span itemprop="Description">Error detection or forward error correction by redundancy in data representation, i.e. code words containing more digits than the source words using block codes, i.e. a predetermined number of check bits joined to a predetermined number of information bits</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">H03M13/13</span>&mdash;<span itemprop="Description">Linear codes</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">H03M13/19</span>&mdash;<span itemprop="Description">Single error correction without using particular properties of the cyclic codes, e.g. Hamming codes, extended or generalised Hamming codes</span>
+            <meta itemprop="Leaf" content="true">
+            <meta itemprop="Additional" content="true">
+            
+          </li>
+          </ul>
+      </li>
+      </ul>
+  </section>
+
+  <section itemprop="abstract" itemscope>
+    <h2>Abstract</h2>
+    
+    <div itemprop="content" html><abstract mxw-id="PA117184195" lang="EN" load-source="patent-office">
+    <div num="p-0001" class="abstract">A processing system including an FPGA having a dual port RAM and for use in hostile environments. The FPGA includes three portions: a C&amp;DH portion; a first scratch pad portion receiving a first set of data, processing the first set of data, and outputting a first set of processed data to a first location of the RAM; and a second scratch pad portion receiving a second set of data identical to the first set of data, processing the second set of data in the same way that the first set of data is processed, and outputting a second set of processed data to a second location of the RAM. The C&amp;DH portion compares the first set of processed data to the second set of processed data and, if the first set of processed data is the same as the second set of processed data, outputs one set of processed data.</div>
+  </abstract>
+  </div>
+  </section>
+
+  <section itemprop="description" itemscope>
+    <h2>Description</h2>
+    
+    <div itemprop="content" html><div mxw-id="PDES60184485" lang="EN" load-source="patent-office" class="description">
+    
+    <heading>INTRODUCTION</heading>
+    <p num="p-0002">This patent application is a continuation-in-part of U.S. patent application Ser. No. 12/570,134, filed Sep. 30, 2009, titled “Radiation-hardened hybrid processor,” the entire content of which is incorporated by reference herein.</p>
+    
+    
+    <heading>ORIGIN OF THE INVENTION</heading>
+    <p num="p-0003">The invention described herein was made by an employee of the United States Government, and may be manufactured and used by or for the Government for governmental purposes without the payment of any royalties thereon or therefor.</p>
+    
+    
+    <heading>FIELD</heading>
+    <p num="p-0004">The present teachings relate to a compact processing system at least for demonstrating the feasibility and performance of radiation hardening by software, error correction and corrective techniques that enable the use of commercial processing (non-radiation hardened) devices in hostile environments.</p>
+    <heading>BACKGROUND</heading>
+    <p num="p-0005">Modern electronic devices utilize processors to carry out various functions that are necessary to or that enhance the electronic device&#39;s functionality. Processors can be in the form of circuit boards, wired-in processors, or other fixed or removable elements containing components that carry out computations, data processing, and other functions.</p>
+    <p num="p-0006">Electronic devices can be designed to operate in hostile environments, meaning environments that can negatively affect the functioning of electronic devices. Hostile environments can include radiation or other conditions that are known to negatively affect the performance of electronic devices. It is thus useful to provide radiation hardening for processors and other elements of electronic devices that are used in hostile environments, to prevent and/or mitigate data errors and computational component failures due to radiation and other conditions.</p>
+    <p num="p-0007">Three levels of electrical device component radiation tolerance are presently available. The first level is an unprotected component, which can experience both recoverable errors (e.g., bit flips) and destructive errors when utilized in a hostile environment. The second level is commonly referred to as radiation tolerant, and includes electrical device components that are designed such that destructive errors are avoided in hostile environments, but recoverable errors such as bit flips may still occur. The third level is commonly referred to as radiation hardened, and includes electrical device components that experience neither recoverable nor destructive errors when utilized in a hostile environment.</p>
+    <p num="p-0008">Bit flip errors are a form of single-event upsets in which a state change occurs in memory or in a register, such as from 0 to 1 or vice versa. These are generally not fatal to the device, but can require correction to avoid propagation of errors in computations based thereon. Critical upsets are more serious errors, and generally require a shutdown and restart, or a reset of the computing device affected.</p>
+    <p num="p-0009">The processing power of radiation-hardened processors tends to be less than state-of-the-art commercially-available non-radiation-hardened processors. The processing power of a radiation-hardened processor can be, for example, one or two generations behind commercially-available non-radiation-hardened processors.</p>
+    <p num="p-0010">The use of commercial or non-space-rated devices in space applications and other hostile environments is desirable due to the growing performance needs (and size and weight limitations) for emerging space applications and the slow performance of existing space-qualified devices.</p>
+    <p num="p-0011">To ensure that radiation hardening of commercial components by design and software truly provides error-free data collection and processing, a platform is needed for testing the feasibility and performance of radiation hardening by design and software, error correction and corrective techniques enabling use of commercial processing (non-radiation hardened) devices in hostile environments.</p>
+    <heading>SUMMARY</heading>
+    <p num="p-0012">The present teachings provide a processing system including an FPGA having a dual port RAM and for use in hostile environments. The FPGA includes three portions: a C&amp;DH portion; a first scratch pad portion receiving a first set of data, processing the first set of data, and outputting a first set of processed data to a first location of the RAM; and a second scratch pad portion receiving a second set of data identical to the first set of data, processing the second set of data in the same way that the first set of data is processed, and outputting a second set of processed data to a second location of the RAM. The C&amp;DH portion compares the first set of processed data to the second set of processed data and, if the first set of processed data is the same as the second set of processed data, outputs one set of processed data.</p>
+    <p num="p-0013">The present teachings also provide a radiation hardening by design and software demonstration payload for interfacing with an external platform via a single port. The payload includes the following stacked slices: a first set of slices comprising a first power slice and a first processor slice; a second set of slices comprising a second power slice and a second processor slice, the second set of slices being configured to operate independently of the first set of slices; and a communication and power adapter slice configured to provide power from the external platform to the first power slice and the second power slice and to provide communication between the external platform and the first processor slice or between the external platform and the second processor slice.</p>
+    <p num="p-0014">The present teachings further provide a method for radiation hardening a processing system by design and software. The method includes, within a first radiation-tolerant FPGA of the processing system, processing a first set of data to create a first set of output data; processing a second set of data that is identical the first set of data to create a second set of output data; comparing the first set of output data to the second set of output data to detect errors in the data or the data processing; and storing one of the first set of output data and the second set of output data in a memory of the processing system if no errors are detected. The method also includes within a second radiation-tolerant FPGA of the processing system, processing a third set of data that is identical to the first and second sets of data to create a third set of output data; processing a fourth set of data that is identical the first, second, and third sets of data to create a fourth set of output data; comparing the third set of output data to the fourth set of output data to detect errors in the data or the data processing; and storing one of the third set of output data and the fourth set of output data in a memory of the processing system if no errors are detected. Stored data from the first radiation-tolerant FPGA is compared to stored data from the second radiation-tolerant FPGA to detect errors in the data or the data processing.</p>
+    <p num="p-0015">Additional objects and advantages of the present teachings will be set forth in part in the description which follows, and in part will be obvious from the description, or may be learned by practice of the teachings. The objects and advantages of the present teachings will be realized and attained by means of the elements and combinations particularly pointed out in the appended claims.</p>
+    <p num="p-0016">It is to be understood that both the foregoing general description and the following detailed description are exemplary and explanatory only and are not restrictive of the present teachings, as claimed.</p>
+    <p num="p-0017">The accompanying drawings, which are incorporated in and constitute a part of this specification, illustrate embodiments of the present teachings and, together with the description, serve to explain the principles of the present teachings.</p>
+    
+    
+    <description-of-drawings>
+      <heading>BRIEF DESCRIPTION OF THE DRAWINGS</heading>
+      <p num="p-0018">Exemplary embodiments of the present teachings are described below with reference to the appended drawings, in which:</p>
+      <p num="p-0019"> <figref idrefs="DRAWINGS">FIG. 1</figref> is a schematic diagram of an embodiment of a processing system according to the present teachings;</p>
+      <p num="p-0020"> <figref idrefs="DRAWINGS">FIG. 2</figref> is a schematic diagram showing an embodiment of a communication scenario among a processing system, an external platform, and a remote station;</p>
+      <p num="p-0021"> <figref idrefs="DRAWINGS">FIG. 3</figref> is a schematic diagram illustrating an exemplary stacking of payload slices in accordance with the present teachings;</p>
+      <p num="p-0022"> <figref idrefs="DRAWINGS">FIG. 4</figref> is a schematic diagram of an embodiment of a processing system according to the present teachings;</p>
+      <p num="p-0023"> <figref idrefs="DRAWINGS">FIG. 5</figref> is a schematic diagram illustrating a field programmable gate array (FPGA) architecture according to an embodiment of the present teachings;</p>
+      <p num="p-0024"> <figref idrefs="DRAWINGS">FIG. 5A</figref> schematically illustrates an exemplary self-scrubber for an FPGA;</p>
+      <p num="p-0025"> <figref idrefs="DRAWINGS">FIG. 5B</figref> is a flow chart illustrating an exemplary embodiment of a self scrubbing routine that can be employed in accordance with the present teachings;</p>
+      <p num="p-0026"> <figref idrefs="DRAWINGS">FIG. 6</figref> is a schematic diagram illustrating an embodiment of an independent set of processor card slices;</p>
+      <p num="p-0027"> <figref idrefs="DRAWINGS">FIG. 7</figref> is a schematic diagram illustrating an exemplary embodiment of a DCC power distribution card in the power slice of <figref idrefs="DRAWINGS">FIG. 6</figref>;</p>
+      <p num="p-0028"> <figref idrefs="DRAWINGS">FIG. 8</figref> is a schematic diagram illustrating an exemplary embodiment of a LVPC power converter the power slice of <figref idrefs="DRAWINGS">FIG. 6</figref>.</p>
+      <p num="p-0029"> <figref idrefs="DRAWINGS">FIG. 9</figref> is an exemplary configuration for integrating a payload including one or more processing systems according to the present teachings into the data flow of an external platform;</p>
+      <p num="p-0030"> <figref idrefs="DRAWINGS">FIG. 10</figref> is another exemplary configuration for integrating a payload including one or more processing systems according to the present teachings into the data flow of an external platform;</p>
+      <p num="p-0031"> <figref idrefs="DRAWINGS">FIG. 11</figref> is an exemplary embodiment of an inter-PowerPC® communication schematic.</p>
+    </description-of-drawings>
+    
+    
+    <heading>DETAILED DESCRIPTION</heading>
+    <p num="p-0032">In typical science missions conducted in hostile environments, it can be desirable to give up some reliability for increased processing power, because science instruments have high processing requirements and may not be as critical as, for example, safety systems. Thus, some science missions may find it beneficial to employ commercially-available processors that are not fully radiation hardened (but that are radiation tolerant) to realize increased processing power, even if some non-destructive errors such as bit flips may occur and need to be mitigated. The present teachings employ radiation hardening by design and software to increase the reliability of such commercially-available radiation-tolerant processors.</p>
+    <p num="p-0033">Various methods can be employed in accordance with the present teachings to detect and mitigate errors while limiting the computational overhead required for such detection and mitigation. Radiation hardening by design and software can ensure that data processing carried out by the processing system is lossless, in that erroneous processed data is not generated and that desired information in the original data can be retrieved after processing.</p>
+    <p num="p-0034">A processing system in accordance with the present teachings can be utilized with an external platform operating in a hostile environment for demonstrating an implementation of radiation hardening by design and software, error correction and corrective techniques that can enable the use of commercial processing (non-radiation hardened) devices in space.</p>
+    <p num="p-0035">Existing processing systems for use in space applications utilize a command and data handling (C&amp;DH) system that provides control processing, data handling and storage, command decoding, and telemetry gathering. Health of the processing system is typically monitored by the CD&amp;H system. In some existing processing systems for space applications, short periods of communication take place with a command center or other remote station so that the health of the processing system can be checked by the command center, including, for example, the processing system&#39;s temperature and the health of its processors (e.g., was there an upset and did the processor correct itself).</p>
+    <p num="p-0036">The present teachings contemplate providing a processing system that can be used as a demonstration platform to perform trials to evaluate the feasibility and performance of an implementation of radiation hardening by design and software, and that can interface with communication interfaces for external platforms that operate in hostile environments. An exemplary external platform is the Materials International Space Station Experiment-7 (MISSE-7), a test bed for materials and coatings attached to the outside of the International Space Station that will be evaluated for the effects of atomic oxygen, ultraviolet light, direct sunlight, radiation, and the extremes of heat and cold.</p>
+    <p num="p-0037"> <figref idrefs="DRAWINGS">FIG. 1</figref> is a schematic diagram illustrating an embodiment of a processing system in accordance with the present teachings. The illustrated processor card includes two field programmable gate arrays that can be reprogrammed after installation on the processing card, such as Xilinx® Virtex-4 FX60 FPGAs. The Xilinx® Virtex-4 FX60 FPGAs are not space rated: they are radiation-tolerant but not radiation-hardened. Each Xilinx® Virtex-4 FX60 FPGA can include two IBM® PowerPC® processors and can additionally include a 32-bit “soft” RISC processor (see <figref idrefs="DRAWINGS">FIG. 5</figref>). The Xilinx® Virtex-4 FX60 FPGAs are preferably mounted in a back-to-back configuration, so that all or substantially all of the connectors are shared to minimize the space and volume of the installation and obtain computational efficiencies. In accordance with various embodiments of the present teachings, by properly grouping common inputs and outputs to and from components having a back-to-back configuration, it is possible to execute the same instructions or code on both of the components sharing the back-to-back configuration. This is useful in the context of radiation hardening by software, where the same code, instructions or application is run on two identical components (i.e., the two Xilinx® FPGAs) and the resulting data corruption indicia are compared to identify errors and repeat the computations. A back-to-back integrated circuit card configuration permits very high component densities and can result in the smallest amount of physical space required for the components comprising the integrated circuit card.</p>
+    <p num="p-0038">One skilled in the art will understand that the Xilinx® FPGAs and other processing system components need not be mounted in a completely back-to-back configuration and need not share all connectors. Indeed, sharing signals can, in certain instances, make signals slower. In certain embodiments, the SDRAM and Flash memory signals are not shared, due to board design complexity of sharing such signals.</p>
+    <p num="p-0039">Each Xilinx® FPGA has associated memory and interfaces, including two radiation-tolerant 256 MB SDRAM memories, two legacy space-rated QuadRX interfaces for receiving information, two legacy space-rated QuadTX interfaces for sending information, and two multi-point low voltage data signaling (LVDM) buses for connecting the Xilinx® FPGA to a connector such as a stacking connector. In the illustrated embodiment, the stacking connector is a 122 pin connector. C&amp;DH applications for the Xilinx® FPGAs run on the 256 MB SDRAM memories.</p>
+    <p num="p-0040">The processor card also includes two radiation-hardened FPGAs, for example, the illustrated Aeroflex® UT6325 one-time programmable FPGA. Hereinafter, the Xilinx® FPGAs will be referred to as FPGAs and the Aeroflex® FPGAs will be referred to as Aeroflex® processors. <figref idrefs="DRAWINGS">FIGS. 7 and 8</figref> are schematic diagrams illustrating embodiments of Aeroflex® processor cards for power distribution in</p>
+    <p num="p-0041">Two Aeroflex® radiation-hardened processors are provided in the illustrated embodiment to provide necessary processing power for the desired processing system functionality. The Aeroflex® processors can be connected by a bus and are preferably mounted in a back-to-back configuration, such that all or substantially all of the connectors are shared to minimize the space and volume of the installation and obtain computational efficiencies. One Aeroflex® processor can act as a processor FPGA and the other Aeroflex® processor can act as a peripheral FPGA, and the combined Aeroflex® processors can be treated as a single monitor FPGA. One skilled in the art will understand that the number of radiation-hardened FPGAs can vary based on an individual FPGAs processing power and the total processing needs of the system. In accordance with certain embodiments of the present teachings, one of the illustrated Aeroflex® processors includes an 8-bit radiation-hardened microcontroller. The 8-bit microcontroller can monitor the PowerPC® processors, patch Xilinx® FPGA configuration files by accessing stored copies, and reset the PowerPC® processors.</p>
+    <p num="p-0042">The system further includes two 512 MB Flash memories that are radiation tolerant but not space rated. The radiation-tolerant 512 MB Flash memories can store configuration files for the Xilinx® and Aeroflex® processors, as well as data that the Xilinx® FPGAs generate and use (e.g., telemetry data and application files). Three legacy space-rated QuadRX receivers are provided for the Aeroflex® processors and three legacy space-rated QuadTX transmitters are provided for the Aeroflex® processors.</p>
+    <p num="p-0043">The processor card illustrated in <figref idrefs="DRAWINGS">FIG. 1</figref> also comprises a radiation-hardened memory, such as a 16K SRAM. The PROM stores the 8-bit microcontroller&#39;s primary C&amp;DH application. In use, the Aeroflex® processors can access the C&amp;DH application from the PROM and run the C&amp;DH application in the SRAM. The Aeroflex® processors can then check the 512MB Flash memory to see if there are nay updated applications to run.</p>
+    <p num="p-0044">A processor card in accordance with the present teachings preferably maintains a small form factor, such as a volume of less than about 4″×4″×7″. The processor card requires about 7 Watts of power and provides a total of 1 GB of SDRAM memory, 1 GB of Flash memory, 16 KB of SRAM memory, and 16 KB of PROM memory.</p>
+    <p num="p-0045">A processing system in accordance with the present teachings can be programmed to perform a particular desired function prior to being connected to a receiving device or platform, and preferably is also field programmable and reprogrammable. Thus, once connected to the receiving device or platform, the processing system can be programmed and/or configured as needed. In certain embodiments, changes to the programming and configuration of the processing system can be carried out after the receiving device or platform has been deployed.</p>
+    <p num="p-0046">Those skilled in the art will understand that different types of radiation-tolerant FPGA devices can be substituted to obtain a field programmable and/or reconfigurable radiation-tolerant processing system. In addition, different radiation-hardened components can be utilized to obtain a processing system that can detect and mitigate single event upsets, such as bit flip and “bad pixel” errors, to avoid radiation-induced errors.</p>
+    <p num="p-0047">The Aeroflex® processors can serve as a watchdog circuit, waiting for a periodic watchdog packet from each of the PowerPC® processors and, if a watchdog packet is not received within a predetermine time period, resetting the PowerPC® processor from which the expected watchdog packet was missing.</p>
+    <p num="p-0048"> <figref idrefs="DRAWINGS">FIG. 2</figref> illustrates how one or more processor cards such as the processor card illustrated in <figref idrefs="DRAWINGS">FIG. 1</figref> can be employed in an external platform such as MISSE-7. The processor card(s) can be stacked in a payload (labeled SpaceCube in <figref idrefs="DRAWINGS">FIG. 2</figref> and shown in more detail in <figref idrefs="DRAWINGS">FIG. 3</figref>) and can interface with a Communication Interface of the MISSE-7 to exchange data with a ground station via, for example, an ExPRESS Logistics Carrier (ELC) avionics module on the International Space Station (ISS). Indeed, such a communication scenario is supported by the SpaceCube payload being carried by the MISSE-7, which is attached to an ELC avionics module that is mounted to the International Space Station. One skilled in the art will appreciate that other communication scenarios will be desirable when a processor card in accordance the present teachings is employed with different external platforms.</p>
+    <p num="p-0049"> <figref idrefs="DRAWINGS">FIG. 3</figref> is, for a payload of stacked slices of processor cards employed in the MISSE-7 external platform, a schematic diagram illustrating an embodiment in which stacked slices of processor cards can communicate with the MISSE-7 platform. In the illustrated embodiment, two independent sets of slices are provided. The first set is Power <b>1</b> and Processor <b>1</b> and the second set is Power <b>2</b> and Processor <b>2</b>. The slice sets are treated as independent experimental processing systems, but are provided only one port to receive power from and communicate with the external platform. A Communication and Power Adapter slice is also provided, and is shown separating the independent sets of slices. The Communication and Power Adapter can communicate with Processor <b>1</b> and Processor <b>2</b> via designated communication lines with interfaces that allow the external platform to switch between running the Power <b>1</b>/Processor <b>1</b> slice set and the Power <b>2</b>/Processor <b>2</b> slice set. This allows the two independent sets of slices to communicate via and receive power from a single port connecting the payload to the external platform, and also allows one of the independent sets of slices to continue running even if the other independent set of slices goes down.</p>
+    <p num="p-0050">The Communication and Power Adapter, can itself include a processor card as illustrated in <figref idrefs="DRAWINGS">FIG. 1</figref>. The processor card for this slice of the illustrated stacked payload is configured to perform the functions necessary to share the single port between the independent sets of slices, to switch between running the independent sets of slices, and to provide adapter functionality for communications and power distribution. The Communication and Power Adapter provides an interface between the independent sets of slices and the MISSE-7 Power CMD/TLM.</p>
+    <p num="p-0051">In certain embodiments of the implementation illustrated in <figref idrefs="DRAWINGS">FIG. 3</figref>, each of Power <b>1</b> slice and Power <b>2</b> slice include two processor cards, aspects of which are illustrated in <figref idrefs="DRAWINGS">FIGS. 7 and 8</figref>. Thus, the five illustrated stacked slices can include seven processor cards. In such an embodiment, the payload can have dimensions of about 4″×4″×7.2″, with processor slices having dimensions of about 4″×4″×1.1″ and power slices having dimensions of about 4″×4″×1.8″. One skilled in the art will understand that additional redundant independent sets of slices can be provided and accommodated in accordance with the present teachings, and even a single set of slices is within the scope of the present teachings. <figref idrefs="DRAWINGS">FIGS. 7 and 8</figref>, described below, provide more detailed information regarding an exemplary power distribution.</p>
+    <p num="p-0052"> <figref idrefs="DRAWINGS">FIG. 4</figref> is another schematic diagram illustrating a processor card in accordance with the present teachings. The two Xilinx® FPGAs are labeled Xilinx 1 and Xilinx 2. Although each Xilinx® FPGA includes two PowerPC® processors, a single PPC box is shown. Each Xilinx® FPGA also includes a FPGA core. A CD&amp;H application and a radiation hardening by software application are provided on one PowerPC® processor of each Xilinx® FPGA. The other PowerPC® processor in each Xilinx® FPGA receives and processes incoming data such as, for example, predetermined data for field testing or data from a variety of environmental sensors. The Xilinx® FPGAs receive the same data and process the data in the same way, so that each Xilinx® FPGA should output the same data. Processed data is sent from the Xilinx® FPGAs to the Aeroflex® processors, which compare data received from the Xilinx® FPGAs to determine whether the Xilinx® FPGAs have output the same data. If the data output by the Xilinx® FPGAs is the same, the system can determine that the Xilinx® FPGAs are processing data and mitigating data errors so that they are performing as well as a space-rated radiation-hardened processor.</p>
+    <p num="p-0053">The 8-bit radiation-hardened microcontroller is illustrated in <figref idrefs="DRAWINGS">FIG. 4</figref>, and includes both a health and safety (H/S) application and a radiation hardening by software (RHBS) application that assists the radiation hardening by software application on the Xiline FPGA by identifying and mitigating erroneous data received from the Xilinx® FPGAs. At least one of the Aeroflex® processors also includes an FPGA core that provides an efficient interface with each Xilinx® FPGA core. Data output from the Aeroflex® processors can include verified processed data from the Xilinx® FPGAs.</p>
+    <p num="p-0054">In accordance with certain embodiments, data output from the Xilinx® FPGAs is checked by the Aeroflex® processors, and a copy of the output data from both Xilinx® FPGAs is stored on each of the 512 MB Flash memories. Thus, there are 4 instances of the FPGA output data on the 512 MB Flash memories, because each FPGA&#39;s data is stored in both of the 512 MB Flash memories.</p>
+    <p num="p-0055"> <figref idrefs="DRAWINGS">FIG. 5</figref> is a schematic diagram illustrating an embodiment of a Xilinx® FPGA used in a processing system of the present teachings. As shown, each Xilinx® FPGA can be functionally “split in half” so that one “half” of the Xilinx® FPGA runs a C&amp;DH application and the other “half” of the FPGA acts as two scratch pad areas that can be configured to process and output data in a predetermined manner. For field testing a radiation hardening by design and software implementation, both scratch pad areas are preferably configured to receive the same data and perform the same function, and thus output the same data. Dual port RAM in the Xilinx® FPGA allow the C&amp;DH portion of the Xilinx® FPGA to monitor the health of the scratch pad areas, because data written by the scratch pads areas to the dual port RAM memory locations can be compared by the C&amp;DH portion of the Xilinx® FPGA. Dual port RAM has the ability to simultaneously read and write different memory cells at different addresses.</p>
+    <p num="p-0056">In the embodiment of <figref idrefs="DRAWINGS">FIG. 5</figref>, one of the PowerPC® processors, labeled Main CDH PPC<sub>—</sub>0, runs the C&amp;DH application. The other PowerPC® processor, labeled Spare PPC<sub>—</sub>1, processes the predetermined test data (or live sensor data in some embodiments) and outputs the processed data to the C&amp;DH application. A third processor, a 32-bit “soft” RISC processor, labeled MicroBlaze, performs the same processing on the same data as Spare PPC<sub>—</sub>1, and outputs the processed data to the C&amp;DH application. The two scratch pad areas each include a processor, RAM such as block RAM (BRAM) provided in the Xilinx® FPGA, and a digital clock manager. The digital clock managers of the two scratch pad areas are monitored by the C&amp;DH application via a general purpose input/output (GPIO) to ensure that the scratch pad areas are running properly. The GPIO can perform a DCM reset if needed.</p>
+    <p num="p-0057">Data processed in each of the scratch pad areas can be sent to the C&amp;DH system via the illustrated respective CMD_TLM BRAMs, which can also be used to send commands from the C&amp;DH system to the scratch pad areas. Each processor (including the soft RISC processor) has its own processor local bus (PLB) to provide transportation for data flow.</p>
+    <p num="p-0058">The C&amp;DH system includes a digital clock manager (DCM), boot BRAM, access to the 256 MB SDRAM of the processor card for accessing and storing program files and data, a UART providing a connection to the external platform via the Aeroflex® processors, and a USRT. When the C&amp;DH PowerPC® processor comes out of a reset, it can initially read from the C&amp;DH boot BRAM and then begin communication with the Aeroflex® processors via the USRT. The C&amp;DH system can, for example, send command data to SDRAM, and telemetry data from both scratch pad areas to the SDRAM.</p>
+    <p num="p-0059">One skilled in the art will appreciate that the “half” of the FPGA described above for use as scratch pad areas could alternatively be used to perform other functions in a payload utilized in other missions. For example, the scratch pad areas could be reconfigured to perform target recognition and/or control for a space station robotic arm if the payload was physically interfaced with appropriate sensors or a robotic arm, respectively. The scratch pad areas of the Xilinx® FPGA, even if used for another function, could still perform the same function and write to the dual ports for a C&amp;DH check if desired by the user.</p>
+    <p num="p-0060">In various embodiments, the data output by the Xilinx® FPGAs is checked by one or more operators monitoring performance of the payload from, for example, a ground station. Such monitoring is desirable because feasibility and performance of the radiation hardening by design and software capability of the implementation is being tested. Alternatively or additionally, however, a processor at the ground station can perform a comparison of the output data, or the radiation-hardened Aeroflex® processors can perform the comparison within the payload. In certain embodiments, the Aeroflex® processors can detect data errors and mitigate the data errors before storing or transmitting data.</p>
+    <p num="p-0061">As shown in <figref idrefs="DRAWINGS">FIG. 5</figref>, each Xilinx® FPGA can include a triple modular redundancy (TMR) scrubber. TMR is a common reliability technique for mitigating single-event upsets in FPGA designs operating in hostile environments. A variety of FPGA configuration memory scrubber implementations are possible. In the illustrated embodiment, a TMR scrubber sits in each Xilinx® FPGA and reads back its own configuration file to make sure its configuration file does not become corrupted.</p>
+    <p num="p-0062"> <figref idrefs="DRAWINGS">FIG. 5A</figref> schematically illustrates an exemplary self-scrubber of the Xilinx® FPGA that employs TMR self-scrubber logic. As shown, the self scrubber logic can read three versions of data (e.g., Module <b>1</b>, Module <b>2</b>, Module <b>3</b>, representing a configuration file) and vote on a “voted output” based on the three versions of the data. In certain embodiments of the invention, the self scrubber logic runs continuously, checking and re-checking data.</p>
+    <p num="p-0063"> <figref idrefs="DRAWINGS">FIG. 5B</figref> is a flow chart illustrating an exemplary embodiment of a self scrubbing routine that can be employed in accordance with the present teachings. Upon powering up the system, the Aeroflex® microcontroller programs the Xilinx® FPGA with its configuration file. Once the Xilinx® FPGA programming is complete, the self scrubber can start running. The self scrubber reads a first configuration frame via, for example, an internal configuration access port (ICAP) (see <figref idrefs="DRAWINGS">FIG. 5A</figref>) and performs a frame Error Correction Code (ECC) register read for that frame. If no error is detected, the self scrubber routine checks to see if the frame is the last frame of the configuration file. If the frame is not the last frame of the configuration file, the routine reads a next frame of the configuration file and performs a frame ECC register read. If the frame is the last frame, the routine goes back to reading the configuration file and running through it again in a continuous cycle.</p>
+    <p num="p-0064">If an error is found during a frame ECC register read, if a single bit error is detected, the error is reported and corrected and the routine can proceed with determining whether the frame is a last frame and proceed accordingly. If a double bit error is detected, the error is reported and the routine can determine if the frame is the last frame and proceed accordingly. While single bit errors can be corrected in a system of the present teachings, double bit errors cannot be corrected. An error of more than two bits cannot be detected or corrected.</p>
+    <p num="p-0065"> <figref idrefs="DRAWINGS">FIG. 6</figref> is a schematic diagram illustrating an embodiment of an independent set of processor card slices. As shown, the power slice of the independent set includes two processor cards, a low voltage power converter (LVPC) and a digital control card (DCC), connected to each other via stacking connectors and connected to an associated processor slice via a stacking connector. The DCC processor card controls power distribution from the Communication and Power Adapter slice (see <figref idrefs="DRAWINGS">FIG. 3</figref>), and is illustrated in more detail in <figref idrefs="DRAWINGS">FIG. 7</figref>. The LVPC power converter is shown in more detail in <figref idrefs="DRAWINGS">FIG. 8</figref>.</p>
+    <p num="p-0066"> <figref idrefs="DRAWINGS">FIG. 7</figref> illustrates an exemplary embodiment of a DCC power distribution card. A stacking connector is shown, supporting a variety of communication protocols including I2C, and being configured to provide power, power reset, and power warning signals. The illustrated Aeroflex® processor can be connected to a power board configured to allow the Aeroflex® processor to turn on/off the Xilinx® FPGAs (e.g., via switched 2.5V and 3.3V control), control power-up of the Xilinx® FPGAs (e.g., via 1.5V and 5V converter control), provide a power loss warning, and convert a 28V input power to 12V power. The Aeroflex® processor can additionally utilize a test point module, for example, when the card is being tested prior to use, to check various voltages and signals. Further, a first transceiver such as MIL-STD-1553 and a first transformer such as a MIL-STD-1553B transformer can be provided between the Aeroflex® processor and a J1 connector, for example, a 51 pin MDM connector. A second transceiver such as a low voltage multipoint data signaling (LVDM) transceiver and a second transformer such as an Ethernet transformer can also be provided between the Aeroflex® processor and the J1 connector.</p>
+    <p num="p-0067">Two legacy RS-422 transmitters and two legacy RS-422 receivers can connect the Aeroflex® processor with the J1 connector. The J1 MDM connector can be used in this DCC, for example, for debugging from the ground or other base of operation. The Aeroflex® processor can receive a reference voltage and input from analog multiplexers via an A/D converter for voltage monitoring of all power created by the power slice in which it resides. The Aeroflex® processor can also send on/off signals to a power converter. A −12V output of the power converter can be used, for example, on the processor card for a MOFSET that generates the 1.2V for the FPGAs</p>
+    <p num="p-0068"> <figref idrefs="DRAWINGS">FIG. 8</figref> illustrates an exemplary embodiment of a LVPC power converter. A stacking connector is shown, supporting a variety of communication protocols including I2C, and being configured to provide power, power reset, and power warning signals. Wires to the DDC are shown, and are configured to allow the Aeroflex® processor to turn on/off the Xilinx® FPGAs (e.g., via switched 2.5V and 3.3V control), control power-up of the Xilinx® FPGAs (e.g., via a 1.5V and 5V converter control), provide a power loss warning, and convert a 28V input power to 12V power. Communication of on/off controls from the DDC to the stacking connector is illustrated via broke arrows. Power can be received from MISSE-7 and routed to the illustrated J2 connector via the payload&#39;s communication and power adapter slice. Incoming power is routed for distribution through an inrush current limiter, for example, having a 3 Amp limit, which acts as a fuse to cut off power if the board tries to use too much power. Incoming power is also routed through an EMI filter, which cleans the power signal in a known manner. A power loss warning can be sent from the J2 connector to the DDC.</p>
+    <p num="p-0069">In addition to providing a demonstration platform, embodiments of the present teachings disclosed herein provide a processing system comprising radiation-tolerant FPGAs, which can be added to an existing platform to increase its computational performance without the need to design and test a customized processor. An in-flight reprogrammable logic structure can provide the ability to change the operation of the processing system after assembly of the processing system in a platform, and/or after deployment of the platform.</p>
+    <p num="p-0070">Certain embodiments of processing systems in accordance with the present teachings support reconfiguration and compressed uploads. Thus, new program files can be sent from a remote location (e.g., a ground control center) and received by the Xilinx® FPGA (in which a checksum can be performed) in an embodiment where all data has been designed to be input via the Xilinx® FPGAs. The new program files are sent to the Aeroflex® processors (where another checksum can be performed) and then stored in Flash memory. The new program files can be executed via ground commands sent to the Xilinx® FPGAs. If the new program files are received by the processing system as compressed files, the compressed program files can be received and decompressed by the PowerPC® processors, for example, when a decompress command is received. The decompressed program files can be stored in memory, for example, the illustrated 512 MB Flash memory, and then a reconfiguration command can be sent to cause reconfiguration of one or both of the FPGAs with the decompressed program files. The reconfiguration command can be received by Xilinx® FPGAs and sent to the Aeroflex® processors.</p>
+    <p num="p-0071">A processing system according to the present teachings can include radiation-tolerant components that are monitored by a radiation-hardened microprocessor, so that the radiation tolerant components can operate in a radioactive environment with minimal errors in data being processed. For example, in accordance with various embodiments of the present teachings, radiation hardening by design can be achieved by employing radiation-tolerant reconfigurable processors to process data concurrently and comparing the data output by the radiation-tolerant reconfigurable processors to identify possible errors (inconsistent data), and additionally having a radiation hardened processor oversee the operation and error-checking of the radiation tolerant processors, resulting in mitigation of most or all upsets.</p>
+    <p num="p-0072">In addition, in accordance with certain embodiments, radiation hardening by software can be employed to mitigate a majority of the remaining upsets. In the context of the present teachings, radiation hardening by software refers to the use of functions or software applications that are executed to identify radiation-induced errors occurring in the radiation tolerant processors, and to take an appropriate corrective action.</p>
+    <p num="p-0073">Processing systems in accordance with the present teachings must be able to withstand hostile environmental conditions. For example, radiation can have serious negative effects on CPUs, memory components, and other electronic parts that are typically included in a processing system. Bombardment by neutrons, gamma rays, alpha particles, and other particles and electromagnetic waves can cause damage (i.e., destructive errors) to the processing system or transient errors (e.g., bit flips) in CPUs and memory elements. Devices used in space are particularly subject to damage and errors from radiation, due to the strong radiation fields present outside the Earth&#39;s atmosphere. Many sensor platforms, instruments, and other devices can be subject to similar damage from natural or man-made radiation. Radiation is meant to include both electromagnetic waves such as X-rays, gamma rays etc., and particles such as neutrons, electrons, alpha particles and other that can cause damage to computing elements by ionization or other mechanisms.</p>
+    <p num="p-0074">One exemplary application of a processing system according to the present teachings is in remote platforms carrying science instruments that are capable of acquiring large quantities of data, which then has to be transmitted to a distant station and/or stored (and perhaps processed) on board. An example of this arrangement is found in a space probe sending data back to Earth. The data transmission step may be difficult or expensive in terms of power required, available bandwidth, usable connection time, or other parameters. Data storage can be limited by the available memory. The sensors used in a space-based platform can include, for example, synthetic aperture radar, hyper-spectral instruments, and other instruments to monitor weather, environmental trends, global warming and other parameters. For a processing system according to the present teachings that will be used as a demonstration platform to test feasibility and performance of the system&#39;s radiation by software capabilities, the data processed can be a known, predefined data set that is input to the FPGAs when they are operating in a hostile environment, or the data can be live data from sensors available on the external platform that are able to send data to the processing system. In either scenario, storage, processing, and transmission or large amounts of data may need to take place.</p>
+    <p num="p-0075">In certain devices or platforms utilizing a processing system in accordance with the present teachings, transmitting or storing all of the data generated by the sensors on the device or platform may not be practical, and an arrangement where some or most of the data processing is carried out before transmission or storage may be advantageous to reduce the amount of data that will need to be transmitted or stored.</p>
+    <p num="p-0076">A processing system in accordance with the present teachings can have sufficient processing power to process data before the data is stored or transmitted to a remote station, and can select data to transmit, prioritize, compress and otherwise manipulate before transmission or storage thereof. Such on-board lossless data reduction can allow migration of typical ground-based processing functions to the external platform, resulting in a significant reduction in on-board data storage and downlink requirements.</p>
+    <p num="p-0077">Confirming the feasibility and performance of radiation hardening by design and software in a processing system according to the present teachings can allow commercially-available radiation tolerant electronic parts to be used in a processing system deployed in a hostile environment and accurately monitored for errors, and therefore can allow newer processors, memories, and other components can be incorporated as they become available.</p>
+    <p num="p-0078">Providing a radiation-tolerant FPGA can eliminate about 95% of the radiation mitigation issues that can affect conventional systems used in hostile environments, particularly single-event errors. However, in the case of a FPGA containing embedded processors such as, for example, PowerPC® processors, radiation-induced upsets may still affect the embedded processors and associated memory, and cause single-event upsets such as bit-flips. Radiation hardening by software primarily protects the embedded processors. Radiation hardening by software can include, for example, providing data corruption indicia to identify incorrect results of computations carried out, for example, in the embedded processors, and causing the computations to be repeated when necessary due to incorrect results.</p>
+    <p num="p-0079">As will be understood by those skilled in the art, the data corruption indicia can include a checksum function or error detection and correction (EDAC), or other known methodologies to rapidly determine whether two computations give identical results. For example, a dedicated memory of the processing system may be used to store programming instructions that, when executed, by a processor, result in at least a part of the radiation hardening by software procedure. Alternatively, programming instructions may be provided when reconfiguring the device. The programming instructions can be stored at least in part in other memory components of the processing system according to embodiments of the present teachings.</p>
+    <p num="p-0080">Verifying data corruption indicia utilizing certain embodiments of the present teachings can require only two processors to carry out identical computations and verify the results. This compares well with the at least three processors necessary in a conventional redundant apparatus with an arbiter circuit. Instead of executing three identical computations and discarding the one that gives a different result, the present teachings envision comparing the checksums (or other data corruption indicia) of two identical computations, and repeating the computation if the checksums are different.</p>
+    <p num="p-0081">Embodiments of a processing system in accordance with the present teachings that utilizes live sensor data can include a digital signal processor (not shown) adapted to carry out digital processing of sensor signals. For example, the signals can include data generated by a sensor platform, which data can be processed or otherwise manipulated before being stored in memory and/or transmitted to a distant station. The digital signal processor can, for example, carry out analysis, compression, selection, or other processes that can be adapted to reduce the amount of information stored or transmitted. Additional functions can be carried out by the digital signal processor, as directed by the FPGA or by instructions from outside the device.</p>
+    <p num="p-0082">For processing system embodiments that use live sensor data as input, <figref idrefs="DRAWINGS">FIGS. 9 and 10</figref> show options for integrating a payload <b>100</b> including one or more processing systems according to the present teachings into the data flow of an external platform. In a first configuration shown in <figref idrefs="DRAWINGS">FIG. 9</figref>, a parallel on-board data processor <b>200</b> utilizes a processing payload <b>100</b> in parallel with the data stream through an on-board storage element <b>206</b> of the external platform. In this configuration, one or more sensors <b>202</b> generate data, which goes through an Analog/Digital converter <b>204</b> before reaching on-board storage <b>206</b>. The processing payload <b>100</b> is not directly in the data collection stream, but is connected to the on-board storage device <b>206</b> from which it can read raw data, execute desired algorithms, and generate desired products that can be stored back in the on-board storage <b>206</b>. The processed data can then be retained in memory and/or transmitted via a downlink <b>208</b>.</p>
+    <p num="p-0083">In the configuration illustrated in <figref idrefs="DRAWINGS">FIG. 9</figref>, processing can occur in near real-time, and upsets such as bit flip errors can be corrected by simply re-executing a processing step when an error is detected, for example, by recognizing data corruption indicia, thus obtaining “perfect data” at the output. This configuration is well suited for use as a retrofit on existing sensor platforms, or on systems where data collection periods are followed at least by a minimal amount of idle time.</p>
+    <p num="p-0084">In a second system configuration for integrating a processing payload <b>100</b>, as shown in <figref idrefs="DRAWINGS">FIG. 10</figref>, the processing payload <b>100</b> is connected in line or in series within the on-board data processor <b>250</b>. Here, the processing payload <b>100</b> is directly in the data stream of the device, for example, located between the analog to digital (A/D)</p>
+    <p num="p-0085">The in-line configuration illustrated in <figref idrefs="DRAWINGS">FIG. 10</figref> is capable of processing very high data rates, however may be subject to occasional errors, such as bit-flip errors or “bad pixel” errors due to radiation, if the data rate exceeds the recovery time for re-executing a processing step that is determined to be in error. In cases where the data rate is not extreme, and/or when there are some idle periods in the data collection stream, this configuration is also able to produce data with substantially no errors, by re-executing erroneous steps during the slower or idle periods.</p>
+    <p num="p-0086">An exemplary embodiment of an inter-PowerPC® communication schematic is shown in <figref idrefs="DRAWINGS">FIG. 11</figref>. In this embodiment, four PowerPC® processors <b>604</b>-<b>607</b> are connected to each other by a series of universal asynchronous receiver/transmitters (UARTs) <b>810</b>. Those of skill in the art will understand that more or fewer UARTs can be used, depending on the communication demands of the sensor platform or other device using the processing system according to the present teachings. The inter-PowerPC® communication scheme may alternatively or additionally utilize Ethernet ports <b>802</b>, <b>804</b> of the FPGAs.</p>
+    <p num="p-0087">The present teachings have been described with reference to specific exemplary embodiments. Other embodiments of the present teachings will be apparent to those skilled in the art from consideration of the specification and practice of the teachings disclosed herein. It is intended that the specification and examples be considered as exemplary only, with a true scope and spirit of the teachings being indicated by the following claims.</p>
+    
+  </div>
+  </div>
+  </section>
+
+  <section itemprop="claims" itemscope>
+    <h2>Claims (<span itemprop="count">10</span>)</h2>
+    
+    <div itemprop="content" html><div mxw-id="PCLM53136811" lang="EN" load-source="patent-office" class="claims">
+    <claim-statement>What is claimed is:</claim-statement>
+    <div class="claim"> <div id="CLM-00001" num="00001" class="claim">
+      <div class="claim-text">1. A processing system, the processing system comprising:
+<div class="claim-text">a first radiation-tolerant field programmable gate array having a first dual port RAM memory and configured to be used in a hostile environment, the first radiation-tolerant field programmable gate array comprising:
+<div class="claim-text">three functionally distinct portions including:
+<div class="claim-text">a first command and data handling portion that provides control processing, data handling and storage, command decoding and telemetry gathering;</div>
+<div class="claim-text">a first scratch pad portion that receives a first set of data, processes the first set of data, and outputs a first set of processed data to a first location of the first dual port RAM memory; and</div>
+<div class="claim-text">a second scratch pad portion that receives a second set of data identical to the first set of data, processes the second set of data in the same way that the first set of data is processed, and outputs a second set of processed data to a second location of the first dual port RAM memory,</div>
+<div class="claim-text">wherein the first command and data handling portion compares the first set of processed data in the first location of the first dual port RAM memory to the second set of processed data in the second location of the first dual port RAM memory and, if the first set of processed data is the same as the second set of processed data, outputs one of the first set of processed data and the second set of processed data;</div>
+</div>
+</div>
+<div class="claim-text">a second radiation-tolerant field programmable gate array having a second dual port RAM memory and configured to be used in a hostile environment, the second radiation-tolerant field programmable gate array comprising:
+<div class="claim-text">three functionally distinct portions including:
+<div class="claim-text">a second command and data handling portion that provides control processing, data handling and storage, decoding and telemetry gathering;</div>
+<div class="claim-text">a third scratch pad portion that receives a third set of data identical to the first and second sets of data processes the third set of data in the same way that the first and second sets of data are processed, and outputs a third set of processed data to a third location of the second dual port RAM memory; and</div>
+<div class="claim-text">a fourth scratch pad portion that receives a fourth set of data identical to the first, second, and third sets of data, processes the fourth set of data in the same way that the first, second, and third sets of data are processed, and outputs a fourth set of processed data to a second location of the second dual port RAM memory,</div>
+<div class="claim-text">wherein the second command and data handling portion compares the third set of processed data in the first location of the second dual port RAM memory to the fourth set of processed data in the second location of the second dual port RAM memory and, if the third set of processed data is the same as the fourth set of processed data, outputs one of the third set of processed data and the fourth set of processed data;</div>
+</div>
+</div>
+<div class="claim-text">a radiation-hardened processor;</div>
+<div class="claim-text">a first SDRAM; and</div>
+<div class="claim-text">a second SDRAM,
+<div class="claim-text">wherein the first command and data handling portion outputs one of the first set of processed data and the second set of processed data to the radiation-hardened processor for storage on the first SDRAM and the second SDRAM, and</div>
+<div class="claim-text">wherein the second command and data handling portion outputs one of the third set of processed data and the fourth set of processed data to the radiation-hardened processor for storage on the first SDRAM and the second SDRAM.</div>
+</div>
+</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00002" num="00002" class="claim">
+      <div class="claim-text">2. The processing system of <claim-ref idref="CLM-00001">claim 1</claim-ref>, wherein the first set of data and the second set of data comprise predefined test data.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00003" num="00003" class="claim">
+      <div class="claim-text">3. The processing system of <claim-ref idref="CLM-00001">claim 1</claim-ref>, wherein the first set of data and the second set of data comprise data from one or more sensors in communication with the first radiation-tolerant field programmable gate array.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00004" num="00004" class="claim">
+      <div class="claim-text">4. The processing system of <claim-ref idref="CLM-00001">claim 1</claim-ref>, wherein the third set of data and the fourth set of data comprise predefined test data.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00005" num="00005" class="claim">
+      <div class="claim-text">5. The processing system of <claim-ref idref="CLM-00001">claim 1</claim-ref>, wherein the third set of data and the fourth set of data comprise data from one or more sensors in communication with the second radiation-tolerant field programmable gate array.</div>
+    </div>
+    </div> <div class="claim"> <div id="CLM-00006" num="00006" class="claim">
+      <div class="claim-text">6. A method for radiation hardening a processing system by design and software, the method comprising:
+<div class="claim-text">within a first radiation-tolerant FPGA of the processing system;
+<div class="claim-text">processing a first set of data to create a first set of output data;</div>
+<div class="claim-text">processing a second set of data that is identical the first set of data to create a second set of output data;</div>
+<div class="claim-text">comparing the first set of output data to the second set of output data to detect errors in the data or the data processing; and</div>
+<div class="claim-text">storing one of the first set of output data and the second set of output data in a memory of the processing system if no errors are detected; within a second radiation-tolerant FPGA of the processing system;</div>
+<div class="claim-text">processing a third set of data that is identical to the first and second sets of data to create a third set of output data;</div>
+<div class="claim-text">processing a fourth set of data that is identical the first, second, and third sets of data to create a fourth set of output data;</div>
+<div class="claim-text">comparing the third set of output data to the fourth set of output data to detect errors in the data or the data processing; and</div>
+<div class="claim-text">storing one of the third set of output data and the fourth set of output data in a memory of the processing system if no errors are detected; and</div>
+</div>
+<div class="claim-text">comparing stored data from the first radiation-tolerant FPGA to stored data from the second radiation-tolerant FPGA to detect errors in the data or the data processing.</div>
+</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00007" num="00007" class="claim">
+      <div class="claim-text">7. The method of <claim-ref idref="CLM-00006">claim 6</claim-ref>, wherein comparing stored data from the first radiation-tolerant FPGA to stored date from the second radiation-tolerant FPGA to detect errors in the data or the data processing is performed by a radiation-hardened processor of the processing system.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00008" num="00008" class="claim">
+      <div class="claim-text">8. The method of <claim-ref idref="CLM-00006">claim 6</claim-ref>, further comprising transmitting the stored data from the first radiation-tolerant FPGA and the stored data from the second radiation-tolerant FPGA to a ground station and comparing stored data from the first radiation-tolerant FPGA to stored data from the second radiation-tolerant FPGA at the ground station.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00009" num="00009" class="claim">
+      <div class="claim-text">9. The method of <claim-ref idref="CLM-00006">claim 6</claim-ref>, wherein storing one of the first set of output data and the second set of output data in a memory of the processing system comprises storing one of the first set of output data and the second set of output data in two separate memories of the processing system to create a first instance of the data and a second instance of the data, and
+<div class="claim-text">wherein storing one of the third set of output data and the fourth set of output data in a memory of the processing system comprises storing one of the third set of output data and the fourth set of output data in two separate memories of the processing system to create a third instance of the data and a fourth instance of the data.</div>
+</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00010" num="00010" class="claim">
+      <div class="claim-text">10. The method of <claim-ref idref="CLM-00009">claim 9</claim-ref>, further comprising comparing each of the first, second, third and fourth instances of stored data with each of the other instances of stored data three times. </div>
+    </div>
+  </div> </div>
+  </div>
+  </section>
+
+  <section itemprop="application" itemscope>
+
+    <section itemprop="metadata" itemscope>
+        <span itemprop="applicationNumber">US12/854,546</span>
+        <span itemprop="priorityDate">2009-09-30</span>
+        <span itemprop="filingDate">2010-08-11</span>
+        <span itemprop="title">Radiation-hardened processing system 
+       </span>
+        <span itemprop="ifiStatus">Active</span>
+        <span itemprop="ifiExpiration">2030-08-09</span>
+        <a href="/patent/US8484509B2/en">
+            <span itemprop="representativePublication">US8484509B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+        </a>
+    </section>
+
+    <h2>Priority Applications (2)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                    <th>Title</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="priorityApps" itemscope repeat>
+                <td>
+                   <span itemprop="applicationNumber">US12/570,134</span>
+                   
+                   <a href="/patent/US20110078498A1/en">
+                        <span itemprop="representativePublication">US20110078498A1</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                <td itemprop="priorityDate">2009-09-30</td>
+                <td itemprop="filingDate">2009-09-30</td>
+                <td itemprop="title">Radiation-hardened hybrid processor 
+       </td>
+              </tr><tr itemprop="priorityApps" itemscope repeat>
+                <td>
+                   <span itemprop="applicationNumber">US12/854,546</span>
+                   
+                   <a href="/patent/US8484509B2/en">
+                        <span itemprop="representativePublication">US8484509B2</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                <td itemprop="priorityDate">2009-09-30</td>
+                <td itemprop="filingDate">2010-08-11</td>
+                <td itemprop="title">Radiation-hardened processing system 
+       </td>
+              </tr>
+           </tbody>
+       </table>
+
+    <h2>Applications Claiming Priority (1)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                    <th>Title</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="appsClaimingPriority" itemscope repeat>
+                <td>
+                   <span itemprop="applicationNumber">US12/854,546</span>
+                   <a href="/patent/US8484509B2/en">
+                        <span itemprop="representativePublication">US8484509B2</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                <td itemprop="priorityDate">2009-09-30</td>
+                <td itemprop="filingDate">2010-08-11</td>
+                <td itemprop="title">Radiation-hardened processing system 
+       </td>
+              </tr>
+           </tbody>
+       </table>
+
+    <h2>Related Parent Applications (1)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Title</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="parentApps" itemscope repeat>
+                <td>
+                    <span itemprop="applicationNumber">US12/570,134</span>
+                    <span itemprop="relationType">Continuation-In-Part</span>
+                    <a href="/patent/US20110078498A1/en">
+                        <span itemprop="representativePublication">US20110078498A1</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+
+                <td itemprop="">
+                <td itemprop="priorityDate">2009-09-30</td>
+                <td itemprop="filingDate">2009-09-30</td>
+                <td itemprop="title">Radiation-hardened hybrid processor 
+       </td>
+              </tr>
+           </tbody>
+        </table>
+
+    
+
+    <h2>Publications (2)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Publication Number</th>
+                    <th>Publication Date</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="pubs" itemscope repeat>
+                <td>
+                   <span itemprop="publicationNumber">US20110107158A1</span>
+                   
+                   <a href="/patent/US20110107158A1/en">US20110107158A1
+                       (<span itemprop="primaryLanguage">en</span>)
+                   </a>
+                </td>
+                <td itemprop="publicationDate">2011-05-05</td>
+              </tr><tr itemprop="pubs" itemscope repeat>
+                <td>
+                   <span itemprop="publicationNumber">US8484509B2</span>
+                   
+                   <span itemprop="thisPatent">true</span>
+                   <a href="/patent/US8484509B2/en">US8484509B2
+                       (<span itemprop="primaryLanguage">en</span>)
+                   </a>
+                </td>
+                <td itemprop="publicationDate">2013-07-09</td>
+              </tr>
+           </tbody>
+        </table>
+
+  </section>
+
+  <section itemprop="family" itemscope>
+    <h1>Family</h1>
+    <h2>ID=43926678</h2>
+
+    <h2>Family Applications (1)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Title</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="applications" itemscope repeat>
+                <td>
+                    <span itemprop="applicationNumber">US12/854,546</span>
+                    <span itemprop="ifiStatus">Active</span>
+                    <span itemprop="ifiExpiration">2030-08-09</span>
+                    <a href="/patent/US8484509B2/en">
+                        <span itemprop="representativePublication">US8484509B2</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                </td>
+                <td itemprop="priorityDate">2009-09-30</td>
+                <td itemprop="filingDate">2010-08-11</td>
+                <td itemprop="title">Radiation-hardened processing system 
+       </td>
+              </tr>
+           </tbody>
+        </table>
+
+    
+
+    
+
+    <h2>Country Status (1)</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Country</th>
+            <th>Link</th>
+          </tr>
+        </thead>
+        <tbody>
+        <tr itemprop="countryStatus" itemscope repeat>
+            <td>
+              <span itemprop="countryCode">US</span>
+                (<span itemprop="num">1</span>)
+              <meta itemprop="thisCountry" content="true">
+            </td>
+            <td>
+              <a href="/patent/US8484509B2/en">
+                <span itemprop="representativePublication">US8484509B2</span>
+                  (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+    <h2>Cited By (1)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20160154694A1/en">
+              <span itemprop="publicationNumber">US20160154694A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2013-03-15</td>
+          <td itemprop="publicationDate">2016-06-02</td>
+          <td><span itemprop="assigneeOriginal">SEAKR Engineering, Inc.</span></td>
+          <td itemprop="title">Centralized configuration control of reconfigurable computing devices 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Families Citing this family (6)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20130181809A1/en">
+              <span itemprop="publicationNumber">US20130181809A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2011-07-27</td>
+          <td itemprop="publicationDate">2013-07-18</td>
+          <td><span itemprop="assigneeOriginal">Michael R. Lin</span></td>
+          <td itemprop="title">SpaceCube MINI 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US8972819B2/en">
+              <span itemprop="publicationNumber">US8972819B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2011-11-22</td>
+          <td itemprop="publicationDate">2015-03-03</td>
+          <td><span itemprop="assigneeOriginal">Silicon Space Technology Corporation</span></td>
+          <td itemprop="title">Memory circuit incorporating radiation-hardened memory scrub engine 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US9304953B2/en">
+              <span itemprop="publicationNumber">US9304953B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2012-06-29</td>
+          <td itemprop="publicationDate">2016-04-05</td>
+          <td><span itemprop="assigneeOriginal">Cypress Semiconductor Corporation</span></td>
+          <td itemprop="title">Memory controller devices, systems and methods for translating memory requests between first and second formats for high reliability memory devices 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US9274895B1/en">
+              <span itemprop="publicationNumber">US9274895B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2013-02-22</td>
+          <td itemprop="publicationDate">2016-03-01</td>
+          <td><span itemprop="assigneeOriginal">Sandia Corporation</span></td>
+          <td itemprop="title">Processing device with self-scrubbing logic 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US9268637B2/en">
+              <span itemprop="publicationNumber">US9268637B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2013-03-15</td>
+          <td itemprop="publicationDate">2016-02-23</td>
+          <td><span itemprop="assigneeOriginal">Silicon Space Technology Corporation</span></td>
+          <td itemprop="title">Memory circuit incorporating error detection and correction (EDAC), method of operation, and system 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US9680527B2/en">
+              <span itemprop="publicationNumber">US9680527B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2015-02-25</td>
+          <td itemprop="publicationDate">2017-06-13</td>
+          <td><span itemprop="assigneeOriginal">The United States Of America As Represented By The Administrator Of The National Aeronautics And Space Administration</span></td>
+          <td itemprop="title">Radiation hardened 10BASE-T ethernet physical layer (PHY) 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Citations (5)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6073251A/en">
+              <span itemprop="publicationNumber">US6073251A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1989-12-22</td>
+          <td itemprop="publicationDate">2000-06-06</td>
+          <td><span itemprop="assigneeOriginal">Compaq Computer Corporation</span></td>
+          <td itemprop="title">Fault-tolerant computer system with online recovery and reintegration of redundant components 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6104211A/en">
+              <span itemprop="publicationNumber">US6104211A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1998-09-11</td>
+          <td itemprop="publicationDate">2000-08-15</td>
+          <td><span itemprop="assigneeOriginal">Xilinx, Inc.</span></td>
+          <td itemprop="title">System for preventing radiation failures in programmable logic devices 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6560743B2/en">
+              <span itemprop="publicationNumber">US6560743B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1998-03-16</td>
+          <td itemprop="publicationDate">2003-05-06</td>
+          <td><span itemprop="assigneeOriginal">Actel Corporation</span></td>
+          <td itemprop="title">Cyclic redundancy checking of a field programmable gate array having a SRAM memory architecture 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7620883B1/en">
+              <span itemprop="publicationNumber">US7620883B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2001-02-14</td>
+          <td itemprop="publicationDate">2009-11-17</td>
+          <td><span itemprop="assigneeOriginal">Xilinx, Inc.</span></td>
+          <td itemprop="title">Techniques for mitigating, detecting, and correcting single event upset effects 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7859292B1/en">
+              <span itemprop="publicationNumber">US7859292B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2009-07-14</td>
+          <td itemprop="publicationDate">2010-12-28</td>
+          <td><span itemprop="assigneeOriginal">United States Of America As Represented By The Administrator Of The National Aeronautics And Space Administration</span></td>
+          <td itemprop="title">Methods and circuitry for reconfigurable SEU/SET tolerance 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+
+    
+
+    
+    <ul>
+      
+      <li itemprop="applicationsByYear" itemscope repeat>
+        <span itemprop="year">2010</span>
+        <ul>
+          
+          <li itemprop="application" itemscope repeat>
+            <span itemprop="filingDate">2010-08-11</span>
+            <span itemprop="countryCode">US</span>
+            <span itemprop="applicationNumber">US12/854,546</span>
+            <a href="/patent/US8484509B2/en"><span itemprop="documentId">patent/US8484509B2/en</span></a>
+            <span itemprop="legalStatusCat">active</span>
+            <span itemprop="legalStatus">Active</span>
+            
+            <span itemprop="thisApp" content="true" bool></span>
+            
+          </li>
+          
+        </ul>
+      </li>
+      
+    </ul>
+    
+
+    </section>
+
+  <section>
+    <h2>Patent Citations (5)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6073251A/en">
+              <span itemprop="publicationNumber">US6073251A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1989-12-22</td>
+          <td itemprop="publicationDate">2000-06-06</td>
+          <td><span itemprop="assigneeOriginal">Compaq Computer Corporation</span></td>
+          <td itemprop="title">Fault-tolerant computer system with online recovery and reintegration of redundant components 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6560743B2/en">
+              <span itemprop="publicationNumber">US6560743B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1998-03-16</td>
+          <td itemprop="publicationDate">2003-05-06</td>
+          <td><span itemprop="assigneeOriginal">Actel Corporation</span></td>
+          <td itemprop="title">Cyclic redundancy checking of a field programmable gate array having a SRAM memory architecture 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6104211A/en">
+              <span itemprop="publicationNumber">US6104211A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1998-09-11</td>
+          <td itemprop="publicationDate">2000-08-15</td>
+          <td><span itemprop="assigneeOriginal">Xilinx, Inc.</span></td>
+          <td itemprop="title">System for preventing radiation failures in programmable logic devices 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7620883B1/en">
+              <span itemprop="publicationNumber">US7620883B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2001-02-14</td>
+          <td itemprop="publicationDate">2009-11-17</td>
+          <td><span itemprop="assigneeOriginal">Xilinx, Inc.</span></td>
+          <td itemprop="title">Techniques for mitigating, detecting, and correcting single event upset effects 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7859292B1/en">
+              <span itemprop="publicationNumber">US7859292B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2009-07-14</td>
+          <td itemprop="publicationDate">2010-12-28</td>
+          <td><span itemprop="assigneeOriginal">United States Of America As Represented By The Administrator Of The National Aeronautics And Space Administration</span></td>
+          <td itemprop="title">Methods and circuitry for reconfigurable SEU/SET tolerance 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  
+
+  <h2>Cited By (2)</h2>
+  <table>
+    <caption>* Cited by examiner, † Cited by third party</caption>
+    <thead>
+      <tr>
+        <th>Publication number</th>
+        <th>Priority date</th>
+        <th>Publication date</th>
+        <th>Assignee</th>
+        <th>Title</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US20160154694A1/en">
+            <span itemprop="publicationNumber">US20160154694A1</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2013-03-15</td>
+        <td itemprop="publicationDate">2016-06-02</td>
+        <td><span itemprop="assigneeOriginal">SEAKR Engineering, Inc.</span></td>
+        <td itemprop="title">Centralized configuration control of reconfigurable computing devices 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US9612900B2/en">
+            <span itemprop="publicationNumber">US9612900B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2013-03-15</td>
+        <td itemprop="publicationDate">2017-04-04</td>
+        <td><span itemprop="assigneeOriginal">SEAKR Engineering, Inc.</span></td>
+        <td itemprop="title">Centralized configuration control of reconfigurable computing devices 
+       </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <section>
+    <h2>Also Published As</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Publication date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="docdbFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20110107158A1/en">
+              <span itemprop="publicationNumber">US20110107158A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+          </td>
+          <td itemprop="publicationDate">2011-05-05</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Similar Documents</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Publication</th>
+          <th>Publication Date</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US3517171A/en">
+                <span itemprop="publicationNumber">US3517171A</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="1970-06-23">1970-06-23</time>
+            
+            
+          </td>
+          <td itemprop="title">Self-testing and repairing computer 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="8599138103707125618">
+              <a href="/scholar/8599138103707125618"><span itemprop="scholarAuthors">Avizienis</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1967">1967</time>
+            
+          </td>
+          <td itemprop="title">Design of fault-tolerant computers.</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US6948091B2/en">
+                <span itemprop="publicationNumber">US6948091B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2005-09-20">2005-09-20</time>
+            
+            
+          </td>
+          <td itemprop="title">High integrity recovery from multi-bit data failures 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US5504859A/en">
+                <span itemprop="publicationNumber">US5504859A</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="1996-04-02">1996-04-02</time>
+            
+            
+          </td>
+          <td itemprop="title">Data processor with enhanced error recovery 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/EP0297507A2/en">
+                <span itemprop="publicationNumber">EP0297507A2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="1989-01-04">1989-01-04</time>
+            
+            
+          </td>
+          <td itemprop="title">Memory unit backup using checksum 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/JP4545146B2/en">
+                <span itemprop="publicationNumber">JP4545146B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2010-09-15">2010-09-15</time>
+            
+            
+          </td>
+          <td itemprop="title">Self-correcting computer 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US20070283193A1/en">
+                <span itemprop="publicationNumber">US20070283193A1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2007-12-06">2007-12-06</time>
+            
+            
+          </td>
+          <td itemprop="title">Soft error location and sensitivity detection for programmable devices 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US6266736B1/en">
+                <span itemprop="publicationNumber">US6266736B1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2001-07-24">2001-07-24</time>
+            
+            
+          </td>
+          <td itemprop="title">Method and apparatus for efficient software updating 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US7142953B2/en">
+                <span itemprop="publicationNumber">US7142953B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2006-11-28">2006-11-28</time>
+            
+            
+          </td>
+          <td itemprop="title">Reconfigurable digital processing system for space 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US6141770A/en">
+                <span itemprop="publicationNumber">US6141770A</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2000-10-31">2000-10-31</time>
+            
+            
+          </td>
+          <td itemprop="title">Fault tolerant computer system 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US8806298B2/en">
+                <span itemprop="publicationNumber">US8806298B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2014-08-12">2014-08-12</time>
+            
+            
+          </td>
+          <td itemprop="title">Reliability, availability, and serviceability in a memory device 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/AU2002245678B2/en">
+                <span itemprop="publicationNumber">AU2002245678B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2005-01-27">2005-01-27</time>
+            
+            
+          </td>
+          <td itemprop="title">Method of recovering a flight critical computer after a radiation event 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US7921237B1/en">
+                <span itemprop="publicationNumber">US7921237B1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2011-04-05">2011-04-05</time>
+            
+            
+          </td>
+          <td itemprop="title">Preserving data integrity of DMA descriptors 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="13134655066590424034">
+              <a href="/scholar/13134655066590424034"><span itemprop="scholarAuthors">Wensley</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1972">1972</time>
+            
+          </td>
+          <td itemprop="title">SIFT: software implemented fault tolerance</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/JPH0844581A/en">
+                <span itemprop="publicationNumber">JPH0844581A</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="1996-02-16">1996-02-16</time>
+            
+            
+          </td>
+          <td itemprop="title">Information processor with self-repairing function 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="16430485550374330482">
+              <a href="/scholar/16430485550374330482"><span itemprop="scholarAuthors">Rennels</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1980">1980</time>
+            
+          </td>
+          <td itemprop="title">Distributed fault-tolerant computer systems</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US5903717A/en">
+                <span itemprop="publicationNumber">US5903717A</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="1999-05-11">1999-05-11</time>
+            
+            
+          </td>
+          <td itemprop="title">Fault tolerant computer system 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="6616360110755014449">
+              <a href="/scholar/6616360110755014449"><span itemprop="scholarAuthors">Gokhale et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2004">2004</time>
+            
+          </td>
+          <td itemprop="title">Dynamic reconfiguration for management of radiation-induced faults in FPGAs</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US9248924B2/en">
+                <span itemprop="publicationNumber">US9248924B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2016-02-02">2016-02-02</time>
+            
+            
+          </td>
+          <td itemprop="title">CubeSat system, method and apparatus 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="6245493241722970262">
+              <a href="/scholar/6245493241722970262"><span itemprop="scholarAuthors">Siegle et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2015">2015</time>
+            
+          </td>
+          <td itemprop="title">Mitigation of radiation effects in SRAM-based FPGAs for space applications</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="14248652596683923838">
+              <a href="/scholar/14248652596683923838"><span itemprop="scholarAuthors">Jacobs et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2012">2012</time>
+            
+          </td>
+          <td itemprop="title">Reconfigurable fault tolerance: A comprehensive framework for reliable and adaptive FPGA-based space computing</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="12582444140007821735">
+              <a href="/scholar/12582444140007821735"><span itemprop="scholarAuthors">Huang et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2000">2000</time>
+            
+          </td>
+          <td itemprop="title">A reliable LZ data compressor on reconfigurable coprocessors</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US4621364A/en">
+                <span itemprop="publicationNumber">US4621364A</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="1986-11-04">1986-11-04</time>
+            
+            
+          </td>
+          <td itemprop="title">Circuit arrangement for recording the addresses of storage cells with erroneous content 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="6946108751836955058">
+              <a href="/scholar/6946108751836955058"><span itemprop="scholarAuthors">Label et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1996">1996</time>
+            
+          </td>
+          <td itemprop="title">Single-event-effect mitigation from a system perspective</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US5269016A/en">
+                <span itemprop="publicationNumber">US5269016A</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="1993-12-07">1993-12-07</time>
+            
+            
+          </td>
+          <td itemprop="title">Byzantine resilient fault tolerant shared memory data processing system 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Legal Events</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Code</th>
+          <th>Title</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2013-06-19">2013-06-19</time></td>
+          <td itemprop="code">STCF</td>
+          <td itemprop="title">Information on status: patent grant</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">PATENTED CASE</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2015-04-21">2015-04-21</time></td>
+          <td itemprop="code">AS</td>
+          <td itemprop="title">Assignment</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Owner name</strong>:
+              <span itemprop="value">UNITED STATES OF AMERICA AS REPRESENTED BY THE ADM</span>
+            </p>
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">ASSIGNMENT OF ASSIGNORS INTEREST;ASSIGNORS:ESPINOSA, DANIEL C.;GEIST, ALESSANDRO;PETRICK, DAVID;AND OTHERS;SIGNING DATES FROM 20100914 TO 20130122;REEL/FRAME:035457/0566</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2017-01-04">2017-01-04</time></td>
+          <td itemprop="code">FPAY</td>
+          <td itemprop="title">Fee payment</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Year of fee payment</strong>:
+              <span itemprop="value">4</span>
+            </p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+</article>
+
+    </search-app>
+    <script type="text/javascript" src="//www.gstatic.com/feedback/api.js"></script>
+    <script async="" defer="" src="//www.google.com/insights/consumersurveys/async_survey?site=cxkjf7ipxgbnnjy6k35ezcvbbe"></script>
+  </body>
+</html>
