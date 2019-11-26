@@ -1,0 +1,3070 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>US7050161B1 - Global radius of curvature estimation and control system for segmented mirrors 
+        - Google Patents</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="referrer" content="origin-when-crossorigin">
+    <link rel="canonical" href="https://patents.google.com/patent/US7050161B1/en">
+    <meta name="description" content="
+     An apparatus controls positions of plural mirror segments in a segmented mirror with an edge sensor system and a controller. Current mirror segment edge sensor measurements and edge sensor reference measurements are compared with calculated edge sensor bias measurements representing a global radius of curvature. Accumulated prior actuator commands output from an edge sensor control unit are combined with an estimator matrix to form the edge sensor bias measurements. An optimal control matrix unit then accumulates the plurality of edge sensor error signals calculated by the summation unit and outputs the corresponding plurality of actuator commands. The plural mirror actuators respond to the actuator commands by moving respective positions of the mirror segments. A predetermined number of boundary conditions, corresponding to a plurality of hexagonal mirror locations, are removed to afford mathematical matrix calculation. 
+   
+   ">
+    
+    <meta name="DC.type" content="patent">
+    
+    <meta name="DC.title" content="Global radius of curvature estimation and control system for segmented mirrors 
+       ">
+    
+    <meta name="DC.date" content="2003-08-06" scheme="dateSubmitted">
+    
+    <meta name="DC.description" content="
+     An apparatus controls positions of plural mirror segments in a segmented mirror with an edge sensor system and a controller. Current mirror segment edge sensor measurements and edge sensor reference measurements are compared with calculated edge sensor bias measurements representing a global radius of curvature. Accumulated prior actuator commands output from an edge sensor control unit are combined with an estimator matrix to form the edge sensor bias measurements. An optimal control matrix unit then accumulates the plurality of edge sensor error signals calculated by the summation unit and outputs the corresponding plurality of actuator commands. The plural mirror actuators respond to the actuator commands by moving respective positions of the mirror segments. A predetermined number of boundary conditions, corresponding to a plurality of hexagonal mirror locations, are removed to afford mathematical matrix calculation. 
+   
+   ">
+    
+    <meta name="citation_patent_application_number" content="US:10/637,085">
+    
+    <meta name="citation_pdf_url" content="https://patentimages.storage.googleapis.com/a9/b7/0f/899a68f2d7dda5/US7050161.pdf">
+    
+    <meta name="citation_patent_number" content="US:7050161">
+    
+    <meta name="DC.date" content="2006-05-23" scheme="issue">
+    
+    <meta name="DC.contributor" content="John M. Rakoczy" scheme="inventor">
+    
+    <meta name="DC.contributor" content="National Aeronautics and Space Administration (NASA)" scheme="assignee">
+    
+    <meta name="DC.relation" content="US:4560256" scheme="references">
+    
+    <meta name="DC.relation" content="US:4471447" scheme="references">
+    
+    <meta name="DC.relation" content="US:4467186" scheme="references">
+    
+    <meta name="DC.relation" content="US:4737621" scheme="references">
+    
+    <meta name="DC.relation" content="US:4816759" scheme="references">
+    
+    <meta name="DC.relation" content="US:4825062" scheme="references">
+    
+    <meta name="DC.relation" content="US:4904073" scheme="references">
+    
+    <meta name="DC.relation" content="US:4943771" scheme="references">
+    
+    <meta name="DC.relation" content="US:5099352" scheme="references">
+    
+    <meta name="DC.relation" content="EP:0438664:A2" scheme="references">
+    
+    <meta name="DC.relation" content="US:5109349" scheme="references">
+    
+    <meta name="DC.relation" content="US:5477393" scheme="references">
+    
+    <meta name="DC.relation" content="US:5113064" scheme="references">
+    
+    <meta name="DC.relation" content="US:5265034" scheme="references">
+    
+    <meta name="DC.relation" content="US:5623270" scheme="references">
+    
+    <meta name="DC.relation" content="US:6293680" scheme="references">
+    
+    <meta name="DC.relation" content="US:6113242" scheme="references">
+    
+    <meta name="DC.relation" content="US:6800988" scheme="references">
+    
+    <meta name="citation_reference" content="John Rakoczy et al., &#34;Global Radius-of-Curvature Estimation and Control for the Hobby-Eberly Telescope,&#34; Proceedings of the SPIE, 4837-79 ed., p. 681-692, (Aug. 22, 2002)." scheme="references">
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,400italic,500,500italic,700">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Product+Sans">
+    <style>
+      body { transition: none; }
+    </style>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-27188110-4', 'auto');
+
+      version = 'patent-search.search_20191120_RC00';
+
+      function sendFeedback() {
+        userfeedback.api.startFeedback({
+          'productId': '713680',
+          'bucket': 'patent-search-web',
+          'productVersion': version,
+        });
+      }
+
+      window.experiments = {};
+      window.experiments.patentCountries = "ae,ag,al,am,ao,ap,ar,at,au,aw,az,ba,bb,bd,be,bf,bg,bh,bj,bn,bo,br,bw,bx,by,bz,ca,cf,cg,ch,ci,cl,cm,cn,co,cr,cs,cu,cy,cz,dd,de,dj,dk,dm,do,dz,ea,ec,ee,eg,em,ep,es,fi,fr,ga,gb,gc,gd,ge,gh,gm,gn,gq,gr,gt,gw,hk,hn,hr,hu,ib,id,ie,il,in,ir,is,it,jo,jp,ke,kg,kh,km,kn,kp,kr,kw,kz,la,lc,li,lk,lr,ls,lt,lu,lv,ly,ma,mc,md,me,mg,mk,ml,mn,mo,mr,mt,mw,mx,my,mz,na,ne,ng,ni,nl,no,nz,oa,om,pa,pe,pg,ph,pl,pt,py,qa,ro,rs,ru,rw,sa,sc,sd,se,sg,si,sk,sl,sm,sn,st,su,sv,sy,sz,td,tg,th,tj,tm,tn,tr,tt,tw,tz,ua,ug,us,uy,uz,vc,ve,vn,wo,yu,za,zm,zw";
+      
+      
+      window.profilePicture = "";
+
+      window.Polymer = {
+        dom: 'shady',
+        lazyRegister: true,
+      };
+    </script>
+
+    <script src="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/webcomponentsjs/webcomponents-lite.min.js"></script>
+    
+    <link rel="import" href="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/search-app-vulcanized.html">
+    
+  </head>
+  <body unresolved>
+    
+    <script src="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/search-app-vulcanized.js"></script>
+    
+    <search-app>
+      
+      
+
+      <article class="result" itemscope itemtype="http://schema.org/ScholarlyArticle">
+  <h1 itemprop="pageTitle">US7050161B1 - Global radius of curvature estimation and control system for segmented mirrors 
+        - Google Patents</h1>
+  <span itemprop="title">Global radius of curvature estimation and control system for segmented mirrors 
+       </span>
+
+  <meta itemprop="type" content="patent">
+  <a href="https://patentimages.storage.googleapis.com/a9/b7/0f/899a68f2d7dda5/US7050161.pdf" itemprop="pdfLink">Download PDF</a>
+  <h2>Info</h2>
+
+  <dl>
+    <dt>Publication number</dt>
+    <dd itemprop="publicationNumber">US7050161B1</dd>
+    <meta itemprop="numberWithoutCodes" content="7050161">
+    <meta itemprop="kindCode" content="B1">
+    <meta itemprop="publicationDescription" content="Patent ( no pre-grant publication)">
+    
+    <span>US7050161B1</span>
+    
+    <span>US10/637,085</span>
+    
+    <span>US63708503A</span>
+    
+    <span>US7050161B1</span>
+    
+    <span>US 7050161 B1</span>
+    
+    <span>US7050161 B1</span>
+    
+    <span>US 7050161B1</span>
+    
+    <span>  </span>
+    
+    <span> </span>
+    
+    <span> </span>
+    
+    <span>US 63708503 A</span>
+    
+    <span>US63708503 A</span>
+    
+    <span>US 63708503A</span>
+    
+    <span>US 7050161 B1</span>
+    
+    <span>US7050161 B1</span>
+    
+    <span>US 7050161B1</span>
+    
+
+    <dt>Authority</dt>
+    <dd itemprop="countryCode">US</dd>
+    <dd itemprop="countryName">United States</dd>
+
+    <dt>Prior art keywords</dt>
+    
+    <dd itemprop="priorArtKeywords" repeat>edge sensor</dd>
+    <dd itemprop="priorArtKeywords" repeat>plurality</dd>
+    <dd itemprop="priorArtKeywords" repeat>measurements</dd>
+    <dd itemprop="priorArtKeywords" repeat>actuator commands</dd>
+    <dd itemprop="priorArtKeywords" repeat>mirror</dd>
+
+    <dt>Prior art date</dt>
+    <dd><time itemprop="priorArtDate" datetime="2003-08-06">2003-08-06</time></dd>
+
+    <dt>Legal status (The legal status is an assumption and is not a legal conclusion. Google has not performed a legal analysis and makes no representation as to the accuracy of the status listed.)</dt>
+    <dd itemprop="legalStatusIfi" itemscope>
+      <span itemprop="status">Expired - Fee Related</span>, expires <time itemprop="expiration" datetime="2025-01-07">2025-01-07</time>
+    </dd>
+  </dl>
+
+  <dt>Application number</dt>
+  <dd itemprop="applicationNumber">US10/637,085</dd>
+
+  
+
+  
+
+  <dt>Inventor</dt>
+  <dd itemprop="inventor" repeat>John M. Rakoczy</dd>
+  <dt>Current Assignee (The listed assignees may be inaccurate. Google has not performed a legal analysis and makes no representation or warranty as to the accuracy of the list.)</dt>
+  <dd itemprop="assigneeCurrent" repeat>
+    National Aeronautics and Space Administration (NASA)
+  </dd>
+
+  <dt>Original Assignee</dt>
+  <dd itemprop="assigneeOriginal" repeat>National Aeronautics and Space Administration (NASA)</dd>
+
+  <dt>Priority date (The priority date is an assumption and is not a legal conclusion. Google has not performed a legal analysis and makes no representation as to the accuracy of the date listed.)</dt>
+  <dd><time itemprop="priorityDate" datetime="2003-08-06">2003-08-06</time></dd>
+
+  <dt>Filing date</dt>
+  <dd><time itemprop="filingDate" datetime="2003-08-06">2003-08-06</time></dd>
+
+  <dt>Publication date</dt>
+  <dd><time itemprop="publicationDate" datetime="2006-05-23">2006-05-23</time></dd>
+
+  
+
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2003-08-06">2003-08-06</time>
+    <span itemprop="title">Application filed by National Aeronautics and Space Administration (NASA)</span>
+    <span itemprop="type">filed</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    <span itemprop="assigneeSearch">National Aeronautics and Space Administration (NASA)</span>
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2003-08-06">2003-08-06</time>
+    <span itemprop="title">Priority to US10/637,085</span>
+    <span itemprop="type">priority</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    <span itemprop="documentId">patent/US7050161B1/en</span>
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2003-08-06">2003-08-06</time>
+    <span itemprop="title">Assigned to NATIONAL AERONAUTICS AND SPACE ADMINISTRATION</span>
+    <span itemprop="type">reassignment</span>
+    
+    
+    
+    
+    <span itemprop="assigneeSearch">NATIONAL AERONAUTICS AND SPACE ADMINISTRATION</span>
+    
+    
+    <span itemprop="description" repeat>ASSIGNMENT OF ASSIGNORS INTEREST (SEE DOCUMENT FOR DETAILS).</span>
+    
+    <span itemprop="description" repeat>Assignors: RAKOCZY, JOHN M.</span>
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2006-05-23">2006-05-23</time>
+    <span itemprop="title">Application granted</span>
+    <span itemprop="type">granted</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2006-05-23">2006-05-23</time>
+    <span itemprop="title">Publication of US7050161B1</span>
+    <span itemprop="type">publication</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    <span itemprop="documentId">patent/US7050161B1/en</span>
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2019-11-25">2019-11-25</time>
+    <span itemprop="title">Application status is Expired - Fee Related</span>
+    <span itemprop="type">legal-status</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2025-01-07">2025-01-07</time>
+    <span itemprop="title">Adjusted expiration</span>
+    <span itemprop="type">legal-status</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+
+  <h2>Links</h2>
+
+  <ul>
+    
+          <li itemprop="links" itemscope repeat>
+            <meta itemprop="id" content="usptoLink">
+            <a href="http://patft.uspto.gov/netacgi/nph-Parser?Sect1=PTO1&Sect2=HITOFF&p=1&u=/netahtml/PTO/srchnum.html&r=1&f=G&l=50&d=PALL&s1=7050161.PN." itemprop="url" target="_blank"><span itemprop="text">USPTO</span></a>
+          </li>
+        <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="usptoAssignmentLink">
+          <a href="https://assignment.uspto.gov/patent/index.html#/patent/search/resultFilter?searchInput=7050161" itemprop="url" target="_blank"><span itemprop="text">USPTO Assignment</span></a>
+        </li>
+
+    <li itemprop="links" itemscope repeat>
+        <meta itemprop="id" content="espacenetLink">
+        <a href="http://worldwide.espacenet.com/publicationDetails/biblio?CC=US&amp;NR=7050161B1&amp;KC=B1&amp;FT=D" itemprop="url" target="_blank"><span itemprop="text">Espacenet</span></a>
+      </li>
+      
+
+    
+
+    
+      <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="globalDossierLink">
+          <a href="http://globaldossier.uspto.gov/#/result/patent/US/7050161/1" itemprop="url" target="_blank"><span itemprop="text">Global Dossier</span></a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="stackexchangeLink">
+          <a href="https://patents.stackexchange.com/questions/tagged/US7050161" itemprop="url"><span itemprop="text">Discuss</span></a>
+        </li>
+      
+  </ul>
+
+  
+  <ul itemprop="concept" itemscope>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000011159</span>
+      <span itemprop="name">matrix materials</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>abstract</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">70</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000005259</span>
+      <span itemprop="name">measurements</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>abstract</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">69</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000000875</span>
+      <span itemprop="name">corresponding</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>abstract</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">24</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000004364</span>
+      <span itemprop="name">calculation methods</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>abstract</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">4</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001276</span>
+      <span itemprop="name">controlling effects</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">6</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000004044</span>
+      <span itemprop="name">response</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">4</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000006073</span>
+      <span itemprop="name">displacement</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">10</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000009795</span>
+      <span itemprop="name">derivation</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">8</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000003287</span>
+      <span itemprop="name">optical</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">8</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000035945</span>
+      <span itemprop="name">sensitivity</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">7</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001939</span>
+      <span itemprop="name">inductive effects</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">4</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001052</span>
+      <span itemprop="name">transient</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">4</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000005192</span>
+      <span itemprop="name">partition</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">3</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000000034</span>
+      <span itemprop="name">methods</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000004048</span>
+      <span itemprop="name">modification</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000006011</span>
+      <span itemprop="name">modification</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000003319</span>
+      <span itemprop="name">supportive</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000000844</span>
+      <span itemprop="name">transformation</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001131</span>
+      <span itemprop="name">transforming</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">NJQRKFOZZUIMGW-UHFFFAOYSA-N</span>
+      <span itemprop="name">1,3,5-trichloro-2-(chloromethyl)benzene</span>
+      <span itemprop="domain">Chemical compound</span>
+      <span itemprop="svg_large">data:image/svg&#43;xml;base64,PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0naXNvLTg4NTktMSc/Pgo8c3ZnIHZlcnNpb249JzEuMScgYmFzZVByb2ZpbGU9J2Z1bGwnCiAgICAgICAgICAgICAgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJwogICAgICAgICAgICAgICAgICAgICAgeG1sbnM6cmRraXQ9J2h0dHA6Ly93d3cucmRraXQub3JnL3htbCcKICAgICAgICAgICAgICAgICAgICAgIHhtbG5zOnhsaW5rPSdodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rJwogICAgICAgICAgICAgICAgICB4bWw6c3BhY2U9J3ByZXNlcnZlJwp3aWR0aD0nMzAwcHgnIGhlaWdodD0nMzAwcHgnID4KPCEtLSBFTkQgT0YgSEVBREVSIC0tPgo8cmVjdCBzdHlsZT0nb3BhY2l0eToxLjA7ZmlsbDojRkZGRkZGO3N0cm9rZTpub25lJyB3aWR0aD0nMzAwJyBoZWlnaHQ9JzMwMCcgeD0nMCcgeT0nMCc&#43;IDwvcmVjdD4KPHBhdGggY2xhc3M9J2JvbmQtMCcgZD0nTSA0MC43NjM3LDEzMS45OCA1NC4xMzYxLDE0Ni41NDUnIHN0eWxlPSdmaWxsOm5vbmU7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOiMwMENDMDA7c3Ryb2tlLXdpZHRoOjJweDtzdHJva2UtbGluZWNhcDpidXR0O3N0cm9rZS1saW5lam9pbjptaXRlcjtzdHJva2Utb3BhY2l0eToxJyAvPgo8cGF0aCBjbGFzcz0nYm9uZC0wJyBkPSdNIDU0LjEzNjEsMTQ2LjU0NSA2Ny41MDg1LDE2MS4xMTEnIHN0eWxlPSdmaWxsOm5vbmU7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOiMwMDAwMDA7c3Ryb2tlLXdpZHRoOjJweDtzdHJva2UtbGluZWNhcDpidXR0O3N0cm9rZS1saW5lam9pbjptaXRlcjtzdHJva2Utb3BhY2l0eToxJyAvPgo8cGF0aCBjbGFzcz0nYm9uZC0xJyBkPSdNIDY3LjUwODUsMTYxLjExMSAxMTcuMzk2LDE1MCcgc3R5bGU9J2ZpbGw6bm9uZTtmaWxsLXJ1bGU6ZXZlbm9kZDtzdHJva2U6IzAwMDAwMDtzdHJva2Utd2lkdGg6MnB4O3N0cm9rZS1saW5lY2FwOmJ1dHQ7c3Ryb2tlLWxpbmVqb2luOm1pdGVyO3N0cm9rZS1vcGFjaXR5OjEnIC8&#43;CjxwYXRoIGNsYXNzPSdib25kLTInIGQ9J00gMTE3LjM5NiwxNTAgMTMyLjcxNywxMDEuMjQxJyBzdHlsZT0nZmlsbDpub25lO2ZpbGwtcnVsZTpldmVub2RkO3N0cm9rZTojMDAwMDAwO3N0cm9rZS13aWR0aDoycHg7c3Ryb2tlLWxpbmVjYXA6YnV0dDtzdHJva2UtbGluZWpvaW46bWl0ZXI7c3Ryb2tlLW9wYWNpdHk6MScgLz4KPHBhdGggY2xhc3M9J2JvbmQtMicgZD0nTSAxMjkuNDQ2LDE0NS43NTEgMTQwLjE3MSwxMTEuNjE5JyBzdHlsZT0nZmlsbDpub25lO2ZpbGwtcnVsZTpldmVub2RkO3N0cm9rZTojMDAwMDAwO3N0cm9rZS13aWR0aDoycHg7c3Ryb2tlLWxpbmVjYXA6YnV0dDtzdHJva2UtbGluZWpvaW46bWl0ZXI7c3Ryb2tlLW9wYWNpdHk6MScgLz4KPHBhdGggY2xhc3M9J2JvbmQtMTAnIGQ9J00gMTE3LjM5NiwxNTAgMTUxLjk2MSwxODcuNjQ4JyBzdHlsZT0nZmlsbDpub25lO2ZpbGwtcnVsZTpldmVub2RkO3N0cm9rZTojMDAwMDAwO3N0cm9rZS13aWR0aDoycHg7c3Ryb2tlLWxpbmVjYXA6YnV0dDtzdHJva2UtbGluZWpvaW46bWl0ZXI7c3Ryb2tlLW9wYWNpdHk6MScgLz4KPHBhdGggY2xhc3M9J2JvbmQtMycgZD0nTSAxMzIuNzE3LDEwMS4yNDEgMTE5LjM0NSw4Ni42NzYyJyBzdHlsZT0nZmlsbDpub25lO2ZpbGwtcnVsZTpldmVub2RkO3N0cm9rZTojMDAwMDAwO3N0cm9rZS13aWR0aDoycHg7c3Ryb2tlLWxpbmVjYXA6YnV0dDtzdHJva2UtbGluZWpvaW46bWl0ZXI7c3Ryb2tlLW9wYWNpdHk6MScgLz4KPHBhdGggY2xhc3M9J2JvbmQtMycgZD0nTSAxMTkuMzQ1LDg2LjY3NjIgMTA1Ljk3Miw3Mi4xMTEyJyBzdHlsZT0nZmlsbDpub25lO2ZpbGwtcnVsZTpldmVub2RkO3N0cm9rZTojMDBDQzAwO3N0cm9rZS13aWR0aDoycHg7c3Ryb2tlLWxpbmVjYXA6YnV0dDtzdHJva2UtbGluZWpvaW46bWl0ZXI7c3Ryb2tlLW9wYWNpdHk6MScgLz4KPHBhdGggY2xhc3M9J2JvbmQtNCcgZD0nTSAxMzIuNzE3LDEwMS4yNDEgMTgyLjYwNCw5MC4xMzA3JyBzdHlsZT0nZmlsbDpub25lO2ZpbGwtcnVsZTpldmVub2RkO3N0cm9rZTojMDAwMDAwO3N0cm9rZS13aWR0aDoycHg7c3Ryb2tlLWxpbmVjYXA6YnV0dDtzdHJva2UtbGluZWpvaW46bWl0ZXI7c3Ryb2tlLW9wYWNpdHk6MScgLz4KPHBhdGggY2xhc3M9J2JvbmQtNScgZD0nTSAxODIuNjA0LDkwLjEzMDcgMjE3LjE3LDEyNy43NzknIHN0eWxlPSdmaWxsOm5vbmU7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOiMwMDAwMDA7c3Ryb2tlLXdpZHRoOjJweDtzdHJva2UtbGluZWNhcDpidXR0O3N0cm9rZS1saW5lam9pbjptaXRlcjtzdHJva2Utb3BhY2l0eToxJyAvPgo8cGF0aCBjbGFzcz0nYm9uZC01JyBkPSdNIDE4MC4yNiwxMDIuNjkxIDIwNC40NTUsMTI5LjA0NScgc3R5bGU9J2ZpbGw6bm9uZTtmaWxsLXJ1bGU6ZXZlbm9kZDtzdHJva2U6IzAwMDAwMDtzdHJva2Utd2lkdGg6MnB4O3N0cm9rZS1saW5lY2FwOmJ1dHQ7c3Ryb2tlLWxpbmVqb2luOm1pdGVyO3N0cm9rZS1vcGFjaXR5OjEnIC8&#43;CjxwYXRoIGNsYXNzPSdib25kLTYnIGQ9J00gMjE3LjE3LDEyNy43NzkgMjM3LjI4NywxMjMuMjk5JyBzdHlsZT0nZmlsbDpub25lO2ZpbGwtcnVsZTpldmVub2RkO3N0cm9rZTojMDAwMDAwO3N0cm9rZS13aWR0aDoycHg7c3Ryb2tlLWxpbmVjYXA6YnV0dDtzdHJva2UtbGluZWpvaW46bWl0ZXI7c3Ryb2tlLW9wYWNpdHk6MScgLz4KPHBhdGggY2xhc3M9J2JvbmQtNicgZD0nTSAyMzcuMjg3LDEyMy4yOTkgMjU3LjQwNCwxMTguODE4JyBzdHlsZT0nZmlsbDpub25lO2ZpbGwtcnVsZTpldmVub2RkO3N0cm9rZTojMDBDQzAwO3N0cm9rZS13aWR0aDoycHg7c3Ryb2tlLWxpbmVjYXA6YnV0dDtzdHJva2UtbGluZWpvaW46bWl0ZXI7c3Ryb2tlLW9wYWNpdHk6MScgLz4KPHBhdGggY2xhc3M9J2JvbmQtNycgZD0nTSAyMTcuMTcsMTI3Ljc3OSAyMDEuODQ4LDE3Ni41MzgnIHN0eWxlPSdmaWxsOm5vbmU7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOiMwMDAwMDA7c3Ryb2tlLXdpZHRoOjJweDtzdHJva2UtbGluZWNhcDpidXR0O3N0cm9rZS1saW5lam9pbjptaXRlcjtzdHJva2Utb3BhY2l0eToxJyAvPgo8cGF0aCBjbGFzcz0nYm9uZC04JyBkPSdNIDIwMS44NDgsMTc2LjUzOCAxNTEuOTYxLDE4Ny42NDgnIHN0eWxlPSdmaWxsOm5vbmU7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOiMwMDAwMDA7c3Ryb2tlLXdpZHRoOjJweDtzdHJva2UtbGluZWNhcDpidXR0O3N0cm9rZS1saW5lam9pbjptaXRlcjtzdHJva2Utb3BhY2l0eToxJyAvPgo8cGF0aCBjbGFzcz0nYm9uZC04JyBkPSdNIDE5Mi4xNDMsMTY4LjIyNyAxNTcuMjIyLDE3Ni4wMDQnIHN0eWxlPSdmaWxsOm5vbmU7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOiMwMDAwMDA7c3Ryb2tlLXdpZHRoOjJweDtzdHJva2UtbGluZWNhcDpidXR0O3N0cm9rZS1saW5lam9pbjptaXRlcjtzdHJva2Utb3BhY2l0eToxJyAvPgo8cGF0aCBjbGFzcz0nYm9uZC05JyBkPSdNIDE1MS45NjEsMTg3LjY0OCAxNDUuNjM5LDIwNy43NjknIHN0eWxlPSdmaWxsOm5vbmU7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOiMwMDAwMDA7c3Ryb2tlLXdpZHRoOjJweDtzdHJva2UtbGluZWNhcDpidXR0O3N0cm9rZS1saW5lam9pbjptaXRlcjtzdHJva2Utb3BhY2l0eToxJyAvPgo8cGF0aCBjbGFzcz0nYm9uZC05JyBkPSdNIDE0NS42MzksMjA3Ljc2OSAxMzkuMzE2LDIyNy44ODknIHN0eWxlPSdmaWxsOm5vbmU7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOiMwMENDMDA7c3Ryb2tlLXdpZHRoOjJweDtzdHJva2UtbGluZWNhcDpidXR0O3N0cm9rZS1saW5lam9pbjptaXRlcjtzdHJva2Utb3BhY2l0eToxJyAvPgo8dGV4dCB4PScyMy4yODk3JyB5PScxMzEuOTgnIHN0eWxlPSdmb250LXNpemU6MTdweDtmb250LXN0eWxlOm5vcm1hbDtmb250LXdlaWdodDpub3JtYWw7ZmlsbC1vcGFjaXR5OjE7c3Ryb2tlOm5vbmU7Zm9udC1mYW1pbHk6c2Fucy1zZXJpZjt0ZXh0LWFuY2hvcjpzdGFydDtmaWxsOiMwMENDMDAnID48dHNwYW4&#43;Q2w8L3RzcGFuPjwvdGV4dD4KPHRleHQgeD0nODguNDk4NCcgeT0nNzIuMTExMicgc3R5bGU9J2ZvbnQtc2l6ZToxN3B4O2ZvbnQtc3R5bGU6bm9ybWFsO2ZvbnQtd2VpZ2h0Om5vcm1hbDtmaWxsLW9wYWNpdHk6MTtzdHJva2U6bm9uZTtmb250LWZhbWlseTpzYW5zLXNlcmlmO3RleHQtYW5jaG9yOnN0YXJ0O2ZpbGw6IzAwQ0MwMCcgPjx0c3Bhbj5DbDwvdHNwYW4&#43;PC90ZXh0Pgo8dGV4dCB4PScyNTcuNDA0JyB5PScxMjUuMTg3JyBzdHlsZT0nZm9udC1zaXplOjE3cHg7Zm9udC1zdHlsZTpub3JtYWw7Zm9udC13ZWlnaHQ6bm9ybWFsO2ZpbGwtb3BhY2l0eToxO3N0cm9rZTpub25lO2ZvbnQtZmFtaWx5OnNhbnMtc2VyaWY7dGV4dC1hbmNob3I6c3RhcnQ7ZmlsbDojMDBDQzAwJyA&#43;PHRzcGFuPkNsPC90c3Bhbj48L3RleHQ&#43;Cjx0ZXh0IHg9JzEyNi45ODYnIHk9JzI0NC45MjUnIHN0eWxlPSdmb250LXNpemU6MTdweDtmb250LXN0eWxlOm5vcm1hbDtmb250LXdlaWdodDpub3JtYWw7ZmlsbC1vcGFjaXR5OjE7c3Ryb2tlOm5vbmU7Zm9udC1mYW1pbHk6c2Fucy1zZXJpZjt0ZXh0LWFuY2hvcjpzdGFydDtmaWxsOiMwMENDMDAnID48dHNwYW4&#43;Q2w8L3RzcGFuPjwvdGV4dD4KPC9zdmc&#43;Cg==</span>
+      <span itemprop="svg_small">data:image/svg&#43;xml;base64,PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0naXNvLTg4NTktMSc/Pgo8c3ZnIHZlcnNpb249JzEuMScgYmFzZVByb2ZpbGU9J2Z1bGwnCiAgICAgICAgICAgICAgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJwogICAgICAgICAgICAgICAgICAgICAgeG1sbnM6cmRraXQ9J2h0dHA6Ly93d3cucmRraXQub3JnL3htbCcKICAgICAgICAgICAgICAgICAgICAgIHhtbG5zOnhsaW5rPSdodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rJwogICAgICAgICAgICAgICAgICB4bWw6c3BhY2U9J3ByZXNlcnZlJwp3aWR0aD0nODVweCcgaGVpZ2h0PSc4NXB4JyA&#43;CjwhLS0gRU5EIE9GIEhFQURFUiAtLT4KPHJlY3Qgc3R5bGU9J29wYWNpdHk6MS4wO2ZpbGw6I0ZGRkZGRjtzdHJva2U6bm9uZScgd2lkdGg9Jzg1JyBoZWlnaHQ9Jzg1JyB4PScwJyB5PScwJz4gPC9yZWN0Pgo8cGF0aCBjbGFzcz0nYm9uZC0wJyBkPSdNIDExLjA0OTcsMzYuODk0NSAxNC44Mzg2LDQxLjAyMTInIHN0eWxlPSdmaWxsOm5vbmU7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOiMwMENDMDA7c3Ryb2tlLXdpZHRoOjJweDtzdHJva2UtbGluZWNhcDpidXR0O3N0cm9rZS1saW5lam9pbjptaXRlcjtzdHJva2Utb3BhY2l0eToxJyAvPgo8cGF0aCBjbGFzcz0nYm9uZC0wJyBkPSdNIDE0LjgzODYsNDEuMDIxMiAxOC42Mjc0LDQ1LjE0OCcgc3R5bGU9J2ZpbGw6bm9uZTtmaWxsLXJ1bGU6ZXZlbm9kZDtzdHJva2U6IzAwMDAwMDtzdHJva2Utd2lkdGg6MnB4O3N0cm9rZS1saW5lY2FwOmJ1dHQ7c3Ryb2tlLWxpbmVqb2luOm1pdGVyO3N0cm9rZS1vcGFjaXR5OjEnIC8&#43;CjxwYXRoIGNsYXNzPSdib25kLTEnIGQ9J00gMTguNjI3NCw0NS4xNDggMzIuNzYyMSw0Micgc3R5bGU9J2ZpbGw6bm9uZTtmaWxsLXJ1bGU6ZXZlbm9kZDtzdHJva2U6IzAwMDAwMDtzdHJva2Utd2lkdGg6MnB4O3N0cm9rZS1saW5lY2FwOmJ1dHQ7c3Ryb2tlLWxpbmVqb2luOm1pdGVyO3N0cm9rZS1vcGFjaXR5OjEnIC8&#43;CjxwYXRoIGNsYXNzPSdib25kLTInIGQ9J00gMzIuNzYyMSw0MiAzNy4xMDMyLDI4LjE4NScgc3R5bGU9J2ZpbGw6bm9uZTtmaWxsLXJ1bGU6ZXZlbm9kZDtzdHJva2U6IzAwMDAwMDtzdHJva2Utd2lkdGg6MnB4O3N0cm9rZS1saW5lY2FwOmJ1dHQ7c3Ryb2tlLWxpbmVqb2luOm1pdGVyO3N0cm9rZS1vcGFjaXR5OjEnIC8&#43;CjxwYXRoIGNsYXNzPSdib25kLTInIGQ9J00gMzYuMTc2Myw0MC43OTYgMzkuMjE1LDMxLjEyNTUnIHN0eWxlPSdmaWxsOm5vbmU7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOiMwMDAwMDA7c3Ryb2tlLXdpZHRoOjJweDtzdHJva2UtbGluZWNhcDpidXR0O3N0cm9rZS1saW5lam9pbjptaXRlcjtzdHJva2Utb3BhY2l0eToxJyAvPgo8cGF0aCBjbGFzcz0nYm9uZC0xMCcgZD0nTSAzMi43NjIxLDQyIDQyLjU1NTcsNTIuNjY3JyBzdHlsZT0nZmlsbDpub25lO2ZpbGwtcnVsZTpldmVub2RkO3N0cm9rZTojMDAwMDAwO3N0cm9rZS13aWR0aDoycHg7c3Ryb2tlLWxpbmVjYXA6YnV0dDtzdHJva2UtbGluZWpvaW46bWl0ZXI7c3Ryb2tlLW9wYWNpdHk6MScgLz4KPHBhdGggY2xhc3M9J2JvbmQtMycgZD0nTSAzNy4xMDMyLDI4LjE4NSAzMy4zMTQ0LDI0LjA1ODMnIHN0eWxlPSdmaWxsOm5vbmU7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOiMwMDAwMDA7c3Ryb2tlLXdpZHRoOjJweDtzdHJva2UtbGluZWNhcDpidXR0O3N0cm9rZS1saW5lam9pbjptaXRlcjtzdHJva2Utb3BhY2l0eToxJyAvPgo8cGF0aCBjbGFzcz0nYm9uZC0zJyBkPSdNIDMzLjMxNDQsMjQuMDU4MyAyOS41MjU1LDE5LjkzMTUnIHN0eWxlPSdmaWxsOm5vbmU7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOiMwMENDMDA7c3Ryb2tlLXdpZHRoOjJweDtzdHJva2UtbGluZWNhcDpidXR0O3N0cm9rZS1saW5lam9pbjptaXRlcjtzdHJva2Utb3BhY2l0eToxJyAvPgo8cGF0aCBjbGFzcz0nYm9uZC00JyBkPSdNIDM3LjEwMzIsMjguMTg1IDUxLjIzNzksMjUuMDM3JyBzdHlsZT0nZmlsbDpub25lO2ZpbGwtcnVsZTpldmVub2RkO3N0cm9rZTojMDAwMDAwO3N0cm9rZS13aWR0aDoycHg7c3Ryb2tlLWxpbmVjYXA6YnV0dDtzdHJva2UtbGluZWpvaW46bWl0ZXI7c3Ryb2tlLW9wYWNpdHk6MScgLz4KPHBhdGggY2xhc3M9J2JvbmQtNScgZD0nTSA1MS4yMzc5LDI1LjAzNyA2MS4wMzE1LDM1LjcwNCcgc3R5bGU9J2ZpbGw6bm9uZTtmaWxsLXJ1bGU6ZXZlbm9kZDtzdHJva2U6IzAwMDAwMDtzdHJva2Utd2lkdGg6MnB4O3N0cm9rZS1saW5lY2FwOmJ1dHQ7c3Ryb2tlLWxpbmVqb2luOm1pdGVyO3N0cm9rZS1vcGFjaXR5OjEnIC8&#43;CjxwYXRoIGNsYXNzPSdib25kLTUnIGQ9J00gNTAuNTczNSwyOC41OTU4IDU3LjQyOSwzNi4wNjI3JyBzdHlsZT0nZmlsbDpub25lO2ZpbGwtcnVsZTpldmVub2RkO3N0cm9rZTojMDAwMDAwO3N0cm9rZS13aWR0aDoycHg7c3Ryb2tlLWxpbmVjYXA6YnV0dDtzdHJva2UtbGluZWpvaW46bWl0ZXI7c3Ryb2tlLW9wYWNpdHk6MScgLz4KPHBhdGggY2xhc3M9J2JvbmQtNicgZD0nTSA2MS4wMzE1LDM1LjcwNCA2Ni43MzEzLDM0LjQzNDYnIHN0eWxlPSdmaWxsOm5vbmU7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOiMwMDAwMDA7c3Ryb2tlLXdpZHRoOjJweDtzdHJva2UtbGluZWNhcDpidXR0O3N0cm9rZS1saW5lam9pbjptaXRlcjtzdHJva2Utb3BhY2l0eToxJyAvPgo8cGF0aCBjbGFzcz0nYm9uZC02JyBkPSdNIDY2LjczMTMsMzQuNDM0NiA3Mi40MzEsMzMuMTY1Micgc3R5bGU9J2ZpbGw6bm9uZTtmaWxsLXJ1bGU6ZXZlbm9kZDtzdHJva2U6IzAwQ0MwMDtzdHJva2Utd2lkdGg6MnB4O3N0cm9rZS1saW5lY2FwOmJ1dHQ7c3Ryb2tlLWxpbmVqb2luOm1pdGVyO3N0cm9rZS1vcGFjaXR5OjEnIC8&#43;CjxwYXRoIGNsYXNzPSdib25kLTcnIGQ9J00gNjEuMDMxNSwzNS43MDQgNTYuNjkwNCw0OS41MTknIHN0eWxlPSdmaWxsOm5vbmU7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOiMwMDAwMDA7c3Ryb2tlLXdpZHRoOjJweDtzdHJva2UtbGluZWNhcDpidXR0O3N0cm9rZS1saW5lam9pbjptaXRlcjtzdHJva2Utb3BhY2l0eToxJyAvPgo8cGF0aCBjbGFzcz0nYm9uZC04JyBkPSdNIDU2LjY5MDQsNDkuNTE5IDQyLjU1NTcsNTIuNjY3JyBzdHlsZT0nZmlsbDpub25lO2ZpbGwtcnVsZTpldmVub2RkO3N0cm9rZTojMDAwMDAwO3N0cm9rZS13aWR0aDoycHg7c3Ryb2tlLWxpbmVjYXA6YnV0dDtzdHJva2UtbGluZWpvaW46bWl0ZXI7c3Ryb2tlLW9wYWNpdHk6MScgLz4KPHBhdGggY2xhc3M9J2JvbmQtOCcgZD0nTSA1My45NDA2LDQ3LjE2NDMgNDQuMDQ2Myw0OS4zNjc5JyBzdHlsZT0nZmlsbDpub25lO2ZpbGwtcnVsZTpldmVub2RkO3N0cm9rZTojMDAwMDAwO3N0cm9rZS13aWR0aDoycHg7c3Ryb2tlLWxpbmVjYXA6YnV0dDtzdHJva2UtbGluZWpvaW46bWl0ZXI7c3Ryb2tlLW9wYWNpdHk6MScgLz4KPHBhdGggY2xhc3M9J2JvbmQtOScgZD0nTSA0Mi41NTU3LDUyLjY2NyA0MC43NjQzLDU4LjM2NzgnIHN0eWxlPSdmaWxsOm5vbmU7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOiMwMDAwMDA7c3Ryb2tlLXdpZHRoOjJweDtzdHJva2UtbGluZWNhcDpidXR0O3N0cm9rZS1saW5lam9pbjptaXRlcjtzdHJva2Utb3BhY2l0eToxJyAvPgo8cGF0aCBjbGFzcz0nYm9uZC05JyBkPSdNIDQwLjc2NDMsNTguMzY3OCAzOC45NzMsNjQuMDY4NScgc3R5bGU9J2ZpbGw6bm9uZTtmaWxsLXJ1bGU6ZXZlbm9kZDtzdHJva2U6IzAwQ0MwMDtzdHJva2Utd2lkdGg6MnB4O3N0cm9rZS1saW5lY2FwOmJ1dHQ7c3Ryb2tlLWxpbmVqb2luOm1pdGVyO3N0cm9rZS1vcGFjaXR5OjEnIC8&#43;Cjx0ZXh0IHg9JzYuMDk4NzQnIHk9JzM2Ljg5NDUnIHN0eWxlPSdmb250LXNpemU6NHB4O2ZvbnQtc3R5bGU6bm9ybWFsO2ZvbnQtd2VpZ2h0Om5vcm1hbDtmaWxsLW9wYWNpdHk6MTtzdHJva2U6bm9uZTtmb250LWZhbWlseTpzYW5zLXNlcmlmO3RleHQtYW5jaG9yOnN0YXJ0O2ZpbGw6IzAwQ0MwMCcgPjx0c3Bhbj5DbDwvdHNwYW4&#43;PC90ZXh0Pgo8dGV4dCB4PScyNC41NzQ1JyB5PScxOS45MzE1JyBzdHlsZT0nZm9udC1zaXplOjRweDtmb250LXN0eWxlOm5vcm1hbDtmb250LXdlaWdodDpub3JtYWw7ZmlsbC1vcGFjaXR5OjE7c3Ryb2tlOm5vbmU7Zm9udC1mYW1pbHk6c2Fucy1zZXJpZjt0ZXh0LWFuY2hvcjpzdGFydDtmaWxsOiMwMENDMDAnID48dHNwYW4&#43;Q2w8L3RzcGFuPjwvdGV4dD4KPHRleHQgeD0nNzIuNDMxJyB5PSczNC45Njk2JyBzdHlsZT0nZm9udC1zaXplOjRweDtmb250LXN0eWxlOm5vcm1hbDtmb250LXdlaWdodDpub3JtYWw7ZmlsbC1vcGFjaXR5OjE7c3Ryb2tlOm5vbmU7Zm9udC1mYW1pbHk6c2Fucy1zZXJpZjt0ZXh0LWFuY2hvcjpzdGFydDtmaWxsOiMwMENDMDAnID48dHNwYW4&#43;Q2w8L3RzcGFuPjwvdGV4dD4KPHRleHQgeD0nMzUuNDc5NScgeT0nNjguODk1NScgc3R5bGU9J2ZvbnQtc2l6ZTo0cHg7Zm9udC1zdHlsZTpub3JtYWw7Zm9udC13ZWlnaHQ6bm9ybWFsO2ZpbGwtb3BhY2l0eToxO3N0cm9rZTpub25lO2ZvbnQtZmFtaWx5OnNhbnMtc2VyaWY7dGV4dC1hbmNob3I6c3RhcnQ7ZmlsbDojMDBDQzAwJyA&#43;PHRzcGFuPkNsPC90c3Bhbj48L3RleHQ&#43;Cjwvc3ZnPgo=</span>
+      <span itemprop="smiles">ClCC1=C(Cl)C=C(Cl)C=C1Cl</span>
+      <span itemprop="inchi_key">NJQRKFOZZUIMGW-UHFFFAOYSA-N</span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000009825</span>
+      <span itemprop="name">accumulation</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000003044</span>
+      <span itemprop="name">adaptive</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000003466</span>
+      <span itemprop="name">anti-cipated</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000003190</span>
+      <span itemprop="name">augmentative</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000000969</span>
+      <span itemprop="name">carrier</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000010276</span>
+      <span itemprop="name">construction</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001186</span>
+      <span itemprop="name">cumulative</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000000354</span>
+      <span itemprop="name">decomposition</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000003247</span>
+      <span itemprop="name">decreasing</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000018109</span>
+      <span itemprop="name">developmental process</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000003292</span>
+      <span itemprop="name">diminished</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000000694</span>
+      <span itemprop="name">effects</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000005225</span>
+      <span itemprop="name">electronics</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000005516</span>
+      <span itemprop="name">engineering processes</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000002474</span>
+      <span itemprop="name">experimental method</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000011519</span>
+      <span itemprop="name">fill dirt</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000010006</span>
+      <span itemprop="name">flight</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000014509</span>
+      <span itemprop="name">gene expression</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001965</span>
+      <span itemprop="name">increased</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000004519</span>
+      <span itemprop="name">manufacturing process</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000000750</span>
+      <span itemprop="name">progressive</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000002829</span>
+      <span itemprop="name">reduced</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000004088</span>
+      <span itemprop="name">simulation</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001502</span>
+      <span itemprop="name">supplementation</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000014616</span>
+      <span itemprop="name">translation</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+  </ul>
+  
+
+  
+
+  <section>
+    <h2>Classifications</h2>
+    
+    <ul>
+      <li>
+        <ul itemprop="cpcs" itemscope repeat>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G</span>&mdash;<span itemprop="Description">PHYSICS</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G02</span>&mdash;<span itemprop="Description">OPTICS</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G02B</span>&mdash;<span itemprop="Description">OPTICAL ELEMENTS, SYSTEMS, OR APPARATUS</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G02B26/00</span>&mdash;<span itemprop="Description">Optical devices or arrangements using movable or deformable optical elements for controlling the intensity, colour, phase, polarisation or direction of light, e.g. switching, gating, modulating</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G02B26/08</span>&mdash;<span itemprop="Description">Optical devices or arrangements using movable or deformable optical elements for controlling the intensity, colour, phase, polarisation or direction of light, e.g. switching, gating, modulating for controlling the direction of light</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G02B26/0816</span>&mdash;<span itemprop="Description">Optical devices or arrangements using movable or deformable optical elements for controlling the intensity, colour, phase, polarisation or direction of light, e.g. switching, gating, modulating for controlling the direction of light by means of one or more reflecting elements</span>
+            <meta itemprop="Leaf" content="true">
+            
+            <meta itemprop="FirstCode" content="true">
+          </li>
+          </ul>
+      </li>
+      </ul>
+  </section>
+
+  <section itemprop="abstract" itemscope>
+    <h2>Abstract</h2>
+    
+    <div itemprop="content" html><abstract mxw-id="PA50980796" lang="EN" load-source="patent-office">
+    <div num="p-0001" class="abstract">An apparatus controls positions of plural mirror segments in a segmented mirror with an edge sensor system and a controller. Current mirror segment edge sensor measurements and edge sensor reference measurements are compared with calculated edge sensor bias measurements representing a global radius of curvature. Accumulated prior actuator commands output from an edge sensor control unit are combined with an estimator matrix to form the edge sensor bias measurements. An optimal control matrix unit then accumulates the plurality of edge sensor error signals calculated by the summation unit and outputs the corresponding plurality of actuator commands. The plural mirror actuators respond to the actuator commands by moving respective positions of the mirror segments. A predetermined number of boundary conditions, corresponding to a plurality of hexagonal mirror locations, are removed to afford mathematical matrix calculation.</div>
+  </abstract>
+  </div>
+  </section>
+
+  <section itemprop="description" itemscope>
+    <h2>Description</h2>
+    
+    <div itemprop="content" html><div mxw-id="PDES16040735" lang="EN" load-source="patent-office" class="description">
+
+  <heading>STATEMENT REGARDING FEDERALLY SPONSORED RESEARCH OR DEVELOPMENT</heading>
+  <p num="p-0002">The invention described herein was made by employees of the United States Government and may be manufactured and used by or for the Government for Government purposes without the payment of any royalties thereon or therefore.</p>
+
+
+  <heading>BACKGROUND OF THE INVENTION</heading>
+  <p num="p-0003">1. Field of the Invention</p>
+  <p num="p-0004">The present invention relates to estimation of a Global Radius of Curvature (“GRoC”) induced by an edge sensor control system subject to displacements of a segmented mirror&#39;s boundary conditions. The present invention further relates to control of a segmented mirror&#39;s GRoC to within a prescribed tolerance using estimates of the GRoC.</p>
+  <p num="p-0005">2. Description of the Related Art</p>
+  <p num="p-0006">In general, segmented mirrors tiled with hexagons are used as primary mirrors for high powered telescopes and beam directors. Sensing and control of the segmented mirror&#39;s Global Radius of Curvature (“GRoC”) is used to maintain a figure of the segmented mirror to provide increased image quality. The GRoC is a low fundamental spatial mode of a segmented mirror. Thus, the GRoC has a low spatial frequency and a large magnitude when compared to any other shape or spatial mode of which the segmented mirror can attain. Therefore, the GRoC spatial mode is a significant contributor to the overall image quality attained by a telescope or beam director utilizing a segmented mirror.</p>
+  <p num="p-0007">Gonsiorowski, et al., U.S. Pat. No. 4,737,621, relates to an integrated adaptive optical wavefront sensing and compensating system. An optical Hartman-type technique is used to sense curvature of a wavefront sensor. The wavefront sensor is integrated with either a deformable or a membrane mirror. While targeted toward monolithic mirrors, Gonsiorowski, et al. does not use a segmented corrector.</p>
+  <p num="p-0008">Rather et al., U.S. Pat. No. 5,825,062, relates to an extendable large aperture phased array mirror system having a plurality of mirror segments. Rather, et al. relates to a PAMELA telescope residing in a testbed at NASA Marshall Space Flight Center. Rather, et al. senses all degrees-of-freedom with inductive edge sensors supplemented by a Shack-Hartman wavefront sensor. The Shack-Hartman wavefront sensor provides tile information to correct the curvature mode. Monolithic reflectors are replaced with arrays of segments that could be extended to fill a desired aperture.</p>
+  <p num="p-0009">Ulich, et al., U.S. Pat. No. 5,109,349, relates to an actively controlled segmented mirror. The segments of the mirror are continually adjusted with an active segmented mirror control to provide a reflecting mirror of large diameter. An array of sensors are used to measure differential position errors. Tilt sensors utilized as dedicated curvature sensors present an increase in cost of manufacture of the device.</p>
+  <p num="p-0010">Manhart, U.S. Pat. No. 5,113,064, relates to an optical method and apparatus for phasing segmented mirror arrays. All degrees of freedom, including curvature, are observable from the combination of Shack-Hartman sensors and edge-overlapping lenslet arrays. A special reference mirror is used to phase the inner ring of segments. Next, a second ring of segments is phased with the first ring. The progressive phasing technique of Manhart limits the ability to provide real-time figure maintenance.</p>
+  <p num="p-0011">Breckenridge, et al., U.S. Pat. No. 5,265,034, relates to a model for an optical system using feedback controlled optical wavefront compensation. An optical ray-tracing simulation model is used in order to generate a control gain matrix. A feedback control system uses feedback sensors to maintain alignment of the segments and a laser interferometer is used to sense a hinge angle between segments.</p>
+  <heading>SUMMARY OF THE INVENTION</heading>
+  <p num="p-0012">The present invention provides a global radius of curvature estimation and control system for segmented mirrors. By combining an accumulated plurality of past mirror segment actuator commands with an estimator matrix, a plurality of edge sensor bias measurements defining a global radius of curvature for the segmented mirror may be obtained. The edge sensor bias measurements are combined with current edge sensor measurements and edge sensor reference measurements to determine a plurality of edge sensor error signals. The edge sensor error signals are in turn combined with an optimal control gain matrix to determine a plurality of actuator commands.</p>
+  <p num="p-0013">The present invention also provides a global radius of curvature estimation and control system for segmented mirrors that combines current edge sensor measurements and edge sensor reference measurements to produce a set of edge sensor error signals. a plurality of preliminary actuator commands are formed from the edge sensor error signals and an optimal control gain matrix. The preliminary actuator commands are accumulated and combined with an estimator matrix to provide a plurality of boundary condition actuator commands. The boundary condition actuator commands are then combined with the preliminary actuator commands to produce the final actuator commands for controlling the hexagonal mirror segments.</p>
+  <p num="p-0014">To afford calculation of the actuator commands from the edge sensor data, without resort to tilt sensor data or inclinometer data, an accumulated total of past actuator commands are stored. The matrix calculations to determine subsequent actuator commands require that a predetermined number of boundary conditions, corresponding to a plurality of hexagonal mirror locations, be removed from the calculation. A preferred number of boundary conditions is four, which are used to define a sphere. As the number of hexagonal mirror segments in a tiled mirror increase, the error introduced by removing the predetermined boundary conditions is decreased.</p>
+  <p num="p-0015">An apparatus controls positions of plural mirror segments in a segmented mirror with an edge sensor system and a controller. The edge sensor system output current edge sensor measurements corresponding to respective positions of plural mirror segments to the controller. Actuator commands are produced by the controller by comparing the current edge sensor measurements with calculated edge sensor bias measurements representing a global radius of curvature. The plural mirror actuators respond to the actuator commands by moving respective positions of the mirror segments. A global radius estimation and control unit is disposed within the controller to accumulate the actuator commands output from an edge sensor control unit and to calculate the edge sensor bias measurements from accumulated actuator commands and an estimator matrix. A summation unit calculates a plurality of edge sensor error signals from current edge sensor measurements, the edge sensor bias measurements, and edge sensor reference measurements. An optimal control matrix unit then accumulates the plurality of edge sensor error signals calculated by the summation unit and outputs the corresponding plurality of actuator commands.</p>
+
+
+  <description-of-drawings>
+    <heading>BRIEF DESCRIPTION OF THE DRAWINGS</heading>
+    <p num="p-0016"> <figref idrefs="DRAWINGS">FIG. 1</figref> is a schematic view of a segmented mirror tiled with a plurality of hexagon segments;</p>
+    <p num="p-0017"> <figref idrefs="DRAWINGS">FIG. 2</figref> is a schematic view of a portion of a segmented mirror including a plurality of sensors respectively attached to hexagon segments;</p>
+    <p num="p-0018"> <figref idrefs="DRAWINGS">FIG. 3</figref> is an elevated perspective view of a mirror segment supporting a plurality of edge sensor elements;</p>
+    <p num="p-0019"> <figref idrefs="DRAWINGS">FIG. 4</figref> is a side view of an edge sensor in the form of a capacitive edge sensor, including a sensor body and a sensor paddle;</p>
+    <p num="p-0020"> <figref idrefs="DRAWINGS">FIG. 5</figref> is a block diagram of a Global Radius of Curvature Estimation and Control System (“GRoCECS”) according to an embodiment of the present invention;</p>
+    <p num="p-0021"> <figref idrefs="DRAWINGS">FIG. 6</figref> is a block diagram of a controller illustrating cooperation between an edge sensor control unit and a GRoC estimator &amp; control unit;</p>
+    <p num="p-0022"> <figref idrefs="DRAWINGS">FIG. 7</figref> is a flow diagram showing a flow internal to the GRoC estimator and control unit;</p>
+    <p num="p-0023"> <figref idrefs="DRAWINGS">FIG. 8</figref> is a block diagram of controller according to another embodiment of the present invention;</p>
+    <p num="p-0024"> <figref idrefs="DRAWINGS">FIG. 9</figref> is a schematic view of a single mirror segment according to an embodiment of the present invention;</p>
+    <p num="p-0025"> <figref idrefs="DRAWINGS">FIG. 10</figref> is a schematic view of a segmented mirror tiled with a plurality of hexagon segments according to an embodiment of the invention;</p>
+    <p num="p-0026"> <figref idrefs="DRAWINGS">FIG. 11</figref> is a table illustrating a figure of merit for five conceivable configurations of hexagonally segmented primary mirrors;</p>
+    <p num="p-0027"> <figref idrefs="DRAWINGS">FIG. 12</figref> is a schematic view of a segmented mirror tiled with a plurality of hexagon segments according to an embodiment of the invention;</p>
+    <p num="p-0028"> <figref idrefs="DRAWINGS">FIG. 13</figref> is a graph illustrating a focus position change test during performance verification;</p>
+    <p num="p-0029"> <figref idrefs="DRAWINGS">FIG. 14</figref> is graph of a plot predicting piston motion of segment <b>43</b>;</p>
+    <p num="p-0030"> <figref idrefs="DRAWINGS">FIG. 15</figref> is a graph providing the mean of actual measurements from the edge sensors surrounding segment <b>43</b>.</p>
+  </description-of-drawings>
+
+
+  <heading>DETAILED DESCRIPTION OF THE PREFERRED EMBODIMENTS</heading>
+  <p num="p-0031">With reference now to the drawings and more particularly to <figref idrefs="DRAWINGS">FIG. 1</figref>, a schematic view of a segmented mirror <b>100</b> tiled with a plurality of hexagon segments <b>102</b> is illustrated. In general, segmented mirrors tiled with hexagon segments are used as primary mirrors for telescopes and beam directors. In order to increase resolution of segmented mirror <b>100</b>, according to an embodiment of the invention, sensing and control of the Global Radius of Curvature (“GRoC”) is required. The nominal shape of segmented mirror <b>100</b> is a conic section, such as a sphere, paraboloid, or hyperboloid, etc., with a specific radius of curvature. First, the magnitude of the Global Radius of Curvature (“GRoC”) of the mirror is sensed. Second, the magnitude of the GRoC is controlled to be within a prescribed magnitude.</p>
+  <p num="p-0032"> <figref idrefs="DRAWINGS">FIG. 2</figref> is a schematic view of a portion of segmented mirror <b>100</b> including a plurality of edge sensors <b>104</b> respectively attached to mirror segments <b>102</b>. According to an embodiment of the invention, mirror segments <b>102</b> are hexagon mirror segments. Sensing and controlling segmented mirror <b>100</b> involves the placement of sensors about the edges of mirror segments <b>102</b>. Placement locations are illustrated such that the sensors measure the magnitude of the shear displacement at the edges of mirror segments <b>102</b>. That is, edge sensors <b>104</b> sense relative mirror displacement in a direction orthogonal to the nominal mirror figure. Edge sensing approaches generally include capacitive, inductive or optical sensing elements.</p>
+  <p num="p-0033">As illustrated, each “x” denotes the location of an active sensing element <b>105</b>, which may be an inductive, capacitive or optical sensing element. Each “o” denotes the location of a passive sensing element <b>106</b> that provides a target for sensing an adjacent segment across a segment gap <b>108</b>. Collectively, an active sensing element “x” and a passive sensing element “o” form an edge sensor <b>104</b>. The edge sensor <b>104</b> outputs the displacement magnitude between each active sensing element “x” <b>105</b> and its corresponding passive sensing element “o” <b>106</b> along the z-axis.</p>
+  <p num="p-0034">An approach to sensing the GRoC spatial mode involves supplementing the edge sensors with tilt sensors or inclinometers. This approach utilizes at least one pair of tilt sensors, one on each of two separate segments. The output from one tilt sensor is subtracted from the output of a second corresponding tilt sensor to determine relative angular displacement between the two segments. The angular displacement is a parameter used in defining the magnitude of the GRoC spatial mode.</p>
+  <p num="p-0035"> <figref idrefs="DRAWINGS">FIG. 3</figref> is an elevated perspective view of a mirror segment <b>102</b> supporting a plurality of edge sensing elements <b>110</b>. Edge sensing elements <b>110</b> may be either passive or active depending upon location. As particularly illustrated, a pair of edge sensing elements <b>110</b> are affixed to mirror segment <b>102</b> by way of carrier strip <b>112</b>. Mirror segment <b>102</b> has six edges, which are alternately defined as passive edges <b>114</b> and active edges <b>116</b>.</p>
+  <p num="p-0036"> <figref idrefs="DRAWINGS">FIG. 3</figref> illustrates that contemporary edge sensing elements <b>110</b> transmit information regarding relative motion such as null position, up position or down position. However, this configuration does not provide sensitivity to the GRoC mode. Moreover, sensitivity to GRoC motions is not adequate for current requirements.</p>
+  <p num="p-0037"> <figref idrefs="DRAWINGS">FIG. 4</figref> is a side view of an edge sensor <b>120</b> in the form of a capacitive edge sensor, including sensor body <b>122</b> and sensor paddle <b>124</b>. Each mirror segment <b>102</b> has a corresponding thickness “L<b>1</b>” which, in this particular circumstance, is on the order of 7.5 cm. In general, the center of sensor body <b>122</b> is disposed a distance “L<b>2</b>” from segment gap <b>108</b> between mirror segments <b>102</b>. The distance “L<b>2</b>” is on the order of 2 cm. The distance “L<b>3</b>” between sensor paddle <b>124</b> and sensor body <b>122</b> is on the order of 2 mm. Inductive sensors, such as edge sensing element <b>110</b> illustrated in <figref idrefs="DRAWINGS">FIG. 3</figref>, have no sensitivity to GRoC motions because they are only able to sense shear displacements. On the other hand, capacitive sensors, such as edge sensor <b>120</b> can sense GRoC motions from z-axis displacements because of the paddle-length offset underneath mirror segment <b>102</b>. The paddle-length offset makes the transducer sensitive to relative angular displacements between mirror segments. However, a capacitive sensor&#39;s sensitivity to GRoC is directly proportional to the length of the offset distance “L<b>2</b>.” Because, for many reasons, telescope designers seek to minimize paddle length distance, the GRoC sensitivity of capacitive sensors is limited. Furthermore, the capacitive sensor&#39;s GRoC sensitivity is diminished by paddle flexing as the telescope is reoriented to different attitudes with respect to a local gravity vector. However, tilt sensor and inclinometer technology includes sensors that do not have adequate accuracy, range and thermal sensitivity for the requirements of contemporary segmented mirror concepts.</p>
+  <p num="p-0038"> <figref idrefs="DRAWINGS">FIG. 5</figref> is a block diagram of a Global Radius of Curvature Estimation and Control System (“GRoCECS”) <b>130</b> according to an embodiment of the present invention. GRoCECS <b>130</b> includes an edge sensor system <b>132</b>, a controller <b>134</b>, and mirror actuators <b>136</b>. The edge sensor system <b>132</b> comprises all edge sensor transducers, mounts and electronics. The outputs of the edge sensor system <b>132</b> are edge sensor measurements. The controller <b>134</b> receives the set of edge sensor measurements from edge sensor system <b>132</b>. The output from controller <b>134</b> is a set of mirror actuator commands. Residing on the controller <b>134</b> are the edge sensor control unit <b>138</b> and GRoC estimation &amp; control unit <b>140</b>.</p>
+  <p num="p-0039">According to an embodiment of the invention, GRoCECS <b>130</b> uses a conventional edge sensor system, conventional segmented mirror tip/tilt/piston control actuators, and archived edge sensor control commands to estimate the GRoC and control the GRoC to specification. The edge sensor system <b>132</b> is used with the tip/tilt/piston actuators to minimize the shear displacements at segment edges. That is, the edge sensor system <b>132</b> globally minimizes the edge match error of the entire segmented mirror, thereby providing the best continuity across the segment gaps <b>108</b>. A control computer keeps track of all control commands executed by the mirror actuators. Meanwhile, in a control loop running at a slower data rate than the edge sensor loop, a GRoCECS method utilizes archived cumulative control commands to compute a set of commands required to maintain proper GRoC.</p>
+  <p num="p-0040"> <figref idrefs="DRAWINGS">FIG. 6</figref> is a block diagram of controller <b>134</b> illustrating cooperation between edge sensor control unit <b>138</b> and GRoC estimator &amp; control unit <b>140</b> according to an embodiment of the invention. Edge sensor error signals are generated by subtracting current edge sensor measurements from corresponding edge sensor reference measurements by way of summation unit <b>137</b>. The edge sensor error signals are formed into actuator commands (optimal actuator control commands) by way of optimal control matrix unit <b>139</b>. Usually, the edge sensor reference measurements are recorded when mirror <b>100</b> is initially aligned to a desired position. The error signal is augmented by GRoC edge sensor biases that are output from GRoC estimator &amp; control unit <b>140</b>. The edge sensor control unit <b>138</b> outputs the actuator commands to the actuators corresponding to individual mirror segments <b>102</b>. The actuator commands are also fed back to the GRoC estimator &amp; control unit <b>140</b>.</p>
+  <p num="p-0041">Within the GRoC estimator &amp; control unit <b>140</b>, the current actuator commands are added to accumulated past commands by way of accumulator unit <b>142</b>. After the commands are accumulated, they are fed into estimator matrix <b>144</b>. The estimator matrix <b>144</b> calculates GRoC edge sensor biases, which are then fed back to summation unit <b>137</b> on the next iteration.</p>
+  <p num="p-0042">The edge sensor control unit <b>138</b> operates the following matrix equation:
+<br/>
+<i>u=K</i>(<i>e</i> <sub>reference</sub> <i>−e+e</i> <sub>groc</sub> <sub> <sub2>—</sub2> </sub> <sub>bias</sub>)  EQUATION (II.C.1)
+<br/>
+The vector “u” contains all the actuator commands for all mirror degrees of freedom except for four prescribed boundary conditions. The vector “e<sub>reference</sub>” contains all edge sensor measurements recorded when the mirror reference was set. The vector “e” contains all the edge sensor measurements at the current sample interval. The vector “e<sub>groc</sub> <sub> <sub2>—</sub2> </sub> <sub>bias</sub>” contains all edge sensor biases computed by GRoC estimator &amp; control unit <b>140</b> on the last iteration. The matrix “K” is an optimal edge sensor control matrix. The edge sensor error signals, determined from the edge sensor reference measurements, the current edge sensor measurements, and the GRoC edge sensor biases, is multiplied by the optimal edge sensor control matrix “K” to obtain mirror actuator commands “u.” Besides being sent to the mirror actuators, the command vector “u” is returned to GRoC estimator &amp; control unit <b>140</b>.
+</p>
+  <p num="p-0043"> <figref idrefs="DRAWINGS">FIG. 7</figref> is a flow diagram illustrating a flow internal to the GRoC estimator &amp; control unit <b>140</b>. First, GRoC estimator &amp; control unit <b>140</b> adds the current actuator commands at time interval “k” to the accumulated commands updated at the last interval “k−1.” Equation (II.C.2) illustrates the summation operation:</p>
+  <p num="p-0044"> <maths id="MATH-US-00001" num="00001"> <math overflow="scroll"> <mtable> <mtr> <mtd> <mrow> <mrow> <mo>∑</mo> <msub> <mi>u</mi> <mi>k</mi> </msub> </mrow> <mo>=</mo> <mrow> <mrow> <mo>∑</mo> <msub> <mi>u</mi> <mrow> <mi>k</mi> <mo>-</mo> <mn>1</mn> </mrow> </msub> </mrow> <mo>+</mo> <msub> <mi>u</mi> <mi>k</mi> </msub> </mrow> </mrow> </mtd> <mtd> <mrow> <mi>EQUATION</mi> <mo>⁢</mo> <mstyle> <mspace width="0.8em" height="0.8ex"> </mspace> </mstyle> <mo>⁢</mo> <mrow> <mo>(</mo> <mrow> <mrow> <mi>II</mi> <mo>.</mo> <mi>C</mi> </mrow> <mo>⁢</mo> <mi>.2</mi> </mrow> <mo>)</mo> </mrow> </mrow> </mtd> </mtr> </mtable> </math> </maths> <br/>
+After the summation is complete, the accumulated control commands are premultiplied by the estimator matrix “W” in order to calculate the GRoC-based edge sensor biases, which are then output to edge sensor control unit <b>138</b>.
+</p>
+  <p num="p-0045">After vectors “u” are summed to provide an accumulation of control commands, the values are stored in accumulator unit <b>142</b>. The estimator matrix “W” is then multiplied by the accumulated commands at interval “k.” Equation (II.C.3) describes this operation:</p>
+  <p num="p-0046"> <maths id="MATH-US-00002" num="00002"> <math overflow="scroll"> <mtable> <mtr> <mtd> <mrow> <msub> <mi>e</mi> <mrow> <mi>ref_groc</mi> <mo>⁢</mo> <mi>_k</mi> </mrow> </msub> <mo>=</mo> <msub> <mrow> <mi>W</mi> <mo>⁡</mo> <mrow> <mo>(</mo> <mrow> <mo>∑</mo> <mi>u</mi> </mrow> <mo>)</mo> </mrow> </mrow> <mi>k</mi> </msub> </mrow> </mtd> <mtd> <mrow> <mi>EQUATION</mi> <mo>⁢</mo> <mstyle> <mspace width="0.8em" height="0.8ex"> </mspace> </mstyle> <mo>⁢</mo> <mrow> <mo>(</mo> <mrow> <mrow> <mi>II</mi> <mo>.</mo> <mi>C</mi> </mrow> <mo>⁢</mo> <mi>.3</mi> </mrow> <mo>)</mo> </mrow> </mrow> </mtd> </mtr> </mtable> </math> </maths> <br/>
+The output vector “e<sub>ref</sub> <sub> <sub2>—</sub2> </sub> <sub>groc</sub> <sub> <sub2>—</sub2> </sub> <sub>k</sub>” is an intermediate edge sensor bias value that corresponds to the change in GRoC since the last data interval “k−1.” The intermediate bias is then added to the accumulated GRoC-based edge sensor bias in Equation (II.C.4).
+<br/> <i>e</i> <sub>groc</sub> <sub> <sub2>—</sub2> </sub> <sub>bias</sub> <i>=e</i> <sub>ref</sub> <sub> <sub2>—</sub2> </sub> <sub>groc</sub> <sub> <sub2>—</sub2> </sub> <sub>k</sub> <i>+e</i> <sub>ref</sub> <sub> <sub2>—</sub2> </sub> <sub>groc</sub> <sub> <sub2>—</sub2> </sub> <sub>k-1</sub>  EQUATION (II.C.4)<br/>
+The vector “e<sub>groc</sub> <sub> <sub2>—</sub2> </sub> <sub>bias</sub>” is the edge sensor bias that is added to the edge sensor error signal in the edge sensor control loop. After the bias is updated, the bias at interval “k” is assigned to “e<sub>ref</sub> <sub> <sub2>—</sub2> </sub> <sub>groc</sub> <sub> <sub2>—</sub2> </sub> <sub>k-1</sub>” for the next cycle of the loop, as illustrated in Equation (II.C.5).
+<br/> <i>e</i> <sub>ref</sub> <sub> <sub2>—</sub2> </sub> <sub>groc</sub> <sub> <sub2>—</sub2> </sub> <sub>k-1</sub> <i>=e</i> <sub>groc</sub> <sub> <sub2>—</sub2> </sub> <sub>bias</sub> <sub> <sub2>—</sub2> </sub> <sub>k</sub>  EQUATION (<i>II.C.</i>5)<br/>
+The GRoCECS provides a combination of inherent mathematical structures of the edge sensor control gain matrix “K” and the estimator matrix “W.”
+</p>
+  <p num="p-0047"> <figref idrefs="DRAWINGS">FIG. 8</figref> is a block diagram of controller <b>134</b> according to another embodiment of the present invention. As illustrated, current edge sensor measurements are subtracted from edge sensor reference measurements by way of summation unit <b>154</b>. This data is then forwarded as edge sensor signals to optimal control matrix unit <b>156</b>.</p>
+  <p num="p-0048">GRoC estimator &amp; control unit <b>150</b> includes an accumulator unit <b>158</b> and estimator matrix <b>160</b> as in the embodiment of <figref idrefs="DRAWINGS">FIG. 6</figref>. However, instead of calculating edge sensor biases and injecting them into the edge sensor error signal (as in <figref idrefs="DRAWINGS">FIG. 6</figref>), the GRoC estimator &amp; control unit <b>150</b> outputs boundary condition actuator commands. The boundary condition actuator commands are then added to the rest of the actuator commands by way of summation unit <b>152</b> and then sent to the mirror actuators. According to this embodiment, boundary condition actuator commands are open-loop with respect to the edge sensor control loop. That is, there is no feedback on the positioning of the boundary conditions unless there is some external sensing mechanism associated with the boundary condition mirrors and actuators.</p>
+  <p num="p-0049">The following method exploits the feedback control capability inherent to the edge sensor control system to adjust the GRoC mode. The supportive theory for the Global Radius of Curvature Estimation and Control System (“GRoCECS”) includes two main parts. The first part is the derivation of the optimal control for the edge sensor system by itself. The second part is the derivation of the GRoC estimator and how it is interlaced with the edge sensor control system. The supportive theory provides a derivation of the optimal edge sensor control system.</p>
+  <p num="p-0050">The derivation of the optimal edge sensor control matrix also includes two main parts. The first part is a derivation of the equations relating the edge sensor measurements to the tip, tilt and piston degrees of freedom of segmented mirror <b>100</b>. The second part utilizes those relationships to derive the optimal control matrix.</p>
+  <p num="p-0051">Referring again to the segment configuration of <figref idrefs="DRAWINGS">FIG. 2</figref>, each “x” denotes the location of an “active” edge sensor element <b>105</b>. Each “o” denotes the location of a “passive” target edge sensor element <b>106</b>. Mathematical expressions are then developed for the vertical distance (along the z-axis) between each “x” and its corresponding “o” on an adjacent segment <b>102</b>.</p>
+  <p num="p-0052">Each segment <b>102</b> has three actuators such that the segment is free to rotate about the x-axis (θx), rotate about the y-axis (θy), and translate along the z-axis (z). The actuators are configured in such a way that rotations cause no net z-axis translation. Each segment&#39;s motion is referenced to an inertial coordinate frame having a corresponding origin at the centroid of the segment when the segment is in the null position.</p>
+  <p num="p-0053"> <figref idrefs="DRAWINGS">FIG. 9</figref> is a schematic view of a single mirror segment <b>102</b> according to an embodiment of the present invention. Each face of segment <b>102</b> is denoted by letters A–F. The parameter “r” is the distance from the centroid of the segment to the edge along the y-axis. In other words, “r” is one-half of the flat-to-flat segment width. The parameter “a” is the distance from the segment centroid to the Face A active edge sensor element along the x-axis.</p>
+  <p num="p-0054">For the purpose of formulating the governing equations, the “active” sensing element is located at each “x” on <figref idrefs="DRAWINGS">FIG. 9</figref> and the “passive” target element is located at each “o.” In deriving the governing equations, all rotations and translations are indicated as very small (on the scale of micro-radians and micrometers). For such small perturbations, it is not necessary to utilize Euler angles. For such small angles the approximation
+<br/>
+sin(θ)=tan(θ)=θ
+<br/>
+is valid. The geometry and parameters described in <figref idrefs="DRAWINGS">FIG. 2</figref> and <figref idrefs="DRAWINGS">FIG. 9</figref> are used to derive the equation for an edge sensor on Face A. The equations that govern the edge sensor outputs on Face A are the following:
+<br/>
+<i>e</i> <sub>4</sub> <i>=z</i> <sub>i</sub> <i>−z</i> <sub>j</sub> <i>−rθ</i> <sub>xi</sub> <i>+aθ</i> <sub>yi</sub> <i>−rθ</i> <sub>xj</sub> <i>−aθ</i> <sub>yj</sub>  EQUATION (II.E.1)
+<br/>
+<i>e</i> <sub>3</sub> <i>=z</i> <sub>i</sub> <i>−z</i> <sub>j</sub> <i>−rθ</i> <sub>xi</sub> <i>−aθ</i> <sub>yi</sub> <i>−rθ</i> <sub>xj</sub> <i>+aθ</i> <sub>yj</sub>  EQUATION (II.E.2)
+<br/>
+The index “i” refers to the segment on which the active or sensing element (denoted by “x”) resides. The index “j” refers to the neighboring segment on which the passive or target element (denoted by “o”) resides. All other variables in equations (II.E.1) and (II.E.2) have already been defined above.
+</p>
+  <p num="p-0055">The symmetry of regular hexagonal segments and the repeatability of their layout works favorably for automated generation of equations for the entire segmented mirror array. Equations for edge sensors on Faces C and B are generated by rotating equations (II.E.1) and (II.E.2) by successive 120-degree coordinate transformations.</p>
+  <p num="p-0056">Because the edge sensor equations are all linear, the edge sensor equations can be expressed in matrix form as a function of the tip, tilt and piston degrees of freedom:
+<br/>
+e=Cx  EQUATION (II.E.3)
+<br/>
+In this equation, “e” is a (number of sensors)×1 column vector of edge sensor outputs. The column vector “x” has dimension (number of degrees of freedom)×1 and comprises the tip, tilt, and piston degrees of freedom of all of the segments in the array. The matrix “C” is the matrix of coefficients with dimension (number of sensors)×(number of degrees of freedom). The matrix “C” relates the degrees of freedom to the edge sensor measurements. The matrix “C” is also referred to as the “influence matrix.”
+</p>
+  <p num="p-0057">Equation (II.E.3) is generated by equations (II.E.1) and (II.E.2) and the appropriate coordinate transformations.</p>
+  <p num="p-0058">After a system of equations has been derived to describe how the edge sensors detect relative segment motions, the optimal control matrix is derived. An optimal control system aims to minimize the following performance metric:
+<br/>
+<i>J</i>=(<i>e</i> <sub>ref</sub> <i>−e</i>)<sup>T</sup>(<i>e</i> <sub>ref</sub> <i>−e</i>)  EQUATION (II.E.4)
+<br/>
+The vector “e” is of dimension (number of sensors)×1 and contains all of the edge sensor measurements. The vector “e<sub>ref</sub>” is the (number of sensors)×1 vector of edge sensor reference measurements. The performance metric “J” is the global variance of the edge sensor errors over the entire mirror array. The control system aims to minimize “J” by the method of least squares by the following equation:
+<br/>
+<i>u</i>=(<i>C</i> <sup>T</sup> <i>C</i>)<sup>−1</sup> <i>C</i> <sup>T</sup>(<i>e</i> <sub>ref</sub> <i>−e</i>)  EQUATION (II.E.5)
+<br/>
+The column vector “u” is a vector with dimension (number of degrees of freedom)×1, which comprises the optimal control commands for tip, tilt, and piston.
+</p>
+  <p num="p-0059">So long as the C-matrix is full rank, one can obtain a unique solution for the control commands to minimize the edge match errors. Unfortunately, the (number of sensors)×(number of degrees of freedom) C-matrix is not full rank. Its rank is only number-of-degrees-of freedom−4. Thus (C<sup>T</sup>C) is not invertible. The four vectors in the null space of “C” correspond to the global tip, tilt, piston and radius-of-curvature modes of the entire segmented mirror. The only way a unique, optimal edge-matching control can be derived is to introduce four constraints (also called boundary conditions) into the mathematical problem of minimizing the cost function “J.” The four boundary conditions allow for full observability and controllability for matching up segment edges, but the four global modes remain unobservable and uncontrollable. The GRoC estimator &amp; control unit, in estimating the boundary condition motion, not only estimates the magnitude of the GRoC mode, but also provides observability and controllability of all the global modes.</p>
+  <p num="p-0060"> <figref idrefs="DRAWINGS">FIG. 10</figref> is a schematic view of segmented mirror <b>200</b> tiled with a plurality of hexagon segments <b>202</b>. In order to obtain a unique edge match control, four boundary conditions are selected. Segments <b>1</b>, <b>20</b>, <b>26</b> and <b>32</b> in <figref idrefs="DRAWINGS">FIG. 10</figref> are mathematically constrained in their piston degree-of-freedom. The four boundary conditions, as do any four non-collinear points, define a sphere. The edge-matching control system will try to minimize the edge mismatch along the sphere defined by the four boundary conditions. If the four boundary conditions move due to external disturbances, the radius and orientation of the reference sphere changes.</p>
+  <p num="p-0061">After applying the boundary conditions, the C-matrix dimension becomes (number of sensors)×(number of degrees of freedom−4), and the rank is number-of-degrees of freedom−4. The new C-matrix, with boundary conditions imposed, is denoted as C<sub>BC</sub>. Next, by applying the boundary conditions, the columns of the C-matrix which correspond to the boundary condition degrees-of-freedom are removed. Then (C<sub>BC</sub> <sup>T</sup>C<sub>BC</sub>) is invertible and the unique edge sensor control matrix “K” is defined as follows:
+<br/>
+<i>K</i>=(<i>C</i> <sub>BC</sub> <sup>T</sup> <i>C</i> <sub>BC</sub>)<sup>−1</sup> <i>C</i> <sub>BC</sub> <sup>T</sup>  EQUATION (II.E.6)
+<br/>
+Then the applied optimal control command is:
+<br/>
+<i>u=K</i>(<i>e</i> <sub>ref</sub> <i>−e</i>)  EQUATION (II.E.7)
+<br/>
+This time “u” is a (number of degrees of freedom−4)×1 vector, “K” is a (number of degrees of freedom−4)×(number of sensors) matrix, and the edge sensor and edge sensor reference vectors are still (number of sensors)×1. Because “u” is only (number of degrees of freedom−4)×1, the controller always issues zero commands for the four boundary condition degrees-of-freedom.
+</p>
+  <p num="p-0062">Equations (II.E.1) to (II.E.7) illustrate the derivation of the optimal control to minimize the global variance of the edge match errors. The following discussion details the application of the open-loop influence matrix “C,” the edge sensor control matrix “K,” and the four boundary conditions to the derivation of the GRoC estimator &amp; control unit.</p>
+  <p num="p-0063">In developing the theory for the GRoC estimator &amp; control unit, it is useful to look at how disturbances in the state vector “x” map into control commands in “u.” Equations (II.E.3) and (II.E.7) are combined to give the following relationship in equation (II.E.8).
+<br/>
+<i>u=KC</i>(<i>x</i> <sub>ref</sub> <i>−x</i>)=<i>KC</i>(Δ<i>x</i>)  EQUATION (II.E.8)
+<br/>
+Equation (II.E.8) gives a mapping from any perturbation of the degree-of-freedom vector “x” to the optimal edge-matching control command “u.” The vector “Δx” contains all the perturbations to the mirror tip, tilt and piston states and has dimension (number of degrees of freedom)×1. The edge sensor matrix “K” is the same (number of degrees of freedom−4)×(number of sensors) matrix defined in equation (II.E.6). The matrix “C” is the full-array influence matrix of dimension (number of sensors)×(number of degrees of freedom) defined in equation (II.E.3).
+</p>
+  <p num="p-0064">Because equation (II.E.8) defines a closed-loop relationship between state disturbances and control commands, a closed-loop influence matrix can be defined. The closed-loop influence matrix, “Q,” is defined in equation (II.E.9):
+<br/>
+Q=KC  EQUATION (II.E.9)
+<br/>
+The closed-loop influence matrix, “Q,” has dimension (number of degrees of freedom−4)×(number of degrees of freedom). “Q” maps dynamic perturbations in the states “x” to control commands in “u.” Any conceivable perturbation in “x” maps into zero control motions of the boundary condition degrees of freedom. In fact, boundary condition perturbations in “x” map to GRoC-mode motions in “u.” Deeper scrutiny of “Q” reveals that “Q” has a special mathematical quality as shown in equation (II.E.10).
+<br/>
+<i>Q</i>=(−<i>I|q</i>)  EQUATION (II.E.10)
+</p>
+  <p num="p-0065">Equation (II.E.10) shows that “Q” can be partitioned into two sub-matrices. The first partition is simply the negative of the identity matrix of dimension (number of degrees of freedom−4)×(number of degrees of freedom−4). The first partition simply maps disturbances in each active degree of freedom to the same value, except negative, in the control. The mathematics describes the negation of the sensed disturbance, which is what closed-loop control is supposed to do. The second partition, “q,” is a matrix with dimension (number of degrees of freedom−4)×4. The columns of “q” are each a GRoC-mode vector which the control system responds with when the boundary condition degrees of freedom are perturbed. “Q” also has rank equal to number-of-degrees-of-freedom−4.</p>
+  <p num="p-0066">Combining equations (II.E.8) and (II.E.9) yields equation (II.E.11)
+<br/>
+<i>u=Q</i>(Δ<i>x</i>)  EQUATION (II.E.11)
+<br/>
+Equation (II.E.11) implies that one could estimate the perturbations in “x” by performing a pseudo-inverse of “Q” and multiplying it to the control commands “u.” If one accumulates all past control commands, one can apply the pseudo-inverse to estimate the accumulated perturbations to the states “x.”Equation (II.E.12) describes application of the pseudo-inverse of “Q.”
+</p>
+  <p num="p-0067"> <maths id="MATH-US-00003" num="00003"> <math overflow="scroll"> <mtable> <mtr> <mtd> <mrow> <mrow> <msup> <mi>Q</mi> <mo>+</mo> </msup> <mo>⁢</mo> <mrow> <mo>∑</mo> <mi>u</mi> </mrow> </mrow> <mo>=</mo> <mrow> <msup> <mi>Q</mi> <mo>+</mo> </msup> <mo>⁢</mo> <mi>Q</mi> <mo>⁢</mo> <mrow> <mo>∑</mo> <mrow> <mi>Δ</mi> <mo>⁢</mo> <mstyle> <mspace width="0.3em" height="0.3ex"> </mspace> </mstyle> <mo>⁢</mo> <mover> <mi>x</mi> <mo>^</mo> </mover> </mrow> </mrow> </mrow> </mrow> </mtd> <mtd> <mrow> <mi>EQUATION</mi> <mo>⁢</mo> <mstyle> <mspace width="0.8em" height="0.8ex"> </mspace> </mstyle> <mo>⁢</mo> <mrow> <mo>(</mo> <mrow> <mrow> <mi>II</mi> <mo>.</mo> <mi>E</mi> </mrow> <mo>⁢</mo> <mi>.12</mi> </mrow> <mo>)</mo> </mrow> </mrow> </mtd> </mtr> </mtable> </math> </maths> <br/>
+“Q<sup>+</sup>” is the pseudo-inverse of “Q.” The pseudo-inverse of “Q” was evaluated by singular value decomposition (“SVD”) because Q<sup>T</sup>Q which has dimension (number of degrees of freedom)×(number of degrees of freedom), has rank of only number-of-degrees-of-freedom−4. Thus Q<sup>T</sup>Q is not invertible, and the classic pseudo-inverse formula cannot be utilized in this situation. Pseudo-inverse by SVD is appropriate under these circumstances. If Q<sup>T</sup>Q were full rank, then a unique “Q<sup>+</sup>” could be evaluated, and the following equations would hold:
+<br/>Q<sup>+</sup>Q=I  EQUATION (II.E.13)</p>
+  <p num="p-0068"> <maths id="MATH-US-00004" num="00004"> <math overflow="scroll"> <mtable> <mtr> <mtd> <mrow> <mrow> <msup> <mi>Q</mi> <mo>+</mo> </msup> <mo>⁢</mo> <mrow> <mo>∑</mo> <mi>u</mi> </mrow> </mrow> <mo>=</mo> <mrow> <mo>∑</mo> <mrow> <mi>Δ</mi> <mo>⁢</mo> <mstyle> <mspace width="0.3em" height="0.3ex"> </mspace> </mstyle> <mo>⁢</mo> <mover> <mi>x</mi> <mo>^</mo> </mover> </mrow> </mrow> </mrow> </mtd> <mtd> <mrow> <mi>EQUATION</mi> <mo>⁢</mo> <mstyle> <mspace width="0.8em" height="0.8ex"> </mspace> </mstyle> <mo>⁢</mo> <mrow> <mo>(</mo> <mrow> <mrow> <mi>II</mi> <mo>.</mo> <mi>E</mi> </mrow> <mo>⁢</mo> <mi>.14</mi> </mrow> <mo>)</mo> </mrow> </mrow> </mtd> </mtr> </mtable> </math> </maths> <br/>
+Thus, if Q<sup>T</sup>Q were full rank, then Q<sup>+</sup>Q would be the identity matrix “I.” In this case, “Q<sup>+</sup>” would be an estimator that would yield unique estimates of the state disturbances in “x.” However, this is not the case because Q<sup>T</sup>Q is not full rank. If Q<sup>+</sup>Q were very close to the identity matrix, then one could assert:
+</p>
+  <p num="p-0069"> <maths id="MATH-US-00005" num="00005"> <math overflow="scroll"> <mtable> <mtr> <mtd> <mrow> <mrow> <msup> <mi>Q</mi> <mo>+</mo> </msup> <mo>⁢</mo> <mrow> <mo>∑</mo> <mi>u</mi> </mrow> </mrow> <mo>≅</mo> <mrow> <mo>∑</mo> <mrow> <mi>Δ</mi> <mo>⁢</mo> <mstyle> <mspace width="0.3em" height="0.3ex"> </mspace> </mstyle> <mo>⁢</mo> <mover> <mi>x</mi> <mo>^</mo> </mover> </mrow> </mrow> </mrow> </mtd> <mtd> <mrow> <mi>EQUATION</mi> <mo>⁢</mo> <mstyle> <mspace width="0.8em" height="0.8ex"> </mspace> </mstyle> <mo>⁢</mo> <mrow> <mo>(</mo> <mrow> <mrow> <mi>II</mi> <mo>.</mo> <mi>E</mi> </mrow> <mo>⁢</mo> <mi>.15</mi> </mrow> <mo>)</mo> </mrow> </mrow> </mtd> </mtr> </mtable> </math> </maths> <br/>
+Equation (II.E.15) then yields an approximate estimate of all states in “x.” The states of most particular interest are the states corresponding to the piston degrees of freedom of the four boundary condition segments. The quality and accuracy of the estimates depend on how closely Q<sup>+</sup>Q approximates the identity matrix. A good figure of merit for determining how closely one is to the identity matrix is the root-mean-square (RMS) of the diagonal elements of the identity matrix minus Q<sup>+</sup>Q.
+</p>
+  <p num="p-0070"> <figref idrefs="DRAWINGS">FIG. 11</figref> is a table illustrating a figure of merit for five conceivable configurations of hexagonally segmented primary mirrors. For a single ring of hexagonal mirror segments, the anticipated error in the estimates is 20 percent. The ratio of null space vectors to the larger dimension of the “Q” matrix is 4/21, approximately 20 percent. Also, the error term gets smaller as the number of rings and the number of segments increase. The error appears to decline asymptotically. At five rings and 91 segments, the error term is only 2 percent. The ratio of null space vectors to the large dimension in the 5-ring case is 4/273, approximately 1.5 percent. The trends in the table of <figref idrefs="DRAWINGS">FIG. 11</figref> suggest that as Q<sup>+</sup>Q approaches, in the limit, a squarer full rank matrix, the error in the estimator, in the limit, goes to zero.</p>
+  <p num="p-0071">Once the states of the boundary condition motions have been estimated, they are easily converted to edge sensor biases to the control system as shown in equation (II.E.16).</p>
+  <p num="p-0072"> <maths id="MATH-US-00006" num="00006"> <math overflow="scroll"> <mtable> <mtr> <mtd> <mrow> <msub> <mi>e</mi> <mi>bias</mi> </msub> <mo>=</mo> <mrow> <mrow> <mo>-</mo> <msub> <mi>C</mi> <mi>BC</mi> </msub> </mrow> <mo>⁢</mo> <msub> <mi>QU</mi> <mi>bc</mi> </msub> <mo>⁢</mo> <msup> <mi>Q</mi> <mo>+</mo> </msup> <mo>⁢</mo> <mrow> <mo>∑</mo> <mi>u</mi> </mrow> </mrow> </mrow> </mtd> <mtd> <mrow> <mi>EQUATION</mi> <mo>⁢</mo> <mstyle> <mspace width="0.8em" height="0.8ex"> </mspace> </mstyle> <mo>⁢</mo> <mrow> <mo>(</mo> <mrow> <mrow> <mi>II</mi> <mo>.</mo> <mi>E</mi> </mrow> <mo>⁢</mo> <mi>.16</mi> </mrow> <mo>)</mo> </mrow> </mrow> </mtd> </mtr> </mtable> </math> </maths> <br/>
+After applying the pseudoinverse of “Q” to the accumulated control commands, the state estimates of all states are obtained. For the GRoC correction, only the four boundary condition states are of interest. “U<sub>bc</sub>” is a (number-of-degrees-of-freedom)×(number-of-degrees-of-freedom) diagonal matrix of all zeros except for ones on the diagonal corresponding to where the boundary condition degrees of freedom are. The function of “U<sub>bc</sub>” is to eliminate the estimates of the other non-boundary condition states while preserving the estimates of the boundary conditions. Then closed-loop influence matrix “Q” operates on the four boundary condition degrees of freedom to compute the control commands in response to motions of the boundary conditions. The resulting commands are GRoC spatial mode vectors to offset the GRoC induced in the primary mirror due to boundary condition motion. Finally, the reduced open-loop influence matrix C<sub>BC </sub>is applied to convert the GRoC vector commands to the appropriate edge sensor biases. The negative sign in Equation II.E.16 indicates that the edge sensor biases will negate the GRoC motion that had been induced previously. Equation II.E.16 can be simplified as follows in Equation II.E.17:
+</p>
+  <p num="p-0073"> <maths id="MATH-US-00007" num="00007"> <math overflow="scroll"> <mtable> <mtr> <mtd> <mrow> <msub> <mi>e</mi> <mi>bias</mi> </msub> <mo>=</mo> <mrow> <mi>W</mi> <mo>⁢</mo> <mrow> <mo>∑</mo> <mi>u</mi> </mrow> </mrow> </mrow> </mtd> <mtd> <mrow> <mi>EQUATION</mi> <mo>⁢</mo> <mstyle> <mspace width="0.8em" height="0.8ex"> </mspace> </mstyle> <mo>⁢</mo> <mrow> <mo>(</mo> <mrow> <mrow> <mi>II</mi> <mo>.</mo> <mi>E</mi> </mrow> <mo>⁢</mo> <mi>.17</mi> </mrow> <mo>)</mo> </mrow> </mrow> </mtd> </mtr> </mtable> </math> </maths> <br/>
+The estimator matrix “W” is defined by equation II.E.18:
+<br/> <i>W=−C</i> <sub>BC</sub> <i>QU</i> <sub>bc</sub> <i>Q</i> <sup>+</sup>  EQUATION (II.E.18)</p>
+  <p num="p-0074">Thus, the estimator is derived to estimate all the tip, tilt and piston states of a segmented mirror. The estimator is shown to improve with accuracy as the number of segments (rings of hexagons) increases. The special properties of the estimator are a consequence of several things. The selection of the four, sphere-defining, boundary conditions provides the derivation. The boundary condition selection drives what the optimal edge sensor control matrix “K” will be. The boundary condition selection also drives the special mathematical properties inherent in the closed-loop influence matrix “Q.”</p>
+  <p num="p-0075">The GRoCECS includes two primary features. The first feature provides a way of sensing the degrees of freedom, which are unobservable by an edge sensor system, without having to add additional hardware metrology systems. The GRoCECS utilizes all the information available from an integrated edge sensor control system in a unique manner to estimate all the states of the segmented mirror. The second feature is that the GRoCECS improves in accuracy as the number of segments in the segmented mirror increases.</p>
+  <p num="p-0076">The GRoCECS provides mathematical algorithms that are easily adaptable and scalable to larger or smaller systems. The GRoCECS, is preferably implemented in software, and is thus insensitive to temperature and other environmental conditions that would introduce errors into a hardware-based sensing system. The GRoCECS is a unique software product that uses existing edge sensing and mirror actuation systems. To implement the GRoCECS, only the interfaces between the GRoCECS and the existing hardware need to be established properly. The supporting theory shows that the mathematics of the estimator is scalable to any size system, and the generation of the governing equations is easily automated.</p>
+  <p num="p-0077"> <figref idrefs="DRAWINGS">FIG. 11</figref> is a table illustrating inherent estimator error. The dominant error source in the GRoCECS is the error from the inherent underdetermined structure of the estimator matrix. The far right column in the table of <figref idrefs="DRAWINGS">FIG. 11</figref> gives the amount of expected inherent error corresponding to the number of segments in the primary mirror.</p>
+  <p num="p-0078">For a single ring of seven hexagonal segments, the expected estimator error is 20 percent. For a 5-ring array of 91 hexagonal segments, the expected estimator error is only 2 percent.</p>
+  <p num="p-0079">GRoCECS performance was experimentally verified in testing at McDonald Observatory on the Hobby-Eberly Telescope(HET). The HET has 91 hexagonal segments in its primary mirror. The HET is equipped with an edge sensor system whose architecture is identical to the configuration for which the GRoCECS was derived. Each HET mirror has actuators mounted to it to effect three degrees of freedom: tip, tilt and piston. The GRoCECS system was integrated with the edge sensor control system and primary mirror control system as previously illustrated in <figref idrefs="DRAWINGS">FIG. 6</figref>.</p>
+  <p num="p-0080"> <figref idrefs="DRAWINGS">FIG. 12</figref> is a schematic view of a segmented mirror <b>300</b> tiled with a plurality of hexagon segments <b>302</b>. Segments <b>43</b>, <b>74</b>, <b>25</b> and <b>28</b> were prescribed as the boundary conditions for the edge sensor control system and for the GRoC estimator. The verification testing was conducted in two parts. The first part was a test in which the edge sensor control system operated but the GRoC estimator &amp; control unit was not operational. This test was a baseline test to observe how the radius of curvature changed without the estimator active. The second test involved the entire GRoCECS being operational to verify its actual performance.</p>
+  <p num="p-0081">The same experimental procedure was followed for each test. The telescope operator commanded segment <b>43</b> to move in its piston degree of freedom in 2-micron increments. After each 2-micron move, the control system was allowed to settle out any transients, and the telescope operator then measured the change in the position of the telescope&#39;s focus. The telescope operator commanded segment <b>43</b> to positions of +2, +4, +6, and +8 microns. The telescope operator then moved segment <b>43</b> back to +6, +4, +2, and zero microns (home). Theory predicted that, with the GRoCECS inactive, the focus position would change approximately 300 microns per every 2 microns of piston in segment <b>43</b>. When the GRoCECS is active, the focus position should not change, or its change should remain within the HET&#39;s tolerance for GRoC.</p>
+  <p num="p-0082"> <figref idrefs="DRAWINGS">FIG. 13</figref> is a graph illustrating the results of two tests. The data points identified by the “x” and the “o” are the data taken when the GRoCECS was not active. The estimator-off test yields a slope of approximately 375 microns focus change per 2 microns of segment <b>43</b> piston motion. The “*” and the “+” identify the data points taken when the GRoCECS was activated. The estimator-on forward test has virtually no slope, while the estimator-on backward test yields at most a slope of −150 microns focus change per 2 microns of segment <b>43</b> motion. The direction of the slope was reversed from the estimator-off test, indicating that the GRoCECS had overcompensated for GRoC changes. The estimator-on test maintained the GRoC to within +300 microns of the reference position. The GRoC maintenance specification on the HET is ±300 microns.</p>
+  <p num="p-0083">The focus position change test indicated that the GRoCECS had actually affected the telescope&#39;s ability to maintain focus at the correct radius of curvature. The focus position data are best at telling what the performance is like subject to large disturbances. Errors in focus position measuring metrology, as well as errors in open-loop commanding segment <b>43</b> motions, contribute greatly to the ability to measure the focus position accurately. The ability to measure focus position had an accuracy of ±100 microns. A better figure of merit for evaluating the GRoCECS performance is to compare what the estimator actually estimated segment <b>43</b>&#39;s motions to be versus what the edge sensors actually measured its motion was. Data of this nature would truly prove the GRoCECS&#39;s ability as a full-state estimator and controller, especially since the edge sensors are accurate to better than 50 nanometers.</p>
+  <p num="p-0084"> <figref idrefs="DRAWINGS">FIG. 14</figref> is a graph of what the estimator estimated segment <b>43</b>&#39;s piston motion to be.</p>
+  <p num="p-0085"> <figref idrefs="DRAWINGS">FIG. 15</figref> is a graph providing the mean of the actual measurements from the edge sensors surrounding segment <b>43</b>.</p>
+  <p num="p-0086">The estimator very precisely compares with the edge sensor outputs. The edge sensors indicate that segment <b>43</b> moved in piston by about 1.75 microns per step even though the telescope operator commanded 2 microns per step. The discrepancy arises from the fact that, on HET, when segments are moved open-loop, they don&#39;t go precisely where they are commanded to go. The edge sensor outputs show a small transient at the start of every commanded step. The transient originates from the fact that the segment&#39;s commanded motion and control system response are much faster than the estimator loop. This causes the edge sensor control system to try to cancel out the errors before the estimator has had the chance to calculate what the update to the reference signal should be. As <figref idrefs="DRAWINGS">FIG. 15</figref> illustrates, as soon as the estimator catches up and settles, it is very accurate. The data in <figref idrefs="DRAWINGS">FIG. 14</figref> were subtracted from the data in <figref idrefs="DRAWINGS">FIG. 15</figref> to calculate the error in the real-time estimate. The RMS error during the time intervals after the transient had settled out was 34 nanometers, which is approximately 2 percent of the motion prescribed for segment <b>43</b>.</p>
+  <p num="p-0087">The table of <figref idrefs="DRAWINGS">FIG. 11</figref> indicates that the GRoCECS, when applied to a 91-segment array of hexagonal mirrors, can accurately estimate all the tip, tilt and piston states to better than 2 percent RMS. That means that if a particular state had a value of 1.0 micron, the GRoCECS could estimate and control that state to within 20 nanometers. Extrapolating from the table of <figref idrefs="DRAWINGS">FIG. 11</figref> indicates that accuracy will get better if there are more segments in the array. The test results in <figref idrefs="DRAWINGS">FIG. 14</figref> and <figref idrefs="DRAWINGS">FIG. 15</figref> confirm the theory. The estimator is accurate to better than 2 percent in estimating segment <b>43</b>&#39;s piston motion during the verification test. Testing also indicated that a GRoCECS can maintain the GRoC of a large segmented telescope to within ±300 microns.</p>
+  <p num="p-0088">The theory and test results indicate that the GRoCECS can be applied to any segmented mirror. So long as the segmented mirror has an edge sensor system and a mirror actuation system, the GRoCECS can be adapted to and interfaced with the segmented mirror actuation and edge sensing systems.</p>
+  <p num="p-0089">The foregoing is considered as illustrative only of the principles of the invention, and since numerous modifications and changes will readily occur to those skilled in the art, it is not desired to limit the invention to the exact construction and operation shown and described, and accordingly, all suitable modifications and equivalents may be resorted to, falling within the scope of the present invention.</p>
+
+</div>
+  </div>
+  </section>
+
+  <section itemprop="claims" itemscope>
+    <h2>Claims (<span itemprop="count">21</span>)</h2>
+    
+    <div itemprop="content" html><div mxw-id="PCLM9018191" lang="EN" load-source="patent-office" class="claims">
+  <div class="claim"> <div id="CLM-00001" num="00001" class="claim">
+    <div class="claim-text">1. An apparatus to control positions of plural mirror segments in a segmented mirror, comprising:
+<div class="claim-text">an edge sensor system to output current edge sensor measurements corresponding to respective positions of plural mirror segments; and</div>
+<div class="claim-text">a controller to produce actuator commands for controlling plural mirror actuators by comparing the current edge sensor measurements with calculated edge sensor bias measurements representing a global radius of curvature, wherein the plural mirror actuators respond to the actuator commands by moving respective positions of the mirror segments.</div>
+</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00002" num="00002" class="claim">
+    <div class="claim-text">2. The apparatus according to <claim-ref idref="CLM-00001">claim 1</claim-ref>, wherein said controller further comprises:
+<div class="claim-text">a global radius estimator and control unit to accumulate the actuator commands output from said controller and to calculate the edge sensor bias measurements from the accumulated actuator commands and an estimator matrix.</div>
+</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00003" num="00003" class="claim">
+    <div class="claim-text">3. The apparatus according to <claim-ref idref="CLM-00002">claim 2</claim-ref>, further comprising:
+<div class="claim-text">a summation unit to calculate a plurality of edge sensor error signals from the current edge sensor measurements and the edge sensor bias measurements; and</div>
+<div class="claim-text">an optimal control matrix unit to accumulate the plurality of edge sensor error signals calculated by said summation unit and output the corresponding plurality of actuator commands.</div>
+</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00004" num="00004" class="claim">
+    <div class="claim-text">4. The apparatus according to <claim-ref idref="CLM-00003">claim 3</claim-ref>,
+<div class="claim-text">wherein said summation unit calculates the plurality of edge sensor error signals through combination of the current edge sensor measurements; the edge sensor bias measurements and a plurality of edge sensor reference measurements.</div>
+</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00005" num="00005" class="claim">
+    <div class="claim-text">5. The apparatus according to <claim-ref idref="CLM-00003">claim 3</claim-ref>, said global radius estimator and control unit further comprising:
+<div class="claim-text">an accumulator unit to receive and store the actuator commands; and</div>
+<div class="claim-text">an estimator matrix to produce edge sensor bias measurements from the plurality of stored actuator commands,</div>
+<div class="claim-text">wherein said summation unit calculates the plurality of edge sensor error signals from the current edge sensor measurements, the edge sensor bias measurements, and edge sensor reference measurements.</div>
+</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00006" num="00006" class="claim">
+    <div class="claim-text">6. The apparatus according to <claim-ref idref="CLM-00005">claim 5</claim-ref>, wherein the edge sensor reference measurements are recorded when the segmented mirror is initially aligned and the current edge sensor measurements are recorded after movement of the plural mirror segments.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00007" num="00007" class="claim">
+    <div class="claim-text">7. The apparatus according to <claim-ref idref="CLM-00001">claim 1</claim-ref>, wherein the edge sensor system includes a plurality of sensors respectively attached to a corresponding plurality of hexagon mirror segments, said sensors outputting the plurality of current edge sensor measurements corresponding to movement of respective hexagon mirror segments.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00008" num="00008" class="claim">
+    <div class="claim-text">8. The apparatus according to <claim-ref idref="CLM-00001">claim 1</claim-ref>, wherein said plurality of mirror actuators are tip/tilt/piston control actuators.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00009" num="00009" class="claim">
+    <div class="claim-text">9. The apparatus according to <claim-ref idref="CLM-00001">claim 1</claim-ref>, further comprising:
+<div class="claim-text">an edge sensor control unit, disposed within said control unit, for producing the plurality of actuator commands; and</div>
+<div class="claim-text">an accumulator unit, disposed within said control unit, for receiving and storing the actuator commands output from said edge sensor control unit,</div>
+<div class="claim-text">wherein the stored actuator commands are used to calculate future actuator commands.</div>
+</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00010" num="00010" class="claim">
+    <div class="claim-text">10. The apparatus according to <claim-ref idref="CLM-00001">claim 1</claim-ref>, further comprising:
+<div class="claim-text">an edge sensor control unit, disposed within said control unit, for producing the plurality of actuator commands; and</div>
+<div class="claim-text">an accumulator unit, disposed within said control unit, for receiving and storing the actuator commands output from said edge sensor control unit,</div>
+<div class="claim-text">wherein the stored actuator commands do not include commands for controlling a plurality of boundary condition mirror segments, and the stored actuator commands are used to calculate future actuator commands.</div>
+</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00011" num="00011" class="claim">
+    <div class="claim-text">11. The apparatus according to <claim-ref idref="CLM-00010">claim 10</claim-ref>, wherein there are a total of four boundary condition mirror segments so configured and arranged as to define a sphere.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00012" num="00012" class="claim">
+    <div class="claim-text">12. The apparatus according to <claim-ref idref="CLM-00001">claim 1</claim-ref>, said controller further comprising:
+<div class="claim-text">an edge sensor control unit outputting the actuator commands in response to the current edge sensor measurements;</div>
+<div class="claim-text">an accumulator unit to accumulate actuator commands output from said edge sensor control unit;</div>
+<div class="claim-text">an estimator matrix to convert the accumulated actuator commands output from said accumulator unit into a plurality of boundary condition actuator commands,</div>
+<div class="claim-text">wherein the boundary condition actuator commands are combined with the actuator commands output from said edge sensor control unit before transmission to corresponding actuators.</div>
+</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00013" num="00013" class="claim">
+    <div class="claim-text">13. The apparatus according to <claim-ref idref="CLM-00012">claim 12</claim-ref>, further comprising:
+<div class="claim-text">a summation unit to calculate a plurality of edge sensor error signals from the current edge sensor measurements and a plurality of edge sensor reference measurements.</div>
+</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00014" num="00014" class="claim">
+    <div class="claim-text">14. The apparatus according to <claim-ref idref="CLM-00012">claim 12</claim-ref>, wherein the edge sensor system includes a plurality of sensors respectively attached to a corresponding plurality of hexagon mirror segments, said sensors outputting the plurality of current edge sensor measurements corresponding to movement of respective hexagon mirror segments.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00015" num="00015" class="claim">
+    <div class="claim-text">15. The apparatus according to <claim-ref idref="CLM-00012">claim 12</claim-ref>, wherein said plurality of mirror actuators are tip/tilt/piston control actuators.</div>
+  </div>
+  </div> <div class="claim"> <div id="CLM-00016" num="00016" class="claim">
+    <div class="claim-text">16. A method of generating a plurality of actuator commands to control a plurality of mirror segments, comprising:
+<div class="claim-text">receiving current edge sensor measurements corresponding to respective positions of plural mirror segments;</div>
+<div class="claim-text">comparing the current edge sensor measurements with edge sensor bias measurements defining a global radius of curvature of the plurality of mirror segments; and</div>
+<div class="claim-text">producing a plurality of actuator commands for controlling the plural mirror segments in response to said comparing operation.</div>
+</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00017" num="00017" class="claim">
+    <div class="claim-text">17. The method according to <claim-ref idref="CLM-00016">claim 16</claim-ref>, further comprising:
+<div class="claim-text">accumulating the plurality of actuator commands; and</div>
+<div class="claim-text">producing the edge sensor bias measurements defining the global radius of curvature from the accumulated actuator commands by calculation of an estimator matrix.</div>
+</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00018" num="00018" class="claim">
+    <div class="claim-text">18. The method according to <claim-ref idref="CLM-00016">claim 16</claim-ref>, further comprising:
+<div class="claim-text">calculating a plurality of edge sensor error signals from the current edge sensor measurements and the edge sensor bias measurements; and</div>
+<div class="claim-text">accumulating the plurality of edge sensor error signals calculated in said calculating operation and outputting the plurality of actuator commands for controlling the plural mirror segments.</div>
+</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00019" num="00019" class="claim">
+    <div class="claim-text">19. The method according to <claim-ref idref="CLM-00016">claim 16</claim-ref>, further comprising:
+<div class="claim-text">calculating the plurality of edge sensor error signals through combination of the current edge sensor measurements, the edge sensor bias measurements, and a plurality of edge sensor reference measurements.</div>
+</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00020" num="00020" class="claim">
+    <div class="claim-text">20. The method according to <claim-ref idref="CLM-00016">claim 16</claim-ref>, further comprising:
+<div class="claim-text">receiving and storing the actuator commands; and</div>
+<div class="claim-text">producing the edge sensor bias measurements from the plurality of stored actuator commands,</div>
+<div class="claim-text">whereby said comparing operation compares the current edge sensor measurements with the produced edge sensor bias measurements.</div>
+</div>
+  </div>
+  </div> <div class="claim"> <div id="CLM-00021" num="00021" class="claim">
+    <div class="claim-text">21. An apparatus to control positions of plural mirror segments in a segmented mirror, comprising:
+<div class="claim-text">an edge sensor system to output a plurality of current edge sensor measurements corresponding to respective positions of a plurality of mirror segments;</div>
+<div class="claim-text">a controller to produce a plurality of actuator commands by comparing the plurality of current edge sensor measurements with a plurality of edge sensor bias measurements defining a global radius of curvature; and</div>
+<div class="claim-text">a plurality of mirror actuators responding to the plurality of actuator commands by moving the respective positions of the plurality of mirror segments.</div>
+</div>
+  </div>
+</div> </div>
+  </div>
+  </section>
+
+  <section itemprop="application" itemscope>
+
+    <section itemprop="metadata" itemscope>
+        <span itemprop="applicationNumber">US10/637,085</span>
+        <span itemprop="priorityDate">2003-08-06</span>
+        <span itemprop="filingDate">2003-08-06</span>
+        <span itemprop="title">Global radius of curvature estimation and control system for segmented mirrors 
+       </span>
+        <span itemprop="ifiStatus">Expired - Fee Related</span>
+        
+        <a href="/patent/US7050161B1/en">
+            <span itemprop="representativePublication">US7050161B1</span>
+            (<span itemprop="primaryLanguage">en</span>)
+        </a>
+    </section>
+
+    <h2>Priority Applications (1)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                    <th>Title</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="priorityApps" itemscope repeat>
+                <td>
+                   <span itemprop="applicationNumber">US10/637,085</span>
+                   
+                   <a href="/patent/US7050161B1/en">
+                        <span itemprop="representativePublication">US7050161B1</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                <td itemprop="priorityDate">2003-08-06</td>
+                <td itemprop="filingDate">2003-08-06</td>
+                <td itemprop="title">Global radius of curvature estimation and control system for segmented mirrors 
+       </td>
+              </tr>
+           </tbody>
+       </table>
+
+    <h2>Applications Claiming Priority (1)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                    <th>Title</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="appsClaimingPriority" itemscope repeat>
+                <td>
+                   <span itemprop="applicationNumber">US10/637,085</span>
+                   <a href="/patent/US7050161B1/en">
+                        <span itemprop="representativePublication">US7050161B1</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                <td itemprop="priorityDate">2003-08-06</td>
+                <td itemprop="filingDate">2003-08-06</td>
+                <td itemprop="title">Global radius of curvature estimation and control system for segmented mirrors 
+       </td>
+              </tr>
+           </tbody>
+       </table>
+
+    
+
+    
+
+    <h2>Publications (1)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Publication Number</th>
+                    <th>Publication Date</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="pubs" itemscope repeat>
+                <td>
+                   <span itemprop="publicationNumber">US7050161B1</span>
+                   
+                   <span itemprop="thisPatent">true</span>
+                   <a href="/patent/US7050161B1/en">US7050161B1
+                       (<span itemprop="primaryLanguage">en</span>)
+                   </a>
+                </td>
+                <td itemprop="publicationDate">2006-05-23</td>
+              </tr>
+           </tbody>
+        </table>
+
+  </section>
+
+  <section itemprop="family" itemscope>
+    <h1>Family</h1>
+    <h2>ID=36423856</h2>
+
+    <h2>Family Applications (1)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Title</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="applications" itemscope repeat>
+                <td>
+                    <span itemprop="applicationNumber">US10/637,085</span>
+                    <span itemprop="ifiStatus">Expired - Fee Related</span>
+                    
+                    <a href="/patent/US7050161B1/en">
+                        <span itemprop="representativePublication">US7050161B1</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                </td>
+                <td itemprop="priorityDate">2003-08-06</td>
+                <td itemprop="filingDate">2003-08-06</td>
+                <td itemprop="title">Global radius of curvature estimation and control system for segmented mirrors 
+       </td>
+              </tr>
+           </tbody>
+        </table>
+
+    
+
+    
+
+    <h2>Country Status (1)</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Country</th>
+            <th>Link</th>
+          </tr>
+        </thead>
+        <tbody>
+        <tr itemprop="countryStatus" itemscope repeat>
+            <td>
+              <span itemprop="countryCode">US</span>
+                (<span itemprop="num">1</span>)
+              <meta itemprop="thisCountry" content="true">
+            </td>
+            <td>
+              <a href="/patent/US7050161B1/en">
+                <span itemprop="representativePublication">US7050161B1</span>
+                  (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+    <h2>Cited By (4)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20070158529A1/en">
+              <span itemprop="publicationNumber">US20070158529A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2006-01-11</td>
+          <td itemprop="publicationDate">2007-07-12</td>
+          <td><span itemprop="assigneeOriginal">Smith Mark A</span></td>
+          <td itemprop="title">Closed loop compensation system and method 
+       </td>
+        </tr><tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/DE102012212064A1/en">
+              <span itemprop="publicationNumber">DE102012212064A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2012-07-11</td>
+          <td itemprop="publicationDate">2014-01-16</td>
+          <td><span itemprop="assigneeOriginal">Carl Zeiss Smt Gmbh</span></td>
+          <td itemprop="title">Lithographic plant with segmented mirror 
+       </td>
+        </tr><tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/CN107036550A/en">
+              <span itemprop="publicationNumber">CN107036550A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2016-12-01</td>
+          <td itemprop="publicationDate">2017-08-11</td>
+          <td><span itemprop="assigneeOriginal">中国科学院国家天文台南京天文光学技术研究所</span></td>
+          <td itemprop="title">Radio astronomical telescope Active Reflector edge sensor system and its detection method 
+       </td>
+        </tr><tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/DE102016214785A1/en">
+              <span itemprop="publicationNumber">DE102016214785A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2016-08-09</td>
+          <td itemprop="publicationDate">2018-02-15</td>
+          <td><span itemprop="assigneeOriginal">Carl Zeiss Smt Gmbh</span></td>
+          <td itemprop="title">Optical module with an anti-collision device for module components 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+
+    
+
+    <h2>Citations (17)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US4467186A/en">
+              <span itemprop="publicationNumber">US4467186A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1982-01-27</td>
+          <td itemprop="publicationDate">1984-08-21</td>
+          <td><span itemprop="assigneeOriginal">The United States Of America As Represented By The Secretary Of The Air Force</span></td>
+          <td itemprop="title">Mirror actuator control system 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US4471447A/en">
+              <span itemprop="publicationNumber">US4471447A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1981-09-08</td>
+          <td itemprop="publicationDate">1984-09-11</td>
+          <td><span itemprop="assigneeOriginal">Hughes Aircraft Company</span></td>
+          <td itemprop="title">Method for aligning an optical system utilizing focal plane image intensity data 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US4560256A/en">
+              <span itemprop="publicationNumber">US4560256A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1980-01-07</td>
+          <td itemprop="publicationDate">1985-12-24</td>
+          <td><span itemprop="assigneeOriginal">Roxor Corporation</span></td>
+          <td itemprop="title">Segmented mirror 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US4737621A/en">
+              <span itemprop="publicationNumber">US4737621A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1985-12-06</td>
+          <td itemprop="publicationDate">1988-04-12</td>
+          <td><span itemprop="assigneeOriginal">Adaptive Optics Assoc., Inc.</span></td>
+          <td itemprop="title">Integrated adaptive optical wavefront sensing and compensating system 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US4816759A/en">
+              <span itemprop="publicationNumber">US4816759A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1987-10-28</td>
+          <td itemprop="publicationDate">1989-03-28</td>
+          <td><span itemprop="assigneeOriginal">Kaman Corporation</span></td>
+          <td itemprop="title">Inductive sensor for detecting displacement of adjacent surfaces 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US4825062A/en">
+              <span itemprop="publicationNumber">US4825062A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1987-10-29</td>
+          <td itemprop="publicationDate">1989-04-25</td>
+          <td><span itemprop="assigneeOriginal">Kaman Aerospace Corporation</span></td>
+          <td itemprop="title">Extendable large aperture phased array mirror system 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US4904073A/en">
+              <span itemprop="publicationNumber">US4904073A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1988-08-10</td>
+          <td itemprop="publicationDate">1990-02-27</td>
+          <td><span itemprop="assigneeOriginal">Aware, Inc.</span></td>
+          <td itemprop="title">Fractal tiling for multiple mirror optical devices 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US4943771A/en">
+              <span itemprop="publicationNumber">US4943771A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1989-05-19</td>
+          <td itemprop="publicationDate">1990-07-24</td>
+          <td><span itemprop="assigneeOriginal">The United States Of America As Represented By The Secretary Of The Air Force</span></td>
+          <td itemprop="title">Differential eddy current sensor measuring apparatus for use with movable mirror segments 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/EP0438664A2/en">
+              <span itemprop="publicationNumber">EP0438664A2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1990-01-23</td>
+          <td itemprop="publicationDate">1991-07-31</td>
+          <td><span itemprop="assigneeOriginal">Kaman Aerospace Corporation</span></td>
+          <td itemprop="title">Segmented mirror and method of controlling the same 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5099352A/en">
+              <span itemprop="publicationNumber">US5099352A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1989-10-13</td>
+          <td itemprop="publicationDate">1992-03-24</td>
+          <td><span itemprop="assigneeOriginal">Mitsubishi Denki Kabushiki Kaisha</span></td>
+          <td itemprop="title">Reflector oscillating apparatus 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5113064A/en">
+              <span itemprop="publicationNumber">US5113064A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1991-03-06</td>
+          <td itemprop="publicationDate">1992-05-12</td>
+          <td><span itemprop="assigneeOriginal">The United States Of America As Represented By The Administrator Of The National Aeronautics And Space Administration</span></td>
+          <td itemprop="title">Method and apparatus for phasing segmented mirror arrays 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5265034A/en">
+              <span itemprop="publicationNumber">US5265034A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1991-05-13</td>
+          <td itemprop="publicationDate">1993-11-23</td>
+          <td><span itemprop="assigneeOriginal">The United States Of America As Represented By The Administrator Of The National Aeronautics And Space Administration</span></td>
+          <td itemprop="title">Feedback controlled optics with wavefront compensation 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5477393A/en">
+              <span itemprop="publicationNumber">US5477393A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1990-08-15</td>
+          <td itemprop="publicationDate">1995-12-19</td>
+          <td><span itemprop="assigneeOriginal">Mitsubishi Denki Kabushiki Kaisha</span></td>
+          <td itemprop="title">Reflector device 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5623270A/en">
+              <span itemprop="publicationNumber">US5623270A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1994-10-12</td>
+          <td itemprop="publicationDate">1997-04-22</td>
+          <td><span itemprop="assigneeOriginal">Riverside Research Institute</span></td>
+          <td itemprop="title">Phased array antenna 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6113242A/en">
+              <span itemprop="publicationNumber">US6113242A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1999-01-15</td>
+          <td itemprop="publicationDate">2000-09-05</td>
+          <td><span itemprop="assigneeOriginal">The United States Of America As Represented By The Secretary Of The Air Force</span></td>
+          <td itemprop="title">Active edge controlled optical quality membrane mirror 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6293680B1/en">
+              <span itemprop="publicationNumber">US6293680B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1997-09-10</td>
+          <td itemprop="publicationDate">2001-09-25</td>
+          <td><span itemprop="assigneeOriginal">Thermotrex Corporation</span></td>
+          <td itemprop="title">Electromagnetically controlled deformable mirror 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6800988B1/en">
+              <span itemprop="publicationNumber">US6800988B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2000-07-11</td>
+          <td itemprop="publicationDate">2004-10-05</td>
+          <td><span itemprop="assigneeOriginal">Technion Research &amp; Development Foundation Ltd.</span></td>
+          <td itemprop="title">Voltage and light induced strains in porous crystalline materials and uses thereof 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+
+    
+
+    
+    <ul>
+      
+      <li itemprop="applicationsByYear" itemscope repeat>
+        <span itemprop="year">2003</span>
+        <ul>
+          
+          <li itemprop="application" itemscope repeat>
+            <span itemprop="filingDate">2003-08-06</span>
+            <span itemprop="countryCode">US</span>
+            <span itemprop="applicationNumber">US10/637,085</span>
+            <a href="/patent/US7050161B1/en"><span itemprop="documentId">patent/US7050161B1/en</span></a>
+            <span itemprop="legalStatusCat">not_active</span>
+            <span itemprop="legalStatus">Expired - Fee Related</span>
+            
+            <span itemprop="thisApp" content="true" bool></span>
+            
+          </li>
+          
+        </ul>
+      </li>
+      
+    </ul>
+    
+
+    </section>
+
+  <section>
+    <h2>Patent Citations (18)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US4560256A/en">
+              <span itemprop="publicationNumber">US4560256A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1980-01-07</td>
+          <td itemprop="publicationDate">1985-12-24</td>
+          <td><span itemprop="assigneeOriginal">Roxor Corporation</span></td>
+          <td itemprop="title">Segmented mirror 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US4471447A/en">
+              <span itemprop="publicationNumber">US4471447A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1981-09-08</td>
+          <td itemprop="publicationDate">1984-09-11</td>
+          <td><span itemprop="assigneeOriginal">Hughes Aircraft Company</span></td>
+          <td itemprop="title">Method for aligning an optical system utilizing focal plane image intensity data 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US4467186A/en">
+              <span itemprop="publicationNumber">US4467186A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1982-01-27</td>
+          <td itemprop="publicationDate">1984-08-21</td>
+          <td><span itemprop="assigneeOriginal">The United States Of America As Represented By The Secretary Of The Air Force</span></td>
+          <td itemprop="title">Mirror actuator control system 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US4737621A/en">
+              <span itemprop="publicationNumber">US4737621A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1985-12-06</td>
+          <td itemprop="publicationDate">1988-04-12</td>
+          <td><span itemprop="assigneeOriginal">Adaptive Optics Assoc., Inc.</span></td>
+          <td itemprop="title">Integrated adaptive optical wavefront sensing and compensating system 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US4816759A/en">
+              <span itemprop="publicationNumber">US4816759A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1987-10-28</td>
+          <td itemprop="publicationDate">1989-03-28</td>
+          <td><span itemprop="assigneeOriginal">Kaman Corporation</span></td>
+          <td itemprop="title">Inductive sensor for detecting displacement of adjacent surfaces 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US4825062A/en">
+              <span itemprop="publicationNumber">US4825062A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1987-10-29</td>
+          <td itemprop="publicationDate">1989-04-25</td>
+          <td><span itemprop="assigneeOriginal">Kaman Aerospace Corporation</span></td>
+          <td itemprop="title">Extendable large aperture phased array mirror system 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US4904073A/en">
+              <span itemprop="publicationNumber">US4904073A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1988-08-10</td>
+          <td itemprop="publicationDate">1990-02-27</td>
+          <td><span itemprop="assigneeOriginal">Aware, Inc.</span></td>
+          <td itemprop="title">Fractal tiling for multiple mirror optical devices 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US4943771A/en">
+              <span itemprop="publicationNumber">US4943771A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1989-05-19</td>
+          <td itemprop="publicationDate">1990-07-24</td>
+          <td><span itemprop="assigneeOriginal">The United States Of America As Represented By The Secretary Of The Air Force</span></td>
+          <td itemprop="title">Differential eddy current sensor measuring apparatus for use with movable mirror segments 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5099352A/en">
+              <span itemprop="publicationNumber">US5099352A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1989-10-13</td>
+          <td itemprop="publicationDate">1992-03-24</td>
+          <td><span itemprop="assigneeOriginal">Mitsubishi Denki Kabushiki Kaisha</span></td>
+          <td itemprop="title">Reflector oscillating apparatus 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/EP0438664A2/en">
+              <span itemprop="publicationNumber">EP0438664A2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1990-01-23</td>
+          <td itemprop="publicationDate">1991-07-31</td>
+          <td><span itemprop="assigneeOriginal">Kaman Aerospace Corporation</span></td>
+          <td itemprop="title">Segmented mirror and method of controlling the same 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5109349A/en">
+              <span itemprop="publicationNumber">US5109349A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1990-01-23</td>
+          <td itemprop="publicationDate">1992-04-28</td>
+          <td><span itemprop="assigneeOriginal">Kaman Aerospace Corporation</span></td>
+          <td itemprop="title">Actively controlled segmented mirror 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5477393A/en">
+              <span itemprop="publicationNumber">US5477393A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1990-08-15</td>
+          <td itemprop="publicationDate">1995-12-19</td>
+          <td><span itemprop="assigneeOriginal">Mitsubishi Denki Kabushiki Kaisha</span></td>
+          <td itemprop="title">Reflector device 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5113064A/en">
+              <span itemprop="publicationNumber">US5113064A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1991-03-06</td>
+          <td itemprop="publicationDate">1992-05-12</td>
+          <td><span itemprop="assigneeOriginal">The United States Of America As Represented By The Administrator Of The National Aeronautics And Space Administration</span></td>
+          <td itemprop="title">Method and apparatus for phasing segmented mirror arrays 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5265034A/en">
+              <span itemprop="publicationNumber">US5265034A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1991-05-13</td>
+          <td itemprop="publicationDate">1993-11-23</td>
+          <td><span itemprop="assigneeOriginal">The United States Of America As Represented By The Administrator Of The National Aeronautics And Space Administration</span></td>
+          <td itemprop="title">Feedback controlled optics with wavefront compensation 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5623270A/en">
+              <span itemprop="publicationNumber">US5623270A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1994-10-12</td>
+          <td itemprop="publicationDate">1997-04-22</td>
+          <td><span itemprop="assigneeOriginal">Riverside Research Institute</span></td>
+          <td itemprop="title">Phased array antenna 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6293680B1/en">
+              <span itemprop="publicationNumber">US6293680B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1997-09-10</td>
+          <td itemprop="publicationDate">2001-09-25</td>
+          <td><span itemprop="assigneeOriginal">Thermotrex Corporation</span></td>
+          <td itemprop="title">Electromagnetically controlled deformable mirror 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6113242A/en">
+              <span itemprop="publicationNumber">US6113242A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1999-01-15</td>
+          <td itemprop="publicationDate">2000-09-05</td>
+          <td><span itemprop="assigneeOriginal">The United States Of America As Represented By The Secretary Of The Air Force</span></td>
+          <td itemprop="title">Active edge controlled optical quality membrane mirror 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6800988B1/en">
+              <span itemprop="publicationNumber">US6800988B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2000-07-11</td>
+          <td itemprop="publicationDate">2004-10-05</td>
+          <td><span itemprop="assigneeOriginal">Technion Research &amp; Development Foundation Ltd.</span></td>
+          <td itemprop="title">Voltage and light induced strains in porous crystalline materials and uses thereof 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Non-Patent Citations (1)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">John Rakoczy et al., "<a href='http://scholar.google.com/scholar?q="Global+Radius-of-Curvature+Estimation+and+Control+for+the+Hobby-Eberly+Telescope%2C"'>Global Radius-of-Curvature Estimation and Control for the Hobby-Eberly Telescope,</a>" Proceedings of the SPIE, 4837-79 ed., p. 681-692, (Aug. 22, 2002).</span>
+            
+            
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <h2>Cited By (9)</h2>
+  <table>
+    <caption>* Cited by examiner, † Cited by third party</caption>
+    <thead>
+      <tr>
+        <th>Publication number</th>
+        <th>Priority date</th>
+        <th>Publication date</th>
+        <th>Assignee</th>
+        <th>Title</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US20070158529A1/en">
+            <span itemprop="publicationNumber">US20070158529A1</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2006-01-11</td>
+        <td itemprop="publicationDate">2007-07-12</td>
+        <td><span itemprop="assigneeOriginal">Smith Mark A</span></td>
+        <td itemprop="title">Closed loop compensation system and method 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US7381934B2/en">
+            <span itemprop="publicationNumber">US7381934B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2006-01-11</td>
+        <td itemprop="publicationDate">2008-06-03</td>
+        <td><span itemprop="assigneeOriginal">Xinetics, Inc.</span></td>
+        <td itemprop="title">Closed loop compensation system and method for a deformable mirror 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/DE102012212064A1/en">
+            <span itemprop="publicationNumber">DE102012212064A1</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2012-07-11</td>
+        <td itemprop="publicationDate">2014-01-16</td>
+        <td><span itemprop="assigneeOriginal">Carl Zeiss Smt Gmbh</span></td>
+        <td itemprop="title">Lithographic plant with segmented mirror 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US20150103327A1/en">
+            <span itemprop="publicationNumber">US20150103327A1</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2012-07-11</td>
+        <td itemprop="publicationDate">2015-04-16</td>
+        <td><span itemprop="assigneeOriginal">Carl Zeiss Smt Gmbh</span></td>
+        <td itemprop="title">Lithography apparatus with segmented mirror 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/JP2015529839A/en">
+            <span itemprop="publicationNumber">JP2015529839A</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2012-07-11</td>
+        <td itemprop="publicationDate">2015-10-08</td>
+        <td><span itemprop="assigneeOriginal">カール・ツァイス・エスエムティー・ゲーエムベーハー</span></td>
+        <td itemprop="title">Lithographic apparatus having a segmented mirror 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/KR101731735B1/en">
+            <span itemprop="publicationNumber">KR101731735B1</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          
+          
+        </td>
+        <td itemprop="priorityDate">2012-07-11</td>
+        <td itemprop="publicationDate">2017-04-28</td>
+        <td><span itemprop="assigneeOriginal">칼 짜이스 에스엠테 게엠베하</span></td>
+        <td itemprop="title">Lithography apparatus with segmented mirror 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US9846375B2/en">
+            <span itemprop="publicationNumber">US9846375B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2012-07-11</td>
+        <td itemprop="publicationDate">2017-12-19</td>
+        <td><span itemprop="assigneeOriginal">Carl Zeiss Smt Gmbh</span></td>
+        <td itemprop="title">Lithography apparatus with segmented mirror 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/DE102016214785A1/en">
+            <span itemprop="publicationNumber">DE102016214785A1</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2016-08-09</td>
+        <td itemprop="publicationDate">2018-02-15</td>
+        <td><span itemprop="assigneeOriginal">Carl Zeiss Smt Gmbh</span></td>
+        <td itemprop="title">Optical module with an anti-collision device for module components 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/CN107036550A/en">
+            <span itemprop="publicationNumber">CN107036550A</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2016-12-01</td>
+        <td itemprop="publicationDate">2017-08-11</td>
+        <td><span itemprop="assigneeOriginal">中国科学院国家天文台南京天文光学技术研究所</span></td>
+        <td itemprop="title">Radio astronomical telescope Active Reflector edge sensor system and its detection method 
+       </td>
+      </tr>
+    </tbody>
+  </table>
+
+  
+
+  <section>
+    <h2>Similar Documents</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Publication</th>
+          <th>Publication Date</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/EP1761363B1/en">
+                <span itemprop="publicationNumber">EP1761363B1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2018-01-10">2018-01-10</time>
+            
+            
+          </td>
+          <td itemprop="title">Auxiliary device and method for calibrating an optical measurement array which can be mounted on a manipulator 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US5511930A/en">
+                <span itemprop="publicationNumber">US5511930A</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="1996-04-30">1996-04-30</time>
+            
+            
+          </td>
+          <td itemprop="title">Precision positioning apparatus 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US8620470B2/en">
+                <span itemprop="publicationNumber">US8620470B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2013-12-31">2013-12-31</time>
+            
+            
+          </td>
+          <td itemprop="title">System for assembling aircraft 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/RU2445635C2/en">
+                <span itemprop="publicationNumber">RU2445635C2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2012-03-20">2012-03-20</time>
+            
+            
+          </td>
+          <td itemprop="title">Force sensor and method of determining turning radius of moving object 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="17230299962761273985">
+              <a href="/scholar/17230299962761273985"><span itemprop="scholarAuthors">Burge et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2007">2007</time>
+            
+          </td>
+          <td itemprop="title">Use of a commercial laser tracker for optical alignment</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US9080867B2/en">
+                <span itemprop="publicationNumber">US9080867B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2015-07-14">2015-07-14</time>
+            
+            
+          </td>
+          <td itemprop="title">Measuring method for an articulated-arm coordinate measuring machine 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/CN101680743B/en">
+                <span itemprop="publicationNumber">CN101680743B</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2012-05-02">2012-05-02</time>
+            
+            
+          </td>
+          <td itemprop="title">Determining positions 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US4707129A/en">
+                <span itemprop="publicationNumber">US4707129A</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="1987-11-17">1987-11-17</time>
+            
+            
+          </td>
+          <td itemprop="title">Three dimensional position measurement system using an interferometer 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/KR20110009658A/en">
+                <span itemprop="publicationNumber">KR20110009658A</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2011-01-28">2011-01-28</time>
+            
+            
+          </td>
+          <td itemprop="title">External system for robotic accuracy enhancement 
+     </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US8659752B2/en">
+                <span itemprop="publicationNumber">US8659752B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2014-02-25">2014-02-25</time>
+            
+            
+          </td>
+          <td itemprop="title">Automated warm-up and stability check for laser trackers 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US7742176B2/en">
+                <span itemprop="publicationNumber">US7742176B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2010-06-22">2010-06-22</time>
+            
+            
+          </td>
+          <td itemprop="title">Method and system for determining the spatial position of a hand-held measuring appliance 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/JP3182158B2/en">
+                <span itemprop="publicationNumber">JP3182158B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2001-07-03">2001-07-03</time>
+            
+            
+          </td>
+          <td itemprop="title">  Stage supporting device for exposure apparatus  </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/CN1078703C/en">
+                <span itemprop="publicationNumber">CN1078703C</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2002-01-30">2002-01-30</time>
+            
+            
+          </td>
+          <td itemprop="title">Target space position and attitutde laser tracking-measuring system and method 
+     </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="129588306520550880">
+              <a href="/scholar/129588306520550880"><span itemprop="scholarAuthors">Kang et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2005">2005</time>
+            
+          </td>
+          <td itemprop="title">Analysis and design of parallel mechanisms with flexure joints</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="2410458120457080558">
+              <a href="/scholar/2410458120457080558"><span itemprop="scholarAuthors">Masten</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2008">2008</time>
+            
+          </td>
+          <td itemprop="title">Inertially stabilized platforms for optical imaging systems</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US6208937B1/en">
+                <span itemprop="publicationNumber">US6208937B1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2001-03-27">2001-03-27</time>
+            
+            
+          </td>
+          <td itemprop="title">Method and apparatus for generating navigation data 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US7327446B2/en">
+                <span itemprop="publicationNumber">US7327446B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2008-02-05">2008-02-05</time>
+            
+            
+          </td>
+          <td itemprop="title">Self-compensating laser tracker 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US7065888B2/en">
+                <span itemprop="publicationNumber">US7065888B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2006-06-27">2006-06-27</time>
+            
+            
+          </td>
+          <td itemprop="title">Gyroscopic system for boresighting equipment 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US20110206236A1/en">
+                <span itemprop="publicationNumber">US20110206236A1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2011-08-25">2011-08-25</time>
+            
+            
+          </td>
+          <td itemprop="title">Navigation method and aparatus 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/JPH06163366A/en">
+                <span itemprop="publicationNumber">JPH06163366A</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="1994-06-10">1994-06-10</time>
+            
+            
+          </td>
+          <td itemprop="title">Exposure method and aligner 
+     </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/CN100495261C/en">
+                <span itemprop="publicationNumber">CN100495261C</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2009-06-03">2009-06-03</time>
+            
+            
+          </td>
+          <td itemprop="title">Half-physical emulation test system for controlling and guiding, navigating and controlling soft landing for moon 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US20040143413A1/en">
+                <span itemprop="publicationNumber">US20040143413A1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2004-07-22">2004-07-22</time>
+            
+            
+          </td>
+          <td itemprop="title">System for measuring the effect of bearing errors in an active device 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US20080202199A1/en">
+                <span itemprop="publicationNumber">US20080202199A1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2008-08-28">2008-08-28</time>
+            
+            
+          </td>
+          <td itemprop="title">Positioning System For Single Or Multi-Axis Sensitive Instrument Calibration And Calibration System For Use Therewith 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/JP2003037424A/en">
+                <span itemprop="publicationNumber">JP2003037424A</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2003-02-07">2003-02-07</time>
+            
+            
+          </td>
+          <td itemprop="title">Controller of satellite-tracking antenna 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="13412917522236066440">
+              <a href="/scholar/13412917522236066440"><span itemprop="scholarAuthors">Jeon et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2011">2011</time>
+            
+          </td>
+          <td itemprop="title">A paired visual servoing system for 6-DOF displacement measurement of structures</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Legal Events</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Code</th>
+          <th>Title</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2003-08-06">2003-08-06</time></td>
+          <td itemprop="code">AS</td>
+          <td itemprop="title">Assignment</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Owner name</strong>:
+              <span itemprop="value">NATIONAL AERONAUTICS AND SPACE ADMINISTRATION, DIS</span>
+            </p>
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">ASSIGNMENT OF ASSIGNORS INTEREST;ASSIGNOR:RAKOCZY, JOHN M.;REEL/FRAME:014378/0891</span>
+            </p>
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Effective date</strong>:
+              <span itemprop="value">20030805</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2009-08-27">2009-08-27</time></td>
+          <td itemprop="code">FPAY</td>
+          <td itemprop="title">Fee payment</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Year of fee payment</strong>:
+              <span itemprop="value">4</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2013-09-11">2013-09-11</time></td>
+          <td itemprop="code">FPAY</td>
+          <td itemprop="title">Fee payment</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Year of fee payment</strong>:
+              <span itemprop="value">8</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2018-01-01">2018-01-01</time></td>
+          <td itemprop="code">FEPP</td>
+          <td itemprop="title">Fee payment procedure</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">MAINTENANCE FEE REMINDER MAILED (ORIGINAL EVENT CODE: REM.)</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2018-06-18">2018-06-18</time></td>
+          <td itemprop="code">LAPS</td>
+          <td itemprop="title">Lapse for failure to pay maintenance fees</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">PATENT EXPIRED FOR FAILURE TO PAY MAINTENANCE FEES (ORIGINAL EVENT CODE: EXP.)</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2018-06-18">2018-06-18</time></td>
+          <td itemprop="code">STCH</td>
+          <td itemprop="title">Information on status: patent discontinuation</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">PATENT EXPIRED DUE TO NONPAYMENT OF MAINTENANCE FEES UNDER 37 CFR 1.362</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2018-07-10">2018-07-10</time></td>
+          <td itemprop="code">FP</td>
+          <td itemprop="title">Expired due to failure to pay maintenance fee</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Effective date</strong>:
+              <span itemprop="value">20180523</span>
+            </p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+</article>
+
+    </search-app>
+    <script type="text/javascript" src="//www.gstatic.com/feedback/api.js"></script>
+    <script async="" defer="" src="//www.google.com/insights/consumersurveys/async_survey?site=cxkjf7ipxgbnnjy6k35ezcvbbe"></script>
+  </body>
+</html>

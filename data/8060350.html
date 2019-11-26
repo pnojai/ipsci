@@ -1,0 +1,2884 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>US8060350B2 - Method of performing computational aeroelastic analyses 
+        - Google Patents</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="referrer" content="origin-when-crossorigin">
+    <link rel="canonical" href="https://patents.google.com/patent/US8060350B2/en">
+    <meta name="description" content="
+     Computational aeroelastic analyses typically use a mathematical model for the structural modes of a flexible structure and a nonlinear aerodynamic model that can generate a plurality of unsteady aerodynamic responses based on the structural modes for conditions defining an aerodynamic condition of the flexible structure. In the present invention, a linear state-space model is generated using a single execution of the nonlinear aerodynamic model for all of the structural modes where a family of orthogonal functions is used as the inputs. Then, static and dynamic aeroelastic solutions are generated using computational interaction between the mathematical model and the linear state-space model for a plurality of periodic points in time. 
+   
+   ">
+    
+    <meta name="DC.type" content="patent">
+    
+    <meta name="DC.title" content="Method of performing computational aeroelastic analyses 
+       ">
+    
+    <meta name="DC.date" content="2008-03-27" scheme="dateSubmitted">
+    
+    <meta name="DC.description" content="
+     Computational aeroelastic analyses typically use a mathematical model for the structural modes of a flexible structure and a nonlinear aerodynamic model that can generate a plurality of unsteady aerodynamic responses based on the structural modes for conditions defining an aerodynamic condition of the flexible structure. In the present invention, a linear state-space model is generated using a single execution of the nonlinear aerodynamic model for all of the structural modes where a family of orthogonal functions is used as the inputs. Then, static and dynamic aeroelastic solutions are generated using computational interaction between the mathematical model and the linear state-space model for a plurality of periodic points in time. 
+   
+   ">
+    
+    <meta name="citation_patent_application_number" content="US:12/056,686">
+    
+    <meta name="citation_pdf_url" content="https://patentimages.storage.googleapis.com/fe/5b/b0/3730ade0b5b931/US8060350.pdf">
+    
+    <meta name="citation_patent_number" content="US:8060350">
+    
+    <meta name="DC.date" content="2011-11-15" scheme="issue">
+    
+    <meta name="DC.contributor" content="Walter A. Silva" scheme="inventor">
+    
+    <meta name="DC.contributor" content="National Aeronautics and Space Administration (NASA)" scheme="assignee">
+    
+    <meta name="DC.relation" content="US:4475385" scheme="references">
+    
+    <meta name="DC.relation" content="US:5199856" scheme="references">
+    
+    <meta name="DC.relation" content="US:5374011" scheme="references">
+    
+    <meta name="DC.relation" content="US:5819188" scheme="references">
+    
+    <meta name="DC.relation" content="US:5926399" scheme="references">
+    
+    <meta name="DC.relation" content="US:6125333" scheme="references">
+    
+    <meta name="DC.relation" content="US:6216063" scheme="references">
+    
+    <meta name="DC.relation" content="US:6526550" scheme="references">
+    
+    <meta name="DC.relation" content="US:6959269" scheme="references">
+    
+    <meta name="DC.relation" content="US:7206709" scheme="references">
+    
+    <meta name="DC.relation" content="US:20040267497:A1" scheme="references">
+    
+    <meta name="DC.relation" content="US:7054785" scheme="references">
+    
+    <meta name="DC.relation" content="US:20050234839:A1" scheme="references">
+    
+    <meta name="DC.relation" content="US:20060025973:A1" scheme="references">
+    
+    <meta name="DC.relation" content="US:7131611" scheme="references">
+    
+    <meta name="DC.relation" content="US:20090099796:A1" scheme="references">
+    
+    <meta name="citation_reference" content="Jer-Nan Juang et al., &#34;An Eigensystem Realization Algorithm for Modal Parameter Identification and Model Reduction,&#34; Journal of Guidance, Control, and Dynamics, (vol. 8), (p. 620-627), (1985)." scheme="references">
+    
+    <meta name="citation_reference" content="Lin et al, Decoupled Fuzzy Sliding-Mode Control of a Nonlinear Aeroelastic Structure, Proceedings of the 2002 IEEE International Conference on Fuzzy Systems, 2002, pp. 662-667." scheme="references">
+    
+    <meta name="citation_reference" content="Raveh, Computational-Fluid-Dynamics-Based Aeroelastic Analysis and Structural Design, Computer Methods in Applied Mechanics and Engineering, vol. 194, No. 30-33, 2005, pp. 3453-3471." scheme="references">
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,400italic,500,500italic,700">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Product+Sans">
+    <style>
+      body { transition: none; }
+    </style>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-27188110-4', 'auto');
+
+      version = 'patent-search.search_20191120_RC00';
+
+      function sendFeedback() {
+        userfeedback.api.startFeedback({
+          'productId': '713680',
+          'bucket': 'patent-search-web',
+          'productVersion': version,
+        });
+      }
+
+      window.experiments = {};
+      window.experiments.patentCountries = "ae,ag,al,am,ao,ap,ar,at,au,aw,az,ba,bb,bd,be,bf,bg,bh,bj,bn,bo,br,bw,bx,by,bz,ca,cf,cg,ch,ci,cl,cm,cn,co,cr,cs,cu,cy,cz,dd,de,dj,dk,dm,do,dz,ea,ec,ee,eg,em,ep,es,fi,fr,ga,gb,gc,gd,ge,gh,gm,gn,gq,gr,gt,gw,hk,hn,hr,hu,ib,id,ie,il,in,ir,is,it,jo,jp,ke,kg,kh,km,kn,kp,kr,kw,kz,la,lc,li,lk,lr,ls,lt,lu,lv,ly,ma,mc,md,me,mg,mk,ml,mn,mo,mr,mt,mw,mx,my,mz,na,ne,ng,ni,nl,no,nz,oa,om,pa,pe,pg,ph,pl,pt,py,qa,ro,rs,ru,rw,sa,sc,sd,se,sg,si,sk,sl,sm,sn,st,su,sv,sy,sz,td,tg,th,tj,tm,tn,tr,tt,tw,tz,ua,ug,us,uy,uz,vc,ve,vn,wo,yu,za,zm,zw";
+      
+      
+      window.profilePicture = "";
+
+      window.Polymer = {
+        dom: 'shady',
+        lazyRegister: true,
+      };
+    </script>
+
+    <script src="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/webcomponentsjs/webcomponents-lite.min.js"></script>
+    
+    <link rel="import" href="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/search-app-vulcanized.html">
+    
+  </head>
+  <body unresolved>
+    
+    <script src="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/search-app-vulcanized.js"></script>
+    
+    <search-app>
+      
+      
+
+      <article class="result" itemscope itemtype="http://schema.org/ScholarlyArticle">
+  <h1 itemprop="pageTitle">US8060350B2 - Method of performing computational aeroelastic analyses 
+        - Google Patents</h1>
+  <span itemprop="title">Method of performing computational aeroelastic analyses 
+       </span>
+
+  <meta itemprop="type" content="patent">
+  <a href="https://patentimages.storage.googleapis.com/fe/5b/b0/3730ade0b5b931/US8060350.pdf" itemprop="pdfLink">Download PDF</a>
+  <h2>Info</h2>
+
+  <dl>
+    <dt>Publication number</dt>
+    <dd itemprop="publicationNumber">US8060350B2</dd>
+    <meta itemprop="numberWithoutCodes" content="8060350">
+    <meta itemprop="kindCode" content="B2">
+    <meta itemprop="publicationDescription" content="Patent ( having previously published pre-grant publication)">
+    
+    <span>US8060350B2</span>
+    
+    <span>US12/056,686</span>
+    
+    <span>US5668608A</span>
+    
+    <span>US8060350B2</span>
+    
+    <span>US 8060350 B2</span>
+    
+    <span>US8060350 B2</span>
+    
+    <span>US 8060350B2</span>
+    
+    <span>  </span>
+    
+    <span> </span>
+    
+    <span> </span>
+    
+    <span>US 5668608 A</span>
+    
+    <span>US5668608 A</span>
+    
+    <span>US 5668608A</span>
+    
+    <span>US 8060350 B2</span>
+    
+    <span>US8060350 B2</span>
+    
+    <span>US 8060350B2</span>
+    
+
+    <dt>Authority</dt>
+    <dd itemprop="countryCode">US</dd>
+    <dd itemprop="countryName">United States</dd>
+
+    <dt>Prior art keywords</dt>
+    
+    <dd itemprop="priorArtKeywords" repeat>model</dd>
+    <dd itemprop="priorArtKeywords" repeat>plurality</dd>
+    <dd itemprop="priorArtKeywords" repeat>aerodynamic</dd>
+    <dd itemprop="priorArtKeywords" repeat>aeroelastic</dd>
+    <dd itemprop="priorArtKeywords" repeat>performing</dd>
+
+    <dt>Prior art date</dt>
+    <dd><time itemprop="priorArtDate" datetime="2007-03-29">2007-03-29</time></dd>
+
+    <dt>Legal status (The legal status is an assumption and is not a legal conclusion. Google has not performed a legal analysis and makes no representation as to the accuracy of the status listed.)</dt>
+    <dd itemprop="legalStatusIfi" itemscope>
+      <span itemprop="status">Active</span>, expires <time itemprop="expiration" datetime="2030-03-04">2030-03-04</time>
+    </dd>
+  </dl>
+
+  <dt>Application number</dt>
+  <dd itemprop="applicationNumber">US12/056,686</dd>
+
+  
+
+  <dt>Other versions</dt>
+  <dd itemprop="directAssociations" itemscope repeat>
+    
+    <a href="/patent/US20080243448A1/en">
+      <span itemprop="publicationNumber">US20080243448A1</span>
+      (<span itemprop="primaryLanguage">en</span>
+    </a>
+  </dd>
+
+  <dt>Inventor</dt>
+  <dd itemprop="inventor" repeat>Walter A. Silva</dd>
+  <dt>Current Assignee (The listed assignees may be inaccurate. Google has not performed a legal analysis and makes no representation or warranty as to the accuracy of the list.)</dt>
+  <dd itemprop="assigneeCurrent" repeat>
+    National Aeronautics and Space Administration (NASA)
+  </dd>
+
+  <dt>Original Assignee</dt>
+  <dd itemprop="assigneeOriginal" repeat>National Aeronautics and Space Administration (NASA)</dd>
+
+  <dt>Priority date (The priority date is an assumption and is not a legal conclusion. Google has not performed a legal analysis and makes no representation as to the accuracy of the date listed.)</dt>
+  <dd><time itemprop="priorityDate" datetime="2007-03-29">2007-03-29</time></dd>
+
+  <dt>Filing date</dt>
+  <dd><time itemprop="filingDate" datetime="2008-03-27">2008-03-27</time></dd>
+
+  <dt>Publication date</dt>
+  <dd><time itemprop="publicationDate" datetime="2011-11-15">2011-11-15</time></dd>
+
+  
+
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2007-03-29">2007-03-29</time>
+    <span itemprop="title">Priority to US90876907P</span>
+    <span itemprop="type">priority</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2008-03-27">2008-03-27</time>
+    <span itemprop="title">Application filed by National Aeronautics and Space Administration (NASA)</span>
+    <span itemprop="type">filed</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    <span itemprop="assigneeSearch">National Aeronautics and Space Administration (NASA)</span>
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2008-03-27">2008-03-27</time>
+    <span itemprop="title">Priority to US12/056,686</span>
+    <span itemprop="type">priority</span>
+    
+    
+    
+    <span itemprop="documentId">patent/US8060350B2/en</span>
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2008-03-27">2008-03-27</time>
+    <span itemprop="title">Assigned to UNITED STATES OF AMERICA AS REPRESENTED BY THE ADMINISTRATOR OF THE NATIONAL AERONAUTICS AND SPACE ADMINISTRATION</span>
+    <span itemprop="type">reassignment</span>
+    
+    
+    
+    
+    <span itemprop="assigneeSearch">UNITED STATES OF AMERICA AS REPRESENTED BY THE ADMINISTRATOR OF THE NATIONAL AERONAUTICS AND SPACE ADMINISTRATION</span>
+    
+    
+    <span itemprop="description" repeat>ASSIGNMENT OF ASSIGNORS INTEREST (SEE DOCUMENT FOR DETAILS).</span>
+    
+    <span itemprop="description" repeat>Assignors: SILVA, WALTER A.</span>
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2008-10-02">2008-10-02</time>
+    <span itemprop="title">Publication of US20080243448A1</span>
+    <span itemprop="type">publication</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    <span itemprop="documentId">patent/US20080243448A1/en</span>
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2011-11-15">2011-11-15</time>
+    <span itemprop="title">Application granted</span>
+    <span itemprop="type">granted</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2011-11-15">2011-11-15</time>
+    <span itemprop="title">Publication of US8060350B2</span>
+    <span itemprop="type">publication</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    <span itemprop="documentId">patent/US8060350B2/en</span>
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2019-11-25">2019-11-25</time>
+    <span itemprop="title">Application status is Active</span>
+    <span itemprop="type">legal-status</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2030-03-04">2030-03-04</time>
+    <span itemprop="title">Adjusted expiration</span>
+    <span itemprop="type">legal-status</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+
+  <h2>Links</h2>
+
+  <ul>
+    
+          <li itemprop="links" itemscope repeat>
+            <meta itemprop="id" content="usptoLink">
+            <a href="http://patft.uspto.gov/netacgi/nph-Parser?Sect1=PTO1&Sect2=HITOFF&p=1&u=/netahtml/PTO/srchnum.html&r=1&f=G&l=50&d=PALL&s1=8060350.PN." itemprop="url" target="_blank"><span itemprop="text">USPTO</span></a>
+          </li>
+        <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="usptoAssignmentLink">
+          <a href="https://assignment.uspto.gov/patent/index.html#/patent/search/resultFilter?searchInput=8060350" itemprop="url" target="_blank"><span itemprop="text">USPTO Assignment</span></a>
+        </li>
+
+    <li itemprop="links" itemscope repeat>
+        <meta itemprop="id" content="espacenetLink">
+        <a href="http://worldwide.espacenet.com/publicationDetails/biblio?CC=US&amp;NR=8060350B2&amp;KC=B2&amp;FT=D" itemprop="url" target="_blank"><span itemprop="text">Espacenet</span></a>
+      </li>
+      
+
+    
+
+    
+      <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="globalDossierLink">
+          <a href="http://globaldossier.uspto.gov/#/result/patent/US/8060350/1" itemprop="url" target="_blank"><span itemprop="text">Global Dossier</span></a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="stackexchangeLink">
+          <a href="https://patents.stackexchange.com/questions/tagged/US8060350" itemprop="url"><span itemprop="text">Discuss</span></a>
+        </li>
+      
+  </ul>
+
+  
+  <ul itemprop="concept" itemscope>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000003068</span>
+      <span itemprop="name">static</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>abstract</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">25</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000003993</span>
+      <span itemprop="name">interaction</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>abstract</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">22</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000004044</span>
+      <span itemprop="name">response</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>abstract</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">20</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000000737</span>
+      <span itemprop="name">periodic</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>abstract</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">17</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000000034</span>
+      <span itemprop="name">methods</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">30</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000004422</span>
+      <span itemprop="name">calculation algorithm</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">5</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001172</span>
+      <span itemprop="name">regenerating</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="count">5</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000008929</span>
+      <span itemprop="name">regeneration</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000006073</span>
+      <span itemprop="name">displacement</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">9</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000006243</span>
+      <span itemprop="name">chemical reaction</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">4</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000010006</span>
+      <span itemprop="name">flight</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">4</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000004458</span>
+      <span itemprop="name">analytical methods</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000000463</span>
+      <span itemprop="name">materials</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000005457</span>
+      <span itemprop="name">optimization</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000002829</span>
+      <span itemprop="name">reduced</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000002004</span>
+      <span itemprop="name">ayurvedic oil</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000000875</span>
+      <span itemprop="name">corresponding</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000018109</span>
+      <span itemprop="name">developmental process</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000000686</span>
+      <span itemprop="name">essences</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000004048</span>
+      <span itemprop="name">modification</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000006011</span>
+      <span itemprop="name">modification</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001603</span>
+      <span itemprop="name">reducing</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000006722</span>
+      <span itemprop="name">reduction reaction</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000003252</span>
+      <span itemprop="name">repetitive</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000002104</span>
+      <span itemprop="name">routine</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+  </ul>
+  
+
+  <section>
+    <h2>Images</h2>
+    <ul>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/b6/66/d7/37d6bbe9090640/US08060350-20111115-D00000.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/ae/79/3f/4abbf85f0cf79b/US08060350-20111115-D00000.png">
+        <ul>
+          <li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="10">
+            <meta itemprop="label" content="structural model">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="781">
+              <meta itemprop="top" content="76">
+              <meta itemprop="right" content="860">
+              <meta itemprop="bottom" content="129">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="11">
+            <meta itemprop="label" content="space form converter">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1549">
+              <meta itemprop="top" content="53">
+              <meta itemprop="right" content="1619">
+              <meta itemprop="bottom" content="106">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="12">
+            <meta itemprop="label" content="displacement information">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="2097">
+              <meta itemprop="top" content="687">
+              <meta itemprop="right" content="2169">
+              <meta itemprop="bottom" content="742">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="12">
+            <meta itemprop="label" content="displacement information">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1952">
+              <meta itemprop="top" content="1178">
+              <meta itemprop="right" content="2025">
+              <meta itemprop="bottom" content="1242">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="20">
+            <meta itemprop="label" content="aerodynamic model">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1151">
+              <meta itemprop="top" content="574">
+              <meta itemprop="right" content="1241">
+              <meta itemprop="bottom" content="629">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="30">
+            <meta itemprop="label" content="orthogonal functions">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1275">
+              <meta itemprop="top" content="956">
+              <meta itemprop="right" content="1360">
+              <meta itemprop="bottom" content="1007">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="32">
+            <meta itemprop="label" content="aerodynamic responses">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="627">
+              <meta itemprop="top" content="570">
+              <meta itemprop="right" content="709">
+              <meta itemprop="bottom" content="652">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="40">
+            <meta itemprop="label" content="conversion process">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="640">
+              <meta itemprop="top" content="1060">
+              <meta itemprop="right" content="719">
+              <meta itemprop="bottom" content="1113">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="50">
+            <meta itemprop="label" content="space model">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1338">
+              <meta itemprop="top" content="1443">
+              <meta itemprop="right" content="1422">
+              <meta itemprop="bottom" content="1500">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="52">
+            <meta itemprop="label" content="aeroelastic responses">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="542">
+              <meta itemprop="top" content="451">
+              <meta itemprop="right" content="614">
+              <meta itemprop="bottom" content="506">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="54">
+            <meta itemprop="label" content="aerodynamic offsets">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="476">
+              <meta itemprop="top" content="1091">
+              <meta itemprop="right" content="555">
+              <meta itemprop="bottom" content="1152">
+            </span>
+          </li>
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/c7/85/d3/a11c8dd18a668e/US08060350-20111115-D00001.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/c2/a4/8c/b15cc3f8b6924d/US08060350-20111115-D00001.png">
+        <ul>
+          <li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="10">
+            <meta itemprop="label" content="structural model">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="98">
+              <meta itemprop="top" content="787">
+              <meta itemprop="right" content="172">
+              <meta itemprop="bottom" content="858">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="20">
+            <meta itemprop="label" content="aerodynamic model">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1376">
+              <meta itemprop="top" content="793">
+              <meta itemprop="right" content="1452">
+              <meta itemprop="bottom" content="871">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="22">
+            <meta itemprop="label" content="aerodynamic response">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="596">
+              <meta itemprop="top" content="1678">
+              <meta itemprop="right" content="649">
+              <meta itemprop="bottom" content="1742">
+            </span>
+          </li>
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/f6/87/31/85b4a05b62a4fc/US08060350-20111115-D00002.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/5a/b6/bb/5ef0294dfb701a/US08060350-20111115-D00002.png">
+        <ul>
+          <li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="2">
+            <meta itemprop="id" content="20">
+            <meta itemprop="label" content="aerodynamic model">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="596">
+              <meta itemprop="top" content="1340">
+              <meta itemprop="right" content="680">
+              <meta itemprop="bottom" content="1412">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="2">
+            <meta itemprop="id" content="30">
+            <meta itemprop="label" content="orthogonal functions">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="982">
+              <meta itemprop="top" content="1218">
+              <meta itemprop="right" content="1059">
+              <meta itemprop="bottom" content="1295">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="2">
+            <meta itemprop="id" content="32">
+            <meta itemprop="label" content="aerodynamic responses">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="601">
+              <meta itemprop="top" content="1862">
+              <meta itemprop="right" content="684">
+              <meta itemprop="bottom" content="1945">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="2">
+            <meta itemprop="id" content="54">
+            <meta itemprop="label" content="aerodynamic offsets">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1115">
+              <meta itemprop="top" content="2013">
+              <meta itemprop="right" content="1178">
+              <meta itemprop="bottom" content="2107">
+            </span>
+          </li>
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/80/c1/26/25d6732e113874/US08060350-20111115-D00003.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/15/54/cc/f5641cfc768ad8/US08060350-20111115-D00003.png">
+        <ul>
+          
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/6d/5f/7e/6c5f44903249c1/US08060350-20111115-D00004.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/bb/3d/7f/681babb37c63da/US08060350-20111115-D00004.png">
+        <ul>
+          
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/cc/4b/fd/9148ad3a14fc7c/US08060350-20111115-D00005.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/dd/36/b4/643a8da7c796bf/US08060350-20111115-D00005.png">
+        <ul>
+          
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/5a/07/b0/0791f05fbef09d/US08060350-20111115-D00006.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/29/2a/58/7137a8d8a8e04b/US08060350-20111115-D00006.png">
+        <ul>
+          <li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="6">
+            <meta itemprop="id" content="20">
+            <meta itemprop="label" content="aerodynamic model">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="915">
+              <meta itemprop="top" content="662">
+              <meta itemprop="right" content="961">
+              <meta itemprop="bottom" content="717">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="6">
+            <meta itemprop="id" content="30">
+            <meta itemprop="label" content="orthogonal functions">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="972">
+              <meta itemprop="top" content="1073">
+              <meta itemprop="right" content="1023">
+              <meta itemprop="bottom" content="1134">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="6">
+            <meta itemprop="id" content="32">
+            <meta itemprop="label" content="aerodynamic responses">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="638">
+              <meta itemprop="top" content="1706">
+              <meta itemprop="right" content="688">
+              <meta itemprop="bottom" content="1766">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="6">
+            <meta itemprop="id" content="50">
+            <meta itemprop="label" content="space model">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1422">
+              <meta itemprop="top" content="1055">
+              <meta itemprop="right" content="1502">
+              <meta itemprop="bottom" content="1124">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="6">
+            <meta itemprop="id" content="52">
+            <meta itemprop="label" content="aeroelastic responses">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="502">
+              <meta itemprop="top" content="1831">
+              <meta itemprop="right" content="556">
+              <meta itemprop="bottom" content="1910">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="6">
+            <meta itemprop="id" content="60">
+            <meta itemprop="label" content="provisional application">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1767">
+              <meta itemprop="top" content="1550">
+              <meta itemprop="right" content="1844">
+              <meta itemprop="bottom" content="1627">
+            </span>
+          </li>
+        </ul>
+      </li>
+      </ul>
+  </section>
+
+  <section>
+    <h2>Classifications</h2>
+    
+    <ul>
+      <li>
+        <ul itemprop="cpcs" itemscope repeat>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G</span>&mdash;<span itemprop="Description">PHYSICS</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06</span>&mdash;<span itemprop="Description">COMPUTING; CALCULATING; COUNTING</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06F</span>&mdash;<span itemprop="Description">ELECTRIC DIGITAL DATA PROCESSING</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06F17/00</span>&mdash;<span itemprop="Description">Digital computing or data processing equipment or methods, specially adapted for specific functions</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06F17/50</span>&mdash;<span itemprop="Description">Computer-aided design</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06F17/5009</span>&mdash;<span itemprop="Description">Computer-aided design using simulation</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06F17/5018</span>&mdash;<span itemprop="Description">Computer-aided design using simulation using finite difference methods or finite element methods</span>
+            <meta itemprop="Leaf" content="true">
+            
+            <meta itemprop="FirstCode" content="true">
+          </li>
+          </ul>
+      </li>
+      <li>
+        <ul itemprop="cpcs" itemscope repeat>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G</span>&mdash;<span itemprop="Description">PHYSICS</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06</span>&mdash;<span itemprop="Description">COMPUTING; CALCULATING; COUNTING</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06F</span>&mdash;<span itemprop="Description">ELECTRIC DIGITAL DATA PROCESSING</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06F2217/00</span>&mdash;<span itemprop="Description">Indexing scheme relating to computer aided design [CAD]</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06F2217/16</span>&mdash;<span itemprop="Description">Numerical modeling</span>
+            <meta itemprop="Leaf" content="true">
+            <meta itemprop="Additional" content="true">
+            
+          </li>
+          </ul>
+      </li>
+      </ul>
+  </section>
+
+  <section itemprop="abstract" itemscope>
+    <h2>Abstract</h2>
+    
+    <div itemprop="content" html><abstract mxw-id="PA88057525" lang="EN" load-source="patent-office">
+    <div num="p-0001" class="abstract">Computational aeroelastic analyses typically use a mathematical model for the structural modes of a flexible structure and a nonlinear aerodynamic model that can generate a plurality of unsteady aerodynamic responses based on the structural modes for conditions defining an aerodynamic condition of the flexible structure. In the present invention, a linear state-space model is generated using a single execution of the nonlinear aerodynamic model for all of the structural modes where a family of orthogonal functions is used as the inputs. Then, static and dynamic aeroelastic solutions are generated using computational interaction between the mathematical model and the linear state-space model for a plurality of periodic points in time.</div>
+  </abstract>
+  </div>
+  </section>
+
+  <section itemprop="description" itemscope>
+    <h2>Description</h2>
+    
+    <div itemprop="content" html><div mxw-id="PDES44113010" lang="EN" load-source="patent-office" class="description">
+    
+    <p num="p-0002">Pursuant to 35 U.S.C. §119, the benefit of priority from provisional application 60/908,769, with a filing date of Mar. 29, 2007, is claimed for this non-provisional application.</p>
+    
+    
+    <heading>ORIGIN OF THE INVENTION</heading>
+    <p num="p-0003">This invention was made by an employee of the United States Government and may be manufactured and used by or for the Government of the United States of America for governmental purposes without the payment of any royalties thereon or therefor.</p>
+    
+    
+    <heading>BACKGROUND OF THE INVENTION</heading>
+    <p num="p-0004">1. Field of the Invention</p>
+    <p num="p-0005">This invention relates to computational aeroelastic analyses. More specifically, the invention is a method for performing computational aeroelastic analyses using linear state-space models.</p>
+    <p num="p-0006">2. Description of the Related Art</p>
+    <p num="p-0007">When designing aerodynamic structures, it is important to understand if and under what aerodynamic conditions the structure will be stable and unstable. This is especially true if a structure is inherently flexible (e.g., a wing) such that unstable operation thereof leads to oscillations of the structure until failure occurs. Accordingly, the field of aeroelastics examines the interaction between a flexible structure and the unsteady aerodynamics generated by the structure. Since structure design generally includes performance predictions, it is necessary to predict the aeroelasticity of a particular design. To do this, computational aeroelastic methods are used to numerically simulate an aeroelastic process using computational techniques. In general, the computational techniques include the use of a mathematical model of the structure and an aerodynamic model of aerodynamic conditions of the structure.</p>
+    <p num="p-0008">Referring now to <figref idrefs="DRAWINGS">FIG. 1</figref>, traditional computational aeroelastic analyses use Computational Fluid Dynamics (CFD) codes that require the coupled feedback interaction of a linear structural model <b>10</b> and a nonlinear aerodynamic model <b>20</b> (i.e., the CFD code). This coupled feedback interaction consists of information <b>12</b> (e.g., structural modes such as displacements or deflections in the case of flexible structures) from structural model <b>10</b> being passed to nonlinear aerodynamic model <b>20</b>. For a flexible aerodynamic structure such as a wing, information <b>12</b> from structural model <b>10</b> consists of the physical displacements of the structure due to an aerodynamic force. This physical displacement information is supplied to nonlinear aerodynamic model <b>20</b> in order to compute an aerodynamic response or force <b>22</b> induced by this structural displacement. The computed aerodynamic response <b>22</b> is then fed back to structural model <b>10</b> to compute new displacement information <b>12</b>. This exchange of information repeats at each time step of a numerical solution and this coupled feedback interaction takes place wholly within the aeroelastic CFD code.</p>
+    <p num="p-0009">Nonlinear aerodynamic model <b>20</b> is significantly more complicated than linear structural model <b>10</b>. Therefore, the computational efficiency of the coupled feedback interaction process is driven by the large computational expense of the nonlinear aerodynamic system defined by the CFD code. As a result, traditional computational aeroelastic analyses are very time-consuming and computationally expensive. The output from the repetitive feedback process described above are time histories of the response of the structure at a given flight condition. The output time histories indicate the level of stability (or instability) of the structure&#39;s configuration being analyzed at a given flight condition. Stability (instability) is determined by the convergence (divergence) of the time histories. By changing the flight condition and repeating this analysis as necessary, the region of the flight envelope where the configuration is safe (stable) or unsafe (unstable) is defined. Clearly, computation of the stability/instability boundary (i.e., also known as flutter) becomes very expensive and time-consuming since the above-mentioned process must be repeated at several conditions.</p>
+    <p num="p-0010">In addition, the output time histories are in a form that is not suitable for use by other structure-design disciplines such as controls or optimization. These disciplines have a very specific requirement for the types of mathematical models that can be analyzed. However, the output time histories from the traditional computational aeroelastic analyses are not in that form. Thus, the value of the information generated by traditional computational aeroelastic analyses is limited in that it cannot be readily utilized by other disciplines involved in the overall vehicle design process.</p>
+    <heading>SUMMARY OF THE INVENTION</heading>
+    <p num="p-0011">Accordingly, it is an object of the present invention to provide a method of performing computational aeroelastic analyses.</p>
+    <p num="p-0012">Another object of the present invention is to provide a computationally-efficient method of performing aeroelastic analyses that reduces the amount of time it takes to generate an aeroelastic solution.</p>
+    <p num="p-0013">Still another object of the present invention is to provide a method of performing aeroelastic analyses in order to generate an aeroelastic solution that is in a form suitable for use by other disciplines in the aerodynamic structure design process.</p>
+    <p num="p-0014">Other objects and advantages of the present invention will become more obvious hereinafter in the specification and drawings.</p>
+    <p num="p-0015">In accordance with the present invention, a method is provided for performing aeroelastic analyses. The method uses a mathematical model for a plurality of structural modes of a flexible structure, and a nonlinear aerodynamic model that can generate a plurality of unsteady aerodynamic responses based on the structural modes for conditions defining an aerodynamic condition of the flexible structure. A linear state-space model is generated using a single execution of the nonlinear aerodynamic model for all of the structural modes. This single execution of the nonlinear aerodynamic model is carried out using a family of orthogonal functions as inputs thereto. Then, static and dynamic aeroelastic solutions are generated using computational interaction between the mathematical model and the linear state-space model for a plurality of periodic points in time.</p>
+    
+    
+    <description-of-drawings>
+      <heading>BRIEF DESCRIPTION OF THE DRAWINGS</heading>
+      <p num="p-0016"> <figref idrefs="DRAWINGS">FIG. 1</figref> is a simplified graphic depiction of a conventional computational aeroelastic process for a flexible structure;</p>
+      <p num="p-0017"> <figref idrefs="DRAWINGS">FIG. 2</figref> is a graphic depiction of a method of performing computational aeroelastic analyses for a flexible structure in accordance with an embodiment of the present invention;</p>
+      <p num="p-0018"> <figref idrefs="DRAWINGS">FIG. 3</figref> illustrates a set of orthogonal block pulse functions;</p>
+      <p num="p-0019"> <figref idrefs="DRAWINGS">FIG. 4</figref> illustrates a set of orthogonal Haar functions;</p>
+      <p num="p-0020"> <figref idrefs="DRAWINGS">FIG. 5</figref> illustrates a set of orthogonal Walsh functions; and</p>
+      <p num="p-0021"> <figref idrefs="DRAWINGS">FIG. 6</figref> is a graphic depiction of a method of performing computational aeroelastic analyses in accordance with another embodiment of the present invention.</p>
+    </description-of-drawings>
+    
+    
+    <heading>DETAILED DESCRIPTION OF THE INVENTION</heading>
+    <p num="p-0022">Referring again to the drawings and more particularly to <figref idrefs="DRAWINGS">FIG. 2</figref>, a method of performing computational aeroelastic analyses in accordance with an embodiment of the present invention is illustrated graphically. The attributes of this novel method that are the same as the traditional method (<figref idrefs="DRAWINGS">FIG. 1</figref>) will be referred to using common reference numerals. This new method can be applied to any flexible structure that can be modeled in terms of its various structural modes or displacement characteristics. For example, the present invention can be used to perform computational aeroelastic analyses on a variety of flexible aerodynamic structures such as wings, fuselages, and tail components.</p>
+    <p num="p-0023">Similar to traditional computational aeroelastic analyses methods, the present invention uses a structural model <b>10</b> that is a mathematical model describing the various structural modes for a flexible structure of interest. More specifically, structural model <b>10</b> provides an aeroelastic model that can be used within and by the analyses&#39; aerodynamic model. For example, if the aerodynamic model is a “computational fluid dynamics” (CFD) code, structural model <b>10</b> will include a CFD grid and structural mode shape information as is known in the art. During any given time step of the process illustrated in <figref idrefs="DRAWINGS">FIG. 2</figref>, structural model <b>10</b> presents displacement information <b>12</b> that describes a structural mode shape in terms of the CFD grid.</p>
+    <p num="p-0024">In accordance with the present invention, all of the structural modes defined by structural model <b>10</b> are initially provided to a nonlinear aerodynamic model <b>20</b> that can be (and typically is) a CFD code. A well known and proven example of a CFD code is the CFL3D code developed by the National Aeronautics and Space Administration (NASA). This CFD code is available from NASA Langley Research Center, Hampton, Va.</p>
+    <p num="p-0025">The present invention requires and performs only a single execution of model <b>20</b> for all of the structural modes of structural model <b>10</b>. All of the structural modes are excited simultaneously using inputs that are defined by a family of orthogonal functions <b>30</b>. From a mathematical perspective, two functions are considered to be orthogonal when the waveforms or signals associated therewith are as different or independent from one another as possible. Three types of functions that can be used in the present invention are the known block pulse functions, Haar functions and Walsh functions. By way of example, <figref idrefs="DRAWINGS">FIG. 3</figref> illustrates a set of four block pulse functions (that would be used to solve a four input problem), <figref idrefs="DRAWINGS">FIG. 4</figref> illustrates a set of four Haar functions, and <figref idrefs="DRAWINGS">FIG. 5</figref> illustrates a set of four Walsh functions.</p>
+    <p num="p-0026">The single execution of model <b>20</b> for all of the structural modes of model <b>10</b> using orthogonal inputs <b>30</b> produces unsteady aerodynamic responses <b>32</b> for all of the structural modes simultaneously. Responses <b>32</b> are provided to a conversion process <b>40</b> that transforms responses <b>32</b> to a linear model <b>50</b> in state-space form. The state-space form is a well-known reduced-order model form that is also used by other aerodynamic design disciplines to include the controls and optimization disciplines. In the present invention, linear state-space model <b>50</b> is a simplified mathematical model that represents unsteady aerodynamic responses <b>32</b> extracted from nonlinear aerodynamic model <b>20</b>. In other words, state-space model <b>50</b> has the characteristics of nonlinear aerodynamic model <b>20</b>. However, by its very nature, linear state-space model <b>50</b> generated by conversion process <b>40</b> is significantly less complex than nonlinear aerodynamic model <b>20</b>.</p>
+    <p num="p-0027">Conversion process <b>40</b> can be implemented using a variety of routines known to those skilled in the art. For example conversion process <b>40</b> can be realized using the Eigensystem Realization Algorithm (ERA). See Juang et al., “An Eigensystem Realization Algorithm for Model Parameter Identification and Model Reduction,” Journal of Guidance, Control, and Dynamics, Vol. 8, 1985, pp. 620-627. In terms of executable computer code, the ERA is a subroutine of the MATLAB software package available commercially from The Math Works, Inc., Natick, Mass. Briefly, the ERA is a routine used to create a linear math model of a system if the inputs and corresponding outputs of the system are known.</p>
+    <p num="p-0028">The present invention next applies the traditional computational feedback interaction process using structural model <b>10</b> and linear state-space model <b>50</b> in order to generate static and dynamic aeroelastic solutions. A well known platform/environment for carrying out this process is the MATLAB/SIMULINK environment, also available commercially from The Math Works, Inc. It is to be understood that other software tools could also be used to carry out the feedback process without departing from the scope of the present invention. Since the MATLAB/SIMULINK environment uses the mathematical state-space definition of systems to perform simulations and analyses, it is a good choice to use with linear state-space model <b>50</b>. This feedback process is illustrated in <figref idrefs="DRAWINGS">FIG. 2</figref> by the outermost “circle” of events. As would be understood in the art, this feedback process runs over a plurality of time steps to arrive at aeroelastic solutions.</p>
+    <p num="p-0029">Referring still to <figref idrefs="DRAWINGS">FIG. 2</figref>, structural model <b>10</b> should be in a state-space form in order to be compatible with linear state-space model <b>50</b>. If structural model <b>10</b> is not in state-space form, it is necessary to apply a state-space form converter <b>11</b> to structural model <b>10</b>. Methods for putting structural model <b>10</b> in a state-space form are well known in the art. The resulting displacement information <b>12</b>′ in state-space form is passed to linear state-space model <b>50</b>.</p>
+    <p num="p-0030">The linear nature of both displacement information <b>121</b> and model <b>50</b> allows the resulting aeroelastic responses <b>52</b> to be generated much faster than an execution of nonlinear aerodynamic model <b>20</b>. Aeroelastic responses <b>52</b> are then passed to structural model <b>10</b> where the process repeats itself. As mentioned above, the process repeats for a number of time steps until the resulting static and dynamic aeroelastic solutions indicate system stability or instability. Solution times are greatly reduced in the present invention as substantial computational efficiencies result from using linear state-space model <b>50</b>. At the same time, since linear state-space model <b>50</b> captures the essence of the computationally-inefficient nonlinear aerodynamic model <b>20</b>, results generated by the present invention are similar to those generated by the traditional computational feedback interaction process that relies solely on nonlinear aerodynamic model <b>20</b>. Furthermore, the resulting aeroelastic solutions are in state-space form and are, therefore, in a form that is readily usable by other aerodynamic control disciplines.</p>
+    <p num="p-0031">The computational speed/efficiency of the present invention can be further enhanced by the provision of predetermined aerodynamic offsets <b>54</b>. Offsets <b>54</b> are predetermined values indicative of an aerodynamic load that would result if the structure of interest were a rigid body. In other words, offsets <b>54</b> essentially define the aerodynamic load on a rigid or non-flexible embodiment of the structure. The determination of such offsets/values is well understood in the art. By starting the feedback process with rigid aerodynamic load values, the actual aeroelastic (i.e., flexible structure) static response solution will be representative of the true physical deformation of the structure. Often, in an aeroelastic analysis process, either static aeroelastic solutions or static plus dynamic aeroelastic solutions are desired. Due to the innovation of using the rigid aerodynamic offsets, the present invention can be used to provide either static aeroelastic solutions or static plus dynamic aeroelastic solutions. This is a new capability for aeroelastic analyses using state-space models.</p>
+    <p num="p-0032">The present invention also provides the basis for additional computational advantages. In particular, the present invention can be expanded to provide what are known as matched-point solutions, i.e., new aeroelastic solutions for changes in velocity. To do this, the above-described process is repeated for different time step spacings or periods. More specifically and with reference to <figref idrefs="DRAWINGS">FIG. 6</figref>, after the above-described process is used to generate aeroelastic solutions for a given time step period Δt<sub>1</sub>, the time step period Δt is changed at <b>60</b> and a new aeroelastic solution set is generated by the outermost “circle” of events described above. Note that the time step must be changed for both linear state-space model <b>50</b> and the state-space form of structural model <b>10</b> since both models must run in the same time step. Thus, the present invention can also be used to generate matched-point solution sets with only a single execution of nonlinear aerodynamic model <b>20</b>.</p>
+    <p num="p-0033">Additional discussion of the present invention is provided in Walter A. Silva, “Simultaneous Excitation of Multiple-Input Multiple-Output CFD-Based Unsteady Aerodynamic Systems,” 48<sup>th </sup>AIAA/ASME/ASCE/AHS/ASC Structures, Structural Dynamics, and Materials Conference, AIAA 2007-1988; and Walter A. Silva, “Recent Enhancements to the Development of CFD-Based Aeroelastic Reduced-Order Models,” 48<sup>th </sup>AIAA/ASME/ASCE/AHS/ASC Structures, Structural Dynamics, and materials Conference, AIAA 2007-2051, both herein incorporated by reference in their entirety.</p>
+    <p num="p-0034">The advantages of the present invention are numerous. The time required to generate static and dynamic aeroelastic solutions to computational aeroelastic analyses is drastically reduced from hours/days to minutes/hours. The generated aeroelastic solutions are in a state-space form that is compatible with the form of data used by other aerodynamic design disciplines, thereby making the overall aerodynamic design process more efficient when the present invention is used therewith.</p>
+    <p num="p-0035">Although the invention has been described relative to a specific embodiment thereof, there are numerous variations and modifications that will be readily apparent to those skilled in the art in light of the above teachings. It is therefore to be understood that, within the scope of the appended claims, the invention may be practiced other than as specifically described.</p>
+    
+  </div>
+  </div>
+  </section>
+
+  <section itemprop="claims" itemscope>
+    <h2>Claims (<span itemprop="count">27</span>)</h2>
+    
+    <div itemprop="content" html><div mxw-id="PCLM38579880" lang="EN" load-source="patent-office" class="claims">
+    <div class="claim"> <div id="CLM-00001" num="00001" class="claim">
+      <div class="claim-text">1. A method of performing aeroelastic analyses, comprising the steps of:
+<div class="claim-text">providing a mathematical model for a plurality of structural modes of a flexible structure;</div>
+<div class="claim-text">providing a nonlinear aerodynamic model for generating a plurality of unsteady aerodynamic responses based on said plurality of structural modes for conditions defining an aerodynamic condition of said flexible structure;</div>
+<div class="claim-text">performing a single execution of said nonlinear aerodynamic model for said plurality of structural modes using a family of orthogonal functions as inputs thereto;</div>
+<div class="claim-text">converting said plurality of unsteady aerodynamic responses generated during said step of performing to a linear state-space model; and</div>
+<div class="claim-text">generating static and dynamic aeroelastic solutions using computational interaction between said mathematical model and said linear state-space model for a plurality of periodic points in time.</div>
+</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00002" num="00002" class="claim">
+      <div class="claim-text">2. A method of performing aeroelastic analyses according to <claim-ref idref="CLM-00001">claim 1</claim-ref>, wherein said generation of static and dynamic aeroelastic solutions comprises rigid aerodynamic offsets.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00003" num="00003" class="claim">
+      <div class="claim-text">3. A method of performing aeroelastic analyses according to <claim-ref idref="CLM-00001">claim 1</claim-ref>, further comprising the steps of:
+<div class="claim-text">changing a period for said plurality of periodic points in time; and</div>
+<div class="claim-text">regenerating static and dynamic aeroelastic solutions using computational interaction between said mathematical model and said linear state-space model for said plurality of periodic points in time so-changed in terms of said period thereof.</div>
+</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00004" num="00004" class="claim">
+      <div class="claim-text">4. A method of performing aeroelastic analyses according to <claim-ref idref="CLM-00001">claim 1</claim-ref>, wherein said family of orthogonal functions is selected from the group consisting of block pulse functions, Haar functions, and Walsh functions.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00005" num="00005" class="claim">
+      <div class="claim-text">5. A method of performing aeroelastic analyses according to <claim-ref idref="CLM-00001">claim 1</claim-ref>, wherein said nonlinear aerodynamic model is a computational fluid dynamics code.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00006" num="00006" class="claim">
+      <div class="claim-text">6. A method of performing aeroelastic analyses according to <claim-ref idref="CLM-00001">claim 1</claim-ref>, wherein said step of converting is performed using an Eigensystem Realization Algorithm.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00007" num="00007" class="claim">
+      <div class="claim-text">7. A method of performing aeroelastic analyses according to <claim-ref idref="CLM-00001">claim 1</claim-ref>, wherein said computational interaction comprises a feedback process.</div>
+    </div>
+    </div> <div class="claim"> <div id="CLM-00008" num="00008" class="claim">
+      <div class="claim-text">8. A method of performing aeroelastic analyses, comprising the steps of:
+<div class="claim-text">providing a mathematical model for a plurality of structural modes of a flexible structure;</div>
+<div class="claim-text">providing a nonlinear aerodynamic model for generating a plurality of unsteady aerodynamic responses based on said plurality of structural modes for conditions defining an aerodynamic condition of said flexible structure;</div>
+<div class="claim-text">generating a linear state-space model using a single execution of said nonlinear aerodynamic model for said plurality of structural modes, said single execution of said nonlinear aerodynamic model using a family of orthogonal functions as inputs thereto; and</div>
+<div class="claim-text">generating static and dynamic aeroelastic solutions using computational interaction between said mathematical model and said linear state-space model for a plurality of periodic points in time.</div>
+</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00009" num="00009" class="claim">
+      <div class="claim-text">9. A method of performing aeroelastic analyses according to <claim-ref idref="CLM-00008">claim 8</claim-ref>, wherein said generation of static and dynamic aeroelastic solutions comprises rigid aerodynamic offsets.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00010" num="00010" class="claim">
+      <div class="claim-text">10. A method of performing aeroelastic analyses according to <claim-ref idref="CLM-00008">claim 8</claim-ref>, further comprising the steps of:
+<div class="claim-text">changing a period for said plurality of periodic points in time; and</div>
+<div class="claim-text">regenerating static and dynamic aeroelastic solutions using computational interaction between said mathematical model and said linear state-space model for said plurality of periodic points in time so-changed in terms of said period thereof.</div>
+</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00011" num="00011" class="claim">
+      <div class="claim-text">11. A method of performing aeroelastic analyses according to <claim-ref idref="CLM-00008">claim 8</claim-ref>, wherein said family of orthogonal functions is selected from the group consisting of block pulse functions, Haar functions, and Walsh functions.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00012" num="00012" class="claim">
+      <div class="claim-text">12. A method of performing aeroelastic analyses according to <claim-ref idref="CLM-00008">claim 8</claim-ref>, wherein said nonlinear aerodynamic model is a computational fluid dynamics code.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00013" num="00013" class="claim">
+      <div class="claim-text">13. A method of performing aeroelastic analyses according to <claim-ref idref="CLM-00008">claim 8</claim-ref>, wherein said computational interaction comprises a feedback process.</div>
+    </div>
+    </div> <div class="claim"> <div id="CLM-00014" num="00014" class="claim">
+      <div class="claim-text">14. A method of performing aeroelastic analyses, comprising the steps of:
+<div class="claim-text">providing a mathematical model for a plurality of structural modes of a flexible structure;</div>
+<div class="claim-text">providing a nonlinear aerodynamic model for generating a plurality of unsteady aerodynamic responses based on said plurality of structural modes for conditions defining an aerodynamic condition of said flexible structure;</div>
+<div class="claim-text">performing a single execution of said nonlinear aerodynamic model for said plurality of structural modes using a family of orthogonal functions as inputs thereto, wherein said family of orthogonal functions is selected from the group consisting of block pulse functions, Haar functions, and Walsh functions;</div>
+<div class="claim-text">converting said plurality of unsteady aerodynamic responses generated during said step of performing to a linear state-space model;</div>
+<div class="claim-text">generating static and dynamic aeroelastic solutions using computational feedback interaction between said mathematical model and said linear state-space model for a plurality of periodic points in time;</div>
+<div class="claim-text">changing a period for said plurality of periodic points in time; and</div>
+<div class="claim-text">regenerating static and dynamic aeroelastic solutions using computational feedback interaction between said mathematical model and said linear state-space model for said plurality of periodic points in time so-changed in terms of said period thereof.</div>
+</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00015" num="00015" class="claim">
+      <div class="claim-text">15. A method of performing aeroelastic analyses according to <claim-ref idref="CLM-00014">claim 14</claim-ref>, wherein said generation and regeneration of static and dynamic aeroelastic solutions comprises rigid aerodynamic offsets.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00016" num="00016" class="claim">
+      <div class="claim-text">16. A method of performing aeroelastic analyses according to <claim-ref idref="CLM-00014">claim 14</claim-ref>, wherein said nonlinear aerodynamic model is a computational fluid dynamics code.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00017" num="00017" class="claim">
+      <div class="claim-text">17. A method of performing aeroelastic analyses according to <claim-ref idref="CLM-00014">claim 14</claim-ref>, wherein said step of converting is performed using an Eigensystem Realization Algorithm.</div>
+    </div>
+    </div> <div class="claim"> <div id="CLM-00018" num="00018" class="claim">
+      <div class="claim-text">18. A method of performing aeroelastic analyses, comprising the steps of:
+<div class="claim-text">providing a mathematical model for a plurality of structural modes of a flexible structure;</div>
+<div class="claim-text">providing a nonlinear aerodynamic model for generating a plurality of unsteady aerodynamic responses based on said plurality of structural modes for conditions defining an aerodynamic condition of said flexible structure;</div>
+<div class="claim-text">generating a linear state-space model using a single execution of said nonlinear aerodynamic model for said plurality of structural modes, said single execution of said nonlinear aerodynamic model using a family of orthogonal functions as inputs thereto, wherein said family of orthogonal functions is selected from the group consisting of block pulse functions, Haar functions, and Walsh functions;</div>
+<div class="claim-text">generating static and dynamic aeroelastic solutions using computational feedback interaction between said mathematical model and said linear state-space model for a plurality of periodic points in time;</div>
+<div class="claim-text">changing a period for said plurality of periodic points in time; and</div>
+<div class="claim-text">regenerating static and dynamic aeroelastic solutions using computational feedback interaction between said mathematical model and said linear state-space model for said plurality of periodic points in time so-changed in terms of said period thereof.</div>
+</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00019" num="00019" class="claim">
+      <div class="claim-text">19. A method of perfoming aeroelastic analyses according to <claim-ref idref="CLM-00018">claim 18</claim-ref>, wherein said generation and regeneration of static and dynamic aeroelastic solutions comprises rigid aerodynamic offsets.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00020" num="00020" class="claim">
+      <div class="claim-text">20. A method of performing aeroelastic analyses according to <claim-ref idref="CLM-00018">claim 18</claim-ref>, wherein said nonlinear aerodynamic model is a computational fluid dynamics code.</div>
+    </div>
+    </div> <div class="claim"> <div id="CLM-00021" num="00021" class="claim">
+      <div class="claim-text">21. A method of performing aeroelastic analyses, comprising the steps of:
+<div class="claim-text">providing a state-space mathematical model for a plurality of structural modes of a flexible structure;</div>
+<div class="claim-text">providing a nonlinear aerodynamic model for generating a plurality of unsteady aerodynamic responses based on said plurality of structural modes for conditions defining an aerodynamic condition of said flexible structure;</div>
+<div class="claim-text">performing a single execution of said nonlinear aerodynamic model for said plurality of structural modes using a family of orthogonal functions as inputs thereto;</div>
+<div class="claim-text">converting said plurality of unsteady aerodynamic responses generated during said step of performing to a linear state-space model; and</div>
+<div class="claim-text">generating state-space static and dynamic aeroelastic solutions using computational interaction between said state-space mathematical model and said linear state-space model for a plurality of periodic points in time.</div>
+</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00022" num="00022" class="claim">
+      <div class="claim-text">22. A method of performing aeroelastic analyses according to <claim-ref idref="CLM-00021">claim 21</claim-ref>, wherein said generation of state-space static and dynamic aeroelastic solutions comprises rigid aerodynamic offsets.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00023" num="00023" class="claim">
+      <div class="claim-text">23. A method of performing aeroelastic analyses according to <claim-ref idref="CLM-00021">claim 21</claim-ref>, further comprising the steps of:
+<div class="claim-text">changing a period for said plurality of periodic points in time; and</div>
+<div class="claim-text">regenerating state-space static and dynamic aeroelastic solutions using computational interaction between said state-space mathematical model and said linear state-space model for said plurality of periodic points in time so-changed in terms of said period thereof.</div>
+</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00024" num="00024" class="claim">
+      <div class="claim-text">24. A method of performing aeroelastic analyses according to <claim-ref idref="CLM-00021">claim 21</claim-ref>, wherein said family of orthogonal functions is selected from the group consisting of block pulse functions, Haar functions, and Walsh functions.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00025" num="00025" class="claim">
+      <div class="claim-text">25. A method of performing aeroelastic analyses according to <claim-ref idref="CLM-00021">claim 21</claim-ref>, wherein said nonlinear aerodynamic model is a computational fluid dynamics code.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00026" num="00026" class="claim">
+      <div class="claim-text">26. A method of performing aeroelastic analyses according to <claim-ref idref="CLM-00021">claim 21</claim-ref>, wherein said step of converting is performed using an Eigensystem Realization Algorithm.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00027" num="00027" class="claim">
+      <div class="claim-text">27. A method of performing aeroelastic analyses according to <claim-ref idref="CLM-00021">claim 21</claim-ref>, wherein said computational interaction comprises a feedback process. </div>
+    </div>
+  </div> </div>
+  </div>
+  </section>
+
+  <section itemprop="application" itemscope>
+
+    <section itemprop="metadata" itemscope>
+        <span itemprop="applicationNumber">US12/056,686</span>
+        <span itemprop="priorityDate">2007-03-29</span>
+        <span itemprop="filingDate">2008-03-27</span>
+        <span itemprop="title">Method of performing computational aeroelastic analyses 
+       </span>
+        <span itemprop="ifiStatus">Active</span>
+        <span itemprop="ifiExpiration">2030-03-04</span>
+        <a href="/patent/US8060350B2/en">
+            <span itemprop="representativePublication">US8060350B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+        </a>
+    </section>
+
+    <h2>Priority Applications (2)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                    <th>Title</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="priorityApps" itemscope repeat>
+                <td>
+                   <span itemprop="applicationNumber">US90876907P</span>
+                   <span itemprop="isUsProvisional">true</span>
+                   
+                <td itemprop="priorityDate">2007-03-29</td>
+                <td itemprop="filingDate">2007-03-29</td>
+                <td itemprop="title"></td>
+              </tr><tr itemprop="priorityApps" itemscope repeat>
+                <td>
+                   <span itemprop="applicationNumber">US12/056,686</span>
+                   
+                   <a href="/patent/US8060350B2/en">
+                        <span itemprop="representativePublication">US8060350B2</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                <td itemprop="priorityDate">2007-03-29</td>
+                <td itemprop="filingDate">2008-03-27</td>
+                <td itemprop="title">Method of performing computational aeroelastic analyses 
+       </td>
+              </tr>
+           </tbody>
+       </table>
+
+    <h2>Applications Claiming Priority (2)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                    <th>Title</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="appsClaimingPriority" itemscope repeat>
+                <td>
+                   <span itemprop="applicationNumber">US12/056,686</span>
+                   <a href="/patent/US8060350B2/en">
+                        <span itemprop="representativePublication">US8060350B2</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                <td itemprop="priorityDate">2007-03-29</td>
+                <td itemprop="filingDate">2008-03-27</td>
+                <td itemprop="title">Method of performing computational aeroelastic analyses 
+       </td>
+              </tr><tr itemprop="appsClaimingPriority" itemscope repeat>
+                <td>
+                   <span itemprop="applicationNumber">PCT/US2008/058541</span>
+                   <a href="/patent/WO2008121747A1/en">
+                        <span itemprop="representativePublication">WO2008121747A1</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                <td itemprop="priorityDate">2007-03-29</td>
+                <td itemprop="filingDate">2008-03-28</td>
+                <td itemprop="title">Method of performing computational aeroelastic analyses 
+       </td>
+              </tr>
+           </tbody>
+       </table>
+
+    
+
+    
+
+    <h2>Publications (2)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Publication Number</th>
+                    <th>Publication Date</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="pubs" itemscope repeat>
+                <td>
+                   <span itemprop="publicationNumber">US20080243448A1</span>
+                   
+                   <a href="/patent/US20080243448A1/en">US20080243448A1
+                       (<span itemprop="primaryLanguage">en</span>)
+                   </a>
+                </td>
+                <td itemprop="publicationDate">2008-10-02</td>
+              </tr><tr itemprop="pubs" itemscope repeat>
+                <td>
+                   <span itemprop="publicationNumber">US8060350B2</span>
+                   
+                   <span itemprop="thisPatent">true</span>
+                   <a href="/patent/US8060350B2/en">US8060350B2
+                       (<span itemprop="primaryLanguage">en</span>)
+                   </a>
+                </td>
+                <td itemprop="publicationDate">2011-11-15</td>
+              </tr>
+           </tbody>
+        </table>
+
+  </section>
+
+  <section itemprop="family" itemscope>
+    <h1>Family</h1>
+    <h2>ID=39795811</h2>
+
+    <h2>Family Applications (1)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Title</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="applications" itemscope repeat>
+                <td>
+                    <span itemprop="applicationNumber">US12/056,686</span>
+                    <span itemprop="ifiStatus">Active</span>
+                    <span itemprop="ifiExpiration">2030-03-04</span>
+                    <a href="/patent/US8060350B2/en">
+                        <span itemprop="representativePublication">US8060350B2</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                </td>
+                <td itemprop="priorityDate">2007-03-29</td>
+                <td itemprop="filingDate">2008-03-27</td>
+                <td itemprop="title">Method of performing computational aeroelastic analyses 
+       </td>
+              </tr>
+           </tbody>
+        </table>
+
+    
+
+    
+
+    <h2>Country Status (2)</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Country</th>
+            <th>Link</th>
+          </tr>
+        </thead>
+        <tbody>
+        <tr itemprop="countryStatus" itemscope repeat>
+            <td>
+              <span itemprop="countryCode">US</span>
+                (<span itemprop="num">1</span>)
+              <meta itemprop="thisCountry" content="true">
+            </td>
+            <td>
+              <a href="/patent/US8060350B2/en">
+                <span itemprop="representativePublication">US8060350B2</span>
+                  (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            </td>
+          </tr><tr itemprop="countryStatus" itemscope repeat>
+            <td>
+              <span itemprop="countryCode">WO</span>
+                (<span itemprop="num">1</span>)
+              
+            </td>
+            <td>
+              <a href="/patent/WO2008121747A1/en">
+                <span itemprop="representativePublication">WO2008121747A1</span>
+                  (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+    <h2>Cited By (1)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US9977848B1/en">
+              <span itemprop="publicationNumber">US9977848B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2014-07-10</td>
+          <td itemprop="publicationDate">2018-05-22</td>
+          <td><span itemprop="assigneeOriginal">The United States Of America As Represented By The Administrator Of The National Aeronautics And Space Administration</span></td>
+          <td itemprop="title">Method and system for predicting rocket nozzle deformation during engine start-up and shut-down transients 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Families Citing this family (4)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US10424787B2/en">
+              <span itemprop="publicationNumber">US10424787B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2013-05-10</td>
+          <td itemprop="publicationDate">2019-09-24</td>
+          <td><span itemprop="assigneeOriginal">Sumitomo Metal Mining Co., Ltd.</span></td>
+          <td itemprop="title">Transition metal composite hydroxide particles and production method thereof, cathode active material for non-aqueous electrolyte rechargeable battery and production method thereof, and nonaqueous electrolyte rechargeable battery 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/CN103886135B/en">
+              <span itemprop="publicationNumber">CN103886135B</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2014-03-03</td>
+          <td itemprop="publicationDate">2017-01-25</td>
+          <td><span itemprop="assigneeOriginal">国家电网公司</span></td>
+          <td itemprop="title">  Power Engineering dimensional numerical model based Method unsteady flow  </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/CN104933268B/en">
+              <span itemprop="publicationNumber">CN104933268B</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2015-07-13</td>
+          <td itemprop="publicationDate">2018-09-04</td>
+          <td><span itemprop="assigneeOriginal">国家电网公司</span></td>
+          <td itemprop="title">A kind of flood risk analysis method based on d Unsteady Water Flow numerical model 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/CN106202643B/en">
+              <span itemprop="publicationNumber">CN106202643B</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2016-06-28</td>
+          <td itemprop="publicationDate">2019-03-26</td>
+          <td><span itemprop="assigneeOriginal">西安航天动力研究所</span></td>
+          <td itemprop="title">A kind of three sections of circular arc primitive bellows analysis methods based on the sequence of variance susceptibility 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Citations (15)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US4475385A/en">
+              <span itemprop="publicationNumber">US4475385A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1983-03-31</td>
+          <td itemprop="publicationDate">1984-10-09</td>
+          <td><span itemprop="assigneeOriginal">The United States Of America As Represented By The Administrator Of The National Aeronautics And Space Administration</span></td>
+          <td itemprop="title">Model mount system for testing flutter 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5199856A/en">
+              <span itemprop="publicationNumber">US5199856A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1989-03-01</td>
+          <td itemprop="publicationDate">1993-04-06</td>
+          <td><span itemprop="assigneeOriginal">Massachusetts Institute Of Technology</span></td>
+          <td itemprop="title">Passive structural and aerodynamic control of compressor surge 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5374011A/en">
+              <span itemprop="publicationNumber">US5374011A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1991-11-13</td>
+          <td itemprop="publicationDate">1994-12-20</td>
+          <td><span itemprop="assigneeOriginal">Massachusetts Institute Of Technology</span></td>
+          <td itemprop="title">Multivariable adaptive surface control 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5819188A/en">
+              <span itemprop="publicationNumber">US5819188A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1995-06-07</td>
+          <td itemprop="publicationDate">1998-10-06</td>
+          <td><span itemprop="assigneeOriginal">Aurora Flight Sciences Corporation</span></td>
+          <td itemprop="title">Fault tolerant automatic control system utilizing analytic redundancy 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5926399A/en">
+              <span itemprop="publicationNumber">US5926399A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1996-03-04</td>
+          <td itemprop="publicationDate">1999-07-20</td>
+          <td><span itemprop="assigneeOriginal">Beam Technologies, Inc.</span></td>
+          <td itemprop="title">Method of predicting change in shape of a solid structure 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6125333A/en">
+              <span itemprop="publicationNumber">US6125333A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1997-11-06</td>
+          <td itemprop="publicationDate">2000-09-26</td>
+          <td><span itemprop="assigneeOriginal">Northrop Grumman Corporation</span></td>
+          <td itemprop="title">Building block approach for fatigue spectra generation 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6216063B1/en">
+              <span itemprop="publicationNumber">US6216063B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1998-05-06</td>
+          <td itemprop="publicationDate">2001-04-10</td>
+          <td><span itemprop="assigneeOriginal">The United States Of America As Represented By The Administrator Of The National Aeronautics And Space Administration</span></td>
+          <td itemprop="title">On-line μ method for robust flutter prediction in expanding a safe flight envelope for an aircraft model under flight test 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6526550B1/en">
+              <span itemprop="publicationNumber">US6526550B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2000-09-29</td>
+          <td itemprop="publicationDate">2003-02-25</td>
+          <td><span itemprop="assigneeOriginal">General Electric Company</span></td>
+          <td itemprop="title">Analyzing characteristics of geometries 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20040267497A1/en">
+              <span itemprop="publicationNumber">US20040267497A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2003-06-24</td>
+          <td itemprop="publicationDate">2004-12-30</td>
+          <td><span itemprop="assigneeOriginal">Goodman Charles E</span></td>
+          <td itemprop="title">Methods and systems for analyzing flutter test data using non-linear transfer function frequency response fitting 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20050234839A1/en">
+              <span itemprop="publicationNumber">US20050234839A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2004-04-14</td>
+          <td itemprop="publicationDate">2005-10-20</td>
+          <td><span itemprop="assigneeOriginal">The Boeing Company</span></td>
+          <td itemprop="title">Neural network for aeroelastic analysis 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6959269B1/en">
+              <span itemprop="publicationNumber">US6959269B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2001-04-20</td>
+          <td itemprop="publicationDate">2005-10-25</td>
+          <td><span itemprop="assigneeOriginal">Lockheed Martin Corporation</span></td>
+          <td itemprop="title">Method and system for simulating an unsteady flow field 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20060025973A1/en">
+              <span itemprop="publicationNumber">US20060025973A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2004-04-21</td>
+          <td itemprop="publicationDate">2006-02-02</td>
+          <td><span itemprop="assigneeOriginal">Taehyoun Kim</span></td>
+          <td itemprop="title">Methods and systems for model reduction and system identification of dynamic systems with multiple inputs 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7131611B2/en">
+              <span itemprop="publicationNumber">US7131611B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2004-07-30</td>
+          <td itemprop="publicationDate">2006-11-07</td>
+          <td><span itemprop="assigneeOriginal">Saint Louis University</span></td>
+          <td itemprop="title">Device and method of control of fixed and variable geometry rhomboid wings 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7206709B2/en">
+              <span itemprop="publicationNumber">US7206709B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2003-05-29</td>
+          <td itemprop="publicationDate">2007-04-17</td>
+          <td><span itemprop="assigneeOriginal">Carnegie Mellon University</span></td>
+          <td itemprop="title">Determination of damping in bladed disk systems using the fundamental mistuning model 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20090099796A1/en">
+              <span itemprop="publicationNumber">US20090099796A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2007-06-15</td>
+          <td itemprop="publicationDate">2009-04-16</td>
+          <td><span itemprop="assigneeOriginal">Ming-Ta Yang</span></td>
+          <td itemprop="title">Aeroelastic model using the principal shapes of modes (amps) 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Family Cites Families (2)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="backwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5181678A/en">
+              <span itemprop="publicationNumber">US5181678A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1991-02-04</td>
+          <td itemprop="publicationDate">1993-01-26</td>
+          <td><span itemprop="assigneeOriginal">Flex Foil Technology, Inc.</span></td>
+          <td itemprop="title">Flexible tailored elastic airfoil section 
+       </td>
+        </tr><tr itemprop="backwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/JP4080610B2/en">
+              <span itemprop="publicationNumber">JP4080610B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1998-09-14</td>
+          <td itemprop="publicationDate">2008-04-23</td>
+          <td><span itemprop="assigneeOriginal">本田技研工業株式会社</span></td>
+          <td itemprop="title">Engine water pump structure 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+
+    
+    <ul>
+      
+      <li itemprop="applicationsByYear" itemscope repeat>
+        <span itemprop="year">2008</span>
+        <ul>
+          
+          <li itemprop="application" itemscope repeat>
+            <span itemprop="filingDate">2008-03-27</span>
+            <span itemprop="countryCode">US</span>
+            <span itemprop="applicationNumber">US12/056,686</span>
+            <a href="/patent/US8060350B2/en"><span itemprop="documentId">patent/US8060350B2/en</span></a>
+            <span itemprop="legalStatusCat">active</span>
+            <span itemprop="legalStatus">Active</span>
+            
+            <span itemprop="thisApp" content="true" bool></span>
+            
+          </li>
+          
+          <li itemprop="application" itemscope repeat>
+            <span itemprop="filingDate">2008-03-28</span>
+            <span itemprop="countryCode">WO</span>
+            <span itemprop="applicationNumber">PCT/US2008/058541</span>
+            <a href="/patent/WO2008121747A1/en"><span itemprop="documentId">patent/WO2008121747A1/en</span></a>
+            <span itemprop="legalStatusCat">active</span>
+            <span itemprop="legalStatus">Application Filing</span>
+            
+          </li>
+          
+        </ul>
+      </li>
+      
+    </ul>
+    
+
+    </section>
+
+  <section>
+    <h2>Patent Citations (16)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US4475385A/en">
+              <span itemprop="publicationNumber">US4475385A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1983-03-31</td>
+          <td itemprop="publicationDate">1984-10-09</td>
+          <td><span itemprop="assigneeOriginal">The United States Of America As Represented By The Administrator Of The National Aeronautics And Space Administration</span></td>
+          <td itemprop="title">Model mount system for testing flutter 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5199856A/en">
+              <span itemprop="publicationNumber">US5199856A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1989-03-01</td>
+          <td itemprop="publicationDate">1993-04-06</td>
+          <td><span itemprop="assigneeOriginal">Massachusetts Institute Of Technology</span></td>
+          <td itemprop="title">Passive structural and aerodynamic control of compressor surge 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5374011A/en">
+              <span itemprop="publicationNumber">US5374011A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1991-11-13</td>
+          <td itemprop="publicationDate">1994-12-20</td>
+          <td><span itemprop="assigneeOriginal">Massachusetts Institute Of Technology</span></td>
+          <td itemprop="title">Multivariable adaptive surface control 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5819188A/en">
+              <span itemprop="publicationNumber">US5819188A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1995-06-07</td>
+          <td itemprop="publicationDate">1998-10-06</td>
+          <td><span itemprop="assigneeOriginal">Aurora Flight Sciences Corporation</span></td>
+          <td itemprop="title">Fault tolerant automatic control system utilizing analytic redundancy 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5926399A/en">
+              <span itemprop="publicationNumber">US5926399A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1996-03-04</td>
+          <td itemprop="publicationDate">1999-07-20</td>
+          <td><span itemprop="assigneeOriginal">Beam Technologies, Inc.</span></td>
+          <td itemprop="title">Method of predicting change in shape of a solid structure 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6125333A/en">
+              <span itemprop="publicationNumber">US6125333A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1997-11-06</td>
+          <td itemprop="publicationDate">2000-09-26</td>
+          <td><span itemprop="assigneeOriginal">Northrop Grumman Corporation</span></td>
+          <td itemprop="title">Building block approach for fatigue spectra generation 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6216063B1/en">
+              <span itemprop="publicationNumber">US6216063B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1998-05-06</td>
+          <td itemprop="publicationDate">2001-04-10</td>
+          <td><span itemprop="assigneeOriginal">The United States Of America As Represented By The Administrator Of The National Aeronautics And Space Administration</span></td>
+          <td itemprop="title">On-line μ method for robust flutter prediction in expanding a safe flight envelope for an aircraft model under flight test 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6526550B1/en">
+              <span itemprop="publicationNumber">US6526550B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2000-09-29</td>
+          <td itemprop="publicationDate">2003-02-25</td>
+          <td><span itemprop="assigneeOriginal">General Electric Company</span></td>
+          <td itemprop="title">Analyzing characteristics of geometries 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6959269B1/en">
+              <span itemprop="publicationNumber">US6959269B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2001-04-20</td>
+          <td itemprop="publicationDate">2005-10-25</td>
+          <td><span itemprop="assigneeOriginal">Lockheed Martin Corporation</span></td>
+          <td itemprop="title">Method and system for simulating an unsteady flow field 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7206709B2/en">
+              <span itemprop="publicationNumber">US7206709B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2003-05-29</td>
+          <td itemprop="publicationDate">2007-04-17</td>
+          <td><span itemprop="assigneeOriginal">Carnegie Mellon University</span></td>
+          <td itemprop="title">Determination of damping in bladed disk systems using the fundamental mistuning model 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20040267497A1/en">
+              <span itemprop="publicationNumber">US20040267497A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2003-06-24</td>
+          <td itemprop="publicationDate">2004-12-30</td>
+          <td><span itemprop="assigneeOriginal">Goodman Charles E</span></td>
+          <td itemprop="title">Methods and systems for analyzing flutter test data using non-linear transfer function frequency response fitting 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7054785B2/en">
+              <span itemprop="publicationNumber">US7054785B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2003-06-24</td>
+          <td itemprop="publicationDate">2006-05-30</td>
+          <td><span itemprop="assigneeOriginal">The Boeing Company</span></td>
+          <td itemprop="title">Methods and systems for analyzing flutter test data using non-linear transfer function frequency response fitting 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20050234839A1/en">
+              <span itemprop="publicationNumber">US20050234839A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2004-04-14</td>
+          <td itemprop="publicationDate">2005-10-20</td>
+          <td><span itemprop="assigneeOriginal">The Boeing Company</span></td>
+          <td itemprop="title">Neural network for aeroelastic analysis 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20060025973A1/en">
+              <span itemprop="publicationNumber">US20060025973A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2004-04-21</td>
+          <td itemprop="publicationDate">2006-02-02</td>
+          <td><span itemprop="assigneeOriginal">Taehyoun Kim</span></td>
+          <td itemprop="title">Methods and systems for model reduction and system identification of dynamic systems with multiple inputs 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7131611B2/en">
+              <span itemprop="publicationNumber">US7131611B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2004-07-30</td>
+          <td itemprop="publicationDate">2006-11-07</td>
+          <td><span itemprop="assigneeOriginal">Saint Louis University</span></td>
+          <td itemprop="title">Device and method of control of fixed and variable geometry rhomboid wings 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20090099796A1/en">
+              <span itemprop="publicationNumber">US20090099796A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2007-06-15</td>
+          <td itemprop="publicationDate">2009-04-16</td>
+          <td><span itemprop="assigneeOriginal">Ming-Ta Yang</span></td>
+          <td itemprop="title">Aeroelastic model using the principal shapes of modes (amps) 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Non-Patent Citations (3)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Jer-Nan Juang et al., "<a href='http://scholar.google.com/scholar?q="An+Eigensystem+Realization+Algorithm+for+Modal+Parameter+Identification+and+Model+Reduction%2C"'>An Eigensystem Realization Algorithm for Modal Parameter Identification and Model Reduction,</a>" Journal of Guidance, Control, and Dynamics, (vol. 8), (p. 620-627), (1985).</span>
+            
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Lin et al, Decoupled Fuzzy Sliding-Mode Control of a Nonlinear Aeroelastic Structure, Proceedings of the 2002 IEEE International Conference on Fuzzy Systems, 2002, pp. 662-667.</span>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Raveh, Computational-Fluid-Dynamics-Based Aeroelastic Analysis and Structural Design, Computer Methods in Applied Mechanics and Engineering, vol. 194, No. 30-33, 2005, pp. 3453-3471.</span>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <h2>Cited By (1)</h2>
+  <table>
+    <caption>* Cited by examiner, † Cited by third party</caption>
+    <thead>
+      <tr>
+        <th>Publication number</th>
+        <th>Priority date</th>
+        <th>Publication date</th>
+        <th>Assignee</th>
+        <th>Title</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US9977848B1/en">
+            <span itemprop="publicationNumber">US9977848B1</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          
+          
+        </td>
+        <td itemprop="priorityDate">2014-07-10</td>
+        <td itemprop="publicationDate">2018-05-22</td>
+        <td><span itemprop="assigneeOriginal">The United States Of America As Represented By The Administrator Of The National Aeronautics And Space Administration</span></td>
+        <td itemprop="title">Method and system for predicting rocket nozzle deformation during engine start-up and shut-down transients 
+       </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <section>
+    <h2>Also Published As</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Publication date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="docdbFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/WO2008121747A1/en">
+              <span itemprop="publicationNumber">WO2008121747A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+          </td>
+          <td itemprop="publicationDate">2008-10-09</td>
+        </tr><tr itemprop="docdbFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20080243448A1/en">
+              <span itemprop="publicationNumber">US20080243448A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+          </td>
+          <td itemprop="publicationDate">2008-10-02</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Similar Documents</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Publication</th>
+          <th>Publication Date</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="10412592368638461924">
+              <a href="/scholar/10412592368638461924"><span itemprop="scholarAuthors">Karpel</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1982">1982</time>
+            
+          </td>
+          <td itemprop="title">Design for active flutter suppression and gust alleviation using state-space aeroelastic modeling</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="13400141806998661366">
+              <a href="/scholar/13400141806998661366"><span itemprop="scholarAuthors">Mavriplis</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2007">2007</time>
+            
+          </td>
+          <td itemprop="title">Discrete adjoint-based approach for optimization problems on three-dimensional unstructured meshes</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="8061225350682083398">
+              <a href="/scholar/8061225350682083398"><span itemprop="scholarAuthors">Silva et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2004">2004</time>
+            
+          </td>
+          <td itemprop="title">Development of reduced-order models for aeroelastic analysis and flutter prediction using the CFL3Dv6. 0 code</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="15727820032017382178">
+              <a href="/scholar/15727820032017382178"><span itemprop="scholarAuthors">Batina</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1991">1991</time>
+            
+          </td>
+          <td itemprop="title">Unsteady Euler algorithm with unstructured dynamic mesh for complex-aircraft aerodynamic analysis</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="11245443267763418439">
+              <a href="/scholar/11245443267763418439"><span itemprop="scholarAuthors">Kim</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1998">1998</time>
+            
+          </td>
+          <td itemprop="title">Frequency-domain Karhunen-Loeve method and its application to linear dynamic systems</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="7364128784895309292">
+              <a href="/scholar/7364128784895309292"><span itemprop="scholarAuthors">Lucia et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2004">2004</time>
+            
+          </td>
+          <td itemprop="title">Reduced-order modeling: new approaches for computational physics</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="7489002064723751473">
+              <a href="/scholar/7489002064723751473"><span itemprop="scholarAuthors">Palacios et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2010">2010</time>
+            
+          </td>
+          <td itemprop="title">Structural and aerodynamic models in nonlinear flight dynamics of very flexible aircraft</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="14939659010499167248">
+              <a href="/scholar/14939659010499167248"><span itemprop="scholarAuthors">Geuzaine et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2003">2003</time>
+            
+          </td>
+          <td itemprop="title">Aeroelastic dynamic analysis of a full F-16 configuration for various flight conditions</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="5438430214870977798">
+              <a href="/scholar/5438430214870977798"><span itemprop="scholarAuthors">Hall et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1999">1999</time>
+            
+          </td>
+          <td itemprop="title">Reduced-order modelling of unsteady small-disturbance flows using a frequency-domain proper orthogonal decomposition technique</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="4616979019270298527">
+              <a href="/scholar/4616979019270298527"><span itemprop="scholarAuthors">Kroll et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2000">2000</time>
+            
+          </td>
+          <td itemprop="title">The MEGAFLOW project</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="17162522439250670598">
+              <a href="/scholar/17162522439250670598"><span itemprop="scholarAuthors">Kroo et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2000">2000</time>
+            
+          </td>
+          <td itemprop="title">Collaborative optimization-Status and directions</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="18235186768884571859">
+              <a href="/scholar/18235186768884571859"><span itemprop="scholarAuthors">Martins et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2000">2000</time>
+            
+          </td>
+          <td itemprop="title">An automated method for sensitivity analysis using complex variables</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="6886077715193110936">
+              <a href="/scholar/6886077715193110936"><span itemprop="scholarAuthors">Guruswamy</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1990">1990</time>
+            
+          </td>
+          <td itemprop="title">Unsteady aerodynamic and aeroelastic calculations for wings using Euler equations</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="14838192651404168604">
+              <a href="/scholar/14838192651404168604"><span itemprop="scholarAuthors">Cowan et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2001">2001</time>
+            
+          </td>
+          <td itemprop="title">Accelerating computational fluid dynamics based aeroelastic predictions using system identification</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="7901307889406842165">
+              <a href="/scholar/7901307889406842165"><span itemprop="scholarAuthors">Stanford et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2010">2010</time>
+            
+          </td>
+          <td itemprop="title">Analytical sensitivity analysis of an unsteady vortex-lattice method for flapping-wing optimization</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="3927101247105489307">
+              <a href="/scholar/3927101247105489307"><span itemprop="scholarAuthors">Neill et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1990">1990</time>
+            
+          </td>
+          <td itemprop="title">ASTROS-a multidisciplinary automated structural design tool</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="3839278743209030879">
+              <a href="/scholar/3839278743209030879"><span itemprop="scholarAuthors">Martins</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2002">2002</time>
+            
+          </td>
+          <td itemprop="title">A coupled-adjoint method for high-fidelity aero-structural optimization</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="14523306768112104263">
+              <a href="/scholar/14523306768112104263"><span itemprop="scholarAuthors">Farhat</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2017">2017</time>
+            
+          </td>
+          <td itemprop="title">CFD‐based nonlinear computational aeroelasticity</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="15982623988345995511">
+              <a href="/scholar/15982623988345995511"><span itemprop="scholarAuthors">Zhang et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2012">2012</time>
+            
+          </td>
+          <td itemprop="title">Efficient method for limit cycle flutter analysis based on nonlinear aerodynamic reduced-order models</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="16863714579062909160">
+              <a href="/scholar/16863714579062909160"><span itemprop="scholarAuthors">Allison et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2014">2014</time>
+            
+          </td>
+          <td itemprop="title">Special section on multidisciplinary design optimization: multidisciplinary design optimization of dynamic engineering systems</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="8775551227990946600">
+              <a href="/scholar/8775551227990946600"><span itemprop="scholarAuthors">Mani et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2008">2008</time>
+            
+          </td>
+          <td itemprop="title">Unsteady discrete adjoint formulation for two-dimensional flow problems with deforming meshes</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="9761581317095085373">
+              <a href="/scholar/9761581317095085373"><span itemprop="scholarAuthors">Strganac et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1990">1990</time>
+            
+          </td>
+          <td itemprop="title">Numerical model of unsteady subsonic aeroelastic behavior</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="11187188541313525706">
+              <a href="/scholar/11187188541313525706"><span itemprop="scholarAuthors">Raveh et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2006">2006</time>
+            
+          </td>
+          <td itemprop="title">Numerical simulation and reduced-order modeling of airfoil gust response</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="2839290236085703825">
+              <a href="/scholar/2839290236085703825"><span itemprop="scholarAuthors">Oden et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1987">1987</time>
+            
+          </td>
+          <td itemprop="title">Adaptive finite element methods for high‐speed compressible flows</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="14428668941825194179">
+              <a href="/scholar/14428668941825194179"><span itemprop="scholarAuthors">Batill et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1999">1999</time>
+            
+          </td>
+          <td itemprop="title">Framework for multidisciplinary design based on response-surface approximations</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Legal Events</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Code</th>
+          <th>Title</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2008-03-27">2008-03-27</time></td>
+          <td itemprop="code">AS</td>
+          <td itemprop="title">Assignment</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Owner name</strong>:
+              <span itemprop="value">UNITED STATES OF AMERICA AS REPRESENTED BY THE ADM</span>
+            </p>
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">ASSIGNMENT OF ASSIGNORS INTEREST;ASSIGNOR:SILVA, WALTER A.;REEL/FRAME:020712/0964</span>
+            </p>
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Effective date</strong>:
+              <span itemprop="value">20080327</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2011-10-26">2011-10-26</time></td>
+          <td itemprop="code">STCF</td>
+          <td itemprop="title">Information on status: patent grant</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">PATENTED CASE</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2015-04-23">2015-04-23</time></td>
+          <td itemprop="code">FPAY</td>
+          <td itemprop="title">Fee payment</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Year of fee payment</strong>:
+              <span itemprop="value">4</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2019-07-08">2019-07-08</time></td>
+          <td itemprop="code">FEPP</td>
+          <td itemprop="title">Fee payment procedure</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">MAINTENANCE FEE REMINDER MAILED (ORIGINAL EVENT CODE: REM.); ENTITY STATUS OF PATENT OWNER: LARGE ENTITY</span>
+            </p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+</article>
+
+    </search-app>
+    <script type="text/javascript" src="//www.gstatic.com/feedback/api.js"></script>
+    <script async="" defer="" src="//www.google.com/insights/consumersurveys/async_survey?site=cxkjf7ipxgbnnjy6k35ezcvbbe"></script>
+  </body>
+</html>

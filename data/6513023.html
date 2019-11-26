@@ -1,0 +1,3426 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>US6513023B1 - Artificial neural network with hardware training and hardware refresh 
+        - Google Patents</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="referrer" content="origin-when-crossorigin">
+    <link rel="canonical" href="https://patents.google.com/patent/US6513023B1/en">
+    <meta name="description" content="
+     A neural network circuit is provided having a plurality of circuits capable of charge storage. Also provided is a plurality of circuits each coupled to at least one of the plurality of charge storage circuits and constructed to generate an output in accordance with a neuron transfer function. Each of a plurality of circuits is coupled to one of the plurality of neuron transfer function circuits and constructed to generate a derivative of the output. A weight update circuit updates the charge storage circuits based upon output from the plurality of transfer function circuits and output from the plurality of derivative circuits. In preferred embodiments, separate training and validation networks share the same set of charge storage circuits and may operate concurrently. The validation network has a separate transfer function circuits each being coupled to the charge storage circuits so as to replicate the training network&#39;s coupling of the plurality of charge storage to the plurality of transfer function circuits. The plurality of transfer function circuits may be constructed each having a transconductance amplifier providing differential currents combined to provide an output in accordance with a transfer function. The derivative circuits may have a circuit constructed to generate a biased differential currents combined so as to provide the derivative of the transfer function. 
+   
+   ">
+    
+    <meta name="DC.type" content="patent">
+    
+    <meta name="DC.title" content="Artificial neural network with hardware training and hardware refresh 
+       ">
+    
+    <meta name="DC.date" content="1999-10-01" scheme="dateSubmitted">
+    
+    <meta name="DC.description" content="
+     A neural network circuit is provided having a plurality of circuits capable of charge storage. Also provided is a plurality of circuits each coupled to at least one of the plurality of charge storage circuits and constructed to generate an output in accordance with a neuron transfer function. Each of a plurality of circuits is coupled to one of the plurality of neuron transfer function circuits and constructed to generate a derivative of the output. A weight update circuit updates the charge storage circuits based upon output from the plurality of transfer function circuits and output from the plurality of derivative circuits. In preferred embodiments, separate training and validation networks share the same set of charge storage circuits and may operate concurrently. The validation network has a separate transfer function circuits each being coupled to the charge storage circuits so as to replicate the training network&#39;s coupling of the plurality of charge storage to the plurality of transfer function circuits. The plurality of transfer function circuits may be constructed each having a transconductance amplifier providing differential currents combined to provide an output in accordance with a transfer function. The derivative circuits may have a circuit constructed to generate a biased differential currents combined so as to provide the derivative of the transfer function. 
+   
+   ">
+    
+    <meta name="citation_patent_application_number" content="US:09/412,199">
+    
+    <meta name="citation_pdf_url" content="https://patentimages.storage.googleapis.com/48/15/22/600b21a45f37a6/US6513023.pdf">
+    
+    <meta name="citation_patent_number" content="US:6513023">
+    
+    <meta name="DC.date" content="2003-01-28" scheme="issue">
+    
+    <meta name="DC.contributor" content="Tuan A. Duong" scheme="inventor">
+    
+    <meta name="DC.contributor" content="National Aeronautics and Space Administration (NASA)" scheme="assignee">
+    
+    <meta name="DC.relation" content="US:5155802" scheme="references">
+    
+    <meta name="DC.relation" content="US:4866645" scheme="references">
+    
+    <meta name="DC.relation" content="US:5333239" scheme="references">
+    
+    <meta name="DC.relation" content="US:5093899" scheme="references">
+    
+    <meta name="DC.relation" content="US:4951239" scheme="references">
+    
+    <meta name="DC.relation" content="US:4912652" scheme="references">
+    
+    <meta name="DC.relation" content="US:5146542" scheme="references">
+    
+    <meta name="DC.relation" content="US:5187680" scheme="references">
+    
+    <meta name="DC.relation" content="US:5130563" scheme="references">
+    
+    <meta name="DC.relation" content="US:5039871" scheme="references">
+    
+    <meta name="DC.relation" content="US:5039870" scheme="references">
+    
+    <meta name="DC.relation" content="US:5113483" scheme="references">
+    
+    <meta name="DC.relation" content="US:5182794" scheme="references">
+    
+    <meta name="DC.relation" content="US:5159660" scheme="references">
+    
+    <meta name="DC.relation" content="US:5347613" scheme="references">
+    
+    <meta name="DC.relation" content="US:5150450" scheme="references">
+    
+    <meta name="DC.relation" content="US:5313559" scheme="references">
+    
+    <meta name="DC.relation" content="US:5280564" scheme="references">
+    
+    <meta name="DC.relation" content="US:5408588" scheme="references">
+    
+    <meta name="DC.relation" content="US:5479571" scheme="references">
+    
+    <meta name="DC.relation" content="US:5179596" scheme="references">
+    
+    <meta name="DC.relation" content="US:5136176" scheme="references">
+    
+    <meta name="DC.relation" content="US:5648926" scheme="references">
+    
+    <meta name="DC.relation" content="US:5264734" scheme="references">
+    
+    <meta name="DC.relation" content="US:5256911" scheme="references">
+    
+    <meta name="DC.relation" content="US:5343555" scheme="references">
+    
+    <meta name="DC.relation" content="US:5857178" scheme="references">
+    
+    <meta name="DC.relation" content="US:5625752" scheme="references">
+    
+    <meta name="DC.relation" content="US:5625751" scheme="references">
+    
+    <meta name="DC.relation" content="US:5781702" scheme="references">
+    
+    <meta name="citation_reference" content="Duong, Tuan A. and Daud, Taher, &#34;Cascade Error Protection-A Learning Algorithm for Hardwave Implementation,&#34; IWANN&#39;99, Alicante, Spain, Jun. 2-4, 1999, pp. 1-9." scheme="references">
+    
+    <meta name="citation_reference" content="Duong, Tuan A., &#34;Cascade Error Protection: An Efficient Hardware Learning Algorithm,&#34; IEEE/ICNN&#39;95, Perth, Western Australia, 1995, pp. 1-6." scheme="references">
+    
+    <meta name="citation_reference" content="Duong, Tuan A., Kemeny, Sabrina, Daud, Taher, Thakoor, Anil, Sanders, Chris and Carson, John, &#34;Analog 3-D Neuroprocessor for Fast Frame Focal Plane Image Processing,&#34; The Industrial Electronics Handbook, CCR Press; IEEE Press, 1997, pp. 989-1002." scheme="references">
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,400italic,500,500italic,700">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Product+Sans">
+    <style>
+      body { transition: none; }
+    </style>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-27188110-4', 'auto');
+
+      version = 'patent-search.search_20191120_RC00';
+
+      function sendFeedback() {
+        userfeedback.api.startFeedback({
+          'productId': '713680',
+          'bucket': 'patent-search-web',
+          'productVersion': version,
+        });
+      }
+
+      window.experiments = {};
+      window.experiments.patentCountries = "ae,ag,al,am,ao,ap,ar,at,au,aw,az,ba,bb,bd,be,bf,bg,bh,bj,bn,bo,br,bw,bx,by,bz,ca,cf,cg,ch,ci,cl,cm,cn,co,cr,cs,cu,cy,cz,dd,de,dj,dk,dm,do,dz,ea,ec,ee,eg,em,ep,es,fi,fr,ga,gb,gc,gd,ge,gh,gm,gn,gq,gr,gt,gw,hk,hn,hr,hu,ib,id,ie,il,in,ir,is,it,jo,jp,ke,kg,kh,km,kn,kp,kr,kw,kz,la,lc,li,lk,lr,ls,lt,lu,lv,ly,ma,mc,md,me,mg,mk,ml,mn,mo,mr,mt,mw,mx,my,mz,na,ne,ng,ni,nl,no,nz,oa,om,pa,pe,pg,ph,pl,pt,py,qa,ro,rs,ru,rw,sa,sc,sd,se,sg,si,sk,sl,sm,sn,st,su,sv,sy,sz,td,tg,th,tj,tm,tn,tr,tt,tw,tz,ua,ug,us,uy,uz,vc,ve,vn,wo,yu,za,zm,zw";
+      
+      
+      window.profilePicture = "";
+
+      window.Polymer = {
+        dom: 'shady',
+        lazyRegister: true,
+      };
+    </script>
+
+    <script src="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/webcomponentsjs/webcomponents-lite.min.js"></script>
+    
+    <link rel="import" href="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/search-app-vulcanized.html">
+    
+  </head>
+  <body unresolved>
+    
+    <script src="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/search-app-vulcanized.js"></script>
+    
+    <search-app>
+      
+      
+
+      <article class="result" itemscope itemtype="http://schema.org/ScholarlyArticle">
+  <h1 itemprop="pageTitle">US6513023B1 - Artificial neural network with hardware training and hardware refresh 
+        - Google Patents</h1>
+  <span itemprop="title">Artificial neural network with hardware training and hardware refresh 
+       </span>
+
+  <meta itemprop="type" content="patent">
+  <a href="https://patentimages.storage.googleapis.com/48/15/22/600b21a45f37a6/US6513023.pdf" itemprop="pdfLink">Download PDF</a>
+  <h2>Info</h2>
+
+  <dl>
+    <dt>Publication number</dt>
+    <dd itemprop="publicationNumber">US6513023B1</dd>
+    <meta itemprop="numberWithoutCodes" content="6513023">
+    <meta itemprop="kindCode" content="B1">
+    <meta itemprop="publicationDescription" content="Patent ( no pre-grant publication)">
+    
+    <span>US6513023B1</span>
+    
+    <span>US09/412,199</span>
+    
+    <span>US41219999A</span>
+    
+    <span>US6513023B1</span>
+    
+    <span>US 6513023 B1</span>
+    
+    <span>US6513023 B1</span>
+    
+    <span>US 6513023B1</span>
+    
+    <span>  </span>
+    
+    <span> </span>
+    
+    <span> </span>
+    
+    <span>US 41219999 A</span>
+    
+    <span>US41219999 A</span>
+    
+    <span>US 41219999A</span>
+    
+    <span>US 6513023 B1</span>
+    
+    <span>US6513023 B1</span>
+    
+    <span>US 6513023B1</span>
+    
+
+    <dt>Authority</dt>
+    <dd itemprop="countryCode">US</dd>
+    <dd itemprop="countryName">United States</dd>
+
+    <dt>Prior art keywords</dt>
+    
+    <dd itemprop="priorArtKeywords" repeat>plurality</dd>
+    <dd itemprop="priorArtKeywords" repeat>circuits</dd>
+    <dd itemprop="priorArtKeywords" repeat>transfer function</dd>
+    <dd itemprop="priorArtKeywords" repeat>neural network</dd>
+    <dd itemprop="priorArtKeywords" repeat>derivative</dd>
+
+    <dt>Prior art date</dt>
+    <dd><time itemprop="priorArtDate" datetime="1999-10-01">1999-10-01</time></dd>
+
+    <dt>Legal status (The legal status is an assumption and is not a legal conclusion. Google has not performed a legal analysis and makes no representation as to the accuracy of the status listed.)</dt>
+    <dd itemprop="legalStatusIfi" itemscope>
+      <span itemprop="status">Expired - Fee Related</span>
+    </dd>
+  </dl>
+
+  <dt>Application number</dt>
+  <dd itemprop="applicationNumber">US09/412,199</dd>
+
+  
+
+  
+
+  <dt>Inventor</dt>
+  <dd itemprop="inventor" repeat>Tuan A. Duong</dd>
+  <dt>Current Assignee (The listed assignees may be inaccurate. Google has not performed a legal analysis and makes no representation or warranty as to the accuracy of the list.)</dt>
+  <dd itemprop="assigneeCurrent" repeat>
+    National Aeronautics and Space Administration (NASA)
+  </dd>
+
+  <dt>Original Assignee</dt>
+  <dd itemprop="assigneeOriginal" repeat>National Aeronautics and Space Administration (NASA)</dd>
+
+  <dt>Priority date (The priority date is an assumption and is not a legal conclusion. Google has not performed a legal analysis and makes no representation as to the accuracy of the date listed.)</dt>
+  <dd><time itemprop="priorityDate" datetime="1999-10-01">1999-10-01</time></dd>
+
+  <dt>Filing date</dt>
+  <dd><time itemprop="filingDate" datetime="1999-10-01">1999-10-01</time></dd>
+
+  <dt>Publication date</dt>
+  <dd><time itemprop="publicationDate" datetime="2003-01-28">2003-01-28</time></dd>
+
+  
+
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="1999-10-01">1999-10-01</time>
+    <span itemprop="title">Application filed by National Aeronautics and Space Administration (NASA)</span>
+    <span itemprop="type">filed</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    <span itemprop="assigneeSearch">National Aeronautics and Space Administration (NASA)</span>
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="1999-10-01">1999-10-01</time>
+    <span itemprop="title">Priority to US09/412,199</span>
+    <span itemprop="type">priority</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    <span itemprop="documentId">patent/US6513023B1/en</span>
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="1999-10-01">1999-10-01</time>
+    <span itemprop="title">Assigned to NATIONAL AERONAUTICS AND SPACE ADMINISTRATION, U.S. GOVERNMENT, AS REPRESENTED BY THE ADMINISTRATOR OF, THE</span>
+    <span itemprop="type">reassignment</span>
+    
+    
+    
+    
+    <span itemprop="assigneeSearch">NATIONAL AERONAUTICS AND SPACE ADMINISTRATION, U.S. GOVERNMENT, AS REPRESENTED BY THE ADMINISTRATOR OF, THE</span>
+    
+    
+    <span itemprop="description" repeat>ASSIGNMENT OF ASSIGNORS INTEREST (SEE DOCUMENT FOR DETAILS).</span>
+    
+    <span itemprop="description" repeat>Assignors: CALIFORNIA INSTITUTE OF TECHNOLOGY</span>
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2003-01-28">2003-01-28</time>
+    <span itemprop="title">Application granted</span>
+    <span itemprop="type">granted</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2003-01-28">2003-01-28</time>
+    <span itemprop="title">Publication of US6513023B1</span>
+    <span itemprop="type">publication</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    <span itemprop="documentId">patent/US6513023B1/en</span>
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2019-10-01">2019-10-01</time>
+    <span itemprop="title">Anticipated expiration</span>
+    <span itemprop="type">legal-status</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2019-11-25">2019-11-25</time>
+    <span itemprop="title">Application status is Expired - Fee Related</span>
+    <span itemprop="type">legal-status</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+
+  <h2>Links</h2>
+
+  <ul>
+    
+          <li itemprop="links" itemscope repeat>
+            <meta itemprop="id" content="usptoLink">
+            <a href="http://patft.uspto.gov/netacgi/nph-Parser?Sect1=PTO1&Sect2=HITOFF&p=1&u=/netahtml/PTO/srchnum.html&r=1&f=G&l=50&d=PALL&s1=6513023.PN." itemprop="url" target="_blank"><span itemprop="text">USPTO</span></a>
+          </li>
+        <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="usptoAssignmentLink">
+          <a href="https://assignment.uspto.gov/patent/index.html#/patent/search/resultFilter?searchInput=6513023" itemprop="url" target="_blank"><span itemprop="text">USPTO Assignment</span></a>
+        </li>
+
+    <li itemprop="links" itemscope repeat>
+        <meta itemprop="id" content="espacenetLink">
+        <a href="http://worldwide.espacenet.com/publicationDetails/biblio?CC=US&amp;NR=6513023B1&amp;KC=B1&amp;FT=D" itemprop="url" target="_blank"><span itemprop="text">Espacenet</span></a>
+      </li>
+      
+
+    
+
+    
+      <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="globalDossierLink">
+          <a href="http://globaldossier.uspto.gov/#/result/patent/US/6513023/1" itemprop="url" target="_blank"><span itemprop="text">Global Dossier</span></a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="stackexchangeLink">
+          <a href="https://patents.stackexchange.com/questions/tagged/US6513023" itemprop="url"><span itemprop="text">Discuss</span></a>
+        </li>
+      
+  </ul>
+
+  
+  <ul itemprop="concept" itemscope>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001537</span>
+      <span itemprop="name">neural</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>abstract</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="sections" repeat>title</span>
+      
+      <span itemprop="count">40</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">210000002569</span>
+      <span itemprop="name">neurons</span>
+      <span itemprop="domain">Anatomy</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>abstract</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">62</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000003860</span>
+      <span itemprop="name">storage</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>abstract</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">29</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001808</span>
+      <span itemprop="name">coupling</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>abstract</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">5</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000010168</span>
+      <span itemprop="name">coupling process</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>abstract</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">5</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000005859</span>
+      <span itemprop="name">coupling reaction</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>abstract</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">5</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000013016</span>
+      <span itemprop="name">learning</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">45</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000002790</span>
+      <span itemprop="name">cross-validation</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">17</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000000034</span>
+      <span itemprop="name">methods</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">15</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000000946</span>
+      <span itemprop="name">synaptic</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">6</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000003990</span>
+      <span itemprop="name">capacitor</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">5</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001276</span>
+      <span itemprop="name">controlling effects</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">3</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000000694</span>
+      <span itemprop="name">effects</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">3</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000010410</span>
+      <span itemprop="name">layers</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">13</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000004422</span>
+      <span itemprop="name">calculation algorithm</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">8</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001131</span>
+      <span itemprop="name">transforming</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">4</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000004088</span>
+      <span itemprop="name">simulation</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">3</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000007514</span>
+      <span itemprop="name">turning</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">3</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000002829</span>
+      <span itemprop="name">reduced</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">210000000225</span>
+      <span itemprop="name">Synapses</span>
+      <span itemprop="domain">Anatomy</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000007792</span>
+      <span itemprop="name">addition</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000000295</span>
+      <span itemprop="name">complement</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001595</span>
+      <span itemprop="name">contractor</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000000875</span>
+      <span itemprop="name">corresponding</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000005225</span>
+      <span itemprop="name">electronics</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000002708</span>
+      <span itemprop="name">enhancing</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000007710</span>
+      <span itemprop="name">freezing</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001965</span>
+      <span itemprop="name">increased</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000015654</span>
+      <span itemprop="name">memory</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000000051</span>
+      <span itemprop="name">modifying</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">210000004205</span>
+      <span itemprop="name">output neuron</span>
+      <span itemprop="domain">Anatomy</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000003405</span>
+      <span itemprop="name">preventing</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001603</span>
+      <span itemprop="name">reducing</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+  </ul>
+  
+
+  <section>
+    <h2>Images</h2>
+    <ul>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/ba/94/dc/9ae0a6bdc590b7/US6513023-drawings-page-3.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/73/4d/89/2cc5e16346b2a1/US6513023-drawings-page-3.png">
+        <ul>
+          <li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="100">
+            <meta itemprop="label" content="training network">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="448">
+              <meta itemprop="top" content="2708">
+              <meta itemprop="right" content="503">
+              <meta itemprop="bottom" content="2808">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="105">
+            <meta itemprop="label" content="training data set">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="809">
+              <meta itemprop="top" content="2655">
+              <meta itemprop="right" content="864">
+              <meta itemprop="bottom" content="2742">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="110">
+            <meta itemprop="label" content="weights">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="898">
+              <meta itemprop="top" content="2086">
+              <meta itemprop="right" content="951">
+              <meta itemprop="bottom" content="2193">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="110">
+            <meta itemprop="label" content="weights">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="901">
+              <meta itemprop="top" content="1460">
+              <meta itemprop="right" content="955">
+              <meta itemprop="bottom" content="1558">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="120">
+            <meta itemprop="label" content="delta weights">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="327">
+              <meta itemprop="top" content="1781">
+              <meta itemprop="right" content="381">
+              <meta itemprop="bottom" content="1890">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="120">
+            <meta itemprop="label" content="delta weights">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="331">
+              <meta itemprop="top" content="921">
+              <meta itemprop="right" content="383">
+              <meta itemprop="bottom" content="1025">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="150">
+            <meta itemprop="label" content="error signal">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="725">
+              <meta itemprop="top" content="786">
+              <meta itemprop="right" content="778">
+              <meta itemprop="bottom" content="893">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="160a">
+            <meta itemprop="label" content="hidden neuron">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1036">
+              <meta itemprop="top" content="1765">
+              <meta itemprop="right" content="1087">
+              <meta itemprop="bottom" content="1886">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="160c">
+            <meta itemprop="label" content="output neurons">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1038">
+              <meta itemprop="top" content="977">
+              <meta itemprop="right" content="1088">
+              <meta itemprop="bottom" content="1112">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="205">
+            <meta itemprop="label" content="cross-validation data set">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1259">
+              <meta itemprop="top" content="2645">
+              <meta itemprop="right" content="1313">
+              <meta itemprop="bottom" content="2735">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="230">
+            <meta itemprop="label" content="output layer">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1414">
+              <meta itemprop="top" content="1004">
+              <meta itemprop="right" content="1466">
+              <meta itemprop="bottom" content="1111">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="260a">
+            <meta itemprop="label" content="neurons">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1813">
+              <meta itemprop="top" content="1782">
+              <meta itemprop="right" content="1865">
+              <meta itemprop="bottom" content="1897">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="260c">
+            <meta itemprop="label" content="output neurons">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1814">
+              <meta itemprop="top" content="1109">
+              <meta itemprop="right" content="1866">
+              <meta itemprop="bottom" content="1247">
+            </span>
+          </li>
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/df/18/de/62026dd8995efb/US6513023-drawings-page-4.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/39/ce/15/d37439c975477f/US6513023-drawings-page-4.png">
+        <ul>
+          <li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="1">
+            <meta itemprop="label" content="x">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1568">
+              <meta itemprop="top" content="667">
+              <meta itemprop="right" content="1619">
+              <meta itemprop="bottom" content="684">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="1100">
+            <meta itemprop="label" content="training data set">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="897">
+              <meta itemprop="top" content="1299">
+              <meta itemprop="right" content="946">
+              <meta itemprop="bottom" content="1423">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="2200">
+            <meta itemprop="label" content="block">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1338">
+              <meta itemprop="top" content="2645">
+              <meta itemprop="right" content="1391">
+              <meta itemprop="bottom" content="2766">
+            </span>
+          </li>
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/76/be/87/eaaa7cd3adf3d7/US6513023-drawings-page-5.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/e7/12/d4/cf48b78246971a/US6513023-drawings-page-5.png">
+        <ul>
+          <li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="2">
+            <meta itemprop="id" content="110">
+            <meta itemprop="label" content="weights">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1458">
+              <meta itemprop="top" content="2123">
+              <meta itemprop="right" content="1523">
+              <meta itemprop="bottom" content="2252">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="2">
+            <meta itemprop="id" content="110">
+            <meta itemprop="label" content="weights">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1095">
+              <meta itemprop="top" content="2125">
+              <meta itemprop="right" content="1165">
+              <meta itemprop="bottom" content="2252">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="2">
+            <meta itemprop="id" content="110">
+            <meta itemprop="label" content="weights">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1335">
+              <meta itemprop="top" content="2120">
+              <meta itemprop="right" content="1401">
+              <meta itemprop="bottom" content="2252">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="2">
+            <meta itemprop="id" content="160a">
+            <meta itemprop="label" content="hidden neuron">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="879">
+              <meta itemprop="top" content="1836">
+              <meta itemprop="right" content="950">
+              <meta itemprop="bottom" content="1993">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="2">
+            <meta itemprop="id" content="160b">
+            <meta itemprop="label" content="neuron">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="644">
+              <meta itemprop="top" content="1475">
+              <meta itemprop="right" content="711">
+              <meta itemprop="bottom" content="1631">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="2">
+            <meta itemprop="id" content="230">
+            <meta itemprop="label" content="output layer">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="540">
+              <meta itemprop="top" content="803">
+              <meta itemprop="right" content="618">
+              <meta itemprop="bottom" content="958">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="2">
+            <meta itemprop="id" content="230">
+            <meta itemprop="label" content="output layer">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="537">
+              <meta itemprop="top" content="1428">
+              <meta itemprop="right" content="612">
+              <meta itemprop="bottom" content="1549">
+            </span>
+          </li>
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/57/74/88/620b39d71591ef/US6513023-drawings-page-6.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/0e/0a/d0/eef9b8aab84c75/US6513023-drawings-page-6.png">
+        <ul>
+          <li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="3">
+            <meta itemprop="id" content="4000">
+            <meta itemprop="label" content="derivative generation circuitry">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="344">
+              <meta itemprop="top" content="1024">
+              <meta itemprop="right" content="395">
+              <meta itemprop="bottom" content="1159">
+            </span>
+          </li>
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/8c/77/98/956a392945b570/US6513023-drawings-page-7.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/18/19/cd/72cfdd688f3a7c/US6513023-drawings-page-7.png">
+        <ul>
+          
+        </ul>
+      </li>
+      </ul>
+  </section>
+
+  <section>
+    <h2>Classifications</h2>
+    
+    <ul>
+      <li>
+        <ul itemprop="cpcs" itemscope repeat>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G</span>&mdash;<span itemprop="Description">PHYSICS</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06</span>&mdash;<span itemprop="Description">COMPUTING; CALCULATING; COUNTING</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06N</span>&mdash;<span itemprop="Description">COMPUTER SYSTEMS BASED ON SPECIFIC COMPUTATIONAL MODELS</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06N3/00</span>&mdash;<span itemprop="Description">Computer systems based on biological models</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06N3/02</span>&mdash;<span itemprop="Description">Computer systems based on biological models using neural network models</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06N3/08</span>&mdash;<span itemprop="Description">Learning methods</span>
+            <meta itemprop="Leaf" content="true">
+            
+            <meta itemprop="FirstCode" content="true">
+          </li>
+          </ul>
+      </li>
+      <li>
+        <ul itemprop="cpcs" itemscope repeat>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G</span>&mdash;<span itemprop="Description">PHYSICS</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06</span>&mdash;<span itemprop="Description">COMPUTING; CALCULATING; COUNTING</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06N</span>&mdash;<span itemprop="Description">COMPUTER SYSTEMS BASED ON SPECIFIC COMPUTATIONAL MODELS</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06N3/00</span>&mdash;<span itemprop="Description">Computer systems based on biological models</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06N3/02</span>&mdash;<span itemprop="Description">Computer systems based on biological models using neural network models</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06N3/06</span>&mdash;<span itemprop="Description">Physical realisation, i.e. hardware implementation of neural networks, neurons or parts of neurons</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06N3/063</span>&mdash;<span itemprop="Description">Physical realisation, i.e. hardware implementation of neural networks, neurons or parts of neurons using electronic means</span>
+            <meta itemprop="Leaf" content="true">
+            
+            
+          </li>
+          </ul>
+      </li>
+      </ul>
+  </section>
+
+  <section itemprop="abstract" itemscope>
+    <h2>Abstract</h2>
+    
+    <div itemprop="content" html><abstract mxw-id="PA50440673" lang="EN" load-source="patent-office">
+    <div class="abstract">A neural network circuit is provided having a plurality of circuits capable of charge storage. Also provided is a plurality of circuits each coupled to at least one of the plurality of charge storage circuits and constructed to generate an output in accordance with a neuron transfer function. Each of a plurality of circuits is coupled to one of the plurality of neuron transfer function circuits and constructed to generate a derivative of the output. A weight update circuit updates the charge storage circuits based upon output from the plurality of transfer function circuits and output from the plurality of derivative circuits. In preferred embodiments, separate training and validation networks share the same set of charge storage circuits and may operate concurrently. The validation network has a separate transfer function circuits each being coupled to the charge storage circuits so as to replicate the training network&#39;s coupling of the plurality of charge storage to the plurality of transfer function circuits. The plurality of transfer function circuits may be constructed each having a transconductance amplifier providing differential currents combined to provide an output in accordance with a transfer function. The derivative circuits may have a circuit constructed to generate a biased differential currents combined so as to provide the derivative of the transfer function.</div>
+  </abstract>
+  </div>
+  </section>
+
+  <section itemprop="description" itemscope>
+    <h2>Description</h2>
+    
+    <div itemprop="content" html><div mxw-id="PDES53866796" lang="EN" load-source="patent-office" class="description">
+    
+    <heading>ORIGIN OF THE INVENTION</heading>
+    <p>The invention described herein was made -in the performance of work under a NASA contract, and is subject to the provisions of Public Law 96-517 (35 USC 202) in which the contractor has elected not to retain title.</p>
+    <heading>BACKGROUND</heading>
+    <p>Neural networks offer a computing paradigm that allows a nonlinear input/output relationship or transformation to be established based primarily on given examples of the relationship rather than a formal analytical knowledge of its transfer function. This paradigm provides for a training of the network during which the weight values of the synaptic connections from one layer of neurons to another are changed in an iterative manner to successively reduce error between actual and target outputs.</p>
+    <p>Typically, for neural networks to establish the transformation paradigm, input data generally is divided into three parts. Two of the parts, called training and cross-validation, must be such that the corresponding input-output pairs (ground truth) are known. During training, the cross-validation set allows verification of the status of the transformation relationship learned by the network to ensure adequate learning has occurred and to avoid over-learning. The third part, termed the validation data, which may or may not include the training and/or the cross-validation data set, is the data transformed into output.</p>
+    <p>Neural networks may be formed with software, hardware, or hybrid implementations for training connectionist models. One drawback with software techniques is that, because computers execute programmed instructions sequentially, the iterative process can be inconveniently slow and require vast amounts of computing resources to process the large number of connections necessary for most neural network applications. As such, software techniques are not feasible for most applications, and in particular, where computing resources are limited and large amounts of information must be processed.</p>
+    <p>In one approach for analog implementation of a synapse, the weight is stored as a charge on a capacitor. A problem with representing a weight as a stored charge is that charge leakage changes the weight of the connection. Although there are several approaches to eliminate charge leakage, such as reducing the capacitor&#39;s thermal temperature, or increasing its capacitance, they are not practical for most applications. As an alternative, an electrically erasable programmable read only memory or EEPROM may be used. Although this eliminates the charge leakage problem, such a device is too slow for high speed learning networks.</p>
+    <p>Hybrid systems on the other hand, are able to overcome the problem of charge leakage associated with capacitively stored weights by controlling training and refresh training digitally. In a typical hybrid system, the capacitively stored weight is digitized and monitored with digital circuitry to determine whether more training or whether refresh training is necessary. When necessary, the weight of the neuron is refreshed using the digitally stored target weight.</p>
+    <p>A significant drawback with hybrid training and refresh approaches is that it is not practical for very large scale neural networks, which are necessary for most applications. This is because A/D and D/A converters must be used for weight quantization. For most training techniques, such as Error Back Propagation, weight quantization of each synaptic link requires at least 12 bit precision, or more, to provide sufficient resolution for simple problems. Such resolution is impractical for most implementations due to expense and size concerns. As such, either the resolution or the processing capability of the neural network usually is sacrificed. Thus, providing such resolution for each neuron of a massive neural network makes this approach impractical for typical applications.</p>
+    <heading>SUMMARY OF THE PREFERRED EMBODIMENTS</heading>
+    <p>In an embodiment of the present invention, a neural network circuit is provided having a plurality of circuits capable of charge storage. Also provided is a plurality of circuits each coupled to at least one of the plurality of charge storage circuits and constructed to generate an output in accordance with a neuron transfer function, along with a plurality of circuits, each coupled to one of the plurality of neuron transfer function circuits and constructed to generate a derivative of the output. A weight update circuit updates the charge storage circuits based upon output from the plurality of transfer function circuits and output from the plurality of derivative circuits.</p>
+    <p>In preferred embodiments, a training network and a validation network share the same set of charge storage circuits and may operate concurrently. The training network has a plurality of circuits capable of charge storage and a plurality of transfer function circuits each being coupled to at least one of the charge storage circuits. In addition, the training network has a plurality of derivative circuits each being coupled to one of the plurality of transfer function circuits and constructed to generate a derivative of an output of the one transfer function circuit. The validation network has a plurality of transfer function circuits each being coupled to the plurality of charge storage circuits so as to replicate the training network&#39;s coupling of the plurality of charge storage to the plurality of transfer function circuits.</p>
+    <p>Embodiments of each of the plurality of transfer function circuits may be constructed having a transconductance amplifier. The transconductance amplifier is constructed to provide differential currents I<sub>1 </sub>and I<sub>2 </sub>from an input current I<sub>in </sub>and to combine the differential currents to provide an output in accordance with a transfer function. In such embodiments each of the plurality of derivative circuits may have a circuit constructed to generate a biased I<sub>1 </sub>and a biased I<sub>2</sub>, combine the biased I<sub>1 </sub>and biased I<sub>2</sub>, and provide an output in accordance with the derivative of the transfer function. In a preferred embodiment, in order to provide the derivative of the transfer function from the biasing and combining circuits and the transconductance amplifier outputs, each of the plurality of derivative circuits has a subtraction circuit.</p>
+    <p>A preferred method of the present invention is performed by creating a plurality of synaptic weights by storing charge on a plurality of capacitive circuits and generating a plurality of neuron outputs in accordance with a transfer function. The outputs are generated from the plurality of weights using a plurality of transfer function circuits. The derivative of each of the plurality of neuron outputs is generated using a plurality of derivative circuits each coupled to one of the plurality of transfer function circuits. A neural network is trained using a plurality of delta weights which are generated using the plurality of transfer function derivatives.</p>
+    <p>Furthermore, in a preferred method, a plurality of synaptic weights are established by storing charge on a plurality of capacitive circuits using a training network having a plurality of neurons each capable of providing outputs in accordance with a transfer function. The plurality of weights are shared with a validating network having a second plurality of neurons each capable of providing outputs in accordance with the transfer function. With this method cross-validation testing or validation testing may be performed using the validation network. Also with this method, training the neural network and performing the at least one of cross-validation testing or the validating testing may be performed simultaneously.</p>
+    <p>Such an approach eliminates the need for digital refresh circuitry and allows the advantages of speed, simplicity, and accuracy provided by analog storage to be exploited.</p>
+    
+    
+    <heading>BRIEF SUMMARY OF THE DRAWINGS</heading>
+    <p>FIG. 1 is a functional block diagram of a preferred embodiment in accordance with the present invention.</p>
+    <p>FIG. 2 is a flow diagram of a preferred method in accordance with the present invention.</p>
+    <p>FIG. 3 illustrates weights and neuron coupling in accordance with a preferred embodiment of the present invention.</p>
+    <p>FIG. 4 is a schematic diagram of a neuron and derivative circuit in accordance with a preferred embodiment of the present invention.</p>
+    <p>FIG. 5A is empirical data of the transfer function generated by embodiments of the present invention.</p>
+    <p>FIG. 5B shows an ideal derivative of the transfer functions of FIG. 5A with respect to the input signals.</p>
+    <p>FIG. 5C shows simulation data of the derivative of the transfer functions of FIG. 5A of the derivative circuit of FIG. <b>4</b>.</p>
+    
+    
+    <heading>DETAILED DESCRIPTION OF THE PREFERRED EMBODIMENTS AND METHODS OF THE PRESENT INVENTION</heading>
+    <p>Preferred embodiments of the present invention provide on-chip learning using an analog approach to capacitor training and refresh training. Such an approach eliminates the need for digital refresh circuitry and allows the advantages of speed, simplicity, and accuracy provided by analog storage to be exploited. Further, preferred embodiments incorporating the on-chip learning allow hardware implementation of training, cross-validation, and validation functions.</p>
+    <p>Turning to FIG. 1, in a preferred embodiment of the present invention a neural network is provided having two similar networks, one for training <b>100</b>, and one for validation <b>200</b>. With this embodiment, two distinct networks, training <b>100</b> and validation <b>200</b>, share the same weights <b>110</b> between them. In this embodiment, the interconnection of weights <b>110</b> and neurons <b>160</b> of the training network <b>100</b> is replicated in the validation network <b>200</b> by sharing weights <b>110</b> and using neurons <b>260</b>. Thus, in a preferred embodiment, the interconnection of weights <b>110</b> and neurons <b>160</b> is mirrored in the validation network <b>200</b>.</p>
+    <p>In general, training involves summing the weights <b>110</b> of a layer, applying the summed weights <b>110</b> to a transfer function <b>160</b>, providing the transfer function output either to a next layer as a weighted connection, or providing it for comparison with target data <b>140</b> to produce an error signal ε at <b>150</b> used to train the network <b>100</b>.</p>
+    <p>During training iterations, the weight values <b>110</b> are continuously modulated using an error back propagation type technique. Such a technique uses a means to generate delta weights <b>120</b> using an algorithm to determine the delta weight values necessary to train each of the weights <b>110</b>. The delta weight means <b>120</b> uses the error signal <b>150</b> along with the derivative F′ of the output of each neuron transfer function <b>160</b> to train each of the weights <b>110</b>, or to train new hidden weights, not shown. The weights are updated based on the delta weight algorithm using a weight update circuit as is known in the art.</p>
+    <p>The validating network <b>200</b> performs cross-validating and validation testing. The validating network <b>200</b> performs cross-validating using a cross-validation data set <b>205</b> while the training network <b>100</b> is being trained using a training set <b>105</b>. Cross-validating controls learning and freezing the learning rate of the training network <b>100</b> based on a predetermine threshold value to preventing over learning.</p>
+    <p>After learning is complete, the validating network <b>200</b> is used for validation testing of a validation or test data set <b>215</b>, while refresh training of the previously learned weights occurs through the training network <b>100</b>. Refresh training begins if the weights fall below a predetermined threshold of their trained values. As such, the weights are refreshed trained without having to use the original training data set <b>105</b>. As a result of the separate training and validating networks <b>100</b> and <b>200</b>, test set validation testing may occur concurrently with refresh training.</p>
+    <p>Thus, in implementation, one of the circuits is the learning network <b>100</b> which is computing the delta weights and updating them in real time. This network <b>100</b> learns the new and incomplete training patterns, and also enhances and recovers the weights which can be degraded by charge leakage or the failure of some components. Another circuit is, in parallel, the validating network <b>200</b> which is working simultaneously either to cross-validate or to validate data sets <b>205</b> or <b>215</b>. Since two networks <b>100</b> and <b>200</b> are sharing the same weight set in parallel, the differences between the two networks <b>100</b> and <b>200</b> comprise multipliers (not shown), hidden neurons <b>160</b> <i>a </i>and <b>260</b> <i>a, </i>and output neurons <b>160</b> <i>c </i>and <b>260</b> <i>c. </i> </p>
+    <p>With the validating network <b>200</b> in parallel, the over learning state can be detected by validating the cross-validation data set <b>205</b> without interrupting the learning process. In addition, the speed of learning is not slowed down whether it is learning new weights in a new hidden unit, or learning all the new and old weights in new and old hidden units simultaneously. Because the speed of learning does not have an effect in the weight space, the method and circuit of preferred embodiment of the present invention provides learning new and old weight components simultaneously. Therefore, potentially, the learning network <b>100</b> is able to obtain the optimal trajectory since it can learn whole weight space repeatedly.</p>
+    <p>FIG. 2 illustrates a functional flow of training, cross-validating, and test set validating. With this method, weight values are calculated by a pseudo-inverse technique <b>500</b> and downloaded <b>600</b>. A training data set <b>1100</b> is input to the training network <b>1000</b>. The training data set <b>1100</b> may also be supplied to the validation network <b>2000</b> as the cross-validation data set <b>2100</b> of the validation network <b>2000</b>. The output of the cross-validation data set <b>2100</b> is compared to a target data set to provide cross-validation error signals. The cross-validation error signals are compared to a threshold value in block <b>2200</b> to determine the learning state of the training network <b>1000</b>. If the cross-validation error is less than the threshold level the learning rate eta is frozen <b>1600</b> to prevent over learning. After the learning rate eta is frozen, test set validation <b>2300</b> may be performed. If the cross-validation errors are not less than the threshold, the learning rate eta is reduced <b>1200</b> using the training data set <b>1100</b>.</p>
+    <p>After the learning rate is either reduced <b>1200</b> or frozen <b>1600</b>, delta weights are generated <b>1300</b>. To determine whether a new hidden layer is necessary, the learning rate eta is compared to a threshold value <b>1400</b>. If the comparison <b>1400</b> indicates that eta is greater than the threshold, no new hidden layer of neurons is necessary so the delta weights are applied to existing weights of the training data set <b>1100</b>. If the comparison <b>1400</b> indicates that eta is less than the threshold, a new hidden layer of neurons is added <b>1500</b> and the delta weights are applied to the newly formed hidden layer.</p>
+    <p>Turning to FIG. 3, the training network <b>100</b> of FIG. 1 may have a Cascade Back Propagation architecture, such as is known in the art and disclosed in <i>Analog </i>3-<i>D Neuroprocessor for Fast Frame Focal Plane Image Processing, </i>by Duong et al., printed in The Industrail Electronics Handbook, pp. 990-1002, CRC Press, Boca Raton, Fla., 1996, Library of Congress Card Number 96-3070, herein incorporated by reference in its entirety.</p>
+    <p>The Cascade Back Propagation is a gradient descent technique of supervised learning which combines the good features of Back Propagation and Cascade Correlation. One advantage of such an approach is that a cascade type architecture is more suitable for hardware learning implementations because it does not require fixing the number of hidden connections before learning begins. This type learning architecture allows sequential addition of a new hidden neuron <b>160</b> <i>b </i>to a previously formed hidden neuron <b>160</b> <i>a </i>if based on the level of learning rate. In hardware implementation, a threshold level is used to add a new hidden neuron <b>160</b> <i>b </i>when the learning rate falls below the threshold level as discussed above. As such, combining these techniques allows a mathematical model for Back Propagation which uses a well studied gradient descent for learning and avoids fixing, a priori, the number of neurons in the hidden layer.</p>
+    <p>In this method, the weights <b>110</b> between the input layer and the output layer <b>230</b> are first calculated by using a pseudo-inverse technique. Thus, the network is assigned the best set of weights that represents the best fitting hyperplane in quadratic energy form between input layer and output layer for the output energy surface. In some cases, the best fitting hyperplane may not be good enough. This is true especially when the solution is not linearly separable. Based upon this output surface then, the network is designed to add a new hidden neuron to learn on the error surface. The learning occurs continuously as long as the learning rate is still above a threshold level. Otherwise, a new hidden neuron is added. When the learning energy reaches a value based on a predetermined criteria, the learning rate is frozen. Then, without changing the learning rate, the learning network keeps learning endlessly in the existing loop.</p>
+    <p>Furthermore, the newly added hidden neuron not only has weighted connections to it from all the inputs, but also establishes a new dimension of inputs which is formed from the previous hidden neurons. With this technique of adding new dimension, the network has a chance to get out of a local minimum when it is in one. In addition, when the learned network permutes the order of hidden units of Back Propagation architecture, the network is unchanged in energy level. With this attribute, it is known that there are many identical subspaces which exist in the same network of Back Propagation. Nevertheless, the same permutation technique is not applicable to Cascade Back Propagation architecture because the hidden units are set orderly in series for the cascading technique. Therefore, there exists only one subspace, a cone of hypercube, which is used to learn the transformation. Instead of working in several identical subspaces or cones at the same time by Back Propagation architecture, Cascade Back Propagation learns only in one cone. Thus, it is expected to provide faster convergence.</p>
+    <p>In one implementation of the present invention, a Cascade Error Projection algorithm is used. Such an algorithm is known in the art and disclosed in <i>Cascade Error Projection</i> <sub>—</sub> <i>A Learning Algorithm For Hardware Implementation, </i>by T. A. Duong and T. Daud, presented to IWANN&#39;99 in Alicante, Spain, Jun. 2-4, 1999, herein incorporated by reference in its entirety. With such an algorithm, the energy function is defined as: <maths> <math> <mtable> <mtr> <mtd> <mrow> <mrow> <mi>E</mi> <mo></mo> <mrow> <mo>(</mo> <mrow> <mi>n</mi> <mo>+</mo> <mn>1</mn> </mrow> <mo>)</mo> </mrow> </mrow> <mo>=</mo> <mrow> <munderover> <mo>∑</mo> <mrow> <mi>p</mi> <mo>=</mo> <mn>1</mn> </mrow> <mi>P</mi> </munderover> <mo></mo> <mrow> <msup> <mrow> <mo>{</mo> <mrow> <mrow> <msubsup> <mi>f</mi> <mi>h</mi> <mi>p</mi> </msubsup> <mo></mo> <mrow> <mo>(</mo> <mrow> <mi>n</mi> <mo>+</mo> <mn>1</mn> </mrow> <mo>)</mo> </mrow> </mrow> <mo>-</mo> <mrow> <mfrac> <mn>1</mn> <mi>m</mi> </mfrac> <mo></mo> <mrow> <munderover> <mo>∑</mo> <mrow> <mi>o</mi> <mo>=</mo> <mn>1</mn> </mrow> <mi>m</mi> </munderover> <mo></mo> <mrow> <mo>(</mo> <mrow> <msubsup> <mi>t</mi> <mi>o</mi> <mi>p</mi> </msubsup> <mo>-</mo> <msubsup> <mi>o</mi> <mi>o</mi> <mi>p</mi> </msubsup> </mrow> <mo>)</mo> </mrow> </mrow> </mrow> </mrow> <mo>}</mo> </mrow> <mn>2</mn> </msup> <mo>.</mo> </mrow> </mrow> </mrow> </mtd> <mtd> <mrow> <mo>(</mo> <mn>1</mn> <mo>)</mo> </mrow> </mtd> </mtr> </mtable> </math> <div class="patent-image"><a href="https://patentimages.storage.googleapis.com/4f/05/da/42debfb0b6593c/US06513023-20030128-M00001.png"><img id="EMI-M00001" file="US06513023-20030128-M00001.TIF" img-content="math" img-format="tif" alt="Figure US06513023-20030128-M00001" alt="Figure US06513023-20030128-M00001" class="patent-full-image" src="https://patentimages.storage.googleapis.com/4f/05/da/42debfb0b6593c/US06513023-20030128-M00001.png"/></a></div> <attachments> <attachment idref="MATHEMATICA-00001" attachment-type="nb" file="US06513023-20030128-M00001.NB"> </attachment> </attachments> </maths> </p>
+    <p>The weight updating between the inputs, including previously added hidden units, and the newly added hidden unit is calculated as follows: <maths> <math> <mtable> <mtr> <mtd> <mrow> <mrow> <mi>Δ</mi> <mo></mo> <mstyle> <mtext> </mtext> </mstyle> <mo></mo> <mrow> <msubsup> <mi>w</mi> <mi>ih</mi> <mi>p</mi> </msubsup> <mo></mo> <mrow> <mo>(</mo> <mrow> <mi>n</mi> <mo>+</mo> <mn>1</mn> </mrow> <mo>)</mo> </mrow> </mrow> </mrow> <mo>=</mo> <mrow> <mrow> <mo>-</mo> <mi>η</mi> </mrow> <mo></mo> <mfrac> <mrow> <mo>∂</mo> <mrow> <mi>E</mi> <mo></mo> <mrow> <mo>(</mo> <mrow> <mi>n</mi> <mo>+</mo> <mn>1</mn> </mrow> <mo>)</mo> </mrow> </mrow> </mrow> <mrow> <mo>∂</mo> <mrow> <msubsup> <mi>w</mi> <mi>ih</mi> <mi>p</mi> </msubsup> <mo></mo> <mrow> <mo>(</mo> <mrow> <mi>n</mi> <mo>+</mo> <mn>1</mn> </mrow> <mo>)</mo> </mrow> </mrow> </mrow> </mfrac> </mrow> </mrow> </mtd> <mtd> <mrow> <mo>(</mo> <mn>2</mn> <mo>)</mo> </mrow> </mtd> </mtr> </mtable> </math> <div class="patent-image"><a href="https://patentimages.storage.googleapis.com/89/98/1f/a833773c452e60/US06513023-20030128-M00002.png"><img id="EMI-M00002" file="US06513023-20030128-M00002.TIF" img-content="math" img-format="tif" alt="Figure US06513023-20030128-M00002" alt="Figure US06513023-20030128-M00002" class="patent-full-image" src="https://patentimages.storage.googleapis.com/89/98/1f/a833773c452e60/US06513023-20030128-M00002.png"/></a></div> <attachments> <attachment idref="MATHEMATICA-00002" attachment-type="nb" file="US06513023-20030128-M00002.NB"> </attachment> </attachments> </maths> </p>
+    <p>and the weight updating between hidden unit n+1 and the output unit o is <maths> <math> <mtable> <mtr> <mtd> <mrow> <mrow> <msub> <mi>w</mi> <mi>ho</mi> </msub> <mo></mo> <mrow> <mo>(</mo> <mrow> <mi>n</mi> <mo>+</mo> <mn>1</mn> </mrow> <mo>)</mo> </mrow> </mrow> <mo>=</mo> <mfrac> <mrow> <munderover> <mo>∑</mo> <mrow> <mi>p</mi> <mo>=</mo> <mn>1</mn> </mrow> <mi>P</mi> </munderover> <mo></mo> <mrow> <msubsup> <mi>ɛ</mi> <mi>o</mi> <mi>p</mi> </msubsup> <mo></mo> <msubsup> <mi>f</mi> <mi>o</mi> <mrow> <mi>′</mi> <mo></mo> <mstyle> <mtext> </mtext> </mstyle> <mo></mo> <mi>p</mi> </mrow> </msubsup> <mo></mo> <mrow> <msubsup> <mi>f</mi> <mi>h</mi> <mi>p</mi> </msubsup> <mo></mo> <mrow> <mo>(</mo> <mrow> <mi>n</mi> <mo>+</mo> <mn>1</mn> </mrow> <mo>)</mo> </mrow> </mrow> </mrow> </mrow> <mrow> <munderover> <mo>∑</mo> <mrow> <mi>p</mi> <mo>=</mo> <mn>1</mn> </mrow> <mi>P</mi> </munderover> <mo></mo> <msup> <mrow> <mo>[</mo> <mrow> <msubsup> <mi>f</mi> <mi>o</mi> <mrow> <mi>′</mi> <mo></mo> <mstyle> <mtext> </mtext> </mstyle> <mo></mo> <mi>p</mi> </mrow> </msubsup> <mo></mo> <mrow> <msubsup> <mi>f</mi> <mi>h</mi> <mi>p</mi> </msubsup> <mo></mo> <mrow> <mo>(</mo> <mrow> <mi>n</mi> <mo>+</mo> <mn>1</mn> </mrow> <mo>)</mo> </mrow> </mrow> </mrow> <mo>]</mo> </mrow> <mn>2</mn> </msup> </mrow> </mfrac> </mrow> </mtd> <mtd> <mrow> <mo>(</mo> <mn>3</mn> <mo>)</mo> </mrow> </mtd> </mtr> </mtable> </math> <div class="patent-image"><a href="https://patentimages.storage.googleapis.com/a3/6f/88/1db101aed2c967/US06513023-20030128-M00003.png"><img id="EMI-M00003" file="US06513023-20030128-M00003.TIF" img-content="math" img-format="tif" alt="Figure US06513023-20030128-M00003" alt="Figure US06513023-20030128-M00003" class="patent-full-image" src="https://patentimages.storage.googleapis.com/a3/6f/88/1db101aed2c967/US06513023-20030128-M00003.png"/></a></div> <attachments> <attachment idref="MATHEMATICA-00003" attachment-type="nb" file="US06513023-20030128-M00003.NB"> </attachment> </attachments> </maths> </p>
+    <p>where <maths> <math> <mrow> <mrow> <mrow> <mi>f</mi> <mo></mo> <mrow> <mo>(</mo> <mi>x</mi> <mo>)</mo> </mrow> </mrow> <mo>=</mo> <mfrac> <mrow> <mn>1</mn> <mo>-</mo> <msup> <mi></mi> <mrow> <mo>-</mo> <mi>x</mi> </mrow> </msup> </mrow> <mrow> <mn>1</mn> <mo>+</mo> <msup> <mi></mi> <mrow> <mo>-</mo> <mi>x</mi> </mrow> </msup> </mrow> </mfrac> </mrow> <mo>,</mo> </mrow> </math> <div class="patent-image"><a href="https://patentimages.storage.googleapis.com/92/e7/13/66593a1b561853/US06513023-20030128-M00004.png"><img id="EMI-M00004" file="US06513023-20030128-M00004.TIF" img-content="math" img-format="tif" alt="Figure US06513023-20030128-M00004" alt="Figure US06513023-20030128-M00004" class="patent-full-image" src="https://patentimages.storage.googleapis.com/92/e7/13/66593a1b561853/US06513023-20030128-M00004.png"/></a></div> <attachments> <attachment idref="MATHEMATICA-00004" attachment-type="nb" file="US06513023-20030128-M00004.NB"> </attachment> </attachments> </maths> </p>
+    <p>m is the number of outputs,</p>
+    <p>P is the number of training patterns,</p>
+    <p>η is the learning rate eta,</p>
+    <p>error ε<sub>o</sub> <sup>p</sup>=t<sub>o</sub> <sup>p</sup>−o<sub>o</sub> <sup>p</sup>(n),</p>
+    <p>t<sub>o</sub> <sup>p </sup>is the target element for training pattern p,</p>
+    <p>o<sub>o</sub> <sup>p</sup>(n) is the output element o of actual output o(n) for training pattern p,</p>
+    <p>n indicates the number of previously added hidden units,</p>
+    <p>ƒ′<sub>o</sub> <sup>p</sup>(n)=ƒ′<sub>o</sub> <sup>p </sup>denotes the output transfer function derivative with respect to its input, and</p>
+    <p>ƒ<sub>h</sub> <sup>p</sup>(n+1) denotes the transfer function of hidden unit n+1.</p>
+    <p>With preferred algorithm above, and with other back propagation type techniques, the derivative of the neuron transfer function of each neuron, evaluated at the neuron output value, is required by the learning algorithm to generate the delta weight values used to train the network. Thus, it is desirable that embodiments of the present invention provide not only the neuron transfer function output, but also its derivative, in real time, with respect to a neuron input signal.</p>
+    <p>Thus, the preferred embodiment of the present invention provides a transconductance amplifier designed locally as a neuron to obtain a transfer function and its derivative with respect to an input signal. In general, to accomplish this, inputs x and Δx are supplied to the neuron, where x is the sum of the weights to the neuron and Δx is a small applied bias. From these inputs, the neuron generates values for f(x) and f(x+Δx) in accordance with the transfer function. The derivative is then generated according to:</p>
+    <p>
+      <maths>
+        <formula-text> <i>f′</i>(<i>x</i>)=α*[<i>f</i>(<i>x+Δx</i>)−<i>f</i>(<i>x</i>)]</formula-text>
+      </maths>
+    </p>
+    <p>where α is a constant of proportionality.</p>
+    <p>Turning to FIG. 4, in a preferred embodiment, an input signal I<sub>in </sub>representing the sum of the weights in a layer is supplied to transfer function circuitry <b>3000</b> which generates an output signal F(I<sub>in</sub>) in accordance with a transfer function. The transfer function output signal F(I<sub>in</sub>) is supplied to derivative generation circuitry <b>4000</b> to provide output F′ (I<sub>in</sub>). The derivative circuit output F′ (I<sub>in</sub>) is generated by biasing the transfer function to create a transfer function signal F(I<sub>in</sub>+I<sub>bias</sub>), from which F(I<sub>in</sub>) is subtracted to provide F′ (I<sub>in</sub>).</p>
+    <p>The amplifier embodiment of FIG. 4 uses complementary field effect transistors T<b>1</b>-T<b>24</b> to provide output in accordance with a sigmoidal transfer function and its derivative. It is possible in other amplifier embodiments to employ other transfer functions such as a gaussian transfer function, or other transfer function known in the art.</p>
+    <p>In the preferred embodiment of FIG. 4, the neuron transfer function output F(I<sub>in</sub>) is generated by supplying I<sub>in </sub>to generate currents I<sub>1 </sub>and I<sub>2 </sub>which when combined together provides the sigmoidal transfer function. Thus, I<sub>in </sub>is supplied across R<b>1</b>, to the gate of T<b>1</b>, while the gate of transistor T<b>2</b> is supplied with a reference voltage to generate currents I<sub>1 </sub>and I<sub>2 </sub>through T<b>1</b> and T<b>2</b> respectively. I<sub>1 </sub>is mirrored through T<b>5</b>, to provide a mirrored I<sub>1 </sub>through T<b>15</b>. This is combined with a mirrored I<sub>2 </sub>provided by T<b>6</b>, thus providing the sigmoidal transfer function output F(I<sub>in</sub>). Hence, the transfer function circuitry <b>3000</b> is a transconductance amplifier which provides a differential pair of transistors T<b>1</b> and T<b>2</b> constructed to provide currents I<sub>1 </sub>and I<sub>2 </sub>from an input current I<sub>in</sub>. Mirror circuits constructed using T<b>6</b> and T<b>15</b> to provide a combined output from the currents I<sub>1 </sub>and I<sub>2 </sub>in accordance with a sigmoidal transfer function.</p>
+    <p>F(I<sub>in</sub>+I<sub>bais</sub>) is generated by providing bias currents of <maths> <math> <mfrac> <msub> <mi>I</mi> <mi>bias</mi> </msub> <mn>2</mn> </mfrac> </math> <div class="patent-image"><a href="https://patentimages.storage.googleapis.com/ac/b8/f8/b0b93796cff24e/US06513023-20030128-M00005.png"><img id="EMI-M00005" file="US06513023-20030128-M00005.TIF" img-content="math" img-format="tif" alt="Figure US06513023-20030128-M00005" alt="Figure US06513023-20030128-M00005" class="patent-full-image" src="https://patentimages.storage.googleapis.com/ac/b8/f8/b0b93796cff24e/US06513023-20030128-M00005.png"/></a></div> <attachments> <attachment idref="MATHEMATICA-00005" attachment-type="nb" file="US06513023-20030128-M00005.NB"> </attachment> </attachments> </maths> </p>
+    <p>to I<sub>2 </sub>and I<sub>1 </sub>and combining the result. Bias current source I<sub>bias2 </sub>provides bias current <maths> <math> <mrow> <mfrac> <msub> <mi>I</mi> <mi>bias</mi> </msub> <mn>2</mn> </mfrac> <mo>,</mo> </mrow> </math> <div class="patent-image"><a href="https://patentimages.storage.googleapis.com/75/8e/d6/602cc1b653ad60/US06513023-20030128-M00006.png"><img id="EMI-M00006" file="US06513023-20030128-M00006.TIF" img-content="math" img-format="tif" alt="Figure US06513023-20030128-M00006" alt="Figure US06513023-20030128-M00006" class="patent-full-image" src="https://patentimages.storage.googleapis.com/75/8e/d6/602cc1b653ad60/US06513023-20030128-M00006.png"/></a></div> <attachments> <attachment idref="MATHEMATICA-00006" attachment-type="nb" file="US06513023-20030128-M00006.NB"> </attachment> </attachments> </maths> </p>
+    <p>which is mirrored using T<b>17</b>, and combined with I<sub>2 </sub>provided by T<b>8</b> to form <maths> <math> <mrow> <msub> <mi>I</mi> <mn>2</mn> </msub> <mo>+</mo> <mrow> <mfrac> <msub> <mi>I</mi> <mi>bias</mi> </msub> <mn>2</mn> </mfrac> <mo>.</mo> </mrow> </mrow> </math> <div class="patent-image"><a href="https://patentimages.storage.googleapis.com/b1/a3/97/7be03584954e59/US06513023-20030128-M00007.png"><img id="EMI-M00007" file="US06513023-20030128-M00007.TIF" img-content="math" img-format="tif" alt="Figure US06513023-20030128-M00007" alt="Figure US06513023-20030128-M00007" class="patent-full-image" src="https://patentimages.storage.googleapis.com/b1/a3/97/7be03584954e59/US06513023-20030128-M00007.png"/></a></div> <attachments> <attachment idref="MATHEMATICA-00007" attachment-type="nb" file="US06513023-20030128-M00007.NB"> </attachment> </attachments> </maths> </p>
+    <p>Bias current source I<sub>bias1 </sub>provides bias current <maths> <math> <mrow> <mfrac> <msub> <mi>I</mi> <mi>bias</mi> </msub> <mn>2</mn> </mfrac> <mo>,</mo> </mrow> </math> <div class="patent-image"><a href="https://patentimages.storage.googleapis.com/b0/5e/0e/7d33e4cb22405c/US06513023-20030128-M00008.png"><img id="EMI-M00008" file="US06513023-20030128-M00008.TIF" img-content="math" img-format="tif" alt="Figure US06513023-20030128-M00008" alt="Figure US06513023-20030128-M00008" class="patent-full-image" src="https://patentimages.storage.googleapis.com/b0/5e/0e/7d33e4cb22405c/US06513023-20030128-M00008.png"/></a></div> <attachments> <attachment idref="MATHEMATICA-00008" attachment-type="nb" file="US06513023-20030128-M00008.NB"> </attachment> </attachments> </maths> </p>
+    <p>which is mirrored using T<b>10</b>, and combined with I<sub>1 </sub>provided by T<b>7</b> to generate <maths> <math> <mrow> <msub> <mi>I</mi> <mn>1</mn> </msub> <mo>-</mo> <mrow> <mfrac> <msub> <mi>I</mi> <mi>bias</mi> </msub> <mn>2</mn> </mfrac> <mo>.</mo> </mrow> </mrow> </math> <div class="patent-image"><a href="https://patentimages.storage.googleapis.com/2d/07/7e/ed2acceaf34fef/US06513023-20030128-M00009.png"><img id="EMI-M00009" file="US06513023-20030128-M00009.TIF" img-content="math" img-format="tif" alt="Figure US06513023-20030128-M00009" alt="Figure US06513023-20030128-M00009" class="patent-full-image" src="https://patentimages.storage.googleapis.com/2d/07/7e/ed2acceaf34fef/US06513023-20030128-M00009.png"/></a></div> <attachments> <attachment idref="MATHEMATICA-00009" attachment-type="nb" file="US06513023-20030128-M00009.NB"> </attachment> </attachments> </maths> <maths> <math> <mrow> <msub> <mi>I</mi> <mn>1</mn> </msub> <mo>-</mo> <mfrac> <msub> <mi>I</mi> <mi>bias</mi> </msub> <mn>2</mn> </mfrac> </mrow> </math> <div class="patent-image"><a href="https://patentimages.storage.googleapis.com/78/a2/5f/77b9b177821a9a/US06513023-20030128-M00010.png"><img id="EMI-M00010" file="US06513023-20030128-M00010.TIF" img-content="math" img-format="tif" alt="Figure US06513023-20030128-M00010" alt="Figure US06513023-20030128-M00010" class="patent-full-image" src="https://patentimages.storage.googleapis.com/78/a2/5f/77b9b177821a9a/US06513023-20030128-M00010.png"/></a></div> <attachments> <attachment idref="MATHEMATICA-00010" attachment-type="nb" file="US06513023-20030128-M00010.NB"> </attachment> </attachments> </maths> </p>
+    <p>is mirrored using T<b>16</b> and combined with <maths> <math> <mrow> <msub> <mi>I</mi> <mn>2</mn> </msub> <mo>+</mo> <mfrac> <msub> <mi>I</mi> <mi>bias</mi> </msub> <mn>2</mn> </mfrac> </mrow> </math> <div class="patent-image"><a href="https://patentimages.storage.googleapis.com/22/2d/7b/989158a61aec7e/US06513023-20030128-M00011.png"><img id="EMI-M00011" file="US06513023-20030128-M00011.TIF" img-content="math" img-format="tif" alt="Figure US06513023-20030128-M00011" alt="Figure US06513023-20030128-M00011" class="patent-full-image" src="https://patentimages.storage.googleapis.com/22/2d/7b/989158a61aec7e/US06513023-20030128-M00011.png"/></a></div> <attachments> <attachment idref="MATHEMATICA-00011" attachment-type="nb" file="US06513023-20030128-M00011.NB"> </attachment> </attachments> </maths> </p>
+    <p>to form F(I<sub>in</sub>+I<sub>bais</sub>).</p>
+    <p>F(I<sub>in</sub>+I<sub>bais</sub>) and F(I<sub>in</sub>) are supplied to a subtraction circuit formed using transistors T<b>19</b>-T<b>22</b> to provide F′ (I<sub>in</sub>). F(I<sub>in</sub>+I<sub>bais</sub>) is supplied to the gate of T<b>21</b> and F(I<sub>in</sub>) to the gate of T<b>22</b>. The current generated by T<b>21</b> is mirrored by T<b>20</b> and combined with the current generated by T<b>22</b> to provide F′ (I<sub>in</sub>). Hence, the derivative circuitry <b>4000</b> has a circuit constructed to generate a biased I<sub>1 </sub>and a biased I<sub>2 </sub>and to combine the biased I<sub>1 </sub>and biased I<sub>2 </sub>to provide an output in accordance with the transfer function.</p>
+    <p>In one embodiment, R<b>2</b> is about 200 ohms, the reference voltage is ground as shown in FIG. 4, and Ibiaa is about 50 nanoamperes. Current sources I<sub>mir1 </sub>and I<sub>mir2 </sub>may be coupled to T<b>13</b> and T<b>24</b> through T<b>14</b> and T<b>23</b>, repsectively, to provide a means to control the gain of unbiased and biased I<sub>1 </sub>and I<sub>2 </sub>and thus the outputs F(I<sub>in</sub>) and F′ (I<sub>in</sub>), respectively. Embodiments of the present invention may be implemented using VLSI circuitry.</p>
+    <p>Thus, the preferred embodiment of the present invention allows generation of the derivative of the neuron transfer characteristic in real time, which may differ from neuron to neuron, even on the same VLSI chip. Providing a hardware supplied local derivative for each neuron is more reliable and robust, and avoids the issue of processing variations.</p>
+    <p>FIG. 5A shows simulation data of 2 micron CMOS transistors for various sigmoidal characteristic curves. FIG. 5B shows the ideal derivative of the transfer functions of FIG. 5A with respect to the input signals. FIG. 5C shows simulation data of the derivative of the transfer functions of FIG. 5A of the derivative circuit of FIG. <b>4</b>.</p>
+    
+  </div>
+  </div>
+  </section>
+
+  <section itemprop="claims" itemscope>
+    <h2>Claims (<span itemprop="count">32</span>)</h2>
+    
+    <div itemprop="content" html><div mxw-id="PCLM8426009" lang="EN" load-source="patent-office" class="claims">
+    <claim-statement>What I claim is: </claim-statement>
+    <div class="claim"> <div num="1" id="US-6513023-B1-CLM-00001" class="claim">
+      <div class="claim-text">1. A neural network circuit comprising:</div>
+      <div class="claim-text">a) a training network comprising: </div>
+      <div class="claim-text">(i) a plurality of analog circuits capable of charge storage; </div>
+      <div class="claim-text">(ii) a plurality of analog transfer function circuits each being continuously coupled to at least one of the charge storage circuits; </div>
+      <div class="claim-text">(iii) a plurality of analog derivative circuits each being continuously coupled to one of the plurality of transfer function circuits and constructed to continuously generate in real time a derivative of an output of the one transfer function circuit; and </div>
+      <div class="claim-text">(iv) a weight update analog circuit for continuously updating the charge storage circuits based upon output from the plurality of transfer function circuits and output from the plurality of derivative circuits; and </div>
+      <div class="claim-text">b) a validation network comprising: </div>
+      <div class="claim-text">(i) a plurality of transfer function circuits each being coupled to the plurality of charge storage circuits so as to replicate the coupling of the plurality of charge storage-to-the plurality of transfer function circuits of the training network. </div>
+    </div>
+    </div> <div class="claim-dependent"> <div num="2" id="US-6513023-B1-CLM-00002" class="claim">
+      <div class="claim-text">2. The neural network circuit of <claim-ref idref="US-6513023-B1-CLM-00001">claim 1</claim-ref> wherein each of the plurality of transfer function circuits comprises a transconductance amplifier having a transfer function constructed to provide differential currents I<sub>1 </sub>and I<sub>2 </sub>from an input current I<sub>in </sub>and to combine the differential currents to provide an output in accordance with the transfer function.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div num="3" id="US-6513023-B1-CLM-00003" class="claim">
+      <div class="claim-text">3. The neural network circuit of <claim-ref idref="US-6513023-B1-CLM-00002">claim 2</claim-ref> wherein each of the plurality of derivative circuits comprises a circuit constructed to generate a biased I<sub>1 </sub>and a biased I<sub>2 </sub>and to combine the biased I<sub>1 </sub>and biased I<sub>2 </sub>to provide an output in accordance with the transfer function.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div num="4" id="US-6513023-B1-CLM-00004" class="claim">
+      <div class="claim-text">4. The neural network circuit of <claim-ref idref="US-6513023-B1-CLM-00003">claim 3</claim-ref> wherein each of the plurality of derivative circuits further comprises a subtraction circuit constructed to provide the derivative of the transfer function from the biasing and combining circuit and the transconductance amplifier outputs.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div num="5" id="US-6513023-B1-CLM-00005" class="claim">
+      <div class="claim-text">5. The neural network circuit of <claim-ref idref="US-6513023-B1-CLM-00004">claim 4</claim-ref> further comprising a means to control the amplitude of I<sub>1 </sub>and I<sub>2</sub>.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div num="6" id="US-6513023-B1-CLM-00006" class="claim">
+      <div class="claim-text">6. The neural network circuit of <claim-ref idref="US-6513023-B1-CLM-00005">claim 5</claim-ref> further comprising a means to control the amplitude of the biased I<sub>1 </sub>and the biased I<sub>2</sub>.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div num="7" id="US-6513023-B1-CLM-00007" class="claim">
+      <div class="claim-text">7. The neural network circuit of <claim-ref idref="US-6513023-B1-CLM-00001">claim 1</claim-ref> wherein the training network is constructed to train using back propagation.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div num="8" id="US-6513023-B1-CLM-00008" class="claim">
+      <div class="claim-text">8. The neural network circuit of <claim-ref idref="US-6513023-B1-CLM-00007">claim 7</claim-ref> further comprising a means for generating a plurality of delta weights from the plurality of derivative circuit outputs and a plurality of error signals ε.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div num="9" id="US-6513023-B1-CLM-00009" class="claim">
+      <div class="claim-text">9. The neural network circuit of <claim-ref idref="US-6513023-B1-CLM-00007">claim 7</claim-ref> wherein the neural network circuit is constructed to train using cascade correlation.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div num="10" id="US-6513023-B1-CLM-00010" class="claim">
+      <div class="claim-text">10. The neural network circuit of <claim-ref idref="US-6513023-B1-CLM-00001">claim 1</claim-ref> wherein the plurality of charge storage circuits comprise capacitors.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div num="11" id="US-6513023-B1-CLM-00011" class="claim">
+      <div class="claim-text">11. The neural network circuit of <claim-ref idref="US-6513023-B1-CLM-00001">claim 1</claim-ref> wherein the transfer function is a sigmoidal transfer function.</div>
+    </div>
+    </div> <div class="claim"> <div num="12" id="US-6513023-B1-CLM-00012" class="claim">
+      <div class="claim-text">12. A neural network circuit comprising:</div>
+      <div class="claim-text">a) a plurality of circuits capable of charge storage; </div>
+      <div class="claim-text">b) a plurality of circuits each being coupled to at least one of the plurality of charge storage circuits and constructed to generate an output in accordance with a neuron transfer function; </div>
+      <div class="claim-text">c) a plurality of circuits each being coupled to one of the plurality of neuron transfer function circuits and constructed to generate a derivative of the output; </div>
+      <div class="claim-text">d) a weight update circuit for updating the charge storage circuits based upon output from the plurality of transfer function circuits and output from the plurality of derivative circuits; and </div>
+      <div class="claim-text">wherein the neural network comprises separate training and validation networks, and wherein the training network comprises the plurality of charge storage, neuron transfer, and derivative circuits, and wherein the validation network comprises the plurality of charge storage circuits and further comprises a plurality of neuron transfer function circuits each being coupled to the plurality of charge storage circuits so as to replicate the coupling of the plurality of charge storage circuits-to-the plurality of neuron transfer function circuits. </div>
+    </div>
+    </div> <div class="claim-dependent"> <div num="13" id="US-6513023-B1-CLM-00013" class="claim">
+      <div class="claim-text">13. The neural network circuit of <claim-ref idref="US-6513023-B1-CLM-00012">claim 12</claim-ref> wherein each of the plurality of transfer function circuits comprises a transconductance amplifier having a transfer function constructed to provide differential currents I<sub>1 </sub>and I<sub>2 </sub>from an input current I<sub>in </sub>and to combine the differential currents to provide an output in accordance with the transfer function.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div num="14" id="US-6513023-B1-CLM-00014" class="claim">
+      <div class="claim-text">14. The neural network circuit of <claim-ref idref="US-6513023-B1-CLM-00013">claim 13</claim-ref> wherein each of the plurality of derivative circuits comprises a circuit constructed to generate a biased I<sub>1 </sub>and a biased I<sub>2 </sub>and to combine the biased I<sub>1 </sub>and biased I<sub>2 </sub>to provide an output in accordance with the transfer function.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div num="15" id="US-6513023-B1-CLM-00015" class="claim">
+      <div class="claim-text">15. The neural network circuit of <claim-ref idref="US-6513023-B1-CLM-00014">claim 14</claim-ref> wherein each of the plurality of derivative circuits further comprises a subtraction circuit constructed to provide the derivative of the transfer function from the bias and combine circuit and the transconductance amplifier outputs.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div num="16" id="US-6513023-B1-CLM-00016" class="claim">
+      <div class="claim-text">16. The neural network circuit of <claim-ref idref="US-6513023-B1-CLM-00012">claim 12</claim-ref> wherein the plurality of charge storage circuits comprise capacitors.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div num="17" id="US-6513023-B1-CLM-00017" class="claim">
+      <div class="claim-text">17. The neural network circuit of <claim-ref idref="US-6513023-B1-CLM-00012">claim 12</claim-ref> wherein the transfer function is a sigmoidal transfer function.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div num="18" id="US-6513023-B1-CLM-00018" class="claim">
+      <div class="claim-text">18. The neural network circuit of <claim-ref idref="US-6513023-B1-CLM-00012">claim 12</claim-ref> wherein the neural network circuit is constructed to train using back propagation.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div num="19" id="US-6513023-B1-CLM-00019" class="claim">
+      <div class="claim-text">19. The neural network circuit of <claim-ref idref="US-6513023-B1-CLM-00018">claim 18</claim-ref> wherein the neural network circuit is constructed to train using cascade correlation.</div>
+    </div>
+    </div> <div class="claim"> <div num="20" id="US-6513023-B1-CLM-00020" class="claim">
+      <div class="claim-text">20. A method of signal processing in a neural network comprising:</div>
+      <div class="claim-text">a) creating a plurality of synaptic weights by storing charge on a plurality of capacitive circuits; </div>
+      <div class="claim-text">b) generating a plurality of neuron outputs in accordance with a transfer function from the plurality of weights using a plurality of transfer function analog circuits; </div>
+      <div class="claim-text">c) continuously generating in real time a derivative of each of the plurality of neuron outputs using a plurality of derivative circuits each coupled to one of the plurality of transfer function circuits; and </div>
+      <div class="claim-text">d) training the neural network using a plurality of delta weights generated using the plurality of transfer function derivatives. </div>
+    </div>
+    </div> <div class="claim-dependent"> <div num="21" id="US-6513023-B1-CLM-00021" class="claim">
+      <div class="claim-text">21. The method of <claim-ref idref="US-6513023-B1-CLM-00020">claim 20</claim-ref> wherein training further comprises controlling a learning rate of the plurality of weights using a validation network comprising a plurality of transfer functions circuits coupled to the plurality of weights.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div num="22" id="US-6513023-B1-CLM-00022" class="claim">
+      <div class="claim-text">22. The method of <claim-ref idref="US-6513023-B1-CLM-00021">claim 21</claim-ref> wherein controlling the learning rate further comprises:</div>
+      <div class="claim-text">a) supplying a cross-validation data set to the validation network; </div>
+      <div class="claim-text">b) generating error signals at an output of the validation network; </div>
+      <div class="claim-text">c) comparing the error signals to a threshold value; and </div>
+      <div class="claim-text">d) setting the learning rate using a result of the comparison. </div>
+    </div>
+    </div> <div class="claim-dependent"> <div num="23" id="US-6513023-B1-CLM-00023" class="claim">
+      <div class="claim-text">23. The method of <claim-ref idref="US-6513023-B1-CLM-00020">claim 20</claim-ref> further comprising validating test set data using a validation network comprising a plurality of transfer functions circuits coupled to the plurality of weights.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div num="24" id="US-6513023-B1-CLM-00024" class="claim">
+      <div class="claim-text">24. The method of <claim-ref idref="US-6513023-B1-CLM-00023">claim 23</claim-ref> wherein validating the test set data and training the neural network are performed simultaneously.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div num="25" id="US-6513023-B1-CLM-00025" class="claim">
+      <div class="claim-text">25. The method of <claim-ref idref="US-6513023-B1-CLM-00020">claim 20</claim-ref> further comprising generating a second plurality of neuron outputs in accordance with the transfer function by sharing the plurality of weights and using a second plurality of transfer function circuits.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div num="26" id="US-6513023-B1-CLM-00026" class="claim">
+      <div class="claim-text">26. The method of <claim-ref idref="US-6513023-B1-CLM-00020">claim 20</claim-ref> further comprising using a pseudo inverse technique to calculate an initial value for the plurality of weights.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div num="27" id="US-6513023-B1-CLM-00027" class="claim">
+      <div class="claim-text">27. The method of <claim-ref idref="US-6513023-B1-CLM-00020">claim 20</claim-ref> wherein training further comprises adding a plurality of new hidden neurons to previously formed neurons based on the learning rate to generate a plurality of neuron outputs in accordance with the transfer function from a plurality of new hidden weights using a plurality of new transfer function circuits.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div num="28" id="US-6513023-B1-CLM-00028" class="claim">
+      <div class="claim-text">28. The method of <claim-ref idref="US-6513023-B1-CLM-00027">claim 27</claim-ref> further comprising generating a derivative of each of the plurality of new hidden neuron outputs.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div num="29" id="US-6513023-B1-CLM-00029" class="claim">
+      <div class="claim-text">29. The method of <claim-ref idref="US-6513023-B1-CLM-00020">claim 20</claim-ref> wherein generating a plurality of neuron outputs in accordance with a transfer function and generating a derivative of each of the plurality of neuron outputs further comprises using field effect transistors.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div num="30" id="US-6513023-B1-CLM-00030" class="claim">
+      <div class="claim-text">30. The method of <claim-ref idref="US-6513023-B1-CLM-00020">claim 20</claim-ref> wherein generating a plurality of neuron outputs comprises generating differential output currents I<sub>1 </sub>and I<sub>2 </sub>for each of the plurality of neuron outputs, and wherein generating a derivative of each of the plurality of neuron outputs further comprises providing biases to each of I<sub>1 </sub>and I<sub>2</sub>, and wherein generating a derivative of each of the plurality of neuron comprises using I<sub>1 </sub>and I<sub>2 </sub>and the biased I<sub>1 </sub>and biased I<sub>2 </sub>to provide an output in accordance with the transfer function.</div>
+    </div>
+    </div> <div class="claim"> <div num="31" id="US-6513023-B1-CLM-00031" class="claim">
+      <div class="claim-text">31. A method for signal processing in a neural network circuit comprising:</div>
+      <div class="claim-text">a) training a plurality of synaptic weights by storing charge on a plurality of capacitive circuits using a training network having a plurality of neurons each capable of providing outputs in accordance with a transfer function; </div>
+      <div class="claim-text">b) sharing the plurality of weights with a validating network having a second plurality of neurons each capable of providing outputs in accordance with the transfer function; and </div>
+      <div class="claim-text">c) performing at least one of cross-validation testing or validation testing using the validation network. </div>
+    </div>
+    </div> <div class="claim-dependent"> <div num="32" id="US-6513023-B1-CLM-00032" class="claim">
+      <div class="claim-text">32. The method of <claim-ref idref="US-6513023-B1-CLM-00031">claim 31</claim-ref> wherein training and performing the at least one of cross-validation testing or the validating testing are performed simultaneously.</div>
+    </div>
+  </div> </div>
+  </div>
+  </section>
+
+  <section itemprop="application" itemscope>
+
+    <section itemprop="metadata" itemscope>
+        <span itemprop="applicationNumber">US09/412,199</span>
+        <span itemprop="priorityDate">1999-10-01</span>
+        <span itemprop="filingDate">1999-10-01</span>
+        <span itemprop="title">Artificial neural network with hardware training and hardware refresh 
+       </span>
+        <span itemprop="ifiStatus">Expired - Fee Related</span>
+        
+        <a href="/patent/US6513023B1/en">
+            <span itemprop="representativePublication">US6513023B1</span>
+            (<span itemprop="primaryLanguage">en</span>)
+        </a>
+    </section>
+
+    <h2>Priority Applications (1)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                    <th>Title</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="priorityApps" itemscope repeat>
+                <td>
+                   <span itemprop="applicationNumber">US09/412,199</span>
+                   
+                   <a href="/patent/US6513023B1/en">
+                        <span itemprop="representativePublication">US6513023B1</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                <td itemprop="priorityDate">1999-10-01</td>
+                <td itemprop="filingDate">1999-10-01</td>
+                <td itemprop="title">Artificial neural network with hardware training and hardware refresh 
+       </td>
+              </tr>
+           </tbody>
+       </table>
+
+    <h2>Applications Claiming Priority (1)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                    <th>Title</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="appsClaimingPriority" itemscope repeat>
+                <td>
+                   <span itemprop="applicationNumber">US09/412,199</span>
+                   <a href="/patent/US6513023B1/en">
+                        <span itemprop="representativePublication">US6513023B1</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                <td itemprop="priorityDate">1999-10-01</td>
+                <td itemprop="filingDate">1999-10-01</td>
+                <td itemprop="title">Artificial neural network with hardware training and hardware refresh 
+       </td>
+              </tr>
+           </tbody>
+       </table>
+
+    
+
+    
+
+    <h2>Publications (1)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Publication Number</th>
+                    <th>Publication Date</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="pubs" itemscope repeat>
+                <td>
+                   <span itemprop="publicationNumber">US6513023B1</span>
+                   
+                   <span itemprop="thisPatent">true</span>
+                   <a href="/patent/US6513023B1/en">US6513023B1
+                       (<span itemprop="primaryLanguage">en</span>)
+                   </a>
+                </td>
+                <td itemprop="publicationDate">2003-01-28</td>
+              </tr>
+           </tbody>
+        </table>
+
+  </section>
+
+  <section itemprop="family" itemscope>
+    <h1>Family</h1>
+    <h2>ID=23632006</h2>
+
+    <h2>Family Applications (1)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Title</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="applications" itemscope repeat>
+                <td>
+                    <span itemprop="applicationNumber">US09/412,199</span>
+                    <span itemprop="ifiStatus">Expired - Fee Related</span>
+                    
+                    <a href="/patent/US6513023B1/en">
+                        <span itemprop="representativePublication">US6513023B1</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                </td>
+                <td itemprop="priorityDate">1999-10-01</td>
+                <td itemprop="filingDate">1999-10-01</td>
+                <td itemprop="title">Artificial neural network with hardware training and hardware refresh 
+       </td>
+              </tr>
+           </tbody>
+        </table>
+
+    
+
+    
+
+    <h2>Country Status (1)</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Country</th>
+            <th>Link</th>
+          </tr>
+        </thead>
+        <tbody>
+        <tr itemprop="countryStatus" itemscope repeat>
+            <td>
+              <span itemprop="countryCode">US</span>
+                (<span itemprop="num">1</span>)
+              <meta itemprop="thisCountry" content="true">
+            </td>
+            <td>
+              <a href="/patent/US6513023B1/en">
+                <span itemprop="representativePublication">US6513023B1</span>
+                  (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+    <h2>Cited By (3)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US8976269B2/en">
+              <span itemprop="publicationNumber">US8976269B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2012-06-22</td>
+          <td itemprop="publicationDate">2015-03-10</td>
+          <td><span itemprop="assigneeOriginal">California Institute Of Technology</span></td>
+          <td itemprop="title">Compressive sensing based bio-inspired shape feature detection CMOS imager 
+       </td>
+        </tr><tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US10346742B2/en">
+              <span itemprop="publicationNumber">US10346742B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2014-06-19</td>
+          <td itemprop="publicationDate">2019-07-09</td>
+          <td><span itemprop="assigneeOriginal">Yahoo Japan Corporation</span></td>
+          <td itemprop="title">Calculation device, calculation method, and recording medium 
+       </td>
+        </tr><tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US10417525B2/en">
+              <span itemprop="publicationNumber">US10417525B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2014-09-22</td>
+          <td itemprop="publicationDate">2019-09-17</td>
+          <td><span itemprop="assigneeOriginal">Samsung Electronics Co., Ltd.</span></td>
+          <td itemprop="title">Object recognition with reduced neural network weight precision 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+
+    
+
+    <h2>Citations (30)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US4866645A/en">
+              <span itemprop="publicationNumber">US4866645A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1987-12-23</td>
+          <td itemprop="publicationDate">1989-09-12</td>
+          <td><span itemprop="assigneeOriginal">North American Philips Corporation</span></td>
+          <td itemprop="title">Neural network with dynamic refresh capability 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US4912652A/en">
+              <span itemprop="publicationNumber">US4912652A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1988-12-14</td>
+          <td itemprop="publicationDate">1990-03-27</td>
+          <td><span itemprop="assigneeOriginal">Gte Laboratories Incorporated</span></td>
+          <td itemprop="title">Fast neural network training 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US4951239A/en">
+              <span itemprop="publicationNumber">US4951239A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1988-10-27</td>
+          <td itemprop="publicationDate">1990-08-21</td>
+          <td><span itemprop="assigneeOriginal">The United States Of America As Represented By The Secretary Of The Navy</span></td>
+          <td itemprop="title">Artificial neural network implementation 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5039871A/en">
+              <span itemprop="publicationNumber">US5039871A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1990-05-21</td>
+          <td itemprop="publicationDate">1991-08-13</td>
+          <td><span itemprop="assigneeOriginal">General Electric Company</span></td>
+          <td itemprop="title">Capacitive structures for weighted summation as used in neural nets 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5039870A/en">
+              <span itemprop="publicationNumber">US5039870A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1990-05-21</td>
+          <td itemprop="publicationDate">1991-08-13</td>
+          <td><span itemprop="assigneeOriginal">General Electric Company</span></td>
+          <td itemprop="title">Weighted summation circuits having different-weight ranks of capacitive structures 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5093899A/en">
+              <span itemprop="publicationNumber">US5093899A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1988-09-17</td>
+          <td itemprop="publicationDate">1992-03-03</td>
+          <td><span itemprop="assigneeOriginal">Sony Corporation</span></td>
+          <td itemprop="title">Neural network with normalized learning constant for high-speed stable learning 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5113483A/en">
+              <span itemprop="publicationNumber">US5113483A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1990-06-15</td>
+          <td itemprop="publicationDate">1992-05-12</td>
+          <td><span itemprop="assigneeOriginal">Microelectronics And Computer Technology Corporation</span></td>
+          <td itemprop="title">Neural network with semi-localized non-linear mapping of the input space 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5130563A/en">
+              <span itemprop="publicationNumber">US5130563A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1989-11-30</td>
+          <td itemprop="publicationDate">1992-07-14</td>
+          <td><span itemprop="assigneeOriginal">Washington Research Foundation</span></td>
+          <td itemprop="title">Optoelectronic sensory neural network 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5136176A/en">
+              <span itemprop="publicationNumber">US5136176A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1991-08-20</td>
+          <td itemprop="publicationDate">1992-08-04</td>
+          <td><span itemprop="assigneeOriginal">Intel Corporation</span></td>
+          <td itemprop="title">Charge domain synapse cell 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5146542A/en">
+              <span itemprop="publicationNumber">US5146542A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1989-06-15</td>
+          <td itemprop="publicationDate">1992-09-08</td>
+          <td><span itemprop="assigneeOriginal">General Electric Company</span></td>
+          <td itemprop="title">Neural net using capacitive structures connecting output lines and differentially driven input line pairs 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5150450A/en">
+              <span itemprop="publicationNumber">US5150450A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1990-10-01</td>
+          <td itemprop="publicationDate">1992-09-22</td>
+          <td><span itemprop="assigneeOriginal">The United States Of America As Represented By The Secretary Of The Navy</span></td>
+          <td itemprop="title">Method and circuits for neuron perturbation in artificial neural network memory modification 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5155802A/en">
+              <span itemprop="publicationNumber">US5155802A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1987-12-03</td>
+          <td itemprop="publicationDate">1992-10-13</td>
+          <td><span itemprop="assigneeOriginal">Trustees Of The Univ. Of Penna.</span></td>
+          <td itemprop="title">General purpose neural computer 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5159660A/en">
+              <span itemprop="publicationNumber">US5159660A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1990-08-09</td>
+          <td itemprop="publicationDate">1992-10-27</td>
+          <td><span itemprop="assigneeOriginal">Western Thunder</span></td>
+          <td itemprop="title">Universal process control using artificial neural networks 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5179596A/en">
+              <span itemprop="publicationNumber">US5179596A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1991-07-05</td>
+          <td itemprop="publicationDate">1993-01-12</td>
+          <td><span itemprop="assigneeOriginal">Booz, Allen &amp; Hamilton, Inc.</span></td>
+          <td itemprop="title">Analog pattern categorization system having dual weighted connectivity between nodes 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5182794A/en">
+              <span itemprop="publicationNumber">US5182794A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1990-07-12</td>
+          <td itemprop="publicationDate">1993-01-26</td>
+          <td><span itemprop="assigneeOriginal">Allen-Bradley Company, Inc.</span></td>
+          <td itemprop="title">Recurrent neural networks teaching system 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5187680A/en">
+              <span itemprop="publicationNumber">US5187680A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1989-06-15</td>
+          <td itemprop="publicationDate">1993-02-16</td>
+          <td><span itemprop="assigneeOriginal">General Electric Company</span></td>
+          <td itemprop="title">Neural net using capacitive structures connecting input lines and differentially sensed output line pairs 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5256911A/en">
+              <span itemprop="publicationNumber">US5256911A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1992-06-10</td>
+          <td itemprop="publicationDate">1993-10-26</td>
+          <td><span itemprop="assigneeOriginal">Intel Corporation</span></td>
+          <td itemprop="title">Neural network with multiplexed snyaptic processing 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5264734A/en">
+              <span itemprop="publicationNumber">US5264734A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1992-05-19</td>
+          <td itemprop="publicationDate">1993-11-23</td>
+          <td><span itemprop="assigneeOriginal">Intel Corporation</span></td>
+          <td itemprop="title">Difference calculating neural network utilizing switched capacitors 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5280564A/en">
+              <span itemprop="publicationNumber">US5280564A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1991-02-20</td>
+          <td itemprop="publicationDate">1994-01-18</td>
+          <td><span itemprop="assigneeOriginal">Honda Giken Kogyo Kabushiki Kaisha</span></td>
+          <td itemprop="title">Neural network having an optimized transfer function for each neuron 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5313559A/en">
+              <span itemprop="publicationNumber">US5313559A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1991-02-15</td>
+          <td itemprop="publicationDate">1994-05-17</td>
+          <td><span itemprop="assigneeOriginal">Hitachi, Ltd.</span></td>
+          <td itemprop="title">Method of and system for controlling learning in neural network 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5333239A/en">
+              <span itemprop="publicationNumber">US5333239A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1988-09-12</td>
+          <td itemprop="publicationDate">1994-07-26</td>
+          <td><span itemprop="assigneeOriginal">Fujitsu Limited</span></td>
+          <td itemprop="title">Learning process system for use with a neural network structure data processing apparatus 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5343555A/en">
+              <span itemprop="publicationNumber">US5343555A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1992-07-06</td>
+          <td itemprop="publicationDate">1994-08-30</td>
+          <td><span itemprop="assigneeOriginal">The Regents Of The University Of California</span></td>
+          <td itemprop="title">Artificial neuron with switched-capacitor synapses using analog storage of synaptic weights 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5347613A/en">
+              <span itemprop="publicationNumber">US5347613A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1990-08-18</td>
+          <td itemprop="publicationDate">1994-09-13</td>
+          <td><span itemprop="assigneeOriginal">Samsung Electronics Co., Ltd.</span></td>
+          <td itemprop="title">MOS multi-layer neural network including a plurality of hidden layers interposed between synapse groups for performing pattern recognition 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5408588A/en">
+              <span itemprop="publicationNumber">US5408588A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1991-06-06</td>
+          <td itemprop="publicationDate">1995-04-18</td>
+          <td><span itemprop="assigneeOriginal">Ulug; Mehmet E.</span></td>
+          <td itemprop="title">Artificial neural network method and architecture 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5479571A/en">
+              <span itemprop="publicationNumber">US5479571A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1991-06-14</td>
+          <td itemprop="publicationDate">1995-12-26</td>
+          <td><span itemprop="assigneeOriginal">The Texas A&amp;M University System</span></td>
+          <td itemprop="title">Neural node network and model, and method of teaching same 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5625751A/en">
+              <span itemprop="publicationNumber">US5625751A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1994-08-30</td>
+          <td itemprop="publicationDate">1997-04-29</td>
+          <td><span itemprop="assigneeOriginal">Electric Power Research Institute</span></td>
+          <td itemprop="title">Neural network for contingency ranking dynamic security indices for use under fault conditions in a power distribution system 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5625752A/en">
+              <span itemprop="publicationNumber">US5625752A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1994-06-17</td>
+          <td itemprop="publicationDate">1997-04-29</td>
+          <td><span itemprop="assigneeOriginal">The United States Of America As Represented By The Secretary Of The Navy</span></td>
+          <td itemprop="title">Artificial neural system with binary weighting by equal resistor network 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5648926A/en">
+              <span itemprop="publicationNumber">US5648926A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1991-11-06</td>
+          <td itemprop="publicationDate">1997-07-15</td>
+          <td><span itemprop="assigneeOriginal">Medical Research Council</span></td>
+          <td itemprop="title">Silicon neuron 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5781702A/en">
+              <span itemprop="publicationNumber">US5781702A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1995-06-07</td>
+          <td itemprop="publicationDate">1998-07-14</td>
+          <td><span itemprop="assigneeOriginal">Univ South Western</span></td>
+          <td itemprop="title">Hybrid chip-set architecture for artificial neural network system 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5857178A/en">
+              <span itemprop="publicationNumber">US5857178A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1993-09-20</td>
+          <td itemprop="publicationDate">1999-01-05</td>
+          <td><span itemprop="assigneeOriginal">Kabushiki Kaisha Toshiba</span></td>
+          <td itemprop="title">Neural network apparatus and learning method thereof 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+
+    
+
+    
+    <ul>
+      
+      <li itemprop="applicationsByYear" itemscope repeat>
+        <span itemprop="year">1999</span>
+        <ul>
+          
+          <li itemprop="application" itemscope repeat>
+            <span itemprop="filingDate">1999-10-01</span>
+            <span itemprop="countryCode">US</span>
+            <span itemprop="applicationNumber">US09/412,199</span>
+            <a href="/patent/US6513023B1/en"><span itemprop="documentId">patent/US6513023B1/en</span></a>
+            <span itemprop="legalStatusCat">not_active</span>
+            <span itemprop="legalStatus">Expired - Fee Related</span>
+            
+            <span itemprop="thisApp" content="true" bool></span>
+            
+          </li>
+          
+        </ul>
+      </li>
+      
+    </ul>
+    
+
+    </section>
+
+  <section>
+    <h2>Patent Citations (30)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5155802A/en">
+              <span itemprop="publicationNumber">US5155802A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1987-12-03</td>
+          <td itemprop="publicationDate">1992-10-13</td>
+          <td><span itemprop="assigneeOriginal">Trustees Of The Univ. Of Penna.</span></td>
+          <td itemprop="title">General purpose neural computer 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US4866645A/en">
+              <span itemprop="publicationNumber">US4866645A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1987-12-23</td>
+          <td itemprop="publicationDate">1989-09-12</td>
+          <td><span itemprop="assigneeOriginal">North American Philips Corporation</span></td>
+          <td itemprop="title">Neural network with dynamic refresh capability 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5333239A/en">
+              <span itemprop="publicationNumber">US5333239A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1988-09-12</td>
+          <td itemprop="publicationDate">1994-07-26</td>
+          <td><span itemprop="assigneeOriginal">Fujitsu Limited</span></td>
+          <td itemprop="title">Learning process system for use with a neural network structure data processing apparatus 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5093899A/en">
+              <span itemprop="publicationNumber">US5093899A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1988-09-17</td>
+          <td itemprop="publicationDate">1992-03-03</td>
+          <td><span itemprop="assigneeOriginal">Sony Corporation</span></td>
+          <td itemprop="title">Neural network with normalized learning constant for high-speed stable learning 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US4951239A/en">
+              <span itemprop="publicationNumber">US4951239A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1988-10-27</td>
+          <td itemprop="publicationDate">1990-08-21</td>
+          <td><span itemprop="assigneeOriginal">The United States Of America As Represented By The Secretary Of The Navy</span></td>
+          <td itemprop="title">Artificial neural network implementation 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US4912652A/en">
+              <span itemprop="publicationNumber">US4912652A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1988-12-14</td>
+          <td itemprop="publicationDate">1990-03-27</td>
+          <td><span itemprop="assigneeOriginal">Gte Laboratories Incorporated</span></td>
+          <td itemprop="title">Fast neural network training 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5146542A/en">
+              <span itemprop="publicationNumber">US5146542A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1989-06-15</td>
+          <td itemprop="publicationDate">1992-09-08</td>
+          <td><span itemprop="assigneeOriginal">General Electric Company</span></td>
+          <td itemprop="title">Neural net using capacitive structures connecting output lines and differentially driven input line pairs 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5187680A/en">
+              <span itemprop="publicationNumber">US5187680A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1989-06-15</td>
+          <td itemprop="publicationDate">1993-02-16</td>
+          <td><span itemprop="assigneeOriginal">General Electric Company</span></td>
+          <td itemprop="title">Neural net using capacitive structures connecting input lines and differentially sensed output line pairs 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5130563A/en">
+              <span itemprop="publicationNumber">US5130563A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1989-11-30</td>
+          <td itemprop="publicationDate">1992-07-14</td>
+          <td><span itemprop="assigneeOriginal">Washington Research Foundation</span></td>
+          <td itemprop="title">Optoelectronic sensory neural network 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5039871A/en">
+              <span itemprop="publicationNumber">US5039871A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1990-05-21</td>
+          <td itemprop="publicationDate">1991-08-13</td>
+          <td><span itemprop="assigneeOriginal">General Electric Company</span></td>
+          <td itemprop="title">Capacitive structures for weighted summation as used in neural nets 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5039870A/en">
+              <span itemprop="publicationNumber">US5039870A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1990-05-21</td>
+          <td itemprop="publicationDate">1991-08-13</td>
+          <td><span itemprop="assigneeOriginal">General Electric Company</span></td>
+          <td itemprop="title">Weighted summation circuits having different-weight ranks of capacitive structures 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5113483A/en">
+              <span itemprop="publicationNumber">US5113483A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1990-06-15</td>
+          <td itemprop="publicationDate">1992-05-12</td>
+          <td><span itemprop="assigneeOriginal">Microelectronics And Computer Technology Corporation</span></td>
+          <td itemprop="title">Neural network with semi-localized non-linear mapping of the input space 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5182794A/en">
+              <span itemprop="publicationNumber">US5182794A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1990-07-12</td>
+          <td itemprop="publicationDate">1993-01-26</td>
+          <td><span itemprop="assigneeOriginal">Allen-Bradley Company, Inc.</span></td>
+          <td itemprop="title">Recurrent neural networks teaching system 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5159660A/en">
+              <span itemprop="publicationNumber">US5159660A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1990-08-09</td>
+          <td itemprop="publicationDate">1992-10-27</td>
+          <td><span itemprop="assigneeOriginal">Western Thunder</span></td>
+          <td itemprop="title">Universal process control using artificial neural networks 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5347613A/en">
+              <span itemprop="publicationNumber">US5347613A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1990-08-18</td>
+          <td itemprop="publicationDate">1994-09-13</td>
+          <td><span itemprop="assigneeOriginal">Samsung Electronics Co., Ltd.</span></td>
+          <td itemprop="title">MOS multi-layer neural network including a plurality of hidden layers interposed between synapse groups for performing pattern recognition 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5150450A/en">
+              <span itemprop="publicationNumber">US5150450A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1990-10-01</td>
+          <td itemprop="publicationDate">1992-09-22</td>
+          <td><span itemprop="assigneeOriginal">The United States Of America As Represented By The Secretary Of The Navy</span></td>
+          <td itemprop="title">Method and circuits for neuron perturbation in artificial neural network memory modification 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5313559A/en">
+              <span itemprop="publicationNumber">US5313559A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1991-02-15</td>
+          <td itemprop="publicationDate">1994-05-17</td>
+          <td><span itemprop="assigneeOriginal">Hitachi, Ltd.</span></td>
+          <td itemprop="title">Method of and system for controlling learning in neural network 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5280564A/en">
+              <span itemprop="publicationNumber">US5280564A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1991-02-20</td>
+          <td itemprop="publicationDate">1994-01-18</td>
+          <td><span itemprop="assigneeOriginal">Honda Giken Kogyo Kabushiki Kaisha</span></td>
+          <td itemprop="title">Neural network having an optimized transfer function for each neuron 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5408588A/en">
+              <span itemprop="publicationNumber">US5408588A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1991-06-06</td>
+          <td itemprop="publicationDate">1995-04-18</td>
+          <td><span itemprop="assigneeOriginal">Ulug; Mehmet E.</span></td>
+          <td itemprop="title">Artificial neural network method and architecture 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5479571A/en">
+              <span itemprop="publicationNumber">US5479571A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1991-06-14</td>
+          <td itemprop="publicationDate">1995-12-26</td>
+          <td><span itemprop="assigneeOriginal">The Texas A&amp;M University System</span></td>
+          <td itemprop="title">Neural node network and model, and method of teaching same 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5179596A/en">
+              <span itemprop="publicationNumber">US5179596A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1991-07-05</td>
+          <td itemprop="publicationDate">1993-01-12</td>
+          <td><span itemprop="assigneeOriginal">Booz, Allen &amp; Hamilton, Inc.</span></td>
+          <td itemprop="title">Analog pattern categorization system having dual weighted connectivity between nodes 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5136176A/en">
+              <span itemprop="publicationNumber">US5136176A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1991-08-20</td>
+          <td itemprop="publicationDate">1992-08-04</td>
+          <td><span itemprop="assigneeOriginal">Intel Corporation</span></td>
+          <td itemprop="title">Charge domain synapse cell 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5648926A/en">
+              <span itemprop="publicationNumber">US5648926A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1991-11-06</td>
+          <td itemprop="publicationDate">1997-07-15</td>
+          <td><span itemprop="assigneeOriginal">Medical Research Council</span></td>
+          <td itemprop="title">Silicon neuron 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5264734A/en">
+              <span itemprop="publicationNumber">US5264734A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1992-05-19</td>
+          <td itemprop="publicationDate">1993-11-23</td>
+          <td><span itemprop="assigneeOriginal">Intel Corporation</span></td>
+          <td itemprop="title">Difference calculating neural network utilizing switched capacitors 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5256911A/en">
+              <span itemprop="publicationNumber">US5256911A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1992-06-10</td>
+          <td itemprop="publicationDate">1993-10-26</td>
+          <td><span itemprop="assigneeOriginal">Intel Corporation</span></td>
+          <td itemprop="title">Neural network with multiplexed snyaptic processing 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5343555A/en">
+              <span itemprop="publicationNumber">US5343555A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1992-07-06</td>
+          <td itemprop="publicationDate">1994-08-30</td>
+          <td><span itemprop="assigneeOriginal">The Regents Of The University Of California</span></td>
+          <td itemprop="title">Artificial neuron with switched-capacitor synapses using analog storage of synaptic weights 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5857178A/en">
+              <span itemprop="publicationNumber">US5857178A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1993-09-20</td>
+          <td itemprop="publicationDate">1999-01-05</td>
+          <td><span itemprop="assigneeOriginal">Kabushiki Kaisha Toshiba</span></td>
+          <td itemprop="title">Neural network apparatus and learning method thereof 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5625752A/en">
+              <span itemprop="publicationNumber">US5625752A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1994-06-17</td>
+          <td itemprop="publicationDate">1997-04-29</td>
+          <td><span itemprop="assigneeOriginal">The United States Of America As Represented By The Secretary Of The Navy</span></td>
+          <td itemprop="title">Artificial neural system with binary weighting by equal resistor network 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5625751A/en">
+              <span itemprop="publicationNumber">US5625751A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1994-08-30</td>
+          <td itemprop="publicationDate">1997-04-29</td>
+          <td><span itemprop="assigneeOriginal">Electric Power Research Institute</span></td>
+          <td itemprop="title">Neural network for contingency ranking dynamic security indices for use under fault conditions in a power distribution system 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5781702A/en">
+              <span itemprop="publicationNumber">US5781702A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1995-06-07</td>
+          <td itemprop="publicationDate">1998-07-14</td>
+          <td><span itemprop="assigneeOriginal">Univ South Western</span></td>
+          <td itemprop="title">Hybrid chip-set architecture for artificial neural network system 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Non-Patent Citations (3)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Duong, Tuan A. and Daud, Taher, "<a href='http://scholar.google.com/scholar?q="Cascade+Error+Protection-A+Learning+Algorithm+for+Hardwave+Implementation%2C"'>Cascade Error Protection-A Learning Algorithm for Hardwave Implementation,</a>" IWANN'99, Alicante, Spain, Jun. 2-4, 1999, pp. 1-9.</span>
+            
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Duong, Tuan A., "<a href='http://scholar.google.com/scholar?q="Cascade+Error+Protection%3A+An+Efficient+Hardware+Learning+Algorithm%2C"'>Cascade Error Protection: An Efficient Hardware Learning Algorithm,</a>" IEEE/ICNN'95, Perth, Western Australia, 1995, pp. 1-6.</span>
+            
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Duong, Tuan A., Kemeny, Sabrina, Daud, Taher, Thakoor, Anil, Sanders, Chris and Carson, John, "<a href='http://scholar.google.com/scholar?q="Analog+3-D+Neuroprocessor+for+Fast+Frame+Focal+Plane+Image+Processing%2C"'>Analog 3-D Neuroprocessor for Fast Frame Focal Plane Image Processing,</a>" The Industrial Electronics Handbook, CCR Press; IEEE Press, 1997, pp. 989-1002.</span>
+            
+            
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <h2>Cited By (3)</h2>
+  <table>
+    <caption>* Cited by examiner, † Cited by third party</caption>
+    <thead>
+      <tr>
+        <th>Publication number</th>
+        <th>Priority date</th>
+        <th>Publication date</th>
+        <th>Assignee</th>
+        <th>Title</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US8976269B2/en">
+            <span itemprop="publicationNumber">US8976269B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          
+          
+        </td>
+        <td itemprop="priorityDate">2012-06-22</td>
+        <td itemprop="publicationDate">2015-03-10</td>
+        <td><span itemprop="assigneeOriginal">California Institute Of Technology</span></td>
+        <td itemprop="title">Compressive sensing based bio-inspired shape feature detection CMOS imager 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US10346742B2/en">
+            <span itemprop="publicationNumber">US10346742B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2014-06-19</td>
+        <td itemprop="publicationDate">2019-07-09</td>
+        <td><span itemprop="assigneeOriginal">Yahoo Japan Corporation</span></td>
+        <td itemprop="title">Calculation device, calculation method, and recording medium 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US10417525B2/en">
+            <span itemprop="publicationNumber">US10417525B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          
+          
+        </td>
+        <td itemprop="priorityDate">2014-09-22</td>
+        <td itemprop="publicationDate">2019-09-17</td>
+        <td><span itemprop="assigneeOriginal">Samsung Electronics Co., Ltd.</span></td>
+        <td itemprop="title">Object recognition with reduced neural network weight precision 
+       </td>
+      </tr>
+    </tbody>
+  </table>
+
+  
+
+  <section>
+    <h2>Similar Documents</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Publication</th>
+          <th>Publication Date</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="12838071758643520547">
+              <a href="/scholar/12838071758643520547"><span itemprop="scholarAuthors">Abdi</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1994">1994</time>
+            
+          </td>
+          <td itemprop="title">A neural network primer</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="3824357892246974934">
+              <a href="/scholar/3824357892246974934"><span itemprop="scholarAuthors">Pineda</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1989">1989</time>
+            
+          </td>
+          <td itemprop="title">Recurrent backpropagation and the dynamical approach to adaptive neural computation</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="14709293353501723231">
+              <a href="/scholar/14709293353501723231"><span itemprop="scholarAuthors">Aizenberg et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2007">2007</time>
+            
+          </td>
+          <td itemprop="title">Multilayer feedforward neural network based on multi-valued neurons (MLMVN) and a backpropagation learning algorithm</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US20120109863A1/en">
+                <span itemprop="publicationNumber">US20120109863A1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2012-05-03">2012-05-03</time>
+            
+            
+          </td>
+          <td itemprop="title">Canonical spiking neuron network for spatiotemporal associative memory 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US5293457A/en">
+                <span itemprop="publicationNumber">US5293457A</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="1994-03-08">1994-03-08</time>
+            
+            
+          </td>
+          <td itemprop="title">Neural network integrated circuit device having self-organizing function 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="12777257053978979833">
+              <a href="/scholar/12777257053978979833"><span itemprop="scholarAuthors">Frye et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1991">1991</time>
+            
+          </td>
+          <td itemprop="title">Back-propagation learning and nonidealities in analog neural network hardware</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="10906581382756756613">
+              <a href="/scholar/10906581382756756613"><span itemprop="scholarAuthors">Michel et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1990">1990</time>
+            
+          </td>
+          <td itemprop="title">Associative memories via artificial neural networks</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="2131575676812411072">
+              <a href="/scholar/2131575676812411072"><span itemprop="scholarAuthors">Pearlmutter</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1995">1995</time>
+            
+          </td>
+          <td itemprop="title">Gradient calculations for dynamic recurrent neural networks: A survey</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="11797237764597373643">
+              <a href="/scholar/11797237764597373643"><span itemprop="scholarAuthors">Hollis et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1990">1990</time>
+            
+          </td>
+          <td itemprop="title">Artificial neural networks using MOS analog multipliers</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="6332877433177424299">
+              <a href="/scholar/6332877433177424299"><span itemprop="scholarAuthors">Castellano et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2000">2000</time>
+            
+          </td>
+          <td itemprop="title">Variable selection using neural-network models</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="12674872966311539189">
+              <a href="/scholar/12674872966311539189"><span itemprop="scholarAuthors">Burr et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2015">2015</time>
+            
+          </td>
+          <td itemprop="title">Experimental demonstration and tolerancing of a large-scale neural network (165 000 synapses) using phase-change memory as the synaptic weight element</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="10768324079033118314">
+              <a href="/scholar/10768324079033118314"><span itemprop="scholarAuthors">Behrman et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2000">2000</time>
+            
+          </td>
+          <td itemprop="title">Simulations of quantum neural networks</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="15349481016719533612">
+              <a href="/scholar/15349481016719533612"><span itemprop="scholarAuthors">Suykens et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2000">2000</time>
+            
+          </td>
+          <td itemprop="title">Recurrent least squares support vector machines</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="9811071446542318374">
+              <a href="/scholar/9811071446542318374"><span itemprop="scholarAuthors">Liu et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2014">2014</time>
+            
+          </td>
+          <td itemprop="title">Event-based neuromorphic systems</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/WO1990004836A1/en">
+                <span itemprop="publicationNumber">WO1990004836A1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="1990-05-03">1990-05-03</time>
+            
+            
+          </td>
+          <td itemprop="title">Artificial neural network implementation 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US5564115A/en">
+                <span itemprop="publicationNumber">US5564115A</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="1996-10-08">1996-10-08</time>
+            
+            
+          </td>
+          <td itemprop="title">Neural network architecture with connection pointers 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US8275727B2/en">
+                <span itemprop="publicationNumber">US8275727B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2012-09-25">2012-09-25</time>
+            
+            
+          </td>
+          <td itemprop="title">Hardware analog-digital neural networks 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="12599507609807724067">
+              <a href="/scholar/12599507609807724067"><span itemprop="scholarAuthors">Hirasawa et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2000">2000</time>
+            
+          </td>
+          <td itemprop="title">Universal learning network and its application to chaos control</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="5226986172822676096">
+              <a href="/scholar/5226986172822676096"><span itemprop="scholarAuthors">Montana</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1995">1995</time>
+            
+          </td>
+          <td itemprop="title">Neural network weight selection using genetic algorithms</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="12560055243692482780">
+              <a href="/scholar/12560055243692482780"><span itemprop="scholarAuthors">Lin et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2008">2008</time>
+            
+          </td>
+          <td itemprop="title">FPGA implementation of a wavelet neural network with particle swarm optimization learning</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="17676124857978126568">
+              <a href="/scholar/17676124857978126568"><span itemprop="scholarAuthors">Linares-Barranco et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1993">1993</time>
+            
+          </td>
+          <td itemprop="title">A CMOS analog adaptive BAM with on-chip learning and weight refreshing</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US5706403A/en">
+                <span itemprop="publicationNumber">US5706403A</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="1998-01-06">1998-01-06</time>
+            
+            
+          </td>
+          <td itemprop="title">Semiconductor neural circuit device 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US6496815B1/en">
+                <span itemprop="publicationNumber">US6496815B1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2002-12-17">2002-12-17</time>
+            
+            
+          </td>
+          <td itemprop="title">Neuron, hierarchical neural network using the neuron, and multiplying circuit used for multiplying process in the neuron 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="17127808907876823300">
+              <a href="/scholar/17127808907876823300"><span itemprop="scholarAuthors">Arima et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1991">1991</time>
+            
+          </td>
+          <td itemprop="title">A 336-neuron, 28 K-synapse, self-learning neural network chip with branch-neuron-unit architecture</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/EP0377908B1/en">
+                <span itemprop="publicationNumber">EP0377908B1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="1997-03-05">1997-03-05</time>
+            
+            
+          </td>
+          <td itemprop="title">Neural network having an associative memory that learns by example 
+     </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Legal Events</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Code</th>
+          <th>Title</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="1999-10-01">1999-10-01</time></td>
+          <td itemprop="code">AS</td>
+          <td itemprop="title">Assignment</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Owner name</strong>:
+              <span itemprop="value">NATIONAL AERONAUTICS AND SPACE ADMINISTRATION, U.S</span>
+            </p>
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">ASSIGNMENT OF ASSIGNORS INTEREST;ASSIGNOR:CALIFORNIA INSTITUTE OF TECHNOLOGY;REEL/FRAME:010302/0698</span>
+            </p>
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Effective date</strong>:
+              <span itemprop="value">19990923</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2006-07-14">2006-07-14</time></td>
+          <td itemprop="code">FPAY</td>
+          <td itemprop="title">Fee payment</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Year of fee payment</strong>:
+              <span itemprop="value">4</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2010-07-06">2010-07-06</time></td>
+          <td itemprop="code">FPAY</td>
+          <td itemprop="title">Fee payment</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Year of fee payment</strong>:
+              <span itemprop="value">8</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2014-09-05">2014-09-05</time></td>
+          <td itemprop="code">REMI</td>
+          <td itemprop="title">Maintenance fee reminder mailed</td>
+          <td>
+            
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2015-01-28">2015-01-28</time></td>
+          <td itemprop="code">LAPS</td>
+          <td itemprop="title">Lapse for failure to pay maintenance fees</td>
+          <td>
+            
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2015-02-23">2015-02-23</time></td>
+          <td itemprop="code">STCH</td>
+          <td itemprop="title">Information on status: patent discontinuation</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">PATENT EXPIRED DUE TO NONPAYMENT OF MAINTENANCE FEES UNDER 37 CFR 1.362</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2015-03-17">2015-03-17</time></td>
+          <td itemprop="code">FP</td>
+          <td itemprop="title">Expired due to failure to pay maintenance fee</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Effective date</strong>:
+              <span itemprop="value">20150128</span>
+            </p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+</article>
+
+    </search-app>
+    <script type="text/javascript" src="//www.gstatic.com/feedback/api.js"></script>
+    <script async="" defer="" src="//www.google.com/insights/consumersurveys/async_survey?site=cxkjf7ipxgbnnjy6k35ezcvbbe"></script>
+  </body>
+</html>

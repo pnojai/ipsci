@@ -1,0 +1,781 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>US6697793B2 - System, method and apparatus for generating phrases from a database 
+        - Google Patents</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="referrer" content="origin-when-crossorigin">
+    <link rel="canonical" href="https://patents.google.com/patent/US6697793B2/en">
+    <meta name="description" content="
+     A phrase generation is a method of generating sequences of terms, such as phrases, that may occur within a database of subsets containing sequences of terms, such as text. A database is provided and a relational model of the database is created. A query is then input. The query includes a term or a sequence of terms or multiple individual terms or multiple sequences of terms or combinations thereof. Next, several sequences of terms that are contextually related to the query are assembled from contextual relations in the model of the database. The sequences of terms are then sorted and output. Phrase generation can also be an iterative process used to produce sequences of terms from a relational model of a database. 
+   
+   ">
+    
+    <meta name="DC.type" content="patent">
+    
+    <meta name="DC.title" content="System, method and apparatus for generating phrases from a database 
+       ">
+    
+    <meta name="DC.date" content="2001-03-02" scheme="dateSubmitted">
+    
+    <meta name="DC.description" content="
+     A phrase generation is a method of generating sequences of terms, such as phrases, that may occur within a database of subsets containing sequences of terms, such as text. A database is provided and a relational model of the database is created. A query is then input. The query includes a term or a sequence of terms or multiple individual terms or multiple sequences of terms or combinations thereof. Next, several sequences of terms that are contextually related to the query are assembled from contextual relations in the model of the database. The sequences of terms are then sorted and output. Phrase generation can also be an iterative process used to produce sequences of terms from a relational model of a database. 
+   
+   ">
+    
+    <meta name="citation_patent_application_number" content="US:09/800,313">
+    
+    <meta name="citation_pdf_url" content="https://patentimages.storage.googleapis.com/73/7a/61/ef96ffd5b302bb/US6697793.pdf">
+    
+    <meta name="citation_patent_number" content="US:6697793">
+    
+    <meta name="DC.date" content="2004-02-24" scheme="issue">
+    
+    <meta name="DC.contributor" content="Michael W. McGreevy" scheme="inventor">
+    
+    <meta name="DC.contributor" content="National Aeronautics and Space Administration (NASA)" scheme="assignee">
+    
+    <meta name="DC.relation" content="US:5404506" scheme="references">
+    
+    <meta name="DC.relation" content="US:4849898" scheme="references">
+    
+    <meta name="DC.relation" content="US:5386556" scheme="references">
+    
+    <meta name="DC.relation" content="US:5128865" scheme="references">
+    
+    <meta name="DC.relation" content="US:5265065" scheme="references">
+    
+    <meta name="DC.relation" content="US:5418948" scheme="references">
+    
+    <meta name="DC.relation" content="US:5488725" scheme="references">
+    
+    <meta name="DC.relation" content="US:5987170" scheme="references">
+    
+    <meta name="DC.relation" content="US:5794178" scheme="references">
+    
+    <meta name="DC.relation" content="US:5619709" scheme="references">
+    
+    <meta name="DC.relation" content="US:5771378" scheme="references">
+    
+    <meta name="DC.relation" content="US:6006221" scheme="references">
+    
+    <meta name="DC.relation" content="US:5832428" scheme="references">
+    
+    <meta name="DC.relation" content="US:5819260" scheme="references">
+    
+    <meta name="DC.relation" content="US:6076088" scheme="references">
+    
+    <meta name="DC.relation" content="US:5926811" scheme="references">
+    
+    <meta name="DC.relation" content="US:6098034" scheme="references">
+    
+    <meta name="DC.relation" content="US:5913215" scheme="references">
+    
+    <meta name="DC.relation" content="US:5721897" scheme="references">
+    
+    <meta name="DC.relation" content="US:6041323" scheme="references">
+    
+    <meta name="DC.relation" content="US:6078914" scheme="references">
+    
+    <meta name="DC.relation" content="US:6078913" scheme="references">
+    
+    <meta name="DC.relation" content="US:6076051" scheme="references">
+    
+    <meta name="DC.relation" content="US:6038560" scheme="references">
+    
+    <meta name="DC.relation" content="US:5933822" scheme="references">
+    
+    <meta name="DC.relation" content="US:6018733" scheme="references">
+    
+    <meta name="DC.relation" content="US:5983216" scheme="references">
+    
+    <meta name="DC.relation" content="US:6006217" scheme="references">
+    
+    <meta name="DC.relation" content="US:6041326" scheme="references">
+    
+    <meta name="DC.relation" content="US:6401061" scheme="references">
+    
+    <meta name="citation_reference" content="Bush, V., &#34;Digital Libraries,&#34; Communications of the ACM, vol. 38, No. 4, (1995)." scheme="references">
+    
+    <meta name="citation_reference" content="Church, K., Gale, W., Hanks, P., and Hindle, D., &#34;Using Statistics in Lexical Analysis,&#34; Lexical Acquisition: Exploiting On-Line Resources to Build a Lexicon, Lawrence Erlbaum Associates, Inc., Hillsdale, New Jersey (1991)." scheme="references">
+    
+    <meta name="citation_reference" content="Cowie, J. and Lehnert W., &#34;Information Extraction,&#34; Communications of the ACM, vol. 39, No. 1 (Jan. 1996)." scheme="references">
+    
+    <meta name="citation_reference" content="Croft, W. B., Turtle, H. R., and Lewis, D. D., &#34;The Use of Phrases and Structured Queries in Information Retrieval,&#34; ACM SIGIR (1991)." scheme="references">
+    
+    <meta name="citation_reference" content="de Lima, E. F. and Pedersen, J. O., &#34;Phrase Recognition and Expansion for Short, Precision-Based Queries Based on a Query Log,&#34; ACM SIGIR, Berkeley, California (Aug. 1999)." scheme="references">
+    
+    <meta name="citation_reference" content="Fayyad, U., Piatetsky-Shapiro, G., and Smyth, P., &#34;The KDD Process for Extracting Useful Knowledge from Volumes of Data,&#34; Communications of the ACM, vol. 39, No. 11, (Nov. 1996)." scheme="references">
+    
+    <meta name="citation_reference" content="Foltz, P. W. and Dumais, S. T., &#34;Personalized Information Delivery: An Analysis of Information Filtering Methods,&#34; Communications of the ACM, vol. 35, No. 12, (1992)." scheme="references">
+    
+    <meta name="citation_reference" content="Gauch, S. and Wang, J., &#34;Corpus Analysis for TREC 5 Query Expansion,&#34; Proc. TREC 5, NIST SP 500-238, (1996)." scheme="references">
+    
+    <meta name="citation_reference" content="Gelbart, D. and Smith, J. C., &#34;Beyond Boolean Search: FLEXICON, A Legal Text-Based Intelligent System,&#34; University of British Columbia Faculty of Law Artificial Intelligence Research Project, ACM (1991)." scheme="references">
+    
+    <meta name="citation_reference" content="Gey, F. C. and Chen, A., &#34;Phrase Discovery for English and Cross-Language Retrieval at TREC-6,&#34; Proc. TREC 6, NIST SP 500-240, (1997)." scheme="references">
+    
+    <meta name="citation_reference" content="Godby, J., &#34;Two Techniques for the Identification of Phrases in Full Text,&#34; Annual Review of OCLC Research, Online Computer Library Center, Dublin, Ohio (1994)." scheme="references">
+    
+    <meta name="citation_reference" content="Gutwin, C., Paynter, G., Witten, I. H., Nevill-Manning, C., and Frank, E., &#34;Improving Browsing in Digital Libraries With Keyphrase Indexes,&#34; TR 98-1, Computer Science Department, University of Saskatchewan (1998)." scheme="references">
+    
+    <meta name="citation_reference" content="Hawking, D. and Thistlewaite, P., &#34;Proximity Operators-So Near and Yet so Far,&#34; Proc. TREC 4 NIST SP 500-236, (Dec. 6, 1995)." scheme="references">
+    
+    <meta name="citation_reference" content="Hawking, D. and Thistlewaite, P., &#34;Relevance Weighting Using Distance Between Term Occurrences,&#34; Joint computer Science Technical Report Series, TR-CS-96-08, Department of Computer Science, The Australian National University, Canberra ACT 0200 Australia (Jan. 25, 1996)." scheme="references">
+    
+    <meta name="citation_reference" content="Hawking, D. and Thistlewaite, P., “Proximity Operators—So Near and Yet so Far,” Proc. TREC 4 NIST SP 500-236, (Dec. 6, 1995)." scheme="references">
+    
+    <meta name="citation_reference" content="Jing, Y. and Croft, W. B., &#34;An Association Thesaurus for Information Retrieval,&#34; CIIR TR IR-47, University of Massachusetts (1994)." scheme="references">
+    
+    <meta name="citation_reference" content="Jones, S. and Staveley, M. S., &#34;Phrasier: A System for Interactive Document Retrieval Using Keyphrases,&#34; ACM SIGIR, Berkeley, California (Aug. 1999)." scheme="references">
+    
+    <meta name="citation_reference" content="Kitani, T., Eriguchi, Y., and Hara, M., &#34;Pattern Matching and discourse Processing in Information Extraction from Japanese Text,&#34; Journal of Artificial Intelligence Research 2, Al Access Foundation and Morgan Kaufmann Publishers (1994)." scheme="references">
+    
+    <meta name="citation_reference" content="Lineback, J. R., &#34;TSMC to Acquire WSMC Foundry,&#34; EETimes.com, www.eetimes. com (Jan. 2000)." scheme="references">
+    
+    <meta name="citation_reference" content="McDonald, J., Ogden, W., and Foltz, P., &#34;Interactive Information Retrieval Using Term Relationship Networks,&#34; Proc. TREC 6 NIST SP 500-240, (1997)." scheme="references">
+    
+    <meta name="citation_reference" content="McGreevy, M. W. and Statler, I. C., &#34;Rating the Relevance of QUORUM-Selected ASRS Incident Narratives to a &#39;Controlled Flight Into Terrain&#39; Accident,&#34; NASA Technical Memorandum 208749, NASA Ames Research Center, Moffett Field, California (Sep. 1998)." scheme="references">
+    
+    <meta name="citation_reference" content="McGreevy, M. W. and Statler, I. C., “Rating the Relevance of QUORUM-Selected ASRS Incident Narratives to a ‘Controlled Flight Into Terrain’ Accident,” NASA Technical Memorandum 208749, NASA Ames Research Center, Moffett Field, California (Sep. 1998)." scheme="references">
+    
+    <meta name="citation_reference" content="McGreevy, M. W., &#34;A Practical Guide to Interpretation of Large Collections of Incident Narratives Using the Quorum Method,&#34; NASA Technical Memorandum 112190, NASA Ames Research Center, Moffett Field, California (Mar. 1997)." scheme="references">
+    
+    <meta name="citation_reference" content="McGreevy, M. W., &#34;A Relational Metric, Its Application to Domain Analysis, and an Example Analysis and Model of a Remote Sensing Domain,&#34; NASA Technical Memorandum 110358&gt;NASA Ames Research Center, Moffett Field, California (Jul. 1995)." scheme="references">
+    
+    <meta name="citation_reference" content="Mcgreevy, M. W., &#34;Reporter Concerns in 300 Mode-Related Incident Reports from NASA&#39;s Aviation Safety Reporting System,&#34; NASA Technical Memorandum 110413, NASA Ames Research Center, Moffett Field, California (Jul. 1996)." scheme="references">
+    
+    <meta name="citation_reference" content="McGreevy, M. W., &#34;Searching the ASRS Database Using QUORUM Keyword Search, Phrase Search, Phrase Generation, and Phrase Discovery,&#34; NASA Technical Memorandum 210913, NASA Ames Research Center, Moffett Field, California (2001)." scheme="references">
+    
+    <meta name="citation_reference" content="McGreevy, M., &#34;An Ethnographic Object-Oriented Analysis of Explorer Presence in a Volcanic Terrain Environment: Claims and Evidence,&#34; NASA Technical Memorandum 108823, NASA Ames Research Center, Moffett Field, California (May 1994)." scheme="references">
+    
+    <meta name="citation_reference" content="Normore, L., Bendig, M., and Godby, C. J., &#34;WordView: Understanding Words in Context,&#34; Proc. Intelligence User Interface (1999)." scheme="references">
+    
+    <meta name="citation_reference" content="Pin.Point, Solutionizing Web Navigation, Pinpoint.com, Inc. (2000)." scheme="references">
+    
+    <meta name="citation_reference" content="Salton, G., &#34;A Blueprint for Automatic Indexing,&#34; SIGIR Forum, vol. 31, No. 1, ACM Press (1997)." scheme="references">
+    
+    <meta name="citation_reference" content="Turpin, A. and Moffat, A., &#34;Statistical Phrases for Vector-Space Information Retrieval,&#34; ACM SIGIR, Berkeley, California (Aug. 1999)." scheme="references">
+    
+    <meta name="citation_reference" content="Xu, J. and Croft, W. B., &#34;Query Expansion Using Local and Global Document Analysis,&#34; SIGIR, ACM, Zurich, Switzerland (1996)." scheme="references">
+    
+    <meta name="citation_reference" content="Zamir, O. and Etzioni, O., &#34;Grouper: A Dynamic Clustering Interface to Web Search Results,&#34; Proc. 8International World Wide Conference (1999)." scheme="references">
+    
+    <meta name="citation_reference" content="Zamir, O. and Etzioni, O., “Grouper: A Dynamic Clustering Interface to Web Search Results,” Proc. 8th International World Wide Conference (1999)." scheme="references">
+    
+    <meta name="citation_reference" content="Zorn, P., Emanoil, M., Marshall, L., and Panek, M., &#34;Advanced Searching: Tricks of the Trade,&#34; Online, Online Inc. (May 1996)." scheme="references">
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,400italic,500,500italic,700">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Product+Sans">
+    <style>
+      body { transition: none; }
+    </style>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-27188110-4', 'auto');
+
+      version = 'patent-search.search_20191120_RC00';
+
+      function sendFeedback() {
+        userfeedback.api.startFeedback({
+          'productId': '713680',
+          'bucket': 'patent-search-web',
+          'productVersion': version,
+        });
+      }
+
+      window.experiments = {};
+      window.experiments.patentCountries = "ae,ag,al,am,ao,ap,ar,at,au,aw,az,ba,bb,bd,be,bf,bg,bh,bj,bn,bo,br,bw,bx,by,bz,ca,cf,cg,ch,ci,cl,cm,cn,co,cr,cs,cu,cy,cz,dd,de,dj,dk,dm,do,dz,ea,ec,ee,eg,em,ep,es,fi,fr,ga,gb,gc,gd,ge,gh,gm,gn,gq,gr,gt,gw,hk,hn,hr,hu,ib,id,ie,il,in,ir,is,it,jo,jp,ke,kg,kh,km,kn,kp,kr,kw,kz,la,lc,li,lk,lr,ls,lt,lu,lv,ly,ma,mc,md,me,mg,mk,ml,mn,mo,mr,mt,mw,mx,my,mz,na,ne,ng,ni,nl,no,nz,oa,om,pa,pe,pg,ph,pl,pt,py,qa,ro,rs,ru,rw,sa,sc,sd,se,sg,si,sk,sl,sm,sn,st,su,sv,sy,sz,td,tg,th,tj,tm,tn,tr,tt,tw,tz,ua,ug,us,uy,uz,vc,ve,vn,wo,yu,za,zm,zw";
+      
+      
+      window.profilePicture = "";
+
+      window.Polymer = {
+        dom: 'shady',
+        lazyRegister: true,
+      };
+    </script>
+
+    <script src="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/webcomponentsjs/webcomponents-lite.min.js"></script>
+    
+    <link rel="import" href="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/search-app-vulcanized.html">
+    
+  </head>
+  <body unresolved>
+    
+    <script src="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/search-app-vulcanized.js"></script>
+    
+    <search-app>
+      
+      
+
+      <article class="result" itemscope itemtype="http://schema.org/ScholarlyArticle">
+  <h1 itemprop="pageTitle">US6697793B2 - System, method and apparatus for generating phrases from a database 
+        - Google Patents</h1>
+  <span itemprop="title">System, method and apparatus for generating phrases from a database 
+       </span>
+
+  <meta itemprop="type" content="patent">
+  <a href="https://patentimages.storage.googleapis.com/73/7a/61/ef96ffd5b302bb/US6697793.pdf" itemprop="pdfLink">Download PDF</a>
+  <h2>Info</h2>
+
+  <dl>
+    <dt>Publication number</dt>
+    <dd itemprop="publicationNumber">US6697793B2</dd>
+    <meta itemprop="numberWithoutCodes" content="6697793">
+    <meta itemprop="kindCode" content="B2">
+    <meta itemprop="publicationDescription" content="Patent ( having previously published pre-grant publication)">
+    
+    <span>US6697793B2</span>
+    
+    <span>US09/800,313</span>
+    
+    <span>US80031301A</span>
+    
+    <span>US6697793B2</span>
+    
+    <span>US 6697793 B2</span>
+    
+    <span>US6697793 B2</span>
+    
+    <span>US 6697793B2</span>
+    
+    <span>  </span>
+    
+    <span> </span>
+    
+    <span> </span>
+    
+    <span>US 80031301 A</span>
+    
+    <span>US80031301 A</span>
+    
+    <span>US 80031301A</span>
+    
+    <span>US 6697793 B2</span>
+    
+    <span>US6697793 B2</span>
+    
+    <span>US 6697793B2</span>
+    
+
+    <dt>Authority</dt>
+    <dd itemprop="countryCode">US</dd>
+    <dd itemprop="countryName">United States</dd>
+
+    <dt>Prior art keywords</dt>
+    
+    <dd itemprop="priorArtKeywords" repeat>phrase</dd>
+    <dd itemprop="priorArtKeywords" repeat>phrases</dd>
+    <dd itemprop="priorArtKeywords" repeat>term</dd>
+    <dd itemprop="priorArtKeywords" repeat>selected</dd>
+    <dd itemprop="priorArtKeywords" repeat>query</dd>
+
+    <dt>Prior art date</dt>
+    <dd><time itemprop="priorArtDate" datetime="2001-03-02">2001-03-02</time></dd>
+
+    <dt>Legal status (The legal status is an assumption and is not a legal conclusion. Google has not performed a legal analysis and makes no representation as to the accuracy of the status listed.)</dt>
+    <dd itemprop="legalStatusIfi" itemscope>
+      <span itemprop="status">Expired - Fee Related</span>, expires <time itemprop="expiration" datetime="2021-09-16">2021-09-16</time>
+    </dd>
+  </dl>
+
+  <dt>Application number</dt>
+  <dd itemprop="applicationNumber">US09/800,313</dd>
+
+  
+
+  <dt>Other versions</dt>
+  <dd itemprop="directAssociations" itemscope repeat>
+    
+    <a href="/patent/US20020188587A1/en">
+      <span itemprop="publicationNumber">US20020188587A1</span>
+      (<span itemprop="primaryLanguage">en</span>
+    </a>
+  </dd>
+
+  <dt>Inventor</dt>
+  <dd itemprop="inventor" repeat>Michael W. McGreevy</dd>
+  <dt>Current Assignee (The listed assignees may be inaccurate. Google has not performed a legal analysis and makes no representation or warranty as to the accuracy of the list.)</dt>
+  <dd itemprop="assigneeCurrent" repeat>
+    National Aeronautics and Space Administration (NASA)
+  </dd>
+
+  <dt>Original Assignee</dt>
+  <dd itemprop="assigneeOriginal" repeat>National Aeronautics and Space Administration (NASA)</dd>
+
+  <dt>Priority date (The priority date is an assumption and is not a legal conclusion. Google has not performed a legal analysis and makes no representation as to the accuracy of the date listed.)</dt>
+  <dd><time itemprop="priorityDate" datetime="2001-03-02">2001-03-02</time></dd>
+
+  <dt>Filing date</dt>
+  <dd><time itemprop="filingDate" datetime="2001-03-02">2001-03-02</time></dd>
+
+  <dt>Publication date</dt>
+  <dd><time itemprop="publicationDate" datetime="2004-02-24">2004-02-24</time></dd>
+
+  
+
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2001-03-02">2001-03-02</time>
+    <span itemprop="title">Application filed by National Aeronautics and Space Administration (NASA)</span>
+    <span itemprop="type">filed</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    <span itemprop="assigneeSearch">National Aeronautics and Space Administration (NASA)</span>
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2001-03-02">2001-03-02</time>
+    <span itemprop="title">Priority to US09/800,313</span>
+    <span itemprop="type">priority</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    <span itemprop="documentId">patent/US6697793B2/en</span>
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2002-12-12">2002-12-12</time>
+    <span itemprop="title">Publication of US20020188587A1</span>
+    <span itemprop="type">publication</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    <span itemprop="documentId">patent/US20020188587A1/en</span>
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2003-12-24">2003-12-24</time>
+    <span itemprop="title">Assigned to USA AS REPRESENTED BY THE ADMINISTRATOR OF THE NATIONAL AERONAUTICS AND SPACE ADMINISTRATION</span>
+    <span itemprop="type">reassignment</span>
+    
+    
+    
+    
+    <span itemprop="assigneeSearch">USA AS REPRESENTED BY THE ADMINISTRATOR OF THE NATIONAL AERONAUTICS AND SPACE ADMINISTRATION</span>
+    
+    
+    <span itemprop="description" repeat>ASSIGNMENT OF ASSIGNORS INTEREST (SEE DOCUMENT FOR DETAILS).</span>
+    
+    <span itemprop="description" repeat>Assignors: MCGREEVY, MICHAEL W.</span>
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2004-02-24">2004-02-24</time>
+    <span itemprop="title">Application granted</span>
+    <span itemprop="type">granted</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2004-02-24">2004-02-24</time>
+    <span itemprop="title">Publication of US6697793B2</span>
+    <span itemprop="type">publication</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    <span itemprop="documentId">patent/US6697793B2/en</span>
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2019-11-25">2019-11-25</time>
+    <span itemprop="title">Application status is Expired - Fee Related</span>
+    <span itemprop="type">legal-status</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2021-09-16">2021-09-16</time>
+    <span itemprop="title">Adjusted expiration</span>
+    <span itemprop="type">legal-status</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+
+  <h2>Links</h2>
+
+  <ul>
+    
+          <li itemprop="links" itemscope repeat>
+            <meta itemprop="id" content="usptoLink">
+            <a href="http://patft.uspto.gov/netacgi/nph-Parser?Sect1=PTO1&Sect2=HITOFF&p=1&u=/netahtml/PTO/srchnum.html&r=1&f=G&l=50&d=PALL&s1=6697793.PN." itemprop="url" target="_blank"><span itemprop="text">USPTO</span></a>
+          </li>
+        <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="usptoAssignmentLink">
+          <a href="https://assignment.uspto.gov/patent/index.html#/patent/search/resultFilter?searchInput=6697793" itemprop="url" target="_blank"><span itemprop="text">USPTO Assignment</span></a>
+        </li>
+
+    <li itemprop="links" itemscope repeat>
+        <meta itemprop="id" content="espacenetLink">
+        <a href="http://worldwide.espacenet.com/publicationDetails/biblio?CC=US&amp;NR=6697793B2&amp;KC=B2&amp;FT=D" itemprop="url" target="_blank"><span itemprop="text">Espacenet</span></a>
+      </li>
+      
+
+    
+
+    
+      <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="globalDossierLink">
+          <a href="http://globaldossier.uspto.gov/#/result/patent/US/6697793/1" itemprop="url" target="_blank"><span itemprop="text">Global Dossier</span></a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="stackexchangeLink">
+          <a href="https://patents.stackexchange.com/questions/tagged/US6697793" itemprop="url"><span itemprop="text">Discuss</span></a>
+        </li>
+      
+  </ul>
+
+  
+  <ul itemprop="concept" itemscope>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000000034</span>
+      <span itemprop="name">methods</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>abstract</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">199</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000000875</span>
+      <span itemprop="name">corresponding</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">83</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001603</span>
+      <span itemprop="name">reducing</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">10</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000000872</span>
+      <span itemprop="name">buffers</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">9</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001721</span>
+      <span itemprop="name">combination</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>abstract</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">5</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000001914</span>
+      <span itemprop="name">filtration</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">3</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">206010016256</span>
+      <span itemprop="name">Fatigue</span>
+      <span itemprop="domain">Diseases</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">93</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000002829</span>
+      <span itemprop="name">reduced</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">39</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000000203</span>
+      <span itemprop="name">mixtures</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">19</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000007958</span>
+      <span itemprop="name">sleep</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">18</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000004458</span>
+      <span itemprop="name">analytical methods</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">17</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001447</span>
+      <span itemprop="name">compensatory</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">15</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000000605</span>
+      <span itemprop="name">extraction</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">15</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000007710</span>
+      <span itemprop="name">freezing</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">14</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000010006</span>
+      <span itemprop="name">flight</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">12</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000003058</span>
+      <span itemprop="name">natural language processing</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">12</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000004642</span>
+      <span itemprop="name">transportation engineering</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">9</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">241000270666</span>
+      <span itemprop="name">Testudines</span>
+      <span itemprop="domain">Species</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">8</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000003570</span>
+      <span itemprop="name">air</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="section

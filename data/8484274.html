@@ -1,0 +1,2187 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>US8484274B2 - Optimal padding for the two-dimensional fast fourier transform 
+        - Google Patents</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="referrer" content="origin-when-crossorigin">
+    <link rel="canonical" href="https://patents.google.com/patent/US8484274B2/en">
+    <meta name="description" content="
+     Padding or adding data to a data signal can increase the speed with which a signal processor can process the data. Methods are provided herein that can accurately predict the optimal pad size of a two dimensional array of data, which can be used to increase the processing speed of a signal processor by optimizing run-time for a two-dimensional (2-D) fast Fourier transform (FFT) operation. 
+   
+   ">
+    
+    <meta name="DC.type" content="patent">
+    
+    <meta name="DC.title" content="Optimal padding for the two-dimensional fast fourier transform 
+       ">
+    
+    <meta name="DC.date" content="2009-08-27" scheme="dateSubmitted">
+    
+    <meta name="DC.description" content="
+     Padding or adding data to a data signal can increase the speed with which a signal processor can process the data. Methods are provided herein that can accurately predict the optimal pad size of a two dimensional array of data, which can be used to increase the processing speed of a signal processor by optimizing run-time for a two-dimensional (2-D) fast Fourier transform (FFT) operation. 
+   
+   ">
+    
+    <meta name="citation_patent_application_number" content="US:12/549,159">
+    
+    <meta name="citation_pdf_url" content="https://patentimages.storage.googleapis.com/c7/43/0e/fcc694941f57f6/US8484274.pdf">
+    
+    <meta name="citation_patent_number" content="US:8484274">
+    
+    <meta name="DC.date" content="2013-07-09" scheme="issue">
+    
+    <meta name="DC.contributor" content="Bruce H. Dean" scheme="inventor">
+    
+    <meta name="DC.contributor" content="David L. Aronstein" scheme="inventor">
+    
+    <meta name="DC.contributor" content="Jeffrey S. Smith" scheme="inventor">
+    
+    <meta name="DC.contributor" content="National Aeronautics and Space Administration (NASA)" scheme="assignee">
+    
+    <meta name="DC.relation" content="US:6191727" scheme="references">
+    
+    <meta name="DC.relation" content="US:20020129313:A1" scheme="references">
+    
+    <meta name="DC.relation" content="US:20070165906:A1" scheme="references">
+    
+    <meta name="DC.relation" content="US:20020156822:A1" scheme="references">
+    
+    <meta name="DC.relation" content="US:6729186" scheme="references">
+    
+    <meta name="DC.relation" content="US:20080162767:A1" scheme="references">
+    
+    <meta name="DC.relation" content="US:20080297497:A1" scheme="references">
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,400italic,500,500italic,700">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Product+Sans">
+    <style>
+      body { transition: none; }
+    </style>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-27188110-4', 'auto');
+
+      version = 'patent-search.search_20191120_RC00';
+
+      function sendFeedback() {
+        userfeedback.api.startFeedback({
+          'productId': '713680',
+          'bucket': 'patent-search-web',
+          'productVersion': version,
+        });
+      }
+
+      window.experiments = {};
+      window.experiments.patentCountries = "ae,ag,al,am,ao,ap,ar,at,au,aw,az,ba,bb,bd,be,bf,bg,bh,bj,bn,bo,br,bw,bx,by,bz,ca,cf,cg,ch,ci,cl,cm,cn,co,cr,cs,cu,cy,cz,dd,de,dj,dk,dm,do,dz,ea,ec,ee,eg,em,ep,es,fi,fr,ga,gb,gc,gd,ge,gh,gm,gn,gq,gr,gt,gw,hk,hn,hr,hu,ib,id,ie,il,in,ir,is,it,jo,jp,ke,kg,kh,km,kn,kp,kr,kw,kz,la,lc,li,lk,lr,ls,lt,lu,lv,ly,ma,mc,md,me,mg,mk,ml,mn,mo,mr,mt,mw,mx,my,mz,na,ne,ng,ni,nl,no,nz,oa,om,pa,pe,pg,ph,pl,pt,py,qa,ro,rs,ru,rw,sa,sc,sd,se,sg,si,sk,sl,sm,sn,st,su,sv,sy,sz,td,tg,th,tj,tm,tn,tr,tt,tw,tz,ua,ug,us,uy,uz,vc,ve,vn,wo,yu,za,zm,zw";
+      
+      
+      window.profilePicture = "";
+
+      window.Polymer = {
+        dom: 'shady',
+        lazyRegister: true,
+      };
+    </script>
+
+    <script src="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/webcomponentsjs/webcomponents-lite.min.js"></script>
+    
+    <link rel="import" href="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/search-app-vulcanized.html">
+    
+  </head>
+  <body unresolved>
+    
+    <script src="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/search-app-vulcanized.js"></script>
+    
+    <search-app>
+      
+      
+
+      <article class="result" itemscope itemtype="http://schema.org/ScholarlyArticle">
+  <h1 itemprop="pageTitle">US8484274B2 - Optimal padding for the two-dimensional fast fourier transform 
+        - Google Patents</h1>
+  <span itemprop="title">Optimal padding for the two-dimensional fast fourier transform 
+       </span>
+
+  <meta itemprop="type" content="patent">
+  <a href="https://patentimages.storage.googleapis.com/c7/43/0e/fcc694941f57f6/US8484274.pdf" itemprop="pdfLink">Download PDF</a>
+  <h2>Info</h2>
+
+  <dl>
+    <dt>Publication number</dt>
+    <dd itemprop="publicationNumber">US8484274B2</dd>
+    <meta itemprop="numberWithoutCodes" content="8484274">
+    <meta itemprop="kindCode" content="B2">
+    <meta itemprop="publicationDescription" content="Patent ( having previously published pre-grant publication)">
+    
+    <span>US8484274B2</span>
+    
+    <span>US12/549,159</span>
+    
+    <span>US54915909A</span>
+    
+    <span>US8484274B2</span>
+    
+    <span>US 8484274 B2</span>
+    
+    <span>US8484274 B2</span>
+    
+    <span>US 8484274B2</span>
+    
+    <span>  </span>
+    
+    <span> </span>
+    
+    <span> </span>
+    
+    <span>US 54915909 A</span>
+    
+    <span>US54915909 A</span>
+    
+    <span>US 54915909A</span>
+    
+    <span>US 8484274 B2</span>
+    
+    <span>US8484274 B2</span>
+    
+    <span>US 8484274B2</span>
+    
+
+    <dt>Authority</dt>
+    <dd itemprop="countryCode">US</dd>
+    <dd itemprop="countryName">United States</dd>
+
+    <dt>Prior art keywords</dt>
+    
+    <dd itemprop="priorArtKeywords" repeat>data</dd>
+    <dd itemprop="priorArtKeywords" repeat>size</dd>
+    <dd itemprop="priorArtKeywords" repeat>array</dd>
+    <dd itemprop="priorArtKeywords" repeat>dimensional</dd>
+    <dd itemprop="priorArtKeywords" repeat>signal</dd>
+
+    <dt>Prior art date</dt>
+    <dd><time itemprop="priorArtDate" datetime="2009-08-27">2009-08-27</time></dd>
+
+    <dt>Legal status (The legal status is an assumption and is not a legal conclusion. Google has not performed a legal analysis and makes no representation as to the accuracy of the status listed.)</dt>
+    <dd itemprop="legalStatusIfi" itemscope>
+      <span itemprop="status">Active</span>, expires <time itemprop="expiration" datetime="2032-03-27">2032-03-27</time>
+    </dd>
+  </dl>
+
+  <dt>Application number</dt>
+  <dd itemprop="applicationNumber">US12/549,159</dd>
+
+  
+
+  <dt>Other versions</dt>
+  <dd itemprop="directAssociations" itemscope repeat>
+    
+    <a href="/patent/US20110055306A1/en">
+      <span itemprop="publicationNumber">US20110055306A1</span>
+      (<span itemprop="primaryLanguage">en</span>
+    </a>
+  </dd>
+
+  <dt>Inventor</dt>
+  <dd itemprop="inventor" repeat>Bruce H. Dean</dd>
+  <dd itemprop="inventor" repeat>David L. Aronstein</dd>
+  <dd itemprop="inventor" repeat>Jeffrey S. Smith</dd>
+  <dt>Current Assignee (The listed assignees may be inaccurate. Google has not performed a legal analysis and makes no representation or warranty as to the accuracy of the list.)</dt>
+  <dd itemprop="assigneeCurrent" repeat>
+    UNITED STATES OF AMERICA REPRESENTED BY THE ADMINISTRATOR OF THE NATIONAL AERONAUTICS SPACE ADMINISTRATION
+  </dd><dd itemprop="assigneeCurrent" repeat>
+    National Aeronautics and Space Administration (NASA)
+  </dd>
+
+  <dt>Original Assignee</dt>
+  <dd itemprop="assigneeOriginal" repeat>National Aeronautics and Space Administration (NASA)</dd>
+
+  <dt>Priority date (The priority date is an assumption and is not a legal conclusion. Google has not performed a legal analysis and makes no representation as to the accuracy of the date listed.)</dt>
+  <dd><time itemprop="priorityDate" datetime="2009-08-27">2009-08-27</time></dd>
+
+  <dt>Filing date</dt>
+  <dd><time itemprop="filingDate" datetime="2009-08-27">2009-08-27</time></dd>
+
+  <dt>Publication date</dt>
+  <dd><time itemprop="publicationDate" datetime="2013-07-09">2013-07-09</time></dd>
+
+  
+
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2009-08-27">2009-08-27</time>
+    <span itemprop="title">Application filed by National Aeronautics and Space Administration (NASA)</span>
+    <span itemprop="type">filed</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    <span itemprop="assigneeSearch">National Aeronautics and Space Administration (NASA)</span>
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2009-08-27">2009-08-27</time>
+    <span itemprop="title">Priority to US12/549,159</span>
+    <span itemprop="type">priority</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    <span itemprop="documentId">patent/US8484274B2/en</span>
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2011-03-03">2011-03-03</time>
+    <span itemprop="title">Publication of US20110055306A1</span>
+    <span itemprop="type">publication</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    <span itemprop="documentId">patent/US20110055306A1/en</span>
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2013-07-09">2013-07-09</time>
+    <span itemprop="title">Application granted</span>
+    <span itemprop="type">granted</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2013-07-09">2013-07-09</time>
+    <span itemprop="title">Publication of US8484274B2</span>
+    <span itemprop="type">publication</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    <span itemprop="documentId">patent/US8484274B2/en</span>
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2018-10-02">2018-10-02</time>
+    <span itemprop="title">Assigned to UNITED STATES OF AMERICA REPRESENTED BY THE ADMINISTRATOR OF THE NATIONAL AERONAUTICS SPACE ADMINISTRATION</span>
+    <span itemprop="type">reassignment</span>
+    
+    
+    
+    
+    <span itemprop="assigneeSearch">UNITED STATES OF AMERICA REPRESENTED BY THE ADMINISTRATOR OF THE NATIONAL AERONAUTICS SPACE ADMINISTRATION</span>
+    
+    
+    <span itemprop="description" repeat>ASSIGNMENT OF ASSIGNORS INTEREST (SEE DOCUMENT FOR DETAILS).</span>
+    
+    <span itemprop="description" repeat>Assignors: ARONSTEIN, DAVID L., SMITH, JEFFREY S., DEAN, BRUCE H.</span>
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2019-11-25">2019-11-25</time>
+    <span itemprop="title">Application status is Active</span>
+    <span itemprop="type">legal-status</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2032-03-27">2032-03-27</time>
+    <span itemprop="title">Adjusted expiration</span>
+    <span itemprop="type">legal-status</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+
+  <h2>Links</h2>
+
+  <ul>
+    
+          <li itemprop="links" itemscope repeat>
+            <meta itemprop="id" content="usptoLink">
+            <a href="http://patft.uspto.gov/netacgi/nph-Parser?Sect1=PTO1&Sect2=HITOFF&p=1&u=/netahtml/PTO/srchnum.html&r=1&f=G&l=50&d=PALL&s1=8484274.PN." itemprop="url" target="_blank"><span itemprop="text">USPTO</span></a>
+          </li>
+        <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="usptoAssignmentLink">
+          <a href="https://assignment.uspto.gov/patent/index.html#/patent/search/resultFilter?searchInput=8484274" itemprop="url" target="_blank"><span itemprop="text">USPTO Assignment</span></a>
+        </li>
+
+    <li itemprop="links" itemscope repeat>
+        <meta itemprop="id" content="espacenetLink">
+        <a href="http://worldwide.espacenet.com/publicationDetails/biblio?CC=US&amp;NR=8484274B2&amp;KC=B2&amp;FT=D" itemprop="url" target="_blank"><span itemprop="text">Espacenet</span></a>
+      </li>
+      
+
+    
+
+    
+      <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="globalDossierLink">
+          <a href="http://globaldossier.uspto.gov/#/result/patent/US/8484274/1" itemprop="url" target="_blank"><span itemprop="text">Global Dossier</span></a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="stackexchangeLink">
+          <a href="https://patents.stackexchange.com/questions/tagged/US8484274" itemprop="url"><span itemprop="text">Discuss</span></a>
+        </li>
+      
+  </ul>
+
+  
+  <ul itemprop="concept" itemscope>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000000034</span>
+      <span itemprop="name">methods</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>abstract</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">22</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001965</span>
+      <span itemprop="name">increased</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">14</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000011159</span>
+      <span itemprop="name">matrix materials</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">13</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000000875</span>
+      <span itemprop="name">corresponding</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">5</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000015654</span>
+      <span itemprop="name">memory</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">20</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000004422</span>
+      <span itemprop="name">calculation algorithm</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">11</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000004364</span>
+      <span itemprop="name">calculation methods</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000005516</span>
+      <span itemprop="name">engineering processes</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000000727</span>
+      <span itemprop="name">fractions</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000003287</span>
+      <span itemprop="name">optical</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000004458</span>
+      <span itemprop="name">analytical methods</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000015572</span>
+      <span itemprop="name">biosynthetic process</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000011162</span>
+      <span itemprop="name">core materials</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000018109</span>
+      <span itemprop="name">developmental process</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000005755</span>
+      <span itemprop="name">formation</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001976</span>
+      <span itemprop="name">improved</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000011133</span>
+      <span itemprop="name">lead</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000005457</span>
+      <span itemprop="name">optimization</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000002829</span>
+      <span itemprop="name">reduced</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001603</span>
+      <span itemprop="name">reducing</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000006722</span>
+      <span itemprop="name">reduction reaction</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000003860</span>
+      <span itemprop="name">storage</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+  </ul>
+  
+
+  <section>
+    <h2>Images</h2>
+    <ul>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/69/94/74/b8701095cd02b3/US08484274-20130709-D00000.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/f6/56/d8/1590c79c51391a/US08484274-20130709-D00000.png">
+        <ul>
+          
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/05/23/05/45a9dcf62abc4d/US08484274-20130709-D00001.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/50/98/8d/6e15479841594a/US08484274-20130709-D00001.png">
+        <ul>
+          
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/35/77/05/ec6b68a7813d13/US08484274-20130709-D00002.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/ef/10/c9/8597fa6f62dd40/US08484274-20130709-D00002.png">
+        <ul>
+          
+        </ul>
+      </li>
+      </ul>
+  </section>
+
+  <section>
+    <h2>Classifications</h2>
+    
+    <ul>
+      <li>
+        <ul itemprop="cpcs" itemscope repeat>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G</span>&mdash;<span itemprop="Description">PHYSICS</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06</span>&mdash;<span itemprop="Description">COMPUTING; CALCULATING; COUNTING</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06F</span>&mdash;<span itemprop="Description">ELECTRIC DIGITAL DATA PROCESSING</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06F17/00</span>&mdash;<span itemprop="Description">Digital computing or data processing equipment or methods, specially adapted for specific functions</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06F17/10</span>&mdash;<span itemprop="Description">Complex mathematical operations</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06F17/14</span>&mdash;<span itemprop="Description">Fourier, Walsh or analogous domain transformations, e.g. Laplace, Hilbert, Karhunen-Loeve, transforms</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06F17/141</span>&mdash;<span itemprop="Description">Discrete Fourier transforms</span>
+            <meta itemprop="Leaf" content="true">
+            
+            <meta itemprop="FirstCode" content="true">
+          </li>
+          </ul>
+      </li>
+      </ul>
+  </section>
+
+  <section itemprop="abstract" itemscope>
+    <h2>Abstract</h2>
+    
+    <div itemprop="content" html><abstract mxw-id="PA117188073" lang="EN" load-source="patent-office">
+    <div num="p-0001" class="abstract">Padding or adding data to a data signal can increase the speed with which a signal processor can process the data. Methods are provided herein that can accurately predict the optimal pad size of a two dimensional array of data, which can be used to increase the processing speed of a signal processor by optimizing run-time for a two-dimensional (2-D) fast Fourier transform (FFT) operation.</div>
+  </abstract>
+  </div>
+  </section>
+
+  <section itemprop="description" itemscope>
+    <h2>Description</h2>
+    
+    <div itemprop="content" html><div mxw-id="PDES60188652" lang="EN" load-source="patent-office" class="description">
+    
+    <heading>STATEMENT OF GOVERNMENT INTEREST</heading>
+    <p num="p-0002">The invention described herein was made by employees of the United States Government and may be manufactured and used by or for the Government of the United States of America for governmental purposes without the payment of any royalties thereon or therefor.</p>
+    
+    
+    <heading>FIELD</heading>
+    <p num="p-0003">The present invention relates to signal processing, and more particularly to methods of improving the processing time of a signal processor or of a cluster of signal processors.</p>
+    <heading>BACKGROUND</heading>
+    <p num="p-0004">Signal processing in various engineering and scientific fields makes use of the fast Fourier transform (“FFT”). A processor can use the FFT when it reads and writes data to and from memory. Data can be written and read to and from various memories of a computer, for example, a cache memory, a random access memory (RAM), and/or a main memory. The cache of a computer is configured to store commonly used instructions and frequently accessed data. The cache is a smaller and faster than the external memory of the computer, however, the cache typically stores a fraction of the amount of data as the external memory. Cache memories can vary from computer to computer. Some cache memories allow for a cache that is completely addressable, thus allowing a software programmer the ability to access every element in a cache. General purpose processors, however, are not addressable. The contents of the cache are determined by the hardware architecture. For a general purpose processor, the prediction of the contents of the cache are determined at run-time, thus performance is non-deterministic.</p>
+    <p num="p-0005">Signal processors, for example general purpose processors, are designed to internally decide which data is stored in the cache and which data is stored in external memory. When the processor needs to read from or write to a location in main memory, it first checks whether a copy of that data is in the cache. If so, the processor immediately reads from or writes to the cache, which is much faster than reading from or writing to the main memory. On the modern desktop, the signal processor on average takes from about 0.5 nanoseconds to 25 nanoseconds to access the cache. Whereas the signal processor takes from about 80 nanoseconds to 250 nanoseconds to access a main memory. The penalty for a cache miss is a combination of the access time for the cache (needed to confirm the data is not in the cache), plus the access time for the main memory.</p>
+    <p num="p-0006">Although counterintuitive, on some occasions a smaller data signal can take a signal processor longer to process than a larger data signal, under the same computational algorithm. One of the reasons for this is that when the signal processor processes the smaller data signal, more cache misses occur than when the larger data signal is processed. For the one-dimensional (1-D) FFT it is commonly known that padding an array of data up to the nearest power of two gives the optimal average run-time. For the two-dimensional (2-D) FFT, however, padding the data signal to a power of two does not necessarily result in the optimal run-time, and can often lead to inefficient signal processing. Therefore, a need exists for a method that can accurately predict the optimal pad size of a two dimensional array of data which can be used to increase the processing speed of a signal processor by optimizing run-time for the 2-D FFT.</p>
+    <p num="p-0007">A disadvantage of using a power-of-two pad size can be a longer run-time for a 2-D FFT than what is achievable when using an optimal pad size. The disadvantage of using empirically determined pad sizes is that one must perform the 2-D FFT for all data sizes to determine the most efficient pad sizes, and because of issues of non-deterministic run-times in modern desktop computer CPUs, these FFTs should be repeated numerous times to average out the timing functions. Using this approach, one would need to run a large number of 2-D FFTs for all data sizes of interest, for every computational environment on which the analysis would be performed.</p>
+    <heading>SUMMARY</heading>
+    <p num="p-0008">According to various embodiments of the present teachings, a method is provided for optimizing signal processing times. In some embodiments, unwanted smaller data signals that are not optimal in size are padded to a larger data size that is more optimal for a signal processor to process. For example, a time-domain signal, can be padded by adding a string of zeros or other meaningful values to the data before performing the FFT. This padding can result in an optimal run time for the signal processor.</p>
+    <p num="p-0009">Described herein are methods that can be used to determine the optimal pad size for a digital signal of data. One method can comprise performing a 2-D FFT operation on a two-dimensional N×N array of data, using a signal processor. The amount of time needed to perform the FFT can be determined, and the time needed and the size of the N×N array of data can be stored. The method can further comprise increasing the size of the two-dimensional array of data points by one in each dimension such that the array comprises a N+1×N+1 array of data. A 2-D FFT operation can be performed on the N+1×N+1 array of data, and the time needed and the size of the N+1×N+1 array of data can be stored. The process of increasing the size of the array by one in each dimension, performing the 2-D FFT, and storing the time and size can be repeated for a number of times. For example, a user can set a predetermined amount of times that the method loops through the process of increasing the array of data, performing a 2-D FFT, determining the amount of time, and storing the results. Thus, the performance of a signal processor can be determined for a range of values for N, ranging from N to N+n, where N an n are arbitrary values that can each be established independently by a user.</p>
+    <p num="p-0010">According to various embodiments, the method can comprise generating a table of optimal pad sizes from the stored amounts of time needed to perform each 2-D FFT. For example, a graphical display can be generated showing optimal pad sizes relative to corresponding data array sizes. A digital signal can be collected and the size of the collected data signal can be compared to the table of optimal pad sizes to determine an optimal pad size for the collected data signal. In some embodiments, the optimal pad size can be the next largest optimal pad size of the collected data signal. The optimal pad size for the collected data signal can be outputted to a user, printed, displayed, and/or stored. In some embodiments, the method comprises padding the collected data signal to the optimal pad size. The padding can comprise adding one or more zeros to the collected data signal, or adding a replicated copy of the collected data signal to the collected data signal.</p>
+    <p num="p-0011">In some embodiments, the collected digital signal can already be in an optimal size. Therefore, in some embodiments, the method can comprise comparing the collected data signal to the table of optimal pad sizes to determine if the size of the collected data signal is an optimal size, and if the size of the collected data signal is an optimal pad size, the method can output the optimal pad size to a user and/or indicate that the data signal is of an optimal size.</p>
+    <p num="p-0012">In some embodiments, a 2-D FFT operation can comprise: (i) performing a 1-D FFT on each row of a two-dimensional array of data to generate transformed data; (ii) performing a matrix transpose operation on the transformed data to form transposed data; and (iii) performing a 1-D FFT on each row of the transposed data resulting from (ii). The resulting time to process steps (i)-(iii) can be stored in a table of optimal pad sizes which table can be used according to various embodiments.</p>
+    <p num="p-0013">According to various embodiments, the method of the present teachings can be used to optimally improve the performance of a signal processor. After a digital signal is collected, the collected data signal can be compared to the table of optimal pad sizes to determine an optimal pad size to apply. The method can comprise padding the collected data signal to generate an padded data signal of optimal size. The method can further comprise processing the optimally padded data signal at an optimal signal processing rate, using the signal processor.</p>
+    <p num="p-0014">In some embodiments, provided herein is a method that can determine the optimal pad size by using an estimation algorithm. Once the digital signal has been collected, the dimensions of the collected signal can be compared to known estimated performances. The estimation algorithm can estimate the optimal pad size, for example, by estimating the smallest number of prime factors for Matlab&#39;s FFT. From this, the optimal pad size can be computed for a class of signal processors. The estimation algorithm can comprise determining the optimal trade off between the optimal pad size for a one-dimensional FFT, and the transpose operation of a two-dimensional FFT.</p>
+    
+    
+    <description-of-drawings>
+      <heading>BRIEF DESCRIPTION OF THE DRAWINGS</heading>
+      <p num="p-0015">The present teachings will be described with reference to the accompanying drawings.</p>
+      <p num="p-0016"> <figref idrefs="DRAWINGS">FIG. 1A</figref> is a graph of time in milliseconds (ms) versus size (N), which illustrates how long it takes a signal processor to process a signal comprising a one-dimensional array of data the size of N, according to various embodiments of the present teachings;</p>
+      <p num="p-0017"> <figref idrefs="DRAWINGS">FIG. 1B</figref> illustrates a zoomed-in portion of the graph of <figref idrefs="DRAWINGS">FIG. 1A</figref>, which illustrates in greater detail the time it takes the signal processor to process a signal comprising a one-dimensional array of size N ranging between 970 and 1040, according to various embodiments of the present teachings;</p>
+      <p num="p-0018"> <figref idrefs="DRAWINGS">FIG. 2A</figref> is a graph of time (ms) versus size (N), which illustrates how long it takes the signal processor to process a signal comprising a two-dimensional array the size of N×N, according to various embodiments of the present teachings; and</p>
+      <p num="p-0019"> <figref idrefs="DRAWINGS">FIG. 2B</figref> illustrates a zoomed in graph of <figref idrefs="DRAWINGS">FIG. 2A</figref>, which further illustrates the time it takes the signal processor to process a signal comprising a two-dimensional array of size N×N ranging between 970 and 1040, according to various embodiments of the present teachings.</p>
+    </description-of-drawings>
+    
+    
+    <heading>DETAILED DESCRIPTION OF THE PRESENT INVENTION</heading>
+    <p num="p-0020">According to various embodiments of the present teachings, provided herein are methods of performing a two-dimensional fast Fourier transform (FFT) on a discretely sampled two-dimensional signal in the minimal amount of run-time on a computer, for example, on a desktop computer. Described herein are methods to determine the optimal pad size to minimize the run time of the FFT for a two-dimensional array of data. The present teachings illustrate how to add to the length of a data signal to perform the FFT calculation in shorter time.</p>
+    <p num="p-0021">In some embodiments, it is best to pad, that is, increase the length of a signal, by adding arbitrary values to the signal, for example, by adding ones or zeros. In some embodiments, it can be more appropriate to pad the length by using a replicated copy of the signal or some other continuation or extension of the signal. It may seem counter-intuitive that increasing the size of the data, and thus increasing the number of Fourier frequencies that need to be computed, could shorten the computation time. As described herein, however, the run-time of a signal processor is strongly influenced by the architecture of modern computer processors, so that the simple rule of thumb, that a longer calculation should take a longer amount of time, does not hold true for many situations.</p>
+    <p num="p-0022">According to various embodiments of the present teachings, a method for determining the optimal pad size for a digital signal of data can be used to optimize the performance of one or more signal processors. The method can comprise performing a two-dimensional fast Fourier transform (FFT) operation on a two-dimensional N×N array of data, using a signal processor. The amount of time needed to perform the FFT can be determined, and the time needed and the corresponding size of the N×N array of data can be stored. According to various embodiments, the size of the two-dimensional array of data points can be increased by one in each dimension such that the N×N array can be increased to an N+1×N+1 array of data. A two-dimensional FFT operation can be performed on the N+1×N+1 array of data, and the time needed along with the size of the N+1×N+1 array of data can be stored. The process of increasing the size of the array by one, in each dimension, performing the two-dimensional FFT, and storing the time and size, can be repeated for a number of cycles. For example, a user can set a predetermined amount of times that the method loops through the process of increasing the size of the array of data, performing a 2-D FFT operation, determining the processing time, and storing the results.</p>
+    <p num="p-0023">According to various embodiments, a table of optimal pad sizes can be generated from the stored amounts of time needed to perform each two-dimensional FFT, relative to the corresponding sizes of the arrays of data points. A digital signal can then be collected and the size of the collected data signal can be compared to the table of optimal pad sizes to determine an optimal pad size for the collected data signal. For example, the optimal pad size might correspond to the pad size to achieve the next largest array size. In some embodiments, the optimal pad size for an N×N array of data might be a data array size that has been increased by 3 data points in each dimension. The optimal pad size for the collected data signal can be outputted to a user, printed, displayed, and/or used in a padding operation. In some embodiments, the method can comprise padding the collected data signal to achieve an optimal sized data array. The padding can comprise adding data to the signal, for example, adding one or more zeros to the collected data signal, or adding a replicated copy of the collected data signal, to the collected data signal.</p>
+    <p num="p-0024">In some embodiments, the collected digital signal can already be optimally sized. Therefore, in some embodiments, the method can comprise comparing the collected data signal to the table of optimal pad sizes to determine whether the size of the collected data signal is an optimal size. If the size of the collected data signal is determined to be an optimal size, the method can output the optimal size to a user and/or provide a display stating, or notify a user that, no padding is needed. In some embodiments, the two-dimensional (FFT) operation can comprise: (i) performing a one-dimensional FFT on each row of a two-dimensional array of data to generate transformed data; (ii) performing a matrix transpose operation on the transformed data to form transposed data; and (iii) performing a one-dimensional FFT on each row of the transposed data.</p>
+    <p num="p-0025">According to various embodiments, the methods of the present teachings can be used with various FFT software libraries, for example, the Fastest Fourier Transform in the West, developed at the Massachusetts Institute of Technology, by Mateo Frigo and Steven G. Johnson. The Fastest Fourier Transform in the West (FFTW) can perform a FFT on a fixed-length data signal, on a desktop computer. Other examples include, but are not limited to, the Math Kernel Library (MKL) developed by the Intel Corporation, Santa Clara, Calif., the Engineering Scientific Subroutine Library (ESSL) developed by the International Business Machines Corporation, New York, N.Y., and the JMFFT developed by Jean-Marie Teuler. As will be appreciated, these FFT libraries are given as examples, and the present teachings are not limited to these libraries.</p>
+    <p num="p-0026">According to various embodiments, the methods of the present teachings can be used to optimally improve the performance and speed of a signal processor. After a digital signal is collected, the collected data signal can be compared to a table of optimal pad sizes to determine an optimal pad size. The method can comprise padding the collected data signal to generate an optimally padded data signal, and in some cases the method can further comprise processing the optimally padded data signal using the signal processor.</p>
+    <p num="p-0027">In image processing and optical modeling, the 2-D FFT is widely used in numerous applications. Exploiting the optimal 2-D FFT pad sizes can decrease the run-time in Fourier-based applications. A more fundamental re-examination of choosing optimal pad sizes for the 2-D FFT can result in a reduction in run-time of a signal processor as compared with simply using the “optimal” strategy for 1-D data, namely, padding to the next highest power-of-two. Indeed, using the power-of-two padding in 2-D can even result in a longer run-time compared to using no padding at all.</p>
+    <p num="p-0028">Furthermore, padding a signal for use with the Fast Fourier Transform changes the frequency spacing of the output signal. In some embodiments, obtaining the Fourier transform on the right frequency spacing is more important than optimizing computer run-time, and in such cases the data pad size can be chosen by entirely different criteria, to meet needs related to output frequency spacing. Such pad-size selection based on desired frequency spacing can be used, for example, in simulating optical image formation on a detector at a variety of light wavelengths.</p>
+    <p num="p-0029">According to various embodiments of the present teachings, a method is provided for that can estimate the optimal pad size of the two-dimensional FFT, without generating a table. The method can comprise estimating the optimal pad size by determining the best tradeoff in time between performing the one-dimensional FFT on the two-dimensional array of data, and performing a matrix transpose operation on the two-dimensional array of data. This method can be less time consuming as compared to the method that comprises performing a two-dimensional FFT on a plurality of arrays of data to generate a lookup table. The method can be coded in computer software and be executed by various software applications, for example, the method can be coded in MATLAB®, developed by MathWorks, Inc., Natick, Mass.</p>
+    <p num="p-0030">The estimation method can estimate the pad size for a 2-D FFT, which can minimize the average run-time of the signal processor. The result is called the “optimal” pad size for the input data size. This optimal pad size can be used with the Fastest Fourier Transform in the West (FFTW) algorithm, which is a commonly known FFT “engine” in the field of signal processing. The computer architecture can be set associative cache. The optimal pad size for the matrix transpose operation works most efficiently for arrays whose sizes can be factored into prime numbers. For the 1-D FFT, the optimal pad size for the most efficient arrays are those whose sizes are a factor-of-two. For the two-dimensional FFT, the method can comprise the following steps:
+</p> <ul> <li id="ul0001-0001" num="0000"> <ul> <li id="ul0002-0001" num="0030">(1) perform a 1-D FFT on each row of a 2-D data grid to generate transformed data,</li> <li id="ul0002-0002" num="0031">(2) perform a matrix transpose operation on the transformed data generated in step (1), to form transposed data, and</li> <li id="ul0002-0003" num="0032">(3) perform a 1-D FFT on the transposed data resulting from step (2).</li> </ul> </li> </ul>
+
+    <p num="p-0031">According to various embodiments, optimizing the 2-D FFT run-time can include optimizing the three steps above. For steps (1) and (3), the optimal runtime relates to the optimal run-time for a 1-D FFT, for example, using padding so that the sizes of the arrays sent to FFTW can be factored to a factor-of-two. For the matrix transpose in step (2), the optimal array size is different. The optimal array size for transposing a matrix are prime numbers, for example, 2, 3, 5, 7, and 13. Thus, it can be seen why simply following the padding rules for a 1-D FFT will not result in the shortest run-time for 2-D FFTs: To maximize the optimization, it is necessary to optimize the 1-D FFTs and the 2-D matrix transposes. For the overall optimal 2-D FFT algorithm, the basic trade is between optimizing the array pad size with prime factors that are small, which can be optimal for the matrix transpose operation, and with prime factors that are greater than 2, which can be optimal for the 2-D transpose. The number of sets in the cache, the number of blocks per set, and the size of each block, can all play an important role in finding the optimal pad size.</p>
+    <p num="p-0032">According to various embodiments, the present teachings provide a method for optimally improving the performance of a signal processor by estimation. Data collection of a two-dimensional data signal can be used to generate a collected data signal. An estimation algorithm can be performed and can be based on the collected data signal. The estimation algorithm can approximate the ideal tradeoff between loss of processing speed as a result from the 1-D FFT for each row, and the loss of processing speed that comes from the matrix transpose operation. For example, for a data signal the size of N×N, the estimation algorithm can determine the prime factors for N, and can compare those prime factors to a set of prime factors to determine if the size of N is an optimal size, and if not, the estimation algorithm can estimate an optimal size that N can be padded to. The estimation algorithm can be used to determine how much the collected data signal needs to be padded, such that the speed and performance of the signal processor is improved. The method can comprise improving the performance of the signal processor by padding the collected data signal to achieve the optimal data signal size, and to generate an optimal data signal. The optimal data signal can be processed by the signal processor.</p>
+    <p num="p-0033">Broadly speaking, the cache of a modern computer processor plays an important role in optimizing performance under the assumption of data and instruction locality. For the matrix transpose, instruction locality is satisfied, but for significantly large matrices, data locality is not. Instruction and data locality are described below. The cache is memory used by the computer processor that is smaller but faster than external memory, for example, random access memory (RAM). The cache is typically 10 to 100 times faster than RAM but is often limited to a fraction ( 1/1000) of the size of the external memory.</p>
+    <p num="p-0034">The cache is intended to hold commonly used instructions and frequently accessed data, so that the processor has the most commonly used information in the most accessible place. The choices for which instructions and for which blocks of data to store in the cache is deterministic, based on the assumption of locality. According to various embodiments, a processor can be configured to decide whether data is stored in the cache or whether data is stored in external memory. In practice, if an instruction or piece of data is needed by the processor, it is typically moved to the cache. Additionally, instructions or data nearby are also transferred to the cache. When data is transferred to the cache, the cache must decide on the location to store the data. A “set-associative” cache partitions the cache into a finite number of sets. Within each set, there is a fixed number of storage blocks. When data is transferred to the cache, it can be placed within any block within a specific set. Most modern processors have some form of a set-associative cache.</p>
+    <p num="p-0035">In some embodiments, for a set-associative cache, if a processor strides through an array of data by the number of sets, and the length of the data is greater than the number of blocks per set, then the process will repeatedly have a “cache miss.” The number of cache misses will depend on how much of the array can fit in all of the blocks of a single set. At a certain size, an array of data becomes too large to fit into the cache. Conversely, for a small enough data array, all, or nearly all, of the data array can be stored in the cache. For situations in between, where some data is stored in the cache and some data is stored in external memory, the method of the present teachings can optimize the performance of the processor.</p>
+    <p num="p-0036">For example, on a modern desktop computer, access time for a cache is 0.5-25 nanoseconds, and the access time for the main memory is 80-250 nanoseconds. The penalty for a cache miss is the access time of the cache needed to confirm that the data is not in the cache, plus the access time of the main memory. For an array size that is a power-of-two and causes the cache miss as described above, the number of sets used is reduced to one. Thus, the power-of-two is not the most effective operation for the transpose because it inefficiently uses the cache. For array sizes that have larger prime factors (3, 5, 7), the number of sets increases but the data cannot be fit in such a way to utilize every set of the cache. It is only with array sizes that are pure prime numbers that a set-associative cache is used optimally.</p>
+    <p num="p-0037">According to various embodiments, the method of the present teachings can be used by any signal processor desired. Exemplary signal processors can include, for example, the Intel x86 processors, the Pentium processors, and the Intel Core 2 Duo processors, all manufactured by Intel Corporation, Santa Barbara, Calif., the PowerPC processors manufactured by International Business Machines Corporation, New York, N.Y., and the AMD Athlon processors, manufactured by Advanced Micro Devices, Inc, Sunnyvale, Calif. The processors listed herein are merely examples, and are not meant to limit the type of processor with which the present teachings can be used. In some embodiments, the signal processor can comprise a unique data size for N where the method of the present teachings can be used to optimize the processing speed of the signal processor.</p>
+    <p num="p-0038">Various embodiments of the present teachings can be even more fully understood with reference to <figref idrefs="DRAWINGS">FIG. 1A</figref> which illustrates a graph of time (ms) versus data size (N) showing how long it takes a signal processor to process a signal comprising a one-dimensional array of data having the size of N. As can be seen, for values of N that are below 800, the fluctuation of processing time is not as great as it is for values of N between 900 and 1040. <figref idrefs="DRAWINGS">FIG. 1B</figref> illustrates a zoomed-in graph of <figref idrefs="DRAWINGS">FIG. 1A</figref>, which further illustrates the time it takes the signal processor to process a signal comprising a one-dimensional array of size N between 970 and 1040. As shown in <figref idrefs="DRAWINGS">FIG. 1B</figref>, a one-dimensional data signal having a size N=977 takes approximately 0.32 ms to process, whereas a one-dimensional data signal having a size N=1024 takes approximately 0.05 ms to process. This is consistent with the theory that for a one-dimensional array of data it is optimal to pad the signal to a size that is a factor of two, for example, to pad a size of 977 to a size of 1024.</p>
+    <p num="p-0039">According to various embodiments of the present teachings, <figref idrefs="DRAWINGS">FIG. 2A</figref> shows a graph of time (ms) versus size (N), which illustrates how long it takes the signal processor to process a signal comprising a two-dimensional array having a size N×N. As with the data in <figref idrefs="DRAWINGS">FIG. 1A</figref> and <figref idrefs="DRAWINGS">FIG. 1B</figref>, the fluctuation of the processor speed is greatest for values of N greater than 900. <figref idrefs="DRAWINGS">FIG. 2B</figref> illustrates a zoomed-in portion of the graph of <figref idrefs="DRAWINGS">FIG. 2A</figref>, which even more clearly illustrates the time it takes the signal processor to process a signal comprising a two-dimensional array of size N×N wherein N is a value ranging between 970 and 1040. As shown, a signal comprising an array size of N×N where N=977 takes the signal processor approximately 900 ms to process, whereas a signal comprising a size of N×N where N=980 takes the signal processor approximately 150 ms to process. Thus, to optimize a signal comprising a value of N=977, using this signal processor, the signal should be padded by three to achieve a value of N=980, which would reduce the processing time by nearly 83 percent.</p>
+    <p num="p-0040">This software builds upon MATLAB and the FFTW. MATLAB is a proprietary software development environment created by The MathWorks, Inc. of Natick, Mass. FTTW was developed at the Massachusetts Institute of Technology by Matteo Frigo and Steven G. Johnson and is described in U.S. Pat. No. 6,975,751 to Pauley et al., and U.S. Pat. No. 6,915,156 to Christini et al., both of which are incorporated herein in their entireties by reference. More about MATLAB can be found at (http://www.mathworks.com). The FFTW is an open source project, based on the GNU General Public License (GPL).</p>
+    <heading>EXAMPLES</heading>
+    <p num="p-0041">An example of software code is presented below. As it will be appreciated, the following code is merely exemplary and the methods of the present teachings are not limited to such code. As shown below, comments that are not apart of the executable code, begin with a percent sign (%).</p>
+    <p num="p-0042">
+      <tables id="TABLE-US-00001" num="00001">
+        <tgroup align="left" colsep="0" rowsep="0" cols="2">
+            <colspec colname="1" colwidth="14pt" align="left"> </colspec>
+            <colspec colname="2" colwidth="252pt" align="left"> </colspec>
+            </tgroup> <row>
+                <entry namest="1" nameend="2" align="center" rowsep="1"> </entry>
+              </row> <row>
+                <entry> </entry>
+                <entry>% padsize_min = smallest padsize to avoid aliasing (= 2*pupil samples);</entry>
+              </row> <row>
+                <entry> </entry>
+                <entry>% padsize_max = generally, this would be the smallest padsize that factors as a power of</entry>
+              </row> <row>
+                <entry> </entry>
+                <entry>% two;</entry>
+              </row> <row>
+                <entry> </entry>
+                <entry>s = round (padsize_min/2); % # of pupil samples</entry>
+              </row> <row>
+                <entry> </entry>
+                <entry>n = ceil (log2*s)./log (2)); % Solves: 2{circumflex over ( )}n = 2*s for n (ceil rounds upward)</entry>
+              </row> <row>
+                <entry> </entry>
+                <entry>padsize_max = 2.{circumflex over ( )}n; % smallest padsize that factors as a power of two</entry>
+              </row> <row>
+                <entry> </entry>
+                <entry>if padsize_min == padsize_max  % gives more search options</entry>
+              </row> <row>
+                <entry> </entry>
+                <entry> padsize_max = 2*padsize_min;</entry>
+              </row> <row>
+                <entry> </entry>
+                <entry>end</entry>
+              </row> <row>
+                <entry> </entry>
+                <entry>% gives more search options in case there are not enough factorizations</entry>
+              </row> <row>
+                <entry> </entry>
+                <entry>if abs (padsize_min - padsize_max) &lt;= 5</entry>
+              </row> <row>
+                <entry> </entry>
+                <entry> padsize_max = 4*padsize_min;</entry>
+              </row> <row>
+                <entry> </entry>
+                <entry>end</entry>
+              </row> <row>
+                <entry> </entry>
+                <entry>count = 0;</entry>
+              </row> <row>
+                <entry> </entry>
+                <entry>for padsize = padsize_min: padsize_max</entry>
+              </row> <row>
+                <entry> </entry>
+                <entry> facts = factor (padsize); % factors for the given padsize</entry>
+              </row> <row>
+                <entry> </entry>
+                <entry> % limit padsizes to those with factors smaller than 10;</entry>
+              </row> <row>
+                <entry> </entry>
+                <entry> if floor (facts/10) = = zeros (1, length (facts));</entry>
+              </row> <row>
+                <entry> </entry>
+                <entry>  if isprime (facts) % limit to padsizes factorable by prime numbers;</entry>
+              </row> <row>
+                <entry> </entry>
+                <entry>  count = count + 1;</entry>
+              </row> <row>
+                <entry> </entry>
+                <entry>  % record table with the following columns: [padsize, # prime factors]</entry>
+              </row> <row>
+                <entry> </entry>
+                <entry>  track (count,:) = [padsize, length (facts)].</entry>
+              </row> <row>
+                <entry> </entry>
+                <entry>  % if “display” is any integer, show the range of padsizes</entry>
+              </row> <row>
+                <entry> </entry>
+                <entry>  if count &lt;=10 &amp; nargin &gt; 1</entry>
+              </row> <row>
+                <entry> </entry>
+                <entry>   disp ([‘padsize =’ ,num2str (padsize), ‘factors =’, num2str(facts)]);</entry>
+              </row> <row>
+                <entry> </entry>
+                <entry>   end</entry>
+              </row> <row>
+                <entry> </entry>
+                <entry>  end</entry>
+              </row> <row>
+                <entry> </entry>
+                <entry> end</entry>
+              </row> <row>
+                <entry> </entry>
+                <entry>end</entry>
+              </row> <row>
+                <entry> </entry>
+                <entry>% sort according to number of prime factors—samples are first:</entry>
+              </row> <row>
+                <entry> </entry>
+                <entry>track2 = sortrows (track (1:count,:),2);</entry>
+              </row> <row>
+                <entry> </entry>
+                <entry>% sort according to number of padsize—smaller are first:</entry>
+              </row> <row>
+                <entry> </entry>
+                <entry>track3 = sortrows (track (1:count, :),1);</entry>
+              </row> <row>
+                <entry> </entry>
+                <entry>% find smallest padsize with 4 prime factors—4 prime factors seems to be best:</entry>
+              </row> <row>
+                <entry> </entry>
+                <entry>indx = find(track3(:,2)= =4);</entry>
+              </row> <row>
+                <entry> </entry>
+                <entry>if size (indx) = = [0 1]</entry>
+              </row> <row>
+                <entry> </entry>
+                <entry> % use first padsize if none factor as 4 factors:</entry>
+              </row> <row>
+                <entry> </entry>
+                <entry> padsize_new = track3(1,1);</entry>
+              </row> <row>
+                <entry> </entry>
+                <entry>else</entry>
+              </row> <row>
+                <entry> </entry>
+                <entry> % take the smallest padsize nearest “padsize_min” with 4 prime factor to use:</entry>
+              </row> <row>
+                <entry> </entry>
+                <entry> padsize_new = track3(indx(1),1);</entry>
+              </row> <row>
+                <entry> </entry>
+                <entry>end</entry>
+              </row> <row>
+                <entry> </entry>
+                <entry>% Test for timing:</entry>
+              </row> <row>
+                <entry> </entry>
+                <entry>if 2 = = 1</entry>
+              </row> <row>
+                <entry> </entry>
+                <entry> tic</entry>
+              </row> <row>
+                <entry> </entry>
+                <entry> for j = 1:10</entry>
+              </row> <row>
+                <entry> </entry>
+                <entry> psize = padsize_new;</entry>
+              </row> <row>
+                <entry> </entry>
+                <entry> a = fft2 (ones(round(padsize_min2)), psize, psize);</entry>
+              </row> <row>
+                <entry> </entry>
+                <entry> end</entry>
+              </row> <row>
+                <entry> </entry>
+                <entry> b = toc; disp ([‘time in sec = ‘ , num2str(b)])</entry>
+              </row> <row>
+                <entry> </entry>
+                <entry>end</entry>
+              </row> <row>
+                <entry> </entry>
+                <entry>return</entry>
+              </row> <row>
+                <entry namest="1" nameend="2" align="center" rowsep="1"> </entry>
+              </row> <table frame="none" colsep="0" rowsep="0" pgwide="1" class="description-table">
+          <thead>
+              
+            </thead>
+            <tbody valign="top">
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+            </tbody>
+          
+        </table>
+      </tables>
+    </p>
+    <p num="p-0043">Other embodiments will be apparent to those skilled in the art from consideration of the present specification and practice of the various embodiments disclosed herein. It is intended that the present specification be considered as exemplary only.</p>
+    
+  </div>
+  </div>
+  </section>
+
+  <section itemprop="claims" itemscope>
+    <h2>Claims (<span itemprop="count">11</span>)</h2>
+    
+    <div itemprop="content" html><div mxw-id="PCLM53140978" lang="EN" load-source="patent-office" class="claims">
+    <claim-statement>What is claimed is:</claim-statement>
+    <div class="claim"> <div id="CLM-00001" num="00001" class="claim">
+      <div class="claim-text">1. A method for determining the optimal pad size for a digital signal of data, the method comprising the steps of:
+<div class="claim-text">(a) performing a two-dimensional fast Fourier transform (FFT) operation on a two-dimensional N×N array of data, using a signal processor; wherein the two-dimensional fast Fourier transform (FFT) operation comprises (i) performing a one-dimensional FFT on each row of the two-dimensional array of data to generate transformed data, (ii) performing a matrix transpose operation on the transformed data to form transposed data; and (iii) performing a one-dimensional FFT on each row of the transposed second data resulting from (ii);</div>
+<div class="claim-text">(b) determining the amount of time needed to perform the two-dimensional FFT operation for the N×N array of data;</div>
+<div class="claim-text">(c) storing the amount of time needed and the size of the N×N array of data;</div>
+<div class="claim-text">(d) increasing the size of the two-dimensional array of data points by one in each dimension such that the array comprises a N+1×N+1 array of data;</div>
+<div class="claim-text">repeating the steps of (a), (b), and (c), using the N+1×N+1 array of data;</div>
+<div class="claim-text">repeating the steps of (d), (a), (b), and (c), a predetermined amount of times, with the two-dimensional array of data increasing in size by one in each dimension with each repetition;</div>
+<div class="claim-text">(e) generating a table of optimal pad sizes from the stored amounts of time needed to perform each two-dimensional FFT, relative to the corresponding size of the array of data;</div>
+<div class="claim-text">(f) collecting a two-dimensional digital signal to generate a collected data signal;</div>
+<div class="claim-text">(g) comparing the size of the collected data signal to the table of optimal pad sizes to determine an optimal pad size for the collected data signal; and</div>
+<div class="claim-text">(h) outputting the optimal pad size to a user.</div>
+</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00002" num="00002" class="claim">
+      <div class="claim-text">2. The method of <claim-ref idref="CLM-00001">claim 1</claim-ref>, wherein the comparing further comprises determining the next largest optimal pad size for the collected data signal.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00003" num="00003" class="claim">
+      <div class="claim-text">3. The method of <claim-ref idref="CLM-00001">claim 1</claim-ref>, further comprising padding the collected data signal to the determined optimal pad size.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00004" num="00004" class="claim">
+      <div class="claim-text">4. The method of <claim-ref idref="CLM-00003">claim 3</claim-ref>, wherein the padding comprises adding one or more zeros to the collected data signal.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00005" num="00005" class="claim">
+      <div class="claim-text">5. The method of <claim-ref idref="CLM-00003">claim 3</claim-ref>, wherein the padding comprises adding a replicated copy of the collected data signal, to the collected data signal.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00006" num="00006" class="claim">
+      <div class="claim-text">6. The method of <claim-ref idref="CLM-00001">claim 1</claim-ref>, wherein the step of comparing comprises comparing the collected data signal to the table of optimal pad sizes and determining that the size of the collected data signal is an optimal size that does not need to be padded.</div>
+    </div>
+    </div> <div class="claim"> <div id="CLM-00007" num="00007" class="claim">
+      <div class="claim-text">7. A method for optimally improving the performance of a signal processor, the method comprising the steps of:
+<div class="claim-text">(a) performing a two-dimensional fast Fourier transform (FFT) operation on a two-dimensional N×N array of data, using a signal processor; wherein the two-dimensional fast Fourier transform (FFT operation comprises (I) performing a one-dimensional FFT on each row of the two-dimensional array of data to generate transformed data, (II) performing a matrix transpose operation on the transformed data to formed transposed data, and (III) performing a one-dimensional FFT on each row of the transposed data resulting from (II);</div>
+<div class="claim-text">(b) determining the amount of time the signal processor needs to perform the two-dimensional FFT operation for the N×N array of data;</div>
+<div class="claim-text">(c) storing the amount of time needed and the size of the N×N array of data;</div>
+<div class="claim-text">(d) increasing the size of the two-dimensional array of data by one in each dimension such that the array comprises a N+1×N+1 array of data;</div>
+<div class="claim-text">(e) repeating the steps of (a), (b), and (c) but using the N+1×N+1 array of data;</div>
+<div class="claim-text">(f) repeating the steps of (d), (a), (b), and (c), a predetermined amount of times, with the two-dimensional array of data increasing in size by one in each dimension with each repetition;</div>
+<div class="claim-text">(g) generating a table of optimal pad sizes from the stored amounts of time needed to perform each two-dimensional FFT, relative to the corresponding size of the array of data;</div>
+<div class="claim-text">(h) collecting a two-dimensional digital signal to generate a collected data signal;</div>
+<div class="claim-text">(i) comparing the size of the collected data signal to the table of optimal pad sizes to determine an optimal pad size for the collected data signal;</div>
+<div class="claim-text">(j) padding the collected data signal to generate an optimally padded data signal; and</div>
+<div class="claim-text">(k) processing the optimally padded data signal using the signal processor.</div>
+</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00008" num="00008" class="claim">
+      <div class="claim-text">8. The method of <claim-ref idref="CLM-00007">claim 7</claim-ref>, further comprising padding the collected data signal to the next largest optimal pad size.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00009" num="00009" class="claim">
+      <div class="claim-text">9. The method of <claim-ref idref="CLM-00007">claim 7</claim-ref>, wherein the padding comprises adding one or more zeros to the collected data signal.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00010" num="00010" class="claim">
+      <div class="claim-text">10. The method of <claim-ref idref="CLM-00007">claim 7</claim-ref>, wherein the padding comprises adding a replicated copy of the collected data signal, to the collected data signal.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00011" num="00011" class="claim">
+      <div class="claim-text">11. The method of <claim-ref idref="CLM-00007">claim 7</claim-ref>, wherein the step of comparing comprises comparing the collected data signal to the table of optimal pad sizes and determining that the size of the collected data signal is an optimal size.</div>
+    </div>
+  </div> </div>
+  </div>
+  </section>
+
+  <section itemprop="application" itemscope>
+
+    <section itemprop="metadata" itemscope>
+        <span itemprop="applicationNumber">US12/549,159</span>
+        <span itemprop="priorityDate">2009-08-27</span>
+        <span itemprop="filingDate">2009-08-27</span>
+        <span itemprop="title">Optimal padding for the two-dimensional fast fourier transform 
+       </span>
+        <span itemprop="ifiStatus">Active</span>
+        <span itemprop="ifiExpiration">2032-03-27</span>
+        <a href="/patent/US8484274B2/en">
+            <span itemprop="representativePublication">US8484274B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+        </a>
+    </section>
+
+    <h2>Priority Applications (1)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                    <th>Title</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="priorityApps" itemscope repeat>
+                <td>
+                   <span itemprop="applicationNumber">US12/549,159</span>
+                   
+                   <a href="/patent/US8484274B2/en">
+                        <span itemprop="representativePublication">US8484274B2</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                <td itemprop="priorityDate">2009-08-27</td>
+                <td itemprop="filingDate">2009-08-27</td>
+                <td itemprop="title">Optimal padding for the two-dimensional fast fourier transform 
+       </td>
+              </tr>
+           </tbody>
+       </table>
+
+    <h2>Applications Claiming Priority (1)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                    <th>Title</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="appsClaimingPriority" itemscope repeat>
+                <td>
+                   <span itemprop="applicationNumber">US12/549,159</span>
+                   <a href="/patent/US8484274B2/en">
+                        <span itemprop="representativePublication">US8484274B2</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                <td itemprop="priorityDate">2009-08-27</td>
+                <td itemprop="filingDate">2009-08-27</td>
+                <td itemprop="title">Optimal padding for the two-dimensional fast fourier transform 
+       </td>
+              </tr>
+           </tbody>
+       </table>
+
+    
+
+    
+
+    <h2>Publications (2)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Publication Number</th>
+                    <th>Publication Date</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="pubs" itemscope repeat>
+                <td>
+                   <span itemprop="publicationNumber">US20110055306A1</span>
+                   
+                   <a href="/patent/US20110055306A1/en">US20110055306A1
+                       (<span itemprop="primaryLanguage">en</span>)
+                   </a>
+                </td>
+                <td itemprop="publicationDate">2011-03-03</td>
+              </tr><tr itemprop="pubs" itemscope repeat>
+                <td>
+                   <span itemprop="publicationNumber">US8484274B2</span>
+                   
+                   <span itemprop="thisPatent">true</span>
+                   <a href="/patent/US8484274B2/en">US8484274B2
+                       (<span itemprop="primaryLanguage">en</span>)
+                   </a>
+                </td>
+                <td itemprop="publicationDate">2013-07-09</td>
+              </tr>
+           </tbody>
+        </table>
+
+  </section>
+
+  <section itemprop="family" itemscope>
+    <h1>Family</h1>
+    <h2>ID=43626439</h2>
+
+    <h2>Family Applications (1)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Title</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="applications" itemscope repeat>
+                <td>
+                    <span itemprop="applicationNumber">US12/549,159</span>
+                    <span itemprop="ifiStatus">Active</span>
+                    <span itemprop="ifiExpiration">2032-03-27</span>
+                    <a href="/patent/US8484274B2/en">
+                        <span itemprop="representativePublication">US8484274B2</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                </td>
+                <td itemprop="priorityDate">2009-08-27</td>
+                <td itemprop="filingDate">2009-08-27</td>
+                <td itemprop="title">Optimal padding for the two-dimensional fast fourier transform 
+       </td>
+              </tr>
+           </tbody>
+        </table>
+
+    
+
+    
+
+    <h2>Country Status (1)</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Country</th>
+            <th>Link</th>
+          </tr>
+        </thead>
+        <tbody>
+        <tr itemprop="countryStatus" itemscope repeat>
+            <td>
+              <span itemprop="countryCode">US</span>
+                (<span itemprop="num">1</span>)
+              <meta itemprop="thisCountry" content="true">
+            </td>
+            <td>
+              <a href="/patent/US8484274B2/en">
+                <span itemprop="representativePublication">US8484274B2</span>
+                  (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+    
+
+    <h2>Families Citing this family (3)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US8798180B1/en">
+              <span itemprop="publicationNumber">US8798180B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2011-11-16</td>
+          <td itemprop="publicationDate">2014-08-05</td>
+          <td><span itemprop="assigneeOriginal">Marvell International Ltd.</span></td>
+          <td itemprop="title">Method and apparatus for transmitting time domain signals over a network 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/JP6432333B2/en">
+              <span itemprop="publicationNumber">JP6432333B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2014-12-16</td>
+          <td itemprop="publicationDate">2018-12-05</td>
+          <td><span itemprop="assigneeOriginal">富士通株式会社</span></td>
+          <td itemprop="title">Information processing apparatus, data processing method, and data processing program 
+     </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/CN106021182B/en">
+              <span itemprop="publicationNumber">CN106021182B</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2016-05-17</td>
+          <td itemprop="publicationDate">2018-11-30</td>
+          <td><span itemprop="assigneeOriginal">华中科技大学</span></td>
+          <td itemprop="title">A kind of row transposition architecture design method based on Two-dimensional FFT processor 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Citations (7)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6191727B1/en">
+              <span itemprop="publicationNumber">US6191727B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1998-12-09</td>
+          <td itemprop="publicationDate">2001-02-20</td>
+          <td><span itemprop="assigneeOriginal">L-3 Communications Corporation</span></td>
+          <td itemprop="title">System and method for detecting signals across radar and communications bands 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20020129313A1/en">
+              <span itemprop="publicationNumber">US20020129313A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1999-12-07</td>
+          <td itemprop="publicationDate">2002-09-12</td>
+          <td><span itemprop="assigneeOriginal">Kazuo Kubo</span></td>
+          <td itemprop="title">Fec frame structuring method and fec multiplexer 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20020156822A1/en">
+              <span itemprop="publicationNumber">US20020156822A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2001-01-10</td>
+          <td itemprop="publicationDate">2002-10-24</td>
+          <td><span itemprop="assigneeOriginal">Masaharu Tanai</span></td>
+          <td itemprop="title">High-speed FFT processing method and FFT processing system 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6729186B1/en">
+              <span itemprop="publicationNumber">US6729186B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2002-02-28</td>
+          <td itemprop="publicationDate">2004-05-04</td>
+          <td><span itemprop="assigneeOriginal">Eaton Corporation</span></td>
+          <td itemprop="title">Multi-channel vibration analyzer 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20070165906A1/en">
+              <span itemprop="publicationNumber">US20070165906A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2000-12-19</td>
+          <td itemprop="publicationDate">2007-07-19</td>
+          <td><span itemprop="assigneeOriginal">Lockheed Martin Corporation</span></td>
+          <td itemprop="title">Fast fourier transform correlation tracking algorithm with background correction 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20080162767A1/en">
+              <span itemprop="publicationNumber">US20080162767A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2006-12-28</td>
+          <td itemprop="publicationDate">2008-07-03</td>
+          <td><span itemprop="assigneeOriginal">Korea Electronics Technology Institute</span></td>
+          <td itemprop="title">4X Framer/Deframer Module For PCI-Express and PCI-Express Framer/Deframer Device Using The Same 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20080297497A1/en">
+              <span itemprop="publicationNumber">US20080297497A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2007-06-01</td>
+          <td itemprop="publicationDate">2008-12-04</td>
+          <td><span itemprop="assigneeOriginal">Faraday Technology Corp.</span></td>
+          <td itemprop="title">Control circuit and method of liquid crystal display panel 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+
+    
+
+    
+    <ul>
+      
+      <li itemprop="applicationsByYear" itemscope repeat>
+        <span itemprop="year">2009</span>
+        <ul>
+          
+          <li itemprop="application" itemscope repeat>
+            <span itemprop="filingDate">2009-08-27</span>
+            <span itemprop="countryCode">US</span>
+            <span itemprop="applicationNumber">US12/549,159</span>
+            <a href="/patent/US8484274B2/en"><span itemprop="documentId">patent/US8484274B2/en</span></a>
+            <span itemprop="legalStatusCat">active</span>
+            <span itemprop="legalStatus">Active</span>
+            
+            <span itemprop="thisApp" content="true" bool></span>
+            
+          </li>
+          
+        </ul>
+      </li>
+      
+    </ul>
+    
+
+    </section>
+
+  <section>
+    <h2>Patent Citations (7)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6191727B1/en">
+              <span itemprop="publicationNumber">US6191727B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1998-12-09</td>
+          <td itemprop="publicationDate">2001-02-20</td>
+          <td><span itemprop="assigneeOriginal">L-3 Communications Corporation</span></td>
+          <td itemprop="title">System and method for detecting signals across radar and communications bands 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20020129313A1/en">
+              <span itemprop="publicationNumber">US20020129313A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1999-12-07</td>
+          <td itemprop="publicationDate">2002-09-12</td>
+          <td><span itemprop="assigneeOriginal">Kazuo Kubo</span></td>
+          <td itemprop="title">Fec frame structuring method and fec multiplexer 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20070165906A1/en">
+              <span itemprop="publicationNumber">US20070165906A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2000-12-19</td>
+          <td itemprop="publicationDate">2007-07-19</td>
+          <td><span itemprop="assigneeOriginal">Lockheed Martin Corporation</span></td>
+          <td itemprop="title">Fast fourier transform correlation tracking algorithm with background correction 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20020156822A1/en">
+              <span itemprop="publicationNumber">US20020156822A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2001-01-10</td>
+          <td itemprop="publicationDate">2002-10-24</td>
+          <td><span itemprop="assigneeOriginal">Masaharu Tanai</span></td>
+          <td itemprop="title">High-speed FFT processing method and FFT processing system 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6729186B1/en">
+              <span itemprop="publicationNumber">US6729186B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2002-02-28</td>
+          <td itemprop="publicationDate">2004-05-04</td>
+          <td><span itemprop="assigneeOriginal">Eaton Corporation</span></td>
+          <td itemprop="title">Multi-channel vibration analyzer 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20080162767A1/en">
+              <span itemprop="publicationNumber">US20080162767A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2006-12-28</td>
+          <td itemprop="publicationDate">2008-07-03</td>
+          <td><span itemprop="assigneeOriginal">Korea Electronics Technology Institute</span></td>
+          <td itemprop="title">4X Framer/Deframer Module For PCI-Express and PCI-Express Framer/Deframer Device Using The Same 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20080297497A1/en">
+              <span itemprop="publicationNumber">US20080297497A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2007-06-01</td>
+          <td itemprop="publicationDate">2008-12-04</td>
+          <td><span itemprop="assigneeOriginal">Faraday Technology Corp.</span></td>
+          <td itemprop="title">Control circuit and method of liquid crystal display panel 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  
+
+  
+
+  <section>
+    <h2>Also Published As</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Publication date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="docdbFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20110055306A1/en">
+              <span itemprop="publicationNumber">US20110055306A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+          </td>
+          <td itemprop="publicationDate">2011-03-03</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Similar Documents</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Publication</th>
+          <th>Publication Date</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="4849349994800234120">
+              <a href="/scholar/4849349994800234120"><span itemprop="scholarAuthors">Wolf et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1991">1991</time>
+            
+          </td>
+          <td itemprop="title">A data locality optimizing algorithm</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="17967402421665498854">
+              <a href="/scholar/17967402421665498854"><span itemprop="scholarAuthors">Baskaran et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2009">2009</time>
+            
+          </td>
+          <td itemprop="title">Optimizing sparse matrix-vector multiplication on GPUs</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="9567149627608893038">
+              <a href="/scholar/9567149627608893038"><span itemprop="scholarAuthors">Du et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2012">2012</time>
+            
+          </td>
+          <td itemprop="title">From CUDA to OpenCL: Towards a performance-portable solution for multi-platform GPU programming</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="4054776321582501336">
+              <a href="/scholar/4054776321582501336"><span itemprop="scholarAuthors">Ahn et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2015">2015</time>
+            
+          </td>
+          <td itemprop="title">PIM-enabled instructions: a low-overhead, locality-aware processing-in-memory architecture</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="9578052567140228210">
+              <a href="/scholar/9578052567140228210"><span itemprop="scholarAuthors">Connor et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2010">2010</time>
+            
+          </td>
+          <td itemprop="title">Fast construction of k-nearest neighbor graphs for point clouds</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="801502432705841546">
+              <a href="/scholar/801502432705841546"><span itemprop="scholarAuthors">De Donno et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2010">2010</time>
+            
+          </td>
+          <td itemprop="title">Introduction to GPU computing and CUDA programming: A case study on FDTD [EM programmer&#39;s notebook]</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US7533242B1/en">
+                <span itemprop="publicationNumber">US7533242B1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2009-05-12">2009-05-12</time>
+            
+            
+          </td>
+          <td itemprop="title">Prefetch hardware efficiency via prefetch hint instructions 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="143946396560340821">
+              <a href="/scholar/143946396560340821"><span itemprop="scholarAuthors">Satish et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2009">2009</time>
+            
+          </td>
+          <td itemprop="title">Designing efficient sorting algorithms for manycore GPUs</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/KR101559090B1/en">
+                <span itemprop="publicationNumber">KR101559090B1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2015-10-19">2015-10-19</time>
+            
+            
+          </td>
+          <td itemprop="title">Automatic kernel migration for heterogeneous cores 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="1339430127934809171">
+              <a href="/scholar/1339430127934809171"><span itemprop="scholarAuthors">Govindaraju et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2008">2008</time>
+            
+          </td>
+          <td itemprop="title">High performance discrete Fourier transforms on graphics processors</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="11170836708078935139">
+              <a href="/scholar/11170836708078935139"><span itemprop="scholarAuthors">Silberstein et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2008">2008</time>
+            
+          </td>
+          <td itemprop="title">Efficient computation of sum-products on GPUs through software-managed cache</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="12784858847491769698">
+              <a href="/scholar/12784858847491769698"><span itemprop="scholarAuthors">Vasilache et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2014">2014</time>
+            
+          </td>
+          <td itemprop="title">Fast convolutional nets with fbfft: A GPU performance evaluation</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="14874668795887701350">
+              <a href="/scholar/14874668795887701350"><span itemprop="scholarAuthors">Akin et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2016">2016</time>
+            
+          </td>
+          <td itemprop="title">Data reorganization in memory using 3D-stacked DRAM</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US20070233766A1/en">
+                <span itemprop="publicationNumber">US20070233766A1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2007-10-04">2007-10-04</time>
+            
+            
+          </td>
+          <td itemprop="title">System and method for compiling scalar code for a single instruction multiple data (simd) execution engine 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/JP2006516056A/en">
+                <span itemprop="publicationNumber">JP2006516056A</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2006-06-15">2006-06-15</time>
+            
+            
+          </td>
+          <td itemprop="title">Memory management optimization method and system 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="11094823351575645632">
+              <a href="/scholar/11094823351575645632"><span itemprop="scholarAuthors">Sanchez et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2007">2007</time>
+            
+          </td>
+          <td itemprop="title">Implementing signatures for transactional memory</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/CN101436121B/en">
+                <span itemprop="publicationNumber">CN101436121B</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2014-12-17">2014-12-17</time>
+            
+            
+          </td>
+          <td itemprop="title">Method and device for performing a scan operation on parallel processor architecture 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="6304309802198713786">
+              <a href="/scholar/6304309802198713786"><span itemprop="scholarAuthors">Hoemmen</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2010">2010</time>
+            
+          </td>
+          <td itemprop="title">Communication-avoiding Krylov subspace methods</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US20080250227A1/en">
+                <span itemprop="publicationNumber">US20080250227A1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2008-10-09">2008-10-09</time>
+            
+            
+          </td>
+          <td itemprop="title">General Purpose Multiprocessor Programming Apparatus And Method 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="16538464752343135968">
+              <a href="/scholar/16538464752343135968"><span itemprop="scholarAuthors">Nukada et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2009">2009</time>
+            
+          </td>
+          <td itemprop="title">Auto-tuning 3-D FFT library for CUDA GPUs</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="2846075878615136768">
+              <a href="/scholar/2846075878615136768"><span itemprop="scholarAuthors">Jang et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2010">2010</time>
+            
+          </td>
+          <td itemprop="title">Exploiting memory access patterns to improve memory performance in data-parallel architectures</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US20100115233A1/en">
+                <span itemprop="publicationNumber">US20100115233A1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2010-05-06">2010-05-06</time>
+            
+            
+          </td>
+          <td itemprop="title">Dynamically-selectable vector register partitioning 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="6307174715260060775">
+              <a href="/scholar/6307174715260060775"><span itemprop="scholarAuthors">Fang et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2010">2010</time>
+            
+          </td>
+          <td itemprop="title">Database compression on graphics processors</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="17077552745067761629">
+              <a href="/scholar/17077552745067761629"><span itemprop="scholarAuthors">Prabhu et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2005">2005</time>
+            
+          </td>
+          <td itemprop="title">Exposing speculative thread parallelism in SPEC2000</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="10637019112268007583">
+              <a href="/scholar/10637019112268007583"><span itemprop="scholarAuthors">Bell et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2008">2008</time>
+            
+          </td>
+          <td itemprop="title">Efficient sparse matrix-vector multiplication on CUDA</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Legal Events</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Code</th>
+          <th>Title</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2013-06-19">2013-06-19</time></td>
+          <td itemprop="code">STCF</td>
+          <td itemprop="title">Information on status: patent grant</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">PATENTED CASE</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2017-01-04">2017-01-04</time></td>
+          <td itemprop="code">FPAY</td>
+          <td itemprop="title">Fee payment</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Year of fee payment</strong>:
+              <span itemprop="value">4</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2018-10-02">2018-10-02</time></td>
+          <td itemprop="code">AS</td>
+          <td itemprop="title">Assignment</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Owner name</strong>:
+              <span itemprop="value">UNITED STATES OF AMERICA REPRESENTED BY THE ADMINI</span>
+            </p>
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">ASSIGNMENT OF ASSIGNORS INTEREST;ASSIGNORS:DEAN, BRUCE H.;ARONSTEIN, DAVID L.;SMITH, JEFFREY S.;SIGNING DATES FROM 20091105 TO 20091106;REEL/FRAME:047037/0996</span>
+            </p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+</article>
+
+    </search-app>
+    <script type="text/javascript" src="//www.gstatic.com/feedback/api.js"></script>
+    <script async="" defer="" src="//www.google.com/insights/consumersurveys/async_survey?site=cxkjf7ipxgbnnjy6k35ezcvbbe"></script>
+  </body>
+</html>

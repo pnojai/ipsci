@@ -1,0 +1,2759 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>US7313475B2 - Delay banking for air traffic management 
+        - Google Patents</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="referrer" content="origin-when-crossorigin">
+    <link rel="canonical" href="https://patents.google.com/patent/US7313475B2/en">
+    <meta name="description" content="
+     A method and associated system for time delay banking for aircraft arrival time, aircraft departure time and/or en route flight position. The delay credit value for a given flight may decrease with passage of time and may be transferred to or traded with other flights having the same or a different user (airline owner or operator). The delay credit value for a given aircraft flight depends upon an initial delay credit value, which is determined by a central system and depends upon one or more other flight characteristics. Optionally, the delay credit value decreases with passage of time. Optionally, a transaction cost is assessed against a delay credit value that is used on behalf of another flight with the same user or is traded with a different user. 
+   
+   ">
+    
+    <meta name="DC.type" content="patent">
+    
+    <meta name="DC.title" content="Delay banking for air traffic management 
+       ">
+    
+    <meta name="DC.date" content="2005-02-01" scheme="dateSubmitted">
+    
+    <meta name="DC.description" content="
+     A method and associated system for time delay banking for aircraft arrival time, aircraft departure time and/or en route flight position. The delay credit value for a given flight may decrease with passage of time and may be transferred to or traded with other flights having the same or a different user (airline owner or operator). The delay credit value for a given aircraft flight depends upon an initial delay credit value, which is determined by a central system and depends upon one or more other flight characteristics. Optionally, the delay credit value decreases with passage of time. Optionally, a transaction cost is assessed against a delay credit value that is used on behalf of another flight with the same user or is traded with a different user. 
+   
+   ">
+    
+    <meta name="citation_patent_application_number" content="US:11/053,713">
+    
+    <meta name="citation_pdf_url" content="https://patentimages.storage.googleapis.com/2e/7c/b7/7f5d797abb1cec/US7313475.pdf">
+    
+    <meta name="citation_patent_number" content="US:7313475">
+    
+    <meta name="DC.date" content="2007-12-25" scheme="issue">
+    
+    <meta name="DC.contributor" content="Steven M. Green" scheme="inventor">
+    
+    <meta name="DC.contributor" content="National Aeronautics and Space Administration (NASA)" scheme="assignee">
+    
+    <meta name="DC.relation" content="JP:2000331300:A" scheme="references">
+    
+    <meta name="DC.relation" content="US:6314361" scheme="references">
+    
+    <meta name="DC.relation" content="US:6393358" scheme="references">
+    
+    <meta name="DC.relation" content="US:20030078719:A1" scheme="references">
+    
+    <meta name="DC.relation" content="US:20050071206:A1" scheme="references">
+    
+    <meta name="citation_reference" content="Green, et al., Development and Evaluation of a Profile Negotiation Process for Integrating Aircraft and Air Traffic Control . . . , NASA Technical Memorandum 4360, Apr. 1993." scheme="references">
+    
+    <meta name="citation_reference" content="Green, et al., Distributed Air/Ground Traffic Management for En Route Flight Operations, Air Traffic Control Quarterly, Special Issue, 2001, 259-285, 9-4." scheme="references">
+    
+    <meta name="citation_reference" content="Green, et al., Distributed Air-Ground Traffic Management for En Route Fligh . . . ; Proceedings of AIAA Guidance, Navigation, and Control Conference, Aug. 14-17, 2000, Denver, CO." scheme="references">
+    
+    <meta name="citation_reference" content="Green, et al., Enabling User Preferences Through Data Exchange, Proceedings of AIAA Guidance, Navigation, and Control Conference, Aug. 11-13, 1997, New Orleans, LA." scheme="references">
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,400italic,500,500italic,700">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Product+Sans">
+    <style>
+      body { transition: none; }
+    </style>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-27188110-4', 'auto');
+
+      version = 'patent-search.search_20191120_RC00';
+
+      function sendFeedback() {
+        userfeedback.api.startFeedback({
+          'productId': '713680',
+          'bucket': 'patent-search-web',
+          'productVersion': version,
+        });
+      }
+
+      window.experiments = {};
+      window.experiments.patentCountries = "ae,ag,al,am,ao,ap,ar,at,au,aw,az,ba,bb,bd,be,bf,bg,bh,bj,bn,bo,br,bw,bx,by,bz,ca,cf,cg,ch,ci,cl,cm,cn,co,cr,cs,cu,cy,cz,dd,de,dj,dk,dm,do,dz,ea,ec,ee,eg,em,ep,es,fi,fr,ga,gb,gc,gd,ge,gh,gm,gn,gq,gr,gt,gw,hk,hn,hr,hu,ib,id,ie,il,in,ir,is,it,jo,jp,ke,kg,kh,km,kn,kp,kr,kw,kz,la,lc,li,lk,lr,ls,lt,lu,lv,ly,ma,mc,md,me,mg,mk,ml,mn,mo,mr,mt,mw,mx,my,mz,na,ne,ng,ni,nl,no,nz,oa,om,pa,pe,pg,ph,pl,pt,py,qa,ro,rs,ru,rw,sa,sc,sd,se,sg,si,sk,sl,sm,sn,st,su,sv,sy,sz,td,tg,th,tj,tm,tn,tr,tt,tw,tz,ua,ug,us,uy,uz,vc,ve,vn,wo,yu,za,zm,zw";
+      
+      
+      window.profilePicture = "";
+
+      window.Polymer = {
+        dom: 'shady',
+        lazyRegister: true,
+      };
+    </script>
+
+    <script src="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/webcomponentsjs/webcomponents-lite.min.js"></script>
+    
+    <link rel="import" href="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/search-app-vulcanized.html">
+    
+  </head>
+  <body unresolved>
+    
+    <script src="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/search-app-vulcanized.js"></script>
+    
+    <search-app>
+      
+      
+
+      <article class="result" itemscope itemtype="http://schema.org/ScholarlyArticle">
+  <h1 itemprop="pageTitle">US7313475B2 - Delay banking for air traffic management 
+        - Google Patents</h1>
+  <span itemprop="title">Delay banking for air traffic management 
+       </span>
+
+  <meta itemprop="type" content="patent">
+  <a href="https://patentimages.storage.googleapis.com/2e/7c/b7/7f5d797abb1cec/US7313475.pdf" itemprop="pdfLink">Download PDF</a>
+  <h2>Info</h2>
+
+  <dl>
+    <dt>Publication number</dt>
+    <dd itemprop="publicationNumber">US7313475B2</dd>
+    <meta itemprop="numberWithoutCodes" content="7313475">
+    <meta itemprop="kindCode" content="B2">
+    <meta itemprop="publicationDescription" content="Patent ( having previously published pre-grant publication)">
+    
+    <span>US7313475B2</span>
+    
+    <span>US11/053,713</span>
+    
+    <span>US5371305A</span>
+    
+    <span>US7313475B2</span>
+    
+    <span>US 7313475 B2</span>
+    
+    <span>US7313475 B2</span>
+    
+    <span>US 7313475B2</span>
+    
+    <span>  </span>
+    
+    <span> </span>
+    
+    <span> </span>
+    
+    <span>US 5371305 A</span>
+    
+    <span>US5371305 A</span>
+    
+    <span>US 5371305A</span>
+    
+    <span>US 7313475 B2</span>
+    
+    <span>US7313475 B2</span>
+    
+    <span>US 7313475B2</span>
+    
+
+    <dt>Authority</dt>
+    <dd itemprop="countryCode">US</dd>
+    <dd itemprop="countryName">United States</dd>
+
+    <dt>Prior art keywords</dt>
+    
+    <dd itemprop="priorArtKeywords" repeat>aircraft</dd>
+    <dd itemprop="priorArtKeywords" repeat>flight</dd>
+    <dd itemprop="priorArtKeywords" repeat>user</dd>
+    <dd itemprop="priorArtKeywords" repeat>delay</dd>
+    <dd itemprop="priorArtKeywords" repeat>credit value</dd>
+
+    <dt>Prior art date</dt>
+    <dd><time itemprop="priorArtDate" datetime="2005-02-01">2005-02-01</time></dd>
+
+    <dt>Legal status (The legal status is an assumption and is not a legal conclusion. Google has not performed a legal analysis and makes no representation as to the accuracy of the status listed.)</dt>
+    <dd itemprop="legalStatusIfi" itemscope>
+      <span itemprop="status">Active</span>, expires <time itemprop="expiration" datetime="2025-04-04">2025-04-04</time>
+    </dd>
+  </dl>
+
+  <dt>Application number</dt>
+  <dd itemprop="applicationNumber">US11/053,713</dd>
+
+  
+
+  <dt>Other versions</dt>
+  <dd itemprop="directAssociations" itemscope repeat>
+    
+    <a href="/patent/US20060173609A1/en">
+      <span itemprop="publicationNumber">US20060173609A1</span>
+      (<span itemprop="primaryLanguage">en</span>
+    </a>
+  </dd>
+
+  <dt>Inventor</dt>
+  <dd itemprop="inventor" repeat>Steven M. Green</dd>
+  <dt>Current Assignee (The listed assignees may be inaccurate. Google has not performed a legal analysis and makes no representation or warranty as to the accuracy of the list.)</dt>
+  <dd itemprop="assigneeCurrent" repeat>
+    National Aeronautics and Space Administration (NASA)
+  </dd>
+
+  <dt>Original Assignee</dt>
+  <dd itemprop="assigneeOriginal" repeat>National Aeronautics and Space Administration (NASA)</dd>
+
+  <dt>Priority date (The priority date is an assumption and is not a legal conclusion. Google has not performed a legal analysis and makes no representation as to the accuracy of the date listed.)</dt>
+  <dd><time itemprop="priorityDate" datetime="2005-02-01">2005-02-01</time></dd>
+
+  <dt>Filing date</dt>
+  <dd><time itemprop="filingDate" datetime="2005-02-01">2005-02-01</time></dd>
+
+  <dt>Publication date</dt>
+  <dd><time itemprop="publicationDate" datetime="2007-12-25">2007-12-25</time></dd>
+
+  
+
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2005-02-01">2005-02-01</time>
+    <span itemprop="title">Application filed by National Aeronautics and Space Administration (NASA)</span>
+    <span itemprop="type">filed</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    <span itemprop="assigneeSearch">National Aeronautics and Space Administration (NASA)</span>
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2005-02-01">2005-02-01</time>
+    <span itemprop="title">Priority to US11/053,713</span>
+    <span itemprop="type">priority</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    <span itemprop="documentId">patent/US7313475B2/en</span>
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2005-09-13">2005-09-13</time>
+    <span itemprop="title">Assigned to USA AS REPRESENTED BY THE ADMINISTRATOR OF NASA</span>
+    <span itemprop="type">reassignment</span>
+    
+    
+    
+    
+    <span itemprop="assigneeSearch">USA AS REPRESENTED BY THE ADMINISTRATOR OF NASA</span>
+    
+    
+    <span itemprop="description" repeat>ASSIGNMENT OF ASSIGNORS INTEREST (SEE DOCUMENT FOR DETAILS).</span>
+    
+    <span itemprop="description" repeat>Assignors: GREEN, STEVEN M.</span>
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2006-08-03">2006-08-03</time>
+    <span itemprop="title">Publication of US20060173609A1</span>
+    <span itemprop="type">publication</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    <span itemprop="documentId">patent/US20060173609A1/en</span>
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2007-12-25">2007-12-25</time>
+    <span itemprop="title">Application granted</span>
+    <span itemprop="type">granted</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2007-12-25">2007-12-25</time>
+    <span itemprop="title">Publication of US7313475B2</span>
+    <span itemprop="type">publication</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    <span itemprop="documentId">patent/US7313475B2/en</span>
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2019-11-25">2019-11-25</time>
+    <span itemprop="title">Application status is Active</span>
+    <span itemprop="type">legal-status</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2025-04-04">2025-04-04</time>
+    <span itemprop="title">Adjusted expiration</span>
+    <span itemprop="type">legal-status</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+
+  <h2>Links</h2>
+
+  <ul>
+    
+          <li itemprop="links" itemscope repeat>
+            <meta itemprop="id" content="usptoLink">
+            <a href="http://patft.uspto.gov/netacgi/nph-Parser?Sect1=PTO1&Sect2=HITOFF&p=1&u=/netahtml/PTO/srchnum.html&r=1&f=G&l=50&d=PALL&s1=7313475.PN." itemprop="url" target="_blank"><span itemprop="text">USPTO</span></a>
+          </li>
+        <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="usptoAssignmentLink">
+          <a href="https://assignment.uspto.gov/patent/index.html#/patent/search/resultFilter?searchInput=7313475" itemprop="url" target="_blank"><span itemprop="text">USPTO Assignment</span></a>
+        </li>
+
+    <li itemprop="links" itemscope repeat>
+        <meta itemprop="id" content="espacenetLink">
+        <a href="http://worldwide.espacenet.com/publicationDetails/biblio?CC=US&amp;NR=7313475B2&amp;KC=B2&amp;FT=D" itemprop="url" target="_blank"><span itemprop="text">Espacenet</span></a>
+      </li>
+      
+
+    
+
+    
+      <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="globalDossierLink">
+          <a href="http://globaldossier.uspto.gov/#/result/patent/US/7313475/1" itemprop="url" target="_blank"><span itemprop="text">Global Dossier</span></a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="stackexchangeLink">
+          <a href="https://patents.stackexchange.com/questions/tagged/US7313475" itemprop="url"><span itemprop="text">Discuss</span></a>
+        </li>
+      
+  </ul>
+
+  
+  <ul itemprop="concept" itemscope>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000003570</span>
+      <span itemprop="name">air</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="sections" repeat>title</span>
+      
+      <span itemprop="count">25</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000010006</span>
+      <span itemprop="name">flight</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>abstract</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">197</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000003190</span>
+      <span itemprop="name">augmentative</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">6</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000003247</span>
+      <span itemprop="name">decreasing</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">4</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000000694</span>
+      <span itemprop="name">effects</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">3</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000000446</span>
+      <span itemprop="name">fuel</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">3</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000000034</span>
+      <span itemprop="name">methods</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">10</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000004048</span>
+      <span itemprop="name">modification</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">6</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000006011</span>
+      <span itemprop="name">modification</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">6</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000035508</span>
+      <span itemprop="name">accumulation</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">5</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000009825</span>
+      <span itemprop="name">accumulation</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">5</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000002238</span>
+      <span itemprop="name">attenuated</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">4</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001934</span>
+      <span itemprop="name">delay</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">4</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000004044</span>
+      <span itemprop="name">response</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">4</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000003111</span>
+      <span itemprop="name">delayed</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">3</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001105</span>
+      <span itemprop="name">regulatory</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000004075</span>
+      <span itemprop="name">alteration</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000003466</span>
+      <span itemprop="name">anti-cipated</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000002004</span>
+      <span itemprop="name">ayurvedic oil</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000000969</span>
+      <span itemprop="name">carrier</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000004891</span>
+      <span itemprop="name">communication</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001276</span>
+      <span itemprop="name">controlling effects</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000018109</span>
+      <span itemprop="name">developmental process</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000002708</span>
+      <span itemprop="name">enhancing</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000000727</span>
+      <span itemprop="name">fractions</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000003116</span>
+      <span itemprop="name">impacting</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001965</span>
+      <span itemprop="name">increased</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000003993</span>
+      <span itemprop="name">interaction</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000011133</span>
+      <span itemprop="name">lead</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000000203</span>
+      <span itemprop="name">mixtures</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000005457</span>
+      <span itemprop="name">optimization</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000002829</span>
+      <span itemprop="name">reduced</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000003786</span>
+      <span itemprop="name">synthesis</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000002123</span>
+      <span itemprop="name">temporal effects</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+  </ul>
+  
+
+  <section>
+    <h2>Images</h2>
+    <ul>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/thumbnails/US7313475B2/US07313475-20071225-D00000.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/US7313475B2/US07313475-20071225-D00000.png">
+        <ul>
+          
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/thumbnails/US7313475B2/US07313475-20071225-D00001.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/US7313475B2/US07313475-20071225-D00001.png">
+        <ul>
+          
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/thumbnails/US7313475B2/US07313475-20071225-D00002.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/US7313475B2/US07313475-20071225-D00002.png">
+        <ul>
+          
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/thumbnails/US7313475B2/US07313475-20071225-D00003.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/US7313475B2/US07313475-20071225-D00003.png">
+        <ul>
+          
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/thumbnails/US7313475B2/US07313475-20071225-D00004.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/US7313475B2/US07313475-20071225-D00004.png">
+        <ul>
+          
+        </ul>
+      </li>
+      </ul>
+  </section>
+
+  <section>
+    <h2>Classifications</h2>
+    
+    <ul>
+      <li>
+        <ul itemprop="cpcs" itemscope repeat>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G</span>&mdash;<span itemprop="Description">PHYSICS</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G01</span>&mdash;<span itemprop="Description">MEASURING; TESTING</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G01C</span>&mdash;<span itemprop="Description">MEASURING DISTANCES, LEVELS OR BEARINGS; SURVEYING; NAVIGATION; GYROSCOPIC INSTRUMENTS; PHOTOGRAMMETRY OR VIDEOGRAMMETRY</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G01C21/00</span>&mdash;<span itemprop="Description">Navigation; Navigational instruments not provided for in preceding groups G01C1/00-G01C19/00</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G01C21/20</span>&mdash;<span itemprop="Description">Instruments for performing navigational calculations</span>
+            <meta itemprop="Leaf" content="true">
+            
+            <meta itemprop="FirstCode" content="true">
+          </li>
+          </ul>
+      </li>
+      </ul>
+  </section>
+
+  <section itemprop="abstract" itemscope>
+    <h2>Abstract</h2>
+    
+    <div itemprop="content" html><abstract mxw-id="PA51244746" lang="EN" load-source="patent-office">
+    <div num="p-0001" class="abstract">A method and associated system for time delay banking for aircraft arrival time, aircraft departure time and/or en route flight position. The delay credit value for a given flight may decrease with passage of time and may be transferred to or traded with other flights having the same or a different user (airline owner or operator). The delay credit value for a given aircraft flight depends upon an initial delay credit value, which is determined by a central system and depends upon one or more other flight characteristics. Optionally, the delay credit value decreases with passage of time. Optionally, a transaction cost is assessed against a delay credit value that is used on behalf of another flight with the same user or is traded with a different user.</div>
+  </abstract>
+  </div>
+  </section>
+
+  <section itemprop="description" itemscope>
+    <h2>Description</h2>
+    
+    <div itemprop="content" html><div mxw-id="PDES16341377" lang="EN" load-source="patent-office" class="description">
+
+  <heading>ORIGIN OF THE INVENTION</heading>
+  <p num="p-0002">This invention was made, in part, by one or more employees of the U.S. government. The U.S. government has the right to make, use and/or sell the invention described herein without payment of compensation therefor, including but not limited to payment of royalties.</p>
+  <heading>FIELD OF THE INVENTION</heading>
+  <p num="p-0003">This invention relates to allocation of priority to one or more aircraft subject to air traffic flow restrictions.</p>
+  <heading>BACKGROUND OF THE INVENTION</heading>
+  <p num="p-0004">The Federal Aviation Administration (FAA) operates our national airspace (NAS). Airspace users of the NAS include air carriers (airlines), general aviation users, and military users. The FAA provides Air Traffic Management (ATM) services, including Air Traffic Control (ATC) services, to separate aircraft, and Traffic Flow Management (TFM) services to manage congestion associated with a resource. As used herein, “resource” refers to a sector or group of sectors in one or more Air Route Traffic Control Centers (ARTCCs) and to a region of airspace surrounding an airport, where congestion is managed by imposition of air traffic flow restrictions (“flow restrictions”) on inbound traffic upstream of the resource. With reference to a given flight, the airport may be a destination airport or an origin airport.</p>
+  <p num="p-0005">When congestion problems exist or are anticipated to exist (i.e., when the traffic demand exceeds the resource capacity), the FAA invokes TFM flow restrictions to control flows through a combination of departure delays, ground stops, route changes (reroutes), altitude changes (capping), and the spacing/metering of en route traffic and/or arrivals. Congestion problems may occur when traffic demand exceeds airspace/airport capacity (e.g., rush hour or situations where traffic is deviated from elsewhere), and/or when actual capacity is lowered from nominal levels due to weather and/or the loss of NAS capabilities (e.g., loss of communications, navigation, or surveillance services).</p>
+  <p num="p-0006">TFM flow restrictions are managed on a continuum from the strategic to the tactical. Strategic TFM is coordinated by the FAA&#39;s ATC System Command Center (ATCCC) in Herndon Va. Strategic flow restrictions for a given resource typically involve large amounts of traffic, multiple ATC facilities, and time horizons or lead times on the order of 1.5–6 hours or more before the actual congestion or other problem is predicted to occur. Strategic flow restrictions are coordinated through the ATCSCC and implemented by the local ATC facilities that control the actual traffic. The national Ground Delay Program (GDP) is an example of a strategic flow restriction. Tactical TFM typically involves smaller amounts of traffic, one or a few local ATC facilities in close proximity, and time horizons on the order of a few minutes to 2 hours. Arrival metering via the Center TRACON Automation System (CTAS) Traffic Management Advisor (TMA) or Multi-center TMA (McTMA) is an example of a tactical flow restriction.</p>
+  <p num="p-0007">Previous CTAS studies include studies on the integration of user and ATM systems (e.g., integrating the airborne Flight Management System (FMS) with CTAS) to enable user-preferred four-dimensional (4D) trajectories. The initial focus had been on optimization of trajectories in the presences of flow constraints such as required times of arrival (RTA) for arrival metering. However, it has become apparent that it is equally important, if not more so, to negotiate the selection of RTA for each flight, as contrasted with the trajectory selected to meet the RTA. RTA negotiation was proposed by S. M. Green, W. den Braven, and D. H. Williams in “Development and Evaluation of a Profile Negotiation Process for Integrating Aircraft and Air Traffic Control Automation,” NASA Technical Memorandum 4360, April 1993.</p>
+  <p num="p-0008">Interactions with the ATC coordinator of United Airlines during the 1993/94 CTAS TMA field tests at Denver Center confirmed the desire for users to collaborate on arrival metering, not just to determine an RTA, but also for arrival sequences. Sequences are less challenging to negotiate than specific RTAs, and provide a mechanism for an airline to influence the order of an arrival bank and move a later-arriving aircraft to an earlier position in a queue while moving earlier flights to later positions. This concept was further defined by S. M. Green, T. Goka, and D. H. Williams in “Enabling User Preferences Through Data Exchange,” AIAA 97-3682, AIAA Guidance, Navigation and Control Conference, New Orleans, La., Aug. 11–13, 1997. The concept evolved into a Distributed Air-Ground Traffic Management (DAGTM) approach for User-Preferred Arrival Metering, as discussed by S. M. Green, K. Bilimoria., and M. G. Ballin in “Distributed Air-Ground Traffic Management for En route Flight Operations,” AIAA 2000-4064, Guidance, Navigation, and Control Conference, Denver Colo., August 2000.</p>
+  <p num="p-0009">One problem encountered is that airspace users want to influence the priority of the users&#39; flights that are subject to TFM flow restrictions. In many cases, a single flight may be impacted by more than one flow restriction as the aircraft moves across the NAS from one ATC facility or resource to another. Once an aircraft is airborne, many factors may influence its actual arrival time, including deviations for flow restrictions. Airspace user preferences include flight sequence and schedule (arrival time), among others. If flights are to be delayed and/or deviated, the users may value certain flights more over others (e.g., to maintain the integrity of the user&#39;s overall network schedule). Airspace users want to minimize delays for more than one flight, by optimizing the use of the user&#39;s fleet and by maintaining the integrity of the user&#39;s network schedule and airport arrival and departure banks.</p>
+  <p num="p-0010">The FAA and airspace users have achieved much progress over the past decade in the application of Collaborative Decision Making (CDM) principles to flow restrictions. CDM involves the sharing of data between the FAA and users to develop a common situation awareness and collaborative methods for making decisions that affect traffic flows and individual flights. Limitations are present, particularly with respect to a lack of CDM processes for tactical flow restrictions on a local and regional level.</p>
+  <p num="p-0011">Some of the objectives are to facilitate CDM for flow restrictions on a local and regional level, to allow users to identify queue sequence preferences and priorities for the users&#39; flights as an aircraft enters and/or moves across sectors with flow restrictions throughout the NAS, to credit an aircraft for flow restriction impacts the aircraft absorbs relative to other aircraft, and to enable the FAA, through the TFM system, to equitably accommodate those priorities.</p>
+  <p num="p-0012">Airspace users are primarily interested in arriving on time and maintaining the user&#39;s network schedule, second only to the safe operation of the user&#39;s flights. Special problem characteristics arise from the individual nature of flow restrictions and how these restrictions affect individual flights within the NAS.</p>
+  <p num="p-0013">(1) Flow restrictions vary in form. Two types of flow restrictions are relevant here: Metering/Spacing; and changes to the route or planned altitude profile. Relatively few Metering/Spacing restrictions (such as TMA arrival metering) are time-based today, but this circumstance will change as TMA is deployed to serve more airports, and as Regional Metering enhancements are implemented within a Multi-Center TMA (McTMA) to enable time-based en route metering. Nevertheless, Metering/Spacing restrictions restrict the rate of flow of a stream of flights through a fix or airspace (e.g., 60 flights/hour or 10 miles in trail). Flight trajectories are typically modified by air traffic controllers to conform to such restrictions (i.e., adjustments in speed, heading, and/or altitude to delay the flight), but the trajectories are not necessarily changed to avoid a region of airspace. Alternatively, the second type of restriction involves a change to the route and/or altitude profile of a flight to physically move the flight to another region of airspace. For example, a flight might be rerouted to another arrival fix to enter a congested terminal area from a less congested direction, or a flight might be rerouted (or restricted in altitude) to completely avoid a congested sector/region of airspace. In summary, the first type of restriction focuses on managing the flow-rate while the second type focuses on moving a flight to another region of airspace. Both types of restrictions may be applied to aircraft in various phases of flight from pre-departure (pushback and take-off), departure/ascent, en route, and arrival/descent. Any one flow restriction may involve multiple flights in various phases of flight (e.g., spacing for en route congestion may involve some flights from nearby airports that have not yet departed as well as airborne flights that are airborne and will be transiting the impacted sectors in cruise or ascent/descent to/from cruise altitude. Both types of restrictions will affect delay, either directly in the case of metering/spacing, or indirectly in the case of reroute/altitude flow restrictions.</p>
+  <p num="p-0014">(2) If an aircraft is delayed by one flow restriction earlier in its flight (e.g., delay in departure or in push-back from a gate), the aircraft loses its original place relative to other flights as the aircraft progresses downstream. As a result, sequentially-experienced flow restrictions accumulate. If congestion-based queues form downstream, the previously restricted aircraft enters the queue later and loses its position and priority, relative to other aircraft. that would have nominally been scheduled to arrive near the same time.</p>
+  <p num="p-0015">(3) The operational impact of CDM for flight priority/sequence grows with the time horizon over which such priority is in effect. Users need to be able to compete or negotiate for flight priority over time horizons that are significantly greater than what is available for individual tactical flow restrictions.</p>
+  <p num="p-0016">(4) To effectively leverage user-preferred sequences and priorities, a user needs to be able to “collaborate” with TFM over most, if not all, of the user&#39;s flights that contribute to a flow restriction. If a user is restricted to priorities within the user&#39;s own fleet, there may be little benefit in asserting a flight priority.</p>
+  <p num="p-0017">(5) Equitable access to airspace and ATM services is a fundamental desire of airspace users.</p>
+  <p num="p-0018">(6) It is not equitable to enable one user&#39;s preferred sequence/flight priority at the cost of negatively impacting another user&#39;s delay. Sequences preferred between flights of a first user may be fair as long as these preferences don&#39;t add unacceptable net delays and/or penalties to a second user&#39;s flights.</p>
+  <p num="p-0019">(7) When en route and arrival metering restrictions are enforced, an ARTCC often restricts internal departures on a tactical basis, pending designation of an APREQ departure-release time by the ARTCC, in order to insert the aircraft departure into an unoccupied time slot in the restricted overhead traffic stream. If the overhead stream is already full at the time of the departure request, the aircraft is often held on the ground until a time slot occurs upstream, resulting in an inequitable delay for departure of the aircraft relative to the overhead traffic.</p>
+  <p num="p-0020">What is needed is an approach that (1) allocates and accumulates aircraft flight delay credits to each of a collection of one or more aircraft that experiences one or more flow restrictions relative to one or more resources (sector or airport), (2) allows bidding of part or all of the accumulated delay credits for priority handling of an individual aircraft in response to imposition of a flow restriction on a flight or group of flights, and (3) facilitates transfer or trading of delay credits among two or more aircraft flights, for the same airline or for different airlines, in a queue or in different queues. Preferably, the approach should integrate allocation, accumulation and consumption of flow restriction-based delay credits and should ensure that such delay credits are not monopolized by one or a few airlines.</p>
+  <heading>SUMMARY OF THE INVENTION</heading>
+  <p num="p-0021">These needs are met by the invention, which provides an integrated system that provides for allocation and accumulation of delay credits, allows bidding of the accumulated credits for priority handling of an individual aircraft or two or more aircraft in response to imposition of a flow restriction on a flight or group of flights, and facilitates transfer of delay credits among aircraft operated by the same user (e.g., an airline) and/or trade of delay credits between users.</p>
+  <p num="p-0022">The primary contribution of delay banking is NAS-wide CDM for en route and arrival metering. A second element, collaborative tactical-departure-release planning, is a complimentary feature to facilitate CDM for departure release into congested en route- and arrival-metering situations.</p>
+  <p num="p-0023">Delay banking involves at least four aspects (accumulation, bid, delay credit transfer and delay credit trade), at least the first two of which are present in any consideration of measurement and/or consumption of delay credits within a delay credit transaction.</p>
+  <p num="p-0024">Computation of delay credits may be based upon change in: (i) estimated time of arrival (“ΔETA”), measured relative to a metering fix or geographic reference geometry; (ii) ΔETA relative to a location at which a flow restriction ends (e.g., a meter fix or entry into a protected resource region); and (iii) a computed equivalent of ΔETA that takes account of differences arising from acceptance of reassignment of a different route and/or a different planned altitude profile (PAP) and/or a different destination airport.</p>
+  <p num="p-0025">Delay credits, once earned, can be applied in various situations, for example, to enter a bid for priority handling in response to imposition of a new flow restriction on a flight or group of flights; if the bid is unsuccessful, all or a portion of the credit is returned to the bidder. Where the bidder-aircraft is part of a queue, the delay credits can be used (consumed) to move the bidder to an earlier location in the queue, in order to reduce that bidder-aircraft&#39;s delay. Where the flow restriction involves a choice of alternate routes, planned altitude profile, aircraft spacing, or other non-queue flow restrictions, the delay credits can be used to bid for an alternative assignment.</p>
+  <p num="p-0026">A user may spend delay credits, accumulated on one flight, on other flights operated by the same user. Delay credits can be transferred between two or more flights by the same user. Examples of this transaction are: (i) transfer among flights on the same day involving the same resource and/or the same flight route; (ii) transfer among flights on the same day involving different resources and/or having different flight routes; and (iii) transfer among flights on different days. Here, an independent third party, such as a central system CS that continually monitors the flights and maintains records of the accumulated delay credits, is used to analyze potential transfers, to implement transfers that are accepted, and to ensure fair treatment of all participating aircraft.</p>
+  <p num="p-0027">Delay credits can also be traded between different users, according to market rules that are determined by NAS stakeholders, preferably in a manner that treats smaller users (e.g., a user operating fewer flights) fairly. The delay credit transfer procedure may be implemented among users that affirmatively agree to participate, or all users operating within a given region (e.g., a group of ARTCC sectors, an ARTCC, or the entire continental U.S.) may be required to participate.</p>
+
+
+  <description-of-drawings>
+    <heading>BRIEF DESCRIPTION OF THE DRAWINGS</heading>
+    <p num="p-0028"> <figref idrefs="DRAWINGS">FIG. 1</figref> graphically illustrates an example of attenuation of a delay credit.</p>
+    <p num="p-0029"> <figref idrefs="DRAWINGS">FIGS. 2</figref>, <b>3</b>, and <b>4</b> are flow charts of procedures for practicing aspects of the invention.</p>
+  </description-of-drawings>
+
+
+  <heading>DESCRIPTION OF BEST MODES OF THE INVENTION</heading>
+  <p num="p-0030">Time delay and/or route alteration (including variation of a planned altitude profile (“PAP”) and/or variation of flight waypoints), referred to herein collectively as “flow restrictions,” can be imposed by one or more traffic management coordinators (TMCs) to mitigate the impact of inclement weather (en route or near the destination airport), en route congestion along the originally chosen route, and congestion near the destination airport.</p>
+  <p num="p-0031">Delay banking involves four aspects, the first two of which represent a minimum capability and the last two of which are optional enhancements: (i) allocation and computation and subsequent modification of delay credits accumulated as a result of imposition of flow restriction; (ii) bidding of delay credits, by a user, to obtain a modification of the priority for a specified flight, in response to imposition of an air traffic flow restriction (“flow restriction”) upon a specified resource or resources; (iii) transfer of delay credits between aircraft flights belonging to a single user; and (iv) trading of delay credits between flights of aircraft owned or operated by different users.</p>
+  <p num="p-0032">A flow restriction may be implemented through one or more of the following: delay or modification in preparation of an aircraft for takeoff; decrease in air speed for ascent, cruise and/or descent of the aircraft to at most a specified threshold air speed; change in position for the aircraft in a queue of all aircraft traveling along at least one segment of a planned route; change in at least one segment of a planned altitude profile for the aircraft; and change in at least one segment of a planned route for the aircraft.</p>
+  <p num="p-0033">A flow restriction may result from (1) inclement weather at an origin airport, en route or at a destination airport, (2) congestion on the ground at the origin airport or at the destination airport; (3) runway unavailability; (4) congestion in the air near the origin airport or the destination airport; (5) congestion associated with one or more flight route segments; or (6) other related reasons. Most of these flow restrictions arise from (i) an unanticipated increase in demand for a particular resource or (ii) an unanticipated decrease in resource availability. A flow restriction may result in a time delay or a change in a planned altitude profile, or a change in one or more segments of a planned flight route.</p>
+  <p num="p-0034">An aircraft that accepts, or has imposed on it, a flow restriction may accumulate certain delay credits. These delay credit units may be expressed directly in minutes of time delay, and fractions thereof. For example, a time delay of no more than q sec (0≦q&lt;60) may accrue no delay credits; and a time delay Δt(delay) in a time interval N+q≦Δt(delay)&lt;N+1−q (N=1, 2, . . . ) may accrue N delay credits.</p>
+  <p num="p-0035">Alternatively, the aircraft that accepts, or has imposed upon it, a time delay may accrue integer multiples of a base delay credit, according to the first aspect of the invention. As an example: a time delay below a threshold time or base delay time, such as 0–30 sec, may have no associated delay credits; a time delay in a range 30 (sec)&lt;Δt(delay)&lt;n<b>1</b>·60 may accumulate 1 delay credit; a time delay in a range n<b>1</b>·60≦Δt(delay)≦n<b>2</b>·60 (sec) may accumulate 2 delay credits; and a time delay greater than n<b>2</b>·60 sec may accumulate 3 or more delay credits, where n<b>1</b> and n<b>2</b> are positive integers with 1≦n<b>1</b>&lt;n<b>2</b>.</p>
+  <p num="h-0007">Aspect 1: Accumulation of Delay Credits.</p>
+  <p num="p-0036">The basic delay credit represents the impact of a flow restriction on a specific flight, such as the change in arrival time due to the imposition of a flight restriction. A delay credit value allocated to an aircraft flight or user may vary from one situation to another, according to one or more of the following factors, among others: present distance D(dest) of the aircraft from a reference such as a metering fix/geometry or destination airport; distance D(origin;dest) of the aircraft from its most recent origin airport to a metering fix or to the destination airport; scheduled cruise altitude for the aircraft; scheduled flight route for the aircraft; number of flights with substantially the same ETA as the aircraft at a metering fix or at the destination airport; time difference between the scheduled time of departure and ETA for this aircraft; at least one estimated weather condition for the metering fix or destination airport at the ETA; an estimate of excess fuel carried by the aircraft for a flight between the origin airport and the destination airport; accumulated time delay credits for the aircraft; number of passengers scheduled to be on board the aircraft; time of day of the ETA for the aircraft; day of the week of the ETA for the aircraft; date of the ETA for the aircraft; and a priority initially assigned to the flight.</p>
+  <p num="p-0037">When one or more delay credits has been accumulated, these credits may continue at the original (initial) value, unless subsequently used to change priority or transferred or traded as discussed in the following. Alternatively, delay credits may be subjected to an attenuation procedure, whereby an initial value of M<b>0</b> delay credits at a time t=t<b>0</b> becomes a smaller present value
+<br/>
+<i>M</i>(<i>t;t</i>0)=<i>M</i>(<i>t</i>0)·<i>A</i>(<i>t−t</i>0),  (1)
+<br/>
+at a later time t&gt;t<b>0</b>, where A(t−t<b>0</b>) is a monotonically decreasing function of a non-negative time difference t−t<b>0</b>. If attenuation is incorporated into delay credit valuation, examples of attenuation functions include, but are not limited to:
+<br/>
+<i>A</i>(<i>t−t</i>0)=exp{−<i>a</i>·(<i>t−t</i>0)<sup>b</sup>},  (2<i>A</i>)
+<br/>
+<i>A</i>(<i>t−t</i>0)=max{0, cos<sup>c</sup> <i>{d</i>·(<i>t−t</i>0)<sup>e</sup>},  (2<i>B</i>)
+<br/>
+<i>A</i>(<i>t−t</i>0)=max{0, sec<i>h{f</i>·(<i>t−t</i>0)<sup>g</sup>},  (2<i>C</i>)
+<br/>
+<i>A</i>(<i>t−t</i>0)=1/{1+<i>h</i>·(<i>t−t</i>0)<sup>j</sup>}<sup>k</sup>,  (2<i>D</i>)
+<br/>
+where a, b, c, d, e, f, g, h, j and k are non-negative numbers (not necessarily integers) and t−t<b>0</b>≧0.
+</p>
+  <p num="p-0038">Another group of attenuation functions satisfy: (1) A(t−t<b>0</b>)=1 for t−t<b>0</b>=0; (2) A(t−t<b>0</b>) monotonically decreasing for t−t<b>0</b> positive and increasing; and (3) A(t−t<b>0</b>)=0 for t−t<b>0</b>&gt;Δt(thr) (a selected positive temporal value). Here, the attenuation function drops (abruptly or smoothly) to 0 for t−t<b>0</b> greater than the selected threshold time Δt(thr), as illustrated in <figref idrefs="DRAWINGS">FIG. 1</figref>.</p>
+  <p num="p-0039"> <figref idrefs="DRAWINGS">FIG. 2</figref> is a flow chart illustrating a procedure for determining and allocating a delay credit (first aspect), arising from implementation of a flow restriction on a resource utilized by an aircraft. In step <b>21</b>, a system, which determines and allocates delay credit, receives Traffic Flow Management (TFM) information for a flight route of an aircraft, from an origin airport to a destination airport, including at least one traffic flow restriction that affects a resource utilized by the aircraft. In step <b>22</b>, the system determines an initial credit value M(t<b>0</b>) and an attenuated present value M(t;t<b>0</b>) (optional) for the aircraft that is associated with the at least one flow restriction at a time t<b>0</b> determined with reference to a time t (&gt;t<b>0</b>) at which the flow restriction is implemented. The system may include the aircraft and/or may include a centralized delay credit determination system, spaced apart from the aircraft, that determines and allocates delay credits.</p>
+  <p num="h-0008">Aspect 2: Bidding of Delay Credits</p>
+  <p num="p-0040">A selected number of delay credits, once earned, can be bid by a user or users to modify or enhance the priority of one or more of the user&#39;s flights on which one or more flow restrictions have been imposed. Where two or more flights on the same day involve the same resource and/or the same flight route segment, and a flow restriction is encountered, one or more users may wish to rearrange the priorities assigned to these and other user aircraft flights affected by the flow restriction. Each user may choose bids for each flight operated by the user, in order to influence relative priority (e.g., sequence in a queue) of each flight relative to other flights operated by that user or other users. In order to maintain fairness between different users, a central system CS is preferably regulated, if not provided, by the air traffic service provider to facilitate the aspects of delay banking. The central system CS receives relevant information on the proposed priority modifications, which information may include a unique flight identification number, including flight departure date and time, origin and destination airports and tail identification number for each aircraft involved. The application of bidding in a metering-restrictions scenario is illustrated in the following example.</p>
+  <p num="h-0009">Example of Operation of Bidding, Aspect No, 2.</p>
+  <p num="p-0041">Consider an initial arrangement for arrival of five aircraft (AC=A, B, C, D, E) at a specified metering fix. Table 1 sets forth the relative positions and relative time delays in an initial arrival queue (columns <b>2</b>–<b>4</b>) and in a resulting arrival queue after entry of a bid of 4 delay credits (e.g., 4 minutes) by aircraft E. The aircraft are allowed to arrive with 3-minute spacing (e.g., at times 0:00, 3:00, 6:00, 9:00 and 12:00). ETA and STA refer to the estimated time of arrival of an aircraft flight and to a scheduled time for arrival, respectively, at a metering position. With the initial ETA as set forth in column <b>2</b>, the aircraft A, B and C are unaffected when aircraft E moves into a fourth position (with resulting ETA of 05 and resulting STA of 09), with a resulting ETA (after entry of bid) of 09−04=05 (minutes) and thus ahead of aircraft D (ETA unchanged at 06). The result of entry of the bid of 04 delay credits by E is that aircraft E has a resulting delay (STA minus pre-bid ETA) of 00 (as compared to an initial delay 03 of before bidding; and aircraft D has a resulting delay of 06, as compared with an initial delay of 03. In summary, aircraft E bid its delay credits to earn an earlier position in the arrival queue.</p>
+  <p num="p-0042">
+    <tables id="TABLE-US-00001" num="00001">
+      <tgroup align="left" colsep="0" rowsep="0" cols="1">
+          <colspec colname="1" colwidth="217pt" align="center"> </colspec>
+          </tgroup> <row>
+              <entry namest="1" nameend="1" rowsep="1">TABLE 1</entry>
+            </row> <row>
+              <entry namest="1" nameend="1" align="center" rowsep="1"> </entry>
+            </row> <row>
+              <entry>Implementation of Bidding.</entry>
+            </row> <tgroup align="left" colsep="0" rowsep="0" cols="8">
+          <colspec colname="1" colwidth="14pt" align="center"> </colspec>
+          <colspec colname="2" colwidth="28pt" align="center"> </colspec>
+          <colspec colname="3" colwidth="28pt" align="center"> </colspec>
+          <colspec colname="4" colwidth="28pt" align="center"> </colspec>
+          <colspec colname="5" colwidth="28pt" align="center"> </colspec>
+          <colspec colname="6" colwidth="28pt" align="center"> </colspec>
+          <colspec colname="7" colwidth="28pt" align="center"> </colspec>
+          <colspec colname="8" colwidth="35pt" align="center"> </colspec>
+          </tgroup> <row>
+              <entry> </entry>
+              <entry> </entry>
+              <entry> </entry>
+              <entry>Initial</entry>
+              <entry> </entry>
+              <entry> </entry>
+              <entry> </entry>
+              <entry>Delay</entry>
+            </row> <row>
+              <entry>AC</entry>
+              <entry>ETA</entry>
+              <entry>STA</entry>
+              <entry>Delay</entry>
+              <entry>Bid</entry>
+              <entry>ETA</entry>
+              <entry>STA</entry>
+              <entry>After Bid</entry>
+            </row> <row>
+              <entry namest="1" nameend="8" align="center" rowsep="1"> </entry>
+            </row> <row>
+              <entry>E</entry>
+              <entry>09</entry>
+              <entry>12</entry>
+              <entry>03</entry>
+              <entry>04</entry>
+              <entry>05</entry>
+              <entry>09</entry>
+              <entry>00</entry>
+            </row> <row>
+              <entry>D</entry>
+              <entry>06</entry>
+              <entry>09</entry>
+              <entry>03</entry>
+              <entry> </entry>
+              <entry>06</entry>
+              <entry>12</entry>
+              <entry>06</entry>
+            </row> <row>
+              <entry>C</entry>
+              <entry>04</entry>
+              <entry>06</entry>
+              <entry>02</entry>
+              <entry> </entry>
+              <entry>04</entry>
+              <entry>06</entry>
+              <entry>02</entry>
+            </row> <row>
+              <entry>B</entry>
+              <entry>01</entry>
+              <entry>03</entry>
+              <entry>02</entry>
+              <entry> </entry>
+              <entry>01</entry>
+              <entry>03</entry>
+              <entry>02</entry>
+            </row> <row>
+              <entry>A</entry>
+              <entry>00</entry>
+              <entry>00</entry>
+              <entry>00</entry>
+              <entry> </entry>
+              <entry>00</entry>
+              <entry>00</entry>
+              <entry>00</entry>
+            </row> <row>
+              <entry namest="1" nameend="8" align="center" rowsep="1"> </entry>
+            </row> <table frame="none" colsep="0" rowsep="0" class="description-table">
+        <thead>
+            
+          </thead>
+          <tbody valign="top">
+            
+            
+          </tbody>
+        
+        <tbody valign="top">
+            
+            
+            
+            
+            
+            
+            
+            
+            
+          </tbody>
+        
+      </table>
+    </tables>
+  </p>
+  <p num="p-0043">Once the metering queue and schedule are settled for a specific flight per, the aircraft&#39;s speed, path, altitude and PAP are adjusted to meet the STA as fornormal metering operations.</p>
+  <p num="p-0044">A delay-banking enabled change in sequence need not require physical movement of an aircraft in an actual queue: modification of the aircraft&#39;s position may be virtual. For example, an aircraft that is in a position p in a queue in flight to a metering fix may be given an earlier position p′ (&lt;p) for arrival at the destination airport, through modification of the virtual ETA or of the arrival queue for this aircraft at the destination airport. For example, a flight may be scheduled to arrive at a metering fix in position p, enter a holding pattern at/near the metering fix (segregated from other holding flights by altitude), and then be released from the holding pattern in an earlier position p′ (&lt;p).</p>
+  <p num="p-0045">The example above applies to metering restrictions. Users impacted by other flow restrictions, such as rerouting and PAP changes (to avoid congested airspace), may also apply the bidding of delay credits to reduce the impact of restrictions on flights of high priority to users. Each user may bid delay credits to obtain a more preferred route/altitude change for situations where the TMC has the flexibility and choice of valid route/PAP options to apply in the restriction.</p>
+  <p num="p-0046">The central system CS may reply to a bid by accepting the bid or by rejecting part or all of the bid (e.g., because the bid amount is insufficient to make a difference). Optionally, where the proposed bid is not accepted for the original bid amount, or where the proposed transfer is rejected outright, the central system CS deducts a specified percentage (e.g., 10–30 percent) of the bid amount, or a specified number of delay credits, from the user&#39;s account as an administrative, transaction cost in order to discourage excessive bidding or submission of unrealistic bids.</p>
+  <p num="p-0047">Optionally, the values of the delay credits are attenuated with passage of time in a manner similar to the value attenuation in Eq. (1), discussed in connection with the first aspect. Optionally, where the delay credits for a first flight are used to modify the priority of one or more aircraft flights on a second flight route, or a phase of the second flight route, that is different from the first flight route, or phase of the first flight route, on which the delay credits were originally earned, an additional charge is applied to the delay credits bid for the proposed transfer.</p>
+  <p num="p-0048">The bidding process may be conducted in near real time, with users submitting bids to the central system CS as their flights approach the time/position that they will be subject to a flow restriction. Alternatively, users may submit their bids and preferences, such as preferred routes and PAP options, ahead of time for consideration by the central system CS if/when a particular flight is subject to a restriction.</p>
+  <p num="p-0049">Users may simultaneously submit bids for more than one flight subject to the same restriction. In doing so, the user is implicitly able to influence the relative priority between flights operated by that user, such as an airline&#39;s arrival bank at a hub airport. Through individual bidding, each user has the opportunity to influence the relative priority between the flights they operate and flights operated by other users.</p>
+  <p num="h-0010">Aspect 3: Transfer of Delay Credits.</p>
+  <p num="p-0050">This aspect enables users to transfer delay credits from one flight to another. The purpose is to allow users to bank credits across their fleet and to be able to apply credits earned by one flight to other flights operated by that user. The goal is to allow users to apply their delay credits to their highest priority flights.</p>
+  <p num="p-0051">Transfer involves two steps, characterized as bank and spend. Users may bank unused credits that are earned by one flight but not used by that flight. Credits are banked with and accounted for by the central system CS. Credits are stored in user accounts with unique information that can be used by the central system CS to determine the value (or “discount”) of the credits for use on other flights in subsequent TFM restrictions. This unique information, to be defined by the stakeholders that will operate and use the delay-banking system, may include, among other items: the flight that originally accumulated the credits (e.g., call sign identification, city pair origin/destination, and departure date/time); and the flow restriction (airspace/airport resource protected, type of restriction, ATC facility responsible to implementing the restriction, and the cause of the restriction such as weather or traffic volume). Banked credits are optionally subject to attenuation, as described in aspect 1.</p>
+  <p num="p-0052">Users may spend banked delay credits on other flights operated by the same user. This effectively allows a user to bid more credits for a particular flight than the credits that were accumulated by that flight pursuant to the first aspect (accumulation). The value of any banked credits may be discounted according to rules established by the system stakeholders to ensure equity and fairness across the user community. The discounted delay credit value is determined by rules applied to the unique information defining the origin of the banked credits and their intended use when transferred to another flight.</p>
+  <p num="p-0053">Where present delay credits are to be reassigned from a first aircraft flight to at least one other (second) aircraft flight, all belonging to a single user, one speaks of a “transfer” of delay credits. <figref idrefs="DRAWINGS">FIG. 3</figref> is a flow chart illustrating a procedure for transfer of delay credits. In step <b>31</b>, a central system provides a present delay credit value M<b>1</b>(t), associated, in whole or in part, with a first aircraft flight and arising from one or more traffic flow restrictions implemented on one or more resources utilized by the first aircraft flight. In step <b>32</b>, the system receives, from the user, a re-assignment of part or all of the present delay credit value M1(t) for the first flight to a user general fund of delay credits maintained for the user by the system. In step <b>33</b>, the system transfers the re-assigned present delay credit value M<b>1</b>(t) from the first flight to the user general fund, and subtracts this re-assigned delay credit value from the first flight, to provide a resulting delay credit value (usually reduced) for the first flight, and to provide an augmented present delay credit value M(;t<b>0</b>t) for the user fund. In step <b>34</b> (optional), the user fund is assessed a first transfer transaction cost for the re-assignment from the first flight.</p>
+  <p num="p-0054">In step <b>35</b> (optional), the system provides information for the user and/or the first flight on the present amounts (after the re-assignment) of delay credit values for the user fund and for the first flight.</p>
+  <p num="p-0055">In step <b>36</b> (optional), the user re-assigns part or all of the augmented present delay credit value from the user fund to one or more flights of the user&#39;s aircraft (the “second” aircraft flight), which may be the same as or may be different from the first flight. This re-assignment from the user fund to the second flight may occur substantially simultaneously with the re-assignment from the first flight or may occur at a subsequent time. In step <b>37</b> (optional), the user fund is optionally assessed a second transfer transaction cost for the transfer to the second flight. The first transfer transaction cost, if any, and the second transfer transaction cost, if any, may be a small percentage (e.g., 10–30 percent) of the present delay credit value re-assigned from the first aircraft, or of the present delay credit value re-assigned to the second aircraft, or the transfer transaction cost, if any, may be a specified amount, determined independently of the amount re-assigned. The transfer transaction cost may be determined by the amount of delay credit value re-assigned, by a lapse of time between assignment from the first aircraft and re-assignment to the second aircraft, by the unique information discussed in the preceding in connection with transfer of delay credits, by the nature of the first aircraft flight and a flight of the second aircraft (e.g., same day, different days, same or different flight directions, same or different geographical regions, same or different flow restrictions for the first aircraft and the second aircraft, etc.), and/or by other relevant considerations. Optionally, the delay credit values accumulated in the user fund are also attenuated, with passage of time, by consideration of the same factors used to attenuate an initial delay credit value, as discussed in connection with Aspect 1 and illustrated in Eq. (1).</p>
+  <p num="p-0056">In step <b>38</b> (optional), the system provides information for the user and/or the second flight on the present amounts (after the transfer) of delay credit values for the user fund and for the second flight.</p>
+  <p num="h-0011">Aspect 4: Trading of Delay Credits.</p>
+  <p num="p-0057">In a fourth aspect, delay credits can also be traded between two or more different users, according to market rules that are determined by NAS stakeholders and/or by a central system CS, preferably in a manner that treats smaller users fairly. The delay credit trading procedure may be implemented among users that affirmatively agree to participate, or all users operating in a given region (e.g., an ARTCC sector group or the entire continental U.S.) may be required to participate. However, where a first user proposes a trade with a second user, the second user may accept, negotiate, or decline to trade. The trades may exchanged within a market regulated by the air traffic service provider or other appropriate authority. Delay credits may be traded for cash payment or other valuable consideration, or for delay credits of another user with greater value for particular operational conditions, based on the unique information accounted for by the central system CS and rules established by the market stakeholders.</p>
+  <p num="p-0058">A first user may propose a trade with a second user, whereby d<b>1</b> delay credits for the first user are exchanged for d<b>2</b> delay credits and/or cash or other valuable consideration for the second user, where d<b>1</b> and d<b>2</b> are non-negative values. A delay credit trade, if implemented, may be preceded by negotiations of the delay credit value(s) to be exchanged and is preferably implemented by the central system CS.</p>
+  <p num="p-0059"> <figref idrefs="DRAWINGS">FIG. 4</figref> is a flow chart illustrating a procedure for facilitating trading of delay credits associated with at least a first aircraft flight and a second aircraft flight operated by different users.</p>
+  <p num="p-0060">In step <b>41</b> of <figref idrefs="DRAWINGS">FIG. 4</figref>, a system provides first and second present delay credit values, M<b>1</b>(t) and M<b>2</b>(t), allocated to first and second user funds, respectively), arising from aircraft flights operated by the first and second users.</p>
+  <p num="p-0061">In step <b>42</b>, the system receives, from the first user and/or the second user, a request to trade delay credit value increments associated with the first user and the second user. This trade is proposed to be implemented by transfer of a delay credit value increment ΔM (≦0) from the first user fund to the second user fund, both funds being maintained by a central system for the respective first and second users. In step <b>43</b>, the system optionally determines whether the proposed trade is accepted.</p>
+  <p num="p-0062">If the answer to the query in step <b>43</b> is “yes,” or if step <b>43</b> is skipped, the system, in step <b>44</b>, subtracts the specified delay credit value increment ΔM from the present delay credit value M<b>1</b>(t) for the first fund, adds the specified delay credit value increment to the present delay credit value M<b>2</b>(t) for the second fund, to provide resulting delay credit values, M<b>1</b>(t)−ΔM and M<b>2</b>(t)−ΔM, for use by the first user and the second user, and replaces the present delay credit values in the first and second user funds by the respective resulting delay credit values. The delay credit value increment ΔM is optionally transferred with selected unique information describing conditions under which the delay credit value increment was earned on aircraft operated by the first user.</p>
+  <p num="p-0063">In step <b>45</b>, the system implements the proposed trade and optionally subtracts an optional first trade transaction cost from the first user fund and/or from the second user fund. The first trade transaction cost is similar to the first and/or second transfer transaction costs assessed in connection with the transfer of delay credits in Aspect 3. The system then proceeds to step <b>46</b>.</p>
+  <p num="p-0064">In step <b>46</b> (optional), the second user contemporaneously or subsequently re-assigns part or all of the delay credit value from the second user fund to one or more flights of the second user&#39;s aircraft. In step <b>47</b> (optional), the system assesses the second user fund a second trade transaction cost that is similar to the first and/or second transfer transaction costs. The system then proceeds to step <b>49</b> </p>
+  <p num="p-0065">If the answer to the query in step <b>43</b> is “no,” the system, in step <b>48</b> (optional), (i) deducts from the first user fund and/or from the second user fund a third trade transaction cost. This third trade transaction cost is an administrative cost, assessed to discourage requests for unrealistic trades of delay credit value increments. The system then proceeds to step <b>49</b>.</p>
+  <p num="p-0066">In step <b>49</b>, the system optionally provides, or otherwise makes available, to the first user and/or the second user, information indicating whether or not the trade request (received in step <b>42</b>) is accepted and restates a modified present delay credit value for the first user fund and/or for the second user fund.</p>
+  <p num="p-0067">Optionally, the delay credit values accumulated in the first user fund and/or in the second user fund is also attenuated, with passage of time, by consideration of the same factors used to attenuate an initial delay credit value, as discussed in connection with Aspect 1 and illustrated in Eq. (1).</p>
+  <p num="p-0068">Collaborative Tactical-Departure-Release Planning. The purpose of Collaborative Tactical-Departure-Release Planning is twofold: (i) To facilitate more equitable user-preferred departure release times for the airspace users.</p>
+  <p num="p-0069">(ii) To provide the NAS with better flight intent by users tactically providing the ARTCC/NAS with more accurate and earlier departure-intent information. Collaborative Tactical-Departure-Release Planning is described by the following process. Within each local ARTCC, TMCs notify airspace users in advance (preferably 30 minutes before an event) of any APREQs (departure time approval requests) that will/may be in place for specific departure airports and destinations. This communication would be supported communications protocol, e.g., a system wide information system, to be designated by the air traffic service provider and users. Participating users provide the air traffic service provider with an accurate and up-to-date “departure by” time for each impacted flight of interest. These departure times can then be used in advance by the local ARTCC/TMC to plan departures into the restricted flows, for example, to release a departure from an internal airport into a congested overhead stream of traffic. The TMC reserves a slot based on an equitable allocation of capacity between the departure and other traffic that are estimated to arrive at a metering/spacing reference fix at or near the same time. Depending on the operational situation and preference of the TMC, the reserved departure slot for the overhead stream may be frontloaded (i.e., departed slightly earlier than normal for their metering/spacing slot) to reduce the chance of missing the slot, and delayed in flight (through metering/spacing actions by the radar controller at the controlling sector) to achieve the target metering/spacing slot. The result is that the departure gets off earlier than current operational practice would allow (because the user provided early and accurate intent, and the flight isready to depart in time for a slot of opportunity) while the en route flow absorbs the traffic as equitably as if the departure was from an airport further upstream. Collaborative Tactical-Departure-Release Planning may be implemented as an enhancement to the departure release function developed within the Center TRACON Automation System (CTAS) and the integration of that function with an FAA/CDM network (such as CDMNET or SWIM) to facilitate tactical CDM communications.</p>
+
+</div>
+  </div>
+  </section>
+
+  <section itemprop="claims" itemscope>
+    <h2>Claims (<span itemprop="count">36</span>)</h2>
+    
+    <div itemprop="content" html><div mxw-id="PCLM9318833" lang="EN" load-source="patent-office" class="claims">
+  <div class="claim"> <div id="CLM-00001" num="00001" class="claim">
+    <div class="claim-text">1. A method for managing aircraft traffic between an origin airport and a destination airport, the method comprising:
+<div class="claim-text">receiving Traffic Flow Management (TFM) information for a route of a flight of a first aircraft from an origin airport to a destination airport, including at least one traffic flow restriction that affects an airport, a traffic flow sector or other resource utilized by the first aircraft; and</div>
+<div class="claim-text">determining an initial delay credit value M(t<b>0</b>) for the aircraft, operated by an aircraft user, that is associated with the at least one flow restriction at a time t<b>0</b> determined with reference to a time at which the flow restriction is implemented.</div>
+</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00002" num="00002" class="claim">
+    <div class="claim-text">2. The method of <claim-ref idref="CLM-00001">claim 1</claim-ref>, further comprising determining said initial delay credit value for said aircraft as a function of at least one of the following values: present distance D(dest) of the flight of said first aircraft from a restricted resource; distance D(origin;dest) of said first aircraft from its most recent origin airport to the restricted resource; scheduled cruise altitude for said flight; scheduled flight route; number of flights with substantially the same ETA as said flight at said destination airport; time difference between the ETA for said flight and a scheduled time of subsequent departure of said aircraft from said destination airport; at least one estimated weather condition for said destination airport at the ETA; an estimate of excess fuel carried for said flight between said origin airport and said destination airport; accumulated time delay credits for said flight; number of passengers scheduled to be on board for said flight; time of day of the ETA for said aircraft; day of the week of the ETA for said aircraft; date of the ETA for said aircraft; and a priority index assigned to said first aircraft.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00003" num="00003" class="claim">
+    <div class="claim-text">3. The method of <claim-ref idref="CLM-00001">claim 1</claim-ref>, further comprising computing a subsequent delay credit value M(t;t<b>0</b>) for said flow restriction at a time t that is greater than said time t<b>0</b>, where the delay credit value M(t;t<b>0</b>) is monotonically decreasing from said value M(t<b>0</b>) as a time difference t−t<b>0</b> increases.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00004" num="00004" class="claim">
+    <div class="claim-text">4. The method of <claim-ref idref="CLM-00003">claim 3</claim-ref>, further comprising choosing said subsequent delay credit value M(t;t<b>0</b>) to be substantially 0 for said time difference t-t<b>0</b> greater than a selected positive threshold value Δt(thr).</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00005" num="00005" class="claim">
+    <div class="claim-text">5. The method of <claim-ref idref="CLM-00001">claim 1</claim-ref>, further comprising choosing said resource from a group of resources comprising said origin airport, said destination airport, an air route traffic control center (ARTCC) destination sector that contains at least part of said destination airport; an ARTCC sector that belongs to a destination ARTCC group that includes the ARTCC destination sector, the destination ARTCC group, and an ARTCC group through which said first aircraft passes in said flight route from said origin airport to said destination airport.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00006" num="00006" class="claim">
+    <div class="claim-text">6. The method of <claim-ref idref="CLM-00001">claim 1</claim-ref>, further comprising receiving from said user of said first aircraft a bid of a selected portion of a delay credit value accumulated for said flight, to provide a present delay credit value, in order to change at least one traffic flow priority for said flight after implementation of said traffic flow restriction.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00007" num="00007" class="claim">
+    <div class="claim-text">7. The method of <claim-ref idref="CLM-00006">claim 6</claim-ref>, further comprising subtracting from said present delay credit value a selected delay credit value increment.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00008" num="00008" class="claim">
+    <div class="claim-text">8. The method of <claim-ref idref="CLM-00007">claim 7</claim-ref>, further comprising selecting said delay credit value increment as a transaction cost.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00009" num="00009" class="claim">
+    <div class="claim-text">9. The method of <claim-ref idref="CLM-00006">claim 6</claim-ref>, further comprising allowing said present delay credit value for said first aircraft to be transferred to at least one other flight having said same user, in order to change at least one effect of said flow restriction on said first aircraft.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00010" num="00010" class="claim">
+    <div class="claim-text">10. The method of <claim-ref idref="CLM-00006">claim 6</claim-ref>, further comprising allowing said delay credit value for said flight to be traded, in a transaction involving at least one other flight having a second user that is different from said user for said flight, in order to change at least one effect of said flow restriction on said first aircraft.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00011" num="00011" class="claim">
+    <div class="claim-text">11. The method of <claim-ref idref="CLM-00001">claim 1</claim-ref>, further comprising choosing said traffic flow restriction for said flight from one or more of the group consisting of: delay in push-back from a departure gate at said origin airport; decrease in air speed for said first aircraft to at most a specified threshold air speed; decrease in ascent rate for said first aircraft; decrease in descent rate for said first aircraft; change in position for said first aircraft in a queue of aircraft traveling along at least one segment of a scheduled route; change in at least one route segment of a planned altitude profile for said first aircraft; and change in at least one segment of said scheduled route for said first aircraft.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00012" num="00012" class="claim">
+    <div class="claim-text">12. The method of <claim-ref idref="CLM-00001">claim 1</claim-ref>, further comprising choosing said resource from a group of resources that includes said origin airport, said destination airport and at least one air route traffic control center (ARTCC) sector through which said first aircraft would pass.</div>
+  </div>
+  </div> <div class="claim"> <div id="CLM-00013" num="00013" class="claim">
+    <div class="claim-text">13. A system for managing aircraft traffic between an origin airport and a destination airport, the system comprising a computer that is programmed:
+<div class="claim-text">to receive Traffic Flow Management (TFM) information for a route of a flight from an origin airport to a destination airport, including at least one traffic flow restriction that affects an airport, a traffic flow sector or other resource utilized by a first aircraft; and</div>
+<div class="claim-text">to determine an initial delay credit value M(t<b>0</b>) for the first aircraft, operated by an aircraft user, that is associated with the at least one flow restriction at a time t<b>0</b> determined with reference to a time at which the flow restriction is implemented.</div>
+</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00014" num="00014" class="claim">
+    <div class="claim-text">14. The system of <claim-ref idref="CLM-00013">claim 13</claim-ref>, wherein said computer is further programmed to determine said initial delay credit value for said first aircraft as a function of at least one of the following values: present distance D(dest) of the flight of said first aircraft from a restricted resource; distance D(origin;dest) of said first aircraft from its most recent origin airport to the restricted resource; scheduled cruise altitude for said flight; scheduled flight route; number of flights with substantially the same ETA as said flight at said destination airport; time difference between the ETA for said flight and a scheduled time of subsequent departure of said first aircraft from said destination airport; at least one estimated weather condition for said destination airport at the ETA; an estimate of excess fuel carried for said flight between said origin airport and said destination airport; accumulated time delay credits for said flight; number of passengers scheduled to be on board for said flight; time of day of the ETA for said aircraft; day of the week of the ETA for said first aircraft; date of the ETA for said aircraft; and a priority index assigned to said first aircraft.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00015" num="00015" class="claim">
+    <div class="claim-text">15. The system of <claim-ref idref="CLM-00013">claim 13</claim-ref>, wherein said computer is further programmed to compute a subsequent delay credit value M(t;t<b>0</b>) for said flow restriction at a time t that is greater than said time t<b>0</b>, where the delay credit value M(t;t<b>0</b>) is monotonically decreasing from said value M(t<b>0</b>) as a time difference t−t<b>0</b> increases.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00016" num="00016" class="claim">
+    <div class="claim-text">16. The system of <claim-ref idref="CLM-00015">claim 15</claim-ref>, wherein said computer is further programmed to choose said subsequent delay credit value M(t;t<b>0</b>) to be substantially 0 for said time difference t-t<b>0</b> greater than a selected positive threshold value Δt(thr).</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00017" num="00017" class="claim">
+    <div class="claim-text">17. The method of <claim-ref idref="CLM-00013">claim 13</claim-ref>, wherein said computer is further programmed to choose said resource from a group of resources comprising said destination airport, an air route traffic control center (ARTCC) destination sector that contains at least part of said destination airport, an ARTCC sector that belongs to a destination ARTCC group that includes the ARTCC destination sector, the destination ARTCC group, and an ARTCC group through which said first aircraft passes in said flight route from said origin airport to said destination airport.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00018" num="00018" class="claim">
+    <div class="claim-text">18. The system of <claim-ref idref="CLM-00013">claim 13</claim-ref>, wherein said computer is further programmed to receive from said user of said first aircraft a bid of a selected portion of a delay credit value accumulated for said flight, to provide a present delay credit value, in order to change at least one traffic flow priority for said flight after implementation of said traffic flow restriction.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00019" num="00019" class="claim">
+    <div class="claim-text">19. The system of <claim-ref idref="CLM-00013">claim 13</claim-ref>, wherein said computer is further programmed to subtract from said present delay credit value a selected delay credit value increment.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00020" num="00020" class="claim">
+    <div class="claim-text">20. The method of <claim-ref idref="CLM-00019">claim 19</claim-ref>, wherein said computer is further programmed to select said delay credit value increment as a transaction cost.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00021" num="00021" class="claim">
+    <div class="claim-text">21. The system of <claim-ref idref="CLM-00018">claim 18</claim-ref>, wherein said computer is further programmed to allow said present delay credit value for said first aircraft to be transferred to at least one other flight having said first aircraft user, in order to change said at least one traffic flow priority for said flight.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00022" num="00022" class="claim">
+    <div class="claim-text">22. The system of <claim-ref idref="CLM-00018">claim 18</claim-ref>, wherein said computer is further programmed to allow said delay credit value for said flight to be traded, in a transaction involving at least one other flight having a second user that is different from said user for said flight, in order to change said at least one traffic flow priority for said flight.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00023" num="00023" class="claim">
+    <div class="claim-text">23. The system of <claim-ref idref="CLM-00018">claim 18</claim-ref>, wherein said computer is further programmed to choose said traffic flow restriction for said flight from one or more of the group consisting of: delay in push-back from a departure gate at said origin airport; decrease in air speed for said first aircraft to at most a specified threshold air speed; decrease in ascent rate for said first aircraft; decrease in descent rate for said first aircraft; change in position for said aircraft in a queue of aircraft traveling along at least one segment of a scheduled route; change in at least one route segment of a planned altitude profile for said first aircraft; and change in at least one segment of said scheduled route for said first aircraft.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00024" num="00024" class="claim">
+    <div class="claim-text">24. The system of <claim-ref idref="CLM-00013">claim 13</claim-ref>, wherein said computer is further programmed to choose said resource from a group of resources that includes said origin airport, said destination airport and at least one air route traffic control center (ARTCC) sector through which said aircraft would pass.</div>
+  </div>
+  </div> <div class="claim"> <div id="CLM-00025" num="00025" class="claim">
+    <div class="claim-text">25. A method for managing aircraft traffic between an origin airport and a destination airport, the method comprising:
+<div class="claim-text">receiving Traffic Flow Management (TFM) information for a route of a first flight of a first aircraft from an origin airport to a destination airport, including at least one traffic flow restriction that affects an airport, a traffic flow sector or other resource utilized by the first aircraft;</div>
+<div class="claim-text">providing a present delay credit value M<b>1</b>(t) for the first aircraft, operated by an aircraft user, that is associated with the at least one flow restriction at a time t<b>0</b> determined with reference to a time at which the flow restriction is implemented; and</div>
+<div class="claim-text">receiving, from the user of the first aircraft, an assignment of part or all of the present delay credit value M<b>1</b>(1) to a user fund of delay credit values, maintained for the user, to provide a resulting delay credit value for the first flight and an augmented delay credit value for the user fund.</div>
+</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00026" num="00026" class="claim">
+    <div class="claim-text">26. The method of <claim-ref idref="CLM-00025">claim 25</claim-ref>, further comprising assessing at least one of said first flight and said user fund a first transfer transaction cost for implementing said assignment of said present delay credit value M<b>1</b>(t).</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00027" num="00027" class="claim">
+    <div class="claim-text">27. The method of <claim-ref idref="CLM-00025">claim 25</claim-ref>, further comprising providing information for at least one of said user and said first flight concerning a present amount in said user fund after said assignment is implemented.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00028" num="00028" class="claim">
+    <div class="claim-text">28. The method of <claim-ref idref="CLM-00025">claim 25</claim-ref>, further comprising allowing said user to re-assign part or all of said augmented delay credit value for said user fund to a selected second aircraft flight.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00029" num="00029" class="claim">
+    <div class="claim-text">29. The method of <claim-ref idref="CLM-00028">claim 28</claim-ref>, further comprising assessing at least one of said second flight and said user fund a second transfer transaction cost for implementing said assignment of said present delay credit value M<b>1</b>(t).</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00030" num="00030" class="claim">
+    <div class="claim-text">30. The method of <claim-ref idref="CLM-00028">claim 28</claim-ref>, further comprising providing information for at least one of said user and said second flight concerning a present amount in said user fund after said re-assignment is implemented.</div>
+  </div>
+  </div> <div class="claim"> <div id="CLM-00031" num="00031" class="claim">
+    <div class="claim-text">31. A system for managing aircraft traffic between an origin airport and a destination airport, the system comprising a computer that is programmed:
+<div class="claim-text">to receive Traffic Flow Management (TFM) information for a route of a flight of a first aircraft from an origin airport to a destination airport, including at least one traffic flow restriction that affects an airport, a traffic flow sector or other resource utilized by the first aircraft; and</div>
+<div class="claim-text">to provide a present delay credit value M<b>1</b>(t) for the first aircraft, operated by an aircraft user, that is associated with the at least one flow restriction at a time t<b>0</b> determined with reference to a time at which the flow restriction is implemented; and</div>
+<div class="claim-text">to receive, from the user of the first aircraft, an assignment of part or all of the present delay credit value M<b>1</b>(1) to a user fund of delay credit values, maintained for the user, in order to provide a resulting delay credit value for the first flight and an augmented delay credit value for the user fund.</div>
+</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00032" num="00032" class="claim">
+    <div class="claim-text">32. The system of <claim-ref idref="CLM-00031">claim 31</claim-ref>, wherein said computer is further programmed to assess at least one of said first flight and said user fund a first transfer transaction cost for implementing said assignment of said present delay credit value M<b>1</b>(t).</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00033" num="00033" class="claim">
+    <div class="claim-text">33. The system of <claim-ref idref="CLM-00031">claim 31</claim-ref>, wherein said computer is further programmed to provide information for at least one of said user and said first flight concerning a present amount in said user fund after said assignment is implemented.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00034" num="00034" class="claim">
+    <div class="claim-text">34. The system of <claim-ref idref="CLM-00031">claim 31</claim-ref>, wherein said computer is further programmed to allow said user to re-assign part or all of said augmented delay credit value for said user fund to a selected second aircraft flight.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00035" num="00035" class="claim">
+    <div class="claim-text">35. The system of <claim-ref idref="CLM-00034">claim 34</claim-ref>, wherein said computer is further programmed to assess at least one of said second flight and said user fund a second transfer transaction cost for implementing said assignment of said present delay credit value M<b>1</b>(t).</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00036" num="00036" class="claim">
+    <div class="claim-text">36. The system of <claim-ref idref="CLM-00034">claim 34</claim-ref>, wherein said computer is further programmed to provide information for at least one of said user and said second flight concerning a present amount in said user fund after said re-assignment is implemented.</div>
+  </div>
+</div> </div>
+  </div>
+  </section>
+
+  <section itemprop="application" itemscope>
+
+    <section itemprop="metadata" itemscope>
+        <span itemprop="applicationNumber">US11/053,713</span>
+        <span itemprop="priorityDate">2005-02-01</span>
+        <span itemprop="filingDate">2005-02-01</span>
+        <span itemprop="title">Delay banking for air traffic management 
+       </span>
+        <span itemprop="ifiStatus">Active</span>
+        <span itemprop="ifiExpiration">2025-04-04</span>
+        <a href="/patent/US7313475B2/en">
+            <span itemprop="representativePublication">US7313475B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+        </a>
+    </section>
+
+    <h2>Priority Applications (1)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                    <th>Title</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="priorityApps" itemscope repeat>
+                <td>
+                   <span itemprop="applicationNumber">US11/053,713</span>
+                   
+                   <a href="/patent/US7313475B2/en">
+                        <span itemprop="representativePublication">US7313475B2</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                <td itemprop="priorityDate">2005-02-01</td>
+                <td itemprop="filingDate">2005-02-01</td>
+                <td itemprop="title">Delay banking for air traffic management 
+       </td>
+              </tr>
+           </tbody>
+       </table>
+
+    <h2>Applications Claiming Priority (2)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                    <th>Title</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="appsClaimingPriority" itemscope repeat>
+                <td>
+                   <span itemprop="applicationNumber">US11/053,713</span>
+                   <a href="/patent/US7313475B2/en">
+                        <span itemprop="representativePublication">US7313475B2</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                <td itemprop="priorityDate">2005-02-01</td>
+                <td itemprop="filingDate">2005-02-01</td>
+                <td itemprop="title">Delay banking for air traffic management 
+       </td>
+              </tr><tr itemprop="appsClaimingPriority" itemscope repeat>
+                <td>
+                   <span itemprop="applicationNumber">PCT/US2006/003582</span>
+                   <a href="/patent/WO2006083975A2/en">
+                        <span itemprop="representativePublication">WO2006083975A2</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                <td itemprop="priorityDate">2005-02-01</td>
+                <td itemprop="filingDate">2006-01-31</td>
+                <td itemprop="title">Delay banking for air traffic management 
+       </td>
+              </tr>
+           </tbody>
+       </table>
+
+    
+
+    
+
+    <h2>Publications (2)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Publication Number</th>
+                    <th>Publication Date</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="pubs" itemscope repeat>
+                <td>
+                   <span itemprop="publicationNumber">US20060173609A1</span>
+                   
+                   <a href="/patent/US20060173609A1/en">US20060173609A1
+                       (<span itemprop="primaryLanguage">en</span>)
+                   </a>
+                </td>
+                <td itemprop="publicationDate">2006-08-03</td>
+              </tr><tr itemprop="pubs" itemscope repeat>
+                <td>
+                   <span itemprop="publicationNumber">US7313475B2</span>
+                   
+                   <span itemprop="thisPatent">true</span>
+                   <a href="/patent/US7313475B2/en">US7313475B2
+                       (<span itemprop="primaryLanguage">en</span>)
+                   </a>
+                </td>
+                <td itemprop="publicationDate">2007-12-25</td>
+              </tr>
+           </tbody>
+        </table>
+
+  </section>
+
+  <section itemprop="family" itemscope>
+    <h1>Family</h1>
+    <h2>ID=36757702</h2>
+
+    <h2>Family Applications (1)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Title</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="applications" itemscope repeat>
+                <td>
+                    <span itemprop="applicationNumber">US11/053,713</span>
+                    <span itemprop="ifiStatus">Active</span>
+                    <span itemprop="ifiExpiration">2025-04-04</span>
+                    <a href="/patent/US7313475B2/en">
+                        <span itemprop="representativePublication">US7313475B2</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                </td>
+                <td itemprop="priorityDate">2005-02-01</td>
+                <td itemprop="filingDate">2005-02-01</td>
+                <td itemprop="title">Delay banking for air traffic management 
+       </td>
+              </tr>
+           </tbody>
+        </table>
+
+    
+
+    
+
+    <h2>Country Status (2)</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Country</th>
+            <th>Link</th>
+          </tr>
+        </thead>
+        <tbody>
+        <tr itemprop="countryStatus" itemscope repeat>
+            <td>
+              <span itemprop="countryCode">US</span>
+                (<span itemprop="num">1</span>)
+              <meta itemprop="thisCountry" content="true">
+            </td>
+            <td>
+              <a href="/patent/US7313475B2/en">
+                <span itemprop="representativePublication">US7313475B2</span>
+                  (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            </td>
+          </tr><tr itemprop="countryStatus" itemscope repeat>
+            <td>
+              <span itemprop="countryCode">WO</span>
+                (<span itemprop="num">1</span>)
+              
+            </td>
+            <td>
+              <a href="/patent/WO2006083975A2/en">
+                <span itemprop="representativePublication">WO2006083975A2</span>
+                  (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+    <h2>Cited By (6)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20090265049A1/en">
+              <span itemprop="publicationNumber">US20090265049A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2008-04-22</td>
+          <td itemprop="publicationDate">2009-10-22</td>
+          <td><span itemprop="assigneeOriginal">Honeywell International, Inc.</span></td>
+          <td itemprop="title">Aircraft system emissions and noise estimation mechanism 
+       </td>
+        </tr><tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US8604772B2/en">
+              <span itemprop="publicationNumber">US8604772B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2010-03-31</td>
+          <td itemprop="publicationDate">2013-12-10</td>
+          <td><span itemprop="assigneeOriginal">General Electric Company</span></td>
+          <td itemprop="title">MEMS-based resonant tunneling devices and arrays of such devices for electric field sensing 
+       </td>
+        </tr><tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US8700298B2/en">
+              <span itemprop="publicationNumber">US8700298B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2010-09-30</td>
+          <td itemprop="publicationDate">2014-04-15</td>
+          <td><span itemprop="assigneeOriginal">The Boeing Company</span></td>
+          <td itemprop="title">Tailored arrivals allocation system clearance generator 
+       </td>
+        </tr><tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US8818576B2/en">
+              <span itemprop="publicationNumber">US8818576B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2010-09-30</td>
+          <td itemprop="publicationDate">2014-08-26</td>
+          <td><span itemprop="assigneeOriginal">The Boeing Company</span></td>
+          <td itemprop="title">Tailored arrivals allocation system trajectory predictor 
+       </td>
+        </tr><tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US8942914B2/en">
+              <span itemprop="publicationNumber">US8942914B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2011-02-22</td>
+          <td itemprop="publicationDate">2015-01-27</td>
+          <td><span itemprop="assigneeOriginal">General Electric Company</span></td>
+          <td itemprop="title">Methods and systems for managing air traffic 
+       </td>
+        </tr><tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US9177480B2/en">
+              <span itemprop="publicationNumber">US9177480B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2011-02-22</td>
+          <td itemprop="publicationDate">2015-11-03</td>
+          <td><span itemprop="assigneeOriginal">Lockheed Martin Corporation</span></td>
+          <td itemprop="title">Schedule management system and method for managing air traffic 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Families Citing this family (9)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/AU2009203115B2/en">
+              <span itemprop="publicationNumber">AU2009203115B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2007-12-28</td>
+          <td itemprop="publicationDate">2014-04-10</td>
+          <td><span itemprop="assigneeOriginal">Airservices Australia</span></td>
+          <td itemprop="title">A method and system of controlling air traffic 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US8874459B1/en">
+              <span itemprop="publicationNumber">US8874459B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2008-07-31</td>
+          <td itemprop="publicationDate">2014-10-28</td>
+          <td><span itemprop="assigneeOriginal">American Airlines, Inc.</span></td>
+          <td itemprop="title">System and method for providing flight data services 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US9159240B2/en">
+              <span itemprop="publicationNumber">US9159240B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2009-03-17</td>
+          <td itemprop="publicationDate">2015-10-13</td>
+          <td><span itemprop="assigneeOriginal">The Boeing Company</span></td>
+          <td itemprop="title">Methods and systems for tailored allocation of arrivals 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20110055770A1/en">
+              <span itemprop="publicationNumber">US20110055770A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2009-08-31</td>
+          <td itemprop="publicationDate">2011-03-03</td>
+          <td><span itemprop="assigneeOriginal">Hed Maria B</span></td>
+          <td itemprop="title">User interface method and apparatus for a reservation departure and control system 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US9180978B2/en">
+              <span itemprop="publicationNumber">US9180978B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2010-07-15</td>
+          <td itemprop="publicationDate">2015-11-10</td>
+          <td><span itemprop="assigneeOriginal">Passur Aerospace, Inc.</span></td>
+          <td itemprop="title">System and method for departure metering from airports 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US8554457B2/en">
+              <span itemprop="publicationNumber">US8554457B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2010-07-15</td>
+          <td itemprop="publicationDate">2013-10-08</td>
+          <td><span itemprop="assigneeOriginal">Passur Aerospace, Inc.</span></td>
+          <td itemprop="title">System and method for airport surface management 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US9177479B2/en">
+              <span itemprop="publicationNumber">US9177479B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2013-03-13</td>
+          <td itemprop="publicationDate">2015-11-03</td>
+          <td><span itemprop="assigneeOriginal">General Electric Company</span></td>
+          <td itemprop="title">System and method for determining aircraft operational parameters and enhancing aircraft operation 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20160071044A1/en">
+              <span itemprop="publicationNumber">US20160071044A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2014-09-05</td>
+          <td itemprop="publicationDate">2016-03-10</td>
+          <td><span itemprop="assigneeOriginal">Amadeus S.A.S.</span></td>
+          <td itemprop="title">Flight schedule optimization 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US10170007B2/en">
+              <span itemprop="publicationNumber">US10170007B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2016-06-23</td>
+          <td itemprop="publicationDate">2019-01-01</td>
+          <td><span itemprop="assigneeOriginal">Ge Aviation Systems Llc</span></td>
+          <td itemprop="title">Trajectory amendment system 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Citations (5)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/JP2000331300A/en">
+              <span itemprop="publicationNumber">JP2000331300A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1999-05-24</td>
+          <td itemprop="publicationDate">2000-11-30</td>
+          <td><span itemprop="assigneeOriginal">Nec Software Kyushu Ltd</span></td>
+          <td itemprop="title">Air traffic flow managing system and air traffic flow managing method 
+     </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6314361B1/en">
+              <span itemprop="publicationNumber">US6314361B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1999-07-30</td>
+          <td itemprop="publicationDate">2001-11-06</td>
+          <td><span itemprop="assigneeOriginal">Caleb Technologies Corp.</span></td>
+          <td itemprop="title">Optimization engine for flight assignment, scheduling and routing of aircraft in response to irregular operations 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6393358B1/en">
+              <span itemprop="publicationNumber">US6393358B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1999-07-30</td>
+          <td itemprop="publicationDate">2002-05-21</td>
+          <td><span itemprop="assigneeOriginal">The United States Of America As Represented By The Administrator Of The National Aeronautics And Space Administration</span></td>
+          <td itemprop="title">En route spacing system and method 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20030078719A1/en">
+              <span itemprop="publicationNumber">US20030078719A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2001-10-19</td>
+          <td itemprop="publicationDate">2003-04-24</td>
+          <td><span itemprop="assigneeOriginal">Zobell Stephen M.</span></td>
+          <td itemprop="title">Traffic flow management method and system for weather problem resolution 
+     </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20050071206A1/en">
+              <span itemprop="publicationNumber">US20050071206A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2003-04-30</td>
+          <td itemprop="publicationDate">2005-03-31</td>
+          <td><span itemprop="assigneeOriginal">The Boeing Company</span></td>
+          <td itemprop="title">System, method and computer program product for schedule recovery 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+
+    
+
+    
+    <ul>
+      
+      <li itemprop="applicationsByYear" itemscope repeat>
+        <span itemprop="year">2005</span>
+        <ul>
+          
+          <li itemprop="application" itemscope repeat>
+            <span itemprop="filingDate">2005-02-01</span>
+            <span itemprop="countryCode">US</span>
+            <span itemprop="applicationNumber">US11/053,713</span>
+            <a href="/patent/US7313475B2/en"><span itemprop="documentId">patent/US7313475B2/en</span></a>
+            <span itemprop="legalStatusCat">active</span>
+            <span itemprop="legalStatus">Active</span>
+            
+            <span itemprop="thisApp" content="true" bool></span>
+            
+          </li>
+          
+        </ul>
+      </li>
+      
+      <li itemprop="applicationsByYear" itemscope repeat>
+        <span itemprop="year">2006</span>
+        <ul>
+          
+          <li itemprop="application" itemscope repeat>
+            <span itemprop="filingDate">2006-01-31</span>
+            <span itemprop="countryCode">WO</span>
+            <span itemprop="applicationNumber">PCT/US2006/003582</span>
+            <a href="/patent/WO2006083975A2/en"><span itemprop="documentId">patent/WO2006083975A2/en</span></a>
+            <span itemprop="legalStatusCat">active</span>
+            <span itemprop="legalStatus">Application Filing</span>
+            
+          </li>
+          
+        </ul>
+      </li>
+      
+    </ul>
+    
+
+    </section>
+
+  <section>
+    <h2>Patent Citations (5)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/JP2000331300A/en">
+              <span itemprop="publicationNumber">JP2000331300A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1999-05-24</td>
+          <td itemprop="publicationDate">2000-11-30</td>
+          <td><span itemprop="assigneeOriginal">Nec Software Kyushu Ltd</span></td>
+          <td itemprop="title">Air traffic flow managing system and air traffic flow managing method 
+     </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6314361B1/en">
+              <span itemprop="publicationNumber">US6314361B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1999-07-30</td>
+          <td itemprop="publicationDate">2001-11-06</td>
+          <td><span itemprop="assigneeOriginal">Caleb Technologies Corp.</span></td>
+          <td itemprop="title">Optimization engine for flight assignment, scheduling and routing of aircraft in response to irregular operations 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6393358B1/en">
+              <span itemprop="publicationNumber">US6393358B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1999-07-30</td>
+          <td itemprop="publicationDate">2002-05-21</td>
+          <td><span itemprop="assigneeOriginal">The United States Of America As Represented By The Administrator Of The National Aeronautics And Space Administration</span></td>
+          <td itemprop="title">En route spacing system and method 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20030078719A1/en">
+              <span itemprop="publicationNumber">US20030078719A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2001-10-19</td>
+          <td itemprop="publicationDate">2003-04-24</td>
+          <td><span itemprop="assigneeOriginal">Zobell Stephen M.</span></td>
+          <td itemprop="title">Traffic flow management method and system for weather problem resolution 
+     </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20050071206A1/en">
+              <span itemprop="publicationNumber">US20050071206A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2003-04-30</td>
+          <td itemprop="publicationDate">2005-03-31</td>
+          <td><span itemprop="assigneeOriginal">The Boeing Company</span></td>
+          <td itemprop="title">System, method and computer program product for schedule recovery 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Non-Patent Citations (4)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Green, et al., Development and Evaluation of a Profile Negotiation Process for Integrating Aircraft and Air Traffic Control . . . , NASA Technical Memorandum 4360, Apr. 1993.</span>
+            
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Green, et al., Distributed Air/Ground Traffic Management for En Route Flight Operations, Air Traffic Control Quarterly, Special Issue, 2001, 259-285, 9-4.</span>
+            
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Green, et al., Distributed Air-Ground Traffic Management for En Route Fligh . . . ; Proceedings of AIAA Guidance, Navigation, and Control Conference, Aug. 14-17, 2000, Denver, CO.</span>
+            
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Green, et al., Enabling User Preferences Through Data Exchange, Proceedings of AIAA Guidance, Navigation, and Control Conference, Aug. 11-13, 1997, New Orleans, LA.</span>
+            
+            
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <h2>Cited By (6)</h2>
+  <table>
+    <caption>* Cited by examiner, † Cited by third party</caption>
+    <thead>
+      <tr>
+        <th>Publication number</th>
+        <th>Priority date</th>
+        <th>Publication date</th>
+        <th>Assignee</th>
+        <th>Title</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US20090265049A1/en">
+            <span itemprop="publicationNumber">US20090265049A1</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2008-04-22</td>
+        <td itemprop="publicationDate">2009-10-22</td>
+        <td><span itemprop="assigneeOriginal">Honeywell International, Inc.</span></td>
+        <td itemprop="title">Aircraft system emissions and noise estimation mechanism 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US8604772B2/en">
+            <span itemprop="publicationNumber">US8604772B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          
+          
+        </td>
+        <td itemprop="priorityDate">2010-03-31</td>
+        <td itemprop="publicationDate">2013-12-10</td>
+        <td><span itemprop="assigneeOriginal">General Electric Company</span></td>
+        <td itemprop="title">MEMS-based resonant tunneling devices and arrays of such devices for electric field sensing 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US8700298B2/en">
+            <span itemprop="publicationNumber">US8700298B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          
+          
+        </td>
+        <td itemprop="priorityDate">2010-09-30</td>
+        <td itemprop="publicationDate">2014-04-15</td>
+        <td><span itemprop="assigneeOriginal">The Boeing Company</span></td>
+        <td itemprop="title">Tailored arrivals allocation system clearance generator 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US8818576B2/en">
+            <span itemprop="publicationNumber">US8818576B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          
+          
+        </td>
+        <td itemprop="priorityDate">2010-09-30</td>
+        <td itemprop="publicationDate">2014-08-26</td>
+        <td><span itemprop="assigneeOriginal">The Boeing Company</span></td>
+        <td itemprop="title">Tailored arrivals allocation system trajectory predictor 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US8942914B2/en">
+            <span itemprop="publicationNumber">US8942914B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          
+          
+        </td>
+        <td itemprop="priorityDate">2011-02-22</td>
+        <td itemprop="publicationDate">2015-01-27</td>
+        <td><span itemprop="assigneeOriginal">General Electric Company</span></td>
+        <td itemprop="title">Methods and systems for managing air traffic 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US9177480B2/en">
+            <span itemprop="publicationNumber">US9177480B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          
+          
+        </td>
+        <td itemprop="priorityDate">2011-02-22</td>
+        <td itemprop="publicationDate">2015-11-03</td>
+        <td><span itemprop="assigneeOriginal">Lockheed Martin Corporation</span></td>
+        <td itemprop="title">Schedule management system and method for managing air traffic 
+       </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <section>
+    <h2>Also Published As</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Publication date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="docdbFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/WO2006083975A3/en">
+              <span itemprop="publicationNumber">WO2006083975A3</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+          </td>
+          <td itemprop="publicationDate">2007-06-14</td>
+        </tr><tr itemprop="docdbFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20060173609A1/en">
+              <span itemprop="publicationNumber">US20060173609A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+          </td>
+          <td itemprop="publicationDate">2006-08-03</td>
+        </tr><tr itemprop="docdbFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/WO2006083975A2/en">
+              <span itemprop="publicationNumber">WO2006083975A2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+          </td>
+          <td itemprop="publicationDate">2006-08-10</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Similar Documents</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Publication</th>
+          <th>Publication Date</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="9285926832653751851">
+              <a href="/scholar/9285926832653751851"><span itemprop="scholarAuthors">Newell</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1979">1979</time>
+            
+          </td>
+          <td itemprop="title">Airport capacity and delays</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="17621779339582111455">
+              <a href="/scholar/17621779339582111455"><span itemprop="scholarAuthors">Chowdhury et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2003">2003</time>
+            
+          </td>
+          <td itemprop="title">Fundamentals of intelligent transportation systems planning</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US9171476B2/en">
+                <span itemprop="publicationNumber">US9171476B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2015-10-27">2015-10-27</time>
+            
+            
+          </td>
+          <td itemprop="title">System and method for airport surface management 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="17554004879115496538">
+              <a href="/scholar/17554004879115496538"><span itemprop="scholarAuthors">Rosenberger et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2002">2002</time>
+            
+          </td>
+          <td itemprop="title">A stochastic model of airline operations</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="5048001860734538256">
+              <a href="/scholar/5048001860734538256"><span itemprop="scholarAuthors">Lulli et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2007">2007</time>
+            
+          </td>
+          <td itemprop="title">The European air traffic flow management problem</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/EP2492889B1/en">
+                <span itemprop="publicationNumber">EP2492889B1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2017-10-25">2017-10-25</time>
+            
+            
+          </td>
+          <td itemprop="title">Methods and systems for managing air traffic 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US10134291B2/en">
+                <span itemprop="publicationNumber">US10134291B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2018-11-20">2018-11-20</time>
+            
+            
+          </td>
+          <td itemprop="title">System and method for management of airspace for unmanned aircraft 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="16001507547165259304">
+              <a href="/scholar/16001507547165259304"><span itemprop="scholarAuthors">Soomer et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2008">2008</time>
+            
+          </td>
+          <td itemprop="title">Scheduling aircraft landings using airlines’ preferences</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="2470764334882921888">
+              <a href="/scholar/2470764334882921888"><span itemprop="scholarAuthors">Glover et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1982">1982</time>
+            
+          </td>
+          <td itemprop="title">The passenger-mix problem in the scheduled airlines</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/EP2492856B1/en">
+                <span itemprop="publicationNumber">EP2492856B1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2019-04-10">2019-04-10</time>
+            
+            
+          </td>
+          <td itemprop="title">Methods and systems for managing air traffic 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="1762006308337244735">
+              <a href="/scholar/1762006308337244735"><span itemprop="scholarAuthors">Levinson</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2005">2005</time>
+            
+          </td>
+          <td itemprop="title">Micro-foundations of congestion and pricing: A game theory perspective</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/JP2892336B2/en">
+                <span itemprop="publicationNumber">JP2892336B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="1999-05-17">1999-05-17</time>
+            
+            
+          </td>
+          <td itemprop="title">  Runway reservation system  </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="3600661221182680142">
+              <a href="/scholar/3600661221182680142"><span itemprop="scholarAuthors">Ball et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2001">2001</time>
+            
+          </td>
+          <td itemprop="title">Collaborative decision making in air traffic management: Current and future research directions</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US7333887B2/en">
+                <span itemprop="publicationNumber">US7333887B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2008-02-19">2008-02-19</time>
+            
+            
+          </td>
+          <td itemprop="title">Method and system for tactical gate management by aviation entities 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="16153782856552385385">
+              <a href="/scholar/16153782856552385385"><span itemprop="scholarAuthors">Reynolds-Feighan et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1999">1999</time>
+            
+          </td>
+          <td itemprop="title">An assessment of the capacity and congestion levels at European airports</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US9159240B2/en">
+                <span itemprop="publicationNumber">US9159240B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2015-10-13">2015-10-13</time>
+            
+            
+          </td>
+          <td itemprop="title">Methods and systems for tailored allocation of arrivals 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="6709996553395469067">
+              <a href="/scholar/6709996553395469067"><span itemprop="scholarAuthors">Hsu et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2003">2003</time>
+            
+          </td>
+          <td itemprop="title">Determining flight frequencies on an airline network with demand–supply interactions</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="5151379746366710630">
+              <a href="/scholar/5151379746366710630"><span itemprop="scholarAuthors">Odoni</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1987">1987</time>
+            
+          </td>
+          <td itemprop="title">The flow management problem in air traffic control</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US6463383B1/en">
+                <span itemprop="publicationNumber">US6463383B1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2002-10-08">2002-10-08</time>
+            
+            
+          </td>
+          <td itemprop="title">Method and system for aircraft flow management by airlines/aviation authorities 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US7702427B1/en">
+                <span itemprop="publicationNumber">US7702427B1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2010-04-20">2010-04-20</time>
+            
+            
+          </td>
+          <td itemprop="title">Air traffic management evaluation tool 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="15687005316756636711">
+              <a href="/scholar/15687005316756636711"><span itemprop="scholarAuthors">Ball et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2006">2006</time>
+            
+          </td>
+          <td itemprop="title">Auctions for the safe, efficient, and equitable allocation of airspace system resources</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="13836357428677937142">
+              <a href="/scholar/13836357428677937142"><span itemprop="scholarAuthors">Mayer et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2003">2003</time>
+            
+          </td>
+          <td itemprop="title">Network effects, congestion externalities, and air traffic delays: Or why not all delays are evil</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US10217069B2/en">
+                <span itemprop="publicationNumber">US10217069B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2019-02-26">2019-02-26</time>
+            
+            
+          </td>
+          <td itemprop="title">Systems and methods for vehicle resource management 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US20030050746A1/en">
+                <span itemprop="publicationNumber">US20030050746A1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2003-03-13">2003-03-13</time>
+            
+            
+          </td>
+          <td itemprop="title">Method and system for tracking and prediction of aircraft trajectories 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="10144254097252469520">
+              <a href="/scholar/10144254097252469520"><span itemprop="scholarAuthors">Helme</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1992">1992</time>
+            
+          </td>
+          <td itemprop="title">Reducing air traffic delay in a space-time network</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Legal Events</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Code</th>
+          <th>Title</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2005-09-13">2005-09-13</time></td>
+          <td itemprop="code">AS</td>
+          <td itemprop="title">Assignment</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Owner name</strong>:
+              <span itemprop="value">USA AS REPRESENTED BY THE ADMINISTRATOR OF NASA, D</span>
+            </p>
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">ASSIGNMENT OF ASSIGNORS INTEREST;ASSIGNOR:GREEN, STEVEN M.;REEL/FRAME:016790/0264</span>
+            </p>
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Effective date</strong>:
+              <span itemprop="value">20050906</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2007-12-05">2007-12-05</time></td>
+          <td itemprop="code">STCF</td>
+          <td itemprop="title">Information on status: patent grant</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">PATENTED CASE</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2011-06-08">2011-06-08</time></td>
+          <td itemprop="code">FPAY</td>
+          <td itemprop="title">Fee payment</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Year of fee payment</strong>:
+              <span itemprop="value">4</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2015-03-31">2015-03-31</time></td>
+          <td itemprop="code">FPAY</td>
+          <td itemprop="title">Fee payment</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Year of fee payment</strong>:
+              <span itemprop="value">8</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2019-08-12">2019-08-12</time></td>
+          <td itemprop="code">FEPP</td>
+          <td itemprop="title">Fee payment procedure</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">MAINTENANCE FEE REMINDER MAILED (ORIGINAL EVENT CODE: REM.); ENTITY STATUS OF PATENT OWNER: LARGE ENTITY</span>
+            </p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+</article>
+
+    </search-app>
+    <script type="text/javascript" src="//www.gstatic.com/feedback/api.js"></script>
+    <script async="" defer="" src="//www.google.com/insights/consumersurveys/async_survey?site=cxkjf7ipxgbnnjy6k35ezcvbbe"></script>
+  </body>
+</html>

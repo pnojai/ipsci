@@ -1,0 +1,3096 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>US8108178B2 - Directed design of experiments for validating probability of detection capability of a testing system 
+        - Google Patents</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="referrer" content="origin-when-crossorigin">
+    <link rel="canonical" href="https://patents.google.com/patent/US8108178B2/en">
+    <meta name="description" content="
+     A method of validating a probability of detection (POD) testing system using directed design of experiments (DOE) includes recording an input data set of observed hit and miss or analog data for sample components as a function of size of a flaw in the components. The method also includes processing the input data set to generate an output data set having an optimal class width, assigning a case number to the output data set, and generating validation instructions based on the assigned case number. An apparatus includes a host machine for receiving the input data set from the testing system and an algorithm for executing DOE to validate the test system. The algorithm applies DOE to the input data set to determine a data set having an optimal class width, assigns a case number to that data set, and generates validation instructions based on the case number. 
+   
+   ">
+    
+    <meta name="DC.type" content="patent">
+    
+    <meta name="DC.title" content="Directed design of experiments for validating probability of detection capability of a testing system 
+       ">
+    
+    <meta name="DC.date" content="2009-05-18" scheme="dateSubmitted">
+    
+    <meta name="DC.description" content="
+     A method of validating a probability of detection (POD) testing system using directed design of experiments (DOE) includes recording an input data set of observed hit and miss or analog data for sample components as a function of size of a flaw in the components. The method also includes processing the input data set to generate an output data set having an optimal class width, assigning a case number to the output data set, and generating validation instructions based on the assigned case number. An apparatus includes a host machine for receiving the input data set from the testing system and an algorithm for executing DOE to validate the test system. The algorithm applies DOE to the input data set to determine a data set having an optimal class width, assigns a case number to that data set, and generates validation instructions based on the case number. 
+   
+   ">
+    
+    <meta name="citation_patent_application_number" content="US:12/467,475">
+    
+    <meta name="citation_pdf_url" content="https://patentimages.storage.googleapis.com/06/36/90/670ec4ba1b4c42/US8108178.pdf">
+    
+    <meta name="citation_patent_number" content="US:8108178">
+    
+    <meta name="DC.date" content="2012-01-31" scheme="issue">
+    
+    <meta name="DC.contributor" content="Edward R. Generazio" scheme="inventor">
+    
+    <meta name="DC.contributor" content="National Aeronautics and Space Administration (NASA)" scheme="assignee">
+    
+    <meta name="DC.relation" content="US:6195624" scheme="references">
+    
+    <meta name="DC.relation" content="US:6157699" scheme="references">
+    
+    <meta name="DC.relation" content="US:7333648" scheme="references">
+    
+    <meta name="DC.relation" content="US:6799145" scheme="references">
+    
+    <meta name="DC.relation" content="US:7917895" scheme="references">
+    
+    <meta name="DC.relation" content="US:7490319" scheme="references">
+    
+    <meta name="DC.relation" content="US:20060010426:A1" scheme="references">
+    
+    <meta name="DC.relation" content="US:7155369" scheme="references">
+    
+    <meta name="DC.relation" content="US:7403871" scheme="references">
+    
+    <meta name="DC.relation" content="US:20080183402:A1" scheme="references">
+    
+    <meta name="citation_reference" content="Edward R. Generazio, &#34;Directed Design of Experiments for Validating Probability of Detection Capability of NDE Systems (DOEPOD)&#34;, 34th Annual Review in Quantitative Nondestructive Evaluation, Jul. 2007." scheme="references">
+    
+    <meta name="citation_reference" content="Edward R. Generazio, &#34;Nondestructive Testing for Mission Assurance&#34;, NDE/NDT for Highways and Bridges: Structural Materials Technology (SMT) 2008, Oakland, CA Sep. 8-12, 2008." scheme="references">
+    
+    <meta name="citation_reference" content="Edward R. Generzaio, &#34;Design of Experiments for Validating Probability of Detection Capability of Nondestructive Evaluation Systems and Qualification of Inspectors (DOEPOD)&#34; Quality Leadership Forum, KSC, Mar. 18-19, 2009." scheme="references">
+    
+    <meta name="citation_reference" content="Mil-Handbook-1823, Nondestructive Evaluation System Reliability Assessment, Apr. 30, 1999." scheme="references">
+    
+    <meta name="citation_reference" content="NASA-STD-5009, Nondestructive Evaluation Requirements for Fracture C cal Metallic Components, Apr. 7, 2008." scheme="references">
+    
+    <meta name="citation_reference" content="Standard NDE Guidelines and Requirements for Fracture Control Programs, MSFC-STD-1249, National Aeronautics and Space Administration, Sep. 1985." scheme="references">
+    
+    <meta name="citation_reference" content="Ward D. Rummel, Recommended Practice for Demonstration of Nondestructive Evaluation (NDE) Reliability on Aircraft Production Parts, Materials Evaluation, vol. 40, Aug. 1982." scheme="references">
+    
+    <meta name="citation_reference" content="Yee et al., Assessment of NDE Reliability Data, Final Report, Jul. 1974-Sep. 1975 (General Dynamics/Fort Worth and Vanderbilt University, Nashville, Tennessee) NASA-CR-134991." scheme="references">
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,400italic,500,500italic,700">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Product+Sans">
+    <style>
+      body { transition: none; }
+    </style>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-27188110-4', 'auto');
+
+      version = 'patent-search.search_20191120_RC00';
+
+      function sendFeedback() {
+        userfeedback.api.startFeedback({
+          'productId': '713680',
+          'bucket': 'patent-search-web',
+          'productVersion': version,
+        });
+      }
+
+      window.experiments = {};
+      window.experiments.patentCountries = "ae,ag,al,am,ao,ap,ar,at,au,aw,az,ba,bb,bd,be,bf,bg,bh,bj,bn,bo,br,bw,bx,by,bz,ca,cf,cg,ch,ci,cl,cm,cn,co,cr,cs,cu,cy,cz,dd,de,dj,dk,dm,do,dz,ea,ec,ee,eg,em,ep,es,fi,fr,ga,gb,gc,gd,ge,gh,gm,gn,gq,gr,gt,gw,hk,hn,hr,hu,ib,id,ie,il,in,ir,is,it,jo,jp,ke,kg,kh,km,kn,kp,kr,kw,kz,la,lc,li,lk,lr,ls,lt,lu,lv,ly,ma,mc,md,me,mg,mk,ml,mn,mo,mr,mt,mw,mx,my,mz,na,ne,ng,ni,nl,no,nz,oa,om,pa,pe,pg,ph,pl,pt,py,qa,ro,rs,ru,rw,sa,sc,sd,se,sg,si,sk,sl,sm,sn,st,su,sv,sy,sz,td,tg,th,tj,tm,tn,tr,tt,tw,tz,ua,ug,us,uy,uz,vc,ve,vn,wo,yu,za,zm,zw";
+      
+      
+      window.profilePicture = "";
+
+      window.Polymer = {
+        dom: 'shady',
+        lazyRegister: true,
+      };
+    </script>
+
+    <script src="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/webcomponentsjs/webcomponents-lite.min.js"></script>
+    
+    <link rel="import" href="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/search-app-vulcanized.html">
+    
+  </head>
+  <body unresolved>
+    
+    <script src="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/search-app-vulcanized.js"></script>
+    
+    <search-app>
+      
+      
+
+      <article class="result" itemscope itemtype="http://schema.org/ScholarlyArticle">
+  <h1 itemprop="pageTitle">US8108178B2 - Directed design of experiments for validating probability of detection capability of a testing system 
+        - Google Patents</h1>
+  <span itemprop="title">Directed design of experiments for validating probability of detection capability of a testing system 
+       </span>
+
+  <meta itemprop="type" content="patent">
+  <a href="https://patentimages.storage.googleapis.com/06/36/90/670ec4ba1b4c42/US8108178.pdf" itemprop="pdfLink">Download PDF</a>
+  <h2>Info</h2>
+
+  <dl>
+    <dt>Publication number</dt>
+    <dd itemprop="publicationNumber">US8108178B2</dd>
+    <meta itemprop="numberWithoutCodes" content="8108178">
+    <meta itemprop="kindCode" content="B2">
+    <meta itemprop="publicationDescription" content="Patent ( having previously published pre-grant publication)">
+    
+    <span>US8108178B2</span>
+    
+    <span>US12/467,475</span>
+    
+    <span>US46747509A</span>
+    
+    <span>US8108178B2</span>
+    
+    <span>US 8108178 B2</span>
+    
+    <span>US8108178 B2</span>
+    
+    <span>US 8108178B2</span>
+    
+    <span>  </span>
+    
+    <span> </span>
+    
+    <span> </span>
+    
+    <span>US 46747509 A</span>
+    
+    <span>US46747509 A</span>
+    
+    <span>US 46747509A</span>
+    
+    <span>US 8108178 B2</span>
+    
+    <span>US8108178 B2</span>
+    
+    <span>US 8108178B2</span>
+    
+
+    <dt>Authority</dt>
+    <dd itemprop="countryCode">US</dd>
+    <dd itemprop="countryName">United States</dd>
+
+    <dt>Prior art keywords</dt>
+    
+    <dd itemprop="priorArtKeywords" repeat>data set</dd>
+    <dd itemprop="priorArtKeywords" repeat>input data</dd>
+    <dd itemprop="priorArtKeywords" repeat>testing system</dd>
+    <dd itemprop="priorArtKeywords" repeat>set</dd>
+    <dd itemprop="priorArtKeywords" repeat>class width</dd>
+
+    <dt>Prior art date</dt>
+    <dd><time itemprop="priorArtDate" datetime="2008-05-16">2008-05-16</time></dd>
+
+    <dt>Legal status (The legal status is an assumption and is not a legal conclusion. Google has not performed a legal analysis and makes no representation as to the accuracy of the status listed.)</dt>
+    <dd itemprop="legalStatusIfi" itemscope>
+      <span itemprop="status">Active</span>, expires <time itemprop="expiration" datetime="2030-05-05">2030-05-05</time>
+    </dd>
+  </dl>
+
+  <dt>Application number</dt>
+  <dd itemprop="applicationNumber">US12/467,475</dd>
+
+  
+
+  <dt>Other versions</dt>
+  <dd itemprop="directAssociations" itemscope repeat>
+    
+    <a href="/patent/US20100122117A1/en">
+      <span itemprop="publicationNumber">US20100122117A1</span>
+      (<span itemprop="primaryLanguage">en</span>
+    </a>
+  </dd>
+
+  <dt>Inventor</dt>
+  <dd itemprop="inventor" repeat>Edward R. Generazio</dd>
+  <dt>Current Assignee (The listed assignees may be inaccurate. Google has not performed a legal analysis and makes no representation or warranty as to the accuracy of the list.)</dt>
+  <dd itemprop="assigneeCurrent" repeat>
+    National Aeronautics and Space Administration (NASA)
+  </dd>
+
+  <dt>Original Assignee</dt>
+  <dd itemprop="assigneeOriginal" repeat>National Aeronautics and Space Administration (NASA)</dd>
+
+  <dt>Priority date (The priority date is an assumption and is not a legal conclusion. Google has not performed a legal analysis and makes no representation as to the accuracy of the date listed.)</dt>
+  <dd><time itemprop="priorityDate" datetime="2008-05-16">2008-05-16</time></dd>
+
+  <dt>Filing date</dt>
+  <dd><time itemprop="filingDate" datetime="2009-05-18">2009-05-18</time></dd>
+
+  <dt>Publication date</dt>
+  <dd><time itemprop="publicationDate" datetime="2012-01-31">2012-01-31</time></dd>
+
+  
+
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2008-05-16">2008-05-16</time>
+    <span itemprop="title">Priority to US5369408P</span>
+    <span itemprop="type">priority</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2008-10-30">2008-10-30</time>
+    <span itemprop="title">Priority to US10953108P</span>
+    <span itemprop="type">priority</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2009-03-10">2009-03-10</time>
+    <span itemprop="title">Priority to US15886809P</span>
+    <span itemprop="type">priority</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2009-05-18">2009-05-18</time>
+    <span itemprop="title">Application filed by National Aeronautics and Space Administration (NASA)</span>
+    <span itemprop="type">filed</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    <span itemprop="assigneeSearch">National Aeronautics and Space Administration (NASA)</span>
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2009-05-18">2009-05-18</time>
+    <span itemprop="title">Priority to US12/467,475</span>
+    <span itemprop="type">priority</span>
+    
+    
+    
+    <span itemprop="documentId">patent/US8108178B2/en</span>
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2009-05-27">2009-05-27</time>
+    <span itemprop="title">Assigned to UNITED STATES OF AMERICA AS REPRESENTED BY THE ADMINISTRATOR OF THE NATIONAL AERONAUTICS AND SPACE ADMINISTRATION</span>
+    <span itemprop="type">reassignment</span>
+    
+    
+    
+    
+    <span itemprop="assigneeSearch">UNITED STATES OF AMERICA AS REPRESENTED BY THE ADMINISTRATOR OF THE NATIONAL AERONAUTICS AND SPACE ADMINISTRATION</span>
+    
+    
+    <span itemprop="description" repeat>ASSIGNMENT OF ASSIGNORS INTEREST (SEE DOCUMENT FOR DETAILS).</span>
+    
+    <span itemprop="description" repeat>Assignors: GENERAZIO, EDWARD R.</span>
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2010-05-13">2010-05-13</time>
+    <span itemprop="title">Publication of US20100122117A1</span>
+    <span itemprop="type">publication</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    <span itemprop="documentId">patent/US20100122117A1/en</span>
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2012-01-31">2012-01-31</time>
+    <span itemprop="title">Application granted</span>
+    <span itemprop="type">granted</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2012-01-31">2012-01-31</time>
+    <span itemprop="title">Publication of US8108178B2</span>
+    <span itemprop="type">publication</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    <span itemprop="documentId">patent/US8108178B2/en</span>
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2019-11-25">2019-11-25</time>
+    <span itemprop="title">Application status is Active</span>
+    <span itemprop="type">legal-status</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2030-05-05">2030-05-05</time>
+    <span itemprop="title">Adjusted expiration</span>
+    <span itemprop="type">legal-status</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+
+  <h2>Links</h2>
+
+  <ul>
+    
+          <li itemprop="links" itemscope repeat>
+            <meta itemprop="id" content="usptoLink">
+            <a href="http://patft.uspto.gov/netacgi/nph-Parser?Sect1=PTO1&Sect2=HITOFF&p=1&u=/netahtml/PTO/srchnum.html&r=1&f=G&l=50&d=PALL&s1=8108178.PN." itemprop="url" target="_blank"><span itemprop="text">USPTO</span></a>
+          </li>
+        <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="usptoAssignmentLink">
+          <a href="https://assignment.uspto.gov/patent/index.html#/patent/search/resultFilter?searchInput=8108178" itemprop="url" target="_blank"><span itemprop="text">USPTO Assignment</span></a>
+        </li>
+
+    <li itemprop="links" itemscope repeat>
+        <meta itemprop="id" content="espacenetLink">
+        <a href="http://worldwide.espacenet.com/publicationDetails/biblio?CC=US&amp;NR=8108178B2&amp;KC=B2&amp;FT=D" itemprop="url" target="_blank"><span itemprop="text">Espacenet</span></a>
+      </li>
+      
+
+    
+
+    
+      <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="globalDossierLink">
+          <a href="http://globaldossier.uspto.gov/#/result/patent/US/8108178/1" itemprop="url" target="_blank"><span itemprop="text">Global Dossier</span></a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="stackexchangeLink">
+          <a href="https://patents.stackexchange.com/questions/tagged/US8108178" itemprop="url"><span itemprop="text">Discuss</span></a>
+        </li>
+      
+  </ul>
+
+  
+  <ul itemprop="concept" itemscope>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000004422</span>
+      <span itemprop="name">calculation algorithm</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>abstract</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">15</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000007689</span>
+      <span itemprop="name">inspection</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">39</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000000034</span>
+      <span itemprop="name">methods</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">16</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000015654</span>
+      <span itemprop="name">memory</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">10</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000004458</span>
+      <span itemprop="name">analytical methods</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">9</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001965</span>
+      <span itemprop="name">increased</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">4</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001066</span>
+      <span itemprop="name">destructive</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">3</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000007639</span>
+      <span itemprop="name">printing</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000004891</span>
+      <span itemprop="name">communication</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000000875</span>
+      <span itemprop="name">corresponding</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000000670</span>
+      <span itemprop="name">limiting</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000009826</span>
+      <span itemprop="name">distribution</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">5</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000000796</span>
+      <span itemprop="name">flavoring agent</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">3</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">235000019634</span>
+      <span itemprop="name">flavors</span>
+      <span itemprop="domain">Nutrition</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">3</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000005457</span>
+      <span itemprop="name">optimization</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">3</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000000694</span>
+      <span itemprop="name">effects</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">235000013305</span>
+      <span itemprop="name">food</span>
+      <span itemprop="domain">Nutrition</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000011133</span>
+      <span itemprop="name">lead</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000009659</span>
+      <span itemprop="name">non-destructive testing</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000000047</span>
+      <span itemprop="name">products</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000004044</span>
+      <span itemprop="name">response</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000005070</span>
+      <span itemprop="name">sampling</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000032683</span>
+      <span itemprop="name">aging</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000003570</span>
+      <span itemprop="name">air</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000004452</span>
+      <span itemprop="name">animal feeding substances</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000006399</span>
+      <span itemprop="name">behavior</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000000872</span>
+      <span itemprop="name">buffers</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000003750</span>
+      <span itemprop="name">conditioning</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">235000019800</span>
+      <span itemprop="name">disodium phosphate</span>
+      <span itemprop="domain">Nutrition</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000035611</span>
+      <span itemprop="name">feeding</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000010408</span>
+      <span itemprop="name">films</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001976</span>
+      <span itemprop="name">improved</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000007788</span>
+      <span itemprop="name">liquids</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000000463</span>
+      <span itemprop="name">materials</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000005259</span>
+      <span itemprop="name">measurements</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000000203</span>
+      <span itemprop="name">mixtures</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">-1</span>
+      <span itemprop="name">other</span>
+      <span itemprop="domain">Nutrition</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000004224</span>
+      <span itemprop="name">protection</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000007921</span>
+      <span itemprop="name">sprays</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000004642</span>
+      <span itemprop="name">transportation engineering</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+  </ul>
+  
+
+  <section>
+    <h2>Images</h2>
+    <ul>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/47/49/62/794db813976ff3/US08108178-20120131-D00000.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/be/8b/9f/51686beea67eea/US08108178-20120131-D00000.png">
+        <ul>
+          <li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="100">
+            <meta itemprop="label" content="algorithm">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="772">
+              <meta itemprop="top" content="52">
+              <meta itemprop="right" content="878">
+              <meta itemprop="bottom" content="105">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="102">
+            <meta itemprop="label" content="step">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="707">
+              <meta itemprop="top" content="273">
+              <meta itemprop="right" content="804">
+              <meta itemprop="bottom" content="326">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="104">
+            <meta itemprop="label" content="step">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="723">
+              <meta itemprop="top" content="520">
+              <meta itemprop="right" content="820">
+              <meta itemprop="bottom" content="574">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="106">
+            <meta itemprop="label" content="step">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="719">
+              <meta itemprop="top" content="755">
+              <meta itemprop="right" content="817">
+              <meta itemprop="bottom" content="809">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="22">
+            <meta itemprop="label" content="input data set">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="499">
+              <meta itemprop="top" content="336">
+              <meta itemprop="right" content="583">
+              <meta itemprop="bottom" content="394">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="24">
+            <meta itemprop="label" content="instructions">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="421">
+              <meta itemprop="top" content="1063">
+              <meta itemprop="right" content="510">
+              <meta itemprop="bottom" content="1125">
+            </span>
+          </li>
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/45/89/16/18fd94c89f069d/US08108178-20120131-D00001.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/16/35/ea/941c57e2f0b126/US08108178-20120131-D00001.png">
+        <ul>
+          <li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="10">
+            <meta itemprop="label" content="host">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1674">
+              <meta itemprop="top" content="235">
+              <meta itemprop="right" content="1744">
+              <meta itemprop="bottom" content="288">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="100">
+            <meta itemprop="label" content="algorithm">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1388">
+              <meta itemprop="top" content="1140">
+              <meta itemprop="right" content="1494">
+              <meta itemprop="bottom" content="1194">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="102">
+            <meta itemprop="label" content="step">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1318">
+              <meta itemprop="top" content="1362">
+              <meta itemprop="right" content="1422">
+              <meta itemprop="bottom" content="1414">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="104">
+            <meta itemprop="label" content="step">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1334">
+              <meta itemprop="top" content="1607">
+              <meta itemprop="right" content="1435">
+              <meta itemprop="bottom" content="1664">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="106">
+            <meta itemprop="label" content="step">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1332">
+              <meta itemprop="top" content="1843">
+              <meta itemprop="right" content="1432">
+              <meta itemprop="bottom" content="1898">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="12">
+            <meta itemprop="label" content="testing system">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="418">
+              <meta itemprop="top" content="236">
+              <meta itemprop="right" content="488">
+              <meta itemprop="bottom" content="289">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="14">
+            <meta itemprop="label" content="inspector">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="907">
+              <meta itemprop="top" content="871">
+              <meta itemprop="right" content="971">
+              <meta itemprop="bottom" content="926">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="16">
+            <meta itemprop="label" content="samples">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="385">
+              <meta itemprop="top" content="804">
+              <meta itemprop="right" content="456">
+              <meta itemprop="bottom" content="858">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="18">
+            <meta itemprop="label" content="data set">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="611">
+              <meta itemprop="top" content="293">
+              <meta itemprop="right" content="678">
+              <meta itemprop="bottom" content="346">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="20">
+            <meta itemprop="label" content="results">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="801">
+              <meta itemprop="top" content="661">
+              <meta itemprop="right" content="880">
+              <meta itemprop="bottom" content="714">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="22">
+            <meta itemprop="label" content="input data set">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1064">
+              <meta itemprop="top" content="125">
+              <meta itemprop="right" content="1133">
+              <meta itemprop="bottom" content="177">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="22">
+            <meta itemprop="label" content="input data set">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1108">
+              <meta itemprop="top" content="1424">
+              <meta itemprop="right" content="1199">
+              <meta itemprop="bottom" content="1481">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="24">
+            <meta itemprop="label" content="instructions">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1006">
+              <meta itemprop="top" content="376">
+              <meta itemprop="right" content="1087">
+              <meta itemprop="bottom" content="430">
+            </span>
+          </li>
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/39/6b/0c/06f7a8fc169e98/US08108178-20120131-D00002.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/4c/ed/01/07f1fdb2d1fc3f/US08108178-20120131-D00002.png">
+        <ul>
+          <li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="2">
+            <meta itemprop="id" content="1">
+            <meta itemprop="label" content="cases">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="239">
+              <meta itemprop="top" content="245">
+              <meta itemprop="right" content="274">
+              <meta itemprop="bottom" content="298">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="2">
+            <meta itemprop="id" content="22">
+            <meta itemprop="label" content="input data set">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="2227">
+              <meta itemprop="top" content="53">
+              <meta itemprop="right" content="2305">
+              <meta itemprop="bottom" content="105">
+            </span>
+          </li>
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/8b/46/6e/8c9b71f9c34b0d/US08108178-20120131-D00003.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/9e/35/f9/8b6cf2d8687863/US08108178-20120131-D00003.png">
+        <ul>
+          <li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="3">
+            <meta itemprop="id" content="40">
+            <meta itemprop="label" content="data point">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="752">
+              <meta itemprop="top" content="756">
+              <meta itemprop="right" content="836">
+              <meta itemprop="bottom" content="808">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="3">
+            <meta itemprop="id" content="46">
+            <meta itemprop="label" content="data point">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="675">
+              <meta itemprop="top" content="1479">
+              <meta itemprop="right" content="781">
+              <meta itemprop="bottom" content="1531">
+            </span>
+          </li>
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/88/a7/bb/430b198e5f0f80/US08108178-20120131-D00004.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/8f/65/e4/2935e6e0817aec/US08108178-20120131-D00004.png">
+        <ul>
+          <li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="4">
+            <meta itemprop="id" content="55">
+            <meta itemprop="label" content="data point">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="373">
+              <meta itemprop="top" content="1136">
+              <meta itemprop="right" content="469">
+              <meta itemprop="bottom" content="1178">
+            </span>
+          </li>
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/45/60/c6/6083d0a0d66ff8/US08108178-20120131-D00005.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/ee/da/2d/4c5951b5638afc/US08108178-20120131-D00005.png">
+        <ul>
+          <li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="5">
+            <meta itemprop="id" content="1">
+            <meta itemprop="label" content="cases">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="399">
+              <meta itemprop="top" content="1607">
+              <meta itemprop="right" content="435">
+              <meta itemprop="bottom" content="1662">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="5">
+            <meta itemprop="id" content="62">
+            <meta itemprop="label" content="high confidence zone">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="2497">
+              <meta itemprop="top" content="354">
+              <meta itemprop="right" content="2567">
+              <meta itemprop="bottom" content="407">
+            </span>
+          </li>
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/fe/10/1f/06ae5b01ad3b3a/US08108178-20120131-D00006.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/25/74/bc/37dc4c9eb138cb/US08108178-20120131-D00006.png">
+        <ul>
+          <li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="6">
+            <meta itemprop="id" content="1">
+            <meta itemprop="label" content="cases">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="675">
+              <meta itemprop="top" content="2287">
+              <meta itemprop="right" content="722">
+              <meta itemprop="bottom" content="2311">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="6">
+            <meta itemprop="id" content="1">
+            <meta itemprop="label" content="cases">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="827">
+              <meta itemprop="top" content="2281">
+              <meta itemprop="right" content="871">
+              <meta itemprop="bottom" content="2312">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="6">
+            <meta itemprop="id" content="1">
+            <meta itemprop="label" content="cases">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1152">
+              <meta itemprop="top" content="401">
+              <meta itemprop="right" content="1184">
+              <meta itemprop="bottom" content="417">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="6">
+            <meta itemprop="id" content="1">
+            <meta itemprop="label" content="cases">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="238">
+              <meta itemprop="top" content="1567">
+              <meta itemprop="right" content="270">
+              <meta itemprop="bottom" content="1578">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="6">
+            <meta itemprop="id" content="1">
+            <meta itemprop="label" content="cases">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="430">
+              <meta itemprop="top" content="2307">
+              <meta itemprop="right" content="476">
+              <meta itemprop="bottom" content="2315">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="6">
+            <meta itemprop="id" content="1">
+            <meta itemprop="label" content="cases">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="552">
+              <meta itemprop="top" content="2290">
+              <meta itemprop="right" content="593">
+              <meta itemprop="bottom" content="2311">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="6">
+            <meta itemprop="id" content="2">
+            <meta itemprop="label" content="f">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="982">
+              <meta itemprop="top" content="2304">
+              <meta itemprop="right" content="1026">
+              <meta itemprop="bottom" content="2320">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="6">
+            <meta itemprop="id" content="62">
+            <meta itemprop="label" content="high confidence zone">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="306">
+              <meta itemprop="top" content="233">
+              <meta itemprop="right" content="356">
+              <meta itemprop="bottom" content="308">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="6">
+            <meta itemprop="id" content="76">
+            <meta itemprop="label" content="Column">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="271">
+              <meta itemprop="top" content="1468">
+              <meta itemprop="right" content="304">
+              <meta itemprop="bottom" content="1512">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="6">
+            <meta itemprop="id" content="77">
+            <meta itemprop="label" content="Column">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="321">
+              <meta itemprop="top" content="1209">
+              <meta itemprop="right" content="367">
+              <meta itemprop="bottom" content="1272">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="6">
+            <meta itemprop="id" content="78">
+            <meta itemprop="label" content="Column">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="322">
+              <meta itemprop="top" content="994">
+              <meta itemprop="right" content="368">
+              <meta itemprop="bottom" content="1040">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="6">
+            <meta itemprop="id" content="79">
+            <meta itemprop="label" content="column">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="308">
+              <meta itemprop="top" content="244">
+              <meta itemprop="right" content="370">
+              <meta itemprop="bottom" content="306">
+            </span>
+          </li>
+        </ul>
+      </li>
+      </ul>
+  </section>
+
+  <section>
+    <h2>Classifications</h2>
+    
+    <ul>
+      <li>
+        <ul itemprop="cpcs" itemscope repeat>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G</span>&mdash;<span itemprop="Description">PHYSICS</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06</span>&mdash;<span itemprop="Description">COMPUTING; CALCULATING; COUNTING</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06Q</span>&mdash;<span itemprop="Description">DATA PROCESSING SYSTEMS OR METHODS, SPECIALLY ADAPTED FOR ADMINISTRATIVE, COMMERCIAL, FINANCIAL, MANAGERIAL, SUPERVISORY OR FORECASTING PURPOSES; SYSTEMS OR METHODS SPECIALLY ADAPTED FOR ADMINISTRATIVE, COMMERCIAL, FINANCIAL, MANAGERIAL, SUPERVISORY OR FORECASTING PURPOSES, NOT OTHERWISE PROVIDED FOR</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06Q10/00</span>&mdash;<span itemprop="Description">Administration; Management</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06Q10/06</span>&mdash;<span itemprop="Description">Resources, workflows, human or project management, e.g. organising, planning, scheduling or allocating time, human or machine resources; Enterprise planning; Organisational models</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06Q10/063</span>&mdash;<span itemprop="Description">Operations research or analysis</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06Q10/0639</span>&mdash;<span itemprop="Description">Performance analysis</span>
+            <meta itemprop="Leaf" content="true">
+            
+            <meta itemprop="FirstCode" content="true">
+          </li>
+          </ul>
+      </li>
+      <li>
+        <ul itemprop="cpcs" itemscope repeat>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G</span>&mdash;<span itemprop="Description">PHYSICS</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06</span>&mdash;<span itemprop="Description">COMPUTING; CALCULATING; COUNTING</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06Q</span>&mdash;<span itemprop="Description">DATA PROCESSING SYSTEMS OR METHODS, SPECIALLY ADAPTED FOR ADMINISTRATIVE, COMMERCIAL, FINANCIAL, MANAGERIAL, SUPERVISORY OR FORECASTING PURPOSES; SYSTEMS OR METHODS SPECIALLY ADAPTED FOR ADMINISTRATIVE, COMMERCIAL, FINANCIAL, MANAGERIAL, SUPERVISORY OR FORECASTING PURPOSES, NOT OTHERWISE PROVIDED FOR</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06Q10/00</span>&mdash;<span itemprop="Description">Administration; Management</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06Q10/20</span>&mdash;<span itemprop="Description">Product repair or maintenance administration</span>
+            <meta itemprop="Leaf" content="true">
+            
+            
+          </li>
+          </ul>
+      </li>
+      </ul>
+  </section>
+
+  <section itemprop="abstract" itemscope>
+    <h2>Abstract</h2>
+    
+    <div itemprop="content" html><abstract mxw-id="PA91229223" lang="EN" load-source="patent-office">
+    <div num="p-0001" class="abstract">A method of validating a probability of detection (POD) testing system using directed design of experiments (DOE) includes recording an input data set of observed hit and miss or analog data for sample components as a function of size of a flaw in the components. The method also includes processing the input data set to generate an output data set having an optimal class width, assigning a case number to the output data set, and generating validation instructions based on the assigned case number. An apparatus includes a host machine for receiving the input data set from the testing system and an algorithm for executing DOE to validate the test system. The algorithm applies DOE to the input data set to determine a data set having an optimal class width, assigns a case number to that data set, and generates validation instructions based on the case number.</div>
+  </abstract>
+  </div>
+  </section>
+
+  <section itemprop="description" itemscope>
+    <h2>Description</h2>
+    
+    <div itemprop="content" html><div mxw-id="PDES44341415" lang="EN" load-source="patent-office" class="description">
+    
+    <heading>CROSS-REFERENCE TO RELATED APPLICATIONS</heading>
+    <p num="p-0002">This application claims priority to and the benefit of U.S. Provisional Application 61/053,694 filed on May 16, 2008, U.S. Provisional Application 61/109,531 filed on Oct. 30, 2008, and U.S. Provisional Application 61/158,868 filed on Mar. 10, 2009, each of which is hereby incorporated by reference in its entirety.</p>
+    
+    
+    <heading>ORIGIN OF THE INVENTION</heading>
+    <p num="p-0003">The invention described herein was made by employees of the United States Government and may be manufactured and used by or for the Government of the United States of America for governmental purposes without the payment of any royalties thereon or therefor.</p>
+    
+    
+    <heading>TECHNICAL FIELD</heading>
+    <p num="p-0004">The present invention relates generally to the validation of a statistics-based testing system, and in particular to a computer-executed process or method that uses directed design of experiments (DOE) to validate the probability of detection (POD) capability of such a testing system.</p>
+    <heading>BACKGROUND OF THE INVENTION</heading>
+    <p num="p-0005">Certain applications may require nondestructive inspection evaluation (NDE) of new or used fracture-critical and/or failure-critical components. For example, in space-based and certain aeronautical applications, there may be elevated concern relating to the use of certain components due to aging and/or impact damage of the components. The presence of one-of-a-kind or few-of-a-kind critical components having a limited inspection history and use, and/or that are constructed of materials having limited availability, has only enhanced the overall inspection concern.</p>
+    <p num="p-0006">The determination of the capability of conventional inspection systems and methodologies using curve fitting or other techniques may be insufficient for use with updated and rapidly changing inspection requirements for such systems. For example, the National Aeronautics and Space Administration (NASA) currently requires on-orbit inspections of the Space Shuttle Orbiter&#39;s external thermal protection system. On-orbit testing is typically performed by trained astronauts as an extravehicular activity (EVA). Inspection of fracture-critical and failure-critical components requires inspection to be at 90% probability of detection (POD) with a 95% level of confidence, commonly referred to in the art and herein as a 90/95 POD.</p>
+    <p num="p-0007">Design of experiments or DOE describes a statistics-based process in which changes are made to various input variables of a system, and the effects on response variables are measured and recorded. DOE may utilize the concept of “point estimate probability of a hit” or POH at a given “flaw” size, with the term “flaw” referring to a physical flaw such as a crack in a component when used with physical inspection systems. When used with other systems, the term “flaw” may refer to any other variable one wishes to inspect for, e.g., delivery times, flavor levels in a food product, engineering properties, etc.</p>
+    <p num="p-0008">The determination of estimated POH at a selected flaw size may be a directly measured or observed value between 0 and 1. For a single trial, a “miss” is equal to 0 and a “hit” is equal to 1. Knowledge of an estimated POH yields a measure of the lower confidence bound, or P<sub>L</sub>. This process is statistically referred to as “observation of occurrences” and is distinct from use of functional forms that predict POD.</p>
+    <p num="p-0009">Traditionally, binomial distributions have been used for determining POD by direct observation of occurrences. Conventional binomial methodologies use a selection of arrangements for grouping flaws of similar characteristics. These approaches have led to the general acceptance of using the 29 out of 29 (29/29) binomial point estimate method, in combination with validation that the POD is increasing with flaw size, in order to meet certain governmental requirements or standards, e.g., MSFC-STD-1249, NASA-STD-5009, or similar standards.</p>
+    <heading>SUMMARY OF THE INVENTION</heading>
+    <p num="p-0010">Accordingly, a method and an apparatus as set forth herein provide a cost-effective way to validate the detection capability of various inspection or testing systems, with the term “validating” as used herein referring to an approval decision reflecting that the testing system meets a particular inspection requirement or accuracy threshold. The present invention works in binomial applications for POD by adding the concept of a computer-executable lower confidence bound optimization process as the driver for establishing a POD threshold, e.g., a 90/95 POD according to one embodiment, or any other desired POD threshold such as but not limited to 90/99 POD, 80/95 POD, etc., depending on the particular application.</p>
+    <p num="p-0011">The method and apparatus satisfy the requirement for critical applications where validation of inspection or testing systems, individual procedures, and ultimate qualification of human or robotic operators is required. Additionally, the method and apparatus yield an observed estimate of POD rather than a predicted estimate of POD, with functionality based on the application of the binomial distribution to a set of flaws that are automatically grouped into classes having predetermined widths, i.e., class widths.</p>
+    <p num="p-0012">The classes are automatically and systematically varied in class width using an automatic iteration process and DOE, with a host machine processing the input data set as described below to determine a data set having an optimal class width. In one embodiment the iteration may start at a minimally sized class width, e.g., approximately 0.001″, and change by constant values, e.g., increments of 0.001″ up to a maximum expected flaw size. Class width groupings may also start at the largest expected flaws and move toward the smallest expected flaw size. Flaw size may be any flaw dimension such as width, height, depth, volume, shape, etc., when used to describe physical flaws, or another value such as delivery time, flavor level, engineering-quality, etc., for other testing systems not concerned with physical flaws, without departing from the intended scope of the invention.</p>
+    <p num="p-0013">The largest class length in the first class width group may be assigned as the identifier in the group. The next moving class width group may be identified by decrementing the upper and lower class lengths by the constant value, e.g., 0.001″ in one embodiment. The present invention may also require for the purposes of validation that the POD increases with flaw size within the range of flaw sizes for which the results are valid, and may require inclusion of larger flaw sizes in the optimization process as set forth hereinbelow.</p>
+    <p num="p-0014">The present invention evaluates the lower confidence bound (P<sub>L</sub>) obtained from any class width group. If the lower confidence bound equals or exceeds 0.90 at any given class width group, there exists a grouping of flaws detected at the desired 90/95 POD or greater level. Otherwise, such a grouping does not exist. As an output or deliverable product, the present invention may provide a detailed set of instructions to a user of the testing system for obtaining the desired POD at a given or an alternate flaw size.</p>
+    <p num="p-0015">In particular, the present invention provides a method and apparatus for optimizing the lower confidence bound by adjusting the class widths used in the binomial analysis. Once the optimized lower confidence bound is determined, the input data set is identified as a particular case. After determining the case, the test system is either validated to be at the threshold inspection capability or the test system is not validated to be at threshold inspection capability. If the inspection system is not validated to be at the threshold inspection capability then instructions are given, that, when executed successfully, yield an inspection system that is at a threshold inspection capability or an alternate threshold inspection capability, or the inspection system is not capable of demonstrating the threshold inspection capability. Additional validation at the threshold inspection level is performed to assure that the inspection capability is increasing with flaw size, by including a number of large flaws in the sample set. The capability to include other POD data sets to extend the range of validation and to limit the sample requirements to meet geometric needs is included. The false call analysis requiring a minimum specified number of false call opportunities is required to complete all validation and qualifications.</p>
+    <p num="p-0016">The above features and advantages and other features and advantages of the present invention are readily apparent from the following detailed description of the best modes for carrying out the invention when taken in connection with the accompanying drawings.</p>
+    
+    
+    <description-of-drawings>
+      <heading>BRIEF DESCRIPTION OF THE DRAWINGS</heading>
+      <p num="p-0017"> <figref idrefs="DRAWINGS">FIG. 1</figref> is a schematic illustration of a host machine configured for validating a test system in accordance with the invention;</p>
+      <p num="p-0018"> <figref idrefs="DRAWINGS">FIG. 2</figref> is a chart describing an input data set of hit/miss data for the test system shown in <figref idrefs="DRAWINGS">FIG. 1</figref>;</p>
+      <p num="p-0019"> <figref idrefs="DRAWINGS">FIG. 3</figref> is a flow chart describing a method that may be executed using the host machine shown in <figref idrefs="DRAWINGS">FIG. 1</figref>;</p>
+      <p num="p-0020"> <figref idrefs="DRAWINGS">FIG. 4</figref> is a chart describing an initial set of observed probability of hit (POH) data;</p>
+      <p num="p-0021"> <figref idrefs="DRAWINGS">FIG. 5</figref> is a chart describing a partially optimized set of observed POH data;</p>
+      <p num="p-0022"> <figref idrefs="DRAWINGS">FIG. 6</figref> is a chart describing a probability of success in determining if the POD of large flaws is less than 90/95 POD in an exemplary embodiment; and</p>
+      <p num="p-0023"> <figref idrefs="DRAWINGS">FIG. 7</figref> is a table describing a set of cases useable by the host machine of <figref idrefs="DRAWINGS">FIG. 1</figref>.</p>
+    </description-of-drawings>
+    
+    
+    <heading>DESCRIPTION OF THE PREFERRED EMBODIMENTS</heading>
+    <p num="p-0024">Referring to the drawings, wherein like reference numbers represent like components throughout the several figures, and beginning with <figref idrefs="DRAWINGS">FIG. 1</figref>, a validation host machine <b>10</b>, hereinafter referred to as the host <b>10</b>, includes an algorithm <b>100</b> suitable for executing a test system validation method as set forth below with reference to <figref idrefs="DRAWINGS">FIG. 3</figref>. The host <b>10</b> may be used in conjunction with a testing system <b>12</b> for validating the detection capability of the testing system <b>12</b> to a predetermined threshold. e.g., 90/95 POD or another threshold, and if desired, for qualifying an operator or inspector <b>14</b> for operation of the testing system <b>12</b>. In <figref idrefs="DRAWINGS">FIG. 1</figref>, the testing system <b>12</b> is represented as a computer device for simplicity; however, the testing system <b>12</b> may include, or may itself be configured as, an inspection procedure, e.g., where an inspector uses liquid penetrants and spray developers with ultraviolet (UV) light and a 10× magnifier, etc.</p>
+    <p num="p-0025">Testing system <b>12</b> may be, according to one embodiment, a non-destructive inspection and evaluation (NDE) inspection system configured for use in the inspection of samples <b>16</b>. In such an embodiment, the samples <b>16</b> may be physical components, and inspection may be performed to identify cracks, pits, chips, or other flaws. Those of ordinary skill in the art will recognize other potential variations of the testing system <b>12</b> unrelated to inspection of physical components, e.g., physical delivery or logistical systems, food flavor or other quality sampling, engineering property sampling, etc., that are nevertheless statistical in nature, may also be used within the scope of the invention. However, for simplicity, the inspection of samples <b>16</b> in the form of physical components will be described hereinbelow.</p>
+    <p num="p-0026">The testing system <b>12</b> and host <b>10</b> may be configured as microprocessor-based devices having such common elements as a microprocessor or CPU, memory including but not limited to: read only memory (ROM), random access memory (RAM), electrically-programmable read-only memory (EPROM), etc., and circuitry including but not limited to: a high-speed clock (not shown), analog-to-digital (A/D) circuitry, digital-to-analog (D/A) circuitry, a digital signal processor or DSP, and the necessary input/output (I/O) devices and other signal conditioning and/or buffer circuitry.</p>
+    <p num="p-0027">An inspector <b>14</b>, e.g., a human inspector or an automated inspection device or robot, physically inspects each of the samples <b>16</b> and records the inspection results <b>20</b>. Samples <b>16</b> may be physical components as noted above such as parts of a space vehicle, platform, aircraft, etc., or anything else to be inspected. The inspection results <b>20</b> may describe the observed size of each of the flaws detected by the inspector <b>14</b>, or the detected amplitude or analog values as noted above. When referring to something other than a physical component, the term “flaws” may describe a predetermined variation from the expected norm.</p>
+    <p num="p-0028">The testing system <b>12</b> includes a calibrated data set <b>18</b> of the actual or known flaws contained in components <b>16</b>. That is, the collective set of samples <b>16</b> has known flaws and size distributions. For example, calibrated data set <b>18</b> may be determined via direct measurement and/or testing, whether nondestructive or destructive, and recorded in memory within or accessible by the testing system <b>12</b>. After the data set <b>18</b> is recorded, the inspector <b>14</b> is provided with the samples <b>16</b> and is required to identify each of the known flaws in the components <b>16</b>.</p>
+    <p num="p-0029">Referring to <figref idrefs="DRAWINGS">FIG. 2</figref>, once the inspection results <b>20</b> are recorded by the testing system <b>12</b>, the test system may automatically compare the inspection results <b>20</b> to the values in the calibrated data set <b>18</b> to determine whether a hit or miss is observed for each test. When used to detect physical flaws, flaw length may be the detected value according to one embodiment, and length is therefore used hereinbelow for simplicity even though descriptive values other than length may also be used. Alternately, analog values may be entered by the inspector <b>14</b> with the testing system <b>12</b> including a threshold, and the testing system <b>12</b> or host <b>10</b> may compare the results <b>20</b> with the threshold to determine the hit/miss results test. The analog threshold may be optimized to provide a tradeoff between optimum POD and false call rates.</p>
+    <p num="p-0030">The results of this comparison process is an input data set <b>22</b> as shown in <figref idrefs="DRAWINGS">FIG. 1</figref>, which provides a record of observation of each of the various flaws in the samples <b>16</b> arranged or organized by flaw size, i.e., the “hits” and “misses”. A POH equal to 1 refers to an observed flaw, as generally indicated by the series of “hit” data points <b>30</b>, while a POH equal to 0 refers to an unobserved flaw or a “miss” as generally indicated by the series of miss data points <b>32</b>. The testing system <b>12</b> may then feed or transmit the input data set <b>22</b> to the host <b>10</b> for processing therein using DOE as set forth below, and for ultimate validation of the detection capability of the testing system <b>12</b> and/or qualification of the inspector <b>14</b> by the host <b>10</b> using the algorithm <b>100</b>.</p>
+    <p num="p-0031">Before referring to <figref idrefs="DRAWINGS">FIG. 3</figref>, it is noted that binomial distribution may be used in conjunction with the algorithm <b>100</b>, which will be described below with reference to <figref idrefs="DRAWINGS">FIG. 3</figref>. Binomial distribution, as will be understood by those of ordinary skill in the art, describes the behavior of a count variable (X) if the following conditions apply: (1) the number of observations (N) is fixed; (2) each observation is independent; (3) each observation represents one of two outcomes, i.e., success or failure, e.g., “Hit” or “Miss”, respectively; and (4) the probability of a “Hit”, or POH, is the same for each outcome. If conditions 1-4 are met, then X has a binomial distribution.</p>
+    <p num="p-0032">Various binomial solutions may lead to a 90/95 POD, e.g., a 29/29 binomial solution, a 45/46 binomial solution, a 59/61 binomial solution, etc., as will be understood by those of ordinary skill in the art. In the 59/61 example in particular, beginning with 61 flaws in the group, each flaw has the same probability of being observed as a hit, and 61 observations are ultimately made. If 59 hits are observed then the POH is 59/61, or 0.97, i.e., the observed frequency. This value is only an estimated POH, as the true POH can only be approached by making an infinite number of observations, which is a practical impossibility. The uncertainty in the measurements or the confidence in the POH is another value to be ascertained. The term “confidence level” describes the measure of probability associated with a confidence interval expressing the probability of truth of a statement that the interval will include the parameter value. For NDE applications of the type used in space-based, military, or similar critical applications the confidence bound of interest for POH is the lower confidence bound.</p>
+    <p num="p-0033">In the example of 90/95 POD, which may be imagined as a bell curve having a 90% lower confidence limit, if the lower limit (P<sub>L</sub>) is 0.9 there is a 95% chance that the true POH is greater than 90% for that particular flaw size. That is, returning to the 59/61 example, with X=59 hits after N=61 trials, the POH is 59/61 or 0.97 as noted above. The lower confidence bound, or P<sub>L</sub>, may be obtained using the following statistical equation:</p>
+    <p num="p-0034"> <maths id="MATH-US-00001" num="00001"> <math overflow="scroll"> <mtable> <mtr> <mtd> <mrow> <mrow> <msub> <mi>P</mi> <mi>L</mi> </msub> <mo>=</mo> <mrow> <mrow> <mrow> <mo>(</mo> <mi>X</mi> <mo>)</mo> </mrow> <mo>/</mo> <mi>X</mi> </mrow> <mo>+</mo> <mrow> <mrow> <mo>(</mo> <mrow> <mi>N</mi> <mo>-</mo> <mi>X</mi> <mo>+</mo> <mn>1</mn> </mrow> <mo>)</mo> </mrow> <mo>⁢</mo> <mrow> <msub> <mi>F</mi> <mi>α</mi> </msub> <mo>⁡</mo> <mrow> <mo>(</mo> <mrow> <msub> <mi>f</mi> <mn>1</mn> </msub> <mo>,</mo> <msub> <mi>f</mi> <mn>2</mn> </msub> </mrow> <mo>)</mo> </mrow> </mrow> </mrow> </mrow> </mrow> <mo>,</mo> <mstyle> <mtext>
+</mtext> </mstyle> <mo>⁢</mo> <mi>where</mi> </mrow> </mtd> <mtd> <mrow> <mo>(</mo> <mn>1</mn> <mo>)</mo> </mrow> </mtd> </mtr> <mtr> <mtd> <mrow> <mrow> <mrow> <msub> <mi>F</mi> <mi>α</mi> </msub> <mo>⁡</mo> <mrow> <mo>(</mo> <mrow> <msub> <mi>f</mi> <mn>1</mn> </msub> <mo>,</mo> <msub> <mi>f</mi> <mn>2</mn> </msub> </mrow> <mo>)</mo> </mrow> </mrow> <mo>=</mo> <mrow> <mn>2.25</mn> <mo>⁢</mo> <mrow> <mo>{</mo> <mtable> <mtr> <mtd> <mrow> <msub> <mi>f</mi> <mn>1</mn> </msub> <mo>=</mo> <mrow> <mrow> <mn>2</mn> <mo>⁢</mo> <mrow> <mo>(</mo> <mrow> <mi>N</mi> <mo>-</mo> <mi>X</mi> <mo>+</mo> <mn>1</mn> </mrow> <mo>)</mo> </mrow> </mrow> <mo>=</mo> <mn>6</mn> </mrow> </mrow> </mtd> </mtr> <mtr> <mtd> <mrow> <msub> <mi>f</mi> <mn>2</mn> </msub> <mo>=</mo> <mrow> <mrow> <mn>2</mn> <mo>⁢</mo> <mi>X</mi> </mrow> <mo>=</mo> <mn>118</mn> </mrow> </mrow> </mtd> </mtr> </mtable> <mo>}</mo> </mrow> </mrow> </mrow> <mo>,</mo> </mrow> </mtd> <mtd> <mrow> <mo>(</mo> <mn>2</mn> <mo>)</mo> </mrow> </mtd> </mtr> </mtable> </math> </maths> <br/>
+P<sub>L</sub>=0.9, and α is, a priori, the confidence level of 95% required of the function F<sub>α</sub>(f<sub>1</sub>, f<sub>2</sub>) which may be obtained from an F-distribution statistical table. Note that the POH does not change if the confidence level is changed. This confidence bound procedure has a probability of at least 0.95 to give a lower bound for the 90% POD point that exceeds a true but still unknown 90% POD point.
+</p>
+    <p num="p-0035">Referring to <figref idrefs="DRAWINGS">FIG. 3</figref>, the host <b>10</b> of <figref idrefs="DRAWINGS">FIG. 1</figref> is configured for executing the algorithm <b>100</b> to thereby qualitatively evaluate the POD capability of a statistics-based test system such as the testing system <b>12</b>, which in one embodiment may be configured as an NDE system as noted previously hereinabove. That is, host <b>10</b> provides validation of testing that demonstrates whether the identification of X<sub>POD</sub>, i.e., the 90/95 POD flaw size, without false call or large flaw warnings as explained below, and with explanation and resolution of any misses above X<sub>POD</sub>, qualifies that the inspection system performs adequately, and that there is 95% confidence that the POD is greater than 90% (90/95 POD) at and above X<sub>POD</sub>.</p>
+    <p num="p-0036">Beginning with step <b>102</b>, host <b>10</b> receives and records the set of input data <b>22</b> from the testing system <b>12</b>. Input data <b>22</b> may be the hit/miss data shown in <figref idrefs="DRAWINGS">FIG. 2</figref>, but may also be analog input data having a threshold value. For example, the inspector <b>14</b> may be told to record an ultrasonic signal amplitude of 0.5V, 1V, 2V, 3V, etc. and any amplitudes greater than a calibrated threshold, e.g., 2V, may be identified by the host <b>10</b> as being “hits”, with all other values being “misses”.</p>
+    <p num="p-0037">Step <b>102</b> may also include performing false call analysis, and recording the results of the false call analysis. As will be understood in the art, false call analysis involves providing flawless samples to an inspector <b>14</b>. When the inspector <b>14</b> finds a flaw that is not actually present, this result is referred to as a false call, and is much akin to a radiologist reading an X-ray film and finding an abnormality when none is present, i.e., a false positive. Statistically, at least 84 false call samples or false call inspection opportunities should be provided and the results recorded in a memory location accessible by the host <b>10</b> to ensure proper validation results. After completing step <b>102</b>, the algorithm <b>100</b> proceeds to step <b>104</b>.</p>
+    <p num="p-0038">At step <b>104</b>, the host <b>10</b> processes the input data set <b>22</b> to determine an optimal class width. Generally, the host <b>10</b> automatically groups similar size flaws together to optimize the class width to identify the optimum lower confidence bound. Referring briefly to <figref idrefs="DRAWINGS">FIG. 4</figref>, in a first iteration having a class width of 0.001″ the processed input data set <b>22</b> appears with almost all of the POH data points <b>42</b> having a 100% POH, with one data point <b>40</b> having a 50% POH. The lower confidence limit (P<sub>L</sub>) is also plotted at <b>44</b>. Note that the data point having the highest P<sub>L</sub>, i.e., point <b>46</b>, has a confidence bound of less than 5%. The class width of the data set represented in <figref idrefs="DRAWINGS">FIG. 4</figref> is therefore less than optimal.</p>
+    <p num="p-0039">Referring to <figref idrefs="DRAWINGS">FIG. 5</figref>, after numerous iterations that change the class width from 0.001″ in <figref idrefs="DRAWINGS">FIG. 4</figref> to a more optimal class width of 0.100″ in <figref idrefs="DRAWINGS">FIG. 5</figref>, data points <b>52</b> have a 100% POH, data points <b>50</b> have a POH of between 85% and 50%, and one data point <b>55</b> has a POH of 25%. However, the highest P<sub>L </sub>of the data points <b>56</b> is approximately 42.5%. While vastly improved from the confidence bound value of 5% of data point <b>46</b> in <figref idrefs="DRAWINGS">FIG. 4</figref>, the highest confidence remains a far cry from the required 90/95 level in this example. Further iterations are therefore required, again with each successive iteration increasing the class width by predetermined constant values, e.g., 0.001″. Alternately, class widths may be allowed to vary in size as part of the optimization process rather than applying constant values, which may provide a more rapid response. With each iteration, note that the intermediate data sets such as those shown in <figref idrefs="DRAWINGS">FIGS. 4 and 5</figref> are recorded in memory of the host <b>10</b>, as the optimal class width configuration may not be discernable by the host <b>10</b> until each iteration is completed out to the largest expected flaw size. That is, increases in class width do not necessarily lead to a more optimal class width.</p>
+    <p num="p-0040">Referring again to <figref idrefs="DRAWINGS">FIG. 3</figref>, step <b>104</b> may also require the inclusion of a predetermined number of “large” flaws for proper validation of the testing system <b>12</b>. While the assumption that a testing system accurately detecting a smaller flaw will naturally detect a larger flaw, the reality may be quite different. Statistically, at least 29 similar flaws are required at the target flaw size for supporting validation of certain existing test systems, e.g., conventional NDE systems, while at least 25 additional large flaws uniformly distributed between the target flaw size and the largest expected flaw size are required for validating new systems, i.e., to ensure that 90/95 POD is provided for the large flaws.</p>
+    <p num="p-0041">Referring briefly to <figref idrefs="DRAWINGS">FIG. 6</figref>, table <b>60</b> shows the origin of the statistical threshold of 25 large flaws as noted above. Note that until at least 25 large flaws are included in the analysis, the LCL remains below 0.90. A high confidence zone <b>62</b> is achieved at or above 25 large flaw samples. To ensure the integrity of the validation process, therefore, at least 25 large flaws should always be included in the output data set <b>22</b>.</p>
+    <p num="p-0042">Referring again to <figref idrefs="DRAWINGS">FIG. 3</figref>, once the optimal class width is determined at step <b>104</b> the algorithm <b>100</b> proceeds to step <b>106</b>.</p>
+    <p num="p-0043">At step <b>106</b>, one of a plurality of predetermined case numbers is assigned to the optimal data set. Referring briefly to <figref idrefs="DRAWINGS">FIG. 7</figref>, a table <b>70</b> presents a representative set of such cases <b>72</b>. In column <b>74</b>, the table <b>70</b> records whether or not 90/95 POD is reached at X<sub>POD</sub>, i.e., whether the lower confidence bound is equal to or greater than 0.9. Column <b>75</b> may record whether there is a class length, X<sub>POH</sub>, for which POH is equal to 1 (100%) everywhere greater than X<sub>POH</sub>. Class length describes a point or length at which a particular class width is attached, e.g., a class width of 0.10″ that may contain all flaws ranging from 0.9″ to the 1″ class length or flaw size. Column <b>76</b> records whether POH is equal to 1 (100%) everywhere greater than the class length with the optimal lower confidence bound. Column <b>77</b> records whether X<sub>POH </sub>is less than or equal to X<sub>L</sub>/3, where X<sub>L </sub>describes the largest flaw in the data set. Column <b>78</b> records whether large flaw validation is complete.</p>
+    <p num="p-0044">Finally, column <b>79</b> provides a detailed analysis and recommendations for validating the testing system <b>12</b> when the assigned case from column <b>72</b> results in a failed validation. For example, in the example shown in <figref idrefs="DRAWINGS">FIG. 7</figref> cases <b>1</b> and <b>1</b>+ reflect passing validations. Column <b>79</b> entries for each of cases <b>1</b> and <b>1</b>+ therefore reports that: (a) 90/95 POD has been reached, which is the goal of the validation effort; (b) false call warning should be addressed, if any; and (c) any other actions that should be resolved.</p>
+    <p num="p-0045">Cases <b>1</b> through <b>7</b> and the survey case represent a failed validation. Rather than simply failing, however, the algorithm <b>100</b> and host <b>10</b> provide a detailed report to a user of the system <b>12</b> on the precise steps needed for achieving a passing result, e.g., cases <b>1</b> and <b>1</b>+. While table <b>70</b> provides one possible tabular solution, those of ordinary skill in the art will recognize that other tables may be used, with different case numbering and total case numbers, depending on the particular design of the host <b>10</b>.</p>
+    <p num="p-0046">Referring again to <figref idrefs="DRAWINGS">FIG. 3</figref>, after assigning the case number at step <b>104</b>, the algorithm <b>100</b> generates output instructions <b>24</b>, which may be transmitted or otherwise provided to the testing system <b>12</b> or a user thereof. Instructions <b>24</b> may be a detailed report of findings including the precise recommendations from column <b>79</b> of the table <b>70</b> of <figref idrefs="DRAWINGS">FIG. 7</figref>. The instructions <b>24</b> may be displayed by the host <b>10</b>, printed as a deliverable report by the host <b>10</b>, or transmitted or delivered in a digital format for display and/or printing as desired by a user of testing system <b>12</b>. Using the instructions <b>24</b>, a user of a failed testing system may follow the instructions <b>24</b> and repeat the validation testing until the testing system <b>12</b> is validated at the 90/95 POD level or there are recommendations that the testing system <b>12</b> will not ever meet threshold inspection requirements. The algorithm <b>100</b> is then finished.</p>
+    <p num="p-0047">While 90/95 POD is referred to throughout, the actual POD requirement may vary without departing from the intended scope of the invention. For example, while 90/95 POD is expected for certain critical applications, e.g., space and aeronautic applications, for other applications different POD thresholds such as 90/99 or 80/95 may be more appropriate. The apparatus and method of the invention are equally well suited to validating testing system <b>12</b> of <figref idrefs="DRAWINGS">FIG. 1</figref> to POD requirements other than 90/95 POD. Likewise, the term POD as used herein refers to the embodiment used for inspection of physical components for flaws such as cracks or fractures. The apparatus and method may also be used to determine the probability of a non-detection result, such as probability of on-time delivery of a package when used with a logistical testing system. In this case the term POD may be replaced by an appropriate term, with the operation of the apparatus and method otherwise being substantially as set forth above.</p>
+    <p num="p-0048">The present invention is further discussed in Generazio, Edward R., Directed Design of Experiments (DOE) for Determining Probability of Detection (POD) Capability of NDE Systems (DOEPOD), 34th Annual Review of Progress in Quantitative Nondestructive Evaluation (QNDE 2007), presentation, July 2007; Generazio, Edward R., Directed Design of Experiments for Validating Probability of Detection Capability of NDE Systems (DOEPOD), AIP Conference Proceedings, 2008, Volume 975, pp. 1693-1700; and Generazio, Edward R., Directed Design of Experiments (DOE) for Determining Probability of Detection (POD) Capability of NDE Systems (DOEPOD), 50th Annual Air Transportation Association (ATA) Non-Destructive Testing (NDT) Forum, presentation, August 2007; all incorporated herein by reference in their entirety.</p>
+    <p num="p-0049">While the best modes for carrying out the invention have been described in detail, those familiar with the art to which this invention relates will recognize various alternative designs and embodiments for practicing the invention within the scope of the appended claims.</p>
+    
+  </div>
+  </div>
+  </section>
+
+  <section itemprop="claims" itemscope>
+    <h2>Claims (<span itemprop="count">18</span>)</h2>
+    
+    <div itemprop="content" html><div mxw-id="PCLM38819165" lang="EN" load-source="patent-office" class="claims">
+    <div class="claim"> <div id="CLM-00001" num="00001" class="claim">
+      <div class="claim-text">1. A method of validating the performance of a statistical testing system using directed design of experiments (DOE), the method comprising:
+<div class="claim-text">recording an input data set in a memory location that is accessible by a host machine, wherein the input data set describes a set of observed probability of hit (POH) data for a plurality of samples as a function of a characteristic of the samples;</div>
+<div class="claim-text">processing the input data set using the host machine to thereby generate an output data set having an optimal class width;</div>
+<div class="claim-text">assigning a case number to the output data set; and</div>
+<div class="claim-text">generating a set of instructions using the assigned case number;</div>
+<div class="claim-text">wherein the instructions validate the performance of the testing system when the assigned case number equals a predetermined case number, and wherein the instructions inform a user of the testing system regarding required steps for validating the testing system when the assigned case number does not equal the predetermined case number.</div>
+</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00002" num="00002" class="claim">
+      <div class="claim-text">2. The method of <claim-ref idref="CLM-00001">claim 1</claim-ref>, wherein recording an input data set includes recording a flaw in the samples as the characteristic.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00003" num="00003" class="claim">
+      <div class="claim-text">3. The method of <claim-ref idref="CLM-00001">claim 1</claim-ref>, including using a processor to automatically calculate a lower confidence bound using the POH data, and recording the lower confidence bound using the host machine for use in processing the input data set.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00004" num="00004" class="claim">
+      <div class="claim-text">4. The method of <claim-ref idref="CLM-00001">claim 1</claim-ref>, wherein processing the input data set continues until a threshold POD and a lower confidence bound is reached for all samples within a given class width.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00005" num="00005" class="claim">
+      <div class="claim-text">5. The method of <claim-ref idref="CLM-00001">claim 1</claim-ref>, wherein processing the input data set includes generating a first intermediate data set for a first class width, increasing the size of the first class width by a constant value to produce a second class width, and then generating an additional intermediate data set for each of a plurality of different class widths.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00006" num="00006" class="claim">
+      <div class="claim-text">6. The method of <claim-ref idref="CLM-00001">claim 1</claim-ref>, wherein recording the input data set includes recording the results of a false call analysis procedure of a calibrated number of false call samples.</div>
+    </div>
+    </div> <div class="claim"> <div id="CLM-00007" num="00007" class="claim">
+      <div class="claim-text">7. A method of validating a probability of detection (POD) testing system, the method comprising:
+<div class="claim-text">recording an input data set in a memory location accessible by a host machine, the input data set describing a set of observed data for a plurality of sample components as a function of size of a flaw in the sample components;</div>
+<div class="claim-text">using the host machine to generate an output data set having an optimal class width, wherein the host machine generates the output data set using an algorithm that automatically processes the input data set through multiple class width iterations using directed design of experiments (DOE);</div>
+<div class="claim-text">selecting a case number from a plurality of predetermined cases using the output data set having the optimal class width; and</div>
+<div class="claim-text">generating a set of instructions based on the selected case, including at least one of displaying the set of instructions on a display screen, transmitting an electronic copy of the instructions to a remote system, and printing a report;</div>
+<div class="claim-text">wherein the content of the instructions corresponds to the selected case number and validates the testing system only when the selected case is equal to a predetermined ease number.</div>
+</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00008" num="00008" class="claim">
+      <div class="claim-text">8. The method of <claim-ref idref="CLM-00007">claim 7</claim-ref>, wherein the set of observed data is at least one of: a set of hit and miss data, a set of analog data with a corresponding threshold, and a set of false call data.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00009" num="00009" class="claim">
+      <div class="claim-text">9. The method of <claim-ref idref="CLM-00007">claim 7</claim-ref>, wherein using a host machine to generate an output data set having an optimal class width includes using a binomial solution to generate a data set having a POD that is a 90/95 POD.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00010" num="00010" class="claim">
+      <div class="claim-text">10. The method of <claim-ref idref="CLM-00007">claim 7</claim-ref>, further comprising:
+<div class="claim-text">receiving a second input data set using the host machine; and</div>
+<div class="claim-text">processing the second input data set using the host machine to determine the output data set;</div>
+<div class="claim-text">wherein the second input data set is an additional set of POD data that is generated by one of the testing system and a device that is external to the testing machine.</div>
+</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00011" num="00011" class="claim">
+      <div class="claim-text">11. The method of <claim-ref idref="CLM-00007">claim 7</claim-ref>, further comprising:
+<div class="claim-text">recording a dimensional limitation of the components; and</div>
+<div class="claim-text">automatically limiting the number of tests required at large class lengths using the dimensional limitation.</div>
+</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00012" num="00012" class="claim">
+      <div class="claim-text">12. The method of <claim-ref idref="CLM-00007">claim 7</claim-ref>, wherein recording the input data set includes recording the results of a false call analysis procedure of at least 84 false call samples or false call test opportunities.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00013" num="00013" class="claim">
+      <div class="claim-text">13. The method of <claim-ref idref="CLM-00007">claim 7</claim-ref>, wherein using a host machine to generate an output data set having an optimal class width includes processing at least 25 large flaws, wherein the large flaws are flaws that are uniformly distributed between a target flaw size (X<sub>POD</sub>) of the optimal class width and the largest expected flaw size.</div>
+    </div>
+    </div> <div class="claim"> <div id="CLM-00014" num="00014" class="claim">
+      <div class="claim-text">14. An apparatus adapted for validating the probability of detection (POD) capability of a statistics-based testing system, the apparatus comprising:
+<div class="claim-text">a host machine having a processor and a memory location, wherein the host machine in communication with the testing system and adapted for receiving an input data set from the testing system and recording the input data set in the memory location, and wherein the input data set describes a set of observed probability of hit (POH) data for a plurality of sample components as a function of size of a flaw in the components; and</div>
+<div class="claim-text">an algorithm for applying a directed design of experiments (DOE) to the input data set to thereby validate the performance of the testing system;</div>
+<div class="claim-text">wherein the algorithm is executed via the processor to:</div>
+<div class="claim-text">apply the DOE to the input data set to determine a data set having an optimal class width;</div>
+<div class="claim-text">assign a case number to the data set having the optimal class width; and</div>
+<div class="claim-text">generate a set of instructions having a validation result that is based on the case number.</div>
+</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00015" num="00015" class="claim">
+      <div class="claim-text">15. The apparatus of <claim-ref idref="CLM-00014">claim 14</claim-ref>, wherein the testing system is configured as a non-destructive evaluation inspection (NDE).</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00016" num="00016" class="claim">
+      <div class="claim-text">16. The apparatus of <claim-ref idref="CLM-00014">claim 14</claim-ref>, wherein the set of instructions includes detailed steps describing how a user of the testing system may achieve a passing validation result for the testing system.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00017" num="00017" class="claim">
+      <div class="claim-text">17. The apparatus of <claim-ref idref="CLM-00016">claim 16</claim-ref>, wherein the set of instructions includes detailed steps describing how to qualify an inspector for use of the testing system once the testing system has been validated.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00018" num="00018" class="claim">
+      <div class="claim-text">18. The apparatus of <claim-ref idref="CLM-00014">claim 14</claim-ref>, wherein the algorithm determines the optimal class width by iterating the class width by predetermined constant values starting with a minimum class width and continuing to a maximum expected flaw size, and by selecting the data set having a threshold POD for all samples within that particular class width. </div>
+    </div>
+  </div> </div>
+  </div>
+  </section>
+
+  <section itemprop="application" itemscope>
+
+    <section itemprop="metadata" itemscope>
+        <span itemprop="applicationNumber">US12/467,475</span>
+        <span itemprop="priorityDate">2008-05-16</span>
+        <span itemprop="filingDate">2009-05-18</span>
+        <span itemprop="title">Directed design of experiments for validating probability of detection capability of a testing system 
+       </span>
+        <span itemprop="ifiStatus">Active</span>
+        <span itemprop="ifiExpiration">2030-05-05</span>
+        <a href="/patent/US8108178B2/en">
+            <span itemprop="representativePublication">US8108178B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+        </a>
+    </section>
+
+    <h2>Priority Applications (4)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                    <th>Title</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="priorityApps" itemscope repeat>
+                <td>
+                   <span itemprop="applicationNumber">US5369408P</span>
+                   <span itemprop="isUsProvisional">true</span>
+                   
+                <td itemprop="priorityDate">2008-05-16</td>
+                <td itemprop="filingDate">2008-05-16</td>
+                <td itemprop="title"></td>
+              </tr><tr itemprop="priorityApps" itemscope repeat>
+                <td>
+                   <span itemprop="applicationNumber">US10953108P</span>
+                   <span itemprop="isUsProvisional">true</span>
+                   
+                <td itemprop="priorityDate">2008-10-30</td>
+                <td itemprop="filingDate">2008-10-30</td>
+                <td itemprop="title"></td>
+              </tr><tr itemprop="priorityApps" itemscope repeat>
+                <td>
+                   <span itemprop="applicationNumber">US15886809P</span>
+                   <span itemprop="isUsProvisional">true</span>
+                   
+                <td itemprop="priorityDate">2009-03-10</td>
+                <td itemprop="filingDate">2009-03-10</td>
+                <td itemprop="title"></td>
+              </tr><tr itemprop="priorityApps" itemscope repeat>
+                <td>
+                   <span itemprop="applicationNumber">US12/467,475</span>
+                   
+                   <a href="/patent/US8108178B2/en">
+                        <span itemprop="representativePublication">US8108178B2</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                <td itemprop="priorityDate">2008-05-16</td>
+                <td itemprop="filingDate">2009-05-18</td>
+                <td itemprop="title">Directed design of experiments for validating probability of detection capability of a testing system 
+       </td>
+              </tr>
+           </tbody>
+       </table>
+
+    <h2>Applications Claiming Priority (1)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                    <th>Title</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="appsClaimingPriority" itemscope repeat>
+                <td>
+                   <span itemprop="applicationNumber">US12/467,475</span>
+                   <a href="/patent/US8108178B2/en">
+                        <span itemprop="representativePublication">US8108178B2</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                <td itemprop="priorityDate">2008-05-16</td>
+                <td itemprop="filingDate">2009-05-18</td>
+                <td itemprop="title">Directed design of experiments for validating probability of detection capability of a testing system 
+       </td>
+              </tr>
+           </tbody>
+       </table>
+
+    
+
+    
+
+    <h2>Publications (2)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Publication Number</th>
+                    <th>Publication Date</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="pubs" itemscope repeat>
+                <td>
+                   <span itemprop="publicationNumber">US20100122117A1</span>
+                   
+                   <a href="/patent/US20100122117A1/en">US20100122117A1
+                       (<span itemprop="primaryLanguage">en</span>)
+                   </a>
+                </td>
+                <td itemprop="publicationDate">2010-05-13</td>
+              </tr><tr itemprop="pubs" itemscope repeat>
+                <td>
+                   <span itemprop="publicationNumber">US8108178B2</span>
+                   
+                   <span itemprop="thisPatent">true</span>
+                   <a href="/patent/US8108178B2/en">US8108178B2
+                       (<span itemprop="primaryLanguage">en</span>)
+                   </a>
+                </td>
+                <td itemprop="publicationDate">2012-01-31</td>
+              </tr>
+           </tbody>
+        </table>
+
+  </section>
+
+  <section itemprop="family" itemscope>
+    <h1>Family</h1>
+    <h2>ID=42166278</h2>
+
+    <h2>Family Applications (1)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Title</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="applications" itemscope repeat>
+                <td>
+                    <span itemprop="applicationNumber">US12/467,475</span>
+                    <span itemprop="ifiStatus">Active</span>
+                    <span itemprop="ifiExpiration">2030-05-05</span>
+                    <a href="/patent/US8108178B2/en">
+                        <span itemprop="representativePublication">US8108178B2</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                </td>
+                <td itemprop="priorityDate">2008-05-16</td>
+                <td itemprop="filingDate">2009-05-18</td>
+                <td itemprop="title">Directed design of experiments for validating probability of detection capability of a testing system 
+       </td>
+              </tr>
+           </tbody>
+        </table>
+
+    
+
+    
+
+    <h2>Country Status (1)</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Country</th>
+            <th>Link</th>
+          </tr>
+        </thead>
+        <tbody>
+        <tr itemprop="countryStatus" itemscope repeat>
+            <td>
+              <span itemprop="countryCode">US</span>
+                (<span itemprop="num">1</span>)
+              <meta itemprop="thisCountry" content="true">
+            </td>
+            <td>
+              <a href="/patent/US8108178B2/en">
+                <span itemprop="representativePublication">US8108178B2</span>
+                  (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+    <h2>Cited By (1)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US8806418B1/en">
+              <span itemprop="publicationNumber">US8806418B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2013-06-19</td>
+          <td itemprop="publicationDate">2014-08-12</td>
+          <td><span itemprop="assigneeOriginal">Freescale Semiconductor, Inc.</span></td>
+          <td itemprop="title">Scaled sigma sampling 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Families Citing this family (2)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US9965721B2/en">
+              <span itemprop="publicationNumber">US9965721B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2013-09-16</td>
+          <td itemprop="publicationDate">2018-05-08</td>
+          <td><span itemprop="assigneeOriginal">Moresteam Development, Llc</span></td>
+          <td itemprop="title">Computer-implemented system and method of performing a design of experiment, generating a product thereof, generating designed experiment options, and a graphical user interface 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/WO2018089252A1/en">
+              <span itemprop="publicationNumber">WO2018089252A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2016-11-08</td>
+          <td itemprop="publicationDate">2018-05-17</td>
+          <td><span itemprop="assigneeOriginal">Minds Mechanical, Llc</span></td>
+          <td itemprop="title">Metrology system for measurement uncertainty analysis 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Citations (10)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6157699A/en">
+              <span itemprop="publicationNumber">US6157699A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1999-05-14</td>
+          <td itemprop="publicationDate">2000-12-05</td>
+          <td><span itemprop="assigneeOriginal">Scannex, Inc.</span></td>
+          <td itemprop="title">Method and apparatus for non-destructive detection of hidden flaws 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6195624B1/en">
+              <span itemprop="publicationNumber">US6195624B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1993-06-15</td>
+          <td itemprop="publicationDate">2001-02-27</td>
+          <td><span itemprop="assigneeOriginal">Combustion Engineering, Inc.</span></td>
+          <td itemprop="title">Corrosion analysis system and method 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6799145B2/en">
+              <span itemprop="publicationNumber">US6799145B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2000-11-09</td>
+          <td itemprop="publicationDate">2004-09-28</td>
+          <td><span itemprop="assigneeOriginal">Ge Financial Assurance Holdings, Inc.</span></td>
+          <td itemprop="title">Process and system for quality assurance for software 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20060010426A1/en">
+              <span itemprop="publicationNumber">US20060010426A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2004-07-09</td>
+          <td itemprop="publicationDate">2006-01-12</td>
+          <td><span itemprop="assigneeOriginal">Smartware Technologies, Inc.</span></td>
+          <td itemprop="title">System and method for generating optimized test cases using constraints based upon system requirements 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7155369B2/en">
+              <span itemprop="publicationNumber">US7155369B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2004-11-22</td>
+          <td itemprop="publicationDate">2006-12-26</td>
+          <td><span itemprop="assigneeOriginal">Papadimitriou Wanda G</span></td>
+          <td itemprop="title">Autonomous non-destructive inspection 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7333648B2/en">
+              <span itemprop="publicationNumber">US7333648B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1999-11-19</td>
+          <td itemprop="publicationDate">2008-02-19</td>
+          <td><span itemprop="assigneeOriginal">General Electric Company</span></td>
+          <td itemprop="title">Feature quantification from multidimensional image data 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7403871B2/en">
+              <span itemprop="publicationNumber">US7403871B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2004-11-22</td>
+          <td itemprop="publicationDate">2008-07-22</td>
+          <td><span itemprop="assigneeOriginal">Papadimitriou Wanda G</span></td>
+          <td itemprop="title">Extraction of imperfection features through spectral analysis 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20080183402A1/en">
+              <span itemprop="publicationNumber">US20080183402A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2007-01-30</td>
+          <td itemprop="publicationDate">2008-07-31</td>
+          <td><span itemprop="assigneeOriginal">The Boeing Company</span></td>
+          <td itemprop="title">Methods and Systems for Automatically Assessing and Reporting Structural Health 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7490319B2/en">
+              <span itemprop="publicationNumber">US7490319B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2003-11-04</td>
+          <td itemprop="publicationDate">2009-02-10</td>
+          <td><span itemprop="assigneeOriginal">Kimberly-Clark Worldwide, Inc.</span></td>
+          <td itemprop="title">Testing tool comprising an automated multidimensional traceability matrix for implementing and validating complex software systems 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7917895B2/en">
+              <span itemprop="publicationNumber">US7917895B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2001-07-27</td>
+          <td itemprop="publicationDate">2011-03-29</td>
+          <td><span itemprop="assigneeOriginal">Smartesoft, Inc.</span></td>
+          <td itemprop="title">Automated software testing and validation system 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+
+    
+
+    
+    <ul>
+      
+      <li itemprop="applicationsByYear" itemscope repeat>
+        <span itemprop="year">2009</span>
+        <ul>
+          
+          <li itemprop="application" itemscope repeat>
+            <span itemprop="filingDate">2009-05-18</span>
+            <span itemprop="countryCode">US</span>
+            <span itemprop="applicationNumber">US12/467,475</span>
+            <a href="/patent/US8108178B2/en"><span itemprop="documentId">patent/US8108178B2/en</span></a>
+            <span itemprop="legalStatusCat">active</span>
+            <span itemprop="legalStatus">Active</span>
+            
+            <span itemprop="thisApp" content="true" bool></span>
+            
+          </li>
+          
+        </ul>
+      </li>
+      
+    </ul>
+    
+
+    </section>
+
+  <section>
+    <h2>Patent Citations (10)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6195624B1/en">
+              <span itemprop="publicationNumber">US6195624B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1993-06-15</td>
+          <td itemprop="publicationDate">2001-02-27</td>
+          <td><span itemprop="assigneeOriginal">Combustion Engineering, Inc.</span></td>
+          <td itemprop="title">Corrosion analysis system and method 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6157699A/en">
+              <span itemprop="publicationNumber">US6157699A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1999-05-14</td>
+          <td itemprop="publicationDate">2000-12-05</td>
+          <td><span itemprop="assigneeOriginal">Scannex, Inc.</span></td>
+          <td itemprop="title">Method and apparatus for non-destructive detection of hidden flaws 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7333648B2/en">
+              <span itemprop="publicationNumber">US7333648B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1999-11-19</td>
+          <td itemprop="publicationDate">2008-02-19</td>
+          <td><span itemprop="assigneeOriginal">General Electric Company</span></td>
+          <td itemprop="title">Feature quantification from multidimensional image data 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6799145B2/en">
+              <span itemprop="publicationNumber">US6799145B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2000-11-09</td>
+          <td itemprop="publicationDate">2004-09-28</td>
+          <td><span itemprop="assigneeOriginal">Ge Financial Assurance Holdings, Inc.</span></td>
+          <td itemprop="title">Process and system for quality assurance for software 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7917895B2/en">
+              <span itemprop="publicationNumber">US7917895B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2001-07-27</td>
+          <td itemprop="publicationDate">2011-03-29</td>
+          <td><span itemprop="assigneeOriginal">Smartesoft, Inc.</span></td>
+          <td itemprop="title">Automated software testing and validation system 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7490319B2/en">
+              <span itemprop="publicationNumber">US7490319B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2003-11-04</td>
+          <td itemprop="publicationDate">2009-02-10</td>
+          <td><span itemprop="assigneeOriginal">Kimberly-Clark Worldwide, Inc.</span></td>
+          <td itemprop="title">Testing tool comprising an automated multidimensional traceability matrix for implementing and validating complex software systems 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20060010426A1/en">
+              <span itemprop="publicationNumber">US20060010426A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2004-07-09</td>
+          <td itemprop="publicationDate">2006-01-12</td>
+          <td><span itemprop="assigneeOriginal">Smartware Technologies, Inc.</span></td>
+          <td itemprop="title">System and method for generating optimized test cases using constraints based upon system requirements 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7155369B2/en">
+              <span itemprop="publicationNumber">US7155369B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2004-11-22</td>
+          <td itemprop="publicationDate">2006-12-26</td>
+          <td><span itemprop="assigneeOriginal">Papadimitriou Wanda G</span></td>
+          <td itemprop="title">Autonomous non-destructive inspection 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7403871B2/en">
+              <span itemprop="publicationNumber">US7403871B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2004-11-22</td>
+          <td itemprop="publicationDate">2008-07-22</td>
+          <td><span itemprop="assigneeOriginal">Papadimitriou Wanda G</span></td>
+          <td itemprop="title">Extraction of imperfection features through spectral analysis 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20080183402A1/en">
+              <span itemprop="publicationNumber">US20080183402A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2007-01-30</td>
+          <td itemprop="publicationDate">2008-07-31</td>
+          <td><span itemprop="assigneeOriginal">The Boeing Company</span></td>
+          <td itemprop="title">Methods and Systems for Automatically Assessing and Reporting Structural Health 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Non-Patent Citations (8)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Edward R. Generazio, "<a href='http://scholar.google.com/scholar?q="Directed+Design+of+Experiments+for+Validating+Probability+of+Detection+Capability+of+NDE+Systems+%28DOEPOD%29"'>Directed Design of Experiments for Validating Probability of Detection Capability of NDE Systems (DOEPOD)</a>", 34th Annual Review in Quantitative Nondestructive Evaluation, Jul. 2007.</span>
+            
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Edward R. Generazio, "<a href='http://scholar.google.com/scholar?q="Nondestructive+Testing+for+Mission+Assurance"'>Nondestructive Testing for Mission Assurance</a>", NDE/NDT for Highways and Bridges: Structural Materials Technology (SMT) 2008, Oakland, CA Sep. 8-12, 2008.</span>
+            
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Edward R. Generzaio, "<a href='http://scholar.google.com/scholar?q="Design+of+Experiments+for+Validating+Probability+of+Detection+Capability+of+Nondestructive+Evaluation+Systems+and+Qualification+of+Inspectors+%28DOEPOD%29"'>Design of Experiments for Validating Probability of Detection Capability of Nondestructive Evaluation Systems and Qualification of Inspectors (DOEPOD)</a>" Quality Leadership Forum, KSC, Mar. 18-19, 2009.</span>
+            
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Mil-Handbook-1823, Nondestructive Evaluation System Reliability Assessment, Apr. 30, 1999.</span>
+            
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">NASA-STD-5009, Nondestructive Evaluation Requirements for Fracture C cal Metallic Components, Apr. 7, 2008.</span>
+            
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Standard NDE Guidelines and Requirements for Fracture Control Programs, MSFC-STD-1249, National Aeronautics and Space Administration, Sep. 1985.</span>
+            
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Ward D. Rummel, Recommended Practice for Demonstration of Nondestructive Evaluation (NDE) Reliability on Aircraft Production Parts, Materials Evaluation, vol. 40, Aug. 1982.</span>
+            
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Yee et al., Assessment of NDE Reliability Data, Final Report, Jul. 1974-Sep. 1975 (General Dynamics/Fort Worth and Vanderbilt University, Nashville, Tennessee) NASA-CR-134991.</span>
+            
+            
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <h2>Cited By (1)</h2>
+  <table>
+    <caption>* Cited by examiner, † Cited by third party</caption>
+    <thead>
+      <tr>
+        <th>Publication number</th>
+        <th>Priority date</th>
+        <th>Publication date</th>
+        <th>Assignee</th>
+        <th>Title</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US8806418B1/en">
+            <span itemprop="publicationNumber">US8806418B1</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2013-06-19</td>
+        <td itemprop="publicationDate">2014-08-12</td>
+        <td><span itemprop="assigneeOriginal">Freescale Semiconductor, Inc.</span></td>
+        <td itemprop="title">Scaled sigma sampling 
+       </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <section>
+    <h2>Also Published As</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Publication date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="docdbFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20100122117A1/en">
+              <span itemprop="publicationNumber">US20100122117A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+          </td>
+          <td itemprop="publicationDate">2010-05-13</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Similar Documents</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Publication</th>
+          <th>Publication Date</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US8306779B2/en">
+                <span itemprop="publicationNumber">US8306779B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2012-11-06">2012-11-06</time>
+            
+            
+          </td>
+          <td itemprop="title">Detectable defect size and probability-of-detection 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US20110060568A1/en">
+                <span itemprop="publicationNumber">US20110060568A1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2011-03-10">2011-03-10</time>
+            
+            
+          </td>
+          <td itemprop="title">Component Adaptive Life Management 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US6856918B2/en">
+                <span itemprop="publicationNumber">US6856918B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2005-02-15">2005-02-15</time>
+            
+            
+          </td>
+          <td itemprop="title">Method to characterize material using mathematical propagation models and ultrasonic signal 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US8060319B2/en">
+                <span itemprop="publicationNumber">US8060319B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2011-11-15">2011-11-15</time>
+            
+            
+          </td>
+          <td itemprop="title">Acoustic structural integrity monitoring system and method 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US6804563B1/en">
+                <span itemprop="publicationNumber">US6804563B1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2004-10-12">2004-10-12</time>
+            
+            
+          </td>
+          <td itemprop="title">Multidimensional method and system for statistical process control 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="10329655534564691969">
+              <a href="/scholar/10329655534564691969"><span itemprop="scholarAuthors">White et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2005">2005</time>
+            
+          </td>
+          <td itemprop="title">Interpreting fatigue test results using a probabilistic fracture approach</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/GB2438956A/en">
+                <span itemprop="publicationNumber">GB2438956A</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2007-12-12">2007-12-12</time>
+            
+            
+          </td>
+          <td itemprop="title">Passive structural assessment and monitoring system and associated method 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="1112437492171966974">
+              <a href="/scholar/1112437492171966974"><span itemprop="scholarAuthors">Achenbach</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2009">2009</time>
+            
+          </td>
+          <td itemprop="title">Structural health monitoring–What is the prescription?</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US20110106459A1/en">
+                <span itemprop="publicationNumber">US20110106459A1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2011-05-05">2011-05-05</time>
+            
+            
+          </td>
+          <td itemprop="title">In-situ optical crack measurement using a dot pattern 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/JP2005315892A/en">
+                <span itemprop="publicationNumber">JP2005315892A</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2005-11-10">2005-11-10</time>
+            
+            
+          </td>
+          <td itemprop="title">Method for ultrasonically inspecting aerofoil 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/EP1920442A2/en">
+                <span itemprop="publicationNumber">EP1920442A2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2008-05-14">2008-05-14</time>
+            
+            
+          </td>
+          <td itemprop="title">Automated damage assessment, report, and disposition 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="4201266767847404612">
+              <a href="/scholar/4201266767847404612"><span itemprop="scholarAuthors">Drury et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1994">1994</time>
+            
+          </td>
+          <td itemprop="title">Human factors in test and inspection</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US4107980A/en">
+                <span itemprop="publicationNumber">US4107980A</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="1978-08-22">1978-08-22</time>
+            
+            
+          </td>
+          <td itemprop="title">Assessment of flaw growth potential in structural components 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US6872582B2/en">
+                <span itemprop="publicationNumber">US6872582B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2005-03-29">2005-03-29</time>
+            
+            
+          </td>
+          <td itemprop="title">Selective trim and wafer testing of integrated circuits 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="2402873478910957401">
+              <a href="/scholar/2402873478910957401"><span itemprop="scholarAuthors">Sun et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2005">2005</time>
+            
+          </td>
+          <td itemprop="title">Modeling of stone-impact resistance of monolithic glass ply using continuum damage mechanics</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US8015876B2/en">
+                <span itemprop="publicationNumber">US8015876B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2011-09-13">2011-09-13</time>
+            
+            
+          </td>
+          <td itemprop="title">Method and apparatus for measuring the structural integrity of a safe-life aircraft component 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US20120035862A1/en">
+                <span itemprop="publicationNumber">US20120035862A1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2012-02-09">2012-02-09</time>
+            
+            
+          </td>
+          <td itemprop="title">Apparatus and Method for Inspecting Laminated Structure 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US6480808B1/en">
+                <span itemprop="publicationNumber">US6480808B1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2002-11-12">2002-11-12</time>
+            
+            
+          </td>
+          <td itemprop="title">Method and apparatus for calculating confidence intervals 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US9506836B2/en">
+                <span itemprop="publicationNumber">US9506836B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2016-11-29">2016-11-29</time>
+            
+            
+          </td>
+          <td itemprop="title">Methods and systems for structural health monitoring 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US20080312848A1/en">
+                <span itemprop="publicationNumber">US20080312848A1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2008-12-18">2008-12-18</time>
+            
+            
+          </td>
+          <td itemprop="title">System and method for in-situ monitoring of composite materials 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="6361671868081601627">
+              <a href="/scholar/6361671868081601627"><span itemprop="scholarAuthors">Soliman et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2013">2013</time>
+            
+          </td>
+          <td itemprop="title">Life-cycle management of fatigue-sensitive structures integrating inspection information</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US20090093999A1/en">
+                <span itemprop="publicationNumber">US20090093999A1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2009-04-09">2009-04-09</time>
+            
+            
+          </td>
+          <td itemprop="title">Method and system for quantifying damage in a structure 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="11489563714211569891">
+              <a href="/scholar/11489563714211569891"><span itemprop="scholarAuthors">McClung et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2004">2004</time>
+            
+          </td>
+          <td itemprop="title">A software framework for probabilistic fatigue life assessment of gas turbine engine rotors</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="4242699936475057820">
+              <a href="/scholar/4242699936475057820"><span itemprop="scholarAuthors">Walz et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2006">2006</time>
+            
+          </td>
+          <td itemprop="title">Probabilistic fracture mechanics assessment of flaws in turbine disks including quality assurance procedures</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="10649599513648453303">
+              <a href="/scholar/10649599513648453303"><span itemprop="scholarAuthors">Wojcicki et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2007">2007</time>
+            
+          </td>
+          <td itemprop="title">An iterative empirical strategy for the systematic selection of a combination of verification and validation technologies</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Legal Events</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Code</th>
+          <th>Title</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2009-05-27">2009-05-27</time></td>
+          <td itemprop="code">AS</td>
+          <td itemprop="title">Assignment</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Owner name</strong>:
+              <span itemprop="value">UNITED STATES OF AMERICA AS REPRESENTED BY THE ADM</span>
+            </p>
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">ASSIGNMENT OF ASSIGNORS INTEREST;ASSIGNOR:GENERAZIO, EDWARD R.;REEL/FRAME:022738/0934</span>
+            </p>
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Effective date</strong>:
+              <span itemprop="value">20090515</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2012-01-11">2012-01-11</time></td>
+          <td itemprop="code">STCF</td>
+          <td itemprop="title">Information on status: patent grant</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">PATENTED CASE</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2015-07-08">2015-07-08</time></td>
+          <td itemprop="code">FPAY</td>
+          <td itemprop="title">Fee payment</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Year of fee payment</strong>:
+              <span itemprop="value">4</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2019-07-29">2019-07-29</time></td>
+          <td itemprop="code">MAFP</td>
+          <td itemprop="title">Maintenance fee payment</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">PAYMENT OF MAINTENANCE FEE, 8TH YEAR, LARGE ENTITY (ORIGINAL EVENT CODE: M1552); ENTITY STATUS OF PATENT OWNER: LARGE ENTITY</span>
+            </p>
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Year of fee payment</strong>:
+              <span itemprop="value">8</span>
+            </p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+</article>
+
+    </search-app>
+    <script type="text/javascript" src="//www.gstatic.com/feedback/api.js"></script>
+    <script async="" defer="" src="//www.google.com/insights/consumersurveys/async_survey?site=cxkjf7ipxgbnnjy6k35ezcvbbe"></script>
+  </body>
+</html>
