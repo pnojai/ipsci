@@ -1,0 +1,132 @@
+---
+title: "ipsci"
+author: "Jai Jeffryes"
+date: "11/22/2019"
+output: 
+  html_document:
+    code_folding: hide
+    highlight: pygments
+    theme: flatly
+    toc: yes
+    toc_float: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r packages}
+library(rplos)    # API to PLOS for journals.
+library(readr)    # Reading rectangular data.
+library(plyr)     # Wrangling data.
+library(dplyr)    # Wrangling data.
+library(tibble)   # Tidier table object.
+library(tidyr)    # Tidying data,
+library(stringr)  # Manipulating strings. Using RegEx.
+library(tm)       # Text mining.
+library(fulltext) # Text mining of open access journals.
+library(XML)      # Dealing with text in xml.
+library(httr)     # Wrapper for the curl package.
+library(jsonlite) # Getting and formatting JSON.
+```
+
+## NASA Patents
+- Data source: [NASA's Open Data Portal](https://data.nasa.gov/Raw-Data/NASA-Patents/gquh-watm). Includes column specification.
+- File: NASA_Patents.csv
+- Download date: 11/14/2019
+
+### Notes
+- Once you determine the data types of your columns,set the specifications and then use them for reading.
+- [`readr` blog post](https://blog.rstudio.com/2016/08/05/readr-1-0-0/). Illustrates the approach, although this syntax doesn't work anymore. The approach writes the specification to a file.
+- [readr - how to update col_spec object from spec()](https://stackoverflow.com/questions/39135129/readr-how-to-update-col-spec-object-from-spec). Greg H.'s answer on Stack Overflow doesn't require writing to a file. We use this approach. 
+
+```{r nasa}
+nasa_patents_fn <- "NASA_Patents.csv"
+
+# Specify datatypes.
+nasa_spec <- spec_csv(file = file.path("data", nasa_patents_fn))
+nasa_spec$cols[["Status"]] <- col_factor()
+nasa_spec$cols[["Patent Expiration Date"]] <- col_date("%m/%d/%Y")
+
+# Read patent file.
+nasa_patents <- readr::read_csv(file = file.path("data", nasa_patents_fn),
+                                col_types = nasa_spec)
+
+# In variable names, replace spaces.
+names(nasa_patents) <- str_replace_all(string = names(nasa_patents),
+                                       pattern = " ",
+                                       replacement = "_")
+
+# Transform the application number to USPTO format
+nasa_patents <- nasa_patents %>%
+  mutate(Application_SN_uspto = str_c("US",
+        str_replace_all(Application_SN, "[[:punct:]]", "")))
+```
+
+## Retrieve patent data
+### USPTO
+The code chunk for this acquistion is disabled because I don't understand what it retrieves, but I'll keep the code in case I can use it.
+```{r get_uspto, eval=FALSE}
+# Curl
+# curl -X GET --header 'Accept: application/json' 'https://developer.uspto.gov/ibd-api/v1/patent/application?applicationNumber=US14202699%2CUS12795356&start=0&rows=100'
+# Request URL
+# https://developer.uspto.gov/ibd-api/v1/patent/application?applicationNumber=US14202699%2CUS12795356&start=0&rows=100
+
+get_patent_application_uspto <- function(app_num) {
+  file_path <- file.path("data", str_c(app_num, ".json"))
+  
+  if (!file.exists(file_path)) {
+    req_url <- "https://developer.uspto.gov/ibd-api/v1/patent/application?APPSTUB&start=0&rows=100"
+    req_url <- str_replace(string = req_url,
+                           pattern = "APPSTUB",
+                           replacement = as.character(app_num))
+    print(str_c("Downloading application ",
+                as.character(app_num), "..."))
+    
+    patent_application <- fromJSON(req_url)
+    stream_out(x = patent_application[["response"]][["docs"]],
+               file(file_path))
+    
+    print(file_path)
+  }
+}
+
+# Need to review contents of JSON files.
+for (app in nasa_patents$Application_SN_uspto) {
+  get_patent_application_uspto(app)
+}
+
+print("Downloads complete.")
+```
+
+### Google
+```{r get_google_patent}
+get_patent_google <- function(pat_num) {
+  file_path <- file.path("data", str_c(pat_num, ".html"))
+
+  if (!file.exists(file_path)) {
+    req_url <- "https://patents.google.com/patent/USPATNUMSTUB"
+    req_url <- str_replace(string = req_url,
+                           pattern = "PATNUMSTUB",
+                           replacement = as.character(pat_num))
+    print(str_c("Downloading patent ",
+                as.character(pat_num), "..."))
+    
+    r <- GET(req_url, write_disk(file_path))
+    warn_for_status(r)
+  }
+}
+
+# Filter missing patent numbers
+is_na_patnum <- is.na(nasa_patents$Patent_Number)
+is_patnum <- nasa_patents$Patent_Number > 0
+
+nasa_patent_numbers <- nasa_patents$Patent_Number[!is_na_patnum & is_patnum]
+
+for (patnum in nasa_patent_numbers) {
+   get_patent_google(patnum)
+}
+
+print("Downloads complete.")
+```
+
