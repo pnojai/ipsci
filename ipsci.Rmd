@@ -28,6 +28,7 @@ library(fulltext) # Text mining of open access journals.
 library(XML)      # Dealing with text in xml.
 library(httr)     # Wrapper for the curl package.
 library(jsonlite) # Getting and formatting JSON.
+library(rvest)    # Download and manipulate HTML.
 ```
 
 ## NASA Patents
@@ -128,5 +129,34 @@ for (patnum in nasa_patent_numbers) {
 }
 
 print("Downloads complete.")
+```
+
+### extract patent data from Google HTML
+```{r}
+# explore downloaded data
+raw.html <- read_html("data/6918970.html")
+# title
+raw.html %>% html_nodes("body search-app article h1") %>% html_text() %>% .[[1]]
+# prior art keywords
+raw.html %>% html_nodes("[itemprop='priorArtKeywords']") %>% html_text()
+# inventors
+raw.html %>% html_nodes("[itemprop='inventor']") %>% html_text()
+# current assignee
+raw.html %>% html_nodes("[itemprop='assigneeCurrent']") %>% html_text()
+# original assignee
+#raw.html %>% html_nodes("[itemprop='assigneeOriginal']") %>% html_text() # lots of noise; need to parse later
+# filing date
+raw.html %>% html_nodes("[itemprop='filingDate']") %>% html_text() # which one to select?
+# classifications
+raw.html %>% html_nodes("[itemprop='cpcs']") %>% html_text() # what does it mean?
+# abstract
+raw.html %>% html_nodes("abstract") %>% html_text()
+# description > origin of the invention
+raw.html %>% html_nodes("body search-app article section div div p") %>% html_text() %>% .[[1]]
+# description > background of the invention > field of the invention
+raw.html %>% html_nodes("body search-app article section div div p") %>% html_text() %>% .[[3]]
+# description > summary of the invention --> worth grabbing?
+# cited by (count)
+raw.html %>% html_nodes("body search-app article h2") %>% html_text()
 ```
 
