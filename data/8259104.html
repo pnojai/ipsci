@@ -1,0 +1,3000 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>US8259104B2 - Domain decomposition by the advancing-partition method for parallel unstructured grid generation 
+        - Google Patents</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="referrer" content="origin-when-crossorigin">
+    <link rel="canonical" href="https://patents.google.com/patent/US8259104B2/en">
+    <meta name="description" content="
+     In a method for domain decomposition for generating unstructured grids, a surface mesh is generated for a spatial domain. A location of a partition plane dividing the domain into two sections is determined. Triangular faces on the surface mesh that intersect the partition plane are identified. A partition grid of tetrahedral cells, dividing the domain into two sub-domains, is generated using a marching process in which a front comprises only faces of new cells which intersect the partition plane. The partition grid is generated until no active faces remain on the front. Triangular faces on each side of the partition plane are collected into two separate subsets. Each subset of triangular faces is renumbered locally and a local/global mapping is created for each sub-domain. A volume grid is generated for each sub-domain. The partition grid and volume grids are then merged using the local-global mapping. 
+   
+   ">
+    
+    <meta name="DC.type" content="patent">
+    
+    <meta name="DC.title" content="Domain decomposition by the advancing-partition method for parallel unstructured grid generation 
+       ">
+    
+    <meta name="DC.date" content="2009-06-29" scheme="dateSubmitted">
+    
+    <meta name="DC.description" content="
+     In a method for domain decomposition for generating unstructured grids, a surface mesh is generated for a spatial domain. A location of a partition plane dividing the domain into two sections is determined. Triangular faces on the surface mesh that intersect the partition plane are identified. A partition grid of tetrahedral cells, dividing the domain into two sub-domains, is generated using a marching process in which a front comprises only faces of new cells which intersect the partition plane. The partition grid is generated until no active faces remain on the front. Triangular faces on each side of the partition plane are collected into two separate subsets. Each subset of triangular faces is renumbered locally and a local/global mapping is created for each sub-domain. A volume grid is generated for each sub-domain. The partition grid and volume grids are then merged using the local-global mapping. 
+   
+   ">
+    
+    <meta name="citation_patent_application_number" content="US:12/493,666">
+    
+    <meta name="citation_pdf_url" content="https://patentimages.storage.googleapis.com/47/dc/4f/ae35c724051ea5/US8259104.pdf">
+    
+    <meta name="citation_patent_number" content="US:8259104">
+    
+    <meta name="DC.date" content="2012-09-04" scheme="issue">
+    
+    <meta name="DC.contributor" content="Shahyar Z. Pirzadeh" scheme="inventor">
+    
+    <meta name="DC.contributor" content="National Aeronautics and Space Administration (NASA)" scheme="assignee">
+    
+    <meta name="DC.relation" content="US:7129942" scheme="references">
+    
+    <meta name="citation_reference" content="Ivanov et al, Domain Decomposition Approach for Automatic Parallel Generation of tetrahedral Grids, Berichte des fraunhofer ITWM, Nr. 87, 2006, pp. 1-32." scheme="references">
+    
+    <meta name="citation_reference" content="Shahyar Zachary Pirzadeh., &#34;Domain Decomposition by the Advancing Partition Method&#34;, NASA/TM 2008, Jun. 2008, pp. 1-23." scheme="references">
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,400italic,500,500italic,700">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Product+Sans">
+    <style>
+      body { transition: none; }
+    </style>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-27188110-4', 'auto');
+
+      version = 'patent-search.search_20191120_RC00';
+
+      function sendFeedback() {
+        userfeedback.api.startFeedback({
+          'productId': '713680',
+          'bucket': 'patent-search-web',
+          'productVersion': version,
+        });
+      }
+
+      window.experiments = {};
+      window.experiments.patentCountries = "ae,ag,al,am,ao,ap,ar,at,au,aw,az,ba,bb,bd,be,bf,bg,bh,bj,bn,bo,br,bw,bx,by,bz,ca,cf,cg,ch,ci,cl,cm,cn,co,cr,cs,cu,cy,cz,dd,de,dj,dk,dm,do,dz,ea,ec,ee,eg,em,ep,es,fi,fr,ga,gb,gc,gd,ge,gh,gm,gn,gq,gr,gt,gw,hk,hn,hr,hu,ib,id,ie,il,in,ir,is,it,jo,jp,ke,kg,kh,km,kn,kp,kr,kw,kz,la,lc,li,lk,lr,ls,lt,lu,lv,ly,ma,mc,md,me,mg,mk,ml,mn,mo,mr,mt,mw,mx,my,mz,na,ne,ng,ni,nl,no,nz,oa,om,pa,pe,pg,ph,pl,pt,py,qa,ro,rs,ru,rw,sa,sc,sd,se,sg,si,sk,sl,sm,sn,st,su,sv,sy,sz,td,tg,th,tj,tm,tn,tr,tt,tw,tz,ua,ug,us,uy,uz,vc,ve,vn,wo,yu,za,zm,zw";
+      
+      
+      window.profilePicture = "";
+
+      window.Polymer = {
+        dom: 'shady',
+        lazyRegister: true,
+      };
+    </script>
+
+    <script src="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/webcomponentsjs/webcomponents-lite.min.js"></script>
+    
+    <link rel="import" href="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/search-app-vulcanized.html">
+    
+  </head>
+  <body unresolved>
+    
+    <script src="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/search-app-vulcanized.js"></script>
+    
+    <search-app>
+      
+      
+
+      <article class="result" itemscope itemtype="http://schema.org/ScholarlyArticle">
+  <h1 itemprop="pageTitle">US8259104B2 - Domain decomposition by the advancing-partition method for parallel unstructured grid generation 
+        - Google Patents</h1>
+  <span itemprop="title">Domain decomposition by the advancing-partition method for parallel unstructured grid generation 
+       </span>
+
+  <meta itemprop="type" content="patent">
+  <a href="https://patentimages.storage.googleapis.com/47/dc/4f/ae35c724051ea5/US8259104.pdf" itemprop="pdfLink">Download PDF</a>
+  <h2>Info</h2>
+
+  <dl>
+    <dt>Publication number</dt>
+    <dd itemprop="publicationNumber">US8259104B2</dd>
+    <meta itemprop="numberWithoutCodes" content="8259104">
+    <meta itemprop="kindCode" content="B2">
+    <meta itemprop="publicationDescription" content="Patent ( having previously published pre-grant publication)">
+    
+    <span>US8259104B2</span>
+    
+    <span>US12/493,666</span>
+    
+    <span>US49366609A</span>
+    
+    <span>US8259104B2</span>
+    
+    <span>US 8259104 B2</span>
+    
+    <span>US8259104 B2</span>
+    
+    <span>US 8259104B2</span>
+    
+    <span>  </span>
+    
+    <span> </span>
+    
+    <span> </span>
+    
+    <span>US 49366609 A</span>
+    
+    <span>US49366609 A</span>
+    
+    <span>US 49366609A</span>
+    
+    <span>US 8259104 B2</span>
+    
+    <span>US8259104 B2</span>
+    
+    <span>US 8259104B2</span>
+    
+
+    <dt>Authority</dt>
+    <dd itemprop="countryCode">US</dd>
+    <dd itemprop="countryName">United States</dd>
+
+    <dt>Prior art keywords</dt>
+    
+    <dd itemprop="priorArtKeywords" repeat>grid</dd>
+    <dd itemprop="priorArtKeywords" repeat>partition</dd>
+    <dd itemprop="priorArtKeywords" repeat>domain</dd>
+    <dd itemprop="priorArtKeywords" repeat>grids</dd>
+    <dd itemprop="priorArtKeywords" repeat>generated</dd>
+
+    <dt>Prior art date</dt>
+    <dd><time itemprop="priorArtDate" datetime="2008-08-28">2008-08-28</time></dd>
+
+    <dt>Legal status (The legal status is an assumption and is not a legal conclusion. Google has not performed a legal analysis and makes no representation as to the accuracy of the status listed.)</dt>
+    <dd itemprop="legalStatusIfi" itemscope>
+      <span itemprop="status">Expired - Fee Related</span>, expires <time itemprop="expiration" datetime="2031-03-09">2031-03-09</time>
+    </dd>
+  </dl>
+
+  <dt>Application number</dt>
+  <dd itemprop="applicationNumber">US12/493,666</dd>
+
+  
+
+  <dt>Other versions</dt>
+  <dd itemprop="directAssociations" itemscope repeat>
+    
+    <a href="/patent/US20100134498A1/en">
+      <span itemprop="publicationNumber">US20100134498A1</span>
+      (<span itemprop="primaryLanguage">en</span>
+    </a>
+  </dd>
+
+  <dt>Inventor</dt>
+  <dd itemprop="inventor" repeat>Shahyar Z. Pirzadeh</dd>
+  <dt>Current Assignee (The listed assignees may be inaccurate. Google has not performed a legal analysis and makes no representation or warranty as to the accuracy of the list.)</dt>
+  <dd itemprop="assigneeCurrent" repeat>
+    National Aeronautics and Space Administration (NASA)
+  </dd>
+
+  <dt>Original Assignee</dt>
+  <dd itemprop="assigneeOriginal" repeat>National Aeronautics and Space Administration (NASA)</dd>
+
+  <dt>Priority date (The priority date is an assumption and is not a legal conclusion. Google has not performed a legal analysis and makes no representation as to the accuracy of the date listed.)</dt>
+  <dd><time itemprop="priorityDate" datetime="2008-08-28">2008-08-28</time></dd>
+
+  <dt>Filing date</dt>
+  <dd><time itemprop="filingDate" datetime="2009-06-29">2009-06-29</time></dd>
+
+  <dt>Publication date</dt>
+  <dd><time itemprop="publicationDate" datetime="2012-09-04">2012-09-04</time></dd>
+
+  
+
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2008-08-28">2008-08-28</time>
+    <span itemprop="title">Priority to US9244608P</span>
+    <span itemprop="type">priority</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2009-06-29">2009-06-29</time>
+    <span itemprop="title">Application filed by National Aeronautics and Space Administration (NASA)</span>
+    <span itemprop="type">filed</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    <span itemprop="assigneeSearch">National Aeronautics and Space Administration (NASA)</span>
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2009-06-29">2009-06-29</time>
+    <span itemprop="title">Priority to US12/493,666</span>
+    <span itemprop="type">priority</span>
+    
+    
+    
+    <span itemprop="documentId">patent/US8259104B2/en</span>
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2009-12-08">2009-12-08</time>
+    <span itemprop="title">Assigned to UNITED STATES OF AMERICA AS REPRESENTED BY THE ADMINISTRATOR OF THE NATIONAL AERONAUTICS AND SPACE ADMINISTRATION</span>
+    <span itemprop="type">reassignment</span>
+    
+    
+    
+    
+    <span itemprop="assigneeSearch">UNITED STATES OF AMERICA AS REPRESENTED BY THE ADMINISTRATOR OF THE NATIONAL AERONAUTICS AND SPACE ADMINISTRATION</span>
+    
+    
+    <span itemprop="description" repeat>ASSIGNMENT OF ASSIGNORS INTEREST (SEE DOCUMENT FOR DETAILS).</span>
+    
+    <span itemprop="description" repeat>Assignors: PIRZADEH, SHAHYAR ZACHARY</span>
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2010-06-03">2010-06-03</time>
+    <span itemprop="title">Publication of US20100134498A1</span>
+    <span itemprop="type">publication</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    <span itemprop="documentId">patent/US20100134498A1/en</span>
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2012-09-04">2012-09-04</time>
+    <span itemprop="title">Application granted</span>
+    <span itemprop="type">granted</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2012-09-04">2012-09-04</time>
+    <span itemprop="title">Publication of US8259104B2</span>
+    <span itemprop="type">publication</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    <span itemprop="documentId">patent/US8259104B2/en</span>
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2019-11-26">2019-11-26</time>
+    <span itemprop="title">Application status is Expired - Fee Related</span>
+    <span itemprop="type">legal-status</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2031-03-09">2031-03-09</time>
+    <span itemprop="title">Adjusted expiration</span>
+    <span itemprop="type">legal-status</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+
+  <h2>Links</h2>
+
+  <ul>
+    
+          <li itemprop="links" itemscope repeat>
+            <meta itemprop="id" content="usptoLink">
+            <a href="http://patft.uspto.gov/netacgi/nph-Parser?Sect1=PTO1&Sect2=HITOFF&p=1&u=/netahtml/PTO/srchnum.html&r=1&f=G&l=50&d=PALL&s1=8259104.PN." itemprop="url" target="_blank"><span itemprop="text">USPTO</span></a>
+          </li>
+        <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="usptoAssignmentLink">
+          <a href="https://assignment.uspto.gov/patent/index.html#/patent/search/resultFilter?searchInput=8259104" itemprop="url" target="_blank"><span itemprop="text">USPTO Assignment</span></a>
+        </li>
+
+    <li itemprop="links" itemscope repeat>
+        <meta itemprop="id" content="espacenetLink">
+        <a href="http://worldwide.espacenet.com/publicationDetails/biblio?CC=US&amp;NR=8259104B2&amp;KC=B2&amp;FT=D" itemprop="url" target="_blank"><span itemprop="text">Espacenet</span></a>
+      </li>
+      
+
+    
+
+    
+      <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="globalDossierLink">
+          <a href="http://globaldossier.uspto.gov/#/result/patent/US/8259104/1" itemprop="url" target="_blank"><span itemprop="text">Global Dossier</span></a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="stackexchangeLink">
+          <a href="https://patents.stackexchange.com/questions/tagged/US8259104" itemprop="url"><span itemprop="text">Discuss</span></a>
+        </li>
+      
+  </ul>
+
+  
+  <ul itemprop="concept" itemscope>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000005192</span>
+      <span itemprop="name">partition</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>abstract</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="sections" repeat>title</span>
+      
+      <span itemprop="count">78</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000000354</span>
+      <span itemprop="name">decomposition</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>abstract</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="sections" repeat>title</span>
+      
+      <span itemprop="count">41</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000000034</span>
+      <span itemprop="name">methods</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>abstract</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">42</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">108020001568</span>
+      <span itemprop="name">subdomains</span>
+      <span itemprop="domain">Proteins</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>abstract</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">10</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000004590</span>
+      <span itemprop="name">computer program</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">18</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000002609</span>
+      <span itemprop="name">media</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">18</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000003860</span>
+      <span itemprop="name">storage</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">3</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">210000004027</span>
+      <span itemprop="name">cells</span>
+      <span itemprop="domain">Anatomy</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">23</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000000638</span>
+      <span itemprop="name">solvent extraction</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">17</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000000203</span>
+      <span itemprop="name">mixtures</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">8</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000009826</span>
+      <span itemprop="name">distribution</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">7</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000015654</span>
+      <span itemprop="name">memory</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">7</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000002245</span>
+      <span itemprop="name">particles</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">7</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000010410</span>
+      <span itemprop="name">layers</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">6</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000000875</span>
+      <span itemprop="name">corresponding</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">4</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000004422</span>
+      <span itemprop="name">calculation algorithm</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">3</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001721</span>
+      <span itemprop="name">combination</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">3</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000003287</span>
+      <span itemprop="name">optical</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">3</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000000694</span>
+      <span itemprop="name">effects</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000003365</span>
+      <span itemprop="name">glass fiber</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000000463</span>
+      <span itemprop="name">materials</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000006011</span>
+      <span itemprop="name">modification</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000004048</span>
+      <span itemprop="name">modification</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000007781</span>
+      <span itemprop="name">pre-processing</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000011800</span>
+      <span itemprop="name">void materials</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">241000282414</span>
+      <span itemprop="name">Homo sapiens</span>
+      <span itemprop="domain">Species</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">210000003666</span>
+      <span itemprop="name">Nerve Fibers, Myelinated</span>
+      <span itemprop="domain">Anatomy</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000007792</span>
+      <span itemprop="name">addition</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000003190</span>
+      <span itemprop="name">augmentative</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000000969</span>
+      <span itemprop="name">carrier</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000008264</span>
+      <span itemprop="name">clouds</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000010276</span>
+      <span itemprop="name">construction</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000007796</span>
+      <span itemprop="name">conventional methods</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000011162</span>
+      <span itemprop="name">core materials</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000002950</span>
+      <span itemprop="name">deficient</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000018109</span>
+      <span itemprop="name">developmental process</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001747</span>
+      <span itemprop="name">exhibited</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000011519</span>
+      <span itemprop="name">fill dirt</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000000727</span>
+      <span itemprop="name">fractions</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000014509</span>
+      <span itemprop="name">gene expression</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001965</span>
+      <span itemprop="name">increased</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000003829</span>
+      <span itemprop="name">large scale production</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000011133</span>
+      <span itemprop="name">lead</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000010912</span>
+      <span itemprop="name">leaf</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000000670</span>
+      <span itemprop="name">limiting</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000004519</span>
+      <span itemprop="name">manufacturing process</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000009740</span>
+      <span itemprop="name">moulding (composite fabrication)</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000036961</span>
+      <span itemprop="name">partial</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000000644</span>
+      <span itemprop="name">propagated</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000004065</span>
+      <span itemprop="name">semiconductor</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001360</span>
+      <span itemprop="name">synchronised</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000000007</span>
+      <span itemprop="name">visual effect</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+  </ul>
+  
+
+  <section>
+    <h2>Images</h2>
+    <ul>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/3f/e5/99/a37b6e0735ed64/US08259104-20120904-D00000.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/d6/1c/9f/3295d48f853dc1/US08259104-20120904-D00000.png">
+        <ul>
+          
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/fd/40/19/4518e65ef01ad2/US08259104-20120904-D00001.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/af/e1/2e/ac2dad44311adc/US08259104-20120904-D00001.png">
+        <ul>
+          <li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="1">
+            <meta itemprop="label" content="obstacle items">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1753">
+              <meta itemprop="top" content="872">
+              <meta itemprop="right" content="1777">
+              <meta itemprop="bottom" content="924">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="2">
+            <meta itemprop="label" content="obstacle items">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="837">
+              <meta itemprop="top" content="1825">
+              <meta itemprop="right" content="862">
+              <meta itemprop="bottom" content="1878">
+            </span>
+          </li>
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/88/1c/33/56c52837d04aff/US08259104-20120904-D00002.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/39/61/64/406088351f3387/US08259104-20120904-D00002.png">
+        <ul>
+          
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/bd/76/94/f0d806754d8595/US08259104-20120904-D00003.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/29/58/6d/4d5f49a1ff1ad8/US08259104-20120904-D00003.png">
+        <ul>
+          <li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="3">
+            <meta itemprop="id" content="1">
+            <meta itemprop="label" content="obstacle items">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1147">
+              <meta itemprop="top" content="682">
+              <meta itemprop="right" content="1162">
+              <meta itemprop="bottom" content="713">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="3">
+            <meta itemprop="id" content="1">
+            <meta itemprop="label" content="obstacle items">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1169">
+              <meta itemprop="top" content="1547">
+              <meta itemprop="right" content="1201">
+              <meta itemprop="bottom" content="1587">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="3">
+            <meta itemprop="id" content="1">
+            <meta itemprop="label" content="obstacle items">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="498">
+              <meta itemprop="top" content="1479">
+              <meta itemprop="right" content="534">
+              <meta itemprop="bottom" content="1536">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="3">
+            <meta itemprop="id" content="2">
+            <meta itemprop="label" content="obstacle items">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1370">
+              <meta itemprop="top" content="676">
+              <meta itemprop="right" content="1419">
+              <meta itemprop="bottom" content="718">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="3">
+            <meta itemprop="id" content="2">
+            <meta itemprop="label" content="obstacle items">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1414">
+              <meta itemprop="top" content="1471">
+              <meta itemprop="right" content="1448">
+              <meta itemprop="bottom" content="1527">
+            </span>
+          </li>
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/08/9d/86/063b118b535c56/US08259104-20120904-D00004.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/04/15/2c/80f0b08e2c07ff/US08259104-20120904-D00004.png">
+        <ul>
+          <li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="4">
+            <meta itemprop="id" content="1">
+            <meta itemprop="label" content="obstacle items">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="681">
+              <meta itemprop="top" content="426">
+              <meta itemprop="right" content="709">
+              <meta itemprop="bottom" content="472">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="4">
+            <meta itemprop="id" content="12">
+            <meta itemprop="label" content="block">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="138">
+              <meta itemprop="top" content="405">
+              <meta itemprop="right" content="205">
+              <meta itemprop="bottom" content="449">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="4">
+            <meta itemprop="id" content="16">
+            <meta itemprop="label" content="block">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1560">
+              <meta itemprop="top" content="884">
+              <meta itemprop="right" content="1618">
+              <meta itemprop="bottom" content="928">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="4">
+            <meta itemprop="id" content="2">
+            <meta itemprop="label" content="obstacle items">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="679">
+              <meta itemprop="top" content="885">
+              <meta itemprop="right" content="727">
+              <meta itemprop="bottom" content="934">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="4">
+            <meta itemprop="id" content="20">
+            <meta itemprop="label" content="block">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="117">
+              <meta itemprop="top" content="1535">
+              <meta itemprop="right" content="190">
+              <meta itemprop="bottom" content="1579">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="4">
+            <meta itemprop="id" content="24">
+            <meta itemprop="label" content="block">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1497">
+              <meta itemprop="top" content="1853">
+              <meta itemprop="right" content="1567">
+              <meta itemprop="bottom" content="1901">
+            </span>
+          </li>
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/6c/77/7a/daa025a1485715/US08259104-20120904-D00005.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/42/a9/b7/3233fa2c03a930/US08259104-20120904-D00005.png">
+        <ul>
+          
+        </ul>
+      </li>
+      </ul>
+  </section>
+
+  <section>
+    <h2>Classifications</h2>
+    
+    <ul>
+      <li>
+        <ul itemprop="cpcs" itemscope repeat>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G</span>&mdash;<span itemprop="Description">PHYSICS</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06</span>&mdash;<span itemprop="Description">COMPUTING; CALCULATING; COUNTING</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06T</span>&mdash;<span itemprop="Description">IMAGE DATA PROCESSING OR GENERATION, IN GENERAL</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06T17/00</span>&mdash;<span itemprop="Description">Three dimensional [3D] modelling, e.g. data description of 3D objects</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06T17/20</span>&mdash;<span itemprop="Description">Finite element generation, e.g. wire-frame surface description, tesselation</span>
+            <meta itemprop="Leaf" content="true">
+            
+            <meta itemprop="FirstCode" content="true">
+          </li>
+          </ul>
+      </li>
+      <li>
+        <ul itemprop="cpcs" itemscope repeat>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G</span>&mdash;<span itemprop="Description">PHYSICS</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06</span>&mdash;<span itemprop="Description">COMPUTING; CALCULATING; COUNTING</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06T</span>&mdash;<span itemprop="Description">IMAGE DATA PROCESSING OR GENERATION, IN GENERAL</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06T17/00</span>&mdash;<span itemprop="Description">Three dimensional [3D] modelling, e.g. data description of 3D objects</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06T17/20</span>&mdash;<span itemprop="Description">Finite element generation, e.g. wire-frame surface description, tesselation</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06T17/205</span>&mdash;<span itemprop="Description">Re-meshing</span>
+            <meta itemprop="Leaf" content="true">
+            
+            
+          </li>
+          </ul>
+      </li>
+      </ul>
+  </section>
+
+  <section itemprop="abstract" itemscope>
+    <h2>Abstract</h2>
+    
+    <div itemprop="content" html><abstract mxw-id="PA99722045" lang="EN" load-source="patent-office">
+    <div num="p-0001" class="abstract">In a method for domain decomposition for generating unstructured grids, a surface mesh is generated for a spatial domain. A location of a partition plane dividing the domain into two sections is determined. Triangular faces on the surface mesh that intersect the partition plane are identified. A partition grid of tetrahedral cells, dividing the domain into two sub-domains, is generated using a marching process in which a front comprises only faces of new cells which intersect the partition plane. The partition grid is generated until no active faces remain on the front. Triangular faces on each side of the partition plane are collected into two separate subsets. Each subset of triangular faces is renumbered locally and a local/global mapping is created for each sub-domain. A volume grid is generated for each sub-domain. The partition grid and volume grids are then merged using the local-global mapping.</div>
+  </abstract>
+  </div>
+  </section>
+
+  <section itemprop="description" itemscope>
+    <h2>Description</h2>
+    
+    <div itemprop="content" html><div mxw-id="PDES51178740" lang="EN" load-source="patent-office" class="description">
+    
+    <heading>CROSS-REFERENCE TO RELATED APPLICATION</heading>
+    <p num="p-0002">This application claims priority to and the benefit of U.S. Provisional Application 61/092,446 filed on Aug. 28, 2008, which is hereby incorporated by reference in its entirety.</p>
+    
+    
+    <heading>ORIGIN OF THE INVENTION</heading>
+    <p num="p-0003">The invention was made by an employee of the United States Government and may be manufactured and used by or for the Government of the United States of America for governmental purposes without the payment of any royalties thereon or therefor.</p>
+    
+    
+    <heading>FIELD OF THE INVENTION</heading>
+    <p num="p-0004">The present invention relates generally to computational fluid dynamics and, more particularly, relates to methods of domain decomposition for grid generation.</p>
+    <heading>BACKGROUND</heading>
+    <p num="p-0005">Thanks to recent advances in the field of Computational Fluid Dynamics (CFD), engineers and researchers are nowadays able to solve large-scale, real world aerodynamic problems that had not been tractable a few years ago. Among the enabling factors contributing to this success are: 1) advanced grid generation capabilities to discretize complex computational domains, 2) efficient and accurate flow solution algorithms, and 3) widespread availability of powerful computational resources; especially, parallel computer architectures.</p>
+    <p num="p-0006">Generation of large size grids on complex configurations constitutes a substantial portion of a typical CFD activity (in terms of time and effort) and requires considerable amounts of computational resources. The increasing demand for more accurate Navier-Stokes (NS) flow simulations on complex models requires grids of tens (and soon even hundreds) of million elements. Generation of such grids in a single large domain using one computer Central Processing Unit (CPU) poses a challenge because of the speed and memory limitation of typical computers available to most CFD practitioners. In addition, experience has shown that generation of NS grids with minuscule length scales in very large domains become more difficult due to floating-point operations and numerical precision issues that affect the grid quality and the generation robustness. Domain decomposition is an enabling approach that substantially facilitates the process of grid generation by dividing a large problem into smaller components and meshing each subdomain either with a single CPU sequentially or on a cluster of computers in parallel.</p>
+    <p num="p-0007">Although parallel computation has been in use for solving complex problems in aerodynamics and other disciplines with great success for quite some time, it has not been fully utilized for the purpose of grid generation in a large-scale production level to date. There are obstacles that have prevented the routine application of parallel computations for generating grids, especially in three dimensions (3D). One of the common requirements for parallel computation is domain decomposition. While decomposition of a discretized (meshed) domain can easily be accomplished using conventional methods for parallel computation of fluid flow problems, partitioning of an “empty” domain for grid generation has proven to be a non-trivial task. There are several technical issues involved that make it especially difficult to properly decompose a domain prior to generation of the grid in parallel. Among the challenges are:</p>
+    <p num="p-0008">1) Automatic construction of partition interfaces in such a way that they intersect the domain boundaries (and other partition interfaces) seamlessly;</p>
+    <p num="p-0009">2) Discretization of partitions with high-quality grid elements compatible with those generated in the volume (without introduction of anomalies and inconsistencies);</p>
+    <p num="p-0010">3) Estimation of computational workload such that approximately equal numbers of grid elements are generated in the sub-domains and uniform amount of work is distributed among the processors (load balancing);</p>
+    <p num="p-0011">4) Ensuring that the partition interfaces will not interfere with the natural process of grid generation in the field and, thus, will not compromise the robustness of the underlying grid generation method nor the quality of the generated grids; and</p>
+    <p num="p-0012">5) Maintaining a low level of computational overhead for domain decomposition so that the cost of partitioning and decomposition will not overwhelm the cost of grid generation. Furthermore, the implementation of such a complex process automatically and without human intervention is a challenge in itself.</p>
+    <p num="p-0013">There are a variety of known techniques for domain decomposition. Some of these techniques are based on preprocessing operations, and many require some type of auxiliary grids for defining partitions/subdomains. The implementations of these approaches are usually complicated, and the methods are computationally inefficient. The procedural complexities and additional operations often lead to excessive overhead for domain decomposition and result in unsatisfactory performance of the parallel grid generation methods. In addition, extensions of these approaches are too complicated for the decomposition of domains for generating thin-layered, anisotropic, NS grids, mainly due to the obstacle items 1 and 2 above.</p>
+    <heading>BRIEF SUMMARY</heading>
+    <p num="p-0014">In one embodiment of the invention, a computer-implemented method of domain decomposition for generating unstructured grids comprises the steps of: (a) generating a surface mesh of a spatial domain for which a grid is to be generated; (b) determining a location of a partition plane dividing the domain into two sections; (c) identifying triangular faces on the surface mesh that intersect the partition plane; (d) generating a partition grid of tetrahedral cells using a marching process in which a front comprises only faces of new cells which intersect the partition plane, the partition grid being generated until no active faces remain on the front, the partition grid dividing the domain into two sub-domains; (e) collecting triangular faces on each side of the partition plane into two separate subsets; (f) renumbering each subset of triangular faces locally and creating a local/global mapping for each sub-domain; (g) generating a volume grid for each sub-domain; and (h) merging the partition grid and volume grids using the local-global mapping.</p>
+    <p num="p-0015">The location of the partition plane may be determined such that a number of grid elements to be generated on each side of the partition plane is approximately equal.</p>
+    <p num="p-0016">The collected triangular faces may include those faces belonging to the surface mesh and those faces on the partition grid.</p>
+    <p num="p-0017">The method may further comprise the steps of repeating steps (b) through (t) one or more times to further decompose each sub-domain into a partition grid and two sub-domains, wherein step (h) comprises merging all generated partition grids and volume grids.</p>
+    <p num="p-0018">The volume grids may be generated using an advancing front grid generation method. The volume grids may be generated sequentially or in parallel. Each generated volume grid may be post-processed as necessary to ensure grid closure and/or grid repair.</p>
+    <p num="p-0019">In addition to the method of domain decomposition for generating unstructured grids, as described above, other aspects of the present invention are directed to corresponding computer program products and systems for of domain decomposition for generating unstructured grids.</p>
+    
+    
+    <description-of-drawings>
+      <heading>BRIEF DESCRIPTION OF THE SEVERAL. VIEWS OF THE DRAWING(S)</heading>
+      <p num="p-0020">Having thus described the invention in general terms, reference will now be made to the accompanying drawings, which are not necessarily drawn to scale, and wherein:</p>
+      <p num="p-0021"> <figref idrefs="DRAWINGS">FIGS. 1 and 2</figref> illustrate a known method of grid generation;</p>
+      <p num="p-0022"> <figref idrefs="DRAWINGS">FIG. 3</figref> is a two-dimensional illustration of a method for domain decomposition, in accordance with embodiments of the present invention;</p>
+      <p num="p-0023"> <figref idrefs="DRAWINGS">FIG. 4</figref> is a flowchart of a method for domain decomposition, in accordance with embodiments of the present invention; and</p>
+      <p num="p-0024"> <figref idrefs="DRAWINGS">FIG. 5</figref> is a three-dimensional illustration of a method for domain decomposition, in accordance with embodiments of the present invention.</p>
+    </description-of-drawings>
+    
+    
+    <heading>DETAILED DESCRIPTION</heading>
+    <p num="p-0025">The present method and system of domain decomposition is an extension of the meshing methodology incorporated in the grid generation software VGRID and is preferably described by first presenting the underlying grid techniques followed by their implementation for domain decomposition. The following symbols are used herein in describing embodiments of the invention:
+</p> <ul> <li id="ul0001-0001" num="0000"> <ul> <li id="ul0002-0001" num="0025">A cell aspect ratio</li> <li id="ul0002-0002" num="0026">g<sub>j</sub>{1, 2, 3, . . . m<sub>j</sub>} j<sup>th </sup>partition-grid containing a set of m<sub>j </sub>field elements</li> <li id="ul0002-0003" num="0027">G<sub>i</sub>{1, 2, 3, . . . m<sub>i</sub>} i<sup>th </sup>sub-grid containing a set of m<sub>i </sub>field elements in subdomain i</li> <li id="ul0002-0004" num="0028">G{1, 2, 3, . . . m<sub>G</sub>} global grid containing a set of m<sub>G </sub>field elements in the main domain</li> <li id="ul0002-0005" num="0029">k empirical parameter used for computing the center of mesh density</li> <li id="ul0002-0006" num="0030">L level of binary domain partitioning/decomposition</li> <li id="ul0002-0007" num="0031">m<sub>i </sub>mass of i<sup>th </sup>the particle; also number of grid elements</li> <li id="ul0002-0008" num="0032">N total number of subdomains/sub-grids</li> <li id="ul0002-0009" num="0033">n<sub>G </sub>number of surface mesh elements</li> <li id="ul0002-0010" num="0034">n number of particles; number of boundary grid elements</li> <li id="ul0002-0011" num="0035"> <o>r</o> <sub>i </sub>position vector of the i<sup>th </sup>particle</li> <li id="ul0002-0012" num="0036"> <o>R</o> position vector of the center of mass (center of mesh density)</li> <li id="ul0002-0013" num="0037">s<sub>i </sub>local grid spacing at the i<sup>th </sup>grid node</li> <li id="ul0002-0014" num="0038">F and R mapping functions used for local/global grid renumbering</li> <li id="ul0002-0015" num="0039">ω<sub>i </sub>weighting function used for computing the center of mesh density</li> <li id="ul0002-0016" num="0040">Ω<sub>1</sub>, Ω<sub>2 </sub>binary subdomains produced at each level L of partitioning</li> </ul> </li> </ul>
+
+    <p num="p-0026">Background Methodology</p>
+    <p num="p-0027">The unstructured grid generation software VGRID, developed at the NASA Langley Research Center, is based on two marching techniques referred to as the Advancing Front (AF) and Advancing Layers (AL) methods for generating Euler (inviscid) and NS grids, respectively. This method is illustrated in <figref idrefs="DRAWINGS">FIG. 1</figref>. A grid is generated in these methods by forming tetrahedral cells in the field one-by-one or one layer of cells at a time. The triangular (linear in two dimensions (2D)) faces of cells exposed in the field form a front over which new cells are constructed. The process starts from the surface mesh (which acts as an initial front) (illustrated in <figref idrefs="DRAWINGS">FIG. 1</figref> <i>a</i>) and adds new grid elements in the computational domain progressively as illustrated in two dimensions in <figref idrefs="DRAWINGS">FIG. 1</figref>. During this process, faces on the front are covered by new cells and become inactive while new ones are created and added to the active front (illustrated in <figref idrefs="DRAWINGS">FIGS. 1</figref> <i>b </i>and <b>1</b> <i>c</i>). The growing and marching process continues until the entire domain is filled with tetrahedral cells (illustrated in <figref idrefs="DRAWINGS">FIG. 1</figref> <i>d</i>). At this point, no active face remains on the front, and the AF/AL process terminates.</p>
+    <p num="p-0028">During the mesh generation process, a grid spacing function (derived from a set of user-prescribed source elements) determines the resolution and other characteristics of the mesh.</p>
+    <p num="p-0029">Although the grid elements are theoretically generated in a random order during the AF process, the spacing function normally guides the advancement of the front from regions of fine grid towards areas of coarser mesh resolution.</p>
+    <p num="p-0030">A distinctive characteristic of the Advancing Front method is its inherent flexibility for generating grids and the ease of restructuring the grid makeup at anytime. Part of this flexibility is due to the ability of the method to introduce nodes and cells in the field locally and simultaneously, i.e., independently from the grid configuration in other locations in the field. Consequently, a section of the mesh can be altered and regenerated at any time without affecting the grid in other areas.</p>
+    <p num="p-0031">During the AF process, the computational domain is divided into two regions at any instance: (1) the area that has already been meshed; and (2) the remainder of the domain that is currently void. These two sections are separated by a common interface consisting of triangular or linear (in 2D) faces (see <figref idrefs="DRAWINGS">FIGS. 1</figref> <i>b </i>and <i>c</i>). Once an active face on the front is covered with a new cell, it becomes dormant and will not affect the generation process anymore. The characteristics of new cells being formed depend only on the configuration of the front and the information that influence the empty portion of the domain. This means that the domain of dependence is always limited to the unmeshed section bounded by the current front. This is similar to an initial value problem in which a solution is obtained by marching outward from a prescribed initial condition.</p>
+    <p num="p-0032">Since a section of a mesh once generated can never influence the rest of the grid, the process of AF can be interrupted at any time and restarted without “carrying” the generated grid elements to the next stage. In other words, the problem of generating a large grid can be divided into several smaller independent sub-problems. This unique feature of the AF method facilitates two important and enabling operations for grid generation: grid restarting and local remeshing. These two capabilities are among the salient features of the VGRID software system and are currently employed for the following purposes: (1) postprocessing operation for grid closure and quality improvement in which sections of a grid with poor quality elements can be removed and remeshed as depicted in <figref idrefs="DRAWINGS">FIG. 2</figref>; and (2) restart capability for generating large grids on small computers through several separate runs.</p>
+    <p num="p-0033">The restart capability implemented in VGRID is based on a recursive local/global renumbering system that drastically reduces the computer memory requirement in each restart run. With renumbering, the grid indices (counters) start from cell number <b>1</b> in each restart run rather than the accumulated global number of the previous runs. In other words, each restart run becomes an independent smaller grid generation problem in which memory is allocated for array dimensions based on the number of elements generated locally and not the global number of the mesh elements. A local/global mapping of the grid indices is created and saved at each restart run for bookkeeping of the grid segments generated separately. The mapping is used at the end of the generation process to renumber and merge all grid segments into the final global mesh.</p>
+    <p num="p-0034">Additional information regarding the background methodology is found in the following papers, the contents of which are herein incorporated by reference in their entirety: (1) Pirzadeh, S. Z.: “Robust Unstructured Grid Generation with VGRID,” Proc. of NASA Workshop on Unstructured Grid Generation Techniques and Software,” NASA CP 10119, 1993; (2) Pirzadeh, S. Z.: “Progress Toward A User-Oriented Unstructured Viscous Grid Generator,” AIAA-96-0031, 34th Aerospace Sciences Meeting &amp; Exhibit, Reno, Nev., 1996; (3) Pirzadeh, S. Z.: “Three-Dimensional Unstructured Viscous Grids by the Advancing-Layers Method,” AIAA Journal, Vol. 34, No. 1, 1996, pp. 43-49; (4) Pirzadeh, S. Z.: “Structured Background Grids for Generation of Unstructured Grids by Advancing-Front Method,” AIAA Journal, Vol. 31, No. 2, 1993, pp. 257-265; (5) Pirzadeh, S. Z.: “Advanced Unstructured Grid Generation for Complex Aerodynamics Applications,” AIAA-2008-7178, 26th AIAA Applied Aerodynamics Conference, Honolulu, Hi. 18-21 Aug. 2008; and (6) Pirzadeh, S. Z.: “Recent Progress in Unstructured Grid Generation,” AIAA Paper 92-0445, AIAA 30th Aerospace Sciences Meeting, Reno, Nev., Jan. 6-9, 1992.</p>
+    <p num="p-0035">Domain Decomposition</p>
+    <p num="p-0036">The Advancing Front (AF) method for generating tetrahedral grids as well as the restart and local-remeshing features described above lay the foundation for a novel domain decomposition concept of embodiments of the invention referred to as the “Advancing Partition” (AP) method. Unlike many conventional techniques that rely on a “physical” surface discretization for partitioning the domain prior to the volume grid generation, the new method employs an “imaginary” plane in the field to define the location across which the domain will be partitioned as part of the volume grid generation.</p>
+    <p num="p-0037">The new method is termed Advancing Partition because of its similarity to the conventional AF technique for generating tetrahedral cells (the new method is illustrated in <figref idrefs="DRAWINGS">FIGS. 3 and 4</figref>). In this method, the actual partitioning of the domain takes place through an initial stage (partitioning phase) of the volume grid generation. During this phase, tetrahedral cells are generated similarly to the marching process described earlier. However, the new method grows only one layer of tetrahedral cells in the volume along the partition-plane in two dimensions. This strategy is in contrast to the conventional AF method in which all faces on the front are active and cells are added in three dimensions with no directional restrictions. During the new marching process, the front is made of only the faces of new cells that intersect the partition-plane. The remaining faces on either side of the plane are designated as “inactive” and do not participate in the marching process. Consequently, only tetrahedral cells that intersect the partition-plane are formed and advance in the field one by one (as illustrated in <figref idrefs="DRAWINGS">FIG. 3</figref> <i>b</i>). The marching process continues until no “active” face remains on the front. The outcome of this operation is a dividing wall), made of one layer of tetrahedral cells at the location of the partitioning plane, which splits the domain (or a subdomain) into two segments (labeled <b>1</b> and <b>2</b> in <figref idrefs="DRAWINGS">FIG. 3</figref> <i>d</i>). The partial mesh generated in this initial phase of volume grid generation is called the “partition-grid” and serves as a separator for the binary domain decomposition (as illustrated in <figref idrefs="DRAWINGS">FIG. 3</figref> <i>c</i>).</p>
+    <p num="p-0038">The processes of partitioning and domain decomposition with the AP method as well as the generation of volume grids in multiple subdomains are summarized below (which will be described with reference to <figref idrefs="DRAWINGS">FIG. 3</figref> and the flowchart in <figref idrefs="DRAWINGS">FIG. 4</figref>).</p>
+    <p num="p-0039">(a) Generate a surface mesh G{1, 2, 3, . . . n<sub>G</sub>} as in a regular (sequential) grid generation process. The surface mesh serves as the initial front for volume grid generation. (See <figref idrefs="DRAWINGS">FIG. 3</figref> <i>a </i>and block <b>10</b> of <figref idrefs="DRAWINGS">FIG. 4</figref>.)</p>
+    <p num="p-0040">(b) Determine the location of a Cartesian plane (in the x, y, or z direction) that hypothetically divides the domain/subdomain into two sections (partition-plane). The location of the partition-plane is advantageously determined in such a way that the numbers of grid elements to be generated in the subdomains are approximately equal (load estimation). (See <figref idrefs="DRAWINGS">FIG. 3</figref> <i>a </i>and block <b>14</b> of <figref idrefs="DRAWINGS">FIG. 4</figref>.)</p>
+    <p num="p-0041">(c) Identify the triangular faces on the surface mesh that intersect the partition-plane (initial partition front). (Steps (c) and (d) are together termed “domain partitioning” and illustrated in <figref idrefs="DRAWINGS">FIGS. 3</figref> <i>b </i>and <b>3</b> <i>c</i>, as well as in block <b>16</b> of <figref idrefs="DRAWINGS">FIG. 4</figref>.)</p>
+    <p num="p-0042">(d) Generate a partition grid (g<sub>j</sub>) using the AP method to divide the domain/subdomain at the location of the partition-plane (partitioning phase). The generated partition-grid is a subset of the final global mesh G and is saved in a file or CPU memory for integration with other mesh segments generated in subdomains, i.e.,
+<br/>
+<i>F</i>(<i>g</i> <sub>j</sub>)⊂<i>G</i>, where <i>F:g</i> <sub>j</sub> <i>→G. </i>
+<br/>
+The function F maps the partition-grid subset g<sub>j</sub>{1, 2, 3, . . . m<sub>j</sub>} into the global grid set G{1, 2, 3, . . . m<sub>G</sub>}. The partition grid is saved for later merging with the generated volume grids (as illustrated by the dashed line extending from block <b>16</b> to block <b>22</b> in <figref idrefs="DRAWINGS">FIG. 4</figref>).
+</p>
+    <p num="p-0043">(e) Collect the triangular faces on either side of the partition-plane (including those belonging to the surface mesh and those on the partition-grid) in two separate subsets Ω<sub>1 </sub>and Ω<sub>2</sub>. Step (e) is termed “domain decomposition” and is illustrated in <figref idrefs="DRAWINGS">FIG. 3(</figref> <i>d</i>) and block <b>18</b> of <figref idrefs="DRAWINGS">FIG. 4</figref>.</p>
+    <p num="p-0044">(f) Renumber each set of grid elements locally and construct a local/global mapping function for each subdomain (R).</p>
+    <p num="p-0045">(g) Repeat steps (b-f) through L levels of binary partitioning/decomposition. The total number of subdomains (N) is equal to 2<sup>L</sup>, and the number of partitions is N−1. It is determined in block <b>12</b> of <figref idrefs="DRAWINGS">FIG. 4</figref> whether additional partitioning/decomposition is desired.</p>
+    <p num="p-0046">(h) Use the conventional AF process to generate a volume grid for each subdomain (G<sub>i</sub>) either sequentially or in parallel. The sub-grid G<sub>i </sub>is a subset of the final global mesh, i.e.,
+<br/>
+<i>R</i>(<i>G</i> <sub>i</sub>)⊂<i>G</i>, where <i>R:G</i> <sub>i</sub> <i>→G. </i>
+<br/>
+This step also includes a postprocessing operation for grid closure/repairing as described below (meshing phase). The sub-grid G<sub>1 </sub>for sub-domain <b>1</b> and the sub-grid G<sub>2 </sub>for sub-domain <b>2</b> are illustrated in <figref idrefs="DRAWINGS">FIG. 3</figref> <i>e</i>, and this step is illustrated in block <b>20</b> of <figref idrefs="DRAWINGS">FIG. 4</figref>.
+</p>
+    <p num="p-0047">(i) Merge all grid segments including N sub-grids (G<sub>i</sub>) and N−1 partition-grids (g<sub>j</sub>) using the local/global mappings generated in step (f) (domain re-composition phase);</p>
+    <p num="p-0048"> <maths id="MATH-US-00001" num="00001"> <math overflow="scroll"> <mtable> <mtr> <mtd> <mrow> <mrow> <mi>G</mi> <mo>⁢</mo> <mrow> <mo>{</mo> <mrow> <mn>1</mn> <mo>,</mo> <mn>2</mn> <mo>,</mo> <mn>3</mn> <mo>,</mo> <mi>…</mi> <mo>⁢</mo> <mstyle> <mspace width="0.8em" height="0.8ex"> </mspace> </mstyle> <mo>,</mo> <msub> <mi>m</mi> <mi>G</mi> </msub> </mrow> <mo>}</mo> </mrow> </mrow> <mo>=</mo> <mstyle> <mspace width="0.em" height="0.ex"> </mspace> </mstyle> <mo>⁢</mo> <mrow> <mrow> <munderover> <mo>∑</mo> <mrow> <mi>i</mi> <mo>=</mo> <mn>1</mn> </mrow> <mi>N</mi> </munderover> <mo>⁢</mo> <mrow> <mi>R</mi> <mo>⁡</mo> <mrow> <mo>(</mo> <mrow> <msub> <mi>G</mi> <mn>1</mn> </msub> <mo>⁢</mo> <mrow> <mo>{</mo> <mrow> <mn>1</mn> <mo>,</mo> <mn>2</mn> <mo>,</mo> <mn>3</mn> <mo>,</mo> <mi>…</mi> <mo>⁢</mo> <mstyle> <mspace width="0.8em" height="0.8ex"> </mspace> </mstyle> <mo>,</mo> <msub> <mi>m</mi> <mi>i</mi> </msub> </mrow> <mo>}</mo> </mrow> </mrow> <mo>)</mo> </mrow> </mrow> </mrow> <mo>+</mo> <mrow> <munderover> <mo>∑</mo> <mrow> <mi>j</mi> <mo>=</mo> <mn>1</mn> </mrow> <mrow> <mi>N</mi> <mo>-</mo> <mn>1</mn> </mrow> </munderover> <mo>⁢</mo> <mrow> <mrow> <mi>F</mi> <mo>⁡</mo> <mrow> <mo>(</mo> <mrow> <msub> <mi>g</mi> <mi>j</mi> </msub> <mo>⁢</mo> <mrow> <mo>{</mo> <mrow> <mn>1</mn> <mo>,</mo> <mn>2</mn> <mo>,</mo> <mn>3</mn> <mo>,</mo> <mi>…</mi> <mo>⁢</mo> <mstyle> <mspace width="0.8em" height="0.8ex"> </mspace> </mstyle> <mo>,</mo> <msub> <mi>m</mi> <mi>j</mi> </msub> </mrow> <mo>}</mo> </mrow> </mrow> <mo>)</mo> </mrow> </mrow> <mo>.</mo> </mrow> </mrow> </mrow> </mrow> </mtd> <mtd> <mrow> <mo>(</mo> <mrow> <mi>Eq</mi> <mo>.</mo> <mstyle> <mspace width="0.8em" height="0.8ex"> </mspace> </mstyle> <mo>⁢</mo> <mn>1</mn> </mrow> <mo>)</mo> </mrow> </mtd> </mtr> </mtable> </math> </maths> <br/>
+This step is illustrated in <figref idrefs="DRAWINGS">FIG. 3</figref> <i>e </i>and block <b>22</b> of <figref idrefs="DRAWINGS">FIG. 4</figref>, resulting in the final merged grid illustrated in <figref idrefs="DRAWINGS">FIG. 3</figref> <i>f </i>and referred to in block <b>24</b> of <figref idrefs="DRAWINGS">FIG. 4</figref>.
+</p>
+    <p num="p-0049">During the regular grid generation process with VGRID, the AF algorithm is sometimes unable to properly connect (close) the network of cells at some isolated locations. These irregularities usually occur when the front becomes severely entangled due to: (1) geometric complexities; (2) inconsistencies in the size and shape of the faces on the front; and/or (3) multiple fronts approaching from different directions. In such cases, the process simply skips the problematic faces and leaves the front open. These defective pockets are normally repaired through a postprocessing operation (using a separate code called POSTGRID), which removes the entangled cells and regenerates mesh cells to fill the void in a restart run (see <figref idrefs="DRAWINGS">FIG. 2</figref>).</p>
+    <p num="p-0050">For generating the partition grids, the new AP algorithm is self-sufficient and includes the above cell removal and repairing operations. Therefore, no postprocessing operation is required after the partitioning phase. For the test cases examined thus far, the method has successfully partitioned the domains even for generating highly stretched grids on complex configurations. Furthermore, the AP algorithm is more efficient than the regular AF method, because generation of cells in a semi-2D fashion involves fewer search and face-crossing check operations.</p>
+    <p num="p-0051">Load Estimation and the Center of Mesh Density</p>
+    <p num="p-0052">One of crucial factors that directly affects the performance of a parallel computation scheme is load balancing. Unlike the conventional domain decomposition methods for solvers that exploit the mesh under consideration as guidance for load balancing, a decomposition method for grid generation must rely on other means to estimate loads prior to generation of grid. Load balancing for unstructured grid generation is a complicated issue as the exact number of grid elements cannot be readily determined in advance, especially, for grids generated with the AF method. Obviously, for a synchronized parallel grid generation, a domain should ideally be divided into subdomains that would contain approximately equal number of grid elements. In the present domain decomposition method, the location of the partition-planes determines the distribution of grid elements among subdomains and, thus, the loads being allocated to the computer processors.</p>
+    <p num="p-0053">The concept of Center of Mass, as reported in Ivanov, E.; Andrä, H.; and Kudryavtsev, A.: “Domain Decomposition Approach for Automatic Parallel Generation of Tetrahedral Grids,” Fraunhofer-Institut fur Techno- und Wirtschaftsmathematik ITWM, Bericht 87, 2006, provides a reasonably accurate prediction of load distribution in subdomains. In the present work, a variation of this concept referred to as the “Center of Mesh Density” (CMD) is employed to determine the position of the partition-planes. The CMD is analogous to center of mass of a heterogeneous system of particles in a uniform gravity field. The center of mass is a function of the positions and masses of individual particles in the system. It represents a unique point at which the effective mass of the system is concentrated (for the purpose of calculating the “first moment”) and the system is perfectly in balance, i.e.,</p>
+    <p num="p-0054"> <maths id="MATH-US-00002" num="00002"> <math overflow="scroll"> <mtable> <mtr> <mtd> <mrow> <mrow> <mrow> <mover> <mi>R</mi> <mi>_</mi> </mover> <mo>⁢</mo> <mrow> <munderover> <mo>∑</mo> <mrow> <mi>i</mi> <mo>=</mo> <mn>1</mn> </mrow> <mi>n</mi> </munderover> <mo>⁢</mo> <msub> <mi>m</mi> <mi>i</mi> </msub> </mrow> </mrow> <mo>=</mo> <mrow> <munderover> <mo>∑</mo> <mrow> <mi>i</mi> <mo>=</mo> <mn>1</mn> </mrow> <mi>n</mi> </munderover> <mo>⁢</mo> <mrow> <msub> <mi>m</mi> <mi>i</mi> </msub> <mo>⁢</mo> <msub> <mover> <mi>r</mi> <mi>_</mi> </mover> <mi>i</mi> </msub> </mrow> </mrow> </mrow> <mo>;</mo> </mrow> </mtd> <mtd> <mrow> <mo>(</mo> <mrow> <mi>Eq</mi> <mo>.</mo> <mstyle> <mspace width="0.8em" height="0.8ex"> </mspace> </mstyle> <mo>⁢</mo> <mn>2</mn> </mrow> <mo>)</mo> </mrow> </mtd> </mtr> </mtable> </math> </maths> <br/>
+where <o>R</o> is the position vector of the center of mass, <o>r</o> <sub>l </sub>is the position vector of the i<sup>th </sup>particle with a mass of m<sub>i</sub>, and <i>n </i>is the total number of particles. For a non-uniform unstructured grid consisting of a number of tetrahedral elements of different sizes, the mass can be replaced by a weighting function representative of the mesh resolution (density).
+</p>
+    <p num="p-0055">In the absence of a mesh, prior to generation of the volume grid, the position of the partition-plane can be approximated using a CMD function based on the resolution of surface mesh. Load estimation based on the surface mesh is reasonably accurate as long as the grid distribution on the surface resembles the variation of mesh in the volume. Obviously, the accuracy decreases when the distribution of grid density in the field is not reflected on the surface. Alternatively, an auxiliary medium such as a cloud of points in the field or a secondary simple mesh may be employed as a more accurate representation of the actual unstructured grid for load estimation. Such an auxiliary mesh is constructed using the same spacing function that provides data for generation of the unstructured grid.</p>
+    <p num="p-0056">For generating an anisotropic unstructured grid, the CMD is approximated in this work using the function</p>
+    <p num="p-0057"> <maths id="MATH-US-00003" num="00003"> <math overflow="scroll"> <mtable> <mtr> <mtd> <mrow> <mover> <mi>R</mi> <mi>_</mi> </mover> <mo>=</mo> <mrow> <mfrac> <mrow> <munderover> <mo>∑</mo> <mrow> <mi>i</mi> <mo>=</mo> <mn>1</mn> </mrow> <mi>n</mi> </munderover> <mo>⁢</mo> <mrow> <msub> <mover> <mi>r</mi> <mi>_</mi> </mover> <mi>i</mi> </msub> <mo>/</mo> <msub> <mi>ω</mi> <mi>i</mi> </msub> </mrow> </mrow> <mrow> <munderover> <mo>∑</mo> <mrow> <mi>i</mi> <mo>=</mo> <mn>1</mn> </mrow> <mi>n</mi> </munderover> <mo>⁢</mo> <mrow> <mn>1</mn> <mo>/</mo> <msub> <mi>ω</mi> <mi>i</mi> </msub> </mrow> </mrow> </mfrac> <mo>.</mo> </mrow> </mrow> </mtd> <mtd> <mrow> <mo>(</mo> <mrow> <mi>Eq</mi> <mo>.</mo> <mstyle> <mspace width="0.8em" height="0.8ex"> </mspace> </mstyle> <mo>⁢</mo> <mn>3</mn> </mrow> <mo>)</mo> </mrow> </mtd> </mtr> </mtable> </math> </maths> <br/>
+The weighting function ω<sub>i</sub>, in Eq. (3) represents an effective grid length scale defined as
+<br/>
+ω<sub>l</sub> <i>=s</i> <sub>l</sub> <i>A</i> <sub>i</sub> <sup>k</sup>  (Eq. 4)
+<br/>
+where s<sub>i </sub>is the local grid spacing computed at the i<sup>th </sup>node of the surface mesh (or an auxiliary grid) using the spacing functions that determines the unstructured grid resolution; A, is the corresponding cell aspect ratio; and n is the total number of surface mesh or the auxiliary grid nodes. The exponent k is an empirical parameter set to a value of ⅓ for estimates based on the actual surface triangulation and 4/3 for computations based on an auxiliary isotropic grid. In the present work, an octree mesh, generated by recursive refinement using VGRID spacing functions, is optionally used as an auxiliary grid for load estimations.
+</p>
+    <p num="p-0058">As mentioned earlier, the surface mesh option provides accurate results if the distribution of grid on the surface approximates that in the volume reasonably well. An octree mesh provides a better load estimation when the unstructured volume grid varies in the midfield differently from the surface mesh. The resolution of an octree auxiliary mesh is governed by the same spacing function used in VGRID and, thus, closely represents the grid distribution in the field similar to the actual isotropic unstructured grid. An advantage of octrees is that their generation is automatic and relatively fast. However, a drawback is due to the fact that they are made of Cartesian equilateral hexahedrons and do not reflect multi-dimensional anisotropy of unstructured grids. Therefore, the number of their elements in Eq. (3) is not an accurate representation of the number of grid elements in a highly stretched unstructured mesh. To compensate for the absence of anisotropy and to improve the accuracy of octrees for load estimation, the exponent k in Eq. (4) is set to 4/3. This augmented value of k, in effect, supplements additional weight for the local cell aspect ratio (A<sub>i</sub>) in the estimation.</p>
+    <p num="p-0059">Although the CMD function is based on the same spacing functions used in VGRID and provides reasonably good results for most cases, it may still lack the desired accuracy in predicting balanced loads among subdomains for complex problems. Load estimation is a challenging problem for partitioning of unstructured grids and requires further investigations.</p>
+    <p num="p-0060">Sample Result</p>
+    <p num="p-0061">The new method of domain decomposition by Advancing Partition has been implemented in the unstructured grid generation code VGRID. Furthermore, the development of a parallel grid generation framework based on the present capability is currently underway for generating grids on multiple CPU&#39;s in parallel. The preliminary experience with a number of test cases has produced promising results. An example of parallel grid generation serves to demonstrate the concept and the capability of this domain decomposition method.</p>
+    <p num="p-0062"> <figref idrefs="DRAWINGS">FIG. 5</figref> depicts a tetrahedral grid generated around a sphere inside a cubical domain that is partitioned in two segments. The sphere is positioned in the cube slightly off center to remove the geometric symmetry of the overall configuration for testing the load-balancing ability of the CMD function. Only one level of domain decomposition has been applied in this case for the purpose of demonstration and visual clarity. Otherwise, the partitioning and decomposition operations can be repeated for each subdomain recursively, with the direction of the partition-planes automatically determined for the best possible load balancing. <figref idrefs="DRAWINGS">FIG. 5</figref> <i>b </i>shows the partition-grid (separator) generated at the location of the partition-plane, which intersects the sphere in the middle. After the faces on either side of the partition-grid are identified and extracted, the domain is decomposed and meshed in each segment separately (<figref idrefs="DRAWINGS">FIG. 5</figref> <i>c</i>). Finally, the component grids are assembled to retrieve the complete discretized domain. As mentioned earlier, the partition-grid not only acts as the separator but is also part of the final mesh as illustrated in <figref idrefs="DRAWINGS">FIG. 5</figref> <i>d. </i> </p>
+    <p num="p-0063">The grid shown in <figref idrefs="DRAWINGS">FIG. 5</figref> contains about 195,000 tetrahedral cells and is intentionally made coarse for the purpose of visualization clarity. Table 1 provides the grid statistics and the generation time for a finer version of the grid, also generated in two subdomains.</p>
+    <p num="p-0064">
+      <tables id="TABLE-US-00001" num="00001">
+        <tgroup align="left" colsep="0" rowsep="0" cols="1">
+            <colspec colname="1" colwidth="217pt" align="center"> </colspec>
+            </tgroup> <row>
+                <entry namest="1" nameend="1" rowsep="1">TABLE 1</entry>
+              </row> <row>
+                <entry namest="1" nameend="1" align="center" rowsep="1"> </entry>
+              </row> <row>
+                <entry>Grid Statistics for the Sphere-in-Cube Example</entry>
+              </row> <tgroup align="left" colsep="0" rowsep="0" cols="4">
+            <colspec colname="1" colwidth="56pt" align="left"> </colspec>
+            <colspec colname="2" colwidth="35pt" align="center"> </colspec>
+            <colspec colname="3" colwidth="70pt" align="center"> </colspec>
+            <colspec colname="4" colwidth="56pt" align="center"> </colspec>
+            </tgroup> <row>
+                <entry>Components</entry>
+                <entry>Nodes</entry>
+                <entry>Tetrahedra (Triangles)</entry>
+                <entry>CPU Time (min.)</entry>
+              </row> <row>
+                <entry namest="1" nameend="4" align="center" rowsep="1"> </entry>
+              </row> <tgroup align="left" colsep="0" rowsep="0" cols="4">
+            <colspec colname="1" colwidth="56pt" align="left"> </colspec>
+            <colspec colname="2" colwidth="35pt" align="char" char="."> </colspec>
+            <colspec colname="3" colwidth="70pt" align="center"> </colspec>
+            <colspec colname="4" colwidth="56pt" align="char" char="."> </colspec>
+            </tgroup> <row>
+                <entry>Surface Mesh</entry>
+                <entry>110,577</entry>
+                <entry>(221,146)</entry>
+                <entry>1.32</entry>
+              </row> <row>
+                <entry>Partition-Grid</entry>
+                <entry>42,573</entry>
+                <entry>125,802</entry>
+                <entry>0.23</entry>
+              </row> <row>
+                <entry>Sub-Grid 1</entry>
+                <entry>1,127,114</entry>
+                <entry>6,477,826  </entry>
+                <entry>13.11</entry>
+              </row> <row>
+                <entry>Sub-Grid 2</entry>
+                <entry>1,128,289</entry>
+                <entry>6,484,713  </entry>
+                <entry>13.14*</entry>
+              </row> <row>
+                <entry>Merging</entry>
+                <entry> </entry>
+                <entry> </entry>
+                <entry>0.24</entry>
+              </row> <row>
+                <entry>Post-processing</entry>
+                <entry> </entry>
+                <entry> </entry>
+                <entry>0.16</entry>
+              </row> <row>
+                <entry>Total</entry>
+                <entry>2,408,553</entry>
+                <entry>13,088,341  </entry>
+                <entry>15.09</entry>
+              </row> <row>
+                <entry namest="1" nameend="4" align="center" rowsep="1"> </entry>
+              </row> <row>
+                <entry namest="1" nameend="4" align="left" id="FOO-00001">*The largest of CPU time for generating sub-grids is used to compute the total parallel grid generation time.</entry>
+              </row> <table frame="none" colsep="0" rowsep="0" class="description-table">
+          <thead>
+              
+            </thead>
+            <tbody valign="top">
+              
+              
+            </tbody>
+          
+          <tbody valign="top">
+              
+              
+            </tbody>
+          
+          <tbody valign="top">
+              
+              
+              
+              
+              
+              
+              
+              
+              
+            </tbody>
+          
+        </table>
+      </tables>
+    </p>
+    <p num="p-0065">The numbers of grid elements in the two sub-grids and the corresponding generation times in Table 1 indicate that the CMD function has produced a good balance of loads and, thus, synchronization of grid generation in the subdomains. A balanced load distribution is important for scalable performance of parallel grid generation. Note that the computational time spent for partitioning of the domain (partition grid) is a fraction of the total grid generation time. Nevertheless, it is considered as part of the grid generation time and not as an overhead in this method.</p>
+    <p num="p-0066">This grid was generated using two processors on a Macintosh (Mac Pro) computer with two Dual-Core Intel Xeon 3-GHz processors. A similar grid containing 13,062,394 tetrahedra was also generated in a single domain using one processor on the same computer for the performance comparison. The total generation time for the single domain case is 26.90 minutes compared to 15.09 minutes for the parallel run—a speedup of 1.78 for parallel grid generation using two partitions/processors.</p>
+    <p num="p-0067">Summary</p>
+    <p num="p-0068">A new method of domain decomposition has been developed and implemented in the grid generation code VGRID for generating tetrahedral unstructured grids in subdomains. In addition, a new function for estimating the center of mesh density is introduced for balancing loads among subdomains. The method benefits from the following salient features:</p>
+    <p num="p-0069">(1) The new domain decomposition technique is compatible with the underlying grid generation method. The partition interfaces are generated as part of the marching process, similar to Advancing-Front, in a natural way. Therefore, no artificial mesh elements are introduced in the field, and no creation of artifacts perturb the normal process of grid generation. This important feature is especially critical for generating anisotropic (highly stretched) cells as well as grids in narrow gaps and sharp corners where the presence of any artifact would impair the robustness of the grid generation process.</p>
+    <p num="p-0070">(2) The partition interfaces conform to the domain boundaries consistently and automatically because they are constructed over the surface mesh as part of the volume grid generation.</p>
+    <p num="p-0071">(3) The presence of partition interfaces in the domain introduces no irregularities that could, otherwise, degrade the mesh quality. In fact, the quality of the final grid generated in multiple segments is equivalent to that of a similar mesh generated in the original single domain. The component grids merge into the final mesh seamlessly as if the entire grid is generated in one segment.</p>
+    <p num="p-0072">(4) The method is automatic and requires no time-consuming and tedious pre-processing operations to construct the partitions.</p>
+    <p num="p-0073">(5) Since the partition interfaces are generated during (and as part of) the volume grid generation, the decomposition overhead is minimal for parallel grid generation. Except for initial load estimation and local/global renumbering, no additional operations are required beyond the normal grid generation process.</p>
+    <p num="p-0074">(6) The method is extendible for generating “Navier-Stokes” grids using the Advancing-Layers method.</p>
+    <p num="p-0075">As will be appreciated by one skilled in the art, the present invention may be embodied as a system, method or computer program product. Accordingly, the present invention may take the form of an entirely hardware embodiment, an entirely software embodiment (including firmware, resident software, micro-code, etc.) or an embodiment combining software and hardware aspects that may all generally be referred to herein as a “circuit,” “module” or “system.” Furthermore, the present invention may take the form of a computer program product embodied in any tangible medium of expression having computer-usable program code embodied in the medium.</p>
+    <p num="p-0076">Any combination of one or more computer usable or computer readable medium(s) may be utilized. The computer-usable or computer-readable medium may be, for example but not limited to, an electronic, magnetic, optical, electromagnetic, infrared, or semiconductor system, apparatus, device, or propagation medium. More specific examples (a non-exhaustive list) of the computer-readable medium would include the following: an electrical connection having one or more wires, a portable computer diskette, a hard disk, a random access memory (RAM), a read-only memory (ROM), an erasable programmable read-only memory (EPROM or Flash memory), an optical fiber, a portable compact disc read-only memory (CD-ROM), an optical storage device, a transmission media such as those supporting the Internet or an intranet, or a magnetic storage device. Note that the computer-usable or computer-readable medium could even be paper or another suitable medium upon which the program is printed, as the program can be electronically captured, via, for instance, optical scanning of the paper or other medium, then compiled, interpreted, or otherwise processed in a suitable manner, if necessary, and then stored in a computer memory. In the context of this document, a computer-usable or computer-readable medium may be any medium that can contain, store, communicate, propagate, or transport the program for use by or in connection with the instruction execution system, apparatus, or device. The computer-usable medium may include a propagated data signal with the computer-usable program code embodied therewith, either in baseband or as part of a carrier wave. The computer usable program code may be transmitted using any appropriate medium, including but not limited to wireless, wireline, optical fiber cable, RF, etc.</p>
+    <p num="p-0077">Computer program code for carrying out operations of the present invention may be written in any combination of one or more programming languages, including an object oriented programming language such as Java, Smalltalk, C++ or the like and conventional procedural programming languages, such as the “C” programming language or similar programming languages. The program code may execute entirely on the user&#39;s computer, partly on the user&#39;s computer, as a stand-alone software package, partly on the user&#39;s computer and partly on a remote computer or entirely on the remote computer or server. In the latter scenario, the remote computer may be connected to the user&#39;s computer through any type of network, including a local area network (LAN) or a wide area network (WAN), or the connection may be made to an external computer (for example, through the Internet using an Internet Service Provider).</p>
+    <p num="p-0078">The present invention is described herein with reference to flowchart illustrations and/or block diagrams of methods, apparatus (systems) and computer program products according to embodiments of the invention. It will be understood that each block of the flowchart illustrations and/or block diagrams, and combinations of blocks in the flowchart illustrations and/or block diagrams, can be implemented by computer program instructions. These computer program instructions may be provided to a processor of a general purpose computer, special purpose computer, or other programmable data processing apparatus to produce a machine, such that the instructions, which execute via the processor of the computer or other programmable data processing apparatus, create means for implementing the functions/acts specified in the flowchart and/or block diagram block or blocks.</p>
+    <p num="p-0079">These computer program instructions may also be stored in a computer-readable medium that can direct a computer or other programmable data processing apparatus to function in a particular manner, such that the instructions stored in the computer-readable medium produce an article of manufacture including instruction means which implement the function/act specified in the flowchart and/or block diagram block or blocks.</p>
+    <p num="p-0080">The computer program instructions may also be loaded onto a computer or other programmable data processing apparatus to cause a series of operational steps to be performed on the computer or other programmable apparatus to produce a computer implemented process such that the instructions which execute on the computer or other programmable apparatus provide processes for implementing the functions/acts specified in the flowchart and/or block diagram block or blocks.</p>
+    <p num="p-0081">The flowchart and block diagrams in the figures illustrate the architecture, functionality, and operation of possible implementations of systems, methods and computer program products according to various embodiments of the present invention. In this regard, each block in the flowchart or block diagrams may represent a module, segment, or portion of code, which comprises one or more executable instructions for implementing the specified logical function(s). It should also be noted that, in some alternative implementations, the functions noted in the block may occur out of the order noted in the figures. For example, two blocks shown in succession may, in fact, be executed substantially concurrently, or the blocks may sometimes be executed in the reverse order, depending upon the functionality involved. It will also be noted that each block of the block diagrams and/or flowchart illustration, and combinations of blocks in the block diagrams and/or flowchart illustration, can be implemented by special purpose hardware-based systems that perform the specified functions or acts, or combinations of special purpose hardware and computer instructions.</p>
+    <p num="p-0082">“Computer” or “computing device” broadly refers to any kind of device which receives input data, processes that data through computer instructions in a program, and generates output data. Such computer can be a hand-held device, laptop or notebook computer, desktop computer, minicomputer, mainframe, server, cell phone, personal digital assistant, other device, or any combination thereof.</p>
+    <p num="p-0083">The terminology used herein is for the purpose of describing particular embodiments only and is not intended to be limiting of the invention. As used herein, the singular forms “a”, “an” and “the” are intended to include the plural forms as well, unless the context clearly indicates otherwise. It will be further understood that the terms “comprises” and/or “comprising,” when used in this specification, specify the presence of stated features, integers, steps, operations, elements, and/or components, but do not preclude the presence or addition of one or more other features, integers, steps, operations, elements, components, and/or groups thereof.</p>
+    <p num="p-0084">The corresponding structures, materials, acts, and equivalents of all means or step plus function elements in the claims below are intended to include any structure, material, or act for performing the function in combination with other claimed elements as specifically claimed. The description of the present invention has been presented for purposes of illustration and description, but is not intended to be exhaustive or limited to the invention in the form disclosed. Many modifications and variations will be apparent to those of ordinary skill in the art without departing from the scope and spirit of the invention. The embodiment was chosen and described in order to best explain the principles of the invention and the practical application, and to enable others of ordinary skill in the art to understand the invention for various embodiments with various modifications as are suited to the particular use contemplated.</p>
+    
+  </div>
+  </div>
+  </section>
+
+  <section itemprop="claims" itemscope>
+    <h2>Claims (<span itemprop="count">21</span>)</h2>
+    
+    <div itemprop="content" html><div mxw-id="PCLM44793051" lang="EN" load-source="patent-office" class="claims">
+    <div class="claim"> <div id="CLM-00001" num="00001" class="claim">
+      <div class="claim-text">1. A computer-implemented method of domain decomposition for generating unstructured grids, the method comprising:
+<div class="claim-text">(a) generating a surface mesh of a spatial domain for which a grid is to be generated;</div>
+<div class="claim-text">(b) determining a location of a partition plane dividing the domain into two sections;</div>
+<div class="claim-text">(c) identifying triangular faces on the surface mesh that intersect the partition plane;</div>
+<div class="claim-text">(d) generating a partition grid of tetrahedral cells using a marching process in which a front comprises only faces of new cells which intersect the partition plane, the partition grid being generated until no active faces remain on the front, the partition grid dividing the domain into two sub-domains;</div>
+<div class="claim-text">(e) collecting triangular faces on each side of the partition plane into two separate subsets;</div>
+<div class="claim-text">(f) renumbering each subset of triangular faces locally and creating a local/global mapping for each sub-domain;</div>
+<div class="claim-text">(g) generating a volume grid for each sub-domain; and</div>
+<div class="claim-text">(h) merging the partition grid and volume grids using the local-global mapping.</div>
+</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00002" num="00002" class="claim">
+      <div class="claim-text">2. The method of <claim-ref idref="CLM-00001">claim 1</claim-ref>, wherein the location of the partition plane is determined such that a number of grid elements to be generated on each side of the partition plane is approximately equal.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00003" num="00003" class="claim">
+      <div class="claim-text">3. The method of <claim-ref idref="CLM-00001">claim 1</claim-ref>, wherein the collected triangular faces includes those faces belonging to the surface mesh and those faces on the partition grid.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00004" num="00004" class="claim">
+      <div class="claim-text">4. The method of <claim-ref idref="CLM-00001">claim 1</claim-ref>, further comprising:
+<div class="claim-text">repeating steps (b) through (f) one or more times to further decompose each sub-domain into a partition grid and two sub-domains;</div>
+<div class="claim-text">wherein merging the partition grid and volume grids comprises merging all generated partition grids and volume grids.</div>
+</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00005" num="00005" class="claim">
+      <div class="claim-text">5. The method of <claim-ref idref="CLM-00001">claim 1</claim-ref>, wherein the volume grids are generated using an advancing front grid generation method.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00006" num="00006" class="claim">
+      <div class="claim-text">6. The method of <claim-ref idref="CLM-00001">claim 1</claim-ref>, wherein the volume: grids are generated sequentially or in parallel.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00007" num="00007" class="claim">
+      <div class="claim-text">7. The method of <claim-ref idref="CLM-00001">claim 1</claim-ref>, wherein each generated volume grid is post-processed as necessary to ensure grid closure and/or grid repair.</div>
+    </div>
+    </div> <div class="claim"> <div id="CLM-00008" num="00008" class="claim">
+      <div class="claim-text">8. A computer program product for domain decomposition for generating unstructured grids, the computer program product comprising at least one computer-readable non-transitory storage medium having computer-readable program code stored therein, the computer-readable program code comprising:
+<div class="claim-text">computer-usable program code for (a) generating a surface mesh of a spatial domain for which a grid is to be generated;</div>
+<div class="claim-text">computer-usable program code for (b) determining a location of a partition plane dividing the domain into two sections;</div>
+<div class="claim-text">computer-usable program code for (c) identifying triangular faces on the surface mesh that intersect the partition plane;</div>
+<div class="claim-text">computer-usable program code for (d) generating a partition grid of tetrahedral cells using a marching process in which a front comprises only faces of new cells which intersect the partition plane, the partition grid being generated until no active faces remain on the front, the partition grid dividing the domain into two sub-domains;</div>
+<div class="claim-text">computer-usable program code for (e) collecting triangular faces on each side of the partition plane into two separate subsets;</div>
+<div class="claim-text">computer-usable program code for (f) renumbering each subset of triangular faces locally and creating a local/global mapping for each sub-domain;</div>
+<div class="claim-text">computer-usable program code for (g) generating a volume grid for each sub-domain; and</div>
+<div class="claim-text">computer-usable program code for (h) merging the partition grid and volume grids using the local-global mapping.</div>
+</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00009" num="00009" class="claim">
+      <div class="claim-text">9. The computer program product of <claim-ref idref="CLM-00008">claim 8</claim-ref>, wherein the location of the partition plane is determined such that a number of grid elements to be generated on each side of the partition plane is approximately equal.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00010" num="00010" class="claim">
+      <div class="claim-text">10. The computer program product of <claim-ref idref="CLM-00008">claim 8</claim-ref>, wherein the collected triangular faces includes those faces belonging to the surface mesh and those faces on the partition grid.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00011" num="00011" class="claim">
+      <div class="claim-text">11. The computer program product of <claim-ref idref="CLM-00008">claim 8</claim-ref>, further comprising:
+<div class="claim-text">computer-usable program code for repeating steps (b) through (f) one or more times to further decompose each sub-domain into a partition grid and two sub-domains;</div>
+<div class="claim-text">wherein merging the partition grid and volume grids comprises merging all generated partition grids and volume grids.</div>
+</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00012" num="00012" class="claim">
+      <div class="claim-text">12. The computer program product of <claim-ref idref="CLM-00008">claim 8</claim-ref>, wherein the volume grids are generated using an advancing front grid generation method.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00013" num="00013" class="claim">
+      <div class="claim-text">13. The computer program product of <claim-ref idref="CLM-00008">claim 8</claim-ref>, wherein the volume grids are generated sequentially or in parallel.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00014" num="00014" class="claim">
+      <div class="claim-text">14. The computer program product of <claim-ref idref="CLM-00008">claim 8</claim-ref>, wherein each generated volume grid is post-processed as necessary to ensure grid closure and/or grid repair.</div>
+    </div>
+    </div> <div class="claim"> <div id="CLM-00015" num="00015" class="claim">
+      <div class="claim-text">15. A system for domain decomposition for generating unstructured grids, the system comprising:
+<div class="claim-text">a processor configured for (a) generating a surface mesh of a spatial domain for which a grid is to be generated;</div>
+<div class="claim-text">the processor further configured for (b) determining a location of a partition plane dividing the domain into two sections;</div>
+<div class="claim-text">the processor further configured for (c) identifying triangular faces on the surface mesh that intersect the partition plane;</div>
+<div class="claim-text">the processor further configured for (d) generating a partition grid of tetrahedral cells using a marching process in which a front comprises only faces of new cells which intersect the partition plane, the partition grid being generated until no active faces remain on the front, the partition grid dividing the domain into two sub-domains;</div>
+<div class="claim-text">the processor further configured for (e) collecting triangular faces on each side of the partition plane into two separate subsets;</div>
+<div class="claim-text">the processor further configured for (f) renumbering each subset of triangular faces locally and creating a local/global mapping for each sub-domain;</div>
+<div class="claim-text">the processor further configured for (g) generating a volume grid for each sub-domain; and</div>
+<div class="claim-text">the processor further configured for (h) merging the partition grid and volume grids using the local-global mapping.</div>
+</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00016" num="00016" class="claim">
+      <div class="claim-text">16. The system of <claim-ref idref="CLM-00015">claim 15</claim-ref>, wherein the processor is further configured for determining the location of the partition plane such that a number of grid elements to be generated on each side of the partition plane is approximately equal.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00017" num="00017" class="claim">
+      <div class="claim-text">17. The system of <claim-ref idref="CLM-00015">claim 15</claim-ref>, wherein the collected triangular faces includes those faces belonging to the surface mesh and those faces on the partition grid.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00018" num="00018" class="claim">
+      <div class="claim-text">18. The system of <claim-ref idref="CLM-00015">claim 15</claim-ref>, wherein the processor is further configured for repeating steps (b) through (f) one or more times to further decompose each sub-domain into a partition grid and two sub-domains; and wherein merging the partition grid and volume grids comprises merging all generated partition grids and volume grids.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00019" num="00019" class="claim">
+      <div class="claim-text">19. The system of <claim-ref idref="CLM-00015">claim 15</claim-ref>, wherein the processor is further configured for generating the volume, grids using an advancing front grid generation method.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00020" num="00020" class="claim">
+      <div class="claim-text">20. The system of <claim-ref idref="CLM-00015">claim 15</claim-ref>, wherein the processor is further configured for generating the volume grids sequentially or in parallel.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00021" num="00021" class="claim">
+      <div class="claim-text">21. The system of <claim-ref idref="CLM-00015">claim 15</claim-ref>, wherein the processor is further configured for post-processing each generated volume grid as necessary to ensure grid closure and/or grid repair.</div>
+    </div>
+  </div> </div>
+  </div>
+  </section>
+
+  <section itemprop="application" itemscope>
+
+    <section itemprop="metadata" itemscope>
+        <span itemprop="applicationNumber">US12/493,666</span>
+        <span itemprop="priorityDate">2008-08-28</span>
+        <span itemprop="filingDate">2009-06-29</span>
+        <span itemprop="title">Domain decomposition by the advancing-partition method for parallel unstructured grid generation 
+       </span>
+        <span itemprop="ifiStatus">Expired - Fee Related</span>
+        
+        <a href="/patent/US8259104B2/en">
+            <span itemprop="representativePublication">US8259104B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+        </a>
+    </section>
+
+    <h2>Priority Applications (2)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                    <th>Title</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="priorityApps" itemscope repeat>
+                <td>
+                   <span itemprop="applicationNumber">US9244608P</span>
+                   <span itemprop="isUsProvisional">true</span>
+                   
+                <td itemprop="priorityDate">2008-08-28</td>
+                <td itemprop="filingDate">2008-08-28</td>
+                <td itemprop="title"></td>
+              </tr><tr itemprop="priorityApps" itemscope repeat>
+                <td>
+                   <span itemprop="applicationNumber">US12/493,666</span>
+                   
+                   <a href="/patent/US8259104B2/en">
+                        <span itemprop="representativePublication">US8259104B2</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                <td itemprop="priorityDate">2008-08-28</td>
+                <td itemprop="filingDate">2009-06-29</td>
+                <td itemprop="title">Domain decomposition by the advancing-partition method for parallel unstructured grid generation 
+       </td>
+              </tr>
+           </tbody>
+       </table>
+
+    <h2>Applications Claiming Priority (1)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                    <th>Title</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="appsClaimingPriority" itemscope repeat>
+                <td>
+                   <span itemprop="applicationNumber">US12/493,666</span>
+                   <a href="/patent/US8259104B2/en">
+                        <span itemprop="representativePublication">US8259104B2</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                <td itemprop="priorityDate">2008-08-28</td>
+                <td itemprop="filingDate">2009-06-29</td>
+                <td itemprop="title">Domain decomposition by the advancing-partition method for parallel unstructured grid generation 
+       </td>
+              </tr>
+           </tbody>
+       </table>
+
+    
+
+    
+
+    <h2>Publications (2)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Publication Number</th>
+                    <th>Publication Date</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="pubs" itemscope repeat>
+                <td>
+                   <span itemprop="publicationNumber">US20100134498A1</span>
+                   
+                   <a href="/patent/US20100134498A1/en">US20100134498A1
+                       (<span itemprop="primaryLanguage">en</span>)
+                   </a>
+                </td>
+                <td itemprop="publicationDate">2010-06-03</td>
+              </tr><tr itemprop="pubs" itemscope repeat>
+                <td>
+                   <span itemprop="publicationNumber">US8259104B2</span>
+                   
+                   <span itemprop="thisPatent">true</span>
+                   <a href="/patent/US8259104B2/en">US8259104B2
+                       (<span itemprop="primaryLanguage">en</span>)
+                   </a>
+                </td>
+                <td itemprop="publicationDate">2012-09-04</td>
+              </tr>
+           </tbody>
+        </table>
+
+  </section>
+
+  <section itemprop="family" itemscope>
+    <h1>Family</h1>
+    <h2>ID=42222418</h2>
+
+    <h2>Family Applications (1)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Title</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="applications" itemscope repeat>
+                <td>
+                    <span itemprop="applicationNumber">US12/493,666</span>
+                    <span itemprop="ifiStatus">Expired - Fee Related</span>
+                    
+                    <a href="/patent/US8259104B2/en">
+                        <span itemprop="representativePublication">US8259104B2</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                </td>
+                <td itemprop="priorityDate">2008-08-28</td>
+                <td itemprop="filingDate">2009-06-29</td>
+                <td itemprop="title">Domain decomposition by the advancing-partition method for parallel unstructured grid generation 
+       </td>
+              </tr>
+           </tbody>
+        </table>
+
+    
+
+    
+
+    <h2>Country Status (1)</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Country</th>
+            <th>Link</th>
+          </tr>
+        </thead>
+        <tbody>
+        <tr itemprop="countryStatus" itemscope repeat>
+            <td>
+              <span itemprop="countryCode">US</span>
+                (<span itemprop="num">1</span>)
+              <meta itemprop="thisCountry" content="true">
+            </td>
+            <td>
+              <a href="/patent/US8259104B2/en">
+                <span itemprop="representativePublication">US8259104B2</span>
+                  (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+    <h2>Cited By (4)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20120173219A1/en">
+              <span itemprop="publicationNumber">US20120173219A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2010-12-30</td>
+          <td itemprop="publicationDate">2012-07-05</td>
+          <td><span itemprop="assigneeOriginal">Desktop Aeronautics, Inc.</span></td>
+          <td itemprop="title">Generating inviscid and viscous fluid-flow simulations over an aircraft surface using a fluid-flow mesh 
+       </td>
+        </tr><tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US8538738B2/en">
+              <span itemprop="publicationNumber">US8538738B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2011-03-22</td>
+          <td itemprop="publicationDate">2013-09-17</td>
+          <td><span itemprop="assigneeOriginal">Aerion Corporation</span></td>
+          <td itemprop="title">Predicting transition from laminar to turbulent flow over a surface 
+       </td>
+        </tr><tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US8892408B2/en">
+              <span itemprop="publicationNumber">US8892408B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2011-03-23</td>
+          <td itemprop="publicationDate">2014-11-18</td>
+          <td><span itemprop="assigneeOriginal">Aerion Corporation</span></td>
+          <td itemprop="title">Generating inviscid and viscous fluid flow simulations over a surface using a quasi-simultaneous technique 
+       </td>
+        </tr><tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20160071327A1/en">
+              <span itemprop="publicationNumber">US20160071327A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2014-09-05</td>
+          <td itemprop="publicationDate">2016-03-10</td>
+          <td><span itemprop="assigneeOriginal">Fu Tai Hua Industry (Shenzhen) Co., Ltd.</span></td>
+          <td itemprop="title">System and method for simplifying a mesh point cloud 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Families Citing this family (7)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20100145668A1/en">
+              <span itemprop="publicationNumber">US20100145668A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2008-12-04</td>
+          <td itemprop="publicationDate">2010-06-10</td>
+          <td><span itemprop="assigneeOriginal">Fisher Mark S</span></td>
+          <td itemprop="title">Method for dynamic repartitioning in adaptive mesh processing 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US8983817B2/en">
+              <span itemprop="publicationNumber">US8983817B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2008-12-04</td>
+          <td itemprop="publicationDate">2015-03-17</td>
+          <td><span itemprop="assigneeOriginal">The Boeing Company</span></td>
+          <td itemprop="title">Dynamic load balancing for adaptive meshes 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/WO2012018428A1/en">
+              <span itemprop="publicationNumber">WO2012018428A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2010-08-04</td>
+          <td itemprop="publicationDate">2012-02-09</td>
+          <td><span itemprop="assigneeOriginal">Exxonmobil Upstream Research Company</span></td>
+          <td itemprop="title">System and method for summarizing data on an unstructured grid 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/EP2680231A1/en">
+              <span itemprop="publicationNumber">EP2680231A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2012-06-25</td>
+          <td itemprop="publicationDate">2014-01-01</td>
+          <td><span itemprop="assigneeOriginal">Fujitsu Limited</span></td>
+          <td itemprop="title">Decoupled parallel meshing in computer aided design 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/JP6249692B2/en">
+              <span itemprop="publicationNumber">JP6249692B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2013-09-06</td>
+          <td itemprop="publicationDate">2017-12-20</td>
+          <td><span itemprop="assigneeOriginal">キヤノン株式会社</span></td>
+          <td itemprop="title">Image processing apparatus, control method thereof, and program 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/CN104462829B/en">
+              <span itemprop="publicationNumber">CN104462829B</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2014-12-11</td>
+          <td itemprop="publicationDate">2019-01-18</td>
+          <td><span itemprop="assigneeOriginal">中国航天空气动力技术研究院</span></td>
+          <td itemprop="title">The processing method of complicated multi-region grid in space propultion solution 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/EP3503040A1/en">
+              <span itemprop="publicationNumber">EP3503040A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2017-12-24</td>
+          <td itemprop="publicationDate">2019-06-26</td>
+          <td><span itemprop="assigneeOriginal">Dassault Systèmes</span></td>
+          <td itemprop="title">Design of a 3d finite element mesh of a 3d part that comprises a lattice structure 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Citations (1)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7129942B2/en">
+              <span itemprop="publicationNumber">US7129942B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2002-12-10</td>
+          <td itemprop="publicationDate">2006-10-31</td>
+          <td><span itemprop="assigneeOriginal">International Business Machines Corporation</span></td>
+          <td itemprop="title">System and method for performing domain decomposition for multiresolution surface analysis 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+
+    
+
+    
+    <ul>
+      
+      <li itemprop="applicationsByYear" itemscope repeat>
+        <span itemprop="year">2009</span>
+        <ul>
+          
+          <li itemprop="application" itemscope repeat>
+            <span itemprop="filingDate">2009-06-29</span>
+            <span itemprop="countryCode">US</span>
+            <span itemprop="applicationNumber">US12/493,666</span>
+            <a href="/patent/US8259104B2/en"><span itemprop="documentId">patent/US8259104B2/en</span></a>
+            <span itemprop="legalStatusCat">not_active</span>
+            <span itemprop="legalStatus">Expired - Fee Related</span>
+            
+            <span itemprop="thisApp" content="true" bool></span>
+            
+          </li>
+          
+        </ul>
+      </li>
+      
+    </ul>
+    
+
+    </section>
+
+  <section>
+    <h2>Patent Citations (1)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7129942B2/en">
+              <span itemprop="publicationNumber">US7129942B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2002-12-10</td>
+          <td itemprop="publicationDate">2006-10-31</td>
+          <td><span itemprop="assigneeOriginal">International Business Machines Corporation</span></td>
+          <td itemprop="title">System and method for performing domain decomposition for multiresolution surface analysis 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Non-Patent Citations (2)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Ivanov et al, Domain Decomposition Approach for Automatic Parallel Generation of tetrahedral Grids, Berichte des fraunhofer ITWM, Nr. 87, 2006, pp. 1-32.</span>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Shahyar Zachary Pirzadeh., "<a href='http://scholar.google.com/scholar?q="Domain+Decomposition+by+the+Advancing+Partition+Method"'>Domain Decomposition by the Advancing Partition Method</a>", NASA/TM 2008, Jun. 2008, pp. 1-23.</span>
+            
+            
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <h2>Cited By (10)</h2>
+  <table>
+    <caption>* Cited by examiner, † Cited by third party</caption>
+    <thead>
+      <tr>
+        <th>Publication number</th>
+        <th>Priority date</th>
+        <th>Publication date</th>
+        <th>Assignee</th>
+        <th>Title</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US20120173219A1/en">
+            <span itemprop="publicationNumber">US20120173219A1</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2010-12-30</td>
+        <td itemprop="publicationDate">2012-07-05</td>
+        <td><span itemprop="assigneeOriginal">Desktop Aeronautics, Inc.</span></td>
+        <td itemprop="title">Generating inviscid and viscous fluid-flow simulations over an aircraft surface using a fluid-flow mesh 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US8457939B2/en">
+            <span itemprop="publicationNumber">US8457939B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2010-12-30</td>
+        <td itemprop="publicationDate">2013-06-04</td>
+        <td><span itemprop="assigneeOriginal">Aerion Corporation</span></td>
+        <td itemprop="title">Generating inviscid and viscous fluid-flow simulations over an aircraft surface using a fluid-flow mesh 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US20130246027A1/en">
+            <span itemprop="publicationNumber">US20130246027A1</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2010-12-30</td>
+        <td itemprop="publicationDate">2013-09-19</td>
+        <td><span itemprop="assigneeOriginal">Aerion Corporation</span></td>
+        <td itemprop="title">Generating inviscid and viscous fluid-flow simulations over a surface using a fluid-flow mesh 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US8935140B2/en">
+            <span itemprop="publicationNumber">US8935140B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2010-12-30</td>
+        <td itemprop="publicationDate">2015-01-13</td>
+        <td><span itemprop="assigneeOriginal">Aerion Corporation</span></td>
+        <td itemprop="title">Generating inviscid and viscous fluid-flow simulations over a surface using a fluid-flow mesh 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US10296672B2/en">
+            <span itemprop="publicationNumber">US10296672B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          
+          
+        </td>
+        <td itemprop="priorityDate">2010-12-30</td>
+        <td itemprop="publicationDate">2019-05-21</td>
+        <td><span itemprop="assigneeOriginal">Aerion Corporation</span></td>
+        <td itemprop="title">Generating inviscid and viscous fluid-flow simulations over an aircraft surface using a fluid-flow mesh 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US8538738B2/en">
+            <span itemprop="publicationNumber">US8538738B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          
+          
+        </td>
+        <td itemprop="priorityDate">2011-03-22</td>
+        <td itemprop="publicationDate">2013-09-17</td>
+        <td><span itemprop="assigneeOriginal">Aerion Corporation</span></td>
+        <td itemprop="title">Predicting transition from laminar to turbulent flow over a surface 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US9418202B2/en">
+            <span itemprop="publicationNumber">US9418202B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          
+          
+        </td>
+        <td itemprop="priorityDate">2011-03-22</td>
+        <td itemprop="publicationDate">2016-08-16</td>
+        <td><span itemprop="assigneeOriginal">Aerion Technologies Corporation</span></td>
+        <td itemprop="title">Predicting transition from laminar to turbulent flow over a surface 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US8892408B2/en">
+            <span itemprop="publicationNumber">US8892408B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          
+          
+        </td>
+        <td itemprop="priorityDate">2011-03-23</td>
+        <td itemprop="publicationDate">2014-11-18</td>
+        <td><span itemprop="assigneeOriginal">Aerion Corporation</span></td>
+        <td itemprop="title">Generating inviscid and viscous fluid flow simulations over a surface using a quasi-simultaneous technique 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US20160071327A1/en">
+            <span itemprop="publicationNumber">US20160071327A1</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2014-09-05</td>
+        <td itemprop="publicationDate">2016-03-10</td>
+        <td><span itemprop="assigneeOriginal">Fu Tai Hua Industry (Shenzhen) Co., Ltd.</span></td>
+        <td itemprop="title">System and method for simplifying a mesh point cloud 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US9830686B2/en">
+            <span itemprop="publicationNumber">US9830686B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2014-09-05</td>
+        <td itemprop="publicationDate">2017-11-28</td>
+        <td><span itemprop="assigneeOriginal">Fu Tai Hua Industry (Shenzhen) Co., Ltd.</span></td>
+        <td itemprop="title">System and method for simplifying a mesh point cloud 
+       </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <section>
+    <h2>Also Published As</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Publication date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="docdbFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20100134498A1/en">
+              <span itemprop="publicationNumber">US20100134498A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+          </td>
+          <td itemprop="publicationDate">2010-06-03</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Similar Documents</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Publication</th>
+          <th>Publication Date</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="2905804276151723152">
+              <a href="/scholar/2905804276151723152"><span itemprop="scholarAuthors">Gill et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2004">2004</time>
+            
+          </td>
+          <td itemprop="title">The evolution of substructure—I. A new identification method</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="15463258138671082490">
+              <a href="/scholar/15463258138671082490"><span itemprop="scholarAuthors">Fabian et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2011">2011</time>
+            
+          </td>
+          <td itemprop="title">The paraview coprocessing library: A scalable, general purpose in situ visualization library</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US8665267B2/en">
+                <span itemprop="publicationNumber">US8665267B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2014-03-04">2014-03-04</time>
+            
+            
+          </td>
+          <td itemprop="title">System and method for generating 3D surface patches from unconstrained 3D curves 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="17245785853508476829">
+              <a href="/scholar/17245785853508476829"><span itemprop="scholarAuthors">Luo et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2008">2008</time>
+            
+          </td>
+          <td itemprop="title">A level set‐based parameterization method for structural shape and topology optimization</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="4503677711968961366">
+              <a href="/scholar/4503677711968961366"><span itemprop="scholarAuthors">Gyulassy et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2007">2007</time>
+            
+          </td>
+          <td itemprop="title">Efficient computation of Morse-Smale complexes for three-dimensional scalar functions</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="4917917669416111021">
+              <a href="/scholar/4917917669416111021"><span itemprop="scholarAuthors">Mehra et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2012">2012</time>
+            
+          </td>
+          <td itemprop="title">An efficient GPU-based time domain solver for the acoustic wave equation</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="5592392028159793945">
+              <a href="/scholar/5592392028159793945"><span itemprop="scholarAuthors">Shi et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2011">2011</time>
+            
+          </td>
+          <td itemprop="title">Adaptive simplification of point cloud using k-means clustering</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US8781748B2/en">
+                <span itemprop="publicationNumber">US8781748B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2014-07-15">2014-07-15</time>
+            
+            
+          </td>
+          <td itemprop="title">System and method for generating images of subsurface structures 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="1349342425515392584">
+              <a href="/scholar/1349342425515392584"><span itemprop="scholarAuthors">Legrain et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2012">2012</time>
+            
+          </td>
+          <td itemprop="title">High order X-FEM and levelsets for complex microstructures: uncoupling geometry and approximation</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="17667143467209888707">
+              <a href="/scholar/17667143467209888707"><span itemprop="scholarAuthors">Ando et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2012">2012</time>
+            
+          </td>
+          <td itemprop="title">Preserving fluid sheets with adaptively sampled anisotropic particles</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="6728962434552396271">
+              <a href="/scholar/6728962434552396271"><span itemprop="scholarAuthors">Takahashi et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2004">2004</time>
+            
+          </td>
+          <td itemprop="title">Topological volume skeletonization using adaptive tetrahedralization</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="9010815862742634912">
+              <a href="/scholar/9010815862742634912"><span itemprop="scholarAuthors">Huang et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2011">2011</time>
+            
+          </td>
+          <td itemprop="title">Explorations of the implementation of a parallel IDW interpolation algorithm in a Linux cluster-based parallel GIS</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="7530428345766022345">
+              <a href="/scholar/7530428345766022345"><span itemprop="scholarAuthors">Cuomo et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2013">2013</time>
+            
+          </td>
+          <td itemprop="title">Surface reconstruction from scattered point via RBF interpolation on GPU</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="6374630656826124228">
+              <a href="/scholar/6374630656826124228"><span itemprop="scholarAuthors">Digonnet et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2007">2007</time>
+            
+          </td>
+          <td itemprop="title">Cimlib: a fully parallel application for numerical simulations based on components assembly</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/JP2009520306A/en">
+                <span itemprop="publicationNumber">JP2009520306A</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2009-05-21">2009-05-21</time>
+            
+            
+          </td>
+          <td itemprop="title">Parallel multirate circuit simulation 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US20120047098A1/en">
+                <span itemprop="publicationNumber">US20120047098A1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2012-02-23">2012-02-23</time>
+            
+            
+          </td>
+          <td itemprop="title">Method for computing and storing voronoi diagrams, and uses therefor 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="8919327370089726483">
+              <a href="/scholar/8919327370089726483"><span itemprop="scholarAuthors">Oliker et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2000">2000</time>
+            
+          </td>
+          <td itemprop="title">Parallel tetrahedral mesh adaptation with dynamic load balancing</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US8868470B2/en">
+                <span itemprop="publicationNumber">US8868470B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2014-10-21">2014-10-21</time>
+            
+            
+          </td>
+          <td itemprop="title">Parallel processing of data sets 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US20130097170A1/en">
+                <span itemprop="publicationNumber">US20130097170A1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2013-04-18">2013-04-18</time>
+            
+            
+          </td>
+          <td itemprop="title">Apparatus, system and method for the efficient storage and retrieval of 3-dimensionally organized data in cloud-based computing architectures 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="7667404294371039705">
+              <a href="/scholar/7667404294371039705"><span itemprop="scholarAuthors">Zhou et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2009">2009</time>
+            
+          </td>
+          <td itemprop="title">A streaming framework for seamless building reconstruction from large-scale aerial lidar data</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US10417555B2/en">
+                <span itemprop="publicationNumber">US10417555B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2019-09-17">2019-09-17</time>
+            
+            
+          </td>
+          <td itemprop="title">Data-optimized neural network traversal 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="12397184286445417131">
+              <a href="/scholar/12397184286445417131"><span itemprop="scholarAuthors">Larwood et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2003">2003</time>
+            
+          </td>
+          <td itemprop="title">Domain decomposition approach for parallel unstructured mesh generation</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="4194965263821639755">
+              <a href="/scholar/4194965263821639755"><span itemprop="scholarAuthors">Alauzet et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2009">2009</time>
+            
+          </td>
+          <td itemprop="title">On the use of space filling curves for parallel anisotropic mesh adaptation</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/JP5208585B2/en">
+                <span itemprop="publicationNumber">JP5208585B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2013-06-12">2013-06-12</time>
+            
+            
+          </td>
+          <td itemprop="title">Method, computer program and system for identifying instructions for obtaining representative traces 
+     </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US20120143932A1/en">
+                <span itemprop="publicationNumber">US20120143932A1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2012-06-07">2012-06-07</time>
+            
+            
+          </td>
+          <td itemprop="title">Data Structure For Tiling And Packetizing A Sparse Matrix 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Legal Events</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Code</th>
+          <th>Title</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2009-12-08">2009-12-08</time></td>
+          <td itemprop="code">AS</td>
+          <td itemprop="title">Assignment</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Owner name</strong>:
+              <span itemprop="value">UNITED STATES OF AMERICA AS REPRESENTED BY THE ADM</span>
+            </p>
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">ASSIGNMENT OF ASSIGNORS INTEREST;ASSIGNOR:PIRZADEH, SHAHYAR ZACHARY;REEL/FRAME:023616/0758</span>
+            </p>
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Effective date</strong>:
+              <span itemprop="value">20091120</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2016-04-15">2016-04-15</time></td>
+          <td itemprop="code">REMI</td>
+          <td itemprop="title">Maintenance fee reminder mailed</td>
+          <td>
+            
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2016-09-04">2016-09-04</time></td>
+          <td itemprop="code">LAPS</td>
+          <td itemprop="title">Lapse for failure to pay maintenance fees</td>
+          <td>
+            
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2016-10-03">2016-10-03</time></td>
+          <td itemprop="code">STCH</td>
+          <td itemprop="title">Information on status: patent discontinuation</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">PATENT EXPIRED DUE TO NONPAYMENT OF MAINTENANCE FEES UNDER 37 CFR 1.362</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2016-10-25">2016-10-25</time></td>
+          <td itemprop="code">FP</td>
+          <td itemprop="title">Expired due to failure to pay maintenance fee</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Effective date</strong>:
+              <span itemprop="value">20160904</span>
+            </p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+</article>
+
+    </search-app>
+    <script type="text/javascript" src="//www.gstatic.com/feedback/api.js"></script>
+    <script async="" defer="" src="//www.google.com/insights/consumersurveys/async_survey?site=cxkjf7ipxgbnnjy6k35ezcvbbe"></script>
+  </body>
+</html>

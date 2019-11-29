@@ -1,0 +1,2981 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>US8355579B2 - Automatic extraction of planetary image features 
+        - Google Patents</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="referrer" content="origin-when-crossorigin">
+    <link rel="canonical" href="https://patents.google.com/patent/US8355579B2/en">
+    <meta name="description" content="
+     A method for the extraction of Lunar data and/or planetary features is provided. The feature extraction method can include one or more image processing techniques, including, but not limited to, a watershed segmentation and/or the generalized Hough Transform. According to some embodiments, the feature extraction method can include extracting features, such as, small rocks. According to some embodiments, small rocks can be extracted by applying a watershed segmentation algorithm to the Canny gradient. According to some embodiments, applying a watershed segmentation algorithm to the Canny gradient can allow regions that appear as close contours in the gradient to be segmented. 
+   
+   ">
+    
+    <meta name="DC.type" content="patent">
+    
+    <meta name="DC.title" content="Automatic extraction of planetary image features 
+       ">
+    
+    <meta name="DC.date" content="2010-05-19" scheme="dateSubmitted">
+    
+    <meta name="DC.description" content="
+     A method for the extraction of Lunar data and/or planetary features is provided. The feature extraction method can include one or more image processing techniques, including, but not limited to, a watershed segmentation and/or the generalized Hough Transform. According to some embodiments, the feature extraction method can include extracting features, such as, small rocks. According to some embodiments, small rocks can be extracted by applying a watershed segmentation algorithm to the Canny gradient. According to some embodiments, applying a watershed segmentation algorithm to the Canny gradient can allow regions that appear as close contours in the gradient to be segmented. 
+   
+   ">
+    
+    <meta name="citation_patent_application_number" content="US:12/783,054">
+    
+    <meta name="citation_pdf_url" content="https://patentimages.storage.googleapis.com/59/fe/7a/c26b9d60439049/US8355579.pdf">
+    
+    <meta name="citation_patent_number" content="US:8355579">
+    
+    <meta name="DC.date" content="2013-01-15" scheme="issue">
+    
+    <meta name="DC.contributor" content="Jacqueline J. LeMoigne-Stewart" scheme="inventor">
+    
+    <meta name="DC.contributor" content="Giulia Troglio" scheme="inventor">
+    
+    <meta name="DC.contributor" content="Jon A. Benediktsson" scheme="inventor">
+    
+    <meta name="DC.contributor" content="Sebastiano B. Serpico" scheme="inventor">
+    
+    <meta name="DC.contributor" content="Gabriele Moser" scheme="inventor">
+    
+    <meta name="DC.contributor" content="National Aeronautics and Space Administration (NASA)" scheme="assignee">
+    
+    <meta name="DC.relation" content="US:20060204953:A1" scheme="references">
+    
+    <meta name="DC.relation" content="US:20090081775:A1" scheme="references">
+    
+    <meta name="DC.relation" content="US:7738683" scheme="references">
+    
+    <meta name="DC.relation" content="US:7575171" scheme="references">
+    
+    <meta name="DC.relation" content="US:20090048780:A1" scheme="references">
+    
+    <meta name="citation_reference" content="&#34;Lunar Reconnaissance Orbiter,&#34; NASA Facts Goddard Space Flight Center, National Aeronautics and Space Administration http://lro.gsfc.nasa.gov/mission.html, 2009." scheme="references">
+    
+    <meta name="citation_reference" content="A. Smirnov, &#34;Exploratory Study of Automated Crater Detection Algorithm,&#34; Tech. Rep., 2002, CO." scheme="references">
+    
+    <meta name="citation_reference" content="Flores-Mendez, &#34;Crater Marking and Classification Using Computer Vision,&#34; Progress in Pattern Recognition, Speech and Image Analysis, Lecture Notes in Computer Science, 2003, pp. 79-86 vol. 2905 Springer-Verlag, NY." scheme="references">
+    
+    <meta name="citation_reference" content="Harada, N.; Hayashi, T.; Hirata, N.; Demura, H.; Asada, N.; , &#34;Recognition Algorithm for Topographic Features,&#34; Computer and Information Technology, 2007. CIT 2007. 7th IEEE International Conference on , vol., No., pp. 685-689, Oct. 16-19, 2007." scheme="references">
+    
+    <meta name="citation_reference" content="Heather Dunlop &#34;A New Method for Crater Detection&#34; Nov. 2, 2006. http://dunlop1.net/doc/craters.pdf." scheme="references">
+    
+    <meta name="citation_reference" content="J. Canny, &#34;A Computational Approach to Edge Detection,&#34; IEEE-Trans. Pattern Analysis & Machine Intelligence, 10 (6), 1986." scheme="references">
+    
+    <meta name="citation_reference" content="J. Canny, &#34;A Computational Approach to Edge Detection,&#34; IEEE—Trans. Pattern Analysis & Machine Intelligence, 10 (6), 1986." scheme="references">
+    
+    <meta name="citation_reference" content="J. Earl et al., &#34;Automatic Recognition of Crater-Like Structures in Terrestrial and Planetary Images,&#34; Proc. Lunar Planetary Science XXXVI, 2005, Abs. No. 1319, TX." scheme="references">
+    
+    <meta name="citation_reference" content="J.R. Kim, et al. , &#34;Automated Crater Detection, a New Tool for Mars Cartography and Chronology,&#34; Photogrammetric Engineering & Remote Sensing, 2005, pp. 13-22 vol. 71, No. 10." scheme="references">
+    
+    <meta name="citation_reference" content="R. Duda et al., &#34;Use of the Hough Transform to Detect Lines and Curves in Pictures,&#34; Communications of the Association for Computing Machinery, 15, 1972." scheme="references">
+    
+    <meta name="citation_reference" content="S. Beucher, &#34;The Watershed Transformation Applied to Image Segmentation,&#34; Scanning Microscopy International, 1992." scheme="references">
+    
+    <meta name="citation_reference" content="S. Tsuji, et al., &#34;Detection of Ellipses by a Modified Hough Transformation,&#34; IEEE Trans. on Computers, 27(8), 1978." scheme="references">
+    
+    <meta name="citation_reference" content="Shapiro, L.G. et al., &#34;Computer Vision&#34;, Prentice Hall, 2001." scheme="references">
+    
+    <meta name="citation_reference" content="Y. Sawabe et al., &#34;Automated Detection and Classification of Lunar Craters Using Multiple Approaches,&#34; Adv. Space Res., 2006, pp. 21-27, vol. 37, No. 1." scheme="references">
+    
+    <meta name="citation_reference" content="Z. Michalewicz, &#34;Genetic Algorithms &#43; Data Structures = Evolutional Programs&#34;, Berlin Heidelberg, 3rd Edition, 1999 Springer Verlag." scheme="references">
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,400italic,500,500italic,700">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Product+Sans">
+    <style>
+      body { transition: none; }
+    </style>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-27188110-4', 'auto');
+
+      version = 'patent-search.search_20191120_RC00';
+
+      function sendFeedback() {
+        userfeedback.api.startFeedback({
+          'productId': '713680',
+          'bucket': 'patent-search-web',
+          'productVersion': version,
+        });
+      }
+
+      window.experiments = {};
+      window.experiments.patentCountries = "ae,ag,al,am,ao,ap,ar,at,au,aw,az,ba,bb,bd,be,bf,bg,bh,bj,bn,bo,br,bw,bx,by,bz,ca,cf,cg,ch,ci,cl,cm,cn,co,cr,cs,cu,cy,cz,dd,de,dj,dk,dm,do,dz,ea,ec,ee,eg,em,ep,es,fi,fr,ga,gb,gc,gd,ge,gh,gm,gn,gq,gr,gt,gw,hk,hn,hr,hu,ib,id,ie,il,in,ir,is,it,jo,jp,ke,kg,kh,km,kn,kp,kr,kw,kz,la,lc,li,lk,lr,ls,lt,lu,lv,ly,ma,mc,md,me,mg,mk,ml,mn,mo,mr,mt,mw,mx,my,mz,na,ne,ng,ni,nl,no,nz,oa,om,pa,pe,pg,ph,pl,pt,py,qa,ro,rs,ru,rw,sa,sc,sd,se,sg,si,sk,sl,sm,sn,st,su,sv,sy,sz,td,tg,th,tj,tm,tn,tr,tt,tw,tz,ua,ug,us,uy,uz,vc,ve,vn,wo,yu,za,zm,zw";
+      
+      
+      window.profilePicture = "";
+
+      window.Polymer = {
+        dom: 'shady',
+        lazyRegister: true,
+      };
+    </script>
+
+    <script src="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/webcomponentsjs/webcomponents-lite.min.js"></script>
+    
+    <link rel="import" href="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/search-app-vulcanized.html">
+    
+  </head>
+  <body unresolved>
+    
+    <script src="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/search-app-vulcanized.js"></script>
+    
+    <search-app>
+      
+      
+
+      <article class="result" itemscope itemtype="http://schema.org/ScholarlyArticle">
+  <h1 itemprop="pageTitle">US8355579B2 - Automatic extraction of planetary image features 
+        - Google Patents</h1>
+  <span itemprop="title">Automatic extraction of planetary image features 
+       </span>
+
+  <meta itemprop="type" content="patent">
+  <a href="https://patentimages.storage.googleapis.com/59/fe/7a/c26b9d60439049/US8355579.pdf" itemprop="pdfLink">Download PDF</a>
+  <h2>Info</h2>
+
+  <dl>
+    <dt>Publication number</dt>
+    <dd itemprop="publicationNumber">US8355579B2</dd>
+    <meta itemprop="numberWithoutCodes" content="8355579">
+    <meta itemprop="kindCode" content="B2">
+    <meta itemprop="publicationDescription" content="Patent ( having previously published pre-grant publication)">
+    
+    <span>US8355579B2</span>
+    
+    <span>US12/783,054</span>
+    
+    <span>US78305410A</span>
+    
+    <span>US8355579B2</span>
+    
+    <span>US 8355579 B2</span>
+    
+    <span>US8355579 B2</span>
+    
+    <span>US 8355579B2</span>
+    
+    <span>  </span>
+    
+    <span> </span>
+    
+    <span> </span>
+    
+    <span>US 78305410 A</span>
+    
+    <span>US78305410 A</span>
+    
+    <span>US 78305410A</span>
+    
+    <span>US 8355579 B2</span>
+    
+    <span>US8355579 B2</span>
+    
+    <span>US 8355579B2</span>
+    
+
+    <dt>Authority</dt>
+    <dd itemprop="countryCode">US</dd>
+    <dd itemprop="countryName">United States</dd>
+
+    <dt>Prior art keywords</dt>
+    
+    <dd itemprop="priorArtKeywords" repeat>image</dd>
+    <dd itemprop="priorArtKeywords" repeat>method</dd>
+    <dd itemprop="priorArtKeywords" repeat>gradient</dd>
+    <dd itemprop="priorArtKeywords" repeat>features</dd>
+    <dd itemprop="priorArtKeywords" repeat>applying</dd>
+
+    <dt>Prior art date</dt>
+    <dd><time itemprop="priorArtDate" datetime="2009-05-20">2009-05-20</time></dd>
+
+    <dt>Legal status (The legal status is an assumption and is not a legal conclusion. Google has not performed a legal analysis and makes no representation as to the accuracy of the status listed.)</dt>
+    <dd itemprop="legalStatusIfi" itemscope>
+      <span itemprop="status">Active</span>, expires <time itemprop="expiration" datetime="2031-05-07">2031-05-07</time>
+    </dd>
+  </dl>
+
+  <dt>Application number</dt>
+  <dd itemprop="applicationNumber">US12/783,054</dd>
+
+  
+
+  <dt>Other versions</dt>
+  <dd itemprop="directAssociations" itemscope repeat>
+    
+    <a href="/patent/US20110026832A1/en">
+      <span itemprop="publicationNumber">US20110026832A1</span>
+      (<span itemprop="primaryLanguage">en</span>
+    </a>
+  </dd>
+
+  <dt>Inventor</dt>
+  <dd itemprop="inventor" repeat>Jacqueline J. LeMoigne-Stewart</dd>
+  <dd itemprop="inventor" repeat>Giulia Troglio</dd>
+  <dd itemprop="inventor" repeat>Jon A. Benediktsson</dd>
+  <dd itemprop="inventor" repeat>Sebastiano B. Serpico</dd>
+  <dd itemprop="inventor" repeat>Gabriele Moser</dd>
+  <dt>Current Assignee (The listed assignees may be inaccurate. Google has not performed a legal analysis and makes no representation or warranty as to the accuracy of the list.)</dt>
+  <dd itemprop="assigneeCurrent" repeat>
+    National Aeronautics and Space Administration (NASA)
+  </dd>
+
+  <dt>Original Assignee</dt>
+  <dd itemprop="assigneeOriginal" repeat>National Aeronautics and Space Administration (NASA)</dd>
+
+  <dt>Priority date (The priority date is an assumption and is not a legal conclusion. Google has not performed a legal analysis and makes no representation as to the accuracy of the date listed.)</dt>
+  <dd><time itemprop="priorityDate" datetime="2009-05-20">2009-05-20</time></dd>
+
+  <dt>Filing date</dt>
+  <dd><time itemprop="filingDate" datetime="2010-05-19">2010-05-19</time></dd>
+
+  <dt>Publication date</dt>
+  <dd><time itemprop="publicationDate" datetime="2013-01-15">2013-01-15</time></dd>
+
+  
+
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2009-05-20">2009-05-20</time>
+    <span itemprop="title">Priority to US17977409P</span>
+    <span itemprop="type">priority</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2010-05-19">2010-05-19</time>
+    <span itemprop="title">Application filed by National Aeronautics and Space Administration (NASA)</span>
+    <span itemprop="type">filed</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    <span itemprop="assigneeSearch">National Aeronautics and Space Administration (NASA)</span>
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2010-05-19">2010-05-19</time>
+    <span itemprop="title">Priority to US12/783,054</span>
+    <span itemprop="type">priority</span>
+    
+    
+    
+    <span itemprop="documentId">patent/US8355579B2/en</span>
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2011-02-03">2011-02-03</time>
+    <span itemprop="title">Publication of US20110026832A1</span>
+    <span itemprop="type">publication</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    <span itemprop="documentId">patent/US20110026832A1/en</span>
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2013-01-15">2013-01-15</time>
+    <span itemprop="title">Application granted</span>
+    <span itemprop="type">granted</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2013-01-15">2013-01-15</time>
+    <span itemprop="title">Publication of US8355579B2</span>
+    <span itemprop="type">publication</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    <span itemprop="documentId">patent/US8355579B2/en</span>
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2013-02-01">2013-02-01</time>
+    <span itemprop="title">Assigned to UNITED STATES OF AMERICA AS REPRESENTED BY THE ADMINISTRATOR OF THE NATIONAL AERONAUTICS AND SPACE ADMINISTRATION</span>
+    <span itemprop="type">reassignment</span>
+    
+    
+    
+    
+    <span itemprop="assigneeSearch">UNITED STATES OF AMERICA AS REPRESENTED BY THE ADMINISTRATOR OF THE NATIONAL AERONAUTICS AND SPACE ADMINISTRATION</span>
+    
+    
+    <span itemprop="description" repeat>ASSIGNMENT OF ASSIGNORS INTEREST (SEE DOCUMENT FOR DETAILS).</span>
+    
+    <span itemprop="description" repeat>Assignors: LEMOIGNE-STEWART, JACQUELINE, MS.</span>
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2019-11-26">2019-11-26</time>
+    <span itemprop="title">Application status is Active</span>
+    <span itemprop="type">legal-status</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2031-05-07">2031-05-07</time>
+    <span itemprop="title">Adjusted expiration</span>
+    <span itemprop="type">legal-status</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+
+  <h2>Links</h2>
+
+  <ul>
+    
+          <li itemprop="links" itemscope repeat>
+            <meta itemprop="id" content="usptoLink">
+            <a href="http://patft.uspto.gov/netacgi/nph-Parser?Sect1=PTO1&Sect2=HITOFF&p=1&u=/netahtml/PTO/srchnum.html&r=1&f=G&l=50&d=PALL&s1=8355579.PN." itemprop="url" target="_blank"><span itemprop="text">USPTO</span></a>
+          </li>
+        <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="usptoAssignmentLink">
+          <a href="https://assignment.uspto.gov/patent/index.html#/patent/search/resultFilter?searchInput=8355579" itemprop="url" target="_blank"><span itemprop="text">USPTO Assignment</span></a>
+        </li>
+
+    <li itemprop="links" itemscope repeat>
+        <meta itemprop="id" content="espacenetLink">
+        <a href="http://worldwide.espacenet.com/publicationDetails/biblio?CC=US&amp;NR=8355579B2&amp;KC=B2&amp;FT=D" itemprop="url" target="_blank"><span itemprop="text">Espacenet</span></a>
+      </li>
+      
+
+    
+
+    
+      <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="globalDossierLink">
+          <a href="http://globaldossier.uspto.gov/#/result/patent/US/8355579/1" itemprop="url" target="_blank"><span itemprop="text">Global Dossier</span></a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="stackexchangeLink">
+          <a href="https://patents.stackexchange.com/questions/tagged/US8355579" itemprop="url"><span itemprop="text">Discuss</span></a>
+        </li>
+      
+  </ul>
+
+  
+  <ul itemprop="concept" itemscope>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000000605</span>
+      <span itemprop="name">extraction</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>abstract</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="sections" repeat>title</span>
+      
+      <span itemprop="count">39</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000011218</span>
+      <span itemprop="name">segmentation</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>abstract</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">32</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000004422</span>
+      <span itemprop="name">calculation algorithm</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>abstract</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">28</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001131</span>
+      <span itemprop="name">transforming</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">36</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000011435</span>
+      <span itemprop="name">rock</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>abstract</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">17</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000000034</span>
+      <span itemprop="name">methods</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>abstract</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">15</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000010911</span>
+      <span itemprop="name">seed</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">12</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000007781</span>
+      <span itemprop="name">pre-processing</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">4</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000007639</span>
+      <span itemprop="name">printing</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">3</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000005457</span>
+      <span itemprop="name">optimization</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">9</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000005286</span>
+      <span itemprop="name">illumination</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">7</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000002068</span>
+      <span itemprop="name">genetic</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">6</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000004458</span>
+      <span itemprop="name">analytical methods</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">5</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000011159</span>
+      <span itemprop="name">matrix materials</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">5</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001747</span>
+      <span itemprop="name">exhibited</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">4</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000000203</span>
+      <span itemprop="name">mixtures</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">3</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000005192</span>
+      <span itemprop="name">partition</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">3</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000000875</span>
+      <span itemprop="name">corresponding</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000001914</span>
+      <span itemprop="name">filtration</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001537</span>
+      <span itemprop="name">neural</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000003909</span>
+      <span itemprop="name">pattern recognition</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000009826</span>
+      <span itemprop="name">distribution</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000003708</span>
+      <span itemprop="name">edge detection</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000003628</span>
+      <span itemprop="name">erosive</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000000284</span>
+      <span itemprop="name">extracts</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000004438</span>
+      <span itemprop="name">eyesight</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000010006</span>
+      <span itemprop="name">flight</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000010191</span>
+      <span itemprop="name">image analysis</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000003709</span>
+      <span itemprop="name">image segmentation</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000003384</span>
+      <span itemprop="name">imaging method</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000013016</span>
+      <span itemprop="name">learning</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000004621</span>
+      <span itemprop="name">scanning probe microscopy</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000000638</span>
+      <span itemprop="name">solvent extraction</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001629</span>
+      <span itemprop="name">suppression</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000000007</span>
+      <span itemprop="name">visual effect</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+  </ul>
+  
+
+  <section>
+    <h2>Images</h2>
+    <ul>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/d0/38/15/88394479fc5c08/US08355579-20130115-D00000.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/42/2c/62/c875deab650d72/US08355579-20130115-D00000.png">
+        <ul>
+          
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/92/d4/6f/d273594a77adfe/US08355579-20130115-D00001.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/5a/94/26/e4fb680c79a077/US08355579-20130115-D00001.png">
+        <ul>
+          
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/74/df/5e/278d931659f0a1/US08355579-20130115-D00002.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/86/13/50/eb590f864e84f3/US08355579-20130115-D00002.png">
+        <ul>
+          
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/f9/9c/4a/09f2ce760f7d35/US08355579-20130115-D00003.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/15/9e/6e/f8bdc57ab68fbc/US08355579-20130115-D00003.png">
+        <ul>
+          
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/f0/3e/9c/1e7d457410cc4b/US08355579-20130115-D00004.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/c9/55/28/c1ac41c5dc2f49/US08355579-20130115-D00004.png">
+        <ul>
+          
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/4e/df/33/3320279eb68feb/US08355579-20130115-D00005.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/1a/e7/36/ff44948853a855/US08355579-20130115-D00005.png">
+        <ul>
+          
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/80/d4/be/379150cc0ce4c3/US08355579-20130115-D00006.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/40/67/d1/0ae39a7361b632/US08355579-20130115-D00006.png">
+        <ul>
+          
+        </ul>
+      </li>
+      </ul>
+  </section>
+
+  <section>
+    <h2>Classifications</h2>
+    
+    <ul>
+      <li>
+        <ul itemprop="cpcs" itemscope repeat>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G</span>&mdash;<span itemprop="Description">PHYSICS</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06</span>&mdash;<span itemprop="Description">COMPUTING; CALCULATING; COUNTING</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06K</span>&mdash;<span itemprop="Description">RECOGNITION OF DATA; PRESENTATION OF DATA; RECORD CARRIERS; HANDLING RECORD CARRIERS</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06K9/00</span>&mdash;<span itemprop="Description">Methods or arrangements for reading or recognising printed or written characters or for recognising patterns, e.g. fingerprints</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06K9/36</span>&mdash;<span itemprop="Description">Image preprocessing, i.e. processing the image information without deciding about the identity of the image</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06K9/46</span>&mdash;<span itemprop="Description">Extraction of features or characteristics of the image</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06K9/4604</span>&mdash;<span itemprop="Description">Detecting partial patterns, e.g. edges or contours, or configurations, e.g. loops, corners, strokes, intersections</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06K9/4633</span>&mdash;<span itemprop="Description">Detecting partial patterns, e.g. edges or contours, or configurations, e.g. loops, corners, strokes, intersections by mapping characteristic values of the pattern into a parameter space, e.g. Hough transformation</span>
+            <meta itemprop="Leaf" content="true">
+            
+            <meta itemprop="FirstCode" content="true">
+          </li>
+          </ul>
+      </li>
+      <li>
+        <ul itemprop="cpcs" itemscope repeat>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G</span>&mdash;<span itemprop="Description">PHYSICS</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06</span>&mdash;<span itemprop="Description">COMPUTING; CALCULATING; COUNTING</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06T</span>&mdash;<span itemprop="Description">IMAGE DATA PROCESSING OR GENERATION, IN GENERAL</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06T7/00</span>&mdash;<span itemprop="Description">Image analysis</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06T7/10</span>&mdash;<span itemprop="Description">Segmentation; Edge detection</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06T7/12</span>&mdash;<span itemprop="Description">Edge-based segmentation</span>
+            <meta itemprop="Leaf" content="true">
+            
+            
+          </li>
+          </ul>
+      </li>
+      <li>
+        <ul itemprop="cpcs" itemscope repeat>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G</span>&mdash;<span itemprop="Description">PHYSICS</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06</span>&mdash;<span itemprop="Description">COMPUTING; CALCULATING; COUNTING</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06T</span>&mdash;<span itemprop="Description">IMAGE DATA PROCESSING OR GENERATION, IN GENERAL</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06T7/00</span>&mdash;<span itemprop="Description">Image analysis</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06T7/30</span>&mdash;<span itemprop="Description">Determination of transform parameters for the alignment of images, i.e. image registration</span>
+            <meta itemprop="Leaf" content="true">
+            
+            
+          </li>
+          </ul>
+      </li>
+      <li>
+        <ul itemprop="cpcs" itemscope repeat>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G</span>&mdash;<span itemprop="Description">PHYSICS</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06</span>&mdash;<span itemprop="Description">COMPUTING; CALCULATING; COUNTING</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06T</span>&mdash;<span itemprop="Description">IMAGE DATA PROCESSING OR GENERATION, IN GENERAL</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06T2207/00</span>&mdash;<span itemprop="Description">Indexing scheme for image analysis or image enhancement</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06T2207/10</span>&mdash;<span itemprop="Description">Image acquisition modality</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06T2207/10032</span>&mdash;<span itemprop="Description">Satellite or aerial image; Remote sensing</span>
+            <meta itemprop="Leaf" content="true">
+            <meta itemprop="Additional" content="true">
+            
+          </li>
+          </ul>
+      </li>
+      <li>
+        <ul itemprop="cpcs" itemscope repeat>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G</span>&mdash;<span itemprop="Description">PHYSICS</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06</span>&mdash;<span itemprop="Description">COMPUTING; CALCULATING; COUNTING</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06T</span>&mdash;<span itemprop="Description">IMAGE DATA PROCESSING OR GENERATION, IN GENERAL</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06T2207/00</span>&mdash;<span itemprop="Description">Indexing scheme for image analysis or image enhancement</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06T2207/10</span>&mdash;<span itemprop="Description">Image acquisition modality</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06T2207/10048</span>&mdash;<span itemprop="Description">Infrared image</span>
+            <meta itemprop="Leaf" content="true">
+            <meta itemprop="Additional" content="true">
+            
+          </li>
+          </ul>
+      </li>
+      <li>
+        <ul itemprop="cpcs" itemscope repeat>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G</span>&mdash;<span itemprop="Description">PHYSICS</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06</span>&mdash;<span itemprop="Description">COMPUTING; CALCULATING; COUNTING</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06T</span>&mdash;<span itemprop="Description">IMAGE DATA PROCESSING OR GENERATION, IN GENERAL</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06T2207/00</span>&mdash;<span itemprop="Description">Indexing scheme for image analysis or image enhancement</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06T2207/20</span>&mdash;<span itemprop="Description">Special algorithmic details</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06T2207/20048</span>&mdash;<span itemprop="Description">Transform domain processing</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06T2207/20061</span>&mdash;<span itemprop="Description">Hough transform</span>
+            <meta itemprop="Leaf" content="true">
+            <meta itemprop="Additional" content="true">
+            
+          </li>
+          </ul>
+      </li>
+      <li>
+        <ul itemprop="cpcs" itemscope repeat>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G</span>&mdash;<span itemprop="Description">PHYSICS</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06</span>&mdash;<span itemprop="Description">COMPUTING; CALCULATING; COUNTING</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06T</span>&mdash;<span itemprop="Description">IMAGE DATA PROCESSING OR GENERATION, IN GENERAL</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06T2207/00</span>&mdash;<span itemprop="Description">Indexing scheme for image analysis or image enhancement</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06T2207/20</span>&mdash;<span itemprop="Description">Special algorithmic details</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06T2207/20112</span>&mdash;<span itemprop="Description">Image segmentation details</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06T2207/20152</span>&mdash;<span itemprop="Description">Watershed segmentation</span>
+            <meta itemprop="Leaf" content="true">
+            <meta itemprop="Additional" content="true">
+            
+          </li>
+          </ul>
+      </li>
+      </ul>
+  </section>
+
+  <section itemprop="abstract" itemscope>
+    <h2>Abstract</h2>
+    
+    <div itemprop="content" html><abstract mxw-id="PA104098220" lang="EN" load-source="patent-office">
+    <div num="p-0001" class="abstract">A method for the extraction of Lunar data and/or planetary features is provided. The feature extraction method can include one or more image processing techniques, including, but not limited to, a watershed segmentation and/or the generalized Hough Transform. According to some embodiments, the feature extraction method can include extracting features, such as, small rocks. According to some embodiments, small rocks can be extracted by applying a watershed segmentation algorithm to the Canny gradient. According to some embodiments, applying a watershed segmentation algorithm to the Canny gradient can allow regions that appear as close contours in the gradient to be segmented.</div>
+  </abstract>
+  </div>
+  </section>
+
+  <section itemprop="description" itemscope>
+    <h2>Description</h2>
+    
+    <div itemprop="content" html><div mxw-id="PDES55092889" lang="EN" load-source="patent-office" class="description">
+    
+    <heading>CROSS-REFERENCE TO RELATED APPLICATION</heading>
+    <p num="p-0002">The present application claims a benefit from prior U.S. Patent Application No. 61/179,774, filed May 20, 2009, which is incorporated herein in its entirety by reference.</p>
+    
+    
+    <heading>STATEMENT OF GOVERNMENT INTEREST</heading>
+    <p num="p-0003">The invention described herein was at least in-part made by an employee of the United States Government and may be manufactured and used by or for the Government of the United States of America for governmental purposes without the payment of any royalties thereon or therefor.</p>
+    
+    
+    <heading>FIELD</heading>
+    <p num="p-0004">The present invention relates generally to the field of automatically extracting features for the purpose of, for example, evaluating and comparing images, and particularly, lunar and/or planetary images.</p>
+    <heading>BACKGROUND</heading>
+    <p num="p-0005">With the launch of several Lunar missions, such as Lunar Reconnaissance Orbiter (LRO) and Chandrayaan-1, a large amount of Lunar images will be and are being acquired, and will need to be analyzed. When registering or analyzing lunar data, significant features need to be extracted from the image data. Planetary features, such as rocks, boulders, craters or ridges, are then used for applications such as: registering multi-temporal, multi-sensor, multi-view images; creating an obstacle distribution map for site selection or path planning purposes; or performing terrain categorization. Although many automatic feature extraction methods have been proposed and utilized for Earth remote sensing images, these methods are not always applicable to Lunar data that often present low contrast and uneven illumination characteristics.</p>
+    <p num="p-0006">The LRO is a NASA mission, aimed at creating a comprehensive atlas of the Moon features and resources to aid in the design of a lunar outpost and to prepare exploration and scientific missions to the Moon. LRO is scheduled to spend at least one year in orbit collecting detailed information about the Moon and its environment. Different types of data will be collected by LRO (and other Moon missions) at different times, by different sensors, and from different view-points. Therefore, registration will be used to jointly exploit, integrate, or compare these different data, and feature extraction is the first step to not only image registration, but also any further analysis of these data.</p>
+    <p num="p-0007">The identification of the features that are present on the planetary surface by a human expert is a time-consuming endeavor. Therefore, a trustworthy automatic procedure to detect the position, structure, and dimension of each feature is highly desirable. This is a difficult task because limited data are available, the quality of the images is generally low (i.e., it depends on illumination and surface properties), and the features that are present in the images can be barely visible due to erosion and exhibit different structures and variable sizes.</p>
+    <p num="p-0008">Among typical features in Lunar- and planet-surface imagery, craters play a primary role. The crater detection problem has been widely addressed and different approaches have been proposed in the literature. The image-based approaches for crater detection can be divided into two main categories: supervised and unsupervised. The supervised methods require the input of an expert and generally use machine learning concepts to train the algorithm to feature extraction. Unsupervised methods are completely automatic and are generally based on pattern recognition techniques. Different approaches have been proposed, based on template matching, texture analysis, neural networks, or a combination of these techniques. Template matching has been described in A. Flores-Mendez, “Crater marking and classification using computer vision,” in Progress in Pattern Recognition, Speech and Image Analysis, vol. 2905, Lecture Notes in Computer Science. New York: Springer-Verlag, 2003, pp. 79-86, which is incorporated herein in its entirety by reference. Texture analysis has been described in J. R. Kim, J.-P. Muller, S. van Gasselt, J. G. Morley, and G. Neukum, “Automated crater detection, a new tool for Mars cartography and chronology,” Photogramm. Eng. Remote Sensing, vol. 71, no. 10, pp. 13-22, 2000, which is incorporated herein in its entirety by reference. Neural networks have been described in A. A. Smirnov, “Exploratory study of automated crater detection algorithm,” Boulder, Colo., 2002. Tech. Rep., which is incorporated herein in its entirety by reference.</p>
+    <p num="p-0009">Compared to Earth Science remote sensing data, lunar images usually present very low contrast and uneven illumination. The boundary of lunar features is not well defined, and it is therefore somewhat difficult to segment and characterize lunar images. Also, because of uneven illumination, edges extracted from lunar images do not form closed contours, and post-processing needs to be done to link these edges. Further, because regions are difficult to characterize due to lack of contrast, if a method such as region growing is used, one level of iteration is not sufficient to describe all the features. With the large number of new lunar data that will be collected in the next few years, it is important to design an automated method to extract these features, and to perform tasks such as image registration. As such, an automated and robust feature extraction method for lunar images is needed.</p>
+    <heading>SUMMARY</heading>
+    <p num="p-0010">According to various embodiments of the present teachings, a feature extraction method is provided, for example, for the extraction of Lunar data and/or planetary features. This feature extraction method can be used for extraction of features, even when planetary images are blurry, noisy, present a lack of contrast and/or uneven illumination, and/or when the represented images are not well-defined. According to some embodiments, the feature extraction method can include computing an image gradient. The image gradient can be computed using a Canny edge detector.</p>
+    <p num="p-0011">According to various embodiments, the feature extraction method can include one or more image processing techniques, including, but not limited to, a watershed segmentation and/or the generalized Hough Transform. According to some embodiments, the feature extraction method can include extracting features, such as, small rocks. According to some embodiments, small rocks can be extracted by applying a watershed segmentation algorithm to the Canny gradient. According to some embodiments, applying a watershed segmentation algorithm to the Canny gradient can allow regions that appear as close contours in the gradient to be segmented.</p>
+    <p num="p-0012">According to some embodiments, the feature extraction method can include extracting features, such as, large rocks and/or craters of elliptical shape. According to some embodiments, large rocks and/or craters of elliptical shape can be extracted by applying a generalized Hough accumulator to detect ellipses in the gradient image, and then applying the watershed segmentation using these ellipses as seed points.</p>
+    <p num="p-0013">According to some embodiments, the feature extraction method can include detecting ridges. According to some embodiments, ridges can be detected by applying a standard Hough accumulator to detect straight lines in the gradient image.</p>
+    <p num="p-0014">According to various embodiments, the feature extraction method can have many applications, which can include image registration. The feature extraction method can be generalized to other planetary images as well as to Lunar images.</p>
+    
+    
+    <description-of-drawings>
+      <heading>BRIEF DESCRIPTION OF THE DRAWINGS</heading>
+      <p num="p-0015">The present teachings will be described with reference to the accompanying drawings. The drawings are intended to illustrate, not limit, the present teachings.</p>
+      <p num="p-0016"> <figref idrefs="DRAWINGS">FIG. 1</figref> shows a flowchart for registering input and reference images.</p>
+      <p num="p-0017"> <figref idrefs="DRAWINGS">FIG. 2A</figref> shows a partition of an infrared image.</p>
+      <p num="p-0018"> <figref idrefs="DRAWINGS">FIG. 2B</figref> shows an image of Canny Gradient of the image shown in <figref idrefs="DRAWINGS">FIG. 2A</figref>.</p>
+      <p num="p-0019"> <figref idrefs="DRAWINGS">FIG. 2C</figref> shows an image of segmented Canny Gradient.</p>
+      <p num="p-0020"> <figref idrefs="DRAWINGS">FIG. 2D</figref> shows an image of Canny Gradient with close contours extracted.</p>
+      <p num="p-0021"> <figref idrefs="DRAWINGS">FIG. 2E</figref> shows the resulting image after the segmentation (initialized with the maxima of the Hough accumulator) is applied.</p>
+      <p num="p-0022"> <figref idrefs="DRAWINGS">FIG. 2F</figref> shows a binary image in which crater boundaries are mapped.</p>
+      <p num="p-0023"> <figref idrefs="DRAWINGS">FIG. 3A</figref> shows an input image.</p>
+      <p num="p-0024"> <figref idrefs="DRAWINGS">FIG. 3B</figref> shows a reference image.</p>
+      <p num="p-0025"> <figref idrefs="DRAWINGS">FIG. 3C</figref> shows superimposed unregistered image boundaries.</p>
+      <p num="p-0026"> <figref idrefs="DRAWINGS">FIG. 3D</figref> shows registered images by using a checkerboard representation.</p>
+    </description-of-drawings>
+    
+    
+    <heading>DETAILED DESCRIPTION OF THE PRESENT INVENTION</heading>
+    <p num="p-0027">According to various embodiments, a feature extraction method is provided that includes computing an image gradient of a Lunar image by using an edge detector, detecting ridges in the image gradient by applying a Hough Transform to detect straight lines in the image gradient, and registering the image. In some embodiments, the method can include applying a watershed segmentation algorithm to the image gradient to extract object features of the image. The applying a watershed segmentation algorithm can include segmenting regions that appear as close contours in the gradient. In some embodiments, the edge detector can include a Canny edge detector. The method can further include detecting object features in the image, for example, rock features, crater features, ridges, or the like. In some embodiments, the method can further include preprocessing the image to smooth noise in the image prior to computing the image gradient. The registering can include registering the detected ridges with ridges shown in a reference image.</p>
+    <p num="p-0028">According to various embodiments, a feature extraction method is provided that includes computing an image gradient of an image by using an edge detector, applying a watershed segmentation algorithm to the image gradient to extract first objects such as small rocks, applying a generalized Hough Transform to detect ellipses in the image gradient, and applying a watershed segmentation algorithm to the image gradient using the detected ellipses as seed points, for example, to extract objects and recesses of elliptical shape, such as elliptical rocks and craters. The method can further include detecting ridges in the image gradient by applying a Hough Transform to detect straight lines in the image gradient, and distinguishing one or more objects in the image from a background of the image. The edge detector can include a Canny edge detector. The image can include a Lunar image.</p>
+    <p num="p-0029">In some embodiments, the method can further include preprocessing the image to smooth noise in the image prior to computing the image gradient. The method can also include registering one or more of the detected objects with one or more objects in a reference image.</p>
+    <p num="p-0030">According to various embodiments, the registering can include extracting features from both the input image and reference image and computing a geometric transformation between the image and the reference image based on these features. In some embodiments, the registering can include: extracting features from the reference image; extracting features from the input image; matching features between the input image and the reference image; estimating a transformation model; transforming the input image with respect to the reference image; and generating a registered image. The generated registered image can be displayed, output, printed, written to a memory device, or a combination thereof. A processor can be used to carry out one or more of the extracting, the matching, the estimating, the transforming, and the generating. In some embodiments, a processor can be used to carry out two or more, three or more, or each of the extracting, the matching, the estimating, the transforming, and the generating. In some embodiments, the method can further include printing out the registered image, displaying the registered image, or the like.</p>
+    <p num="p-0031">According to yet other embodiments of the present teachings, an image feature extraction system is provided that includes an edge detector, a processor, or both, for example, a processor having an edge detector software program installed therein. The processor can be configured to compute an image gradient of an image by using the edge detector. The processor can be configured to apply a watershed segmentation algorithm to the image gradient to extract first objects. The processor can be configured to apply a generalized Hough Transform to detect ellipses in the image gradient. The processor can be configured to apply a watershed segmentation algorithm to the image gradient using the detected ellipses as seed points, to extract objects and recesses of elliptical shape. The processor can be configured to detect ridges in the image gradient by applying a Hough Transform to detect straight lines in the image gradient. In some embodiments, the processor can be configured to distinguish one or more objects in the image from a background of the image.</p>
+    <p num="p-0032">In some embodiments, the system can include a Hough accumulator, a generalized Hough accumulator, or a combination thereof. The system can include a Canny edge detector and the processor can be configured to compute the image gradient of the image using the Canny edge detector. The system can further include a camera configured to acquire the image, for example, configured to acquire a Lunar image. In some embodiments, the camera can be on board a spacecraft orbiting a planet, and the images can be of the surface of the planet. The processor can be configured to preprocess the image to smooth noise in the image. In some embodiments, the system can further include a preprocessor configured to preprocess the image to smooth noise in the image.</p>
+    <p num="p-0033">According to various embodiments, a method for extraction of Lunar features from Lunar images that show the surface of the moon and its structures, is provided. While Lunar features are specified, it is to be understood that the method can also be applied to other planetary features. According to various embodiments, the method can enable automatic detection of structures that are present in a represented Lunar surface. The method can include extracting features and using the extracted features to register multitemporal, multisensor, and stereo-images. Different types of features can be present in the images. According to various embodiments, the features to be extracted can include rocks, craters, boulders, and/or ridges. Rocks are objects of small elliptical or circular shape, with no shadows. Craters have approximately elliptical shape with shadows, due to their depth and uneven illumination. Ridges appear like curves and straight lines in the images. The size, shape and position of the planetary images can be estimated by applying different methods, which are described herein. Once the features are extracted they can be applied to register image pairs, representing the same scene. As described in more detail herein, a genetic algorithm can be used to assess the transformation between the images to be registered.</p>
+    <p num="p-0034">Given a pair of images to be registered (i.e., an input and a reference images), their features can be extracted and used to estimate the optimum transformation. Once the transformation parameters are assessed, the transformation parameters can be used to register the input image with respect to the reference one. A flowchart of an exemplary technique is shown in <figref idrefs="DRAWINGS">FIG. 1</figref>. As can be seen, features are extracted from both the input and the reference images (IN and REF, respectively). The extracted features are used in an optimization module, aimed at computing the optimum transformation. Once the transformation parameters are estimated, they can be used to transform IN with respect to REF and generate the registered image, REG.</p>
+    <p num="p-0035">While extraction of features from lunar images is described herein, it should be understood that the methods described herein can apply to planetary features and planetary images as well. For example, the method for extraction of features can be used for planetary image registration, landing site selection, hazard map creation and more generally for lunar and planetary terrain categorization. The method for extraction of features can further be used to supplement existing feature extraction methods already in use for Earth remote sensing, military and medical applications. In particular, the method can be useful for applications, such as, feature extraction in SAR images for military applications, and/or feature extraction in medical images with low contrast (e.g., mammograms in MRIs).</p>
+    <p num="h-0008">Feature Extraction</p>
+    <p num="p-0036">According to various embodiments, the feature extraction method can include one or more image processing techniques. According to some embodiments, the image processing technique can include segmentation. The term “segmentation,” as used herein, can refer to a process of partitioning an image into multiple regions, for instance, in order to distinguish objects from the background. According to some embodiments, segmentation can involve introducing a set of characteristic points that are related to the objects to be detected, automatically selected, and used as “seed points” to segment the images. Various approaches to segmentation can be used, for example, region growing, and/or, watershed transformation.</p>
+    <p num="p-0037">According to various embodiments, the feature extraction method can include segmentation. According to some embodiments, the segmentation can include, for example, watershed segmentation, Hough Transform, and/or the Generalized Hough Transform.</p>
+    <p num="p-0038">According to various embodiments, watershed segmentation can solve the problem of over-segmentation and can utilize good seed points from which regions can be extracted. The Generalized Hough Transform can be used to extract ellipses to define these seed points. The watershed algorithm which can be used is described in S. Beucher, “The Watershed Transformation applied to Image Segmentation,” Scanning Microscopy International, 6, 1992, the contents of which are incorporated by reference in their entirety, herein. The watershed algorithm is an automatic, robust, and fast method. The Generalized Hough Transform is described in S. Tsuji, F. Matsumoto, “Detection of Ellipses by a Modified Hough Transformation,” IEEE Trans. on Computers, 27(8), 1978, which is incorporated in its entirety herein by reference.</p>
+    <p num="p-0039">According to various embodiments, before applying the feature extraction method, the images can be preprocessed. First, according to some embodiments, any noise that is present can be smoothed by applying a Gaussian filtering and a median filtering operation in cascade, as described, for example, in Shapiro, L. G. &amp; Stockman, G. C: “Computer Vision”, Prentice Hall, 2001, which is incorporated herein in its entirety by reference.</p>
+    <p num="p-0040">According to some embodiments, in order to detect the edges, the image gradient can be computed by using the Canny edge detector, described, for example, in J. Canny, “A Computational Approach to Edge Detection,” IEEE-Trans.Pattern Analysis &amp; Machine Intelligence, 10(6), 1986, which is incorporated herein in its entirety by reference. According to some embodiments, both a gray scale image and a binary gradient can be obtained and used. According to some embodiments, as an intermediate result of this operation, an intensity gradient I<sub>g </sub>can be generated, which can be a gray-scale image. According to some embodiments, by applying a non-maximum suppression algorithm followed by a hysteresis thresholding to I<sub>g</sub>, a binary gradient image, I<sub>b</sub>, showing the contours of the objects represented in the original image, can be obtained.</p>
+    <p num="p-0041">According to various embodiments, in order to extract rocks, which can appear like close contours in the gradient image, the watershed algorithm can be applied to I<sub>b</sub>, in order to segment regions with close contours. According to some embodiments, all the area included within a close contour can be a “seed point-area”, and can be identified as a region. The result of this first step can be a binary image that shows the rock boundaries.</p>
+    <p num="p-0042">While rocks can appear like close contours and can be easily detected, according to some embodiments, craters can have a more complex structure and, due to their depth and uneven illumination, can exhibit shadows. Their borders can be approximated with incomplete non-continuous elliptical curves. According to various embodiments, a generalized Hough accumulator, as described in S. Tsuji, F. Matsumoto, “Detection of Ellipses by a Modified Hough Transformation,” IEEE Trans. on Computers, 27(8), 1978, which is incorporated in its entirety herein by reference, can be used to identify the seed points to detect these structures from I<sub>b</sub>. For every pair of points that are detected as edge points in I<sub>b </sub>and exhibit opposite gradient direction, an accumulator, corresponding to the median point between them, can be incremented of a unit value. In other words, for each edge point pair with opposite gradient direction, an accumulator, corresponding to the median point between them, can be incremented. According to some embodiments, the maxima of the accumulator can be taken as centers of the ellipses. The parameters describing each ellipse centered in the detected maxima can then be assessed. According to some embodiments, a 3D accumulator can be used to estimate the two ellipse semi-axes and the rotation angle from all the pairs of points that contributed to the accumulator in the considered center. If the ellipse that has been generated truly corresponds to a contour in the gradient image, its center can be used as a seed point for segmentation. According to some embodiments, starting from all the detected seed points, a watershed algorithm can be applied to I<sub>g </sub>and the craters can be identified. As a result, a binary image that shows the crater boundaries can be obtained. According to some embodiments, a standard Hough accumulator can further be applied to detect straight lines in I<sub>g</sub>. A standard Hough accumulator can be as described, for example, in R. Duda and P. Hart, “Use of the Hough Transform to Detect Lines and Curves in Pictures,” Communications of the Association for Computing Machinery, 15, 1972, which is incorporated in its entirety herein by reference.</p>
+    <p num="p-0043">According to various embodiments, ridges can be detected as unions of short linear segments. According to some embodiments, a binary image that represents the contours of all detected features, can be created and used in the registration process.</p>
+    <p num="p-0044">According to various embodiments, MATLAB can be used to develop computer code for implementing the methods described herein. In some embodiments, the watershed segmentation and the standard Hough Transform can use open source software. The generalized Hough transform can be loosely based on published algorithms.</p>
+    <p num="h-0009">Registration</p>
+    <p num="p-0045">According to various embodiments, once features are extracted, they can be applied to register image pairs representing the same scene. Image registration, as used herein, can refer to a process of spatially aligning a pair of images. The pair of images can include an input image and a reference image. According to some embodiments, image registration can include a global optimization technique that is used to maximize the matching between features extracted from the images to be registered. Systems that evaluate and compare images, require image registration as an intermediate step. Images can be taken from different sensors, at different times, from different view-points. Registration steps can include feature detection, feature matching, transformation model estimation, and image transformation. Feature detection can include manual or automatic detection of salient or distinctive objects. Feature matching can include establishing correspondence between features. Transformation model estimation can include estimating a type of model and parameters of the mapping function. Image transformation can include transforming the input image.</p>
+    <p num="p-0046">According to various embodiments, the feature extraction method can be applied to various registration approaches, including the basic approach, the point-based registration, and the region-based registration. The basic approach can include cross-correlation of gray-levels to obtain the measure of similarity between images. The point-based registration can include extracting and using peculiar points, for example, maxima or minima wavelet coefficients, to perform matching.</p>
+    <p num="p-0047">According to various embodiments, the features described above can be extracted from the pair of images (input and reference) to be registered, and mapped into two binary images. Such binary images can be matched in order to compute the geometric transformation required to achieve the registration. According to some embodiments, the optimization scheme can include feeding binary images as inputs to an optimization module. The transformation matrix can be optimized, such that the evaluation can be performed using an objective function and the optimization can be achieved by applying a genetic algorithm. After the optimum matrix has been estimated, it can be applied on the input image, for example, which can be translated and interpolated to obtain a final registered image.</p>
+    <p num="p-0048">According to various embodiments, the feature extraction method can be applied to region-based image registration. According to some embodiments, the features described above can be extracted from the pair of images to be registered, I<sub>in </sub>and I<sub>ref</sub>, and mapped into two binary images, I<sub>A </sub>and I<sub>B</sub>, respectively. According to some embodiments, such binary images can then be matched to compute the geometric transformation required to achieve the registration. According to some embodiments, registration can be based on a global optimization technique aimed at estimating the optimum parameters of an image transformation model. According to some embodiments, the binary images, which represent the features of I<sub>in </sub>and I<sub>ref</sub>, can be fed as inputs to an optimization module. According to some embodiments, the transformation matrix can be optimized: its quality can be evaluated by an objective function and its optimization can be achieved by applying a genetic algorithm. According to some embodiments, after the optimum matrix has been estimated, it can be applied to one of the two images, which can be translated and interpolated in order to obtain the final registered image.</p>
+    <p num="p-0049">According to various embodiments, the problem can be formulated as determining a transformation T*such that, when T*is applied to the first image, I<sub>A</sub>, the best match with the second one, I<sub>B </sub>is achieved. The match can be calculated as the correlation between the binary image extracted from the transformed input image and from the reference image. The objective function to be maximized is:</p>
+    <p num="p-0050"> <maths id="MATH-US-00001" num="00001"> <math overflow="scroll"> <mtable> <mtr> <mtd> <mrow> <mrow> <mi>M</mi> <mo>⁢</mo> <mstyle> <mspace width="0.3em" height="0.3ex"> </mspace> </mstyle> <mo>⁢</mo> <mi>O</mi> <mo>⁢</mo> <mstyle> <mspace width="0.3em" height="0.3ex"> </mspace> </mstyle> <mo>⁢</mo> <mrow> <mi>M</mi> <mo>⁡</mo> <mrow> <mo>(</mo> <mi>T</mi> <mo>)</mo> </mrow> </mrow> </mrow> <mo>=</mo> <mrow> <mfrac> <mn>1</mn> <mi>n</mi> </mfrac> <mo>⁢</mo> <mrow> <munderover> <mo>∑</mo> <mrow> <mrow> <mo>(</mo> <mrow> <mi>x</mi> <mo>,</mo> <mi>y</mi> </mrow> <mo>)</mo> </mrow> <mo>;</mo> <mrow> <mrow> <msub> <mi>I</mi> <mi>B</mi> </msub> <mo>⁡</mo> <mrow> <mo>(</mo> <mrow> <mi>x</mi> <mo>,</mo> <mi>y</mi> </mrow> <mo>)</mo> </mrow> </mrow> <mo>≠</mo> <mn>0</mn> </mrow> </mrow> <mstyle> <mspace width="0.3em" height="0.3ex"> </mspace> </mstyle> </munderover> <mo>⁢</mo> <mstyle> <mspace width="0.3em" height="0.3ex"> </mspace> </mstyle> <mo>⁢</mo> <mrow> <mrow> <msub> <mi>I</mi> <mi>A</mi> </msub> <mo>⁡</mo> <mrow> <mo>(</mo> <mrow> <mi>T</mi> <mo>⁡</mo> <mrow> <mo>(</mo> <mrow> <mi>x</mi> <mo>,</mo> <mi>y</mi> </mrow> <mo>)</mo> </mrow> </mrow> <mo>)</mo> </mrow> </mrow> <mo>.</mo> </mrow> </mrow> </mrow> </mrow> </mtd> <mtd> <mn>1</mn> </mtd> </mtr> </mtable> </math> </maths> <br/>
+where MOM (measure of match) denotes the objective function, T is the transformation for the x and y coordinates in the image plane, and n is the number of nonzero pixels of I<sub>B</sub>. According to some embodiments, an affine transformation model, which exhibits six independent parameters, can be employed. The determination of the transformation parameters can strongly depend on the objective function, as well as on the planetary images to be registered. According to some embodiments, where the function has multiple extremes, the most attractive search methods can be based on global optimization techniques. According to some embodiments, a genetic algorithm (GA) can be adopted, since it ensures, under mild assumptions, convergence to a global maximum of the adopted matching functional. The genetic algorithm can be as described in Z. Michalewicz, Genetic Algorithms+Data Structures=Evolutional Programs, Springer Verlag, Berlin Heidelberg, third edition, 1999, which is incorporated herein in its entirety by reference. According to some embodiments, the six independent parameters of T can be defined over a wide range of values to achieve robustness. The aim of the GA can be to find the value for such parameters, which maximize the objective function. Given this, the final transformation matrix can be calculated by decoding the fittest individual of the last population, and the input image can be registered.
+</p>
+    <p num="p-0051">For a description of other systems, methods, and/or apparatus, that can be implemented in accordance with various embodiments of the present teachings, reference is made to Y. Sawabe, T. Matsunaga, and S. Rokugawa, “Automated detection and classification of lunar craters using multiple approaches,” <i>Adv. Space Res., vol. </i>37, no. 1, pp. 21-27, 2006; J. Earl, A. Chicarro, C. Koeberl, P. G. Marchetti, and M. Milsen, “Automatic recognition of crater-like structures in terrestrial and planetary images,” in <i>Proc. Lunar Planetary Sci. XXXVI</i>, Houston, Tex., 2005, Abs. No. 1319; and “Lunar reconnaissance Orbiter”, NASA Facts. Goddard Space Flight Center, National Aeronautics and Space Administration, http://lro.gsfc.nasa.gov/mission.html; each of which is incorporated herein in its entirety by reference. The present teachings are further illustrated with reference to the following examples which are intended to exemplify, not limit, the present teachings.</p>
+    <heading>EXAMPLES</heading>
+    <p num="p-0052">Experiments were carried out using data similar to that expected from LRO images but collected during the mission Mars Odyssey. Five bands visible images and ten bands thermal infrared images from the THEMIS (Thermal Emission Imaging System) instrument, with a resolution of 18 meters and 100 meters per pixel respectively, were used to test a method according to an embodiment of the present teachings.</p>
+    <p num="p-0053"> <figref idrefs="DRAWINGS">FIGS. 2A-2F</figref> shows results of a feature extraction method for a partition of the first band of an infrared image. The input image, shown in <figref idrefs="DRAWINGS">FIG. 2A</figref>, was first preprocessed, in order to smooth the noise. Canny gradient was applied to the smoothed image and results are shown in <figref idrefs="DRAWINGS">FIG. 2B</figref>. Subsequently, a watershed algorithm was applied in order the extract the rocks. Segmentation results and the extracted rock boundaries are shown in <figref idrefs="DRAWINGS">FIGS. 2C and 2D</figref>, respectively. Finally, the generalized Hough transform was computed and a watershed segmentation was applied, which started the flooding process from the ellipse centers and allowed the craters to be detected. The segmentation results and the crater boundaries are shown in <figref idrefs="DRAWINGS">FIGS. 2E and 2F</figref>, respectively.</p>
+    <p num="p-0054">To demonstrate the applicability of the method to registration, two different non-registered bands of an infrared image were used. In order to show the results, the same partition of <figref idrefs="DRAWINGS">FIG. 2A</figref> was used. Results are shown in <figref idrefs="DRAWINGS">FIGS. 3A-3D</figref>. In <figref idrefs="DRAWINGS">FIGS. 3A and 3B</figref>, the fourth and fifth bands were used. The rotation and translation between the two different bands are visible in <figref idrefs="DRAWINGS">FIG. 3C</figref>, in which two non-registered contour images are superimposed in a gray-scale representation. The contours extracted from the fourth band image are represented in white whereas the fifth-band contours are shown in gray. Finally, the transformation parameters are estimated by the method and the co-registered images are shown in <figref idrefs="DRAWINGS">FIG. 3D</figref>, by using a checkerboard filter, that is, each check of the board represents the registered input image and the reference image, alternately. The registration accuracy can be evaluated by looking at the continuity of the image features at the borders of the checks. The visual analysis of <figref idrefs="DRAWINGS">FIG. 3D</figref> shows that the registration performed well; craters and ridges appear continuous at the check borders, or points of overlap.</p>
+    <p num="p-0055">Other embodiments of the present invention will be apparent to those skilled in the art from consideration of the present specification and practice of the present invention disclosed herein. It is intended that the present specification and examples be considered as exemplary only with the true scope and spirit of the invention being indicated by the following claims and equivalents thereof.</p>
+    
+  </div>
+  </div>
+  </section>
+
+  <section itemprop="claims" itemscope>
+    <h2>Claims (<span itemprop="count">21</span>)</h2>
+    
+    <div itemprop="content" html><div mxw-id="PCLM48002477" lang="EN" load-source="patent-office" class="claims">
+    <div class="claim"> <div id="CLM-00001" num="00001" class="claim">
+      <div class="claim-text">1. A feature extraction method, the method comprising:
+<div class="claim-text">computing an image gradient of a Lunar image by using an edge detector;</div>
+<div class="claim-text">detecting features in the image gradient by applying a Hough Transform to the image gradient;</div>
+<div class="claim-text">at least one of mapping the features to generate a map, printing the features to generate a printout, and using the detected features to register the Lunar image and generate a registered Lunar image; and</div>
+<div class="claim-text">applying a watershed segmentation algorithm to the image gradient and registering the Lunar image against an image of an object to extract an object feature of the Lunar image.</div>
+</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00002" num="00002" class="claim">
+      <div class="claim-text">2. The method of <claim-ref idref="CLM-00001">claim 1</claim-ref>, wherein the features detected are ridges and the applying a Hough Transform comprises using a standard Hough accumulator.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00003" num="00003" class="claim">
+      <div class="claim-text">3. The method of <claim-ref idref="CLM-00001">claim 1</claim-ref>, wherein the edge detector comprises a Canny edge detector.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00004" num="00004" class="claim">
+      <div class="claim-text">4. The method of <claim-ref idref="CLM-00001">claim 1</claim-ref>, wherein the method comprises using the detected features to register the image and generate a registered image.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00005" num="00005" class="claim">
+      <div class="claim-text">5. The method of <claim-ref idref="CLM-00001">claim 1</claim-ref>, the method further comprising:
+<div class="claim-text">preprocessing the Lunar image and the image of an object to smooth noise in the pair of images prior to computing the image gradient.</div>
+</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00006" num="00006" class="claim">
+      <div class="claim-text">6. The method of <claim-ref idref="CLM-00001">claim 1</claim-ref>, wherein the registering comprises registering the image to a reference image.</div>
+    </div>
+    </div> <div class="claim"> <div id="CLM-00007" num="00007" class="claim">
+      <div class="claim-text">7. A feature extraction method, the method comprising:
+<div class="claim-text">computing an image gradient of an image by using an edge detector;</div>
+<div class="claim-text">applying a watershed segmentation algorithm to the image gradient to extract first objects;</div>
+<div class="claim-text">applying a generalized Hough Transform to detect ellipses in the image gradient;</div>
+<div class="claim-text">applying a watershed segmentation algorithm to the image gradient using the detected ellipses as seed points, to extract second objects and recesses of elliptical shape;</div>
+<div class="claim-text">detecting ridges in the image gradient by applying a standard Hough Transform to detect straight lines in the image gradient; and</div>
+<div class="claim-text">distinguishing one or more second objects in the image from a background of the image.</div>
+</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00008" num="00008" class="claim">
+      <div class="claim-text">8. The method of <claim-ref idref="CLM-00007">claim 7</claim-ref>, wherein the edge detector comprises a Canny edge detector.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00009" num="00009" class="claim">
+      <div class="claim-text">9. The method of <claim-ref idref="CLM-00007">claim 7</claim-ref>, wherein the image comprises a Lunar image.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00010" num="00010" class="claim">
+      <div class="claim-text">10. The method of <claim-ref idref="CLM-00007">claim 7</claim-ref>, the method further comprising:
+<div class="claim-text">preprocessing the image to smooth noise in the image prior to computing the image gradient.</div>
+</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00011" num="00011" class="claim">
+      <div class="claim-text">11. The method of <claim-ref idref="CLM-00007">claim 7</claim-ref>, the method further comprising:
+<div class="claim-text">registering the image with one or more reference images.</div>
+</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00012" num="00012" class="claim">
+      <div class="claim-text">12. The method of <claim-ref idref="CLM-00011">claim 11</claim-ref>, wherein the registering comprises extracting features from the reference image and computing a geometric transformation between the image and the reference image.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00013" num="00013" class="claim">
+      <div class="claim-text">13. The method of <claim-ref idref="CLM-00011">claim 11</claim-ref>, wherein the registering comprises:
+<div class="claim-text">extracting features from the reference image;</div>
+<div class="claim-text">matching features between the image and the reference image;</div>
+<div class="claim-text">estimating a transformation model;</div>
+<div class="claim-text">transforming the image with respect to the reference image; and</div>
+<div class="claim-text">generating a registered image.</div>
+</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00014" num="00014" class="claim">
+      <div class="claim-text">14. The method of <claim-ref idref="CLM-00013">claim 13</claim-ref>, wherein a processor is used to carry out one or more of the extracting, the matching, the estimating, the transforming, and the generating.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00015" num="00015" class="claim">
+      <div class="claim-text">15. The method of <claim-ref idref="CLM-00013">claim 13</claim-ref>, wherein a processor is used to carry out each of the extracting, the matching, the estimating, the transforming, and the generating.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00016" num="00016" class="claim">
+      <div class="claim-text">16. The method of <claim-ref idref="CLM-00013">claim 13</claim-ref>, the method further comprising:
+<div class="claim-text">printing out the registered image.</div>
+</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00017" num="00017" class="claim">
+      <div class="claim-text">17. The method of <claim-ref idref="CLM-00013">claim 13</claim-ref>, the method further comprising:
+<div class="claim-text">displaying the registered image.</div>
+</div>
+    </div>
+    </div> <div class="claim"> <div id="CLM-00018" num="00018" class="claim">
+      <div class="claim-text">18. An image feature extraction system, the system comprising:
+<div class="claim-text">a processor configured to
+<div class="claim-text">compute an image gradient of an image by using an edge detector,</div>
+<div class="claim-text">apply a watershed segmentation algorithm to the image gradient to extract first objects,</div>
+<div class="claim-text">apply a generalized Hough Transform to detect ellipses in the image gradient,</div>
+<div class="claim-text">apply a watershed segmentation algorithm to the image gradient using the detected ellipses as seed points, to extract second objects and recesses of elliptical shape,</div>
+<div class="claim-text">detect ridges in the image gradient by applying a Hough Transform to detect straight lines in the image gradient, and</div>
+<div class="claim-text">distinguish one or more second objects in the image from a background of the image.</div>
+</div>
+</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00019" num="00019" class="claim">
+      <div class="claim-text">19. The system of <claim-ref idref="CLM-00018">claim 18</claim-ref>, the system further comprising:
+<div class="claim-text">a Canny edge detector, wherein the processor is configured to compute the image gradient of the image using the Canny edge detector.</div>
+</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00020" num="00020" class="claim">
+      <div class="claim-text">20. The system of <claim-ref idref="CLM-00018">claim 18</claim-ref>, the system further comprising:
+<div class="claim-text">a camera configured to acquire the image.</div>
+</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00021" num="00021" class="claim">
+      <div class="claim-text">21. The system of <claim-ref idref="CLM-00018">claim 18</claim-ref>, the system further comprising:
+<div class="claim-text">a preprocessor configured to preprocess the image to smooth noise in the image. </div>
+</div>
+    </div>
+  </div> </div>
+  </div>
+  </section>
+
+  <section itemprop="application" itemscope>
+
+    <section itemprop="metadata" itemscope>
+        <span itemprop="applicationNumber">US12/783,054</span>
+        <span itemprop="priorityDate">2009-05-20</span>
+        <span itemprop="filingDate">2010-05-19</span>
+        <span itemprop="title">Automatic extraction of planetary image features 
+       </span>
+        <span itemprop="ifiStatus">Active</span>
+        <span itemprop="ifiExpiration">2031-05-07</span>
+        <a href="/patent/US8355579B2/en">
+            <span itemprop="representativePublication">US8355579B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+        </a>
+    </section>
+
+    <h2>Priority Applications (2)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                    <th>Title</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="priorityApps" itemscope repeat>
+                <td>
+                   <span itemprop="applicationNumber">US17977409P</span>
+                   <span itemprop="isUsProvisional">true</span>
+                   
+                <td itemprop="priorityDate">2009-05-20</td>
+                <td itemprop="filingDate">2009-05-20</td>
+                <td itemprop="title"></td>
+              </tr><tr itemprop="priorityApps" itemscope repeat>
+                <td>
+                   <span itemprop="applicationNumber">US12/783,054</span>
+                   
+                   <a href="/patent/US8355579B2/en">
+                        <span itemprop="representativePublication">US8355579B2</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                <td itemprop="priorityDate">2009-05-20</td>
+                <td itemprop="filingDate">2010-05-19</td>
+                <td itemprop="title">Automatic extraction of planetary image features 
+       </td>
+              </tr>
+           </tbody>
+       </table>
+
+    <h2>Applications Claiming Priority (1)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                    <th>Title</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="appsClaimingPriority" itemscope repeat>
+                <td>
+                   <span itemprop="applicationNumber">US12/783,054</span>
+                   <a href="/patent/US8355579B2/en">
+                        <span itemprop="representativePublication">US8355579B2</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                <td itemprop="priorityDate">2009-05-20</td>
+                <td itemprop="filingDate">2010-05-19</td>
+                <td itemprop="title">Automatic extraction of planetary image features 
+       </td>
+              </tr>
+           </tbody>
+       </table>
+
+    
+
+    
+
+    <h2>Publications (2)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Publication Number</th>
+                    <th>Publication Date</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="pubs" itemscope repeat>
+                <td>
+                   <span itemprop="publicationNumber">US20110026832A1</span>
+                   
+                   <a href="/patent/US20110026832A1/en">US20110026832A1
+                       (<span itemprop="primaryLanguage">en</span>)
+                   </a>
+                </td>
+                <td itemprop="publicationDate">2011-02-03</td>
+              </tr><tr itemprop="pubs" itemscope repeat>
+                <td>
+                   <span itemprop="publicationNumber">US8355579B2</span>
+                   
+                   <span itemprop="thisPatent">true</span>
+                   <a href="/patent/US8355579B2/en">US8355579B2
+                       (<span itemprop="primaryLanguage">en</span>)
+                   </a>
+                </td>
+                <td itemprop="publicationDate">2013-01-15</td>
+              </tr>
+           </tbody>
+        </table>
+
+  </section>
+
+  <section itemprop="family" itemscope>
+    <h1>Family</h1>
+    <h2>ID=43527076</h2>
+
+    <h2>Family Applications (1)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Title</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="applications" itemscope repeat>
+                <td>
+                    <span itemprop="applicationNumber">US12/783,054</span>
+                    <span itemprop="ifiStatus">Active</span>
+                    <span itemprop="ifiExpiration">2031-05-07</span>
+                    <a href="/patent/US8355579B2/en">
+                        <span itemprop="representativePublication">US8355579B2</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                </td>
+                <td itemprop="priorityDate">2009-05-20</td>
+                <td itemprop="filingDate">2010-05-19</td>
+                <td itemprop="title">Automatic extraction of planetary image features 
+       </td>
+              </tr>
+           </tbody>
+        </table>
+
+    
+
+    
+
+    <h2>Country Status (1)</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Country</th>
+            <th>Link</th>
+          </tr>
+        </thead>
+        <tbody>
+        <tr itemprop="countryStatus" itemscope repeat>
+            <td>
+              <span itemprop="countryCode">US</span>
+                (<span itemprop="num">1</span>)
+              <meta itemprop="thisCountry" content="true">
+            </td>
+            <td>
+              <a href="/patent/US8355579B2/en">
+                <span itemprop="representativePublication">US8355579B2</span>
+                  (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+    <h2>Cited By (3)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20130064430A1/en">
+              <span itemprop="publicationNumber">US20130064430A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2010-05-26</td>
+          <td itemprop="publicationDate">2013-03-14</td>
+          <td><span itemprop="assigneeOriginal">Nec Corporation</span></td>
+          <td itemprop="title">Image processing device, image processing method, and image processing program 
+       </td>
+        </tr><tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/CN103413146A/en">
+              <span itemprop="publicationNumber">CN103413146A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2013-08-23</td>
+          <td itemprop="publicationDate">2013-11-27</td>
+          <td><span itemprop="assigneeOriginal">西安电子科技大学</span></td>
+          <td itemprop="title">Method for finely classifying polarized SAR images based on Freeman entropy and self-learning 
+       </td>
+        </tr><tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/CN103679714A/en">
+              <span itemprop="publicationNumber">CN103679714A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2013-12-04</td>
+          <td itemprop="publicationDate">2014-03-26</td>
+          <td><span itemprop="assigneeOriginal">中国资源卫星应用中心</span></td>
+          <td itemprop="title">Method for automatic registration of optical image and SAR image based on gradient cross-correlation 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Families Citing this family (16)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US8384740B1/en">
+              <span itemprop="publicationNumber">US8384740B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2009-02-24</td>
+          <td itemprop="publicationDate">2013-02-26</td>
+          <td><span itemprop="assigneeOriginal">A9.Com, Inc.</span></td>
+          <td itemprop="title">Method and system for virtually placing a tangible item on an appendage 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/TWI433529B/en">
+              <span itemprop="publicationNumber">TWI433529B</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2010-09-21</td>
+          <td itemprop="publicationDate">2014-04-01</td>
+          <td><span itemprop="assigneeOriginal">Huper Lab Co Ltd</span></td>
+          <td itemprop="title">Method for intensifying 3d objects identification 
+     </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20140043492A1/en">
+              <span itemprop="publicationNumber">US20140043492A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2012-08-07</td>
+          <td itemprop="publicationDate">2014-02-13</td>
+          <td><span itemprop="assigneeOriginal">Siemens Corporation</span></td>
+          <td itemprop="title">Multi-Light Source Imaging For Hand Held Devices 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/CN103295232B/en">
+              <span itemprop="publicationNumber">CN103295232B</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2013-05-15</td>
+          <td itemprop="publicationDate">2016-01-13</td>
+          <td><span itemprop="assigneeOriginal">西安电子科技大学</span></td>
+          <td itemprop="title">  Sar-based image registration method and the linear region  </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/CN104867126B/en">
+              <span itemprop="publicationNumber">CN104867126B</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2014-02-25</td>
+          <td itemprop="publicationDate">2017-10-17</td>
+          <td><span itemprop="assigneeOriginal">西安电子科技大学</span></td>
+          <td itemprop="title">Based on point to constraint and the diameter radar image method for registering for changing region of network of triangle 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/DE102014003284A1/en">
+              <span itemprop="publicationNumber">DE102014003284A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2014-03-05</td>
+          <td itemprop="publicationDate">2015-09-10</td>
+          <td><span itemprop="assigneeOriginal">Astrium Gmbh</span></td>
+          <td itemprop="title">Method for position and position determination using virtual reference images 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/CN104599282B/en">
+              <span itemprop="publicationNumber">CN104599282B</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2015-02-09</td>
+          <td itemprop="publicationDate">2017-04-12</td>
+          <td><span itemprop="assigneeOriginal">国家海洋局第二海洋研究所</span></td>
+          <td itemprop="title">Sand wave body range detection method based on remote sensing images 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/CN104766305A/en">
+              <span itemprop="publicationNumber">CN104766305A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2015-03-06</td>
+          <td itemprop="publicationDate">2015-07-08</td>
+          <td><span itemprop="assigneeOriginal">温州大学</span></td>
+          <td itemprop="title">Image segmentation method combining watershed and canny algorithm 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/CN106033601B/en">
+              <span itemprop="publicationNumber">CN106033601B</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2015-03-09</td>
+          <td itemprop="publicationDate">2019-01-18</td>
+          <td><span itemprop="assigneeOriginal">株式会社理光</span></td>
+          <td itemprop="title">The method and apparatus for detecting abnormal case 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/CN105333873B/en">
+              <span itemprop="publicationNumber">CN105333873B</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2015-10-20</td>
+          <td itemprop="publicationDate">2018-01-16</td>
+          <td><span itemprop="assigneeOriginal">北京理工大学</span></td>
+          <td itemprop="title">The planet safe landing method of guidance that a kind of landing point is chosen online 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/CN105488798B/en">
+              <span itemprop="publicationNumber">CN105488798B</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2015-11-30</td>
+          <td itemprop="publicationDate">2018-05-15</td>
+          <td><span itemprop="assigneeOriginal">东南大学</span></td>
+          <td itemprop="title">SAR image method for measuring similarity based on point set contrast 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/CN105631860B/en">
+              <span itemprop="publicationNumber">CN105631860B</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2015-12-21</td>
+          <td itemprop="publicationDate">2018-07-03</td>
+          <td><span itemprop="assigneeOriginal">中国资源卫星应用中心</span></td>
+          <td itemprop="title">Image point extracting method of the same name based on partial ordering&#39;s direction histogram description 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US10338174B2/en">
+              <span itemprop="publicationNumber">US10338174B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2016-02-11</td>
+          <td itemprop="publicationDate">2019-07-02</td>
+          <td><span itemprop="assigneeOriginal">The Board Of Trustees Of The Leland Stanford Junior Univesity</span></td>
+          <td itemprop="title">Robust dual echo Dixon imaging with flexible echo times 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US9864931B2/en">
+              <span itemprop="publicationNumber">US9864931B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2016-04-13</td>
+          <td itemprop="publicationDate">2018-01-09</td>
+          <td><span itemprop="assigneeOriginal">Conduent Business Services, Llc</span></td>
+          <td itemprop="title">Target domain characterization for data augmentation 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US10354398B2/en">
+              <span itemprop="publicationNumber">US10354398B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2016-12-01</td>
+          <td itemprop="publicationDate">2019-07-16</td>
+          <td><span itemprop="assigneeOriginal">Macau University Of Science And Technology</span></td>
+          <td itemprop="title">Omnidirectional roughness algorithm for topographic signature analysis of lunar craters 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/CN107818326B/en">
+              <span itemprop="publicationNumber">CN107818326B</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2017-12-11</td>
+          <td itemprop="publicationDate">2018-07-20</td>
+          <td><span itemprop="assigneeOriginal">珠海大横琴科技发展有限公司</span></td>
+          <td itemprop="title">A kind of ship detection method and system based on scene multidimensional characteristic 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Citations (5)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20060204953A1/en">
+              <span itemprop="publicationNumber">US20060204953A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2005-02-22</td>
+          <td itemprop="publicationDate">2006-09-14</td>
+          <td><span itemprop="assigneeOriginal">Nikolai Ptitsyn</span></td>
+          <td itemprop="title">Method and apparatus for automated analysis of biological specimen 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20090048780A1/en">
+              <span itemprop="publicationNumber">US20090048780A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2007-08-16</td>
+          <td itemprop="publicationDate">2009-02-19</td>
+          <td><span itemprop="assigneeOriginal">The Boeing Company</span></td>
+          <td itemprop="title">Methods and apparatus for planetary navigation 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20090081775A1/en">
+              <span itemprop="publicationNumber">US20090081775A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2005-05-25</td>
+          <td itemprop="publicationDate">2009-03-26</td>
+          <td><span itemprop="assigneeOriginal">Stiftesen Unversitetsforskning Bergen</span></td>
+          <td itemprop="title">Microscope system and screening method for drugs, physical therapies and biohazards 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7575171B2/en">
+              <span itemprop="publicationNumber">US7575171B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2005-09-01</td>
+          <td itemprop="publicationDate">2009-08-18</td>
+          <td><span itemprop="assigneeOriginal">Zvi Haim Lev</span></td>
+          <td itemprop="title">System and method for reliable content access using a cellular/wireless device with imaging capabilities 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7738683B2/en">
+              <span itemprop="publicationNumber">US7738683B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2005-07-22</td>
+          <td itemprop="publicationDate">2010-06-15</td>
+          <td><span itemprop="assigneeOriginal">Carestream Health, Inc.</span></td>
+          <td itemprop="title">Abnormality detection in medical images 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+
+    
+
+    
+    <ul>
+      
+      <li itemprop="applicationsByYear" itemscope repeat>
+        <span itemprop="year">2010</span>
+        <ul>
+          
+          <li itemprop="application" itemscope repeat>
+            <span itemprop="filingDate">2010-05-19</span>
+            <span itemprop="countryCode">US</span>
+            <span itemprop="applicationNumber">US12/783,054</span>
+            <a href="/patent/US8355579B2/en"><span itemprop="documentId">patent/US8355579B2/en</span></a>
+            <span itemprop="legalStatusCat">active</span>
+            <span itemprop="legalStatus">Active</span>
+            
+            <span itemprop="thisApp" content="true" bool></span>
+            
+          </li>
+          
+        </ul>
+      </li>
+      
+    </ul>
+    
+
+    </section>
+
+  <section>
+    <h2>Patent Citations (5)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20060204953A1/en">
+              <span itemprop="publicationNumber">US20060204953A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2005-02-22</td>
+          <td itemprop="publicationDate">2006-09-14</td>
+          <td><span itemprop="assigneeOriginal">Nikolai Ptitsyn</span></td>
+          <td itemprop="title">Method and apparatus for automated analysis of biological specimen 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20090081775A1/en">
+              <span itemprop="publicationNumber">US20090081775A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2005-05-25</td>
+          <td itemprop="publicationDate">2009-03-26</td>
+          <td><span itemprop="assigneeOriginal">Stiftesen Unversitetsforskning Bergen</span></td>
+          <td itemprop="title">Microscope system and screening method for drugs, physical therapies and biohazards 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7738683B2/en">
+              <span itemprop="publicationNumber">US7738683B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2005-07-22</td>
+          <td itemprop="publicationDate">2010-06-15</td>
+          <td><span itemprop="assigneeOriginal">Carestream Health, Inc.</span></td>
+          <td itemprop="title">Abnormality detection in medical images 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7575171B2/en">
+              <span itemprop="publicationNumber">US7575171B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2005-09-01</td>
+          <td itemprop="publicationDate">2009-08-18</td>
+          <td><span itemprop="assigneeOriginal">Zvi Haim Lev</span></td>
+          <td itemprop="title">System and method for reliable content access using a cellular/wireless device with imaging capabilities 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20090048780A1/en">
+              <span itemprop="publicationNumber">US20090048780A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2007-08-16</td>
+          <td itemprop="publicationDate">2009-02-19</td>
+          <td><span itemprop="assigneeOriginal">The Boeing Company</span></td>
+          <td itemprop="title">Methods and apparatus for planetary navigation 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Non-Patent Citations (15)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">"<a href='http://scholar.google.com/scholar?q="Lunar+Reconnaissance+Orbiter%2C"'>Lunar Reconnaissance Orbiter,</a>" NASA Facts Goddard Space Flight Center, National Aeronautics and Space Administration http://lro.gsfc.nasa.gov/mission.html, 2009.</span>
+            
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">A. Smirnov, "<a href='http://scholar.google.com/scholar?q="Exploratory+Study+of+Automated+Crater+Detection+Algorithm%2C"'>Exploratory Study of Automated Crater Detection Algorithm,</a>" Tech. Rep., 2002, CO.</span>
+            
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Flores-Mendez, "<a href='http://scholar.google.com/scholar?q="Crater+Marking+and+Classification+Using+Computer+Vision%2C"'>Crater Marking and Classification Using Computer Vision,</a>" Progress in Pattern Recognition, Speech and Image Analysis, Lecture Notes in Computer Science, 2003, pp. 79-86 vol. 2905 Springer-Verlag, NY.</span>
+            
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Harada, N.; Hayashi, T.; Hirata, N.; Demura, H.; Asada, N.; , "<a href='http://scholar.google.com/scholar?q="Recognition+Algorithm+for+Topographic+Features%2C"'>Recognition Algorithm for Topographic Features,</a>" Computer and Information Technology, 2007. CIT 2007. 7th IEEE International Conference on , vol., No., pp. 685-689, Oct. 16-19, 2007.</span>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Heather Dunlop "<a href='http://scholar.google.com/scholar?q="A+New+Method+for+Crater+Detection"'>A New Method for Crater Detection</a>" Nov. 2, 2006. http://dunlop1.net/doc/craters.pdf.</span>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">J. Canny, "<a href='http://scholar.google.com/scholar?q="A+Computational+Approach+to+Edge+Detection%2C"'>A Computational Approach to Edge Detection,</a>" IEEE-Trans. Pattern Analysis &amp; Machine Intelligence, 10 (6), 1986.</span>
+            
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">J. Canny, "<a href='http://scholar.google.com/scholar?q="A+Computational+Approach+to+Edge+Detection%2C"'>A Computational Approach to Edge Detection,</a>" IEEE—Trans. Pattern Analysis &amp; Machine Intelligence, 10 (6), 1986.</span>
+            
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">J. Earl et al., "<a href='http://scholar.google.com/scholar?q="Automatic+Recognition+of+Crater-Like+Structures+in+Terrestrial+and+Planetary+Images%2C"'>Automatic Recognition of Crater-Like Structures in Terrestrial and Planetary Images,</a>" Proc. Lunar Planetary Science XXXVI, 2005, Abs. No. 1319, TX.</span>
+            
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">J.R. Kim, et al. , "<a href='http://scholar.google.com/scholar?q="Automated+Crater+Detection%2C+a+New+Tool+for+Mars+Cartography+and+Chronology%2C"'>Automated Crater Detection, a New Tool for Mars Cartography and Chronology,</a>" Photogrammetric Engineering &amp; Remote Sensing, 2005, pp. 13-22 vol. 71, No. 10.</span>
+            
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">R. Duda et al., "<a href='http://scholar.google.com/scholar?q="Use+of+the+Hough+Transform+to+Detect+Lines+and+Curves+in+Pictures%2C"'>Use of the Hough Transform to Detect Lines and Curves in Pictures,</a>" Communications of the Association for Computing Machinery, 15, 1972.</span>
+            
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">S. Beucher, "<a href='http://scholar.google.com/scholar?q="The+Watershed+Transformation+Applied+to+Image+Segmentation%2C"'>The Watershed Transformation Applied to Image Segmentation,</a>" Scanning Microscopy International, 1992.</span>
+            
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">S. Tsuji, et al., "<a href='http://scholar.google.com/scholar?q="Detection+of+Ellipses+by+a+Modified+Hough+Transformation%2C"'>Detection of Ellipses by a Modified Hough Transformation,</a>" IEEE Trans. on Computers, 27(8), 1978.</span>
+            
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Shapiro, L.G. et al., "<a href='http://scholar.google.com/scholar?q="Computer+Vision"'>Computer Vision</a>", Prentice Hall, 2001.</span>
+            
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Y. Sawabe et al., "<a href='http://scholar.google.com/scholar?q="Automated+Detection+and+Classification+of+Lunar+Craters+Using+Multiple+Approaches%2C"'>Automated Detection and Classification of Lunar Craters Using Multiple Approaches,</a>" Adv. Space Res., 2006, pp. 21-27, vol. 37, No. 1.</span>
+            
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Z. Michalewicz, "<a href='http://scholar.google.com/scholar?q="Genetic+Algorithms+%2B+Data+Structures+%3D+Evolutional+Programs"'>Genetic Algorithms + Data Structures = Evolutional Programs</a>", Berlin Heidelberg, 3rd Edition, 1999 Springer Verlag.</span>
+            
+            
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <h2>Cited By (6)</h2>
+  <table>
+    <caption>* Cited by examiner, † Cited by third party</caption>
+    <thead>
+      <tr>
+        <th>Publication number</th>
+        <th>Priority date</th>
+        <th>Publication date</th>
+        <th>Assignee</th>
+        <th>Title</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US20130064430A1/en">
+            <span itemprop="publicationNumber">US20130064430A1</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2010-05-26</td>
+        <td itemprop="publicationDate">2013-03-14</td>
+        <td><span itemprop="assigneeOriginal">Nec Corporation</span></td>
+        <td itemprop="title">Image processing device, image processing method, and image processing program 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US9053522B2/en">
+            <span itemprop="publicationNumber">US9053522B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2010-05-26</td>
+        <td itemprop="publicationDate">2015-06-09</td>
+        <td><span itemprop="assigneeOriginal">Nec Corporation</span></td>
+        <td itemprop="title">Image processing device, image processing method, and image processing program 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/CN103413146A/en">
+            <span itemprop="publicationNumber">CN103413146A</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2013-08-23</td>
+        <td itemprop="publicationDate">2013-11-27</td>
+        <td><span itemprop="assigneeOriginal">西安电子科技大学</span></td>
+        <td itemprop="title">Method for finely classifying polarized SAR images based on Freeman entropy and self-learning 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/CN103413146B/en">
+            <span itemprop="publicationNumber">CN103413146B</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2013-08-23</td>
+        <td itemprop="publicationDate">2017-03-29</td>
+        <td><span itemprop="assigneeOriginal">西安电子科技大学</span></td>
+        <td itemprop="title">Polarimetric SAR Image sophisticated category method based on Freeman entropys and self study 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/CN103679714A/en">
+            <span itemprop="publicationNumber">CN103679714A</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2013-12-04</td>
+        <td itemprop="publicationDate">2014-03-26</td>
+        <td><span itemprop="assigneeOriginal">中国资源卫星应用中心</span></td>
+        <td itemprop="title">Method for automatic registration of optical image and SAR image based on gradient cross-correlation 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/CN103679714B/en">
+            <span itemprop="publicationNumber">CN103679714B</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2013-12-04</td>
+        <td itemprop="publicationDate">2016-05-18</td>
+        <td><span itemprop="assigneeOriginal">中国资源卫星应用中心</span></td>
+        <td itemprop="title">  An automatic registration method, and an optical image gradient sar cross correlation  </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <section>
+    <h2>Also Published As</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Publication date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="docdbFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20110026832A1/en">
+              <span itemprop="publicationNumber">US20110026832A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+          </td>
+          <td itemprop="publicationDate">2011-02-03</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Similar Documents</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Publication</th>
+          <th>Publication Date</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="6189507108134135989">
+              <a href="/scholar/6189507108134135989"><span itemprop="scholarAuthors">Salah et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2010">2010</time>
+            
+          </td>
+          <td itemprop="title">Multiregion image segmentation by parametric kernel graph cuts</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="12409644737325289732">
+              <a href="/scholar/12409644737325289732"><span itemprop="scholarAuthors">Yu et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2008">2008</time>
+            
+          </td>
+          <td itemprop="title">A fast and fully automatic registration approach based on point features for multi-source remote-sensing images</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="12116614070110335902">
+              <a href="/scholar/12116614070110335902"><span itemprop="scholarAuthors">Weng et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2013">2013</time>
+            
+          </td>
+          <td itemprop="title">Motion and structure from image sequences</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="6239426527249948253">
+              <a href="/scholar/6239426527249948253"><span itemprop="scholarAuthors">Fonseca et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1996">1996</time>
+            
+          </td>
+          <td itemprop="title">Registration techniques for multisensor remotely sensed imagery</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/EP2212738B1/en">
+                <span itemprop="publicationNumber">EP2212738B1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2014-12-31">2014-12-31</time>
+            
+            
+          </td>
+          <td itemprop="title">A stereo-image registration and change detection system and method 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="5218447371420315052">
+              <a href="/scholar/5218447371420315052"><span itemprop="scholarAuthors">Rittscher et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2005">2005</time>
+            
+          </td>
+          <td itemprop="title">Simultaneous estimation of segmentation and shape</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="7250228431878929214">
+              <a href="/scholar/7250228431878929214"><span itemprop="scholarAuthors">Murase et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1996">1996</time>
+            
+          </td>
+          <td itemprop="title">Moving object recognition in eigenspace representation: gait analysis and lip reading</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="7779069328095132686">
+              <a href="/scholar/7779069328095132686"><span itemprop="scholarAuthors">Suetens et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1992">1992</time>
+            
+          </td>
+          <td itemprop="title">Computational strategies for object recognition</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US20030223615A1/en">
+                <span itemprop="publicationNumber">US20030223615A1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2003-12-04">2003-12-04</time>
+            
+            
+          </td>
+          <td itemprop="title">Digital image edge detection and road network tracking method and system 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="14217863109537439293">
+              <a href="/scholar/14217863109537439293"><span itemprop="scholarAuthors">Inglada et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2004">2004</time>
+            
+          </td>
+          <td itemprop="title">On the possibility of automatic multisensor image registration</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="17431362111632682452">
+              <a href="/scholar/17431362111632682452"><span itemprop="scholarAuthors">Schwind et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2010">2010</time>
+            
+          </td>
+          <td itemprop="title">Applicability of the SIFT operator to geometric SAR image registration</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="3212207524145993784">
+              <a href="/scholar/3212207524145993784"><span itemprop="scholarAuthors">Kim et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2005">2005</time>
+            
+          </td>
+          <td itemprop="title">Automated crater detection, a new tool for Mars cartography and chronology</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="17631922991304054864">
+              <a href="/scholar/17631922991304054864"><span itemprop="scholarAuthors">Khoshelham et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2010">2010</time>
+            
+          </td>
+          <td itemprop="title">Performance evaluation of automated approaches to building detection in multi-source aerial data</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US8064685B2/en">
+                <span itemprop="publicationNumber">US8064685B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2011-11-22">2011-11-22</time>
+            
+            
+          </td>
+          <td itemprop="title">3D object recognition 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="4081530422441298969">
+              <a href="/scholar/4081530422441298969"><span itemprop="scholarAuthors">Keller et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2006">2006</time>
+            
+          </td>
+          <td itemprop="title">Multisensor image registration via implicit similarity</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="4395498250264812158">
+              <a href="/scholar/4395498250264812158"><span itemprop="scholarAuthors">Jung et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2001">2001</time>
+            
+          </td>
+          <td itemprop="title">A robust interest points matching algorithm</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US20050031167A1/en">
+                <span itemprop="publicationNumber">US20050031167A1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2005-02-10">2005-02-10</time>
+            
+            
+          </td>
+          <td itemprop="title">Method of three dimensional positioning using feature matching 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="834957848711426335">
+              <a href="/scholar/834957848711426335"><span itemprop="scholarAuthors">Cole-Rhodes et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2003">2003</time>
+            
+          </td>
+          <td itemprop="title">Multiresolution registration of remote sensing imagery by optimization of mutual information using a stochastic gradient</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="10592410699040616920">
+              <a href="/scholar/10592410699040616920"><span itemprop="scholarAuthors">Bue et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2006">2006</time>
+            
+          </td>
+          <td itemprop="title">Machine detection of Martian impact craters from digital topography data</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="1273559323315312770">
+              <a href="/scholar/1273559323315312770"><span itemprop="scholarAuthors">Quackenbush</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2004">2004</time>
+            
+          </td>
+          <td itemprop="title">A review of techniques for extracting linear features from imagery</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US8260059B2/en">
+                <span itemprop="publicationNumber">US8260059B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2012-09-04">2012-09-04</time>
+            
+            
+          </td>
+          <td itemprop="title">System and method for deformable object recognition 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="18354864361631052126">
+              <a href="/scholar/18354864361631052126"><span itemprop="scholarAuthors">Leroy et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2001">2001</time>
+            
+          </td>
+          <td itemprop="title">Crater detection for autonomous landing on asteroids</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="6104190976043340288">
+              <a href="/scholar/6104190976043340288"><span itemprop="scholarAuthors">Bandeira et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2007">2007</time>
+            
+          </td>
+          <td itemprop="title">Impact crater recognition on Mars based on a probability volume created by template matching</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="3134915306118755283">
+              <a href="/scholar/3134915306118755283"><span itemprop="scholarAuthors">Gulick et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2001">2001</time>
+            
+          </td>
+          <td itemprop="title">Autonomous image analyses during the 1999 Marsokhod rover field test</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="1378067670398010794">
+              <a href="/scholar/1378067670398010794"><span itemprop="scholarAuthors">Zhao et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2015">2015</time>
+            
+          </td>
+          <td itemprop="title">On combining multiscale deep learning features for the classification of hyperspectral remote sensing imagery</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Legal Events</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Code</th>
+          <th>Title</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2012-12-22">2012-12-22</time></td>
+          <td itemprop="code">STCF</td>
+          <td itemprop="title">Information on status: patent grant</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">PATENTED CASE</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2013-02-01">2013-02-01</time></td>
+          <td itemprop="code">AS</td>
+          <td itemprop="title">Assignment</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Owner name</strong>:
+              <span itemprop="value">UNITED STATES OF AMERICA AS REPRESENTED BY THE ADM</span>
+            </p>
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">ASSIGNMENT OF ASSIGNORS INTEREST;ASSIGNOR:LEMOIGNE-STEWART, JACQUELINE, MS.;REEL/FRAME:029739/0214</span>
+            </p>
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Effective date</strong>:
+              <span itemprop="value">20121218</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2016-06-15">2016-06-15</time></td>
+          <td itemprop="code">FPAY</td>
+          <td itemprop="title">Fee payment</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Year of fee payment</strong>:
+              <span itemprop="value">4</span>
+            </p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+</article>
+
+    </search-app>
+    <script type="text/javascript" src="//www.gstatic.com/feedback/api.js"></script>
+    <script async="" defer="" src="//www.google.com/insights/consumersurveys/async_survey?site=cxkjf7ipxgbnnjy6k35ezcvbbe"></script>
+  </body>
+</html>

@@ -1,0 +1,2592 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>US8649609B1 - Field programmable gate array apparatus, method, and computer program 
+        - Google Patents</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="referrer" content="origin-when-crossorigin">
+    <link rel="canonical" href="https://patents.google.com/patent/US8649609B1/en">
+    <meta name="description" content="
+     An apparatus is provided that includes a plurality of modules, a plurality of memory banks, and a multiplexor. Each module includes at least one agent that interfaces between a module and a memory bank. Each memory bank includes an arbiter that interfaces between the at least one agent of each module and the memory bank. The multiplexor is configured to assign data paths between the at least one agent of each module and a corresponding arbiter of each memory bank based on the assigned data path. The at least one agent of each module is configured to read data from the corresponding arbiter of the memory bank or write modified data to the corresponding arbiter of the memory bank. 
+   
+   ">
+    
+    <meta name="DC.type" content="patent">
+    
+    <meta name="DC.title" content="Field programmable gate array apparatus, method, and computer program 
+       ">
+    
+    <meta name="DC.date" content="2011-03-24" scheme="dateSubmitted">
+    
+    <meta name="DC.description" content="
+     An apparatus is provided that includes a plurality of modules, a plurality of memory banks, and a multiplexor. Each module includes at least one agent that interfaces between a module and a memory bank. Each memory bank includes an arbiter that interfaces between the at least one agent of each module and the memory bank. The multiplexor is configured to assign data paths between the at least one agent of each module and a corresponding arbiter of each memory bank based on the assigned data path. The at least one agent of each module is configured to read data from the corresponding arbiter of the memory bank or write modified data to the corresponding arbiter of the memory bank. 
+   
+   ">
+    
+    <meta name="citation_patent_application_number" content="US:13/071,299">
+    
+    <meta name="citation_pdf_url" content="https://patentimages.storage.googleapis.com/3d/bf/8a/e3341063f13679/US8649609.pdf">
+    
+    <meta name="citation_patent_number" content="US:8649609">
+    
+    <meta name="DC.date" content="2014-02-11" scheme="issue">
+    
+    <meta name="DC.contributor" content="Arin C Morfopoulos" scheme="inventor">
+    
+    <meta name="DC.contributor" content="Thang D Pham" scheme="inventor">
+    
+    <meta name="DC.contributor" content="National Aeronautics and Space Administration (NASA)" scheme="assignee">
+    
+    <meta name="DC.relation" content="US:6118724" scheme="references">
+    
+    <meta name="DC.relation" content="US:6822976" scheme="references">
+    
+    <meta name="DC.relation" content="US:7047374" scheme="references">
+    
+    <meta name="DC.relation" content="US:7818519" scheme="references">
+    
+    <meta name="DC.relation" content="US:6941438" scheme="references">
+    
+    <meta name="DC.relation" content="US:7418571" scheme="references">
+    
+    <meta name="DC.relation" content="US:7174432" scheme="references">
+    
+    <meta name="DC.relation" content="US:7353320" scheme="references">
+    
+    <meta name="DC.relation" content="US:7415331" scheme="references">
+    
+    <meta name="DC.relation" content="US:7464225" scheme="references">
+    
+    <meta name="DC.relation" content="US:7707366" scheme="references">
+    
+    <meta name="DC.relation" content="US:7805577" scheme="references">
+    
+    <meta name="DC.relation" content="US:20070255480:A1" scheme="references">
+    
+    <meta name="DC.relation" content="US:7761687" scheme="references">
+    
+    <meta name="DC.relation" content="US:20100104199:A1" scheme="references">
+    
+    <meta name="citation_reference" content="&#34;Alpha Data ADM-XRC-4 Data Sheet&#34;, Apr. 2, 2009, http://www.alpha-data.com/pdfs/adm-xrc-4.pdf." scheme="references">
+    
+    <meta name="citation_reference" content="T. Vancourt and M.C. Herbordt, &#34;Application-Specific Memory Interleaving for FPGA-Based Grid Computations&#34;, 2006, www.bu.edu/caadlab/FCCM06POSTER-mem.ppl, Boston, USA." scheme="references">
+    
+    <meta name="citation_reference" content="T. Vancourt and M.C. Herbordt, “Application-Specific Memory Interleaving for FPGA-Based Grid Computations”, 2006, www.bu.edu/caadlab/FCCM06POSTER—mem.ppl, Boston, USA." scheme="references">
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,400italic,500,500italic,700">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Product+Sans">
+    <style>
+      body { transition: none; }
+    </style>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-27188110-4', 'auto');
+
+      version = 'patent-search.search_20191120_RC00';
+
+      function sendFeedback() {
+        userfeedback.api.startFeedback({
+          'productId': '713680',
+          'bucket': 'patent-search-web',
+          'productVersion': version,
+        });
+      }
+
+      window.experiments = {};
+      window.experiments.patentCountries = "ae,ag,al,am,ao,ap,ar,at,au,aw,az,ba,bb,bd,be,bf,bg,bh,bj,bn,bo,br,bw,bx,by,bz,ca,cf,cg,ch,ci,cl,cm,cn,co,cr,cs,cu,cy,cz,dd,de,dj,dk,dm,do,dz,ea,ec,ee,eg,em,ep,es,fi,fr,ga,gb,gc,gd,ge,gh,gm,gn,gq,gr,gt,gw,hk,hn,hr,hu,ib,id,ie,il,in,ir,is,it,jo,jp,ke,kg,kh,km,kn,kp,kr,kw,kz,la,lc,li,lk,lr,ls,lt,lu,lv,ly,ma,mc,md,me,mg,mk,ml,mn,mo,mr,mt,mw,mx,my,mz,na,ne,ng,ni,nl,no,nz,oa,om,pa,pe,pg,ph,pl,pt,py,qa,ro,rs,ru,rw,sa,sc,sd,se,sg,si,sk,sl,sm,sn,st,su,sv,sy,sz,td,tg,th,tj,tm,tn,tr,tt,tw,tz,ua,ug,us,uy,uz,vc,ve,vn,wo,yu,za,zm,zw";
+      
+      
+      window.profilePicture = "";
+
+      window.Polymer = {
+        dom: 'shady',
+        lazyRegister: true,
+      };
+    </script>
+
+    <script src="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/webcomponentsjs/webcomponents-lite.min.js"></script>
+    
+    <link rel="import" href="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/search-app-vulcanized.html">
+    
+  </head>
+  <body unresolved>
+    
+    <script src="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/search-app-vulcanized.js"></script>
+    
+    <search-app>
+      
+      
+
+      <article class="result" itemscope itemtype="http://schema.org/ScholarlyArticle">
+  <h1 itemprop="pageTitle">US8649609B1 - Field programmable gate array apparatus, method, and computer program 
+        - Google Patents</h1>
+  <span itemprop="title">Field programmable gate array apparatus, method, and computer program 
+       </span>
+
+  <meta itemprop="type" content="patent">
+  <a href="https://patentimages.storage.googleapis.com/3d/bf/8a/e3341063f13679/US8649609.pdf" itemprop="pdfLink">Download PDF</a>
+  <h2>Info</h2>
+
+  <dl>
+    <dt>Publication number</dt>
+    <dd itemprop="publicationNumber">US8649609B1</dd>
+    <meta itemprop="numberWithoutCodes" content="8649609">
+    <meta itemprop="kindCode" content="B1">
+    <meta itemprop="publicationDescription" content="Patent ( no pre-grant publication)">
+    
+    <span>US8649609B1</span>
+    
+    <span>US13/071,299</span>
+    
+    <span>US201113071299A</span>
+    
+    <span>US8649609B1</span>
+    
+    <span>US 8649609 B1</span>
+    
+    <span>US8649609 B1</span>
+    
+    <span>US 8649609B1</span>
+    
+    <span>  </span>
+    
+    <span> </span>
+    
+    <span> </span>
+    
+    <span>US 201113071299 A</span>
+    
+    <span>US201113071299 A</span>
+    
+    <span>US 201113071299A</span>
+    
+    <span>US 8649609 B1</span>
+    
+    <span>US8649609 B1</span>
+    
+    <span>US 8649609B1</span>
+    
+
+    <dt>Authority</dt>
+    <dd itemprop="countryCode">US</dd>
+    <dd itemprop="countryName">United States</dd>
+
+    <dt>Prior art keywords</dt>
+    
+    <dd itemprop="priorArtKeywords" repeat>module</dd>
+    <dd itemprop="priorArtKeywords" repeat>image</dd>
+    <dd itemprop="priorArtKeywords" repeat>agent</dd>
+    <dd itemprop="priorArtKeywords" repeat>data</dd>
+    <dd itemprop="priorArtKeywords" repeat>pixels</dd>
+
+    <dt>Prior art date</dt>
+    <dd><time itemprop="priorArtDate" datetime="2011-03-24">2011-03-24</time></dd>
+
+    <dt>Legal status (The legal status is an assumption and is not a legal conclusion. Google has not performed a legal analysis and makes no representation as to the accuracy of the status listed.)</dt>
+    <dd itemprop="legalStatusIfi" itemscope>
+      <span itemprop="status">Expired - Fee Related</span>, expires <time itemprop="expiration" datetime="2032-04-17">2032-04-17</time>
+    </dd>
+  </dl>
+
+  <dt>Application number</dt>
+  <dd itemprop="applicationNumber">US13/071,299</dd>
+
+  
+
+  
+
+  <dt>Inventor</dt>
+  <dd itemprop="inventor" repeat>Arin C Morfopoulos</dd>
+  <dd itemprop="inventor" repeat>Thang D Pham</dd>
+  <dt>Current Assignee (The listed assignees may be inaccurate. Google has not performed a legal analysis and makes no representation or warranty as to the accuracy of the list.)</dt>
+  <dd itemprop="assigneeCurrent" repeat>
+    National Aeronautics and Space Administration (NASA)
+  </dd>
+
+  <dt>Original Assignee</dt>
+  <dd itemprop="assigneeOriginal" repeat>National Aeronautics and Space Administration (NASA)</dd>
+
+  <dt>Priority date (The priority date is an assumption and is not a legal conclusion. Google has not performed a legal analysis and makes no representation as to the accuracy of the date listed.)</dt>
+  <dd><time itemprop="priorityDate" datetime="2011-03-24">2011-03-24</time></dd>
+
+  <dt>Filing date</dt>
+  <dd><time itemprop="filingDate" datetime="2011-03-24">2011-03-24</time></dd>
+
+  <dt>Publication date</dt>
+  <dd><time itemprop="publicationDate" datetime="2014-02-11">2014-02-11</time></dd>
+
+  
+
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2011-03-24">2011-03-24</time>
+    <span itemprop="title">Application filed by National Aeronautics and Space Administration (NASA)</span>
+    <span itemprop="type">filed</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    <span itemprop="assigneeSearch">National Aeronautics and Space Administration (NASA)</span>
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2011-03-24">2011-03-24</time>
+    <span itemprop="title">Priority to US13/071,299</span>
+    <span itemprop="type">priority</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    <span itemprop="documentId">patent/US8649609B1/en</span>
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2014-02-11">2014-02-11</time>
+    <span itemprop="title">Application granted</span>
+    <span itemprop="type">granted</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2014-02-11">2014-02-11</time>
+    <span itemprop="title">Publication of US8649609B1</span>
+    <span itemprop="type">publication</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    <span itemprop="documentId">patent/US8649609B1/en</span>
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2019-11-26">2019-11-26</time>
+    <span itemprop="title">Application status is Expired - Fee Related</span>
+    <span itemprop="type">legal-status</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2032-04-17">2032-04-17</time>
+    <span itemprop="title">Adjusted expiration</span>
+    <span itemprop="type">legal-status</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+
+  <h2>Links</h2>
+
+  <ul>
+    
+          <li itemprop="links" itemscope repeat>
+            <meta itemprop="id" content="usptoLink">
+            <a href="http://patft.uspto.gov/netacgi/nph-Parser?Sect1=PTO1&Sect2=HITOFF&p=1&u=/netahtml/PTO/srchnum.html&r=1&f=G&l=50&d=PALL&s1=8649609.PN." itemprop="url" target="_blank"><span itemprop="text">USPTO</span></a>
+          </li>
+        <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="usptoAssignmentLink">
+          <a href="https://assignment.uspto.gov/patent/index.html#/patent/search/resultFilter?searchInput=8649609" itemprop="url" target="_blank"><span itemprop="text">USPTO Assignment</span></a>
+        </li>
+
+    <li itemprop="links" itemscope repeat>
+        <meta itemprop="id" content="espacenetLink">
+        <a href="http://worldwide.espacenet.com/publicationDetails/biblio?CC=US&amp;NR=8649609B1&amp;KC=B1&amp;FT=D" itemprop="url" target="_blank"><span itemprop="text">Espacenet</span></a>
+      </li>
+      
+
+    
+
+    
+      <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="globalDossierLink">
+          <a href="http://globaldossier.uspto.gov/#/result/patent/US/8649609/1" itemprop="url" target="_blank"><span itemprop="text">Global Dossier</span></a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="stackexchangeLink">
+          <a href="https://patents.stackexchange.com/questions/tagged/US8649609" itemprop="url"><span itemprop="text">Discuss</span></a>
+        </li>
+      
+  </ul>
+
+  
+  <ul itemprop="concept" itemscope>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000015654</span>
+      <span itemprop="name">memory</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>abstract</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">96</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000004590</span>
+      <span itemprop="name">computer program</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="sections" repeat>title</span>
+      
+      <span itemprop="count">10</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000000875</span>
+      <span itemprop="name">corresponding</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>abstract</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">17</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000004438</span>
+      <span itemprop="name">eyesight</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">14</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000003795</span>
+      <span itemprop="name">chemical substance by application</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">219</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000000034</span>
+      <span itemprop="name">methods</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">10</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000002609</span>
+      <span itemprop="name">media</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">4</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001603</span>
+      <span itemprop="name">reducing</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">4</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000004044</span>
+      <span itemprop="name">response</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">4</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000004891</span>
+      <span itemprop="name">communication</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">3</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000003044</span>
+      <span itemprop="name">adaptive</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000002093</span>
+      <span itemprop="name">peripheral</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001595</span>
+      <span itemprop="name">contractor</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001276</span>
+      <span itemprop="name">controlling effects</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000011162</span>
+      <span itemprop="name">core materials</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000005516</span>
+      <span itemprop="name">engineering processes</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000001914</span>
+      <span itemprop="name">filtration</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000004310</span>
+      <span itemprop="name">industry</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000000670</span>
+      <span itemprop="name">limiting</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000006011</span>
+      <span itemprop="name">modification</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000004048</span>
+      <span itemprop="name">modification</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001340</span>
+      <span itemprop="name">slower</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000003068</span>
+      <span itemprop="name">static</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000003860</span>
+      <span itemprop="name">storage</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001360</span>
+      <span itemprop="name">synchronised</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001960</span>
+      <span itemprop="name">triggered</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000000007</span>
+      <span itemprop="name">visual effect</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+  </ul>
+  
+
+  <section>
+    <h2>Images</h2>
+    <ul>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/63/83/43/83bc42153d7af9/US08649609-20140211-D00000.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/e3/92/5c/92963fa10d16a7/US08649609-20140211-D00000.png">
+        <ul>
+          <li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="100">
+            <meta itemprop="label" content="Vision data apparatus">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1320">
+              <meta itemprop="top" content="39">
+              <meta itemprop="right" content="1436">
+              <meta itemprop="bottom" content="104">
+            </span>
+          </li>
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/96/34/63/987f11f1d1fe85/US08649609-20140211-D00001.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/80/bd/83/c08b93b17cb9c9/US08649609-20140211-D00001.png">
+        <ul>
+          
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/22/21/26/4d216d627d6423/US08649609-20140211-D00002.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/77/7e/64/2778484b0086f2/US08649609-20140211-D00002.png">
+        <ul>
+          
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/e3/ac/25/ae34d238bfca3c/US08649609-20140211-D00003.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/72/22/f7/fbfbe5cda29c5e/US08649609-20140211-D00003.png">
+        <ul>
+          
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/23/f1/ac/938f62791f6a9b/US08649609-20140211-D00004.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/80/cc/7b/cff2cde37b0bbe/US08649609-20140211-D00004.png">
+        <ul>
+          <li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="4">
+            <meta itemprop="id" content="402">
+            <meta itemprop="label" content="FIFO data">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="486">
+              <meta itemprop="top" content="1137">
+              <meta itemprop="right" content="528">
+              <meta itemprop="bottom" content="1204">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="4">
+            <meta itemprop="id" content="412">
+            <meta itemprop="label" content="memory size">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1242">
+              <meta itemprop="top" content="1130">
+              <meta itemprop="right" content="1284">
+              <meta itemprop="bottom" content="1207">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="4">
+            <meta itemprop="id" content="414">
+            <meta itemprop="label" content="memory address">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1410">
+              <meta itemprop="top" content="1141">
+              <meta itemprop="right" content="1451">
+              <meta itemprop="bottom" content="1208">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="4">
+            <meta itemprop="id" content="416">
+            <meta itemprop="label" content="memory go flag">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1593">
+              <meta itemprop="top" content="1142">
+              <meta itemprop="right" content="1634">
+              <meta itemprop="bottom" content="1210">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="4">
+            <meta itemprop="id" content="426">
+            <meta itemprop="label" content="Q">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="727">
+              <meta itemprop="top" content="217">
+              <meta itemprop="right" content="769">
+              <meta itemprop="bottom" content="285">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="4">
+            <meta itemprop="id" content="434">
+            <meta itemprop="label" content="address">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1206">
+              <meta itemprop="top" content="218">
+              <meta itemprop="right" content="1248">
+              <meta itemprop="bottom" content="285">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="4">
+            <meta itemprop="id" content="436">
+            <meta itemprop="label" content="data">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1331">
+              <meta itemprop="top" content="217">
+              <meta itemprop="right" content="1373">
+              <meta itemprop="bottom" content="292">
+            </span>
+          </li>
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/74/eb/3c/6a03a281989dca/US08649609-20140211-D00005.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/72/c3/ea/3fb1ae99725160/US08649609-20140211-D00005.png">
+        <ul>
+          <li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="5">
+            <meta itemprop="id" content="502">
+            <meta itemprop="label" content="FIFO data">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="601">
+              <meta itemprop="top" content="1189">
+              <meta itemprop="right" content="642">
+              <meta itemprop="bottom" content="1266">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="5">
+            <meta itemprop="id" content="510">
+            <meta itemprop="label" content="address">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1231">
+              <meta itemprop="top" content="1185">
+              <meta itemprop="right" content="1274">
+              <meta itemprop="bottom" content="1262">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="5">
+            <meta itemprop="id" content="518">
+            <meta itemprop="label" content="Qtag">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="722">
+              <meta itemprop="top" content="295">
+              <meta itemprop="right" content="763">
+              <meta itemprop="bottom" content="362">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="5">
+            <meta itemprop="id" content="520">
+            <meta itemprop="label" content="Q">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="840">
+              <meta itemprop="top" content="288">
+              <meta itemprop="right" content="881">
+              <meta itemprop="bottom" content="365">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="5">
+            <meta itemprop="id" content="524">
+            <meta itemprop="label" content="request">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1081">
+              <meta itemprop="top" content="295">
+              <meta itemprop="right" content="1122">
+              <meta itemprop="bottom" content="363">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="5">
+            <meta itemprop="id" content="528">
+            <meta itemprop="label" content="address">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1320">
+              <meta itemprop="top" content="288">
+              <meta itemprop="right" content="1362">
+              <meta itemprop="bottom" content="364">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="5">
+            <meta itemprop="id" content="530">
+            <meta itemprop="label" content="data">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1447">
+              <meta itemprop="top" content="288">
+              <meta itemprop="right" content="1488">
+              <meta itemprop="bottom" content="365">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="5">
+            <meta itemprop="id" content="534">
+            <meta itemprop="label" content="tag">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1674">
+              <meta itemprop="top" content="295">
+              <meta itemprop="right" content="1716">
+              <meta itemprop="bottom" content="359">
+            </span>
+          </li>
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/d1/4b/f8/49eaa9fac516ba/US08649609-20140211-D00006.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/59/a5/02/6bf116a9db3aad/US08649609-20140211-D00006.png">
+        <ul>
+          
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/47/f9/92/fddaa7ec9efe60/US08649609-20140211-D00007.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/bc/41/6c/be6a1a0e83b7eb/US08649609-20140211-D00007.png">
+        <ul>
+          <li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="7">
+            <meta itemprop="id" content="702">
+            <meta itemprop="label" content="FIFO data">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="766">
+              <meta itemprop="top" content="513">
+              <meta itemprop="right" content="813">
+              <meta itemprop="bottom" content="589">
+            </span>
+          </li>
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/48/a3/bc/42541ef33108f2/US08649609-20140211-D00008.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/0c/13/3a/273d1b571a7029/US08649609-20140211-D00008.png">
+        <ul>
+          
+        </ul>
+      </li>
+      </ul>
+  </section>
+
+  <section>
+    <h2>Classifications</h2>
+    
+    <ul>
+      <li>
+        <ul itemprop="cpcs" itemscope repeat>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G</span>&mdash;<span itemprop="Description">PHYSICS</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06</span>&mdash;<span itemprop="Description">COMPUTING; CALCULATING; COUNTING</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06K</span>&mdash;<span itemprop="Description">RECOGNITION OF DATA; PRESENTATION OF DATA; RECORD CARRIERS; HANDLING RECORD CARRIERS</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06K9/00</span>&mdash;<span itemprop="Description">Methods or arrangements for reading or recognising printed or written characters or for recognising patterns, e.g. fingerprints</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06K9/00973</span>&mdash;<span itemprop="Description">Hardware and software architectures for pattern recognition, e.g. modular organisation</span>
+            <meta itemprop="Leaf" content="true">
+            
+            <meta itemprop="FirstCode" content="true">
+          </li>
+          </ul>
+      </li>
+      <li>
+        <ul itemprop="cpcs" itemscope repeat>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G</span>&mdash;<span itemprop="Description">PHYSICS</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06</span>&mdash;<span itemprop="Description">COMPUTING; CALCULATING; COUNTING</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06K</span>&mdash;<span itemprop="Description">RECOGNITION OF DATA; PRESENTATION OF DATA; RECORD CARRIERS; HANDLING RECORD CARRIERS</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06K9/00</span>&mdash;<span itemprop="Description">Methods or arrangements for reading or recognising printed or written characters or for recognising patterns, e.g. fingerprints</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06K9/36</span>&mdash;<span itemprop="Description">Image preprocessing, i.e. processing the image information without deciding about the identity of the image</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06K9/40</span>&mdash;<span itemprop="Description">Noise filtering</span>
+            <meta itemprop="Leaf" content="true">
+            
+            
+          </li>
+          </ul>
+      </li>
+      <li>
+        <ul itemprop="cpcs" itemscope repeat>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G</span>&mdash;<span itemprop="Description">PHYSICS</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06</span>&mdash;<span itemprop="Description">COMPUTING; CALCULATING; COUNTING</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06T</span>&mdash;<span itemprop="Description">IMAGE DATA PROCESSING OR GENERATION, IN GENERAL</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06T1/00</span>&mdash;<span itemprop="Description">General purpose image data processing</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06T1/20</span>&mdash;<span itemprop="Description">Processor architectures; Processor configuration, e.g. pipelining</span>
+            <meta itemprop="Leaf" content="true">
+            
+            
+          </li>
+          </ul>
+      </li>
+      </ul>
+  </section>
+
+  <section itemprop="abstract" itemscope>
+    <h2>Abstract</h2>
+    
+    <div itemprop="content" html><abstract mxw-id="PA129833772" lang="EN" load-source="patent-office">
+    <div num="p-0001" class="abstract">An apparatus is provided that includes a plurality of modules, a plurality of memory banks, and a multiplexor. Each module includes at least one agent that interfaces between a module and a memory bank. Each memory bank includes an arbiter that interfaces between the at least one agent of each module and the memory bank. The multiplexor is configured to assign data paths between the at least one agent of each module and a corresponding arbiter of each memory bank based on the assigned data path. The at least one agent of each module is configured to read data from the corresponding arbiter of the memory bank or write modified data to the corresponding arbiter of the memory bank.</div>
+  </abstract>
+  </div>
+  </section>
+
+  <section itemprop="description" itemscope>
+    <h2>Description</h2>
+    
+    <div itemprop="content" html><div mxw-id="PDES64346190" lang="EN" load-source="patent-office" class="description">
+    
+    <heading>STATEMENT OF GOVERNMENT INTEREST</heading>
+    <p num="p-0002">Embodiments of the present invention described herein were made in the performance of work under NASA contract and are subject to the provisions of Public Law #96-517 (35 U.S.C. §202) in which the Contractor has elected not to retain title.</p>
+    
+    
+    <heading>FIELD</heading>
+    <p num="p-0003">The present invention relates to a Field Programmable Gate Array (FPGA) apparatus, method, and computer program and, more particularly, to an FPGA architecture that allows the exchange of data directly between modules without reducing throughput of memory access.</p>
+    <heading>BACKGROUND</heading>
+    <p num="p-0004">There are different types of buses that handle the interfaces between modules in an FPGA architecture, and different types of buses that allow data to flow from an FPGA to memory. For instance, industry standard buses provide a series of cores (i.e., pre-built FPGA modules). However, the pre-built FGPA modules lack a high volume point-to-point bus. For example, the buses are not designed to transmit data from module to module without reducing throughput of memory access. Further, the complexity of the buses slows the processing of data, which results in a slower throughput.</p>
+    <heading>SUMMARY</heading>
+    <p num="p-0005">Certain embodiments of the present invention may provide solutions to the problems and needs in the art that have not yet been fully identified, appreciated, or solved by current FPGA technology.</p>
+    <p num="p-0006">In accordance with an embodiment of the present invention, an apparatus is provided and includes a plurality of modules, a plurality of memory banks, and a multiplexor. Each module includes at least one agent that interfaces between a module and a memory bank. Each memory bank includes an arbiter that interfaces between the at least one agent of each module and the memory bank. The multiplexor is configured to assign data paths between the at least one agent of each module and a corresponding arbiter of each memory bank based on the assigned data path. The at least one agent of each module is configured to read data from the corresponding arbiter of the memory hank or write modified data to the corresponding arbiter of the memory bank.</p>
+    <p num="p-0007">In accordance with another embodiment of the present invention, a method is provided that includes assigning, by a multiplexor, data paths between at least one agent of a module and a corresponding arbiter of a memory bank. The method also includes reading, by the at least one agent of the module, data from the corresponding arbiter of the memory bank based on the assigned data path, and writing, by the at least one agent of the module, modified data to the corresponding arbiter of the memory bank based on the assigned data path</p>
+    <p num="p-0008">In accordance with another embodiment of the present invention, a computer-implemented method is provided. The method includes receiving, at a rectification module, image data from memory and rectifying the image data. The method includes receiving, at a filter module, the rectified image data and filtering unwanted data from the rectified image data to generate filtered image data. The method further includes receiving, at a disparity module, the filtered image data and generating a result in order to determine a distance between an object and a vehicle. The method also includes transmitting, by an agent associated with the disparity module, the result to the memory.</p>
+    
+    
+    <description-of-drawings>
+      <heading>BRIEF DESCRIPTION OF THE DRAWINGS</heading>
+      <p num="p-0009">For a proper understanding of the invention, reference should be made to the accompanying figures. These figures depict only some embodiments of the invention and are not limiting of the scope of the invention. Regarding the figures:</p>
+      <p num="p-0010"> <figref idrefs="DRAWINGS">FIG. 1</figref> illustrates an FPGA vision data apparatus, in accordance with an embodiment of the present invention;</p>
+      <p num="p-0011"> <figref idrefs="DRAWINGS">FIG. 2</figref> illustrates a method for rectifying a captured image, in accordance with an embodiment of the present invention;</p>
+      <p num="p-0012"> <figref idrefs="DRAWINGS">FIG. 3</figref> illustrates a method for image processing during rover navigation, in accordance with an embodiment of the present invention;</p>
+      <p num="p-0013"> <figref idrefs="DRAWINGS">FIG. 4</figref> illustrates a read agent sequential unit, in accordance with an embodiment of the present invention;</p>
+      <p num="p-0014"> <figref idrefs="DRAWINGS">FIG. 5</figref> illustrates a write agent sequential unit, in accordance with an embodiment of the present invention;</p>
+      <p num="p-0015"> <figref idrefs="DRAWINGS">FIG. 6</figref> illustrates a write agent pass-through unit, in accordance with an embodiment of the present invention;</p>
+      <p num="p-0016"> <figref idrefs="DRAWINGS">FIG. 7</figref> illustrates a read agent pass-through unit, in accordance with an embodiment of the present invention; and</p>
+      <p num="p-0017"> <figref idrefs="DRAWINGS">FIG. 8</figref> illustrates a method for receiving and transmitting data from a module utilizing agents, in accordance with an embodiment of the present invention.</p>
+    </description-of-drawings>
+    
+    
+    <heading>DETAILED DESCRIPTION OF THE EMBODIMENTS</heading>
+    <p num="p-0018">It will be readily understood that the components of the present invention, as generally described and illustrated in the figures herein, may be arranged and designed in a wide variety of different configurations. Thus, the following detailed description of the embodiments of an apparatus, a system, and a method, as represented in the attached figures, is not intended to limit the scope of the invention as claimed, but is merely representative of selected embodiments of the invention.</p>
+    <p num="p-0019">The features, structures, or characteristics of the invention described throughout this specification may be combined in any suitable manner in one or more embodiments. For example, the usage of “certain embodiments,” “some embodiments,” or other similar language, throughout this specification refers to the fact that a particular feature, structure, or characteristic described in connection with the embodiment may be included in at least one embodiment of the present invention. Thus, appearances of the phrases “in certain embodiments,” “in some embodiments,” “in other embodiments,” or other similar language, throughout this specification do not necessarily all refer to the same group of embodiments, and the described features, structures, or characteristics may be combined in any suitable manner in one or more embodiments.</p>
+    <p num="p-0020">Embodiments of the present invention provide an apparatus, method and computer program configured to transmit data from module to module or from a module to memory (i.e., point-to-point data transfer). The embodiments also provide a continuous throughput of a high data volume, and allow for different types of memory and the switching of memory without affecting the modules during runtime.</p>
+    <p num="p-0021">Some embodiments of the present invention may be utilized to take images for extraterrestrial navigation of a robot or vehicle, such as lunar rover or Mars rover navigation. At least two images of the area in front of the lunar rover are captured, and the images are processed to determine where the objects are in order for the rover to navigate around the objects. Embodiments of the present invention utilize an apparatus that includes at least a rectification module, a filter module, and a disparity module in order to process the captured image.</p>
+    <p num="p-0022">Further, the embodiments described herein enable data to flow directly from module to module without accessing the memory interface. More importantly, the interfaces of the modules are maintained so that none of the modules behave differently if they interface with each other or directly with the memory. In other words, the modules are unaffected when the data path changes.</p>
+    <p num="p-0023"> <figref idrefs="DRAWINGS">FIG. 1</figref> illustrates an FPGA vision data apparatus <b>100</b>, in accordance with an embodiment of the present invention. Vision data apparatus <b>100</b> includes a plurality of modules—rectification module <b>102</b>, filter module <b>104</b>, disparity module <b>106</b>, Visual Odometry Sum of Absolute Differences (VO SAD) module <b>108</b>, Harris module <b>110</b>, and Asynchronous Ports <b>112</b>. Vision data apparatus <b>100</b> also includes multiplexors M1, M2, M3, M4, M5, M6, M7, M8, M9, and M10. Multiplexor M9 is a Peripheral Component interconnect (PCI) to bank mapping multiplexor and multiplexor M10 is a vision agent to bank mapping multiplexor. Apparatus <b>100</b> also includes arbiter 0, arbiter 1, arbiter 2, arbiter 3, arbiter 4 and arbiter 5, as well as SRAM Port 0, SRAM Port 1, SRAM Port 2, SRAM Port 3, SRAM Port 4 and SRAM Port 5. The SRAM Ports allow memory banks and arbiters to exchange data.</p>
+    <p num="p-0024">It should be appreciated that arbiters 0, 1, 2, 3, 4, 5 may be round robin arbiters interfaced with PCI_agent [0], PCI_agent [1], PCI_agent [2], PCI_agent [3], PCI_agent [4], and PCI_agent [5], respectively. When, for example, rectification module <b>102</b> submits a request to arbiter 0, arbiter 0 is configured to handle requests from both rectification module <b>102</b> and PCI_agent [0]. However, if rectification module <b>102</b> is utilizing agents [0] and [1] to submit a request to arbiter 0 and a PCI_agent [0] makes a request to arbiter 0, then PCI_agent [0] has priority to make the request over the two agents. In other words, PCI agents have priority over any agent utilized by the modules when making requests.</p>
+    <p num="p-0025">Asynchronous polls <b>112</b> are utilized in this embodiment because the clock domain of a PCI bus generally operates at 66 MHz, while the clock domains of memory generally operate between 66 MHz to 333 MHz, depending on the chip. In other words, asynchronous ports <b>112</b> assist in communicating between a PCI bus and memory. It should also be appreciated that each agent has an asynchronous bus because modules usually cannot operate at 333 MHz since modules generally operate at a maximum speed of 100 MHz. In other words, the asynchronous bus in each agent assists in communicating between the module and memory.</p>
+    <p num="p-0026">In this embodiment, read agent [0], read agent [3], write agent [4], write agent [5], read agent [6], read agent [7], write agent [8], write agent [9], read agent [10], read agent [11], write agent [21], write agent [22], read agent [23], read agent [24], write agent [25], write agent [26], read agent [27], and read agent [28] have a width of 8 bits. Write agent [12] has a width of 16 bits, while read agent [1], read agent [2], read agent [13], read agent [14], read agent [15], read agent [16], write agent [17], read agent [18], and write agent [19] have a width of 32 bits. A person of ordinary skill in the art will readily appreciate that the read agents and write agents can be configured to have any width, i.e., 16 bits, 32 bits, etc. It should also be appreciated that the read agents or write agents can be a single read/write agent. Also, it should be appreciated that each module can be operatively connected to any number of read and/or write agents.</p>
+    <p num="p-0027">Rectification module <b>102</b> is configured to read image data and de-warp (or rectify) the image taken by a camera. It should be noted that in order to control rectification module <b>102</b>, rectification module <b>102</b> is operatively connected to a sideband bus, such as PCI bus, advanced microcontroller bus architecture (AMBA), On-Chip Peripheral Bus (OPB), a wishbone bus, or any bus that would be appreciated by a person of ordinary skill in the art. It should also be appreciated that other modules described herein are configured in a similar manner.</p>
+    <p num="p-0028">In order for rectification module <b>102</b> to read data from memory, rectification module <b>102</b> interfaces with or is operatively connected to sequential read agent [0], sequential read agent [1], sequential read agent [2], and sequential read agent [3]. This connection allows rectification module <b>102</b> to request and read image data and rectification table data from the read agents. The rectification module then compares the image data with the rectification table data and generates de-warped (or rectified) image data that can be outputted to memory or filter module <b>104</b>. In order for rectification module <b>102</b> to write data to memory or to filter module <b>104</b>, rectification module <b>102</b> also interfaces with or is operatively connected to sequential write agent [4], sequential write agent [5], pass-through write agent [21] and pass-through write agent [22] via multiplexor M1 and multiplexor M2. Write agent [21] and write agent [22] are operatively connected to pass-through read agent [23] and pass-through read agent [24], respectively.</p>
+    <p num="p-0029">Filter module <b>104</b> is configured to receive rectified image data from rectification module <b>102</b> and remove any unnecessary data from the image data. In order for filter module <b>104</b> to receive the rectified image data from memory or rectification module <b>102</b>, filter module <b>104</b> is operatively connected to sequential read agent [6], sequential read agent [7], pass-through read agent [23], and pass-through read agent [24] via multiplexors M3 and M4. Once the rectified image data is received, filter module <b>104</b> removes any unnecessary data from the image. In order for filter module <b>104</b> to write data to memory or disparity module <b>106</b>, filter module <b>104</b> is operatively connected to sequential write agent [8], sequential write agent [9], pass-through write agent [25], and pass-through write agent [26] via multiplexors M5 and M6. Write agent [25] and write agent [26] are operatively connected to pass-through read agent [27] and pass-through read agent [28], respectively.</p>
+    <p num="p-0030">Disparity module <b>106</b> is configured to receive filtered image data and output a score in order to assist in determining the distance between a rover and an object in front of the rover. In order for disparity module <b>106</b> to read data (i.e., filtered image data) from memory or filter module <b>104</b>, disparity module <b>106</b> is operatively connected to sequential read agent [10], sequential read agent [11], pass-through read agent [27], and pass-through read agent [28] via multiplexor M7 and M8. In order for disparity module <b>106</b> to write data to memory, disparity module <b>106</b> is operatively connected to sequential write agent [12].</p>
+    <p num="p-0031">Harris module <b>110</b> is configured to receive image data from the memory and determine features in the image data. In order for Harris module <b>110</b> to read data from memory, Harris module <b>110</b> is operatively connected to sequential read agent [18]. In order to write data to memory, Harris module <b>110</b> is operatively connected to sequential write agent [19].</p>
+    <p num="p-0032">VO SAD module <b>108</b> is configured to receive a plurality of images and features of the plurality of images to determine how far the rover has traveled. In order for VO SAD module <b>108</b> to read such data from the memory, VO SAD module <b>108</b> is operatively connected to sequential read agent [13], sequential read agent [14], sequential read agent [15], and sequential read agent [16]. In order to write data (i.e., the result of the determination) to the memory, VO SAD module <b>108</b> is operatively connected to sequential write agent [17].</p>
+    <p num="p-0033">In view of the apparatus shown in <figref idrefs="DRAWINGS">FIG. 1</figref>, the following is a detailed description of computer vision or image processing during rover navigation. To perform computer vision or image processing, vision modules such as rectification module <b>102</b>, filter module <b>104</b>, and disparity module <b>106</b> are utilized. Rectification module <b>102</b> is configured to remove any lens artifact in a captured image, i.e., warped pixels in the image are removed and a rectified image is generated.</p>
+    <p num="p-0034">In this embodiment, for every captured image, there is a left image and a right image and, for each image, there is a left image rectification table and a right image rectification table. The rectification table includes a de-warping map to identify each pixel location. Rectification module <b>102</b> transmits a request to read agent [0] and read agent [1], and receives a right pixel from read agent [0] and a right rectification table entry (stored in the right image rectification table) from read agent [1]. The rectification entry includes information on how the input pixel should be adjusted or weighted before being written to the output. Rectification module <b>102</b> also transmits a request to read agent [2] and read agent [3], and receives a left pixel from read agent [2] and a left rectification table entry (stored in the left image rectification table) from read agent [3]. It should be noted that rectification module <b>102</b> continuously reads in each left pixel from the captured image and calculates upon each left pixel using a corresponding left rectification table entry stored in the rectification table until all of the pixels are read from the memory. Based on the comparison, rectification module <b>102</b> outputs a corrected (or rectified) pixel for each left pixel to filter module <b>104</b> or memory. A similar process is conducted simultaneously for the right pixel of the captured image.</p>
+    <p num="p-0035">Filter module <b>104</b> includes two inputs to continuously receive right rectified pixels and left rectified pixels from read agent [6] and read agent [7], respectively. Filter module <b>104</b> can also receive right rectified pixels and left rectified pixels from read agent [23] and read agent [24], respectively. As right rectified pixels and left rectified pixels are being read by filter module <b>104</b>, filter module <b>104</b> continuously removes any bias (i.e., DC Bias or Constant Bias across the image) or unnecessary data from the captured image. For instance, filter module <b>104</b> removes or filters unnecessary data included in the right rectified pixels and the left rectified pixels. Depending on the application command, filter module <b>104</b> is configured to output the filtered right pixels to write agent [8] and/or write agent [25] and output the filtered left pixels to write agent [9] and/or write agent [26].</p>
+    <p num="p-0036">Disparity module <b>106</b> includes two input ports that continuously receive the filtered right pixels and the filtered left pixels from read agent [10] and read agent [11] until all the filtered pixels are received. Disparity module <b>106</b> can also receive the filtered right pixels and the filtered left pixels from read agent [27] and read agent [28], respectively. Disparity module <b>106</b> compares the filtered left pixels with the filtered right pixels and outputs a result. The result includes distance information between, for example, the rover and an object in front of the rover. The result is written to write agent [12] in order for the result to be transmitted to memory via multiplexor M10 and a pre-selected arbiter.</p>
+    <p num="p-0037">By allowing data to be transferred between rectification module <b>102</b>, filter module <b>104</b>, and disparity module <b>106</b>, navigation information regarding an image captured by a rover&#39;s camera is obtained in a quick and efficient manner.</p>
+    <p num="p-0038">Once the objects in front of the rover are identified, VO SAD module <b>108</b> and Harris module <b>110</b> are utilized to determine how far the rover has moved. It should be appreciated that this application is not only limited to a rover, but any other vehicle, robot or other machine that may be appreciated by a person of ordinary skill in the art. In order to determine how far the rover has moved, Harris module <b>110</b> is utilized to detect features in two or more images and VO SAD module <b>108</b> is utilized to compare the features detected in two or more images and determine the distance traveled.</p>
+    <p num="p-0039">In this embodiment, Harris module <b>110</b> transmits a request to read agent [18] and receives image data from read agent [18]. Harris module <b>110</b> detects features in the image and stores the location of the features in the image, as well as the score of the features. Harris module <b>110</b> transmits the location of the features and the score of the features to write agent [19]. As the rover continues to move, Harris module <b>110</b> receives new image data and transmits the location of the features in the new image and the score of the features.</p>
+    <p num="p-0040">VO SAD module <b>108</b> is then configured to receive a current image (i.e., set image), an old image (i.e., reference image), a list of the features for the set image, and a list of the features for the reference image from memory via read agent [13], read agent [14], read agent [15] and read agent [16]. VO SAD module <b>108</b> compares the list of the features from the set image and the reference image, and outputs a score for every possible pairing for the set and reference features of the image to write agent [17]. The score allows the rover to determine how far the rover has moved on an extraterrestrial surface.</p>
+    <p num="p-0041">It should be appreciated that the modules shown in <figref idrefs="DRAWINGS">FIG. 1</figref> each comprise an agent that interfaces with a memory bank for both read and write operations. As described above, each agent can either be a read or write agent, and have a width of 8 bits, 16 bits, 32 bits, etc. <figref idrefs="DRAWINGS">FIG. 1</figref> also illustrates that each memory hank has a single arbiter that handles all memory requests to its bank. The memory can be double data rate (DDR) RAM, DDR synchronous static random access memory (SSRAM), DDR2, NAND memory, or any other suitable storage device.</p>
+    <p num="p-0042">In order for the agents to interact with an arbiter, a vision agent to bank mapping multiplexor is utilized to assign the agents to the appropriate arbiters of the memory banks. In order to allow bursting of data for high throughput, it should also be appreciated that each agent can queue multiple memory requests and queue multiple memory responses. Also, with the multiplexors selecting the data path, each data path is point-to-point to result in a high throughput.</p>
+    <p num="p-0043"> <figref idrefs="DRAWINGS">FIG. 2</figref> illustrates a method <b>200</b> for rectifying a captured image, in accordance with an embodiment of the present invention. In particular, the following describes the process of rectifying an image by utilizing the apparatus shown in <figref idrefs="DRAWINGS">FIG. 1</figref>.</p>
+    <p num="p-0044">In order to utilize rectification module <b>102</b>, an FPGA module (not shown), a computer program, and/or a processor is configured to determine at <b>202</b> the size of the image and configure the multiplexers (i.e., M1, M2, and M10) to rectification only. It should be appreciated that by configuring multiplexor M10 to rectification only, agent [0] to agent [5] are operatively connected to arbiter 0 to arbiter 5.</p>
+    <p num="p-0045">At <b>204</b>, rectification module <b>102</b> requests a right pixel from agent [0], a right rectification table entry from agent [1], a left pixel from agent [2], and a left rectification table entry from agent [3]. In response to the request, each agent at <b>206</b> submits a request to the corresponding arbiter for the respective pixel and entry. The arbiter at <b>208</b> fetches the respective pixels and entries, and writes the respective pixels and entries into the read agents in order for rectification module <b>102</b> to read the requested pixels and entries. This process continues until all left and right pixels of the image, as well as the left and right rectification table entries are received by rectification module <b>102</b>.</p>
+    <p num="p-0046">At <b>210</b>, as rectification module <b>102</b> receives right and left pixels, rectification module <b>102</b> compares the right pixel with the right rectification table entry and rectifies the right pixel accordingly. A similar process is carried out for the left pixel. At <b>212</b>, as the right pixels and left pixels are being rectified, the rectified right pixels are being written into agent [4] and the rectified left pixels are being written into agent [5] via multiplexer M1 and M2, respectively.</p>
+    <p num="p-0047">Agent [4] and agent [5] transmit at <b>214</b> each of the rectified right pixels and each of the rectified left pixels to arbiter 4 and arbiter 5 so arbiter 4 and arbiter 5 can write the rectified pixels into the correct memory location. This process is carried out until all of the pixels in the image are rectified. Once all of the rectified pixels are written into memory, rectification module <b>102</b> raises a flag at <b>216</b> to notify the processor that the image is rectified. When rectification module <b>102</b> is finished, the processor can read the rectified image data at <b>218</b> from arbiter 4 and arbiter 5 by utilizing the PCI agents.</p>
+    <p num="p-0048"> <figref idrefs="DRAWINGS">FIG. 3</figref> illustrates a method <b>300</b> for image processing during rover navigation, in accordance with an embodiment of the present invention. In particular, the PCI Bus, which can be controlled by a processor, can set at <b>302</b> the image size and configure rectification module <b>102</b>, filter module <b>104</b> and disparity module <b>106</b> to connect to one another, and configure multiplexor M10 to connect agents [0]-[3] to arbiters 0-3 and connect agent [9] and agent [12] to arbiters 4 and 5. Multiplexors M1-M8 are also configured to pass data to corresponding agents.</p>
+    <p num="p-0049">At <b>304</b>, rectification module <b>102</b> continuously requests right pixels of an image, right rectification table entries, left pixels of an image, and left rectification table entries from agents [0]-[3] until all right and left pixels have be received. At <b>306</b>, for every right pixel and right rectification pixel received and for every left pixel and left rectification table entry received, rectification module <b>102</b> is configured to rectify each right and left pixel. As the right pixels and left pixels are being rectified, rectified right pixels and rectified left pixels are continuously transmitted at <b>308</b> to filter module <b>104</b> via pass-through agents [21]-[24].</p>
+    <p num="p-0050">At <b>310</b>, filter module <b>104</b> continuously receives rectified right pixels and rectified left pixels of the image. While receiving each pixel, filter module <b>104</b> processes the rectified right pixels and the rectified left pixels at <b>312</b> and removes unwanted data from the rectified right pixels and the rectified left pixels.</p>
+    <p num="p-0051">Filtered right pixels are transmitted at <b>314</b> to disparity module <b>106</b> via pass-through agents [25] and [27], and filtered left pixels are transmitted to disparity module <b>106</b> via pass-through agents [26] and [28]. Filtered left pixels are also transmitted to arbiter 4 by writing the left pixel data to write agent [9]. Disparity module <b>106</b> compares at <b>316</b> the filtered left pixels with the filtered right pixels and outputs a result. The result can include distance information between, for example, the rover and an object in front of the rover. The result is transmitted at <b>318</b> to agent [12] so the outputted information can be stored in memory via arbiter 5.</p>
+    <p num="p-0052">When rectification module <b>102</b>, filter module <b>104</b>, and disparity module <b>106</b> finish reading and processing the data, disparity module <b>106</b> is configured to flag the PCI bus at <b>320</b> in order to notify the processor that the process of reading and processing the image is complete. The processor is then configured to read at <b>322</b> the processed left image and processed right image from the memory. It should be appreciated that the process of reading, processing, and transferring data between the modules increases the speed of analyzing the image.</p>
+    <p num="p-0053"> <figref idrefs="DRAWINGS">FIG. 4</figref> illustrates a read agent sequential unit <b>400</b>, in accordance with an embodiment of the present invention. Read agent sequential unit <b>400</b> can interface with a rectification module, a filter module, a disparity module, a VO SAD module, a Harris module, or any module that can be appreciated by a person of ordinary skill in the art. For instance, the following signals path can interface with a module: FIFO data <b>402</b>, FIFO read enabled <b>404</b>, FIFO empty <b>406</b>, FIFO almost empty <b>408</b>, FIFO valid <b>410</b>, memory size <b>412</b>, memory address <b>414</b>, memory go <b>416</b>, memory address full <b>418</b>, and memory address almost full <b>420</b>.</p>
+    <p num="p-0054">In this embodiment, FIFO data <b>402</b> has a width of 8 bits, but can have a width of 16 bits, 32 bits, or any width that can be appreciated by a person of ordinary skill in the art. It should be appreciated that the width is module-specific. For example, <figref idrefs="DRAWINGS">FIG. 1</figref> illustrates that rectification module interfaces with two read agent sequential units, which include a width of 8 bits, and two read agent sequential units, which include a width of 32 bits. The disparity module and filter module, however, can interface with two read agent sequential units, which include a width of 8 bits.</p>
+    <p num="p-0055">FIFO read enabled <b>404</b> has a width of 1 bit, FIFO empty <b>406</b> has a width of 1 bit, FIFO almost empty <b>408</b> has a width of 1 bit, and FIFO valid <b>410</b> has a width of 1 bit. Memory size <b>412</b> has a width of 24 bits, memory address <b>414</b> has a width of 24 bits, memory go <b>416</b> has a width of 1 bit, memory address full <b>418</b> has a width of 1 bit, and memory address almost full <b>420</b> has a width of 1 bit.</p>
+    <p num="p-0056">This embodiment allows read agent sequential unit <b>400</b> to receive a request from, for example, rectification module <b>102</b> and convert the request into a request that the arbiter can utilize. For instance, read agent sequential unit <b>400</b> receives a starting address of the data via memory address <b>414</b> and a size of the data to be read via memory size <b>412</b>, and is triggered by a memory go flag <b>416</b>. In other words, rectification module <b>102</b>, for example, transmits a request to read agent sequential <b>400</b> with the size of the data and the starting address of the data, and instructs read agent sequential unit <b>400</b> to go fetch the data. Read agent sequential unit <b>400</b> then requests the arbiter for all of the data, starting at the starting address for as many bytes as are required. This configuration reduces the complexity of the module by interfacing read agent sequential unit <b>400</b> with the arbiter.</p>
+    <p num="p-0057">When read agent sequential unit <b>400</b> receives the data from the arbiter, the data is placed in a FIFO (first-in-first-out queue) so rectification module <b>102</b> can read the data via FIFO data <b>402</b>. As the data is stored in the FIFO, FIFO empty <b>406</b> is converted to false in order for rectification module <b>102</b> to read the data in the FIFO. At this point, FIFO read enabled <b>404</b> will be set to true in order for rectification module <b>102</b> to read data.</p>
+    <p num="p-0058">As mentioned above, in order for data to be requested from memory, read agent sequential unit <b>400</b> also interfaces with an arbiter. The following signal paths allow read agent sequential unit <b>400</b> to interface with the arbiter: valid <b>422</b>, Qtag <b>424</b> (e.g., identifies the requested data when received from the arbiter), Q <b>426</b> (e.g., includes the requested data), ready <b>428</b>, request <b>430</b> (e.g., a request signal from the agent to the arbiter that the agent would like to communicate with the arbiter), chip enable <b>432</b> (e.g., a chip enable signal to indicate either a read or a write is being performed), address <b>434</b> (e.g., memory location where the data is to be stored or read from), data <b>436</b> (e.g., data that is to be written or read), byte enabled <b>438</b> (e.g., byte enabled allows certain bytes of the data to be written or read), tag <b>440</b> (e.g., tag to identify data), and write <b>442</b> (e.g., used in combination with chip enable <b>432</b> to indicate a write is being performed).</p>
+    <p num="p-0059">Signals that are being transmitted to the arbiter are address <b>434</b>, data <b>436</b>, and byte enabled <b>438</b>. When write <b>442</b> is set to true, then data can be written. When write <b>442</b> is set to false, then data cannot be written. A similar process is carried out when data is to be read from the memory. When receiving data, Q <b>426</b> includes the data, and valid <b>422</b> is set to high in order to store the data in the FIFO. It should be appreciated that read agent sequential unit <b>400</b> could be a read agent random unit in order to read data from random locations in the memory.</p>
+    <p num="p-0060"> <figref idrefs="DRAWINGS">FIG. 5</figref> illustrates a write agent sequential unit <b>500</b>, in accordance with an embodiment of the present invention. The interface between write agent sequential unit <b>500</b> and the arbiter includes the following signal paths: valid <b>516</b>, Qtag <b>518</b>, Q <b>520</b>, ready <b>522</b>, request <b>524</b>, chip enable <b>526</b>, address <b>528</b>, data <b>530</b>, byte enabled <b>532</b>, tag <b>534</b>, and write <b>536</b>. The interface between write agent sequential unit <b>500</b> and, for example, rectification module <b>102</b> includes FIFO data <b>502</b>, FIFO write enabled <b>504</b>, FIFO full <b>506</b>, FIFO almost full <b>508</b>, starting address <b>510</b>, memory go <b>512</b>, and memory done <b>514</b>. FIFO write enabled <b>504</b> can be set to true or false. FIFO almost full <b>508</b> is utilized to inform the module that the FIFO is almost full, and FIFO full <b>506</b> is utilized to inform the module that FIFO is full.</p>
+    <p num="p-0061">In order to write data into write agent sequential unit <b>500</b>, rectification module <b>102</b>, for example, transmits a starting address of the memory to store the data utilizing starting address <b>510</b> and sets memory go <b>512</b> to true. This enables data to be written into a queue utilizing FIFO data <b>502</b>. If the arbiter is busy and the FIFO is almost full, then write agent sequential unit <b>500</b> can transmit a signal via FIFO almost full <b>508</b> to indicate that the FIFO is almost full. If the arbiter is busy and/or the FIFO is full, then write agent sequential unit <b>500</b> can transmit a signal via FIFO full <b>506</b> to indicate that the FIFO is full. Once rectification module <b>102</b> is finished writing data to write agent sequential unit <b>500</b>, memory done <b>514</b> is set to true and memory go <b>512</b> is set to false. It should be appreciated that write agent sequential unit <b>500</b> can be a write agent random unit in order to write data to random locations in the memory.</p>
+    <p num="p-0062"> <figref idrefs="DRAWINGS">FIG. 6</figref> illustrates a write agent pass-through unit <b>600</b>, in accordance with an embodiment of the present invention. In this embodiment, write agent pass-through unit <b>600</b> can interface with a module and another module or a module and a read agent pass-through unit.</p>
+    <p num="p-0063">The following data signal paths allow communication between write agent pass-through unit <b>600</b> and a module: FIFO data in <b>602</b>, FIFO write enabled <b>604</b>, FIFO full <b>606</b>, and FIFO almost full <b>608</b>. The following data signal paths allow communication between write agent pass-through unit <b>600</b> and a read agent pass-through unit: FIFO data out <b>610</b>, FIFO read enabled <b>612</b>, FIFO empty <b>614</b>. FIFO almost empty <b>616</b>, and FIFO valid <b>618</b>.</p>
+    <p num="p-0064">Write agent pass-through unit <b>600</b> is configured to receive data from a module and pass the data to another read agent pass-through unit. For instance, when FIFO write enabled <b>604</b> is set to true, data can be transmitted from a module to write agent pass-through unit <b>600</b> via FIFO data in <b>602</b>. When FIFO is full, FIFO full <b>606</b> is set to true in order to notify the module that the FIFO is full and data cannot be received by write agent pass-through unit <b>600</b> at this time. When FIFO is not full, FIFO full <b>606</b> is set to false in order to notify the module that data can be received by write agent pass-through unit <b>600</b>. While data is written into the FIFO in write agent pass-through unit <b>600</b>, data can be transmitted to the read agent pass-through unit via FIFO data out <b>610</b>.</p>
+    <p num="p-0065"> <figref idrefs="DRAWINGS">FIG. 7</figref> illustrates a read agent pass-through unit <b>700</b>, in accordance with an embodiment of the present invention. In this embodiment, read agent pass-through unit <b>700</b> interfaces with a write agent pass-through unit and a module. The following signal paths are utilized by read agent pass-through unit <b>700</b>: FIFO data <b>702</b>, FIFO read enabled <b>704</b>. FIFO empty <b>706</b>, FIFO almost empty <b>708</b>, and FIFO valid <b>710</b>. When FIFO valid <b>710</b> is set to true and FIFO read enabled <b>704</b> is set to true, the module can read and/or receive data from read agent pass-through unit <b>700</b> via FIFO data <b>702</b>. In other words, read agent pass-through unit <b>700</b> is configured to received data from a write agent pass-through unit and pass the data to another module.</p>
+    <p num="p-0066"> <figref idrefs="DRAWINGS">FIG. 8</figref> illustrates a method <b>800</b> for receiving and transmitting data from a module utilizing agents. At <b>802</b>, a multiplexor assigns data paths between at least one agent of each module and a corresponding arbiter of each memory bank. At <b>804</b>, the at least one agent of each module queues a plurality of data requests from the module and transmits each data request to a corresponding arbiter. At <b>806</b>, the at least one agent queues a plurality of data responses from the corresponding arbiter and transmits each data response to the module. In other words, based on the assigned data path, the at least one agent of the module reads data from the corresponding arbiter of the memory hank. At <b>808</b>, the at least one agent of the module writes modified data to the corresponding arbiter of the memory hank based on the assigned data path. At <b>810</b>, at least one pass-through write agent of the module writes the modified data to at least one pass-through read agent of another module. This allows the at least one pass-through read agent of the other module to read the modified data from the at least one pass-through write agent of the module. As a result, the method described in this embodiment allows the module to read and write data to memory, as well as to another module without reducing the throughput.</p>
+    <p num="p-0067">The method steps performed in <figref idrefs="DRAWINGS">FIG. 2</figref>, <figref idrefs="DRAWINGS">FIG. 3</figref>, and <figref idrefs="DRAWINGS">FIG. 8</figref> may be performed by a computer program product, encoding instructions for the nonlinear adaptive processor to perform at least the method described in <figref idrefs="DRAWINGS">FIG. 2</figref>, <figref idrefs="DRAWINGS">FIG. 3</figref>, and FIG. <b>8</b>, in accordance with an embodiment of the present invention. The computer program product may be embodied on a computer readable medium. A computer readable medium may be, but is not limited to, a hard disk drive, a flash device, a random access memory, a tape, or any other such medium used to store data. The computer program product may include encoded instructions for controlling the nonlinear adaptive processor to implement the method described in <figref idrefs="DRAWINGS">FIG. 2</figref>, <figref idrefs="DRAWINGS">FIG. 3</figref>, and <figref idrefs="DRAWINGS">FIG. 8</figref>, which may also be stored on the computer readable medium.</p>
+    <p num="p-0068">The computer program product can be implemented in hardware, software, or a hybrid implementation. The computer program product can be composed of modules that are in operative communication with one another, and which are designed to pass information or instructions to display. The computer program product can be configured to operate on a general purpose computer, or an application specific integrated circuit (“ASIC”).</p>
+    <p num="p-0069">Embodiments described herein relate to an FPGA architecture with custom interfaces to transmit data to and from each module. Each module is configured with direct access to memory or another module to allow interleaving access to individual memory banks between a plurality of modules. The architecture allows arbitration to on-board DDR and/or SSRAM memory, allows up to 10-30 independent agents to access the memory (although different numbers of agents may be used in some embodiments, and this disclosure does not limit the number of agents that are used), and a method of exchanging data directly between modules without reducing the throughput of memory access. This architecture also supports low latency reads and writes and offers high throughput.</p>
+    <p num="p-0070">One having ordinary skill in the art will readily understand that the invention as discussed above may be practiced with steps in a different order, and/or with hardware elements in configurations which are different than those which are disclosed. Therefore, although the invention has been described based upon these preferred embodiments, it would be apparent to those of skill in the art that certain modifications, variations, and alternative constructions would be apparent, while remaining within the spirit and scope of the invention. In order to determine the metes and hounds of the invention, therefore, reference should be made to the appended claims.</p>
+    
+  </div>
+  </div>
+  </section>
+
+  <section itemprop="claims" itemscope>
+    <h2>Claims (<span itemprop="count">7</span>)</h2>
+    
+    <div itemprop="content" html><div mxw-id="PCLM57382940" lang="EN" load-source="patent-office" class="claims">
+    <claim-statement>We claim:</claim-statement>
+    <div class="claim"> <div id="CLM-00001" num="00001" class="claim">
+      <div class="claim-text">1. An FPGA architecture, comprising:
+<div class="claim-text">a rectification module configured to receive image data from memory and rectify the image data;</div>
+<div class="claim-text">a filter module configured to receive the rectified image data and filter unwanted data from the rectified image data to generate filtered image data wherein the rectification module and filter module are operatively connected by two pass-through agents associated with the rectification module and filter module respectively;</div>
+<div class="claim-text">a disparity module configured to receive the filtered image data and generate a result in order to determine a distance between an object and a vehicle, wherein the filter module and disparity module are operatively connected by two pass-through agents associated with the filter module and disparity module respectively; and,</div>
+<div class="claim-text">a plurality of arbiters, each arbiter interfacing with the memory, wherein each arbiter is configured to receive a request for data from one or more read agents associated with the rectification module, filter module, or disparity module, and wherein a write agent associated with the disparity module is configured to transmit the result to the memory.</div>
+</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00002" num="00002" class="claim">
+      <div class="claim-text">2. The FPGA architecture of <claim-ref idref="CLM-00001">claim 1</claim-ref>, wherein the image data comprises right pixels of an image, right rectification table entries, left pixels of the image, and left rectification table entries, and
+<div class="claim-text">wherein the rectification module is further configured to compare the right pixels of the image with the right rectification table entries to generate right rectified pixels of the image and compare the left pixels of the image with the left rectification table entries to generate left rectified pixels of the image.</div>
+</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00003" num="00003" class="claim">
+      <div class="claim-text">3. The FPGA architecture of <claim-ref idref="CLM-00002">claim 2</claim-ref>, wherein the rectified image data comprises right rectified pixels and left rectified pixels of an image, and
+<div class="claim-text">wherein the filter module is further configured to compare the right rectified pixels with the left rectified pixels of the image to remove unwanted data and generate right filtered pixels and left filtered pixels.</div>
+</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00004" num="00004" class="claim">
+      <div class="claim-text">4. The FPGA architecture of <claim-ref idref="CLM-00001">claim 1</claim-ref>, wherein the filtered image data comprises right filtered pixels and left filtered pixels of the image, and
+<div class="claim-text">wherein the disparity module is further configured to compare the right filtered pixels with the left filtered pixels to generate the result.</div>
+</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00005" num="00005" class="claim">
+      <div class="claim-text">5. The FPGA architecture of <claim-ref idref="CLM-00001">claim 1</claim-ref>, further comprising:
+<div class="claim-text">a Harris module configured to receive a first image and a second image and detect features and a location of the features in the first and second image,</div>
+<div class="claim-text">wherein the Harris module is further configured to transmit a result to memory based on the detected features.</div>
+</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00006" num="00006" class="claim">
+      <div class="claim-text">6. The FPGA architecture of <claim-ref idref="CLM-00005">claim 5</claim-ref>, further comprising;
+<div class="claim-text">a vision odometry sum of absolute differences module configured to receive the first and second image, a list of the features for the first image, and a list of the features for the second image,</div>
+<div class="claim-text">wherein the vision odometry sum of absolute differences module is further configured to compare the list of the features between the first and second images to determine a distance traveled by the vehicle, and</div>
+<div class="claim-text">wherein the vision odometry sum of absolute differences module is further configured to generate a result based on the comparison of the list of the features between the first and second images.</div>
+</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00007" num="00007" class="claim">
+      <div class="claim-text">7. The FPGA architecture of <claim-ref idref="CLM-00001">claim 1</claim-ref>,
+<div class="claim-text">wherein each arbiter is configured to
+<div class="claim-text">receive a request for data from an agent associated with the rectification module, the filter module, the disparity module, a Harris module, or a vision odometry sum of absolute differences module, and</div>
+<div class="claim-text">transmit the requested data to the agent associated with the rectification module, the filter module, the disparity module, a Harris module, or a vision odometry sum of absolute differences module. </div>
+</div>
+</div>
+    </div>
+  </div> </div>
+  </div>
+  </section>
+
+  <section itemprop="application" itemscope>
+
+    <section itemprop="metadata" itemscope>
+        <span itemprop="applicationNumber">US13/071,299</span>
+        <span itemprop="priorityDate">2011-03-24</span>
+        <span itemprop="filingDate">2011-03-24</span>
+        <span itemprop="title">Field programmable gate array apparatus, method, and computer program 
+       </span>
+        <span itemprop="ifiStatus">Expired - Fee Related</span>
+        
+        <a href="/patent/US8649609B1/en">
+            <span itemprop="representativePublication">US8649609B1</span>
+            (<span itemprop="primaryLanguage">en</span>)
+        </a>
+    </section>
+
+    <h2>Priority Applications (1)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                    <th>Title</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="priorityApps" itemscope repeat>
+                <td>
+                   <span itemprop="applicationNumber">US13/071,299</span>
+                   
+                   <a href="/patent/US8649609B1/en">
+                        <span itemprop="representativePublication">US8649609B1</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                <td itemprop="priorityDate">2011-03-24</td>
+                <td itemprop="filingDate">2011-03-24</td>
+                <td itemprop="title">Field programmable gate array apparatus, method, and computer program 
+       </td>
+              </tr>
+           </tbody>
+       </table>
+
+    <h2>Applications Claiming Priority (1)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                    <th>Title</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="appsClaimingPriority" itemscope repeat>
+                <td>
+                   <span itemprop="applicationNumber">US13/071,299</span>
+                   <a href="/patent/US8649609B1/en">
+                        <span itemprop="representativePublication">US8649609B1</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                <td itemprop="priorityDate">2011-03-24</td>
+                <td itemprop="filingDate">2011-03-24</td>
+                <td itemprop="title">Field programmable gate array apparatus, method, and computer program 
+       </td>
+              </tr>
+           </tbody>
+       </table>
+
+    
+
+    
+
+    <h2>Publications (1)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Publication Number</th>
+                    <th>Publication Date</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="pubs" itemscope repeat>
+                <td>
+                   <span itemprop="publicationNumber">US8649609B1</span>
+                   
+                   <span itemprop="thisPatent">true</span>
+                   <a href="/patent/US8649609B1/en">US8649609B1
+                       (<span itemprop="primaryLanguage">en</span>)
+                   </a>
+                </td>
+                <td itemprop="publicationDate">2014-02-11</td>
+              </tr>
+           </tbody>
+        </table>
+
+  </section>
+
+  <section itemprop="family" itemscope>
+    <h1>Family</h1>
+    <h2>ID=50032810</h2>
+
+    <h2>Family Applications (1)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Title</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="applications" itemscope repeat>
+                <td>
+                    <span itemprop="applicationNumber">US13/071,299</span>
+                    <span itemprop="ifiStatus">Expired - Fee Related</span>
+                    
+                    <a href="/patent/US8649609B1/en">
+                        <span itemprop="representativePublication">US8649609B1</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                </td>
+                <td itemprop="priorityDate">2011-03-24</td>
+                <td itemprop="filingDate">2011-03-24</td>
+                <td itemprop="title">Field programmable gate array apparatus, method, and computer program 
+       </td>
+              </tr>
+           </tbody>
+        </table>
+
+    
+
+    
+
+    <h2>Country Status (1)</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Country</th>
+            <th>Link</th>
+          </tr>
+        </thead>
+        <tbody>
+        <tr itemprop="countryStatus" itemscope repeat>
+            <td>
+              <span itemprop="countryCode">US</span>
+                (<span itemprop="num">1</span>)
+              <meta itemprop="thisCountry" content="true">
+            </td>
+            <td>
+              <a href="/patent/US8649609B1/en">
+                <span itemprop="representativePublication">US8649609B1</span>
+                  (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+    
+
+    
+
+    <h2>Citations (14)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6118724A/en">
+              <span itemprop="publicationNumber">US6118724A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1997-04-30</td>
+          <td itemprop="publicationDate">2000-09-12</td>
+          <td><span itemprop="assigneeOriginal">Canon Kabushiki Kaisha</span></td>
+          <td itemprop="title">Memory controller architecture 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6822976B1/en">
+              <span itemprop="publicationNumber">US6822976B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1999-11-03</td>
+          <td itemprop="publicationDate">2004-11-23</td>
+          <td><span itemprop="assigneeOriginal">Intel Corporation</span></td>
+          <td itemprop="title">Method and apparatus for high throughput multiplexing of data 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6941438B2/en">
+              <span itemprop="publicationNumber">US6941438B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2003-01-10</td>
+          <td itemprop="publicationDate">2005-09-06</td>
+          <td><span itemprop="assigneeOriginal">Intel Corporation</span></td>
+          <td itemprop="title">Memory interleaving 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7047374B2/en">
+              <span itemprop="publicationNumber">US7047374B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2002-02-25</td>
+          <td itemprop="publicationDate">2006-05-16</td>
+          <td><span itemprop="assigneeOriginal">Intel Corporation</span></td>
+          <td itemprop="title">Memory read/write reordering 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7174432B2/en">
+              <span itemprop="publicationNumber">US7174432B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2003-08-19</td>
+          <td itemprop="publicationDate">2007-02-06</td>
+          <td><span itemprop="assigneeOriginal">Nvidia Corporation</span></td>
+          <td itemprop="title">Asynchronous, independent and multiple process shared memory system in an adaptive computing architecture 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20070255480A1/en">
+              <span itemprop="publicationNumber">US20070255480A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2006-04-21</td>
+          <td itemprop="publicationDate">2007-11-01</td>
+          <td><span itemprop="assigneeOriginal">Southall John B</span></td>
+          <td itemprop="title">Apparatus and method for object detection and tracking and roadway awareness using stereo cameras 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7353320B2/en">
+              <span itemprop="publicationNumber">US7353320B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2004-05-14</td>
+          <td itemprop="publicationDate">2008-04-01</td>
+          <td><span itemprop="assigneeOriginal">Micron Technology, Inc.</span></td>
+          <td itemprop="title">Memory hub and method for memory sequencing 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7415331B2/en">
+              <span itemprop="publicationNumber">US7415331B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2005-07-25</td>
+          <td itemprop="publicationDate">2008-08-19</td>
+          <td><span itemprop="assigneeOriginal">Lockheed Martin Corporation</span></td>
+          <td itemprop="title">System for controlling unmanned vehicles 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7464225B2/en">
+              <span itemprop="publicationNumber">US7464225B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2005-09-26</td>
+          <td itemprop="publicationDate">2008-12-09</td>
+          <td><span itemprop="assigneeOriginal">Rambus Inc.</span></td>
+          <td itemprop="title">Memory module including a plurality of integrated circuit memory devices and a plurality of buffer devices in a matrix topology 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7707366B2/en">
+              <span itemprop="publicationNumber">US7707366B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2006-01-06</td>
+          <td itemprop="publicationDate">2010-04-27</td>
+          <td><span itemprop="assigneeOriginal">Elpida Memory, Inc.</span></td>
+          <td itemprop="title">Memory control device 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20100104199A1/en">
+              <span itemprop="publicationNumber">US20100104199A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2008-04-24</td>
+          <td itemprop="publicationDate">2010-04-29</td>
+          <td><span itemprop="assigneeOriginal">Gm Global Technology Operations, Inc.</span></td>
+          <td itemprop="title">Method for detecting a clear path of travel for a vehicle enhanced by object detection 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7761687B2/en">
+              <span itemprop="publicationNumber">US7761687B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2007-06-26</td>
+          <td itemprop="publicationDate">2010-07-20</td>
+          <td><span itemprop="assigneeOriginal">International Business Machines Corporation</span></td>
+          <td itemprop="title">Ultrascalable petaflop parallel supercomputer 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7805577B1/en">
+              <span itemprop="publicationNumber">US7805577B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2006-04-14</td>
+          <td itemprop="publicationDate">2010-09-28</td>
+          <td><span itemprop="assigneeOriginal">Tilera Corporation</span></td>
+          <td itemprop="title">Managing memory access in a parallel processing environment 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7818519B2/en">
+              <span itemprop="publicationNumber">US7818519B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2002-12-02</td>
+          <td itemprop="publicationDate">2010-10-19</td>
+          <td><span itemprop="assigneeOriginal">Silverbrook Research Pty Ltd</span></td>
+          <td itemprop="title">Timeslot arbitration scheme 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+
+    
+
+    
+    <ul>
+      
+      <li itemprop="applicationsByYear" itemscope repeat>
+        <span itemprop="year">2011</span>
+        <ul>
+          
+          <li itemprop="application" itemscope repeat>
+            <span itemprop="filingDate">2011-03-24</span>
+            <span itemprop="countryCode">US</span>
+            <span itemprop="applicationNumber">US13/071,299</span>
+            <a href="/patent/US8649609B1/en"><span itemprop="documentId">patent/US8649609B1/en</span></a>
+            <span itemprop="legalStatusCat">not_active</span>
+            <span itemprop="legalStatus">Expired - Fee Related</span>
+            
+            <span itemprop="thisApp" content="true" bool></span>
+            
+          </li>
+          
+        </ul>
+      </li>
+      
+    </ul>
+    
+
+    </section>
+
+  <section>
+    <h2>Patent Citations (15)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6118724A/en">
+              <span itemprop="publicationNumber">US6118724A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1997-04-30</td>
+          <td itemprop="publicationDate">2000-09-12</td>
+          <td><span itemprop="assigneeOriginal">Canon Kabushiki Kaisha</span></td>
+          <td itemprop="title">Memory controller architecture 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6822976B1/en">
+              <span itemprop="publicationNumber">US6822976B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1999-11-03</td>
+          <td itemprop="publicationDate">2004-11-23</td>
+          <td><span itemprop="assigneeOriginal">Intel Corporation</span></td>
+          <td itemprop="title">Method and apparatus for high throughput multiplexing of data 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7047374B2/en">
+              <span itemprop="publicationNumber">US7047374B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2002-02-25</td>
+          <td itemprop="publicationDate">2006-05-16</td>
+          <td><span itemprop="assigneeOriginal">Intel Corporation</span></td>
+          <td itemprop="title">Memory read/write reordering 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7818519B2/en">
+              <span itemprop="publicationNumber">US7818519B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2002-12-02</td>
+          <td itemprop="publicationDate">2010-10-19</td>
+          <td><span itemprop="assigneeOriginal">Silverbrook Research Pty Ltd</span></td>
+          <td itemprop="title">Timeslot arbitration scheme 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6941438B2/en">
+              <span itemprop="publicationNumber">US6941438B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2003-01-10</td>
+          <td itemprop="publicationDate">2005-09-06</td>
+          <td><span itemprop="assigneeOriginal">Intel Corporation</span></td>
+          <td itemprop="title">Memory interleaving 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7418571B2/en">
+              <span itemprop="publicationNumber">US7418571B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2003-01-10</td>
+          <td itemprop="publicationDate">2008-08-26</td>
+          <td><span itemprop="assigneeOriginal">Intel Corporation</span></td>
+          <td itemprop="title">Memory interleaving 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7174432B2/en">
+              <span itemprop="publicationNumber">US7174432B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2003-08-19</td>
+          <td itemprop="publicationDate">2007-02-06</td>
+          <td><span itemprop="assigneeOriginal">Nvidia Corporation</span></td>
+          <td itemprop="title">Asynchronous, independent and multiple process shared memory system in an adaptive computing architecture 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7353320B2/en">
+              <span itemprop="publicationNumber">US7353320B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2004-05-14</td>
+          <td itemprop="publicationDate">2008-04-01</td>
+          <td><span itemprop="assigneeOriginal">Micron Technology, Inc.</span></td>
+          <td itemprop="title">Memory hub and method for memory sequencing 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7415331B2/en">
+              <span itemprop="publicationNumber">US7415331B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2005-07-25</td>
+          <td itemprop="publicationDate">2008-08-19</td>
+          <td><span itemprop="assigneeOriginal">Lockheed Martin Corporation</span></td>
+          <td itemprop="title">System for controlling unmanned vehicles 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7464225B2/en">
+              <span itemprop="publicationNumber">US7464225B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2005-09-26</td>
+          <td itemprop="publicationDate">2008-12-09</td>
+          <td><span itemprop="assigneeOriginal">Rambus Inc.</span></td>
+          <td itemprop="title">Memory module including a plurality of integrated circuit memory devices and a plurality of buffer devices in a matrix topology 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7707366B2/en">
+              <span itemprop="publicationNumber">US7707366B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2006-01-06</td>
+          <td itemprop="publicationDate">2010-04-27</td>
+          <td><span itemprop="assigneeOriginal">Elpida Memory, Inc.</span></td>
+          <td itemprop="title">Memory control device 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7805577B1/en">
+              <span itemprop="publicationNumber">US7805577B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2006-04-14</td>
+          <td itemprop="publicationDate">2010-09-28</td>
+          <td><span itemprop="assigneeOriginal">Tilera Corporation</span></td>
+          <td itemprop="title">Managing memory access in a parallel processing environment 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20070255480A1/en">
+              <span itemprop="publicationNumber">US20070255480A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2006-04-21</td>
+          <td itemprop="publicationDate">2007-11-01</td>
+          <td><span itemprop="assigneeOriginal">Southall John B</span></td>
+          <td itemprop="title">Apparatus and method for object detection and tracking and roadway awareness using stereo cameras 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7761687B2/en">
+              <span itemprop="publicationNumber">US7761687B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2007-06-26</td>
+          <td itemprop="publicationDate">2010-07-20</td>
+          <td><span itemprop="assigneeOriginal">International Business Machines Corporation</span></td>
+          <td itemprop="title">Ultrascalable petaflop parallel supercomputer 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20100104199A1/en">
+              <span itemprop="publicationNumber">US20100104199A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2008-04-24</td>
+          <td itemprop="publicationDate">2010-04-29</td>
+          <td><span itemprop="assigneeOriginal">Gm Global Technology Operations, Inc.</span></td>
+          <td itemprop="title">Method for detecting a clear path of travel for a vehicle enhanced by object detection 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Non-Patent Citations (3)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">"<a href='http://scholar.google.com/scholar?q="Alpha+Data+ADM-XRC-4+Data+Sheet"'>Alpha Data ADM-XRC-4 Data Sheet</a>", Apr. 2, 2009, http://www.alpha-data.com/pdfs/adm-xrc-4.pdf.</span>
+            
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">T. Vancourt and M.C. Herbordt, "<a href='http://scholar.google.com/scholar?q="Application-Specific+Memory+Interleaving+for+FPGA-Based+Grid+Computations"'>Application-Specific Memory Interleaving for FPGA-Based Grid Computations</a>", 2006, www.bu.edu/caadlab/FCCM06POSTER-mem.ppl, Boston, USA.</span>
+            
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">T. Vancourt and M.C. Herbordt, "<a href='http://scholar.google.com/scholar?q="Application-Specific+Memory+Interleaving+for+FPGA-Based+Grid+Computations"'>Application-Specific Memory Interleaving for FPGA-Based Grid Computations</a>", 2006, www.bu.edu/caadlab/FCCM06POSTER—mem.ppl, Boston, USA.</span>
+            
+            
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  
+
+  
+
+  <section>
+    <h2>Similar Documents</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Publication</th>
+          <th>Publication Date</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US5280591A/en">
+                <span itemprop="publicationNumber">US5280591A</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="1994-01-18">1994-01-18</time>
+            
+            
+          </td>
+          <td itemprop="title">Centralized backplane bus arbiter for multiprocessor systems 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US6138192A/en">
+                <span itemprop="publicationNumber">US6138192A</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2000-10-24">2000-10-24</time>
+            
+            
+          </td>
+          <td itemprop="title">Delivering a request to write or read data before delivering an earlier write request 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US5815167A/en">
+                <span itemprop="publicationNumber">US5815167A</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="1998-09-29">1998-09-29</time>
+            
+            
+          </td>
+          <td itemprop="title">Method and apparatus for providing concurrent access by a plurality of agents to a shared memory 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US5611058A/en">
+                <span itemprop="publicationNumber">US5611058A</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="1997-03-11">1997-03-11</time>
+            
+            
+          </td>
+          <td itemprop="title">System and method for transferring information between multiple buses 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/TWI357561B/en">
+                <span itemprop="publicationNumber">TWI357561B</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2012-02-01">2012-02-01</time>
+            
+            
+          </td>
+          <td itemprop="title">Method, system and computer program product for vi 
+     </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/JP4124491B2/en">
+                <span itemprop="publicationNumber">JP4124491B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2008-07-23">2008-07-23</time>
+            
+            
+          </td>
+          <td itemprop="title">Packet routing switch that controls access to shared memory at different data rates 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US8954174B2/en">
+                <span itemprop="publicationNumber">US8954174B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2015-02-10">2015-02-10</time>
+            
+            
+          </td>
+          <td itemprop="title">Method and device to process digital media streams 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US5878235A/en">
+                <span itemprop="publicationNumber">US5878235A</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="1999-03-02">1999-03-02</time>
+            
+            
+          </td>
+          <td itemprop="title">Method and system for concurrent computer transaction processing 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/EP0450233A2/en">
+                <span itemprop="publicationNumber">EP0450233A2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="1991-10-09">1991-10-09</time>
+            
+            
+          </td>
+          <td itemprop="title">Bus access for digital computer system 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/EP1777626A1/en">
+                <span itemprop="publicationNumber">EP1777626A1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2007-04-25">2007-04-25</time>
+            
+            
+          </td>
+          <td itemprop="title">System and method for dynamic mirror-bank addressing 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US7093079B2/en">
+                <span itemprop="publicationNumber">US7093079B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2006-08-15">2006-08-15</time>
+            
+            
+          </td>
+          <td itemprop="title">Snoop filter bypass 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US6088751A/en">
+                <span itemprop="publicationNumber">US6088751A</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2000-07-11">2000-07-11</time>
+            
+            
+          </td>
+          <td itemprop="title">Highly configurable bus priority arbitration system 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US20080189501A1/en">
+                <span itemprop="publicationNumber">US20080189501A1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2008-08-07">2008-08-07</time>
+            
+            
+          </td>
+          <td itemprop="title">Methods and Apparatus for Issuing Commands on a Bus 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US9830284B2/en">
+                <span itemprop="publicationNumber">US9830284B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2017-11-28">2017-11-28</time>
+            
+            
+          </td>
+          <td itemprop="title">Memory mapping in a processor having multiple programmable units 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/DE60036096T2/en">
+                <span itemprop="publicationNumber">DE60036096T2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2008-05-15">2008-05-15</time>
+            
+            
+          </td>
+          <td itemprop="title">Device for communicating between several functional units in a computer environment 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/JP5923838B2/en">
+                <span itemprop="publicationNumber">JP5923838B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2016-05-25">2016-05-25</time>
+            
+            
+          </td>
+          <td itemprop="title">Interrupt distribution scheme 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/KR20130027446A/en">
+                <span itemprop="publicationNumber">KR20130027446A</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2013-03-15">2013-03-15</time>
+            
+            
+          </td>
+          <td itemprop="title">Coherence switch for i/o traffic 
+     </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/DE102008034500B4/en">
+                <span itemprop="publicationNumber">DE102008034500B4</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2014-10-02">2014-10-02</time>
+            
+            
+          </td>
+          <td itemprop="title">Arbitration 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/EP0150910A2/en">
+                <span itemprop="publicationNumber">EP0150910A2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="1985-08-07">1985-08-07</time>
+            
+            
+          </td>
+          <td itemprop="title">Digital image frame processor 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US6490642B1/en">
+                <span itemprop="publicationNumber">US6490642B1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2002-12-03">2002-12-03</time>
+            
+            
+          </td>
+          <td itemprop="title">Locked read/write on separate address/data bus using write barrier 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/GB2287621A/en">
+                <span itemprop="publicationNumber">GB2287621A</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="1995-09-20">1995-09-20</time>
+            
+            
+          </td>
+          <td itemprop="title">High performance symmetric arbitration protocol with support for I/O requirements 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US6694397B2/en">
+                <span itemprop="publicationNumber">US6694397B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2004-02-17">2004-02-17</time>
+            
+            
+          </td>
+          <td itemprop="title">Request queuing system for a PCI bridge 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/EP1645968B1/en">
+                <span itemprop="publicationNumber">EP1645968B1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2008-03-19">2008-03-19</time>
+            
+            
+          </td>
+          <td itemprop="title">Multi-threaded DMA 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US6823411B2/en">
+                <span itemprop="publicationNumber">US6823411B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2004-11-23">2004-11-23</time>
+            
+            
+          </td>
+          <td itemprop="title">N-way psuedo cross-bar having an arbitration feature using discrete processor local busses 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US7603501B2/en">
+                <span itemprop="publicationNumber">US7603501B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2009-10-13">2009-10-13</time>
+            
+            
+          </td>
+          <td itemprop="title">Communication circuit of serial peripheral interface devices 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Legal Events</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Code</th>
+          <th>Title</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2017-09-25">2017-09-25</time></td>
+          <td itemprop="code">FEPP</td>
+          <td itemprop="title">Fee payment procedure</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">MAINTENANCE FEE REMINDER MAILED (ORIGINAL EVENT CODE: REM.)</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2018-03-12">2018-03-12</time></td>
+          <td itemprop="code">LAPS</td>
+          <td itemprop="title">Lapse for failure to pay maintenance fees</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">PATENT EXPIRED FOR FAILURE TO PAY MAINTENANCE FEES (ORIGINAL EVENT CODE: EXP.)</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2018-03-12">2018-03-12</time></td>
+          <td itemprop="code">STCH</td>
+          <td itemprop="title">Information on status: patent discontinuation</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">PATENT EXPIRED DUE TO NONPAYMENT OF MAINTENANCE FEES UNDER 37 CFR 1.362</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2018-04-03">2018-04-03</time></td>
+          <td itemprop="code">FP</td>
+          <td itemprop="title">Expired due to failure to pay maintenance fee</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Effective date</strong>:
+              <span itemprop="value">20180211</span>
+            </p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+</article>
+
+    </search-app>
+    <script type="text/javascript" src="//www.gstatic.com/feedback/api.js"></script>
+    <script async="" defer="" src="//www.google.com/insights/consumersurveys/async_survey?site=cxkjf7ipxgbnnjy6k35ezcvbbe"></script>
+  </body>
+</html>

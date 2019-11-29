@@ -1,0 +1,3742 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>US7180943B1 - Compression of a data stream by selection among a set of compression tools 
+        - Google Patents</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="referrer" content="origin-when-crossorigin">
+    <link rel="canonical" href="https://patents.google.com/patent/US7180943B1/en">
+    <meta name="description" content="
+     A stream of raw data is compressed prior to transmission in a communication channel by a system which includes modules for choosing a current segment of the raw data stream for processing and defining a set of operators for representing data segments by a mathematical operation and parameters thereof. The system performs a competitive evaluation of different tools comprising different combinations of one or more of the operators and the parameters thereof with respect to the current data segment in order to determine relative abilities among the different tools to reduce the number of bits required to represent the current data segment. The system then selects a tool and a set of parameters thereof found in the competitive evaluation to have a superior ability relative to others of the different tools to reduce a number of bits required to represent the current data segment. 
+   
+   ">
+    
+    <meta name="DC.type" content="patent">
+    
+    <meta name="DC.title" content="Compression of a data stream by selection among a set of compression tools 
+       ">
+    
+    <meta name="DC.date" content="2002-03-26" scheme="dateSubmitted">
+    
+    <meta name="DC.description" content="
+     A stream of raw data is compressed prior to transmission in a communication channel by a system which includes modules for choosing a current segment of the raw data stream for processing and defining a set of operators for representing data segments by a mathematical operation and parameters thereof. The system performs a competitive evaluation of different tools comprising different combinations of one or more of the operators and the parameters thereof with respect to the current data segment in order to determine relative abilities among the different tools to reduce the number of bits required to represent the current data segment. The system then selects a tool and a set of parameters thereof found in the competitive evaluation to have a superior ability relative to others of the different tools to reduce a number of bits required to represent the current data segment. 
+   
+   ">
+    
+    <meta name="citation_patent_application_number" content="US:10/113,637">
+    
+    <meta name="citation_pdf_url" content="https://patentimages.storage.googleapis.com/f9/6a/3b/fa98e9d3f3e18e/US7180943.pdf">
+    
+    <meta name="citation_patent_number" content="US:7180943">
+    
+    <meta name="DC.date" content="2007-02-20" scheme="issue">
+    
+    <meta name="DC.contributor" content="Bertelrud Arlid" scheme="inventor">
+    
+    <meta name="DC.contributor" content="Franz Russell" scheme="inventor">
+    
+    <meta name="DC.contributor" content="National Aeronautics and Space Administration (NASA)" scheme="assignee">
+    
+    <meta name="DC.relation" content="US:4831636" scheme="references">
+    
+    <meta name="DC.relation" content="US:4823342" scheme="references">
+    
+    <meta name="DC.relation" content="US:4882754" scheme="references">
+    
+    <meta name="DC.relation" content="US:5432555" scheme="references">
+    
+    <meta name="DC.relation" content="US:5568199" scheme="references">
+    
+    <meta name="DC.relation" content="US:5909250" scheme="references">
+    
+    <meta name="DC.relation" content="US:6072836" scheme="references">
+    
+    <meta name="DC.relation" content="US:5576766" scheme="references">
+    
+    <meta name="DC.relation" content="US:5892847" scheme="references">
+    
+    <meta name="DC.relation" content="US:5719961" scheme="references">
+    
+    <meta name="DC.relation" content="US:5883672" scheme="references">
+    
+    <meta name="DC.relation" content="US:5802361" scheme="references">
+    
+    <meta name="DC.relation" content="US:5767908" scheme="references">
+    
+    <meta name="DC.relation" content="US:5513181" scheme="references">
+    
+    <meta name="DC.relation" content="US:6256064" scheme="references">
+    
+    <meta name="DC.relation" content="US:6122338" scheme="references">
+    
+    <meta name="DC.relation" content="US:6084636" scheme="references">
+    
+    <meta name="DC.relation" content="US:6084910" scheme="references">
+    
+    <meta name="DC.relation" content="US:6272175" scheme="references">
+    
+    <meta name="DC.relation" content="US:6011868" scheme="references">
+    
+    <meta name="DC.relation" content="US:6167060" scheme="references">
+    
+    <meta name="DC.relation" content="US:6233278" scheme="references">
+    
+    <meta name="DC.relation" content="US:6611624" scheme="references">
+    
+    <meta name="DC.relation" content="US:6542549" scheme="references">
+    
+    <meta name="DC.relation" content="US:6665872" scheme="references">
+    
+    <meta name="DC.relation" content="US:6414992" scheme="references">
+    
+    <meta name="DC.relation" content="US:6545727" scheme="references">
+    
+    <meta name="DC.relation" content="US:6633674" scheme="references">
+    
+    <meta name="DC.relation" content="US:6792151" scheme="references">
+    
+    <meta name="DC.relation" content="US:6795583" scheme="references">
+    
+    <meta name="DC.relation" content="US:6912317" scheme="references">
+    
+    <meta name="DC.relation" content="US:6909745" scheme="references">
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,400italic,500,500italic,700">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Product+Sans">
+    <style>
+      body { transition: none; }
+    </style>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-27188110-4', 'auto');
+
+      version = 'patent-search.search_20191120_RC00';
+
+      function sendFeedback() {
+        userfeedback.api.startFeedback({
+          'productId': '713680',
+          'bucket': 'patent-search-web',
+          'productVersion': version,
+        });
+      }
+
+      window.experiments = {};
+      window.experiments.patentCountries = "ae,ag,al,am,ao,ap,ar,at,au,aw,az,ba,bb,bd,be,bf,bg,bh,bj,bn,bo,br,bw,bx,by,bz,ca,cf,cg,ch,ci,cl,cm,cn,co,cr,cs,cu,cy,cz,dd,de,dj,dk,dm,do,dz,ea,ec,ee,eg,em,ep,es,fi,fr,ga,gb,gc,gd,ge,gh,gm,gn,gq,gr,gt,gw,hk,hn,hr,hu,ib,id,ie,il,in,ir,is,it,jo,jp,ke,kg,kh,km,kn,kp,kr,kw,kz,la,lc,li,lk,lr,ls,lt,lu,lv,ly,ma,mc,md,me,mg,mk,ml,mn,mo,mr,mt,mw,mx,my,mz,na,ne,ng,ni,nl,no,nz,oa,om,pa,pe,pg,ph,pl,pt,py,qa,ro,rs,ru,rw,sa,sc,sd,se,sg,si,sk,sl,sm,sn,st,su,sv,sy,sz,td,tg,th,tj,tm,tn,tr,tt,tw,tz,ua,ug,us,uy,uz,vc,ve,vn,wo,yu,za,zm,zw";
+      
+      
+      window.profilePicture = "";
+
+      window.Polymer = {
+        dom: 'shady',
+        lazyRegister: true,
+      };
+    </script>
+
+    <script src="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/webcomponentsjs/webcomponents-lite.min.js"></script>
+    
+    <link rel="import" href="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/search-app-vulcanized.html">
+    
+  </head>
+  <body unresolved>
+    
+    <script src="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/search-app-vulcanized.js"></script>
+    
+    <search-app>
+      
+      
+
+      <article class="result" itemscope itemtype="http://schema.org/ScholarlyArticle">
+  <h1 itemprop="pageTitle">US7180943B1 - Compression of a data stream by selection among a set of compression tools 
+        - Google Patents</h1>
+  <span itemprop="title">Compression of a data stream by selection among a set of compression tools 
+       </span>
+
+  <meta itemprop="type" content="patent">
+  <a href="https://patentimages.storage.googleapis.com/f9/6a/3b/fa98e9d3f3e18e/US7180943.pdf" itemprop="pdfLink">Download PDF</a>
+  <h2>Info</h2>
+
+  <dl>
+    <dt>Publication number</dt>
+    <dd itemprop="publicationNumber">US7180943B1</dd>
+    <meta itemprop="numberWithoutCodes" content="7180943">
+    <meta itemprop="kindCode" content="B1">
+    <meta itemprop="publicationDescription" content="Patent ( no pre-grant publication)">
+    
+    <span>US7180943B1</span>
+    
+    <span>US10/113,637</span>
+    
+    <span>US11363702A</span>
+    
+    <span>US7180943B1</span>
+    
+    <span>US 7180943 B1</span>
+    
+    <span>US7180943 B1</span>
+    
+    <span>US 7180943B1</span>
+    
+    <span>  </span>
+    
+    <span> </span>
+    
+    <span> </span>
+    
+    <span>US 11363702 A</span>
+    
+    <span>US11363702 A</span>
+    
+    <span>US 11363702A</span>
+    
+    <span>US 7180943 B1</span>
+    
+    <span>US7180943 B1</span>
+    
+    <span>US 7180943B1</span>
+    
+
+    <dt>Authority</dt>
+    <dd itemprop="countryCode">US</dd>
+    <dd itemprop="countryName">United States</dd>
+
+    <dt>Prior art keywords</dt>
+    
+    <dd itemprop="priorArtKeywords" repeat>data</dd>
+    <dd itemprop="priorArtKeywords" repeat>operator</dd>
+    <dd itemprop="priorArtKeywords" repeat>operators</dd>
+    <dd itemprop="priorArtKeywords" repeat>data segment</dd>
+    <dd itemprop="priorArtKeywords" repeat>segment</dd>
+
+    <dt>Prior art date</dt>
+    <dd><time itemprop="priorArtDate" datetime="2002-03-26">2002-03-26</time></dd>
+
+    <dt>Legal status (The legal status is an assumption and is not a legal conclusion. Google has not performed a legal analysis and makes no representation as to the accuracy of the status listed.)</dt>
+    <dd itemprop="legalStatusIfi" itemscope>
+      <span itemprop="status">Expired - Fee Related</span>, expires <time itemprop="expiration" datetime="2024-02-15">2024-02-15</time>
+    </dd>
+  </dl>
+
+  <dt>Application number</dt>
+  <dd itemprop="applicationNumber">US10/113,637</dd>
+
+  
+
+  
+
+  <dt>Inventor</dt>
+  <dd itemprop="inventor" repeat>Bertelrud Arlid</dd>
+  <dd itemprop="inventor" repeat>Franz Russell</dd>
+  <dt>Current Assignee (The listed assignees may be inaccurate. Google has not performed a legal analysis and makes no representation or warranty as to the accuracy of the list.)</dt>
+  <dd itemprop="assigneeCurrent" repeat>
+    National Aeronautics and Space Administration (NASA)
+  </dd>
+
+  <dt>Original Assignee</dt>
+  <dd itemprop="assigneeOriginal" repeat>National Aeronautics and Space Administration (NASA)</dd>
+
+  <dt>Priority date (The priority date is an assumption and is not a legal conclusion. Google has not performed a legal analysis and makes no representation as to the accuracy of the date listed.)</dt>
+  <dd><time itemprop="priorityDate" datetime="2002-03-26">2002-03-26</time></dd>
+
+  <dt>Filing date</dt>
+  <dd><time itemprop="filingDate" datetime="2002-03-26">2002-03-26</time></dd>
+
+  <dt>Publication date</dt>
+  <dd><time itemprop="publicationDate" datetime="2007-02-20">2007-02-20</time></dd>
+
+  
+
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2002-03-26">2002-03-26</time>
+    <span itemprop="title">Application filed by National Aeronautics and Space Administration (NASA)</span>
+    <span itemprop="type">filed</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    <span itemprop="assigneeSearch">National Aeronautics and Space Administration (NASA)</span>
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2002-03-26">2002-03-26</time>
+    <span itemprop="title">Priority to US10/113,637</span>
+    <span itemprop="type">priority</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    <span itemprop="documentId">patent/US7180943B1/en</span>
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2002-03-26">2002-03-26</time>
+    <span itemprop="title">Assigned to NATIONAL AERONAUTICS AND SPACE ADMINISTRATION, U.S. GOVERNMENT AS REPRESENTED BY THE ADMINISTRATOR OF</span>
+    <span itemprop="type">reassignment</span>
+    
+    
+    
+    
+    <span itemprop="assigneeSearch">NATIONAL AERONAUTICS AND SPACE ADMINISTRATION, U.S. GOVERNMENT AS REPRESENTED BY THE ADMINISTRATOR OF</span>
+    
+    
+    <span itemprop="description" repeat>ASSIGNMENT OF ASSIGNORS INTEREST (SEE DOCUMENT FOR DETAILS).</span>
+    
+    <span itemprop="description" repeat>Assignors: FRANZ, RUSSELL</span>
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2002-04-12">2002-04-12</time>
+    <span itemprop="title">Assigned to NATIONAL AERONAUTICS AND SPACE ADMINISTRATION, UNITED STATES OF AMERICA, THE, AS REPRESENTED BY THE ADMINISTRATOR</span>
+    <span itemprop="type">reassignment</span>
+    
+    
+    
+    
+    <span itemprop="assigneeSearch">NATIONAL AERONAUTICS AND SPACE ADMINISTRATION, UNITED STATES OF AMERICA, THE, AS REPRESENTED BY THE ADMINISTRATOR</span>
+    
+    
+    <span itemprop="description" repeat>ASSIGNMENT OF ASSIGNORS INTEREST (SEE DOCUMENT FOR DETAILS).</span>
+    
+    <span itemprop="description" repeat>Assignors: BERTELRUD, ARILD</span>
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2007-02-20">2007-02-20</time>
+    <span itemprop="title">Application granted</span>
+    <span itemprop="type">granted</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2007-02-20">2007-02-20</time>
+    <span itemprop="title">Publication of US7180943B1</span>
+    <span itemprop="type">publication</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    <span itemprop="documentId">patent/US7180943B1/en</span>
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2019-11-26">2019-11-26</time>
+    <span itemprop="title">Application status is Expired - Fee Related</span>
+    <span itemprop="type">legal-status</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2024-02-15">2024-02-15</time>
+    <span itemprop="title">Adjusted expiration</span>
+    <span itemprop="type">legal-status</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+
+  <h2>Links</h2>
+
+  <ul>
+    
+          <li itemprop="links" itemscope repeat>
+            <meta itemprop="id" content="usptoLink">
+            <a href="http://patft.uspto.gov/netacgi/nph-Parser?Sect1=PTO1&Sect2=HITOFF&p=1&u=/netahtml/PTO/srchnum.html&r=1&f=G&l=50&d=PALL&s1=7180943.PN." itemprop="url" target="_blank"><span itemprop="text">USPTO</span></a>
+          </li>
+        <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="usptoAssignmentLink">
+          <a href="https://assignment.uspto.gov/patent/index.html#/patent/search/resultFilter?searchInput=7180943" itemprop="url" target="_blank"><span itemprop="text">USPTO Assignment</span></a>
+        </li>
+
+    <li itemprop="links" itemscope repeat>
+        <meta itemprop="id" content="espacenetLink">
+        <a href="http://worldwide.espacenet.com/publicationDetails/biblio?CC=US&amp;NR=7180943B1&amp;KC=B1&amp;FT=D" itemprop="url" target="_blank"><span itemprop="text">Espacenet</span></a>
+      </li>
+      
+
+    
+
+    
+      <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="globalDossierLink">
+          <a href="http://globaldossier.uspto.gov/#/result/patent/US/7180943/1" itemprop="url" target="_blank"><span itemprop="text">Global Dossier</span></a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="stackexchangeLink">
+          <a href="https://patents.stackexchange.com/questions/tagged/US7180943" itemprop="url"><span itemprop="text">Discuss</span></a>
+        </li>
+      
+  </ul>
+
+  
+  <ul itemprop="concept" itemscope>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000002860</span>
+      <span itemprop="name">competitive</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>abstract</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">27</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000004891</span>
+      <span itemprop="name">communication</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>abstract</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">17</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001721</span>
+      <span itemprop="name">combination</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>abstract</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">9</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000007906</span>
+      <span itemprop="name">compression</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="sections" repeat>title</span>
+      
+      <span itemprop="count">45</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000000034</span>
+      <span itemprop="name">methods</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">36</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000015654</span>
+      <span itemprop="name">memory</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">18</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000000875</span>
+      <span itemprop="name">corresponding</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">7</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001131</span>
+      <span itemprop="name">transforming</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">6</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000007620</span>
+      <span itemprop="name">mathematical function</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">4</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000009740</span>
+      <span itemprop="name">moulding (composite fabrication)</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="count">5</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000000284</span>
+      <span itemprop="name">extracts</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">9</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000000203</span>
+      <span itemprop="name">mixtures</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">9</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000004422</span>
+      <span itemprop="name">calculation algorithm</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">6</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000003044</span>
+      <span itemprop="name">adaptive</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">3</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000002068</span>
+      <span itemprop="name">genetic</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001976</span>
+      <span itemprop="name">improved</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000005259</span>
+      <span itemprop="name">measurements</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000002004</span>
+      <span itemprop="name">ayurvedic oil</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000000694</span>
+      <span itemprop="name">effects</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000002708</span>
+      <span itemprop="name">enhancing</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000012010</span>
+      <span itemprop="name">growth</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001965</span>
+      <span itemprop="name">increased</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000010410</span>
+      <span itemprop="name">layers</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000004301</span>
+      <span itemprop="name">light adaptation</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000006011</span>
+      <span itemprop="name">modification</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000004048</span>
+      <span itemprop="name">modification</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000003252</span>
+      <span itemprop="name">repetitive</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000003860</span>
+      <span itemprop="name">storage</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+  </ul>
+  
+
+  <section>
+    <h2>Images</h2>
+    <ul>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/thumbnails/US7180943B1/US07180943-20070220-D00000.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/US7180943B1/US07180943-20070220-D00000.png">
+        <ul>
+          
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/thumbnails/US7180943B1/US07180943-20070220-D00001.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/US7180943B1/US07180943-20070220-D00001.png">
+        <ul>
+          
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/thumbnails/US7180943B1/US07180943-20070220-D00002.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/US7180943B1/US07180943-20070220-D00002.png">
+        <ul>
+          
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/thumbnails/US7180943B1/US07180943-20070220-D00003.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/US7180943B1/US07180943-20070220-D00003.png">
+        <ul>
+          
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/thumbnails/US7180943B1/US07180943-20070220-D00004.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/US7180943B1/US07180943-20070220-D00004.png">
+        <ul>
+          
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/thumbnails/US7180943B1/US07180943-20070220-D00005.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/US7180943B1/US07180943-20070220-D00005.png">
+        <ul>
+          
+        </ul>
+      </li>
+      </ul>
+  </section>
+
+  <section>
+    <h2>Classifications</h2>
+    
+    <ul>
+      <li>
+        <ul itemprop="cpcs" itemscope repeat>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">H</span>&mdash;<span itemprop="Description">ELECTRICITY</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">H03</span>&mdash;<span itemprop="Description">BASIC ELECTRONIC CIRCUITRY</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">H03M</span>&mdash;<span itemprop="Description">CODING; DECODING; CODE CONVERSION IN GENERAL</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">H03M7/00</span>&mdash;<span itemprop="Description">Conversion of a code where information is represented by a given sequence or number of digits to a code where the same, similar or subset of information is represented by a different sequence or number of digits</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">H03M7/30</span>&mdash;<span itemprop="Description">Compression; Expansion; Suppression of unnecessary data, e.g. redundancy reduction</span>
+            <meta itemprop="Leaf" content="true">
+            
+            <meta itemprop="FirstCode" content="true">
+          </li>
+          </ul>
+      </li>
+      <li>
+        <ul itemprop="cpcs" itemscope repeat>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">H</span>&mdash;<span itemprop="Description">ELECTRICITY</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">H04</span>&mdash;<span itemprop="Description">ELECTRIC COMMUNICATION TECHNIQUE</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">H04N</span>&mdash;<span itemprop="Description">PICTORIAL COMMUNICATION, e.g. TELEVISION</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">H04N19/00</span>&mdash;<span itemprop="Description">Methods or arrangements for coding, decoding, compressing or decompressing digital video signals</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">H04N19/10</span>&mdash;<span itemprop="Description">Methods or arrangements for coding, decoding, compressing or decompressing digital video signals using adaptive coding</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">H04N19/102</span>&mdash;<span itemprop="Description">Methods or arrangements for coding, decoding, compressing or decompressing digital video signals using adaptive coding characterised by the element, parameter or selection affected or controlled by the adaptive coding</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">H04N19/12</span>&mdash;<span itemprop="Description">Selection from among a plurality of transforms or standards, e.g. selection between discrete cosine transform [DCT] and sub-band transform or selection between H.263 and H.264</span>
+            <meta itemprop="Leaf" content="true">
+            
+            
+          </li>
+          </ul>
+      </li>
+      <li>
+        <ul itemprop="cpcs" itemscope repeat>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">H</span>&mdash;<span itemprop="Description">ELECTRICITY</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">H04</span>&mdash;<span itemprop="Description">ELECTRIC COMMUNICATION TECHNIQUE</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">H04N</span>&mdash;<span itemprop="Description">PICTORIAL COMMUNICATION, e.g. TELEVISION</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">H04N19/00</span>&mdash;<span itemprop="Description">Methods or arrangements for coding, decoding, compressing or decompressing digital video signals</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">H04N19/10</span>&mdash;<span itemprop="Description">Methods or arrangements for coding, decoding, compressing or decompressing digital video signals using adaptive coding</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">H04N19/134</span>&mdash;<span itemprop="Description">Methods or arrangements for coding, decoding, compressing or decompressing digital video signals using adaptive coding characterised by the element, parameter or criterion affecting or controlling the adaptive coding</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">H04N19/146</span>&mdash;<span itemprop="Description">Data rate or code amount at the encoder output</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">H04N19/152</span>&mdash;<span itemprop="Description">Data rate or code amount at the encoder output by measuring the fullness of the transmission buffer</span>
+            <meta itemprop="Leaf" content="true">
+            
+            
+          </li>
+          </ul>
+      </li>
+      <li>
+        <ul itemprop="cpcs" itemscope repeat>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">H</span>&mdash;<span itemprop="Description">ELECTRICITY</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">H04</span>&mdash;<span itemprop="Description">ELECTRIC COMMUNICATION TECHNIQUE</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">H04N</span>&mdash;<span itemprop="Description">PICTORIAL COMMUNICATION, e.g. TELEVISION</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">H04N19/00</span>&mdash;<span itemprop="Description">Methods or arrangements for coding, decoding, compressing or decompressing digital video signals</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">H04N19/10</span>&mdash;<span itemprop="Description">Methods or arrangements for coding, decoding, compressing or decompressing digital video signals using adaptive coding</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">H04N19/169</span>&mdash;<span itemprop="Description">Methods or arrangements for coding, decoding, compressing or decompressing digital video signals using adaptive coding characterised by the coding unit, i.e. the structural portion or semantic portion of the video signal being the object or the subject of the adaptive coding</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">H04N19/17</span>&mdash;<span itemprop="Description">Methods or arrangements for coding, decoding, compressing or decompressing digital video signals using adaptive coding characterised by the coding unit, i.e. the structural portion or semantic portion of the video signal being the object or the subject of the adaptive coding the unit being an image region, e.g. an object</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">H04N19/172</span>&mdash;<span itemprop="Description">Methods or arrangements for coding, decoding, compressing or decompressing digital video signals using adaptive coding characterised by the coding unit, i.e. the structural portion or semantic portion of the video signal being the object or the subject of the adaptive coding the unit being an image region, e.g. an object the region being a picture, frame or field</span>
+            <meta itemprop="Leaf" content="true">
+            
+            
+          </li>
+          </ul>
+      </li>
+      <li>
+        <ul itemprop="cpcs" itemscope repeat>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">H</span>&mdash;<span itemprop="Description">ELECTRICITY</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">H04</span>&mdash;<span itemprop="Description">ELECTRIC COMMUNICATION TECHNIQUE</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">H04N</span>&mdash;<span itemprop="Description">PICTORIAL COMMUNICATION, e.g. TELEVISION</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">H04N19/00</span>&mdash;<span itemprop="Description">Methods or arrangements for coding, decoding, compressing or decompressing digital video signals</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">H04N19/30</span>&mdash;<span itemprop="Description">Methods or arrangements for coding, decoding, compressing or decompressing digital video signals using hierarchical techniques, e.g. scalability</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">H04N19/37</span>&mdash;<span itemprop="Description">Methods or arrangements for coding, decoding, compressing or decompressing digital video signals using hierarchical techniques, e.g. scalability with arrangements for assigning different transmission priorities to video input data or to video coded data</span>
+            <meta itemprop="Leaf" content="true">
+            
+            
+          </li>
+          </ul>
+      </li>
+      </ul>
+  </section>
+
+  <section itemprop="abstract" itemscope>
+    <h2>Abstract</h2>
+    
+    <div itemprop="content" html><abstract mxw-id="PA51112090" lang="EN" load-source="patent-office">
+    <div num="p-0001" class="abstract">A stream of raw data is compressed prior to transmission in a communication channel by a system which includes modules for choosing a current segment of the raw data stream for processing and defining a set of operators for representing data segments by a mathematical operation and parameters thereof. The system performs a competitive evaluation of different tools comprising different combinations of one or more of the operators and the parameters thereof with respect to the current data segment in order to determine relative abilities among the different tools to reduce the number of bits required to represent the current data segment. The system then selects a tool and a set of parameters thereof found in the competitive evaluation to have a superior ability relative to others of the different tools to reduce a number of bits required to represent the current data segment.</div>
+  </abstract>
+  </div>
+  </section>
+
+  <section itemprop="description" itemscope>
+    <h2>Description</h2>
+    
+    <div itemprop="content" html><div mxw-id="PDES16187549" lang="EN" load-source="patent-office" class="description">
+
+  <heading>BACKGROUND OF THE INVENTION</heading>
+  <p num="p-0002">Transmission of data through a communication channel is expedited by compressing the data prior to transmission. Such compression reduces the number of bits required to transmit the data (thereby enhancing the speed of transmission), while the data is recovered or decompressed at the receiving end of the channel with the original number of bits. The efficacy of the compression process is the ratio of the number of bits of the raw data divided by the number of bits of the compressed data, sometimes referred to as the compression ratio.</p>
+  <p num="p-0003">In most applications, the data is of a single known fixed type, such as video images, scientific data, text, curves, etc. For example, in a communication channel transmitting video data, it is conventional to employ a compression process specifically designed for video images. It is also conventional to adapt or change the parameters of that compression process to optimize it as the image content of the data stream changes over time. Specifically, a compression process for video data can include run length encoding, discrete cosine transforming and quantization. In such a case, adapting the compression parameters can involve changing the quantization parameters for different video frames, depending upon their image content. Such adaptation can be carried out in other compression processes employed in compressing data other than video data.</p>
+  <p num="p-0004">Different types of information require different types of compression algorithms. For example, a compression algorithm that attains the maximum compression ratio of data representing scientific measurements will not perform as well on a different type of data (e.g., data representing an image). In fact, an ill-suited compression algorithm can be worse than no compression. Therefore, compression can only be attained and optimized using a compression algorithm dedicated to the type of information being compressed.</p>
+  <p num="p-0005">A typical characteristic of such compression processes is that, while they may be adaptable and responsive to changes in the data, they do not change in type. That is, for example, a video compression process remains a video compression process although it may be adaptive to changes in the image content. Thus, the data processed in such communication channels must be of a particular type (e.g., video data, text, curves, etc.), or else the change in data type must be pre-arranged or known a priori. For example, communication over the internet may involve the transmission of compressed data files containing a particular type of information. The data file itself indicates the decompression process required in opening (“unzipping”) the file or displaying its contents (e.g., video or audio or text), and therefore this information can be discerned after reception at the receiving node in the communication channel. Moreover, in the case of the internet for example, the data compression and other features of the physical layer of the modem remain unchanged and are not adaptive nor responsive to changes in the data or information content in the communication channel. Therefore, in such a communication channel, speed and/or compression is not optimized.</p>
+  <p num="p-0006">A problem therefore arises in the case of a data channel in which speed is so critical that the compression process consistently must be effective over a wide range of different types of data whose optimum compression algorithms are entirely different are transmitted at different times that vary randomly or are not previously known or indicated. For example, one frame of the data stream may contain text, the next two may contain graphs or statistical data and a further set of frames may contain images, and this pattern may not repeat and may be unknown until the time the data is presented for immediate compression and transmission. Since the effective compression algorithms for the different data types in this example are entirely different, no single compression process or algorithm can suffice. The prior art is therefore inadequate to provide effective compression of each and every frame of such a data stream. This is because typical prior art compression schemes, even those described as being “adaptive”, assume a single type of data being continuously transmitted and therefore require a single type of compression algorithm be used continuously.</p>
+  <p num="p-0007">This problem arises in real practical situations. For example, missile telemetry involves the high speed transmission of measurement data, statistical data, text and other different types of information. In order to fit more data and information into the telemetry channel, compression of the data must be improved, so that effective compression is achieved for each of the different types of data that are transmitted. The problem is that some of the low frequency information (e.g., scientific measurements) must be compressed using a lossless process, other higher frequency information (performance curves or graphs) can be compressed by curve fitting or statistical characterization and still other information such as images can be compressed using very lossy processes such as those referred to above. Providing effective or nearly optimum compression for the entire data stream is not possible using conventional approaches.</p>
+  <heading>SUMMARY OF THE DISCLOSURE</heading>
+  <p num="p-0008">A stream of raw data is compressed prior to transmission in a communication channel by a system which includes modules for choosing a current segment of the raw data stream for processing and defining a set of operators for representing data segments by a mathematical operation and parameters thereof. The system performs a competitive evaluation of different tools comprising different combinations of one or more of the operators and the parameters thereof with respect to the current data segment in order to determine relative abilities among the different tools to reduce the number of bits required to represent the current data segment. The system then selects a tool and a set of parameters thereof found in the competitive evaluation to have a superior ability relative to others of the different tools to reduce a number of bits required to represent the current data segment. This is done for each successive segment in the raw data stream, so as to form a compressed data stream including, for each one of the successive data segments, a reconstruction guide comprising a description of the operators and their parameters constituting the tool selected for the one data segment.</p>
+  <p num="p-0009">Furthermore after selecting a tool, the system determines a remaining data string constituting a difference between the current raw data segment and a data segment reconstructed using the selected tool including the operators and parameters thereof. The system then performs a bit cropping process on the remaining data string to produce a cropped remaining data string associated with the selected tool for the current data segment, and a cropping descriptor of the parameters employed in the bit cropping process for the remaining data string. The compressed data stream includes the cropped remaining data string and the cropping descriptor with the reconstruction guide.</p>
+  <p num="p-0010">The set of operators includes operators which represent amplitudes of successive samples of a data segment as a geometrical shape. The set of operators also includes operators which represent amplitudes of successive samples of a data segment as a mathematical function. The set of operators also includes an operator for removing irregularities in the current data segment.</p>
+
+
+  <description-of-drawings>
+    <heading>BRIEF DESCRIPTION OF THE DRAWINGS</heading>
+    <p num="p-0011"> <figref idrefs="DRAWINGS">FIG. 1</figref> is a schematic diagram of a system for competitive evaluation of compression operators and compression tool building in which a tool is selected to compress a current block of raw data.</p>
+    <p num="p-0012"> <figref idrefs="DRAWINGS">FIG. 2</figref> is a schematic diagram of a memory in the system of <figref idrefs="DRAWINGS">FIG. 1</figref> storing a set of selectable compression operators and for storing a set of compression tools built from combinations of the operators.</p>
+    <p num="p-0013"> <figref idrefs="DRAWINGS">FIG. 3</figref> is a graph of a set of successive samples of a segment of a raw data stream in accordance with one example.</p>
+    <p num="p-0014"> <figref idrefs="DRAWINGS">FIG. 4</figref> is a graph of a set of successive samples of a segment of a raw data stream in accordance with another example.</p>
+    <p num="p-0015"> <figref idrefs="DRAWINGS">FIG. 5A</figref> is a graph of a set of successive samples of a segment of a raw data stream in accordance with a further example.</p>
+    <p num="p-0016"> <figref idrefs="DRAWINGS">FIG. 5B</figref> is a graph representing a remaining data stream corresponding to the data segment of <figref idrefs="DRAWINGS">FIG. 5A</figref>.</p>
+    <p num="p-0017"> <figref idrefs="DRAWINGS">FIG. 6</figref> is a diagram of a compressed data record in accordance with the invention.</p>
+    <p num="p-0018"> <figref idrefs="DRAWINGS">FIG. 7</figref> is a schematic diagram of a system for compressing a block of raw data using the tool selected by the system of <figref idrefs="DRAWINGS">FIG. 1</figref>.</p>
+    <p num="p-0019"> <figref idrefs="DRAWINGS">FIG. 8</figref> is a schematic diagram of a system for decompressing the data compressed by the system of <figref idrefs="DRAWINGS">FIG. 3</figref>.</p>
+    <p num="p-0020"> <figref idrefs="DRAWINGS">FIG. 9</figref> is a block diagram illustrating a communication system including the compression system of <figref idrefs="DRAWINGS">FIG. 7</figref> and the decompression system of <figref idrefs="DRAWINGS">FIG. 8</figref>.</p>
+  </description-of-drawings>
+
+
+  <heading>DETAILED DESCRIPTION</heading>
+  <p num="p-0021">Referring to <figref idrefs="DRAWINGS">FIG. 1</figref>, a serial stream of raw data <b>100</b> is to be compressed prior to transmission on a communication link. The data stream <b>100</b> consists of high and low frequency data of various kinds in various blocks <b>105</b> <i>a</i>, <b>105</b> <i>b</i>, <b>105</b> <i>c</i>, etc., of the data stream <b>100</b>. In order to compress a current block <b>105</b> of the data stream <b>100</b> prior to transmission, the data in the block <b>105</b> is cropped using conventional data cropping techniques including variable bit length encoding and zero packing or zero run length encoding. However, the results of such data cropping are greatly improved by first processing the data block using a selected tool built from a set of operators described below that is optimized for the current data block. The competitive evaluation and selection of the tool is now described.</p>
+  <p num="p-0022">A set of operators <b>110</b> capable of transforming the data in various ways is stored in a memory <b>115</b>. The operators <b>110</b> form a nearly complete set of operators whose various permutations and combinations form different tools capable of representing different types of data in brief representations, as will be discussed later in this specification. Compression is achieved in this way because, for example, in some cases an entire data segment consisting of thousands of digital samples can be represented by a single operator and the values of its parameters at a cost of a relatively small number of bits of data.</p>
+  <p num="p-0023">For the current data block <b>105</b>, the set of operators may be competitively evaluated. Or, a set of likely tools <b>120</b> consisting of selected combinations of the operators <b>110</b> are built and stored in a tool memory <b>125</b>. The tools <b>120</b> may be constructed by user selection or by a competitive evaluation process or genetic algorithm which will now be described.</p>
+  <p num="h-0005">Genetic Tool Building Process</p>
+  <p num="p-0024">Each tool <b>120</b> in the tool memory <b>125</b> is a particular combination of the operators <b>110</b>. The tools <b>120</b> are differentiated from one another either because they consist of different operators <b>110</b> or different combinations of plural operators, or the same combination but executed in a particular order or the same operator or operators but with different parameters (such as data segment length). As part of the competitive evaluation process, different segment lengths can be attempted in an effort to improve the tool. For example, a segment consisting of the entire current block of raw data can be selected if the entire current block consists of something, such as a simple shape, that is easily represented by a single tool or even a single operator. As an operator or tool is chosen, its parameters (including the segment length) are varied on a trial basis in order to attempt performance improvement, as part of the competitive evaluation process. Conversely, for a given segment length, different operators are tried, and this latter example will now be explored.</p>
+  <p num="p-0025">In the competitive evaluation process, a particular operator or tool or set of parameters is evaluated against other candidates on the basis of the number of bits the operator or tool and the corresponding parameters requires to represent the raw data. The smaller the number of bits with which the raw data segment can be represented, the higher the candidate operator or tool is evaluated. Ideally, the tool and/or parameters values resulting in the least number of bits to represent the current data segment is ultimately selected over all other candidates.</p>
+  <p num="p-0026">If a given segment length is selected for trial evaluation, the process can proceed as follows. First, for a current segment of the data block to be compressed, a sub-set of the operators <b>110</b> constituting the likeliest candidates for inclusion in various tools is identified by competitive evaluation by an operator execution module <b>130</b> and an operator evaluation module <b>135</b>. For each candidate operator <b>105</b>, the operator execution module <b>130</b> carries out the candidate operator functions on the current data segment and furnishes the results to the evaluation module <b>135</b>. The evaluation module <b>135</b> determines the number of bits required to represent the current data segment. The current data segment is a succession of digital samples from the raw data stream, the length of the current data segment having been chosen beforehand on a trial basis. An operator selection module <b>140</b> compares this number with that obtained with other operators previously evaluated and ranks the operators accordingly. After a sufficient number (or all) of the operators have been evaluated, the selection module <b>140</b> marks a group of the highest ranking operators for possible inclusion in various tools to be constructed.</p>
+  <p num="p-0027">A set of candidate tools <b>120</b> is formed by defining various combinations of the operators marked by the selection module <b>140</b> and storing them in the tool memory <b>125</b>. This task may be carried out by the user or by a tool building module <b>150</b>. For each candidate tool <b>120</b>, an tool execution module <b>155</b> carries out the candidate tool functions on the current data segment and furnishes the results to a tool evaluation module <b>160</b>. The evaluation module <b>160</b> determines the number of bits required to represent a current group of data segments using the particular tool <b>120</b>. A tool selection module <b>165</b> compares this number with that obtained with other tools previously evaluated and ranks the tools <b>120</b> accordingly. After a sufficient number (or all) of the tools <b>120</b> have been evaluated, the tool selection module <b>165</b> selects the highest ranking tool <b>120</b> from the memory <b>125</b> to use in compressing the current data segment.</p>
+  <p num="p-0028">Thereafter, the above is repeated for the next data segment of the raw data stream. Or, in some instances, the parameter specifying the length of the current data segment may be changed (to change the definition of the current data segment) and the entire procedure is carried out again on the new version of the current data segment. In this way, the system can constantly determine on a trial basis the best definition of data segment length, so that this definition can dynamically change as the data characteristics change along the raw data stream.</p>
+  <p num="h-0006">Operators and Tools</p>
+  <p num="p-0029"> <figref idrefs="DRAWINGS">FIG. 2</figref> illustrates an architecture of the memory <b>115</b> for storing the various operators <b>110</b>. The basic operators <b>110</b> are stored in a first portion <b>210</b> of the memory <b>115</b>. Each operator operates on a sequence of f successive digital samples in the current data block, where f is an integer and is the number of digital samples in the sequence. For each operator, the number f is a parameter which can be varied during the competitive selection process to improve performance, as mentioned hereinabove. Other parameters of the various operators will be discussed below as well. The operators <b>110</b> stored in the memory portion <b>210</b> form a fairly complete set for representing a broad range of different types of data with different frequency content. These operators are now described and constitute conventional mathematical operations that are readily implemented the skilled worker from these descriptions:</p>
+  <p num="p-0030">The DCRAMP operator defines a ramp function starting at the beginning of the specified sequence and terminating at the end of the sequence, two parameters of this operator being the slope and intercept of the ramp function.</p>
+  <p num="p-0031">The BOX operator shifts the amplitude by a specified amount over the entire sequence.</p>
+  <p num="p-0032">The CURVE operator fits a curve to the data segment. A necessary parameter of this operator is a set of criteria defining the curve shape.</p>
+  <p num="p-0033">The DIFFERENCE operator replaces the amplitude values of the segment with amplitude differences between pairs of successive samples.</p>
+  <p num="p-0034">The RAMPUP operator, defines a ramp (like the DCRAMP operator), having a positive slope.</p>
+  <p num="p-0035">The RAMPDOWN operator defines a ramp having a negative slope.</p>
+  <p num="p-0036">The GAUSSIAN operator fits a gaussian function to the specified data segment. The necessary parameters of this operator are the well-known mathematical parameters of the Gaussian function.</p>
+  <p num="p-0037">The HUFFMAN operator reduces the data segment using conventional Huffman encoding.</p>
+  <p num="p-0038">The INCREMENT operator represents the current sample by adding a specified incremental amount to the amplitude of the previous sample in the data segment.</p>
+  <p num="p-0039">The NIBBLE operator uses either subtraction or division to smooth out (remove) spikes in the data segment.</p>
+  <p num="p-0040">The BANK operator reduces the data segment by bank-wise subtraction of the data segment.</p>
+  <p num="p-0041">The LEVELS operator operates in the same manner as the increment operator, but is shifted to zero amplitude.</p>
+  <p num="p-0042">The MATH operator invokes any one of a set of MATH operators stored in a second portion <b>220</b> of the memory <b>115</b>. The math operators in the second memory portion <b>220</b> include:</p>
+  <p num="p-0043">EXP GROWTH, an operator which represents the data segment as an exponentially increasing function;</p>
+  <p num="p-0044">EXP DAMPING, an operator which represents the data segment as an exponentially decaying function;</p>
+  <p num="p-0045">GAUSSIAN, which is the same as the GAUSSIAN operator listed above;</p>
+  <p num="p-0046">PARABOLA, an operator which represents the data segment as a parabolic function;</p>
+  <p num="p-0047">POLYNOMIAL, an operator which represents the data segment as a polynomial whose parameters are the coefficients of each power of the independent variable;</p>
+  <p num="p-0048">SINUS, an operator which represents the data as a sine function whose parameters are the frequency, phase and amplitude of the sine function;</p>
+  <p num="p-0049">TANH, an operator which represents the data as hyperbolic tangent function.</p>
+  <p num="p-0050">Continuing the description of the operators stored in the first memory portion <b>210</b>, the NOISE operator shifts the amplitude of the entire data segment downwardly so that the noise level is at zero amplitude.</p>
+  <p num="p-0051">The PATTERN operator represents the current data segment as one of a repetitive pattern from previous data segments.</p>
+  <p num="p-0052">The PEAK operator identifies and compensates for peak amplitudes;</p>
+  <p num="p-0053">The POLYNOMIAL operator is identical to the POLYNOMIAL operator referred to above with reference to the second memory portion <b>220</b>.</p>
+  <p num="p-0054">The SPIKE operator identifies and removes spikes in the data segment.</p>
+  <p num="p-0055">The SEGMENTS operator represents the current data segment as a succession of average amplitude values of a cession sub-segments into which the current data segment is divided.</p>
+  <p num="p-0056">The TETRIS operator is similar to the BOX operator discussed above, but can begin at any point within the current data segment.</p>
+  <p num="p-0057">The TRIANGLE operator is a combination of the RAMPUP and RAMPDOWN operators.</p>
+  <p num="p-0058">The WAVELET operator represents the current data segment as a wavelet shape.</p>
+  <p num="p-0059">The ZERO operator packs a succession of zeroes in the conventional manner.</p>
+  <p num="p-0060">In order to illustrate a simple instance of how such operators can be employed, consider the raw data segment of <figref idrefs="DRAWINGS">FIG. 3</figref> in which the successive data samples of the current segment decrease in linear fashion. Competitive selection among the foregoing operators will result in the selection of the RAMPDOWN operator to represent the current data segment of <figref idrefs="DRAWINGS">FIG. 3</figref>, at least for the portion of the data segment lying between time zero and time A. As for the portion lying between time A and time B, all of the amplitudes are zero, and therefore competitive selection will result in this latter portion being represented by the ZERO operator. Since the competitive evaluation process will try various segment lengths for the various operators, it will discover that the best segment for the RAMPDOWN operator is the sub-segment from time <b>0</b> to time A, while the best segment for the ZERO operator is the sub-segment from time A to time B in <figref idrefs="DRAWINGS">FIG. 3</figref>.</p>
+  <p num="p-0061">As another example, the current data segment may correspond to the Gaussian-like curve of <figref idrefs="DRAWINGS">FIG. 4</figref>, that includes a high narrow spike and a tail extending from time A to time B of mainly zero amplitude samples. The competitive selection process would find that, in trying different data segment lengths as part of its effort in trying different parameter values, a better performance is achieved by changing the data segment length into two segments, namely a segment from time <b>0</b> to time A and a segment from time A to time B. The best operator for the second segment (from A to B) would be the ZERO operator. For the first segment (from <b>0</b> to A), the competitive evaluation process would find that elimination of the spike by the SPIKE operator would permit the remaining smoothed curve to be represented either by the GAUSSIAN operator or by the CURVE operator (invoking conventional curve fitting techniques).</p>
+  <p num="p-0062">The example of <figref idrefs="DRAWINGS">FIGS. 5A and 5B</figref> illustrates the concept of a remaining data segment or remaining string. If the current raw data segment corresponds to the sloping line of <figref idrefs="DRAWINGS">FIG. 5A</figref> that has a slight dimple, the data segment can be almost perfectly represented by the RAMPDOWN operator, resulting in a small difference between the raw data segment and an Auncompressed@ version thereof reconstructed using ramp function of the RAMPDOWN operator, this small difference being illustrated in <figref idrefs="DRAWINGS">FIG. 5B</figref>. Therefore, unless a further operator is invoked by the competitive selection process, there is a remaining segment that is the residue of the compression by the rampdown operator, and this residue or remaining segment corresponds to the curve of <figref idrefs="DRAWINGS">FIG. 5B</figref>. As will be described below, the remaining data string is cropped and then transmitted in the compressed data stream along with the tool and parameter descriptions.</p>
+  <p num="p-0063">In many instances, very simple operators can be used with great effect to reduce the data. For example, where a continuum of data samples of zero amplitude occurs, the ZERO operator can be exploited to pack the zero samples using conventional techniques. Such an operator may be the only operator employed a majority of the time, depending upon the characteristics of the data. This operator is employed in a data cropping module to be described below.</p>
+  <p num="p-0064">As mentioned hereinabove, each operator has certain parameters that must be specified before the operator can be executed. For example, the number f of successive samples constituting the data sequence on which the operator is to operate is one such parameter. Another example of a parameter is the amplitude representing a geometric point of an operator, such as the starting and ending amplitudes of the DCRAMP operator (for example). The data sequence encompassed by such an operator is replaced in the compressed data stream by the name of the operator followed by the names and values of the various parameters associated with that operator.</p>
+  <p num="p-0065">Thus, for each tool consisting of multiple operators used in compressing the raw data, the raw data must be replaced in a compressed data stream by a record consisting of the names of the operators comprising the tool and the parameters required to execute those operators on the segment of raw data. The operator names and the associated parameter values constitute a so-called reconstruction “blue-print” for reconstructing an approximation of the data samples represented by the tool or operator. In addition, the record must include a remaining data string constituting a residual difference between the reconstructed approximation of the data samples and the raw data samples. Compression is achieved as long as the number of bits required to represent the reconstruction blue-print and the remaining data string is less than the number of bits constituting the corresponding raw data samples.</p>
+  <p num="p-0066">The structure of one such record is illustrated in <figref idrefs="DRAWINGS">FIG. 6</figref>, and includes a frame <b>610</b> containing data specifying the word or bit length of the record and the type of data. Another frame <b>620</b> contains data specifying the dimensions of the raw data sequence that has been compressed, such as the bit length of the sequence and the amplitude range. A further frame <b>630</b> contains the description of the operators and their parameters that comprise the tool used to compress the data sequence. A next frame <b>640</b> contains the definitions of the cropping operations used to crop the remaining bit sequence. A last frame <b>650</b> contains the remaining bit sequence of the data. How this remaining bit sequence of the last frame is formed will be described below with reference to <figref idrefs="DRAWINGS">FIG. 7</figref>.</p>
+  <p num="p-0067">A compression system for carrying out the foregoing operation is illustrated in <figref idrefs="DRAWINGS">FIG. 7</figref>. A selected tool <b>305</b> is received from the tool building system of <figref idrefs="DRAWINGS">FIG. 1</figref>, and consists of one or more of the operators in the operator memory <b>115</b> of <figref idrefs="DRAWINGS">FIG. 2</figref> along with a description of their parameter values. The current segment of raw data is converted by the selected tool <b>305</b> to a reconstruction blue-print. A reconstruction module <b>310</b> produces a reconstructed approximation of the data segment. A subtractor <b>315</b> forms the residual difference between the reconstructed approximation and the raw data segment itself, this residual difference being the remaining data string that must accompany the reconstruction blue print. A data cropping module <b>320</b> performs data cropping on the remaining data string and the result is the compressed data string. The parameters of the data cropping are transmitted along with the remaining compressed data string (as part of the record of <figref idrefs="DRAWINGS">FIG. 6</figref>). The data cropping parameters are used after the compressed data is received and serve as a necessary guide for de-cropping of the remaining data string (using conventional techniques).</p>
+  <p num="p-0068">A system for decompressing the data compressed by the system of <figref idrefs="DRAWINGS">FIG. 7</figref> is illustrated in <figref idrefs="DRAWINGS">FIG. 8</figref>. A current segment of the compressed data is processed by a string extract module <b>510</b>, a cropping extract module <b>520</b> and a reconstruction blueprint extract module <b>530</b>. The string extract module <b>510</b> extracts the compressed or cropped remaining data string from the compressed data segment. The cropping extract module <b>520</b> extracts the cropping parameters employed by the cropping module <b>330</b> of <figref idrefs="DRAWINGS">FIG. 3</figref> in cropping the remaining data string of the current data segment. The reconstruction blueprint extract module extracts the reconstruction blueprint from the current segment of compressed data. A de-cropping module <b>540</b> restores the compressed remaining data string to its previous uncropped (uncompressed) form using the parameters extracted by the module <b>520</b>. These parameters include, for example, the number of bits per sample and/or the number of zero amplitude samples in a run of zeroes, for example. A reconstruction processor <b>550</b> reconstructs an approximation of the current data segment using the reconstruction blueprint extracted by the module <b>530</b>. (Again, the reconstruction blueprint is the description of the tool/operators and the parameter values thereof.) The reconstructed approximation of the current data segment is provided with a slight correction in an adder <b>560</b> by adding to it the remaining data string reconstructed by the de-cropping module <b>540</b>. The result is a reconstructed or decompressed version of the original raw data segment.</p>
+  <p num="p-0069"> <figref idrefs="DRAWINGS">FIG. 9</figref> illustrates a complete communication system including a compression system <b>710</b> corresponding to the compression system of <figref idrefs="DRAWINGS">FIG. 7</figref>, a digital communication channel <b>720</b> and a decompression system <b>730</b> corresponding to the decompression system of <figref idrefs="DRAWINGS">FIG. 8</figref>.</p>
+  <p num="p-0070">In conclusion, the invention provides a versatile compression/decompression system for data communication that is applicable over a wide range of different data types. While many of the examples discussed above are related to large data ensembles that can be represented by curves or simple functions characteristic of scientific measurement data or instrumentation, the invention is also applicable to other types of data. For example, even image data and video data can be handled and likely would result in the competitive evaluation process choosing the DIFFERENCE operator, among others.</p>
+  <p num="p-0071">It is understood that the foregoing invention can be carried out by programming a computer to perform many of the functions described herein. In doing so, the skilled worker will employ efficient architectures. For example, the names of the tools can be dynamically allocated so that the field length of each name varies with the number of tools to be named, in order to save processing time. Furthermore, storage of the tools in memory may use relative positioning, so that unused tools do not translate into unused memory spaces, and the memory spaces used for the tools are contiguous, in order to save processing time.</p>
+  <p num="p-0072">While the invention has been described in detail by specific reference to preferred embodiments, it is understood that variations and modifications thereof may be made without departing from the true spirit and scope of the invention.</p>
+
+</div>
+  </div>
+  </section>
+
+  <section itemprop="claims" itemscope>
+    <h2>Claims (<span itemprop="count">20</span>)</h2>
+    
+    <div itemprop="content" html><div mxw-id="PCLM9165005" lang="EN" load-source="patent-office" class="claims">
+  <div class="claim"> <div id="CLM-00001" num="00001" class="claim">
+    <div class="claim-text">1. A method of preparing a stream of raw data for transmission in a communication channel, comprising:
+<div class="claim-text">choosing a current segment of the raw data stream for processing;</div>
+<div class="claim-text">defining a set of operators for representing data segments by a mathematical operation and parameters thereof;</div>
+<div class="claim-text">performing a competitive evaluation of candidate tools, said candidate tools comprising variable combinations of one or more of said operators and the parameters thereof, on said current data segment in order to determine relative abilities among the candidate tools to compress the current data segment;</div>
+<div class="claim-text">selecting a best candidate tool and a set of parameters thereof found in said competitive evaluation having a superior ability relative to other candidate tools to compress the current data segment;</div>
+<div class="claim-text">compressing the current data segment using the best candidate tool to obtain a compressed data segment;</div>
+<div class="claim-text">carrying out the choosing, defining, performing, selecting and compressing steps for subsequent data segments of said data stream; and</div>
+<div class="claim-text">forming a compressed data stream representing said raw data stream, said compressed data stream comprising the compressed data segments, for each one of the successive data segments, and a reconstruction guide comprising a description the best candidate tools and their parameters for each data segment.</div>
+</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00002" num="00002" class="claim">
+    <div class="claim-text">2. The method of <claim-ref idref="CLM-00001">claim 1</claim-ref> further comprising:
+<div class="claim-text">after the step of selecting a best candidate tool, determining a remaining data string constituting a difference between the current raw data segment and a data segment reconstructed using the selected best candidate tool including the operators and parameters thereof;</div>
+<div class="claim-text">performing a bit cropping process on said remaining data string to produce a cropped remaining data string associated with the selected best candidate tool for the current data segment, and a cropping descriptor of the parameters employed in the bit cropping process for said remaining data string;</div>
+<div class="claim-text">and wherein the step of forming a compressed data stream comprises including said cropped remaining data string and said cropping descriptor with said reconstruction guide.</div>
+</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00003" num="00003" class="claim">
+    <div class="claim-text">3. The method of <claim-ref idref="CLM-00002">claim 2</claim-ref> wherein said cropping comprises at least one of:
+<div class="claim-text">variable length bit encoding;</div>
+<div class="claim-text">zero run length encoding.</div>
+</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00004" num="00004" class="claim">
+    <div class="claim-text">4. The method of <claim-ref idref="CLM-00001">claim 1</claim-ref> wherein said set of operators comprises operators which function individually to represent amplitudes of successive samples of a data segment as a geometrical shape.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00005" num="00005" class="claim">
+    <div class="claim-text">5. The method of <claim-ref idref="CLM-00001">claim 1</claim-ref> wherein said set of operators comprises operators which function individually to represent amplitudes of successive samples of a data segment as a mathematical function.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00006" num="00006" class="claim">
+    <div class="claim-text">6. The method of <claim-ref idref="CLM-00004">claim 4</claim-ref> wherein said set of operators comprises an operator capable of transforming the current data segment into a form conducive of representation by another operator that represents a data segment as a geometrical shape.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00007" num="00007" class="claim">
+    <div class="claim-text">7. The method of <claim-ref idref="CLM-00005">claim 5</claim-ref> wherein said set of operators comprises an operator capable of transforming the current data segment into a form conducive of representation by another operator that represents a data segment as a mathematical function.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00008" num="00008" class="claim">
+    <div class="claim-text">8. The method of <claim-ref idref="CLM-00006">claim 6</claim-ref> wherein the operator capable of transforming the data segment comprises an operator for removing a spike.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00009" num="00009" class="claim">
+    <div class="claim-text">9. The method of <claim-ref idref="CLM-00007">claim 7</claim-ref> wherein the operator capable of transforming the data segment comprises an operator for removing a spike.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00010" num="00010" class="claim">
+    <div class="claim-text">10. The method of <claim-ref idref="CLM-00001">claim 1</claim-ref> wherein the step of performing a competitive evaluation comprises evaluating the bit length of the representation of the current data segment by an operator with different trial parameter values of the operator.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00011" num="00011" class="claim">
+    <div class="claim-text">11. The method of <claim-ref idref="CLM-00001">claim 1</claim-ref> wherein the step of performing a competitive evaluation comprises evaluating the bit length of the representation of the current data segment by different operators.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00012" num="00012" class="claim">
+    <div class="claim-text">12. The method of <claim-ref idref="CLM-00001">claim 1</claim-ref> wherein the step of performing a competitive evaluation comprises evaluating the bit length of the representation by an operator of sub-segments of different lengths of the current data segment.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00013" num="00013" class="claim">
+    <div class="claim-text">13. The method of <claim-ref idref="CLM-00004">claim 4</claim-ref> wherein said set of operators for representing data segments with geometrical shapes comprise at least plural ones of the following set of operators:
+<div class="claim-text">a ramp operator;</div>
+<div class="claim-text">a box operator;</div>
+<div class="claim-text">a curve operator; and</div>
+<div class="claim-text">a triangle operator.</div>
+</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00014" num="00014" class="claim">
+    <div class="claim-text">14. The method of <claim-ref idref="CLM-00005">claim 5</claim-ref> wherein said set of operators for representing data segments with mathematical functions comprise at least plural ones of the following set of operators:
+<div class="claim-text">a gaussian operator;</div>
+<div class="claim-text">a difference operator;</div>
+<div class="claim-text">a polynomial operator;</div>
+<div class="claim-text">a segments operator;</div>
+<div class="claim-text">an exponential operator;</div>
+<div class="claim-text">a parabola operator; and</div>
+<div class="claim-text">a trigonometric function operator.</div>
+</div>
+  </div>
+  </div> <div class="claim"> <div id="CLM-00015" num="00015" class="claim">
+    <div class="claim-text">15. A data communication system comprising:
+<div class="claim-text">a data compressor for compressing a raw data stream divisible into successive data segments, said data compressor comprising:</div>
+<div class="claim-text">a memory storing a set of operators for representing data segments by a mathematical operation and parameters thereof;</div>
+<div class="claim-text">a competitive evaluation module for performing a competitive evaluation of candidate tools comprising variable combinations of one or more of said operators and the parameters thereof with on variable data segments of said raw data stream in order to determine relative abilities among the candidate tools to compress the variable data segments;</div>
+<div class="claim-text">a selection module for selecting a best candidate tool and a set of parameters thereof and a preferred data segment found in said competitive evaluation to have a superior ability relative to others of the candidate tools to compress the preferred data segment; and</div>
+<div class="claim-text">means for compressing the preferred data segment and successive preferred data segments forming a compressed data stream representing said raw data stream and a reconstruction guide comprising a description of the operators and their parameters constituting the best candidate tool selected for each preferred data segment.</div>
+</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00016" num="00016" class="claim">
+    <div class="claim-text">16. The system of <claim-ref idref="CLM-00015">claim 15</claim-ref> further comprising:
+<div class="claim-text">a subtractor for forming a remaining data string as a difference between the current raw data segment and a data segment reconstructed using the selected best candidate tool including the operators and parameters thereof;</div>
+<div class="claim-text">a bit cropping module for performing a bit cropping process on said remaining data string to produce a cropped remaining data string associated with the selected best candidate tool for the current data segment, and a cropping descriptor of the parameters employed in the bit cropping process for said remaining data string;</div>
+<div class="claim-text">wherein the means for forming a compressed data stream inserts into said compressed data stream said cropped remaining data string and said cropping descriptor with said reconstruction guide.</div>
+</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00017" num="00017" class="claim">
+    <div class="claim-text">17. The system of <claim-ref idref="CLM-00016">claim 16</claim-ref> further comprising:
+<div class="claim-text">a decompressor and a data communication channel connected between said decompressor and said compressor, said compressor comprising:</div>
+<div class="claim-text">a reconstruction module for reconstructing a data segment from a description of a tool and its parameter values;</div>
+<div class="claim-text">a decropping module for reconstructing a remaining data string from a compressed data string and a set of cropping parameters corresponding thereto; and</div>
+<div class="claim-text">an adder for adding a reconstructed data string to a reconstructed data segment corresponding thereto.</div>
+</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00018" num="00018" class="claim">
+    <div class="claim-text">18. The system of <claim-ref idref="CLM-00015">claim 15</claim-ref> wherein said set of operators comprises an operator that represents a data segment as a geometrical shape.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00019" num="00019" class="claim">
+    <div class="claim-text">19. The system of <claim-ref idref="CLM-00015">claim 15</claim-ref> wherein said set of operators comprises an operator that represents a data segment as a mathematical function.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00020" num="00020" class="claim">
+    <div class="claim-text">20. The system of <claim-ref idref="CLM-00015">claim 15</claim-ref> wherein said set of operators comprise:
+<div class="claim-text">respective operators that represent data segments as respective geometrical shapes;</div>
+<div class="claim-text">respective operators that represent data segments as respective mathematical functions; and</div>
+<div class="claim-text">an operator for removing spike irregularities from a data segment.</div>
+</div>
+  </div>
+</div> </div>
+  </div>
+  </section>
+
+  <section itemprop="application" itemscope>
+
+    <section itemprop="metadata" itemscope>
+        <span itemprop="applicationNumber">US10/113,637</span>
+        <span itemprop="priorityDate">2002-03-26</span>
+        <span itemprop="filingDate">2002-03-26</span>
+        <span itemprop="title">Compression of a data stream by selection among a set of compression tools 
+       </span>
+        <span itemprop="ifiStatus">Expired - Fee Related</span>
+        
+        <a href="/patent/US7180943B1/en">
+            <span itemprop="representativePublication">US7180943B1</span>
+            (<span itemprop="primaryLanguage">en</span>)
+        </a>
+    </section>
+
+    <h2>Priority Applications (1)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                    <th>Title</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="priorityApps" itemscope repeat>
+                <td>
+                   <span itemprop="applicationNumber">US10/113,637</span>
+                   
+                   <a href="/patent/US7180943B1/en">
+                        <span itemprop="representativePublication">US7180943B1</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                <td itemprop="priorityDate">2002-03-26</td>
+                <td itemprop="filingDate">2002-03-26</td>
+                <td itemprop="title">Compression of a data stream by selection among a set of compression tools 
+       </td>
+              </tr>
+           </tbody>
+       </table>
+
+    <h2>Applications Claiming Priority (1)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                    <th>Title</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="appsClaimingPriority" itemscope repeat>
+                <td>
+                   <span itemprop="applicationNumber">US10/113,637</span>
+                   <a href="/patent/US7180943B1/en">
+                        <span itemprop="representativePublication">US7180943B1</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                <td itemprop="priorityDate">2002-03-26</td>
+                <td itemprop="filingDate">2002-03-26</td>
+                <td itemprop="title">Compression of a data stream by selection among a set of compression tools 
+       </td>
+              </tr>
+           </tbody>
+       </table>
+
+    
+
+    
+
+    <h2>Publications (1)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Publication Number</th>
+                    <th>Publication Date</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="pubs" itemscope repeat>
+                <td>
+                   <span itemprop="publicationNumber">US7180943B1</span>
+                   
+                   <span itemprop="thisPatent">true</span>
+                   <a href="/patent/US7180943B1/en">US7180943B1
+                       (<span itemprop="primaryLanguage">en</span>)
+                   </a>
+                </td>
+                <td itemprop="publicationDate">2007-02-20</td>
+              </tr>
+           </tbody>
+        </table>
+
+  </section>
+
+  <section itemprop="family" itemscope>
+    <h1>Family</h1>
+    <h2>ID=37745047</h2>
+
+    <h2>Family Applications (1)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Title</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="applications" itemscope repeat>
+                <td>
+                    <span itemprop="applicationNumber">US10/113,637</span>
+                    <span itemprop="ifiStatus">Expired - Fee Related</span>
+                    
+                    <a href="/patent/US7180943B1/en">
+                        <span itemprop="representativePublication">US7180943B1</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                </td>
+                <td itemprop="priorityDate">2002-03-26</td>
+                <td itemprop="filingDate">2002-03-26</td>
+                <td itemprop="title">Compression of a data stream by selection among a set of compression tools 
+       </td>
+              </tr>
+           </tbody>
+        </table>
+
+    
+
+    
+
+    <h2>Country Status (1)</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Country</th>
+            <th>Link</th>
+          </tr>
+        </thead>
+        <tbody>
+        <tr itemprop="countryStatus" itemscope repeat>
+            <td>
+              <span itemprop="countryCode">US</span>
+                (<span itemprop="num">1</span>)
+              <meta itemprop="thisCountry" content="true">
+            </td>
+            <td>
+              <a href="/patent/US7180943B1/en">
+                <span itemprop="representativePublication">US7180943B1</span>
+                  (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+    <h2>Cited By (9)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20070070080A1/en">
+              <span itemprop="publicationNumber">US20070070080A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2005-09-28</td>
+          <td itemprop="publicationDate">2007-03-29</td>
+          <td><span itemprop="assigneeOriginal">Arc International (Uk) Limited</span></td>
+          <td itemprop="title">Systems and methods for accelerating sub-pixel interpolation in video processing applications 
+       </td>
+        </tr><tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20080177789A1/en">
+              <span itemprop="publicationNumber">US20080177789A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2007-01-22</td>
+          <td itemprop="publicationDate">2008-07-24</td>
+          <td><span itemprop="assigneeOriginal">William Murray Stoval</span></td>
+          <td itemprop="title">Methods and apparatus for clinical data compression 
+       </td>
+        </tr><tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20080291995A1/en">
+              <span itemprop="publicationNumber">US20080291995A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2007-05-25</td>
+          <td itemprop="publicationDate">2008-11-27</td>
+          <td><span itemprop="assigneeOriginal">Carl Norman Graham</span></td>
+          <td itemprop="title">Adaptive video encoding apparatus and methods 
+       </td>
+        </tr><tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20110090950A1/en">
+              <span itemprop="publicationNumber">US20110090950A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2009-10-15</td>
+          <td itemprop="publicationDate">2011-04-21</td>
+          <td><span itemprop="assigneeOriginal">General Electric Company</span></td>
+          <td itemprop="title">System and method for enhancing data compression using dynamic learning and control 
+       </td>
+        </tr><tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20120194643A1/en">
+              <span itemprop="publicationNumber">US20120194643A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2011-01-31</td>
+          <td itemprop="publicationDate">2012-08-02</td>
+          <td><span itemprop="assigneeOriginal">Yuki Maruyama</span></td>
+          <td itemprop="title">Video coding device and video coding method 
+       </td>
+        </tr><tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/RU2586605C2/en">
+              <span itemprop="publicationNumber">RU2586605C2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2013-03-22</td>
+          <td itemprop="publicationDate">2016-06-10</td>
+          <td><span itemprop="assigneeOriginal">Общество с ограниченной ответственностью Научно-производственное объединение &#34;Новые информационные технологии&#34;</span></td>
+          <td itemprop="title">Information transmission method and system therefor 
+       </td>
+        </tr><tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/RU2649291C1/en">
+              <span itemprop="publicationNumber">RU2649291C1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2017-03-31</td>
+          <td itemprop="publicationDate">2018-03-30</td>
+          <td><span itemprop="assigneeOriginal">Сергей Сергеевич Кукушкин</span></td>
+          <td itemprop="title">Method of cost-effective representation and transmission of bipolar data and signals 
+       </td>
+        </tr><tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/RU2658795C1/en">
+              <span itemprop="publicationNumber">RU2658795C1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2017-05-30</td>
+          <td itemprop="publicationDate">2018-06-22</td>
+          <td><span itemprop="assigneeOriginal">Сергей Сергеевич Кукушкин</span></td>
+          <td itemprop="title">Method of the information primary processing with transmission errors detection and correction 
+       </td>
+        </tr><tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/RU2674809C1/en">
+              <span itemprop="publicationNumber">RU2674809C1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2017-07-12</td>
+          <td itemprop="publicationDate">2018-12-13</td>
+          <td><span itemprop="assigneeOriginal">Сергей Сергеевич Кукушкин</span></td>
+          <td itemprop="title">Method of operational and technical protection of external front objects and borders 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+
+    
+
+    <h2>Citations (31)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US4823342A/en">
+              <span itemprop="publicationNumber">US4823342A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1986-02-07</td>
+          <td itemprop="publicationDate">1989-04-18</td>
+          <td><span itemprop="assigneeOriginal">Hitachi, Ltd.</span></td>
+          <td itemprop="title">Time division exchange system having functions of compressing and expanding information 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US4831636A/en">
+              <span itemprop="publicationNumber">US4831636A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1985-06-28</td>
+          <td itemprop="publicationDate">1989-05-16</td>
+          <td><span itemprop="assigneeOriginal">Fujitsu Limited</span></td>
+          <td itemprop="title">Coding transmission equipment for carrying out coding with adaptive quantization 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US4882754A/en">
+              <span itemprop="publicationNumber">US4882754A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1987-08-25</td>
+          <td itemprop="publicationDate">1989-11-21</td>
+          <td><span itemprop="assigneeOriginal">Digideck, Inc.</span></td>
+          <td itemprop="title">Data compression system and method with buffer control 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5432555A/en">
+              <span itemprop="publicationNumber">US5432555A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1992-09-09</td>
+          <td itemprop="publicationDate">1995-07-11</td>
+          <td><span itemprop="assigneeOriginal">Daewoo Electronics Co., Ltd.</span></td>
+          <td itemprop="title">Image signal encoding apparatus using adaptive 1D/2D DCT compression technique 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5513181A/en">
+              <span itemprop="publicationNumber">US5513181A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1995-02-17</td>
+          <td itemprop="publicationDate">1996-04-30</td>
+          <td><span itemprop="assigneeOriginal">At&amp;T Corp.</span></td>
+          <td itemprop="title">Multi-signal multi-coder transcoder 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5568199A/en">
+              <span itemprop="publicationNumber">US5568199A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1992-11-25</td>
+          <td itemprop="publicationDate">1996-10-22</td>
+          <td><span itemprop="assigneeOriginal">Matsushita Electric Industrial Co., Ltd.</span></td>
+          <td itemprop="title">Digital video signal code size control apparatus 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5576766A/en">
+              <span itemprop="publicationNumber">US5576766A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1993-11-12</td>
+          <td itemprop="publicationDate">1996-11-19</td>
+          <td><span itemprop="assigneeOriginal">Kokusai Denshin Denwa Kabushiki Kaisha</span></td>
+          <td itemprop="title">Moving picture encoder 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5719961A/en">
+              <span itemprop="publicationNumber">US5719961A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1994-07-22</td>
+          <td itemprop="publicationDate">1998-02-17</td>
+          <td><span itemprop="assigneeOriginal">Apple Computer, Inc.</span></td>
+          <td itemprop="title">Adaptive technique for encoder and decoder signal transformation 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5767908A/en">
+              <span itemprop="publicationNumber">US5767908A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1994-12-19</td>
+          <td itemprop="publicationDate">1998-06-16</td>
+          <td><span itemprop="assigneeOriginal">Samsung Electronics Co., Ltd.</span></td>
+          <td itemprop="title">Adaptive orthogonal transform coding apparatus 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5802361A/en">
+              <span itemprop="publicationNumber">US5802361A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1994-09-30</td>
+          <td itemprop="publicationDate">1998-09-01</td>
+          <td><span itemprop="assigneeOriginal">Apple Computer, Inc.</span></td>
+          <td itemprop="title">Method and system for searching graphic images and videos 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5883672A/en">
+              <span itemprop="publicationNumber">US5883672A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1994-09-29</td>
+          <td itemprop="publicationDate">1999-03-16</td>
+          <td><span itemprop="assigneeOriginal">Sony Corporation</span></td>
+          <td itemprop="title">Apparatus and method for adaptively encoding pictures in accordance with information quantity of respective pictures and inter-picture correlation 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5892847A/en">
+              <span itemprop="publicationNumber">US5892847A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1994-07-14</td>
+          <td itemprop="publicationDate">1999-04-06</td>
+          <td><span itemprop="assigneeOriginal">Johnson-Grace</span></td>
+          <td itemprop="title">Method and apparatus for compressing images 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5909250A/en">
+              <span itemprop="publicationNumber">US5909250A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1993-04-16</td>
+          <td itemprop="publicationDate">1999-06-01</td>
+          <td><span itemprop="assigneeOriginal">Media 100 Inc.</span></td>
+          <td itemprop="title">Adaptive video compression using variable quantization 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6011868A/en">
+              <span itemprop="publicationNumber">US6011868A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1997-04-04</td>
+          <td itemprop="publicationDate">2000-01-04</td>
+          <td><span itemprop="assigneeOriginal">Hewlett-Packard Company</span></td>
+          <td itemprop="title">Bitstream quality analyzer 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6084636A/en">
+              <span itemprop="publicationNumber">US6084636A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1996-09-27</td>
+          <td itemprop="publicationDate">2000-07-04</td>
+          <td><span itemprop="assigneeOriginal">Victor Company Of Japan, Ltd.</span></td>
+          <td itemprop="title">Video signal encoding method and apparatus employing an adaptive quantization technique 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6084910A/en">
+              <span itemprop="publicationNumber">US6084910A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1997-01-31</td>
+          <td itemprop="publicationDate">2000-07-04</td>
+          <td><span itemprop="assigneeOriginal">Hughes Electronics Corporation</span></td>
+          <td itemprop="title">Statistical multiplexer for video signals 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6122338A/en">
+              <span itemprop="publicationNumber">US6122338A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1996-09-26</td>
+          <td itemprop="publicationDate">2000-09-19</td>
+          <td><span itemprop="assigneeOriginal">Yamaha Corporation</span></td>
+          <td itemprop="title">Audio encoding transmission system 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6167060A/en">
+              <span itemprop="publicationNumber">US6167060A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1997-08-08</td>
+          <td itemprop="publicationDate">2000-12-26</td>
+          <td><span itemprop="assigneeOriginal">Clarent Corporation</span></td>
+          <td itemprop="title">Dynamic forward error correction algorithm for internet telephone 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6233278B1/en">
+              <span itemprop="publicationNumber">US6233278B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1998-01-21</td>
+          <td itemprop="publicationDate">2001-05-15</td>
+          <td><span itemprop="assigneeOriginal">Sarnoff Corporation</span></td>
+          <td itemprop="title">Apparatus and method for using side information to improve a coding system 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6256064B1/en">
+              <span itemprop="publicationNumber">US6256064B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1995-03-15</td>
+          <td itemprop="publicationDate">2001-07-03</td>
+          <td><span itemprop="assigneeOriginal">Kabushiki Kaisha Toshiba</span></td>
+          <td itemprop="title">Moving picture coding and/or decoding systems, and variable-length coding and/or decoding system 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6272175B1/en">
+              <span itemprop="publicationNumber">US6272175B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1997-02-13</td>
+          <td itemprop="publicationDate">2001-08-07</td>
+          <td><span itemprop="assigneeOriginal">Conexant Systems, Inc.</span></td>
+          <td itemprop="title">Video signal coding systems and processes using adaptive quantization 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6414992B1/en">
+              <span itemprop="publicationNumber">US6414992B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1999-01-27</td>
+          <td itemprop="publicationDate">2002-07-02</td>
+          <td><span itemprop="assigneeOriginal">Sun Microsystems, Inc.</span></td>
+          <td itemprop="title">Optimal encoding of motion compensated video 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6542549B1/en">
+              <span itemprop="publicationNumber">US6542549B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1998-10-13</td>
+          <td itemprop="publicationDate">2003-04-01</td>
+          <td><span itemprop="assigneeOriginal">Matsushita Electric Industrial Co., Ltd.</span></td>
+          <td itemprop="title">Method and model for regulating the computational and memory requirements of a compressed bitstream in a video decoder 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6545727B1/en">
+              <span itemprop="publicationNumber">US6545727B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1999-09-03</td>
+          <td itemprop="publicationDate">2003-04-08</td>
+          <td><span itemprop="assigneeOriginal">Stmicroelectronics S.R.L.</span></td>
+          <td itemprop="title">Method for recognizing a progressive or an interlaced content in a video sequence 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6611624B1/en">
+              <span itemprop="publicationNumber">US6611624B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1998-03-13</td>
+          <td itemprop="publicationDate">2003-08-26</td>
+          <td><span itemprop="assigneeOriginal">Cisco Systems, Inc.</span></td>
+          <td itemprop="title">System and method for frame accurate splicing of compressed bitstreams 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6633674B1/en">
+              <span itemprop="publicationNumber">US6633674B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1999-11-24</td>
+          <td itemprop="publicationDate">2003-10-14</td>
+          <td><span itemprop="assigneeOriginal">General Electric Company</span></td>
+          <td itemprop="title">Picture archiving and communication system employing improved data compression 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6665872B1/en">
+              <span itemprop="publicationNumber">US6665872B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1999-01-06</td>
+          <td itemprop="publicationDate">2003-12-16</td>
+          <td><span itemprop="assigneeOriginal">Sarnoff Corporation</span></td>
+          <td itemprop="title">Latency-based statistical multiplexing 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6792151B1/en">
+              <span itemprop="publicationNumber">US6792151B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1999-11-24</td>
+          <td itemprop="publicationDate">2004-09-14</td>
+          <td><span itemprop="assigneeOriginal">General Electric Company</span></td>
+          <td itemprop="title">Image data compression employing optimal subregion compression 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6795583B1/en">
+              <span itemprop="publicationNumber">US6795583B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1999-11-24</td>
+          <td itemprop="publicationDate">2004-09-21</td>
+          <td><span itemprop="assigneeOriginal">General Electric Company</span></td>
+          <td itemprop="title">Image data compression employing embedded compression and decompression codes 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6909745B1/en">
+              <span itemprop="publicationNumber">US6909745B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2001-06-05</td>
+          <td itemprop="publicationDate">2005-06-21</td>
+          <td><span itemprop="assigneeOriginal">At&amp;T Corp.</span></td>
+          <td itemprop="title">Content adaptive video encoder 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6912317B1/en">
+              <span itemprop="publicationNumber">US6912317B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1999-11-24</td>
+          <td itemprop="publicationDate">2005-06-28</td>
+          <td><span itemprop="assigneeOriginal">General Electric Company</span></td>
+          <td itemprop="title">Medical image data compression employing image descriptive information for optimal compression 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+
+    
+
+    
+    <ul>
+      
+      <li itemprop="applicationsByYear" itemscope repeat>
+        <span itemprop="year">2002</span>
+        <ul>
+          
+          <li itemprop="application" itemscope repeat>
+            <span itemprop="filingDate">2002-03-26</span>
+            <span itemprop="countryCode">US</span>
+            <span itemprop="applicationNumber">US10/113,637</span>
+            <a href="/patent/US7180943B1/en"><span itemprop="documentId">patent/US7180943B1/en</span></a>
+            <span itemprop="legalStatusCat">not_active</span>
+            <span itemprop="legalStatus">Expired - Fee Related</span>
+            
+            <span itemprop="thisApp" content="true" bool></span>
+            
+          </li>
+          
+        </ul>
+      </li>
+      
+    </ul>
+    
+
+    </section>
+
+  <section>
+    <h2>Patent Citations (32)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US4831636A/en">
+              <span itemprop="publicationNumber">US4831636A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1985-06-28</td>
+          <td itemprop="publicationDate">1989-05-16</td>
+          <td><span itemprop="assigneeOriginal">Fujitsu Limited</span></td>
+          <td itemprop="title">Coding transmission equipment for carrying out coding with adaptive quantization 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US4823342A/en">
+              <span itemprop="publicationNumber">US4823342A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1986-02-07</td>
+          <td itemprop="publicationDate">1989-04-18</td>
+          <td><span itemprop="assigneeOriginal">Hitachi, Ltd.</span></td>
+          <td itemprop="title">Time division exchange system having functions of compressing and expanding information 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US4882754A/en">
+              <span itemprop="publicationNumber">US4882754A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1987-08-25</td>
+          <td itemprop="publicationDate">1989-11-21</td>
+          <td><span itemprop="assigneeOriginal">Digideck, Inc.</span></td>
+          <td itemprop="title">Data compression system and method with buffer control 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5432555A/en">
+              <span itemprop="publicationNumber">US5432555A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1992-09-09</td>
+          <td itemprop="publicationDate">1995-07-11</td>
+          <td><span itemprop="assigneeOriginal">Daewoo Electronics Co., Ltd.</span></td>
+          <td itemprop="title">Image signal encoding apparatus using adaptive 1D/2D DCT compression technique 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5568199A/en">
+              <span itemprop="publicationNumber">US5568199A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1992-11-25</td>
+          <td itemprop="publicationDate">1996-10-22</td>
+          <td><span itemprop="assigneeOriginal">Matsushita Electric Industrial Co., Ltd.</span></td>
+          <td itemprop="title">Digital video signal code size control apparatus 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5909250A/en">
+              <span itemprop="publicationNumber">US5909250A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1993-04-16</td>
+          <td itemprop="publicationDate">1999-06-01</td>
+          <td><span itemprop="assigneeOriginal">Media 100 Inc.</span></td>
+          <td itemprop="title">Adaptive video compression using variable quantization 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6072836A/en">
+              <span itemprop="publicationNumber">US6072836A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1993-04-16</td>
+          <td itemprop="publicationDate">2000-06-06</td>
+          <td><span itemprop="assigneeOriginal">Media 100 Inc.</span></td>
+          <td itemprop="title">Adaptive video compression and decompression 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5576766A/en">
+              <span itemprop="publicationNumber">US5576766A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1993-11-12</td>
+          <td itemprop="publicationDate">1996-11-19</td>
+          <td><span itemprop="assigneeOriginal">Kokusai Denshin Denwa Kabushiki Kaisha</span></td>
+          <td itemprop="title">Moving picture encoder 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5892847A/en">
+              <span itemprop="publicationNumber">US5892847A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1994-07-14</td>
+          <td itemprop="publicationDate">1999-04-06</td>
+          <td><span itemprop="assigneeOriginal">Johnson-Grace</span></td>
+          <td itemprop="title">Method and apparatus for compressing images 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5719961A/en">
+              <span itemprop="publicationNumber">US5719961A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1994-07-22</td>
+          <td itemprop="publicationDate">1998-02-17</td>
+          <td><span itemprop="assigneeOriginal">Apple Computer, Inc.</span></td>
+          <td itemprop="title">Adaptive technique for encoder and decoder signal transformation 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5883672A/en">
+              <span itemprop="publicationNumber">US5883672A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1994-09-29</td>
+          <td itemprop="publicationDate">1999-03-16</td>
+          <td><span itemprop="assigneeOriginal">Sony Corporation</span></td>
+          <td itemprop="title">Apparatus and method for adaptively encoding pictures in accordance with information quantity of respective pictures and inter-picture correlation 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5802361A/en">
+              <span itemprop="publicationNumber">US5802361A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1994-09-30</td>
+          <td itemprop="publicationDate">1998-09-01</td>
+          <td><span itemprop="assigneeOriginal">Apple Computer, Inc.</span></td>
+          <td itemprop="title">Method and system for searching graphic images and videos 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5767908A/en">
+              <span itemprop="publicationNumber">US5767908A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1994-12-19</td>
+          <td itemprop="publicationDate">1998-06-16</td>
+          <td><span itemprop="assigneeOriginal">Samsung Electronics Co., Ltd.</span></td>
+          <td itemprop="title">Adaptive orthogonal transform coding apparatus 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5513181A/en">
+              <span itemprop="publicationNumber">US5513181A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1995-02-17</td>
+          <td itemprop="publicationDate">1996-04-30</td>
+          <td><span itemprop="assigneeOriginal">At&amp;T Corp.</span></td>
+          <td itemprop="title">Multi-signal multi-coder transcoder 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6256064B1/en">
+              <span itemprop="publicationNumber">US6256064B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1995-03-15</td>
+          <td itemprop="publicationDate">2001-07-03</td>
+          <td><span itemprop="assigneeOriginal">Kabushiki Kaisha Toshiba</span></td>
+          <td itemprop="title">Moving picture coding and/or decoding systems, and variable-length coding and/or decoding system 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6122338A/en">
+              <span itemprop="publicationNumber">US6122338A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1996-09-26</td>
+          <td itemprop="publicationDate">2000-09-19</td>
+          <td><span itemprop="assigneeOriginal">Yamaha Corporation</span></td>
+          <td itemprop="title">Audio encoding transmission system 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6084636A/en">
+              <span itemprop="publicationNumber">US6084636A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1996-09-27</td>
+          <td itemprop="publicationDate">2000-07-04</td>
+          <td><span itemprop="assigneeOriginal">Victor Company Of Japan, Ltd.</span></td>
+          <td itemprop="title">Video signal encoding method and apparatus employing an adaptive quantization technique 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6084910A/en">
+              <span itemprop="publicationNumber">US6084910A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1997-01-31</td>
+          <td itemprop="publicationDate">2000-07-04</td>
+          <td><span itemprop="assigneeOriginal">Hughes Electronics Corporation</span></td>
+          <td itemprop="title">Statistical multiplexer for video signals 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6272175B1/en">
+              <span itemprop="publicationNumber">US6272175B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1997-02-13</td>
+          <td itemprop="publicationDate">2001-08-07</td>
+          <td><span itemprop="assigneeOriginal">Conexant Systems, Inc.</span></td>
+          <td itemprop="title">Video signal coding systems and processes using adaptive quantization 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6011868A/en">
+              <span itemprop="publicationNumber">US6011868A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1997-04-04</td>
+          <td itemprop="publicationDate">2000-01-04</td>
+          <td><span itemprop="assigneeOriginal">Hewlett-Packard Company</span></td>
+          <td itemprop="title">Bitstream quality analyzer 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6167060A/en">
+              <span itemprop="publicationNumber">US6167060A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1997-08-08</td>
+          <td itemprop="publicationDate">2000-12-26</td>
+          <td><span itemprop="assigneeOriginal">Clarent Corporation</span></td>
+          <td itemprop="title">Dynamic forward error correction algorithm for internet telephone 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6233278B1/en">
+              <span itemprop="publicationNumber">US6233278B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1998-01-21</td>
+          <td itemprop="publicationDate">2001-05-15</td>
+          <td><span itemprop="assigneeOriginal">Sarnoff Corporation</span></td>
+          <td itemprop="title">Apparatus and method for using side information to improve a coding system 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6611624B1/en">
+              <span itemprop="publicationNumber">US6611624B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1998-03-13</td>
+          <td itemprop="publicationDate">2003-08-26</td>
+          <td><span itemprop="assigneeOriginal">Cisco Systems, Inc.</span></td>
+          <td itemprop="title">System and method for frame accurate splicing of compressed bitstreams 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6542549B1/en">
+              <span itemprop="publicationNumber">US6542549B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1998-10-13</td>
+          <td itemprop="publicationDate">2003-04-01</td>
+          <td><span itemprop="assigneeOriginal">Matsushita Electric Industrial Co., Ltd.</span></td>
+          <td itemprop="title">Method and model for regulating the computational and memory requirements of a compressed bitstream in a video decoder 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6665872B1/en">
+              <span itemprop="publicationNumber">US6665872B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1999-01-06</td>
+          <td itemprop="publicationDate">2003-12-16</td>
+          <td><span itemprop="assigneeOriginal">Sarnoff Corporation</span></td>
+          <td itemprop="title">Latency-based statistical multiplexing 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6414992B1/en">
+              <span itemprop="publicationNumber">US6414992B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1999-01-27</td>
+          <td itemprop="publicationDate">2002-07-02</td>
+          <td><span itemprop="assigneeOriginal">Sun Microsystems, Inc.</span></td>
+          <td itemprop="title">Optimal encoding of motion compensated video 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6545727B1/en">
+              <span itemprop="publicationNumber">US6545727B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1999-09-03</td>
+          <td itemprop="publicationDate">2003-04-08</td>
+          <td><span itemprop="assigneeOriginal">Stmicroelectronics S.R.L.</span></td>
+          <td itemprop="title">Method for recognizing a progressive or an interlaced content in a video sequence 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6633674B1/en">
+              <span itemprop="publicationNumber">US6633674B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1999-11-24</td>
+          <td itemprop="publicationDate">2003-10-14</td>
+          <td><span itemprop="assigneeOriginal">General Electric Company</span></td>
+          <td itemprop="title">Picture archiving and communication system employing improved data compression 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6792151B1/en">
+              <span itemprop="publicationNumber">US6792151B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1999-11-24</td>
+          <td itemprop="publicationDate">2004-09-14</td>
+          <td><span itemprop="assigneeOriginal">General Electric Company</span></td>
+          <td itemprop="title">Image data compression employing optimal subregion compression 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6795583B1/en">
+              <span itemprop="publicationNumber">US6795583B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1999-11-24</td>
+          <td itemprop="publicationDate">2004-09-21</td>
+          <td><span itemprop="assigneeOriginal">General Electric Company</span></td>
+          <td itemprop="title">Image data compression employing embedded compression and decompression codes 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6912317B1/en">
+              <span itemprop="publicationNumber">US6912317B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1999-11-24</td>
+          <td itemprop="publicationDate">2005-06-28</td>
+          <td><span itemprop="assigneeOriginal">General Electric Company</span></td>
+          <td itemprop="title">Medical image data compression employing image descriptive information for optimal compression 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6909745B1/en">
+              <span itemprop="publicationNumber">US6909745B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2001-06-05</td>
+          <td itemprop="publicationDate">2005-06-21</td>
+          <td><span itemprop="assigneeOriginal">At&amp;T Corp.</span></td>
+          <td itemprop="title">Content adaptive video encoder 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  
+
+  <h2>Cited By (22)</h2>
+  <table>
+    <caption>* Cited by examiner, † Cited by third party</caption>
+    <thead>
+      <tr>
+        <th>Publication number</th>
+        <th>Priority date</th>
+        <th>Publication date</th>
+        <th>Assignee</th>
+        <th>Title</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US7747088B2/en">
+            <span itemprop="publicationNumber">US7747088B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          
+          
+        </td>
+        <td itemprop="priorityDate">2005-09-28</td>
+        <td itemprop="publicationDate">2010-06-29</td>
+        <td><span itemprop="assigneeOriginal">Arc International (Uk) Limited</span></td>
+        <td itemprop="title">System and methods for performing deblocking in microprocessor-based video codec applications 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US20070071106A1/en">
+            <span itemprop="publicationNumber">US20070071106A1</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2005-09-28</td>
+        <td itemprop="publicationDate">2007-03-29</td>
+        <td><span itemprop="assigneeOriginal">Arc International (Uk) Limited</span></td>
+        <td itemprop="title">Systems and methods for performing deblocking in microprocessor-based video codec applications 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US20070074012A1/en">
+            <span itemprop="publicationNumber">US20070074012A1</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2005-09-28</td>
+        <td itemprop="publicationDate">2007-03-29</td>
+        <td><span itemprop="assigneeOriginal">Arc International (Uk) Limited</span></td>
+        <td itemprop="title">Systems and methods for recording instruction sequences in a microprocessor having a dynamically decoupleable extended instruction pipeline 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US20070071101A1/en">
+            <span itemprop="publicationNumber">US20070071101A1</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2005-09-28</td>
+        <td itemprop="publicationDate">2007-03-29</td>
+        <td><span itemprop="assigneeOriginal">Arc International (Uk) Limited</span></td>
+        <td itemprop="title">Systolic-array based systems and methods for performing block matching in motion compensation 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US8218635B2/en">
+            <span itemprop="publicationNumber">US8218635B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          
+          
+        </td>
+        <td itemprop="priorityDate">2005-09-28</td>
+        <td itemprop="publicationDate">2012-07-10</td>
+        <td><span itemprop="assigneeOriginal">Synopsys, Inc.</span></td>
+        <td itemprop="title">Systolic-array based systems and methods for performing block matching in motion compensation 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US8212823B2/en">
+            <span itemprop="publicationNumber">US8212823B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          
+          
+        </td>
+        <td itemprop="priorityDate">2005-09-28</td>
+        <td itemprop="publicationDate">2012-07-03</td>
+        <td><span itemprop="assigneeOriginal">Synopsys, Inc.</span></td>
+        <td itemprop="title">Systems and methods for accelerating sub-pixel interpolation in video processing applications 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US7971042B2/en">
+            <span itemprop="publicationNumber">US7971042B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          
+          
+        </td>
+        <td itemprop="priorityDate">2005-09-28</td>
+        <td itemprop="publicationDate">2011-06-28</td>
+        <td><span itemprop="assigneeOriginal">Synopsys, Inc.</span></td>
+        <td itemprop="title">Microprocessor system and method for instruction-initiated recording and execution of instruction sequences in a dynamically decoupleable extended instruction pipeline 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US20070070080A1/en">
+            <span itemprop="publicationNumber">US20070070080A1</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2005-09-28</td>
+        <td itemprop="publicationDate">2007-03-29</td>
+        <td><span itemprop="assigneeOriginal">Arc International (Uk) Limited</span></td>
+        <td itemprop="title">Systems and methods for accelerating sub-pixel interpolation in video processing applications 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US20080177789A1/en">
+            <span itemprop="publicationNumber">US20080177789A1</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2007-01-22</td>
+        <td itemprop="publicationDate">2008-07-24</td>
+        <td><span itemprop="assigneeOriginal">William Murray Stoval</span></td>
+        <td itemprop="title">Methods and apparatus for clinical data compression 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US7667624B2/en">
+            <span itemprop="publicationNumber">US7667624B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          
+          
+        </td>
+        <td itemprop="priorityDate">2007-01-22</td>
+        <td itemprop="publicationDate">2010-02-23</td>
+        <td><span itemprop="assigneeOriginal">General Electric Company</span></td>
+        <td itemprop="title">Methods and apparatus for clinical data compression 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/WO2008147565A3/en">
+            <span itemprop="publicationNumber">WO2008147565A3</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2007-05-25</td>
+        <td itemprop="publicationDate">2009-01-22</td>
+        <td><span itemprop="assigneeOriginal">Arc International Plc</span></td>
+        <td itemprop="title">Adaptive video encoding apparatus and methods 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/WO2008147565A2/en">
+            <span itemprop="publicationNumber">WO2008147565A2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2007-05-25</td>
+        <td itemprop="publicationDate">2008-12-04</td>
+        <td><span itemprop="assigneeOriginal">Arc International, Plc</span></td>
+        <td itemprop="title">Adaptive video encoding apparatus and methods 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US20080291995A1/en">
+            <span itemprop="publicationNumber">US20080291995A1</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2007-05-25</td>
+        <td itemprop="publicationDate">2008-11-27</td>
+        <td><span itemprop="assigneeOriginal">Carl Norman Graham</span></td>
+        <td itemprop="title">Adaptive video encoding apparatus and methods 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US8879636B2/en">
+            <span itemprop="publicationNumber">US8879636B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          
+          
+        </td>
+        <td itemprop="priorityDate">2007-05-25</td>
+        <td itemprop="publicationDate">2014-11-04</td>
+        <td><span itemprop="assigneeOriginal">Synopsys, Inc.</span></td>
+        <td itemprop="title">Adaptive video encoding apparatus and methods 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US20110090950A1/en">
+            <span itemprop="publicationNumber">US20110090950A1</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2009-10-15</td>
+        <td itemprop="publicationDate">2011-04-21</td>
+        <td><span itemprop="assigneeOriginal">General Electric Company</span></td>
+        <td itemprop="title">System and method for enhancing data compression using dynamic learning and control 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US9565439B2/en">
+            <span itemprop="publicationNumber">US9565439B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          
+          
+        </td>
+        <td itemprop="priorityDate">2009-10-15</td>
+        <td itemprop="publicationDate">2017-02-07</td>
+        <td><span itemprop="assigneeOriginal">Nbcuniversal Media, Llc</span></td>
+        <td itemprop="title">System and method for enhancing data compression using dynamic learning and control 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US20120194643A1/en">
+            <span itemprop="publicationNumber">US20120194643A1</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2011-01-31</td>
+        <td itemprop="publicationDate">2012-08-02</td>
+        <td><span itemprop="assigneeOriginal">Yuki Maruyama</span></td>
+        <td itemprop="title">Video coding device and video coding method 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/RU2586605C2/en">
+            <span itemprop="publicationNumber">RU2586605C2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2013-03-22</td>
+        <td itemprop="publicationDate">2016-06-10</td>
+        <td><span itemprop="assigneeOriginal">Общество с ограниченной ответственностью Научно-производственное объединение &#34;Новые информационные технологии&#34;</span></td>
+        <td itemprop="title">Information transmission method and system therefor 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/RU2649291C1/en">
+            <span itemprop="publicationNumber">RU2649291C1</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2017-03-31</td>
+        <td itemprop="publicationDate">2018-03-30</td>
+        <td><span itemprop="assigneeOriginal">Сергей Сергеевич Кукушкин</span></td>
+        <td itemprop="title">Method of cost-effective representation and transmission of bipolar data and signals 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/RU2658795C1/en">
+            <span itemprop="publicationNumber">RU2658795C1</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2017-05-30</td>
+        <td itemprop="publicationDate">2018-06-22</td>
+        <td><span itemprop="assigneeOriginal">Сергей Сергеевич Кукушкин</span></td>
+        <td itemprop="title">Method of the information primary processing with transmission errors detection and correction 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/RU2674809C1/en">
+            <span itemprop="publicationNumber">RU2674809C1</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2017-07-12</td>
+        <td itemprop="publicationDate">2018-12-13</td>
+        <td><span itemprop="assigneeOriginal">Сергей Сергеевич Кукушкин</span></td>
+        <td itemprop="title">Method of operational and technical protection of external front objects and borders 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/RU2674809C9/en">
+            <span itemprop="publicationNumber">RU2674809C9</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2017-07-12</td>
+        <td itemprop="publicationDate">2019-02-07</td>
+        <td><span itemprop="assigneeOriginal">Сергей Сергеевич Кукушкин</span></td>
+        <td itemprop="title">Method of operational and technical protection of external front objects and borders 
+       </td>
+      </tr>
+    </tbody>
+  </table>
+
+  
+
+  <section>
+    <h2>Similar Documents</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Publication</th>
+          <th>Publication Date</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="8549823002136786153">
+              <a href="/scholar/8549823002136786153"><span itemprop="scholarAuthors">Moffat</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1990">1990</time>
+            
+          </td>
+          <td itemprop="title">Implementing the PPM data compression scheme</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US6996281B2/en">
+                <span itemprop="publicationNumber">US6996281B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2006-02-07">2006-02-07</time>
+            
+            
+          </td>
+          <td itemprop="title">Compression and decompression system with reversible wavelets and lossy reconstruction 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US5764374A/en">
+                <span itemprop="publicationNumber">US5764374A</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="1998-06-09">1998-06-09</time>
+            
+            
+          </td>
+          <td itemprop="title">System and method for lossless image compression having improved sequential determination of golomb parameter 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US7006699B2/en">
+                <span itemprop="publicationNumber">US7006699B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2006-02-28">2006-02-28</time>
+            
+            
+          </td>
+          <td itemprop="title">System and method for progressively transforming and coding digital data 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/CA2403194C/en">
+                <span itemprop="publicationNumber">CA2403194C</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2008-02-12">2008-02-12</time>
+            
+            
+          </td>
+          <td itemprop="title">Enhanced compression of gray-level images 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US7378992B2/en">
+                <span itemprop="publicationNumber">US7378992B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2008-05-27">2008-05-27</time>
+            
+            
+          </td>
+          <td itemprop="title">Content independent data compression method and system 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US5497435A/en">
+                <span itemprop="publicationNumber">US5497435A</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="1996-03-05">1996-03-05</time>
+            
+            
+          </td>
+          <td itemprop="title">Apparatus and method for encoding and decoding digital signals 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/EP2270716B1/en">
+                <span itemprop="publicationNumber">EP2270716B1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2012-03-14">2012-03-14</time>
+            
+            
+          </td>
+          <td itemprop="title">Method and apparatus for image decoding 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US6009192A/en">
+                <span itemprop="publicationNumber">US6009192A</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="1999-12-28">1999-12-28</time>
+            
+            
+          </td>
+          <td itemprop="title">Color correction of a compressed image 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US20060015650A1/en">
+                <span itemprop="publicationNumber">US20060015650A1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2006-01-19">2006-01-19</time>
+            
+            
+          </td>
+          <td itemprop="title">System and methods for accelerated data storage and retrieval 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US6484142B1/en">
+                <span itemprop="publicationNumber">US6484142B1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2002-11-19">2002-11-19</time>
+            
+            
+          </td>
+          <td itemprop="title">Encoder using Huffman codes 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US5815097A/en">
+                <span itemprop="publicationNumber">US5815097A</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="1998-09-29">1998-09-29</time>
+            
+            
+          </td>
+          <td itemprop="title">Method and apparatus for spatially embedded coding 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US5177796A/en">
+                <span itemprop="publicationNumber">US5177796A</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="1993-01-05">1993-01-05</time>
+            
+            
+          </td>
+          <td itemprop="title">Image data processing of correlated images 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US20030142874A1/en">
+                <span itemprop="publicationNumber">US20030142874A1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2003-07-31">2003-07-31</time>
+            
+            
+          </td>
+          <td itemprop="title">Context generation 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US20050281474A1/en">
+                <span itemprop="publicationNumber">US20050281474A1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2005-12-22">2005-12-22</time>
+            
+            
+          </td>
+          <td itemprop="title">Segmentation-based hybrid compression scheme for scanned documents 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US6654419B1/en">
+                <span itemprop="publicationNumber">US6654419B1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2003-11-25">2003-11-25</time>
+            
+            
+          </td>
+          <td itemprop="title">Block-based, adaptive, lossless video coder 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/EP1139290A2/en">
+                <span itemprop="publicationNumber">EP1139290A2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2001-10-04">2001-10-04</time>
+            
+            
+          </td>
+          <td itemprop="title">Image processing apparatus and method 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US20010046325A1/en">
+                <span itemprop="publicationNumber">US20010046325A1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2001-11-29">2001-11-29</time>
+            
+            
+          </td>
+          <td itemprop="title">Image coding and decoding methods, image coding and decoding apparatuses, and recording media for image coding and decoding programs 
+     </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US5414527A/en">
+                <span itemprop="publicationNumber">US5414527A</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="1995-05-09">1995-05-09</time>
+            
+            
+          </td>
+          <td itemprop="title">Image encoding apparatus sensitive to tone variations 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/EP0940994B1/en">
+                <span itemprop="publicationNumber">EP0940994B1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2014-04-16">2014-04-16</time>
+            
+            
+          </td>
+          <td itemprop="title">Image processing apparatus and method and storage medium storing steps realizing such method 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="13302448348029504022">
+              <a href="/scholar/13302448348029504022"><span itemprop="scholarAuthors">Creusere</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1997">1997</time>
+            
+          </td>
+          <td itemprop="title">A new method of robust image compression based on the embedded zerotree wavelet algorithm</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US6653954B2/en">
+                <span itemprop="publicationNumber">US6653954B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2003-11-25">2003-11-25</time>
+            
+            
+          </td>
+          <td itemprop="title">System and method for efficient data compression 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US6597812B1/en">
+                <span itemprop="publicationNumber">US6597812B1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2003-07-22">2003-07-22</time>
+            
+            
+          </td>
+          <td itemprop="title">System and method for lossless data compression and decompression 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US20070237409A1/en">
+                <span itemprop="publicationNumber">US20070237409A1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2007-10-11">2007-10-11</time>
+            
+            
+          </td>
+          <td itemprop="title">Method and apparatus for compressing and decompressing images 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US20050094883A1/en">
+                <span itemprop="publicationNumber">US20050094883A1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2005-05-05">2005-05-05</time>
+            
+            
+          </td>
+          <td itemprop="title">Image encoding using reordering and blocking of wavelet coefficients combined with adaptive encoding 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Legal Events</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Code</th>
+          <th>Title</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2002-03-26">2002-03-26</time></td>
+          <td itemprop="code">AS</td>
+          <td itemprop="title">Assignment</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Owner name</strong>:
+              <span itemprop="value">NATIONAL AERONAUTICS AND SPACE ADMINISTRATION, U.S</span>
+            </p>
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">ASSIGNMENT OF ASSIGNORS INTEREST;ASSIGNOR:FRANZ, RUSSELL;REEL/FRAME:013008/0568</span>
+            </p>
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Effective date</strong>:
+              <span itemprop="value">20020308</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2002-04-12">2002-04-12</time></td>
+          <td itemprop="code">AS</td>
+          <td itemprop="title">Assignment</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Owner name</strong>:
+              <span itemprop="value">NATIONAL AERONAUTICS AND SPACE ADMINISTRATION, UNI</span>
+            </p>
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">ASSIGNMENT OF ASSIGNORS INTEREST;ASSIGNOR:BERTELRUD, ARILD;REEL/FRAME:012771/0971</span>
+            </p>
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Effective date</strong>:
+              <span itemprop="value">20020307</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2010-09-27">2010-09-27</time></td>
+          <td itemprop="code">REMI</td>
+          <td itemprop="title">Maintenance fee reminder mailed</td>
+          <td>
+            
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2010-10-19">2010-10-19</time></td>
+          <td itemprop="code">SULP</td>
+          <td itemprop="title">Surcharge for late payment</td>
+          <td>
+            
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2010-10-19">2010-10-19</time></td>
+          <td itemprop="code">FPAY</td>
+          <td itemprop="title">Fee payment</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Year of fee payment</strong>:
+              <span itemprop="value">4</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2014-10-03">2014-10-03</time></td>
+          <td itemprop="code">REMI</td>
+          <td itemprop="title">Maintenance fee reminder mailed</td>
+          <td>
+            
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2015-02-20">2015-02-20</time></td>
+          <td itemprop="code">LAPS</td>
+          <td itemprop="title">Lapse for failure to pay maintenance fees</td>
+          <td>
+            
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2015-03-23">2015-03-23</time></td>
+          <td itemprop="code">STCH</td>
+          <td itemprop="title">Information on status: patent discontinuation</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">PATENT EXPIRED DUE TO NONPAYMENT OF MAINTENANCE FEES UNDER 37 CFR 1.362</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2015-04-14">2015-04-14</time></td>
+          <td itemprop="code">FP</td>
+          <td itemprop="title">Expired due to failure to pay maintenance fee</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Effective date</strong>:
+              <span itemprop="value">20150220</span>
+            </p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+</article>
+
+    </search-app>
+    <script type="text/javascript" src="//www.gstatic.com/feedback/api.js"></script>
+    <script async="" defer="" src="//www.google.com/insights/consumersurveys/async_survey?site=cxkjf7ipxgbnnjy6k35ezcvbbe"></script>
+  </body>
+</html>

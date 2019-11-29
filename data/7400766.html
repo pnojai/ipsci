@@ -1,0 +1,2565 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>US7400766B1 - Image edge extraction via fuzzy reasoning 
+        - Google Patents</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="referrer" content="origin-when-crossorigin">
+    <link rel="canonical" href="https://patents.google.com/patent/US7400766B1/en">
+    <meta name="description" content="
+     A computer-based technique for detecting edges in gray level digital images employs fuzzy reasoning to analyze whether each pixel in an image is likely on an edge. The image is analyzed on a pixel-by-pixel basis by analyzing gradient levels of pixels in a square window surrounding the pixel being analyzed. An edge path passing through the pixel having the greatest intensity gradient is used as input to a fuzzy membership function, which employs fuzzy singletons and inference rules to assigns a new gray level value to the pixel that is related to the pixel&#39;s edginess degree. 
+   
+   ">
+    
+    <meta name="DC.type" content="patent">
+    
+    <meta name="DC.title" content="Image edge extraction via fuzzy reasoning 
+       ">
+    
+    <meta name="DC.date" content="2004-02-19" scheme="dateSubmitted">
+    
+    <meta name="DC.description" content="
+     A computer-based technique for detecting edges in gray level digital images employs fuzzy reasoning to analyze whether each pixel in an image is likely on an edge. The image is analyzed on a pixel-by-pixel basis by analyzing gradient levels of pixels in a square window surrounding the pixel being analyzed. An edge path passing through the pixel having the greatest intensity gradient is used as input to a fuzzy membership function, which employs fuzzy singletons and inference rules to assigns a new gray level value to the pixel that is related to the pixel&#39;s edginess degree. 
+   
+   ">
+    
+    <meta name="citation_patent_application_number" content="US:10/783,295">
+    
+    <meta name="citation_pdf_url" content="https://patentimages.storage.googleapis.com/44/91/c9/b17a475a84e1ff/US7400766.pdf">
+    
+    <meta name="citation_patent_number" content="US:7400766">
+    
+    <meta name="DC.date" content="2008-07-15" scheme="issue">
+    
+    <meta name="DC.contributor" content="Jesus A. Dominguez" scheme="inventor">
+    
+    <meta name="DC.contributor" content="Steve Klinko" scheme="inventor">
+    
+    <meta name="DC.contributor" content="National Aeronautics and Space Administration (NASA)" scheme="assignee">
+    
+    <meta name="DC.relation" content="US:5799111" scheme="references">
+    
+    <meta name="DC.relation" content="US:5179599" scheme="references">
+    
+    <meta name="DC.relation" content="US:5481620" scheme="references">
+    
+    <meta name="DC.relation" content="US:5377020" scheme="references">
+    
+    <meta name="DC.relation" content="US:5442462" scheme="references">
+    
+    <meta name="DC.relation" content="US:5590220" scheme="references">
+    
+    <meta name="DC.relation" content="US:5761326" scheme="references">
+    
+    <meta name="DC.relation" content="US:5434927" scheme="references">
+    
+    <meta name="DC.relation" content="US:5651077" scheme="references">
+    
+    <meta name="DC.relation" content="US:5754709" scheme="references">
+    
+    <meta name="DC.relation" content="US:5870495" scheme="references">
+    
+    <meta name="DC.relation" content="JP:H08329252:A" scheme="references">
+    
+    <meta name="DC.relation" content="US:6094508" scheme="references">
+    
+    <meta name="DC.relation" content="US:6347153" scheme="references">
+    
+    <meta name="DC.relation" content="US:6285801" scheme="references">
+    
+    <meta name="DC.relation" content="US:6665439" scheme="references">
+    
+    <meta name="DC.relation" content="US:6424736" scheme="references">
+    
+    <meta name="citation_reference" content="Chang, Yan et al., Comparison of Five Conditional Probabilities in 2-level Image Thresholding Based on Baysian Formulation, The University of Sydney, Australia, pp. 1-6." scheme="references">
+    
+    <meta name="citation_reference" content="Dominguez, Jesus, et al., Detecting Edges in Images by Use of Fuzzy REasoning, NASA Tech Briefs, Nov. 2003." scheme="references">
+    
+    <meta name="citation_reference" content="Dominguez, Jesus, et al., Implementation of a General Real-Time Visual Anomaly Detection System via Fuzzy Reasoning and Neural-Generic Network." scheme="references">
+    
+    <meta name="citation_reference" content="Huang, Liang-Kai, et al., Image Thresholding By Minimizing the Measures of Fuzziness, Pattern Recognition, vol. 28, No. 1, pp. 41-51 (1995)." scheme="references">
+    
+    <meta name="citation_reference" content="Khamy, S.-&#34;A fuzzy gradient-adaptive lossy predictive coding technique&#34;-IEEE-Mar. 2003." scheme="references">
+    
+    <meta name="citation_reference" content="Otsu, N., A Threshold Selection Method From Gray-Level Histograms, IEEE Transactions on Systems, Man, and Cybennetics, vol. 9, No. 1, pp. 62-66 (1979)." scheme="references">
+    
+    <meta name="citation_reference" content="Papamarkos, Nikos, A Technique for Fuzzy Document Binarization, Dept. of Electrical and Computer Engineering, Democritus University of Thrace, 67100 Xanthi, Greece, p. 152-156." scheme="references">
+    
+    <meta name="citation_reference" content="The 10th IEEE Conference on Fuzzy Systems, The University of Melbourne, Australia, Dec. 2-5, 2001." scheme="references">
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,400italic,500,500italic,700">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Product+Sans">
+    <style>
+      body { transition: none; }
+    </style>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-27188110-4', 'auto');
+
+      version = 'patent-search.search_20191120_RC00';
+
+      function sendFeedback() {
+        userfeedback.api.startFeedback({
+          'productId': '713680',
+          'bucket': 'patent-search-web',
+          'productVersion': version,
+        });
+      }
+
+      window.experiments = {};
+      window.experiments.patentCountries = "ae,ag,al,am,ao,ap,ar,at,au,aw,az,ba,bb,bd,be,bf,bg,bh,bj,bn,bo,br,bw,bx,by,bz,ca,cf,cg,ch,ci,cl,cm,cn,co,cr,cs,cu,cy,cz,dd,de,dj,dk,dm,do,dz,ea,ec,ee,eg,em,ep,es,fi,fr,ga,gb,gc,gd,ge,gh,gm,gn,gq,gr,gt,gw,hk,hn,hr,hu,ib,id,ie,il,in,ir,is,it,jo,jp,ke,kg,kh,km,kn,kp,kr,kw,kz,la,lc,li,lk,lr,ls,lt,lu,lv,ly,ma,mc,md,me,mg,mk,ml,mn,mo,mr,mt,mw,mx,my,mz,na,ne,ng,ni,nl,no,nz,oa,om,pa,pe,pg,ph,pl,pt,py,qa,ro,rs,ru,rw,sa,sc,sd,se,sg,si,sk,sl,sm,sn,st,su,sv,sy,sz,td,tg,th,tj,tm,tn,tr,tt,tw,tz,ua,ug,us,uy,uz,vc,ve,vn,wo,yu,za,zm,zw";
+      
+      
+      window.profilePicture = "";
+
+      window.Polymer = {
+        dom: 'shady',
+        lazyRegister: true,
+      };
+    </script>
+
+    <script src="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/webcomponentsjs/webcomponents-lite.min.js"></script>
+    
+    <link rel="import" href="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/search-app-vulcanized.html">
+    
+  </head>
+  <body unresolved>
+    
+    <script src="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/search-app-vulcanized.js"></script>
+    
+    <search-app>
+      
+      
+
+      <article class="result" itemscope itemtype="http://schema.org/ScholarlyArticle">
+  <h1 itemprop="pageTitle">US7400766B1 - Image edge extraction via fuzzy reasoning 
+        - Google Patents</h1>
+  <span itemprop="title">Image edge extraction via fuzzy reasoning 
+       </span>
+
+  <meta itemprop="type" content="patent">
+  <a href="https://patentimages.storage.googleapis.com/44/91/c9/b17a475a84e1ff/US7400766.pdf" itemprop="pdfLink">Download PDF</a>
+  <h2>Info</h2>
+
+  <dl>
+    <dt>Publication number</dt>
+    <dd itemprop="publicationNumber">US7400766B1</dd>
+    <meta itemprop="numberWithoutCodes" content="7400766">
+    <meta itemprop="kindCode" content="B1">
+    <meta itemprop="publicationDescription" content="Patent ( no pre-grant publication)">
+    
+    <span>US7400766B1</span>
+    
+    <span>US10/783,295</span>
+    
+    <span>US78329504A</span>
+    
+    <span>US7400766B1</span>
+    
+    <span>US 7400766 B1</span>
+    
+    <span>US7400766 B1</span>
+    
+    <span>US 7400766B1</span>
+    
+    <span>  </span>
+    
+    <span> </span>
+    
+    <span> </span>
+    
+    <span>US 78329504 A</span>
+    
+    <span>US78329504 A</span>
+    
+    <span>US 78329504A</span>
+    
+    <span>US 7400766 B1</span>
+    
+    <span>US7400766 B1</span>
+    
+    <span>US 7400766B1</span>
+    
+
+    <dt>Authority</dt>
+    <dd itemprop="countryCode">US</dd>
+    <dd itemprop="countryName">United States</dd>
+
+    <dt>Prior art keywords</dt>
+    
+    <dd itemprop="priorArtKeywords" repeat>pixel</dd>
+    <dd itemprop="priorArtKeywords" repeat>edge</dd>
+    <dd itemprop="priorArtKeywords" repeat>value</dd>
+    <dd itemprop="priorArtKeywords" repeat>plurality</dd>
+    <dd itemprop="priorArtKeywords" repeat>image</dd>
+
+    <dt>Prior art date</dt>
+    <dd><time itemprop="priorArtDate" datetime="2004-02-19">2004-02-19</time></dd>
+
+    <dt>Legal status (The legal status is an assumption and is not a legal conclusion. Google has not performed a legal analysis and makes no representation as to the accuracy of the status listed.)</dt>
+    <dd itemprop="legalStatusIfi" itemscope>
+      <span itemprop="status">Active</span>, expires <time itemprop="expiration" datetime="2026-03-20">2026-03-20</time>
+    </dd>
+  </dl>
+
+  <dt>Application number</dt>
+  <dd itemprop="applicationNumber">US10/783,295</dd>
+
+  
+
+  
+
+  <dt>Inventor</dt>
+  <dd itemprop="inventor" repeat>Jesus A. Dominguez</dd>
+  <dd itemprop="inventor" repeat>Steve Klinko</dd>
+  <dt>Current Assignee (The listed assignees may be inaccurate. Google has not performed a legal analysis and makes no representation or warranty as to the accuracy of the list.)</dt>
+  <dd itemprop="assigneeCurrent" repeat>
+    National Aeronautics and Space Administration (NASA)
+  </dd>
+
+  <dt>Original Assignee</dt>
+  <dd itemprop="assigneeOriginal" repeat>National Aeronautics and Space Administration (NASA)</dd>
+
+  <dt>Priority date (The priority date is an assumption and is not a legal conclusion. Google has not performed a legal analysis and makes no representation as to the accuracy of the date listed.)</dt>
+  <dd><time itemprop="priorityDate" datetime="2004-02-19">2004-02-19</time></dd>
+
+  <dt>Filing date</dt>
+  <dd><time itemprop="filingDate" datetime="2004-02-19">2004-02-19</time></dd>
+
+  <dt>Publication date</dt>
+  <dd><time itemprop="publicationDate" datetime="2008-07-15">2008-07-15</time></dd>
+
+  
+
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2004-02-19">2004-02-19</time>
+    <span itemprop="title">Application filed by National Aeronautics and Space Administration (NASA)</span>
+    <span itemprop="type">filed</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    <span itemprop="assigneeSearch">National Aeronautics and Space Administration (NASA)</span>
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2004-02-19">2004-02-19</time>
+    <span itemprop="title">Priority to US10/783,295</span>
+    <span itemprop="type">priority</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    <span itemprop="documentId">patent/US7400766B1/en</span>
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2008-07-15">2008-07-15</time>
+    <span itemprop="title">Application granted</span>
+    <span itemprop="type">granted</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2008-07-15">2008-07-15</time>
+    <span itemprop="title">Publication of US7400766B1</span>
+    <span itemprop="type">publication</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    <span itemprop="documentId">patent/US7400766B1/en</span>
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2019-11-26">2019-11-26</time>
+    <span itemprop="title">Application status is Active</span>
+    <span itemprop="type">legal-status</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2026-03-20">2026-03-20</time>
+    <span itemprop="title">Adjusted expiration</span>
+    <span itemprop="type">legal-status</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+
+  <h2>Links</h2>
+
+  <ul>
+    
+          <li itemprop="links" itemscope repeat>
+            <meta itemprop="id" content="usptoLink">
+            <a href="http://patft.uspto.gov/netacgi/nph-Parser?Sect1=PTO1&Sect2=HITOFF&p=1&u=/netahtml/PTO/srchnum.html&r=1&f=G&l=50&d=PALL&s1=7400766.PN." itemprop="url" target="_blank"><span itemprop="text">USPTO</span></a>
+          </li>
+        <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="usptoAssignmentLink">
+          <a href="https://assignment.uspto.gov/patent/index.html#/patent/search/resultFilter?searchInput=7400766" itemprop="url" target="_blank"><span itemprop="text">USPTO Assignment</span></a>
+        </li>
+
+    <li itemprop="links" itemscope repeat>
+        <meta itemprop="id" content="espacenetLink">
+        <a href="http://worldwide.espacenet.com/publicationDetails/biblio?CC=US&amp;NR=7400766B1&amp;KC=B1&amp;FT=D" itemprop="url" target="_blank"><span itemprop="text">Espacenet</span></a>
+      </li>
+      
+
+    
+
+    
+      <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="globalDossierLink">
+          <a href="http://globaldossier.uspto.gov/#/result/patent/US/7400766/1" itemprop="url" target="_blank"><span itemprop="text">Global Dossier</span></a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="stackexchangeLink">
+          <a href="https://patents.stackexchange.com/questions/tagged/US7400766" itemprop="url"><span itemprop="text">Discuss</span></a>
+        </li>
+      
+  </ul>
+
+  
+  <ul itemprop="concept" itemscope>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000000034</span>
+      <span itemprop="name">methods</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>abstract</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">21</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000003708</span>
+      <span itemprop="name">edge detection</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">26</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000002609</span>
+      <span itemprop="name">media</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">14</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000004458</span>
+      <span itemprop="name">analytical methods</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">11</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000015654</span>
+      <span itemprop="name">memory</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">10</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000000605</span>
+      <span itemprop="name">extraction</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>title</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000000875</span>
+      <span itemprop="name">corresponding</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="count">4</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000004422</span>
+      <span itemprop="name">calculation algorithm</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">17</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">241000282414</span>
+      <span itemprop="name">Homo sapiens</span>
+      <span itemprop="domain">Species</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">3</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000036629</span>
+      <span itemprop="name">mind</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000003860</span>
+      <span itemprop="name">storage</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">241000282412</span>
+      <span itemprop="name">Homo</span>
+      <span itemprop="domain">Species</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000003044</span>
+      <span itemprop="name">adaptive</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001595</span>
+      <span itemprop="name">contractor</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000000694</span>
+      <span itemprop="name">effects</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000004438</span>
+      <span itemprop="name">eyesight</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000011133</span>
+      <span itemprop="name">lead</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000004048</span>
+      <span itemprop="name">modification</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000006011</span>
+      <span itemprop="name">modification</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+  </ul>
+  
+
+  <section>
+    <h2>Images</h2>
+    <ul>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/thumbnails/US7400766B1/US07400766-20080715-D00000.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/US7400766B1/US07400766-20080715-D00000.png">
+        <ul>
+          
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/thumbnails/US7400766B1/US07400766-20080715-D00001.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/US7400766B1/US07400766-20080715-D00001.png">
+        <ul>
+          
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/thumbnails/US7400766B1/US07400766-20080715-D00002.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/US7400766B1/US07400766-20080715-D00002.png">
+        <ul>
+          
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/thumbnails/US7400766B1/US07400766-20080715-D00003.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/US7400766B1/US07400766-20080715-D00003.png">
+        <ul>
+          
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/thumbnails/US7400766B1/US07400766-20080715-D00004.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/US7400766B1/US07400766-20080715-D00004.png">
+        <ul>
+          
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/thumbnails/US7400766B1/US07400766-20080715-D00005.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/US7400766B1/US07400766-20080715-D00005.png">
+        <ul>
+          
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/thumbnails/US7400766B1/US07400766-20080715-D00006.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/US7400766B1/US07400766-20080715-D00006.png">
+        <ul>
+          
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/thumbnails/US7400766B1/US07400766-20080715-D00007.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/US7400766B1/US07400766-20080715-D00007.png">
+        <ul>
+          
+        </ul>
+      </li>
+      </ul>
+  </section>
+
+  <section>
+    <h2>Classifications</h2>
+    
+    <ul>
+      <li>
+        <ul itemprop="cpcs" itemscope repeat>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G</span>&mdash;<span itemprop="Description">PHYSICS</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06</span>&mdash;<span itemprop="Description">COMPUTING; CALCULATING; COUNTING</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06K</span>&mdash;<span itemprop="Description">RECOGNITION OF DATA; PRESENTATION OF DATA; RECORD CARRIERS; HANDLING RECORD CARRIERS</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06K9/00</span>&mdash;<span itemprop="Description">Methods or arrangements for reading or recognising printed or written characters or for recognising patterns, e.g. fingerprints</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06K9/36</span>&mdash;<span itemprop="Description">Image preprocessing, i.e. processing the image information without deciding about the identity of the image</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06K9/46</span>&mdash;<span itemprop="Description">Extraction of features or characteristics of the image</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06K9/4604</span>&mdash;<span itemprop="Description">Detecting partial patterns, e.g. edges or contours, or configurations, e.g. loops, corners, strokes, intersections</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06K9/4609</span>&mdash;<span itemprop="Description">Detecting partial patterns, e.g. edges or contours, or configurations, e.g. loops, corners, strokes, intersections by matching or filtering</span>
+            <meta itemprop="Leaf" content="true">
+            
+            <meta itemprop="FirstCode" content="true">
+          </li>
+          </ul>
+      </li>
+      <li>
+        <ul itemprop="cpcs" itemscope repeat>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G</span>&mdash;<span itemprop="Description">PHYSICS</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06</span>&mdash;<span itemprop="Description">COMPUTING; CALCULATING; COUNTING</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06T</span>&mdash;<span itemprop="Description">IMAGE DATA PROCESSING OR GENERATION, IN GENERAL</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06T7/00</span>&mdash;<span itemprop="Description">Image analysis</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06T7/10</span>&mdash;<span itemprop="Description">Segmentation; Edge detection</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06T7/13</span>&mdash;<span itemprop="Description">Edge detection</span>
+            <meta itemprop="Leaf" content="true">
+            
+            
+          </li>
+          </ul>
+      </li>
+      <li>
+        <ul itemprop="cpcs" itemscope repeat>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G</span>&mdash;<span itemprop="Description">PHYSICS</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06</span>&mdash;<span itemprop="Description">COMPUTING; CALCULATING; COUNTING</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06T</span>&mdash;<span itemprop="Description">IMAGE DATA PROCESSING OR GENERATION, IN GENERAL</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06T7/00</span>&mdash;<span itemprop="Description">Image analysis</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06T7/10</span>&mdash;<span itemprop="Description">Segmentation; Edge detection</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06T7/143</span>&mdash;<span itemprop="Description">Segmentation; Edge detection involving probabilistic approaches, e.g. Markov random field [MRF] modelling</span>
+            <meta itemprop="Leaf" content="true">
+            
+            
+          </li>
+          </ul>
+      </li>
+      </ul>
+  </section>
+
+  <section itemprop="abstract" itemscope>
+    <h2>Abstract</h2>
+    
+    <div itemprop="content" html><abstract mxw-id="PA51333325" lang="EN" load-source="patent-office">
+    <div num="p-0001" class="abstract">A computer-based technique for detecting edges in gray level digital images employs fuzzy reasoning to analyze whether each pixel in an image is likely on an edge. The image is analyzed on a pixel-by-pixel basis by analyzing gradient levels of pixels in a square window surrounding the pixel being analyzed. An edge path passing through the pixel having the greatest intensity gradient is used as input to a fuzzy membership function, which employs fuzzy singletons and inference rules to assigns a new gray level value to the pixel that is related to the pixel&#39;s edginess degree.</div>
+  </abstract>
+  </div>
+  </section>
+
+  <section itemprop="description" itemscope>
+    <h2>Description</h2>
+    
+    <div itemprop="content" html><div mxw-id="PDES16444402" lang="EN" load-source="patent-office" class="description">
+
+  <heading>ORIGIN OF THE INVENTION</heading>
+  <p num="p-0002">The invention described herein was made in the performance of work under a NASA contract and is subject to the provisions of Public Law 96-517 (35 U.S.C. § 202) in which the contractor has elected not to retain title.</p>
+
+
+  <heading>CROSS REFERENCE TO RELATED APPLICATIONS</heading>
+  <p num="p-0003">This application is related to an application entitled Optimal Binarization of Gray-Scaled Images Via Fuzzy Reasoning, which is commonly owned with the subject application and is to be filed under Ser. No. 10/779/551.</p>
+  <heading>BACKGROUND OF THE INVENTION</heading>
+  <p num="p-0004">1. Field of the Invention</p>
+  <p num="p-0005">The present invention relates in general to a method and system for detecting edges in digital images in which fuzzy reasoning is employed to determine the degree to which each pixel in an image represents an edge.</p>
+  <p num="p-0006">2. Description of the Background Art</p>
+  <p num="p-0007">Accurate detection in images of edges, which contain the most important information, is vital to performing advanced image processing and analysis. Unfortunately, images of real scenes frequently contain data that is ambiguous and incomplete. As a result, the problem of determining what is and what is not an edge is confounded by the fact that edges are very often partially hidden or distorted by various effects such as uneven lighting and image acquisition noise. Furthermore, images frequently contain data with edge-like characteristics, but a confident classification of this data can be best solved when high-level constraints are imposed on the interpretation of an image.</p>
+  <p num="p-0008">Most known edge detector techniques require the selection of parameters (e.g. thresholds in gradient edge detectors, thresholds in Laplacian edge detectors, and s in Laplacian of Gaussian edge detectors) when no information about the images is known in advance. Edge detection based on mathematical models can only detect specific kinds of noticeable edges. For example, an optimal mathematical-model-based step edge detector can be ineffective for ramp edges. Moreover, the parameters in some of the mathematical models are difficult to determine when little information about the image is known.</p>
+  <p num="p-0009">Human beings, on the other hand, are able to make some sense of even unfamiliar objects, which necessarily have an imperfect high-level representation. To perceive unfamiliar objects, or to perceive familiar objects with imperfect images, it appears that humans apply heuristic algorithms to understand such images. Although these algorithms may be “implemented” in the wetware of the human vision system, it is feasible to believe that it is possible to characterize an equivalent process systematically. One would therefore suspect that a system that employs human like heuristic algorithms would be particularly suited for image edge detection considering the indeterminate nature of edge detection data. Such a system may well be found to out perform other, mathematical based edge detection techniques.</p>
+  <heading>SUMMARY OF THE INVENTION</heading>
+  <p num="p-0010">The present invention provides such a heuristic algorithm based technique for image edge detection that has in fact been shown to outperform previous mathematical based edge detection techniques. More particularly, the technique employs fuzzy reasoning, which is a suitable framework for expressing heuristic processes applied to incomplete and imperfect image data. With fuzzy reasoning, the edge detection technique is completely adaptive with no need for selecting parameters. The use of fuzzy reasoning with the power to model and respond usefully to approximate situations is ideally suited to edge detection because the nature of the data is indeterminate at a low-level stage of processing.</p>
+  <p num="p-0011">In the specific method of the present invention, a multiple pixel digital image is analyzed for edges on a pixel-by-pixel basis. That is, each pixel in the image is analyzed to determine the degree to which it represents a part of an edge in the image. The analysis relies on the fact that if a pixel is on an edge, then that edge will extend in some direction away from the pixel and pixels on either side of the edge will likely have gray values that differ substantially from one another. For example, if predominantly dark, low valued pixels are on one side of the edge, predominantly light or high valued pixels will likely be on the opposite side of the edge.</p>
+  <p num="p-0012">With the foregoing in mind, the method of the present invention begins edge analysis of a pixel in the image by identifying an edge path running through the pixel and determining the intensity gradient on either side of the edge. To do this, a square n×n pixel window (n being an odd number greater or equal to 3) is preferably used with the pixel to be analyzed being located at the center of the window. There are four possible edge paths through the center pixel: horizontal, vertical and two 45 degree diagonals. Each one of these edge paths splits the n×n pixel window into two regions, each holding an equal number of pixels.</p>
+  <p num="p-0013">In the preferred embodiment, the average change of gray levels across each one of the four edge paths is computed and the edge path with the greatest change of gray levels is chosen to be used as a dimensionless input to a fuzzy membership function. The linguistic values (or labels) used for the average change of gray levels are those one heuristically might use: Small, Medium and Large. The output variable is the degree of edginess that the central pixel in the window has based on the intensity gradient value and is preferably evaluated using a known inference method referred to as the Truth Value Flow Inference (TVFI) method that uses singletons instead of fuzzy sets as used in the widely-used Mandini method. The linguistic variables (or labels) of the output value are also those one heuristically might use: Edge, Mild edge and No Edge. Simple inference rules are then used to express the dependency between the input and output values. If the grayness change is small, then the central pixel is No Edge; if the grayness change is Medium, then the central pixel is a Mild Edge; and, if the grayness change is Large, then the central pixel is Edge. A value between 0.0 and 1.0 is thus assigned to each of these three characteristics, which values represent the degree to which the pixel is an Edge, a Mild Edge or No Edge.</p>
+  <p num="p-0014">The final step of the method is defuzzification where the three characteristic output values for the selected edge path are combined using an averaging method to determine the crisp output value for the central pixel. Preferably, the averaging method is either an averaging union of truncated output singletons (TVFI method) or a centroid averaging process (Mandini method). The final output value of the central pixel is generated by multiplying the full grayness level and its respective edginess degree, which results in assignment of a new gray level value to the pixel that is directly proportional to the pixel&#39;s edginess degree. The foregoing process is then repeated for all other possible windows until each pixel in the image has been characterized based on edginess.</p>
+
+
+  <description-of-drawings>
+    <heading>BRIEF DESCRIPTION OF THE DRAWINGS</heading>
+    <p num="p-0015">The features and advantages of the present invention will become apparent from the following detailed description of a preferred embodiment thereof, taken in conjunction with the accompanying drawings, in which:</p>
+    <p num="p-0016"> <figref idrefs="DRAWINGS">FIG. 1</figref> is a block diagram of a computer system that can be employed for detecting edges in digital images using a fuzzy reasoning based algorithm in accordance with the preferred embodiment of the present invention;</p>
+    <p num="p-0017"> <figref idrefs="DRAWINGS">FIG. 2</figref> is a flowchart showing the steps carried out by the edge detection algorithm of the preferred embodiment;</p>
+    <p num="p-0018"> <figref idrefs="DRAWINGS">FIG. 3</figref> is a schematic illustration of a 3×3 pixel window that is employed in the edge detection algorithm of the preferred embodiment to identify an edge passing through a pixel in an image having a maximum intensity gradient from one side of the edge to the opposite side of the edge;</p>
+    <p num="p-0019"> <figref idrefs="DRAWINGS">FIG. 4</figref> is graph illustrating an input fuzzy membership function employed in the edge detection algorithm of the preferred embodiment;</p>
+    <p num="p-0020"> <figref idrefs="DRAWINGS">FIG. 5</figref> is a graph illustrating an output fuzzy membership function that is employed in the edge detection algorithm of the preferred embodiment;</p>
+    <p num="p-0021"> <figref idrefs="DRAWINGS">FIG. 6</figref> is a graph illustrating how an input value is employed by the input membership function to determine the singleton values (TVFI method) on the respective output membership value;</p>
+    <p num="p-0022"> <figref idrefs="DRAWINGS">FIG. 7</figref> is a graph illustrating how the final crisp output value is generated based on the singleton output values shown in <figref idrefs="DRAWINGS">FIG. 6</figref>;</p>
+    <p num="p-0023"> <figref idrefs="DRAWINGS">FIG. 8</figref> is a gray-scale image to be analyzed for edges in accordance with the preferred embodiment;</p>
+    <p num="p-0024"> <figref idrefs="DRAWINGS">FIG. 9</figref> is an output from a first prior art edge detector algorithm of the image of <figref idrefs="DRAWINGS">FIG. 8</figref>;</p>
+    <p num="p-0025"> <figref idrefs="DRAWINGS">FIG. 10</figref> is an output from a second prior art edge detector algorithm of the image of <figref idrefs="DRAWINGS">FIG. 8</figref>; and</p>
+    <p num="p-0026"> <figref idrefs="DRAWINGS">FIG. 11</figref> is an output from the edge detector algorithm of the preferred embodiment of the present invention.</p>
+  </description-of-drawings>
+
+
+  <heading>DETAILED DESCRIPTION OF THE PREFERRED EMBODIMENT</heading>
+  <p num="p-0027">With reference to <figref idrefs="DRAWINGS">FIG. 1</figref>, a computer system <b>10</b> is illustrated which includes a processor <b>12</b> that is interfaced to an operating memory <b>14</b> and a storage memory <b>16</b>, as is conventional. Loaded into the operating memory <b>14</b> is an edge detection software application or module <b>18</b> that is designed to detect edges in multiple bit digital images using fuzzy reasoning in accordance with a preferred embodiment of the present invention. The computer system <b>10</b> can be implemented using any conventional PC, for example, but other computer systems can be employed as well.</p>
+  <p num="p-0028">Multiple pixel digital images to be analyzed for edges are either retrieved from the storage memory <b>16</b> or from an external image source <b>20</b> and are fed into the edge detection application <b>18</b> for analysis with an edge detection algorithm. In the specific method of the present invention, a multiple pixel digital image is analyzed for edges on a pixel-by-pixel basis. That is, each pixel in the image is analyzed to determine the degree to which the pixel likely represents a part of an edge in the image. The analysis relies on the fact that if a pixel is on an edge, then that edge will extend in some direction away from the pixel and pixels on either side of the edge will likely have gray values that differ substantially from one another. For example, if predominantly dark, low valued pixels are on one side of the edge, predominantly light or high valued pixels will likely be on the opposite side of the edge.</p>
+  <p num="p-0029">With the foregoing in mind and with reference to the flowchart of <figref idrefs="DRAWINGS">FIG. 2</figref>, the algorithm of the present invention begins edge analysis of a pixel in the image at step <b>100</b> by identifying an edge path running through the pixel and calculating a pixel intensity gradient on either side of the edge path. To do this, a square n×n pixel window (n being an odd number greater or equal to 3) is used with the pixel to be analyzed being located at the center of the window. <figref idrefs="DRAWINGS">FIG. 3</figref> illustrates such a 3×3 pixel window W with a plurality of pixels P and a center pixel CP. The n×n pixels P are arbitrary labeled (i, j) where i is the window&#39;s row number (i=0, 1, 2 , , , n−1) and j is the window&#39;s column number (j=0, 1, 2, , , , n−1). Since n is an odd number, the center pixel CP is located at x, y coordinates i=(n−1)/2 and j=(n−1)/2.</p>
+  <p num="p-0030">It should be noted that the use of the window W means that some pixels along the borders of the image will not be analyzed since they cannot be surrounded by a window. However, this is of little consequence since the outside edges of the image are not typically of interest in an edge detection analysis. For example, a 3×3 window would leave a 1-pixel image margin without edge grade evaluation while a 5×5 window would generate a 2-pixel margin.</p>
+  <p num="p-0031">As also illustrated in <figref idrefs="DRAWINGS">FIG. 3</figref>, there are four possible edge paths EP through the center pixel: horizontal, vertical and two 45 degree diagonals. Each one of these edge paths splits the n×n pixel window W into two regions, each holding an equal number of pixels. In the preferred embodiment, the average change or gradient of gray levels across each one of the four edge paths is then computed and the edge path with the greatest change of gray levels S<sub>max </sub>is chosen to be used as a dimensionless input to a fuzzy membership function. If an 8 bit gray scale is employed a gray gradient value between 0 and 255 is generated; S<sub>max </sub>will be a dimensionless number between 0 and 1 as it is generated by dividing the gray gradient value by 255, the highest possible gray gradient value. It should be noted that while it is preferred to compare the intensity gradients of all four possible edge paths, any lesser number of the paths could be analyzed if desired, though this would likely diminish the accuracy of the edge detection process.</p>
+  <p num="p-0032">The next step <b>102</b> of the process is called fuzzification. This step involves entry of S<sub>max </sub>into a fuzzy membership function as illustrated in <figref idrefs="DRAWINGS">FIG. 4</figref>, which shows the input membership function for a plurality of input linguistic values or characteristics that are associated with the dimensionless gray level gradient value, S<sub>max</sub>. In the preferred embodiment, the input linguistic values (or labels) used for the average change of gray levels are those one heuristically might use: Small, Medium and Large. Thus, the graph of <figref idrefs="DRAWINGS">FIG. 4</figref> shows the pixel gradient change S<sub>max </sub>as a function of the degree, from 0.0 to 1.0, that the magnitude of S<sub>max </sub>is characterized as Small, Medium and Large. The membership function therefore converts the single input into three input values, one for each label.</p>
+  <p num="p-0033">The next step <b>104</b> implemented by the edge detection algorithm is referred to as rule evaluation in which each of the input values generated by the input membership function is applied to an output membership function. <figref idrefs="DRAWINGS">FIG. 5</figref> illustrates the output membership function in which inference rules are applied to the values obtained from the input membership function. The output variable μ<sub>e </sub>is the degree of edginess that the central pixel in the window has based on the intensity gradient value and is preferably evaluated using a known inference method referred to as the Truth Value Flow Inference (TVFI) method that use singletons. Other more computation intensive inference methods, such as the well-known Mandani inference method, can be used, but the TVFI method is preferred for its simplicity that leads to a much less CPU demanding approach. The linguistic variables (or labels) of the output value are also those one heuristically might use: Edge, Mild Edge and No Edge. Simple inference rules are then used to express the dependency between the input and output values. Every input value goes through the rules to lead to its respective output value holding three weight values for each one of the output adjectives (Edge, Mild Edge and No Edge). It should be noted that the sum of these weight values does not have to equal 1.0 as fuzzy reasoning is not the same as probability.</p>
+  <p num="p-0034">The inference rules are as follows:</p>
+  <p num="p-0035">1) If the grayness change is Small, then the central pixel is No Edge;</p>
+  <p num="p-0036">2) if the grayness change is Medium, then the central pixel is Mild Edge; and,</p>
+  <p num="p-0037">3) if the grayness change is Large, then the central pixel is Edge.</p>
+  <p num="p-0038">Thus, for each pixel, the inference rules will result in three characteristic output values, each between 0.0 and 1.0, that represent the degree to which the pixel is No Edge, Mild Edge and Edge, respectively.</p>
+  <p num="p-0039">The graph of <figref idrefs="DRAWINGS">FIG. 6</figref> illustrates the application of the inference rules on both the input and output membership functions that yield the final set of truncated singleton values. In the example of <figref idrefs="DRAWINGS">FIG. 6</figref>, the input value 0.2 leads to input adjective weight values of 0.25, 0.35, and 0.8 for Large, Medium and Small respectively; these adjective weight values and the set of rules yield the truncated output singleton values 0.25, 0.35, and 0.8 for the adjectives Edge, Mild and No Edge respectively.</p>
+  <p num="p-0040">Once the truncated singleton values have been determined, the final step <b>106</b> of the method is defuzzification where the three characteristic output values for the selected edge path are combined using an averaging union of singletons (TVFI method) or a centroid averaging (Mandini method) to determine a crisp output value for the central pixel. More particularly, the defuzzification process takes the union of the truncated singleton values illustrated in <figref idrefs="DRAWINGS">FIG. 6</figref>, and then takes their weighted average to generate a crisp output value of 0.71 as shown in <figref idrefs="DRAWINGS">FIG. 7</figref>. In contrast with the Mandini method, the TVFI method does not need to determine the centroid of the resultant fuzzy set. The final output value of the central pixel is generated by multiplying the full grayness level (255 for 8-bit gray-scaled images) and its respective edginess degree (a number between 0.0 and 1.0). This results in assignment of a new gray level value to the pixel that is directly proportional to the pixels&#39; edginess degree. The algorithm then queries at step <b>108</b> whether all pixel windows have been evaluated. If not, the algorithm selects the next pixel at step <b>110</b> and returns to step <b>100</b> to repeat the foregoing process until each pixel in the image has been characterized based on its degree of edginess. Once all pixels have been characterized, the application is done at step <b>112</b>.</p>
+  <p num="p-0041">To test the effectiveness of the subject edge detection technique, the image of a compact disc (CD) shown in <figref idrefs="DRAWINGS">FIG. 8</figref> was used as input and analyzed using two prior art, mathematical based edge detection algorithms and the algorithm of the subject invention. <figref idrefs="DRAWINGS">FIGS. 9 and 10</figref> show edge detection results generated by the prior art algorithms, known as Sobel and Prewit, respectively, while <figref idrefs="DRAWINGS">FIG. 11</figref> shows the edge detection generated by the fuzzy reasoning algorithm of the subject invention. As the images show, the edge detection performance based on fuzzy reasoning widely supersedes those based on the prior art mathematical algorithms. For example, tiny edges are not detected by the prior art algorithms. There is a dark spot with tiny edges close to the center of the CD, and the fuzzy reasoning based algorithm of the subject invention clearly both detects and identifies it, while the prior art techniques fail to even detect it. Numbers and marks on the CD are also much clearer using the subject fuzzy reasoning edge detector.</p>
+  <p num="p-0042">Although the invention has been disclosed in terms of a preferred embodiment, and variations thereon, it will be understood that numerous other modifications and variations could be made thereto without departing from the scope of the invention as set forth in the following claims.</p>
+
+</div>
+  </div>
+  </section>
+
+  <section itemprop="claims" itemscope>
+    <h2>Claims (<span itemprop="count">16</span>)</h2>
+    
+    <div itemprop="content" html><div mxw-id="PCLM9421858" lang="EN" load-source="patent-office" class="claims">
+  <div class="claim"> <div id="CLM-00001" num="00001" class="claim">
+    <div class="claim-text">1. A computer-based method for detecting one or more edges in a multiple pixel digital image comprising the steps of:
+<div class="claim-text">loading a multiple pixel digital gray scale image to be analyzed from an external source of images into an operating memory of a computer;</div>
+<div class="claim-text">analyzing said image for edges with an image edge detection application run by said computer, said application comprising the steps of:</div>
+<div class="claim-text">1) selecting a pixel in said image to be analyzed;</div>
+<div class="claim-text">2) identifying a plurality of potential edge paths which pass through said selected pixel;</div>
+<div class="claim-text">3) calculating an average pixel intensity gradient value for each of said edge paths by comparing a gray level intensity of pixels on one side of each of said edge paths to a gray level intensity of pixels on an opposite side of each of said edge paths;</div>
+<div class="claim-text">4) selecting the greatest of said average pixel intensity gradient values of said edge paths as an input to a single fuzzy membership function and generating with said function, a plurality of output values that are related to a degree to which said pixel represents an edge in said image;</div>
+<div class="claim-text">5) combining said plurality of output values using a weighted averaging analysis comprising an averaging union of truncated output singletons to assign a crisp edginess value to said pixel;</div>
+<div class="claim-text">6) assigning a new edginess based gray level value to said pixel by multiplying an original gray level value of said selected pixel by said crisp edginess value, said new edginess based gray level value being proportional to an edginess degree of said selected pixel; and</div>
+<div class="claim-text">7) repeating steps (1)-(6) for additional pixels in said image.</div>
+</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00002" num="00002" class="claim">
+    <div class="claim-text">2. The computer-based method of <claim-ref idref="CLM-00001">claim 1</claim-ref>, wherein four edge paths are identified that pass through said pixel.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00003" num="00003" class="claim">
+    <div class="claim-text">3. The computer-based method of <claim-ref idref="CLM-00001">claim 1</claim-ref>, wherein said average pixel intensity gradient value for each of said edge paths is calculated by:
+<div class="claim-text">selecting an n×n pixel window, where n is an odd number greater than or equal to 3 and said pixel to be analyzed is located at a center of said window;</div>
+<div class="claim-text">calculating a first, average pixel intensity value of pixels in said window on a first side of said edge path;</div>
+<div class="claim-text">calculating a second, average pixel intensity value of pixels in said window on a second, opposite side of said edge path; and,</div>
+<div class="claim-text">calculating a difference between said first and second values to obtain said average pixel intensity gradient value.</div>
+</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00004" num="00004" class="claim">
+    <div class="claim-text">4. The computer-based method of <claim-ref idref="CLM-00001">claim 1</claim-ref>, wherein said step of generating a plurality of output values with said single membership function comprises:
+<div class="claim-text">employing an input membership function to generate a plurality of input values relating said average pixel intensity gradient value to a plurality of degrees of intensity;</div>
+<div class="claim-text">applying a plurality of inference rules in an output membership function that relate the plurality of intensity degrees to a corresponding plurality of edginess degrees and thereby generate said plurality of output values.</div>
+</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00005" num="00005" class="claim">
+    <div class="claim-text">5. The computer-based method of <claim-ref idref="CLM-00004">claim 4</claim-ref>, wherein three of said input values, three of said inference rules and three of said output values are employed; said input values being small, medium and large; said output values being no edge, mild edge and edge; and said inference rules being if the average pixel intensity gradient value is small, the pixel is not an edge; if the average pixel intensity gradient value is medium, the pixel is a mild edge; and, if the average pixel intensity gradient value is large, the pixel is an edge.</div>
+  </div>
+  </div> <div class="claim"> <div id="CLM-00006" num="00006" class="claim">
+    <div class="claim-text">6. A computer-based method for detecting one or more edges in a multiple pixel digital image comprising the steps of:
+<div class="claim-text">loading a multiple pixel digital gray scale image to be analyzed from an external source of images into an operating memory of a computer;</div>
+<div class="claim-text">analyzing said image for edges with an image edge detection application run by said computer, said application comprising the steps of:</div>
+<div class="claim-text">1) selecting a pixel in said image to be analyzed;</div>
+<div class="claim-text">2) selecting an n×n pixel window, where n is an odd number greater than or equal to 3 and said window includes a center pixel, wherein said center pixel is said pixel to be analyzed;</div>
+<div class="claim-text">3) identifying a plurality of edge paths that run through said center pixel and divide said window into first and second groups of pixels;</div>
+<div class="claim-text">4) for each of said edge paths, calculating a first, average pixel intensity value of pixels in said first group and a second, average pixel intensity value of pixels in said second group; and, calculating a difference between said first and second values to obtain an average pixel intensity gradient value for each said edge path;</div>
+<div class="claim-text">5) selecting the greatest of said average pixel intensity gradient values as an input to a single fuzzy membership function to generate a plurality of input values relating said average pixel intensity gradient value to a plurality of degrees of intensity;</div>
+<div class="claim-text">6) applying a plurality of inference rules in an output membership function that relate the plurality of intensity degrees to a corresponding plurality of edginess degrees and generate a plurality of output values that are related to a degree to which said center pixel represents an edge in said image;</div>
+<div class="claim-text">7) combining said plurality of output values using a weighted averaging analysis comprising an averaging union of truncated output singletons to assign a crisp edginess value to said center pixel;</div>
+<div class="claim-text">8) assigning a new edginess based gray level value to said pixel by multiplying an original gray level value of said selected pixel by said crisp edginess value, said new edginess based gray level value being proportional to an edginess degree of said selected pixel; and,</div>
+<div class="claim-text">9) repeating steps (1)-(8) for additional pixels in said image.</div>
+</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00007" num="00007" class="claim">
+    <div class="claim-text">7. The computer-based method of <claim-ref idref="CLM-00006">claim 6</claim-ref>, wherein four edge paths are identified that pass through said pixel.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00008" num="00008" class="claim">
+    <div class="claim-text">8. The computer-based method of <claim-ref idref="CLM-00006">claim 6</claim-ref>, wherein three of said input values, three of said inference rules and three of said output values are employed; said input values being small, medium and large; said output values being no edge, mild edge and edge; and said inference rules being if the average pixel intensity gradient value is small, the pixel is not an edge; if the average pixel intensity gradient value is medium, the pixel is a mild edge; and, if the average pixel intensity gradient value is large, the pixel is an edge.</div>
+  </div>
+  </div> <div class="claim"> <div id="CLM-00009" num="00009" class="claim">
+    <div class="claim-text">9. A computer system for detecting one or more edges in a multiple pixel digital image comprising:
+<div class="claim-text">a processor;</div>
+<div class="claim-text">an operating memory interfaced to and readable by said processor;</div>
+<div class="claim-text">an external source of multiple pixel digital gray scale images to be analyzed for edges; and</div>
+<div class="claim-text">an image edge detection application embodied in said operating memory and executable by said processor for performing process steps for retrieving a multiple pixel gray scale digital image from said external source and detecting edges in said image, said process steps comprising the steps of:</div>
+<div class="claim-text">1) retrieving an image to be analyzed from said source of images;</div>
+<div class="claim-text">2) selecting a pixel in said image to be analyzed;</div>
+<div class="claim-text">3) identifying a plurality of edge paths which pass through said selected pixel;</div>
+<div class="claim-text">4) calculating an average pixel intensity gradient value for each of said edge paths by comparing a gray level intensity of pixels on one side of each of said edge paths to a gray level intensity of pixels on an opposite side of each of said edge paths;</div>
+<div class="claim-text">5) selecting the greatest of said average pixel intensity gradient values of said edge paths as an input to a single fuzzy membership function and generating with said function, a plurality of output values that are related to a degree to which said pixel represents an edge in said image;</div>
+<div class="claim-text">6) combining said plurality of output values using a weighted averaging analysis comprising an averaging union of truncated output singletons to assign a crisp edginess value to said pixel;</div>
+<div class="claim-text">7) assigning a new edginess based gray level value to said pixel by multiplying an original gray level value of said selected pixel by said crisp edginess value, said new edginess based gray level value being proportional to an edginess degree of said selected pixel; and,</div>
+<div class="claim-text">8) repeating steps (2)-(7) for additional pixels in said image.</div>
+</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00010" num="00010" class="claim">
+    <div class="claim-text">10. The computer system of <claim-ref idref="CLM-00009">claim 9</claim-ref>, wherein said application identifies four edge paths that pass through said pixel.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00011" num="00011" class="claim">
+    <div class="claim-text">11. The computer system of <claim-ref idref="CLM-00009">claim 9</claim-ref>, wherein said application calculates said average pixel intensity gradient value by:
+<div class="claim-text">selecting an n×n pixel window, where n is an odd number greater than or equal to 3 and said pixel to be analyzed is located at a center of said window;</div>
+<div class="claim-text">calculating a first, average pixel intensity value of pixels in said window on a first side of said edge path;</div>
+<div class="claim-text">calculating a second, average pixel intensity value of pixels in said window on a second, opposite side of said edge path; and,</div>
+<div class="claim-text">calculating a difference between said first and second values to obtain said average pixel intensity gradient value.</div>
+</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00012" num="00012" class="claim">
+    <div class="claim-text">12. The computer system of <claim-ref idref="CLM-00009">claim 9</claim-ref>, wherein said application carries out said step of generating a plurality of output values with said single membership function by:
+<div class="claim-text">employing an input membership function to generate a plurality of input values relating said average pixel intensity gradient value to a plurality of degrees of intensity;</div>
+<div class="claim-text">applying a plurality of inference rules in an output membership function that relate the plurality of intensity degrees to a corresponding plurality of edginess degrees and thereby generate said plurality of output values.</div>
+</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00013" num="00013" class="claim">
+    <div class="claim-text">13. The computer-based method of <claim-ref idref="CLM-00012">claim 12</claim-ref>, wherein three of said input values, three of said inference rules and three of said output values are employed; said input values being small, medium and large; said output values being no edge, mild edge and edge; and said inference rules being if the average pixel intensity gradient value is small, the pixel is not an edge; if the average pixel intensity gradient value is medium, the pixel is a mild edge; and, if the average pixel intensity gradient value is large, the pixel is an edge.</div>
+  </div>
+  </div> <div class="claim"> <div id="CLM-00014" num="00014" class="claim">
+    <div class="claim-text">14. A computer system for detecting one or more edges in a multiple pixel digital image comprising:
+<div class="claim-text">a processor;</div>
+<div class="claim-text">an operating memory interfaced to and readable by said processor;</div>
+<div class="claim-text">an external source of multiple pixel digital gray scale images to be analyzed for edges; and,</div>
+<div class="claim-text">an image edge detection application embodied in said operating memory and executable by said processor for performing process steps for retrieving a multiple pixel gray scale digital image from said external source and detecting edges in said image, said process steps comprising the steps of:</div>
+<div class="claim-text">1) retrieving an image to be analyzed from said source of images;</div>
+<div class="claim-text">2) selecting a pixel in said image to be analyzed;</div>
+<div class="claim-text">3) selecting an n×n pixel window, where n is an odd number greater than or equal to 3 and said window includes a center pixel, wherein said center pixel is said pixel to be analyzed;</div>
+<div class="claim-text">4) identifying a plurality of edge paths that run through said center pixel and divide said window into first and second groups of pixels;</div>
+<div class="claim-text">5) for each of said edge paths, calculating a first, average pixel intensity value of pixels in said first group and a second, average pixel intensity value of pixels in said second group; and, calculating a difference between said first and second values to obtain an average pixel intensity gradient value for each said edge path;</div>
+<div class="claim-text">6) selecting the greatest of said average pixel intensity gradient values as an input to a single fuzzy membership function to generate a plurality of input values relating said average pixel intensity gradient value to a plurality of degrees of intensity;</div>
+<div class="claim-text">7) applying a plurality of inference rules in an output membership function that relate the plurality of intensity degrees to a corresponding plurality of edginess degrees and generate a plurality of output values that are related to a degree to which said center pixel represents an edge in said image;</div>
+<div class="claim-text">8) combining said plurality of output values using a weighted averaging analysis comprising an averaging union of truncated output singletons to assign a crisp edginess value to said center pixel;</div>
+<div class="claim-text">9) assigning a new edginess based gray level value to said pixel by multiplying an original gray level value of said selected pixel by said crisp edginess value, said new edginess based gray level value being proportional to an edginess degree of said selected pixel; and,</div>
+<div class="claim-text">10) repeating steps (2)-(9) for additional pixels in said image.</div>
+</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00015" num="00015" class="claim">
+    <div class="claim-text">15. The computer system of <claim-ref idref="CLM-00014">claim 14</claim-ref>, wherein said application identifies four edge paths that pass through said pixel.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00016" num="00016" class="claim">
+    <div class="claim-text">16. The computer-based method of <claim-ref idref="CLM-00014">claim 14</claim-ref>, wherein three of said input values, three of said inference rules and three of said output values are employed; said input values being small, medium and large; said output values being no edge, mild edge and edge; and said inference rules being if the average pixel intensity gradient value is small, the pixel is not an edge; if the average pixel intensity gradient value is medium, the pixel is a mild edge; and, if the average pixel intensity gradient value is large, the pixel is an edge.</div>
+  </div>
+</div> </div>
+  </div>
+  </section>
+
+  <section itemprop="application" itemscope>
+
+    <section itemprop="metadata" itemscope>
+        <span itemprop="applicationNumber">US10/783,295</span>
+        <span itemprop="priorityDate">2004-02-19</span>
+        <span itemprop="filingDate">2004-02-19</span>
+        <span itemprop="title">Image edge extraction via fuzzy reasoning 
+       </span>
+        <span itemprop="ifiStatus">Active</span>
+        <span itemprop="ifiExpiration">2026-03-20</span>
+        <a href="/patent/US7400766B1/en">
+            <span itemprop="representativePublication">US7400766B1</span>
+            (<span itemprop="primaryLanguage">en</span>)
+        </a>
+    </section>
+
+    <h2>Priority Applications (1)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                    <th>Title</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="priorityApps" itemscope repeat>
+                <td>
+                   <span itemprop="applicationNumber">US10/783,295</span>
+                   
+                   <a href="/patent/US7400766B1/en">
+                        <span itemprop="representativePublication">US7400766B1</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                <td itemprop="priorityDate">2004-02-19</td>
+                <td itemprop="filingDate">2004-02-19</td>
+                <td itemprop="title">Image edge extraction via fuzzy reasoning 
+       </td>
+              </tr>
+           </tbody>
+       </table>
+
+    <h2>Applications Claiming Priority (1)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                    <th>Title</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="appsClaimingPriority" itemscope repeat>
+                <td>
+                   <span itemprop="applicationNumber">US10/783,295</span>
+                   <a href="/patent/US7400766B1/en">
+                        <span itemprop="representativePublication">US7400766B1</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                <td itemprop="priorityDate">2004-02-19</td>
+                <td itemprop="filingDate">2004-02-19</td>
+                <td itemprop="title">Image edge extraction via fuzzy reasoning 
+       </td>
+              </tr>
+           </tbody>
+       </table>
+
+    
+
+    
+
+    <h2>Publications (1)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Publication Number</th>
+                    <th>Publication Date</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="pubs" itemscope repeat>
+                <td>
+                   <span itemprop="publicationNumber">US7400766B1</span>
+                   
+                   <span itemprop="thisPatent">true</span>
+                   <a href="/patent/US7400766B1/en">US7400766B1
+                       (<span itemprop="primaryLanguage">en</span>)
+                   </a>
+                </td>
+                <td itemprop="publicationDate">2008-07-15</td>
+              </tr>
+           </tbody>
+        </table>
+
+  </section>
+
+  <section itemprop="family" itemscope>
+    <h1>Family</h1>
+    <h2>ID=39596737</h2>
+
+    <h2>Family Applications (1)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Title</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="applications" itemscope repeat>
+                <td>
+                    <span itemprop="applicationNumber">US10/783,295</span>
+                    <span itemprop="ifiStatus">Active</span>
+                    <span itemprop="ifiExpiration">2026-03-20</span>
+                    <a href="/patent/US7400766B1/en">
+                        <span itemprop="representativePublication">US7400766B1</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                </td>
+                <td itemprop="priorityDate">2004-02-19</td>
+                <td itemprop="filingDate">2004-02-19</td>
+                <td itemprop="title">Image edge extraction via fuzzy reasoning 
+       </td>
+              </tr>
+           </tbody>
+        </table>
+
+    
+
+    
+
+    <h2>Country Status (1)</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Country</th>
+            <th>Link</th>
+          </tr>
+        </thead>
+        <tbody>
+        <tr itemprop="countryStatus" itemscope repeat>
+            <td>
+              <span itemprop="countryCode">US</span>
+                (<span itemprop="num">1</span>)
+              <meta itemprop="thisCountry" content="true">
+            </td>
+            <td>
+              <a href="/patent/US7400766B1/en">
+                <span itemprop="representativePublication">US7400766B1</span>
+                  (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+    <h2>Cited By (4)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20140015926A1/en">
+              <span itemprop="publicationNumber">US20140015926A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2012-07-10</td>
+          <td itemprop="publicationDate">2014-01-16</td>
+          <td><span itemprop="assigneeOriginal">Ns Solutions Corporation</span></td>
+          <td itemprop="title">Image processing apparatus and image processing method and program 
+       </td>
+        </tr><tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/TWI568514B/en">
+              <span itemprop="publicationNumber">TWI568514B</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2013-06-24</td>
+          <td itemprop="publicationDate">2017-02-01</td>
+          <td><span itemprop="assigneeOriginal">China Steel Corp</span></td>
+          <td itemprop="title">An adaptive image adjustment method using a base model is used 
+       </td>
+        </tr><tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/TWI595452B/en">
+              <span itemprop="publicationNumber">TWI595452B</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2012-09-21</td>
+          <td itemprop="publicationDate">2017-08-11</td>
+          <td><span itemprop="assigneeOriginal">China Steel Corp</span></td>
+          <td itemprop="title">Combined with fuzzy control of the rolling edge of the image edge recognition method 
+       </td>
+        </tr><tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US10235610B2/en">
+              <span itemprop="publicationNumber">US10235610B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2016-09-14</td>
+          <td itemprop="publicationDate">2019-03-19</td>
+          <td><span itemprop="assigneeOriginal">Konica Minolta, Inc.</span></td>
+          <td itemprop="title">Image processing apparatus which corrects a gray level of each pixel in image data, image forming apparatus and computer-readable medium 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+
+    
+
+    <h2>Citations (16)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5179599A/en">
+              <span itemprop="publicationNumber">US5179599A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1991-06-17</td>
+          <td itemprop="publicationDate">1993-01-12</td>
+          <td><span itemprop="assigneeOriginal">Hewlett-Packard Company</span></td>
+          <td itemprop="title">Dynamic thresholding system for documents using structural information of the documents 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5377020A/en">
+              <span itemprop="publicationNumber">US5377020A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1992-05-28</td>
+          <td itemprop="publicationDate">1994-12-27</td>
+          <td><span itemprop="assigneeOriginal">Contex A/S</span></td>
+          <td itemprop="title">Method and apparatus for scanning an original and updating threshold values for use in the processing of data 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5434927A/en">
+              <span itemprop="publicationNumber">US5434927A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1993-12-08</td>
+          <td itemprop="publicationDate">1995-07-18</td>
+          <td><span itemprop="assigneeOriginal">Minnesota Mining And Manufacturing Company</span></td>
+          <td itemprop="title">Method and apparatus for machine vision classification and tracking 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5442462A/en">
+              <span itemprop="publicationNumber">US5442462A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1992-06-10</td>
+          <td itemprop="publicationDate">1995-08-15</td>
+          <td><span itemprop="assigneeOriginal">D.V.P. Technologies Ltd.</span></td>
+          <td itemprop="title">Apparatus and method for smoothing images 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5481620A/en">
+              <span itemprop="publicationNumber">US5481620A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1991-09-27</td>
+          <td itemprop="publicationDate">1996-01-02</td>
+          <td><span itemprop="assigneeOriginal">E. I. Du Pont De Nemours And Company</span></td>
+          <td itemprop="title">Adaptive vision system 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/JPH08329252A/en">
+              <span itemprop="publicationNumber">JPH08329252A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1995-05-31</td>
+          <td itemprop="publicationDate">1996-12-13</td>
+          <td><span itemprop="assigneeOriginal">Sony Corp</span></td>
+          <td itemprop="title">Method and device for detecting edge 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5590220A/en">
+              <span itemprop="publicationNumber">US5590220A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1992-08-12</td>
+          <td itemprop="publicationDate">1996-12-31</td>
+          <td><span itemprop="assigneeOriginal">International Business Machines Corporation</span></td>
+          <td itemprop="title">Bending point extraction method for optical character recognition system 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5651077A/en">
+              <span itemprop="publicationNumber">US5651077A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1993-12-21</td>
+          <td itemprop="publicationDate">1997-07-22</td>
+          <td><span itemprop="assigneeOriginal">Hewlett-Packard Company</span></td>
+          <td itemprop="title">Automatic threshold determination for a digital scanner 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5754709A/en">
+              <span itemprop="publicationNumber">US5754709A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1994-11-10</td>
+          <td itemprop="publicationDate">1998-05-19</td>
+          <td><span itemprop="assigneeOriginal">Matsushita Electric Industrial Co., Ltd.</span></td>
+          <td itemprop="title">Method and apparatus for gradation correction and image edge extraction 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5799111A/en">
+              <span itemprop="publicationNumber">US5799111A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1991-06-14</td>
+          <td itemprop="publicationDate">1998-08-25</td>
+          <td><span itemprop="assigneeOriginal">D.V.P. Technologies, Ltd.</span></td>
+          <td itemprop="title">Apparatus and methods for smoothing images 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5870495A/en">
+              <span itemprop="publicationNumber">US5870495A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1995-01-13</td>
+          <td itemprop="publicationDate">1999-02-09</td>
+          <td><span itemprop="assigneeOriginal">Sgs-Thomson Microelectronics S.R.L.</span></td>
+          <td itemprop="title">Fuzzy method and device for the recognition of geometric shapes in images 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6094508A/en">
+              <span itemprop="publicationNumber">US6094508A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1997-12-08</td>
+          <td itemprop="publicationDate">2000-07-25</td>
+          <td><span itemprop="assigneeOriginal">Intel Corporation</span></td>
+          <td itemprop="title">Perceptual thresholding for gradient-based local edge detection 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6285801B1/en">
+              <span itemprop="publicationNumber">US6285801B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1998-05-29</td>
+          <td itemprop="publicationDate">2001-09-04</td>
+          <td><span itemprop="assigneeOriginal">Stmicroelectronics, Inc.</span></td>
+          <td itemprop="title">Non-linear adaptive image filter for filtering noise such as blocking artifacts 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6347153B1/en">
+              <span itemprop="publicationNumber">US6347153B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1998-01-21</td>
+          <td itemprop="publicationDate">2002-02-12</td>
+          <td><span itemprop="assigneeOriginal">Xerox Corporation</span></td>
+          <td itemprop="title">Method and system for classifying and processing of pixels of image data 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6424736B1/en">
+              <span itemprop="publicationNumber">US6424736B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1999-05-24</td>
+          <td itemprop="publicationDate">2002-07-23</td>
+          <td><span itemprop="assigneeOriginal">The United States Of America As Represented By The Secretary Of The Army</span></td>
+          <td itemprop="title">Fuzzy logic technique to determine search time and probability of detection for targets of interest in background scenes 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6665439B1/en">
+              <span itemprop="publicationNumber">US6665439B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1999-04-07</td>
+          <td itemprop="publicationDate">2003-12-16</td>
+          <td><span itemprop="assigneeOriginal">Matsushita Electric Industrial Co., Ltd.</span></td>
+          <td itemprop="title">Image recognition method and apparatus utilizing edge detection based on magnitudes of color vectors expressing color attributes of respective pixels of color image 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+
+    
+
+    
+    <ul>
+      
+      <li itemprop="applicationsByYear" itemscope repeat>
+        <span itemprop="year">2004</span>
+        <ul>
+          
+          <li itemprop="application" itemscope repeat>
+            <span itemprop="filingDate">2004-02-19</span>
+            <span itemprop="countryCode">US</span>
+            <span itemprop="applicationNumber">US10/783,295</span>
+            <a href="/patent/US7400766B1/en"><span itemprop="documentId">patent/US7400766B1/en</span></a>
+            <span itemprop="legalStatusCat">active</span>
+            <span itemprop="legalStatus">Active</span>
+            
+            <span itemprop="thisApp" content="true" bool></span>
+            
+          </li>
+          
+        </ul>
+      </li>
+      
+    </ul>
+    
+
+    </section>
+
+  <section>
+    <h2>Patent Citations (17)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5799111A/en">
+              <span itemprop="publicationNumber">US5799111A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1991-06-14</td>
+          <td itemprop="publicationDate">1998-08-25</td>
+          <td><span itemprop="assigneeOriginal">D.V.P. Technologies, Ltd.</span></td>
+          <td itemprop="title">Apparatus and methods for smoothing images 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5179599A/en">
+              <span itemprop="publicationNumber">US5179599A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1991-06-17</td>
+          <td itemprop="publicationDate">1993-01-12</td>
+          <td><span itemprop="assigneeOriginal">Hewlett-Packard Company</span></td>
+          <td itemprop="title">Dynamic thresholding system for documents using structural information of the documents 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5481620A/en">
+              <span itemprop="publicationNumber">US5481620A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1991-09-27</td>
+          <td itemprop="publicationDate">1996-01-02</td>
+          <td><span itemprop="assigneeOriginal">E. I. Du Pont De Nemours And Company</span></td>
+          <td itemprop="title">Adaptive vision system 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5377020A/en">
+              <span itemprop="publicationNumber">US5377020A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1992-05-28</td>
+          <td itemprop="publicationDate">1994-12-27</td>
+          <td><span itemprop="assigneeOriginal">Contex A/S</span></td>
+          <td itemprop="title">Method and apparatus for scanning an original and updating threshold values for use in the processing of data 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5442462A/en">
+              <span itemprop="publicationNumber">US5442462A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1992-06-10</td>
+          <td itemprop="publicationDate">1995-08-15</td>
+          <td><span itemprop="assigneeOriginal">D.V.P. Technologies Ltd.</span></td>
+          <td itemprop="title">Apparatus and method for smoothing images 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5590220A/en">
+              <span itemprop="publicationNumber">US5590220A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1992-08-12</td>
+          <td itemprop="publicationDate">1996-12-31</td>
+          <td><span itemprop="assigneeOriginal">International Business Machines Corporation</span></td>
+          <td itemprop="title">Bending point extraction method for optical character recognition system 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5761326A/en">
+              <span itemprop="publicationNumber">US5761326A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1993-12-08</td>
+          <td itemprop="publicationDate">1998-06-02</td>
+          <td><span itemprop="assigneeOriginal">Minnesota Mining And Manufacturing Company</span></td>
+          <td itemprop="title">Method and apparatus for machine vision classification and tracking 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5434927A/en">
+              <span itemprop="publicationNumber">US5434927A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1993-12-08</td>
+          <td itemprop="publicationDate">1995-07-18</td>
+          <td><span itemprop="assigneeOriginal">Minnesota Mining And Manufacturing Company</span></td>
+          <td itemprop="title">Method and apparatus for machine vision classification and tracking 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5651077A/en">
+              <span itemprop="publicationNumber">US5651077A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1993-12-21</td>
+          <td itemprop="publicationDate">1997-07-22</td>
+          <td><span itemprop="assigneeOriginal">Hewlett-Packard Company</span></td>
+          <td itemprop="title">Automatic threshold determination for a digital scanner 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5754709A/en">
+              <span itemprop="publicationNumber">US5754709A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1994-11-10</td>
+          <td itemprop="publicationDate">1998-05-19</td>
+          <td><span itemprop="assigneeOriginal">Matsushita Electric Industrial Co., Ltd.</span></td>
+          <td itemprop="title">Method and apparatus for gradation correction and image edge extraction 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5870495A/en">
+              <span itemprop="publicationNumber">US5870495A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1995-01-13</td>
+          <td itemprop="publicationDate">1999-02-09</td>
+          <td><span itemprop="assigneeOriginal">Sgs-Thomson Microelectronics S.R.L.</span></td>
+          <td itemprop="title">Fuzzy method and device for the recognition of geometric shapes in images 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/JPH08329252A/en">
+              <span itemprop="publicationNumber">JPH08329252A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1995-05-31</td>
+          <td itemprop="publicationDate">1996-12-13</td>
+          <td><span itemprop="assigneeOriginal">Sony Corp</span></td>
+          <td itemprop="title">Method and device for detecting edge 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6094508A/en">
+              <span itemprop="publicationNumber">US6094508A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1997-12-08</td>
+          <td itemprop="publicationDate">2000-07-25</td>
+          <td><span itemprop="assigneeOriginal">Intel Corporation</span></td>
+          <td itemprop="title">Perceptual thresholding for gradient-based local edge detection 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6347153B1/en">
+              <span itemprop="publicationNumber">US6347153B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1998-01-21</td>
+          <td itemprop="publicationDate">2002-02-12</td>
+          <td><span itemprop="assigneeOriginal">Xerox Corporation</span></td>
+          <td itemprop="title">Method and system for classifying and processing of pixels of image data 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6285801B1/en">
+              <span itemprop="publicationNumber">US6285801B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1998-05-29</td>
+          <td itemprop="publicationDate">2001-09-04</td>
+          <td><span itemprop="assigneeOriginal">Stmicroelectronics, Inc.</span></td>
+          <td itemprop="title">Non-linear adaptive image filter for filtering noise such as blocking artifacts 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6665439B1/en">
+              <span itemprop="publicationNumber">US6665439B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1999-04-07</td>
+          <td itemprop="publicationDate">2003-12-16</td>
+          <td><span itemprop="assigneeOriginal">Matsushita Electric Industrial Co., Ltd.</span></td>
+          <td itemprop="title">Image recognition method and apparatus utilizing edge detection based on magnitudes of color vectors expressing color attributes of respective pixels of color image 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6424736B1/en">
+              <span itemprop="publicationNumber">US6424736B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1999-05-24</td>
+          <td itemprop="publicationDate">2002-07-23</td>
+          <td><span itemprop="assigneeOriginal">The United States Of America As Represented By The Secretary Of The Army</span></td>
+          <td itemprop="title">Fuzzy logic technique to determine search time and probability of detection for targets of interest in background scenes 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Non-Patent Citations (8)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Chang, Yan et al., Comparison of Five Conditional Probabilities in 2-level Image Thresholding Based on Baysian Formulation, The University of Sydney, Australia, pp. 1-6.</span>
+            
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Dominguez, Jesus, et al., Detecting Edges in Images by Use of Fuzzy REasoning, NASA Tech Briefs, Nov. 2003.</span>
+            
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Dominguez, Jesus, et al., Implementation of a General Real-Time Visual Anomaly Detection System via Fuzzy Reasoning and Neural-Generic Network.</span>
+            
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Huang, Liang-Kai, et al., Image Thresholding By Minimizing the Measures of Fuzziness, Pattern Recognition, vol. 28, No. 1, pp. 41-51 (1995).</span>
+            
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Khamy, S.-"<a href='http://scholar.google.com/scholar?q="A+fuzzy+gradient-adaptive+lossy+predictive+coding+technique"'>A fuzzy gradient-adaptive lossy predictive coding technique</a>"-IEEE-Mar. 2003.</span>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Otsu, N., A Threshold Selection Method From Gray-Level Histograms, IEEE Transactions on Systems, Man, and Cybennetics, vol. 9, No. 1, pp. 62-66 (1979).</span>
+            
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Papamarkos, Nikos, A Technique for Fuzzy Document Binarization, Dept. of Electrical and Computer Engineering, Democritus University of Thrace, 67100 Xanthi, Greece, p. 152-156.</span>
+            
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">The 10th IEEE Conference on Fuzzy Systems, The University of Melbourne, Australia, Dec. 2-5, 2001.</span>
+            
+            
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <h2>Cited By (5)</h2>
+  <table>
+    <caption>* Cited by examiner, † Cited by third party</caption>
+    <thead>
+      <tr>
+        <th>Publication number</th>
+        <th>Priority date</th>
+        <th>Publication date</th>
+        <th>Assignee</th>
+        <th>Title</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US20140015926A1/en">
+            <span itemprop="publicationNumber">US20140015926A1</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2012-07-10</td>
+        <td itemprop="publicationDate">2014-01-16</td>
+        <td><span itemprop="assigneeOriginal">Ns Solutions Corporation</span></td>
+        <td itemprop="title">Image processing apparatus and image processing method and program 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US9426445B2/en">
+            <span itemprop="publicationNumber">US9426445B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2012-07-10</td>
+        <td itemprop="publicationDate">2016-08-23</td>
+        <td><span itemprop="assigneeOriginal">Ns Solutions Corporation</span></td>
+        <td itemprop="title">Image processing apparatus and image processing method and program using super-resolution and sharpening 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/TWI595452B/en">
+            <span itemprop="publicationNumber">TWI595452B</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2012-09-21</td>
+        <td itemprop="publicationDate">2017-08-11</td>
+        <td><span itemprop="assigneeOriginal">China Steel Corp</span></td>
+        <td itemprop="title">Combined with fuzzy control of the rolling edge of the image edge recognition method 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/TWI568514B/en">
+            <span itemprop="publicationNumber">TWI568514B</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2013-06-24</td>
+        <td itemprop="publicationDate">2017-02-01</td>
+        <td><span itemprop="assigneeOriginal">China Steel Corp</span></td>
+        <td itemprop="title">An adaptive image adjustment method using a base model is used 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US10235610B2/en">
+            <span itemprop="publicationNumber">US10235610B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2016-09-14</td>
+        <td itemprop="publicationDate">2019-03-19</td>
+        <td><span itemprop="assigneeOriginal">Konica Minolta, Inc.</span></td>
+        <td itemprop="title">Image processing apparatus which corrects a gray level of each pixel in image data, image forming apparatus and computer-readable medium 
+       </td>
+      </tr>
+    </tbody>
+  </table>
+
+  
+
+  <section>
+    <h2>Similar Documents</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Publication</th>
+          <th>Publication Date</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="17083078386364186157">
+              <a href="/scholar/17083078386364186157"><span itemprop="scholarAuthors">Mariano et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2002">2002</time>
+            
+          </td>
+          <td itemprop="title">Performance evaluation of object detection algorithms</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US7257273B2/en">
+                <span itemprop="publicationNumber">US7257273B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2007-08-14">2007-08-14</time>
+            
+            
+          </td>
+          <td itemprop="title">Hierarchical scheme for blur detection in digital image using wavelet transform 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="16336278605494998077">
+              <a href="/scholar/16336278605494998077"><span itemprop="scholarAuthors">Zhang et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2008">2008</time>
+            
+          </td>
+          <td itemprop="title">Image segmentation based on 2D Otsu method with histogram analysis</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US6535636B1/en">
+                <span itemprop="publicationNumber">US6535636B1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2003-03-18">2003-03-18</time>
+            
+            
+          </td>
+          <td itemprop="title">Method for automatically detecting digital images that are undesirable for placing in albums 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US5963654A/en">
+                <span itemprop="publicationNumber">US5963654A</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="1999-10-05">1999-10-05</time>
+            
+            
+          </td>
+          <td itemprop="title">Apparatus and method for monitoring performance of an image capture device 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/EP1058909B1/en">
+                <span itemprop="publicationNumber">EP1058909B1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2005-02-02">2005-02-02</time>
+            
+            
+          </td>
+          <td itemprop="title">A new perceptual thresholding for gradient-based local edge detection 
+     </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US6141433A/en">
+                <span itemprop="publicationNumber">US6141433A</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2000-10-31">2000-10-31</time>
+            
+            
+          </td>
+          <td itemprop="title">System and method for segmenting image regions from a scene likely to represent particular objects in the scene 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US7099510B2/en">
+                <span itemprop="publicationNumber">US7099510B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2006-08-29">2006-08-29</time>
+            
+            
+          </td>
+          <td itemprop="title">Method and system for object detection in digital images 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="7363297407225437562">
+              <a href="/scholar/7363297407225437562"><span itemprop="scholarAuthors">Holyer et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1989">1989</time>
+            
+          </td>
+          <td itemprop="title">Edge detection applied to satellite imagery of the oceans</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US6415040B1/en">
+                <span itemprop="publicationNumber">US6415040B1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2002-07-02">2002-07-02</time>
+            
+            
+          </td>
+          <td itemprop="title">Device for optically scanning a record carrier 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="13924260842127513687">
+              <a href="/scholar/13924260842127513687"><span itemprop="scholarAuthors">Rubenstein et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1990">1990</time>
+            
+          </td>
+          <td itemprop="title">Spatial variability as a limiting factor in texture-discrimination tasks: implications for performance asymmetries</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="5008169991329448794">
+              <a href="/scholar/5008169991329448794"><span itemprop="scholarAuthors">Rosin</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2001">2001</time>
+            
+          </td>
+          <td itemprop="title">Unimodal thresholding</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/EP0712094A2/en">
+                <span itemprop="publicationNumber">EP0712094A2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="1996-05-15">1996-05-15</time>
+            
+            
+          </td>
+          <td itemprop="title">A multi-windowing technique for threshholding an image using local image properties 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US5214744A/en">
+                <span itemprop="publicationNumber">US5214744A</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="1993-05-25">1993-05-25</time>
+            
+            
+          </td>
+          <td itemprop="title">Method and apparatus for automatically identifying targets in sonar images 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US5181254A/en">
+                <span itemprop="publicationNumber">US5181254A</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="1993-01-19">1993-01-19</time>
+            
+            
+          </td>
+          <td itemprop="title">Method for automatically identifying targets in sonar images 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="1940551245143767836">
+              <a href="/scholar/1940551245143767836"><span itemprop="scholarAuthors">Ng</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2006">2006</time>
+            
+          </td>
+          <td itemprop="title">Automatic thresholding for defect detection</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US20040258307A1/en">
+                <span itemprop="publicationNumber">US20040258307A1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2004-12-23">2004-12-23</time>
+            
+            
+          </td>
+          <td itemprop="title">Detecting pedestrians using patterns of motion and apprearance in videos 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/EP1168247A2/en">
+                <span itemprop="publicationNumber">EP1168247A2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2002-01-02">2002-01-02</time>
+            
+            
+          </td>
+          <td itemprop="title">Method for varying an image processing path based on image emphasis and appeal 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="17228139294124518166">
+              <a href="/scholar/17228139294124518166"><span itemprop="scholarAuthors">Cheng et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1999">1999</time>
+            
+          </td>
+          <td itemprop="title">Novel approach to pavement cracking detection based on fuzzy set theory</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="12884008100743186277">
+              <a href="/scholar/12884008100743186277"><span itemprop="scholarAuthors">Shirvaikar et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1995">1995</time>
+            
+          </td>
+          <td itemprop="title">A neural network filter to detect small targets in high clutter backgrounds</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="2153130483763826978">
+              <a href="/scholar/2153130483763826978"><span itemprop="scholarAuthors">Tsai</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1995">1995</time>
+            
+          </td>
+          <td itemprop="title">A fast thresholding selection procedure for multimodal and unimodal histograms</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US8699767B1/en">
+                <span itemprop="publicationNumber">US8699767B1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2014-04-15">2014-04-15</time>
+            
+            
+          </td>
+          <td itemprop="title">System for optimal rapid serial visual presentation (RSVP) from user-specific neural brain signals 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/KR100474848B1/en">
+                <span itemprop="publicationNumber">KR100474848B1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2005-03-10">2005-03-10</time>
+            
+            
+          </td>
+          <td itemprop="title">System and method for detecting and tracking a plurality of faces in real-time by integrating the visual ques 
+     </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US20040042656A1/en">
+                <span itemprop="publicationNumber">US20040042656A1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2004-03-04">2004-03-04</time>
+            
+            
+          </td>
+          <td itemprop="title">Method and apparatus for determining regions of interest in images and for image transmission 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="3832845809684364640">
+              <a href="/scholar/3832845809684364640"><span itemprop="scholarAuthors">Rosin</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1997">1997</time>
+            
+          </td>
+          <td itemprop="title">Edges: saliency measures and automatic thresholding</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Legal Events</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Code</th>
+          <th>Title</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2008-06-25">2008-06-25</time></td>
+          <td itemprop="code">STCF</td>
+          <td itemprop="title">Information on status: patent grant</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">PATENTED CASE</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2011-12-13">2011-12-13</time></td>
+          <td itemprop="code">FPAY</td>
+          <td itemprop="title">Fee payment</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Year of fee payment</strong>:
+              <span itemprop="value">4</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2015-12-29">2015-12-29</time></td>
+          <td itemprop="code">FPAY</td>
+          <td itemprop="title">Fee payment</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Year of fee payment</strong>:
+              <span itemprop="value">8</span>
+            </p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+</article>
+
+    </search-app>
+    <script type="text/javascript" src="//www.gstatic.com/feedback/api.js"></script>
+    <script async="" defer="" src="//www.google.com/insights/consumersurveys/async_survey?site=cxkjf7ipxgbnnjy6k35ezcvbbe"></script>
+  </body>
+</html>

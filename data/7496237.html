@@ -1,0 +1,3324 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>US7496237B1 - Image processing for binarization enhancement via fuzzy reasoning 
+        - Google Patents</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="referrer" content="origin-when-crossorigin">
+    <link rel="canonical" href="https://patents.google.com/patent/US7496237B1/en">
+    <meta name="description" content="
+     A technique for enhancing a gray-scale image to improve conversions of the image to binary employs fuzzy reasoning. In the technique, pixels in the image are analyzed by comparing the pixel&#39;s gray scale value, which is indicative of its relative brightness, to the values of pixels immediately surrounding the selected pixel. The degree to which each pixel in the image differs in value from the values of surrounding pixels is employed as the variable in a fuzzy reasoning-based analysis that determines an appropriate amount by which the selected pixel&#39;s value should be adjusted to reduce vagueness and ambiguity in the image and improve retention of information during binarization of the enhanced gray-scale image. 
+   
+   ">
+    
+    <meta name="DC.type" content="patent">
+    
+    <meta name="DC.title" content="Image processing for binarization enhancement via fuzzy reasoning 
+       ">
+    
+    <meta name="DC.date" content="2004-12-01" scheme="dateSubmitted">
+    
+    <meta name="DC.description" content="
+     A technique for enhancing a gray-scale image to improve conversions of the image to binary employs fuzzy reasoning. In the technique, pixels in the image are analyzed by comparing the pixel&#39;s gray scale value, which is indicative of its relative brightness, to the values of pixels immediately surrounding the selected pixel. The degree to which each pixel in the image differs in value from the values of surrounding pixels is employed as the variable in a fuzzy reasoning-based analysis that determines an appropriate amount by which the selected pixel&#39;s value should be adjusted to reduce vagueness and ambiguity in the image and improve retention of information during binarization of the enhanced gray-scale image. 
+   
+   ">
+    
+    <meta name="citation_patent_application_number" content="US:11/010,698">
+    
+    <meta name="citation_pdf_url" content="https://patentimages.storage.googleapis.com/bf/2d/1e/671483d794a84d/US7496237.pdf">
+    
+    <meta name="citation_patent_number" content="US:7496237">
+    
+    <meta name="DC.date" content="2009-02-24" scheme="issue">
+    
+    <meta name="DC.contributor" content="Jesus A. Dominguez" scheme="inventor">
+    
+    <meta name="DC.contributor" content="National Aeronautics and Space Administration (NASA)" scheme="assignee">
+    
+    <meta name="DC.relation" content="US:4554593" scheme="references">
+    
+    <meta name="DC.relation" content="US:4853970" scheme="references">
+    
+    <meta name="DC.relation" content="US:5799111" scheme="references">
+    
+    <meta name="DC.relation" content="US:5179599" scheme="references">
+    
+    <meta name="DC.relation" content="US:5293430" scheme="references">
+    
+    <meta name="DC.relation" content="US:5481620" scheme="references">
+    
+    <meta name="DC.relation" content="US:5377020" scheme="references">
+    
+    <meta name="DC.relation" content="US:5442462" scheme="references">
+    
+    <meta name="DC.relation" content="US:5590220" scheme="references">
+    
+    <meta name="DC.relation" content="US:5479526" scheme="references">
+    
+    <meta name="DC.relation" content="US:5761326" scheme="references">
+    
+    <meta name="DC.relation" content="US:5434927" scheme="references">
+    
+    <meta name="DC.relation" content="US:5651077" scheme="references">
+    
+    <meta name="DC.relation" content="US:5784490" scheme="references">
+    
+    <meta name="DC.relation" content="US:5754709" scheme="references">
+    
+    <meta name="DC.relation" content="US:5870495" scheme="references">
+    
+    <meta name="DC.relation" content="US:5933540" scheme="references">
+    
+    <meta name="DC.relation" content="US:6016370" scheme="references">
+    
+    <meta name="DC.relation" content="US:5880767" scheme="references">
+    
+    <meta name="DC.relation" content="US:5974174" scheme="references">
+    
+    <meta name="DC.relation" content="US:6094508" scheme="references">
+    
+    <meta name="DC.relation" content="US:6347153" scheme="references">
+    
+    <meta name="DC.relation" content="US:6285801" scheme="references">
+    
+    <meta name="DC.relation" content="US:6137907" scheme="references">
+    
+    <meta name="DC.relation" content="US:6185336" scheme="references">
+    
+    <meta name="DC.relation" content="US:6798906" scheme="references">
+    
+    <meta name="DC.relation" content="US:7057595" scheme="references">
+    
+    <meta name="DC.relation" content="US:6671395" scheme="references">
+    
+    <meta name="DC.relation" content="US:6498660" scheme="references">
+    
+    <meta name="DC.relation" content="US:7085013" scheme="references">
+    
+    <meta name="DC.relation" content="US:20040042645:A1" scheme="references">
+    
+    <meta name="DC.relation" content="US:7336390" scheme="references">
+    
+    <meta name="citation_reference" content="Zhang, Impulse Noise Detection Using Laplacian Operators and Fuzzy Logic, IEEE 2002, p. 845-484." scheme="references">
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,400italic,500,500italic,700">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Product+Sans">
+    <style>
+      body { transition: none; }
+    </style>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-27188110-4', 'auto');
+
+      version = 'patent-search.search_20191120_RC00';
+
+      function sendFeedback() {
+        userfeedback.api.startFeedback({
+          'productId': '713680',
+          'bucket': 'patent-search-web',
+          'productVersion': version,
+        });
+      }
+
+      window.experiments = {};
+      window.experiments.patentCountries = "ae,ag,al,am,ao,ap,ar,at,au,aw,az,ba,bb,bd,be,bf,bg,bh,bj,bn,bo,br,bw,bx,by,bz,ca,cf,cg,ch,ci,cl,cm,cn,co,cr,cs,cu,cy,cz,dd,de,dj,dk,dm,do,dz,ea,ec,ee,eg,em,ep,es,fi,fr,ga,gb,gc,gd,ge,gh,gm,gn,gq,gr,gt,gw,hk,hn,hr,hu,ib,id,ie,il,in,ir,is,it,jo,jp,ke,kg,kh,km,kn,kp,kr,kw,kz,la,lc,li,lk,lr,ls,lt,lu,lv,ly,ma,mc,md,me,mg,mk,ml,mn,mo,mr,mt,mw,mx,my,mz,na,ne,ng,ni,nl,no,nz,oa,om,pa,pe,pg,ph,pl,pt,py,qa,ro,rs,ru,rw,sa,sc,sd,se,sg,si,sk,sl,sm,sn,st,su,sv,sy,sz,td,tg,th,tj,tm,tn,tr,tt,tw,tz,ua,ug,us,uy,uz,vc,ve,vn,wo,yu,za,zm,zw";
+      
+      
+      window.profilePicture = "";
+
+      window.Polymer = {
+        dom: 'shady',
+        lazyRegister: true,
+      };
+    </script>
+
+    <script src="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/webcomponentsjs/webcomponents-lite.min.js"></script>
+    
+    <link rel="import" href="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/search-app-vulcanized.html">
+    
+  </head>
+  <body unresolved>
+    
+    <script src="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/search-app-vulcanized.js"></script>
+    
+    <search-app>
+      
+      
+
+      <article class="result" itemscope itemtype="http://schema.org/ScholarlyArticle">
+  <h1 itemprop="pageTitle">US7496237B1 - Image processing for binarization enhancement via fuzzy reasoning 
+        - Google Patents</h1>
+  <span itemprop="title">Image processing for binarization enhancement via fuzzy reasoning 
+       </span>
+
+  <meta itemprop="type" content="patent">
+  <a href="https://patentimages.storage.googleapis.com/bf/2d/1e/671483d794a84d/US7496237.pdf" itemprop="pdfLink">Download PDF</a>
+  <h2>Info</h2>
+
+  <dl>
+    <dt>Publication number</dt>
+    <dd itemprop="publicationNumber">US7496237B1</dd>
+    <meta itemprop="numberWithoutCodes" content="7496237">
+    <meta itemprop="kindCode" content="B1">
+    <meta itemprop="publicationDescription" content="Patent ( no pre-grant publication)">
+    
+    <span>US7496237B1</span>
+    
+    <span>US11/010,698</span>
+    
+    <span>US1069804A</span>
+    
+    <span>US7496237B1</span>
+    
+    <span>US 7496237 B1</span>
+    
+    <span>US7496237 B1</span>
+    
+    <span>US 7496237B1</span>
+    
+    <span>  </span>
+    
+    <span> </span>
+    
+    <span> </span>
+    
+    <span>US 1069804 A</span>
+    
+    <span>US1069804 A</span>
+    
+    <span>US 1069804A</span>
+    
+    <span>US 7496237 B1</span>
+    
+    <span>US7496237 B1</span>
+    
+    <span>US 7496237B1</span>
+    
+
+    <dt>Authority</dt>
+    <dd itemprop="countryCode">US</dd>
+    <dd itemprop="countryName">United States</dd>
+
+    <dt>Prior art keywords</dt>
+    
+    <dd itemprop="priorArtKeywords" repeat>image</dd>
+    <dd itemprop="priorArtKeywords" repeat>value</dd>
+    <dd itemprop="priorArtKeywords" repeat>pixel</dd>
+    <dd itemprop="priorArtKeywords" repeat>membership</dd>
+    <dd itemprop="priorArtKeywords" repeat>gray</dd>
+
+    <dt>Prior art date</dt>
+    <dd><time itemprop="priorArtDate" datetime="2004-01-02">2004-01-02</time></dd>
+
+    <dt>Legal status (The legal status is an assumption and is not a legal conclusion. Google has not performed a legal analysis and makes no representation as to the accuracy of the status listed.)</dt>
+    <dd itemprop="legalStatusIfi" itemscope>
+      <span itemprop="status">Expired - Fee Related</span>, expires <time itemprop="expiration" datetime="2027-04-24">2027-04-24</time>
+    </dd>
+  </dl>
+
+  <dt>Application number</dt>
+  <dd itemprop="applicationNumber">US11/010,698</dd>
+
+  
+
+  
+
+  <dt>Inventor</dt>
+  <dd itemprop="inventor" repeat>Jesus A. Dominguez</dd>
+  <dt>Current Assignee (The listed assignees may be inaccurate. Google has not performed a legal analysis and makes no representation or warranty as to the accuracy of the list.)</dt>
+  <dd itemprop="assigneeCurrent" repeat>
+    National Aeronautics and Space Administration (NASA)
+  </dd>
+
+  <dt>Original Assignee</dt>
+  <dd itemprop="assigneeOriginal" repeat>National Aeronautics and Space Administration (NASA)</dd>
+
+  <dt>Priority date (The priority date is an assumption and is not a legal conclusion. Google has not performed a legal analysis and makes no representation as to the accuracy of the date listed.)</dt>
+  <dd><time itemprop="priorityDate" datetime="2004-01-02">2004-01-02</time></dd>
+
+  <dt>Filing date</dt>
+  <dd><time itemprop="filingDate" datetime="2004-12-01">2004-12-01</time></dd>
+
+  <dt>Publication date</dt>
+  <dd><time itemprop="publicationDate" datetime="2009-02-24">2009-02-24</time></dd>
+
+  
+
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2004-01-02">2004-01-02</time>
+    <span itemprop="title">Priority to US53364104P</span>
+    <span itemprop="type">priority</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2004-12-01">2004-12-01</time>
+    <span itemprop="title">Application filed by National Aeronautics and Space Administration (NASA)</span>
+    <span itemprop="type">filed</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    <span itemprop="assigneeSearch">National Aeronautics and Space Administration (NASA)</span>
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2004-12-01">2004-12-01</time>
+    <span itemprop="title">Priority to US11/010,698</span>
+    <span itemprop="type">priority</span>
+    
+    
+    
+    <span itemprop="documentId">patent/US7496237B1/en</span>
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2009-01-09">2009-01-09</time>
+    <span itemprop="title">Assigned to UNITED STATES OF AMERICA AS REPRESENTED BY THE ADMINISTRATOR OF THE NATIONAL AERONAUTICS AND SPACE ADMINISTRATION</span>
+    <span itemprop="type">reassignment</span>
+    
+    
+    
+    
+    <span itemprop="assigneeSearch">UNITED STATES OF AMERICA AS REPRESENTED BY THE ADMINISTRATOR OF THE NATIONAL AERONAUTICS AND SPACE ADMINISTRATION</span>
+    
+    
+    <span itemprop="description" repeat>ASSIGNMENT OF ASSIGNORS INTEREST (SEE DOCUMENT FOR DETAILS).</span>
+    
+    <span itemprop="description" repeat>Assignors: ASRC AEROSPACE, INC.</span>
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2009-02-24">2009-02-24</time>
+    <span itemprop="title">Application granted</span>
+    <span itemprop="type">granted</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2009-02-24">2009-02-24</time>
+    <span itemprop="title">Publication of US7496237B1</span>
+    <span itemprop="type">publication</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    <span itemprop="documentId">patent/US7496237B1/en</span>
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2019-11-26">2019-11-26</time>
+    <span itemprop="title">Application status is Expired - Fee Related</span>
+    <span itemprop="type">legal-status</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2027-04-24">2027-04-24</time>
+    <span itemprop="title">Adjusted expiration</span>
+    <span itemprop="type">legal-status</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+
+  <h2>Links</h2>
+
+  <ul>
+    
+          <li itemprop="links" itemscope repeat>
+            <meta itemprop="id" content="usptoLink">
+            <a href="http://patft.uspto.gov/netacgi/nph-Parser?Sect1=PTO1&Sect2=HITOFF&p=1&u=/netahtml/PTO/srchnum.html&r=1&f=G&l=50&d=PALL&s1=7496237.PN." itemprop="url" target="_blank"><span itemprop="text">USPTO</span></a>
+          </li>
+        <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="usptoAssignmentLink">
+          <a href="https://assignment.uspto.gov/patent/index.html#/patent/search/resultFilter?searchInput=7496237" itemprop="url" target="_blank"><span itemprop="text">USPTO Assignment</span></a>
+        </li>
+
+    <li itemprop="links" itemscope repeat>
+        <meta itemprop="id" content="espacenetLink">
+        <a href="http://worldwide.espacenet.com/publicationDetails/biblio?CC=US&amp;NR=7496237B1&amp;KC=B1&amp;FT=D" itemprop="url" target="_blank"><span itemprop="text">Espacenet</span></a>
+      </li>
+      
+
+    
+
+    
+      <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="globalDossierLink">
+          <a href="http://globaldossier.uspto.gov/#/result/patent/US/7496237/1" itemprop="url" target="_blank"><span itemprop="text">Global Dossier</span></a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="stackexchangeLink">
+          <a href="https://patents.stackexchange.com/questions/tagged/US7496237" itemprop="url"><span itemprop="text">Discuss</span></a>
+        </li>
+      
+  </ul>
+
+  
+  <ul itemprop="concept" itemscope>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000002708</span>
+      <span itemprop="name">enhancing</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>abstract</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">8</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000000034</span>
+      <span itemprop="name">methods</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>abstract</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">35</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000002609</span>
+      <span itemprop="name">media</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">11</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000000875</span>
+      <span itemprop="name">corresponding</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">8</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000015654</span>
+      <span itemprop="name">memory</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">8</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000006243</span>
+      <span itemprop="name">chemical reaction</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">5</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000004458</span>
+      <span itemprop="name">analytical methods</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>abstract</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">3</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000014759</span>
+      <span itemprop="name">maintenance of location</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>abstract</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000004422</span>
+      <span itemprop="name">calculation algorithm</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">6</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000003044</span>
+      <span itemprop="name">adaptive</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000003860</span>
+      <span itemprop="name">storage</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000015556</span>
+      <span itemprop="name">catabolic process</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001595</span>
+      <span itemprop="name">contractor</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000004059</span>
+      <span itemprop="name">degradation</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000006731</span>
+      <span itemprop="name">degradation</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000003711</span>
+      <span itemprop="name">image thresholding</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000003384</span>
+      <span itemprop="name">imaging method</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000011133</span>
+      <span itemprop="name">lead</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000003278</span>
+      <span itemprop="name">mimic</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000004048</span>
+      <span itemprop="name">modification</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000006011</span>
+      <span itemprop="name">modification</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000036961</span>
+      <span itemprop="name">partial</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000000704</span>
+      <span itemprop="name">physical effects</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000002829</span>
+      <span itemprop="name">reduced</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000000717</span>
+      <span itemprop="name">retained</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+  </ul>
+  
+
+  
+
+  <section>
+    <h2>Classifications</h2>
+    
+    <ul>
+      <li>
+        <ul itemprop="cpcs" itemscope repeat>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G</span>&mdash;<span itemprop="Description">PHYSICS</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06</span>&mdash;<span itemprop="Description">COMPUTING; CALCULATING; COUNTING</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06K</span>&mdash;<span itemprop="Description">RECOGNITION OF DATA; PRESENTATION OF DATA; RECORD CARRIERS; HANDLING RECORD CARRIERS</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06K9/00</span>&mdash;<span itemprop="Description">Methods or arrangements for reading or recognising printed or written characters or for recognising patterns, e.g. fingerprints</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06K9/36</span>&mdash;<span itemprop="Description">Image preprocessing, i.e. processing the image information without deciding about the identity of the image</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06K9/38</span>&mdash;<span itemprop="Description">Quantising the analogue image signal, e.g. histogram thresholding for discrimination between background and foreground patterns</span>
+            <meta itemprop="Leaf" content="true">
+            
+            <meta itemprop="FirstCode" content="true">
+          </li>
+          </ul>
+      </li>
+      <li>
+        <ul itemprop="cpcs" itemscope repeat>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">H</span>&mdash;<span itemprop="Description">ELECTRICITY</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">H04</span>&mdash;<span itemprop="Description">ELECTRIC COMMUNICATION TECHNIQUE</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">H04N</span>&mdash;<span itemprop="Description">PICTORIAL COMMUNICATION, e.g. TELEVISION</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">H04N1/00</span>&mdash;<span itemprop="Description">Scanning, transmission or reproduction of documents or the like, e.g. facsimile transmission; Details thereof</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">H04N1/40</span>&mdash;<span itemprop="Description">Picture signal circuits</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">H04N1/403</span>&mdash;<span itemprop="Description">Discrimination between the two tones in the picture signal of a two-tone original</span>
+            <meta itemprop="Leaf" content="true">
+            
+            
+          </li>
+          </ul>
+      </li>
+      <li>
+        <ul itemprop="cpcs" itemscope repeat>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G</span>&mdash;<span itemprop="Description">PHYSICS</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06</span>&mdash;<span itemprop="Description">COMPUTING; CALCULATING; COUNTING</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06K</span>&mdash;<span itemprop="Description">RECOGNITION OF DATA; PRESENTATION OF DATA; RECORD CARRIERS; HANDLING RECORD CARRIERS</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06K2209/00</span>&mdash;<span itemprop="Description">Indexing scheme relating to methods or arrangements for reading or recognising printed or written characters or for recognising patterns, e.g. fingerprints</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06K2209/01</span>&mdash;<span itemprop="Description">Character recognition</span>
+            <meta itemprop="Leaf" content="true">
+            <meta itemprop="Additional" content="true">
+            
+          </li>
+          </ul>
+      </li>
+      </ul>
+  </section>
+
+  <section itemprop="abstract" itemscope>
+    <h2>Abstract</h2>
+    
+    <div itemprop="content" html><abstract mxw-id="PA51431159" lang="EN" load-source="patent-office">
+    <div num="p-0001" class="abstract">A technique for enhancing a gray-scale image to improve conversions of the image to binary employs fuzzy reasoning. In the technique, pixels in the image are analyzed by comparing the pixel&#39;s gray scale value, which is indicative of its relative brightness, to the values of pixels immediately surrounding the selected pixel. The degree to which each pixel in the image differs in value from the values of surrounding pixels is employed as the variable in a fuzzy reasoning-based analysis that determines an appropriate amount by which the selected pixel&#39;s value should be adjusted to reduce vagueness and ambiguity in the image and improve retention of information during binarization of the enhanced gray-scale image.</div>
+  </abstract>
+  </div>
+  </section>
+
+  <section itemprop="description" itemscope>
+    <h2>Description</h2>
+    
+    <div itemprop="content" html><div mxw-id="PDES16556331" lang="EN" load-source="patent-office" class="description">
+
+  <heading>CROSS REFERENCE TO RELATED APPLICATIONS</heading>
+  <p num="p-0002">This application claims priority under 35 U.S.C. 119(e) on U.S. Provisional Application No. 60/533,641, which was filed on Jan. 2, 2004.</p>
+
+
+  <p num="p-0003">This application is also related to U.S. application Ser. No. 10/779,551, filed Feb. 11, 2004 and U.S. application Ser. No. 10/783,295, filed Feb. 19, 2004, both of which are commonly owned with the subject application.</p>
+  <heading>ORIGIN OF THE INVENTION</heading>
+  <p num="p-0004">The invention described herein was made in the performance of work under a NASA contract and is subject to the provisions of Public Law 96-517 (35 U.S.C. §202) in which the contractor has elected not to retain title.</p>
+  <heading>BACKGROUND OF THE INVENTION</heading>
+  <p num="p-0005">1. Field of the Invention</p>
+  <p num="p-0006">The present invention relates in general to a method and system for converting gray-scale images to binary images which employs fuzzy reasoning to enhance a gray-scale image before the image is converted to a binary image. When the enhanced gray-scale image is converted to a binary image, the binary image retains more of the detailed information that was contained in the original gray-scale image.</p>
+  <p num="p-0007">2. Description of the Background Art</p>
+  <p num="p-0008">Binarization of a gray-scale/color image is a fundamental tool for image processing since a binary image (1-bit image) can be processed with very fast logical (Boolean) operators and also be used to digitize text and numbers originally contained in gray-scale/color images (typically 8-bit images). The binary digitization of text and numbers contained in gray-scale images has a wide application that includes, but is not limited to, Object Character Recognition (OCR). In a binary digital image, a binary one value indicates that the pixel belongs to the image foreground, which may represent an object in the image, while a binary zero value indicates that the pixel is darker and belongs to the image&#39;s background. Since most image display systems and software employ gray-scale images of 8 or more bits per pixel, the binarization of these images usually takes 2 extreme gray tones, black and white, which are ordinarily represented by 0 or 255, respectively, in an 8-bit gray-scale display environment.</p>
+  <p num="p-0009">One of the key goals of performing binarization of gray-scale images is to be able to digitize text and numbers contained in a gray-scale image acquired outdoors where the image acquisition conditions (lighting, camera/video stabilization, weather, etc.) are uncontrolled. Due to the physical properties of the imaging devices and due to the image transmission, these uncontrolled conditions can result in the degradation of the gray-scale images such that they have poor contrast, are corrupted with different kinds of noise or are blurred. As a result, it is often more difficult to binarize the text and numbers contained in such images; for example, the binarization and final digitization of a car&#39;s license tag numbers face these problems, thus making their binarization/digitization unfeasible or unreliable.</p>
+  <p num="p-0010">Various Image enhancement techniques are available that are utilized to increase the contrast, smooth the regions of interest and sharpen the edges and fine structures in the images. These techniques comprise different classes of point and spatial operations and are typically selected in accordance with the ultimate purpose on the outputted image and the quality criterion (or criteria) of the original (input) image. To date, however, no known enhancement technique exists for specifically improving the binarization/digitization of a gray-scale image so that certain features, such as text or numbers, remain discernable in the image after binarization.</p>
+  <heading>SUMMARY OF THE INVENTION</heading>
+  <p num="p-0011">The present invention addresses the need for improving the content of images generated by binarization of gray-scale images by providing an image enhancement technique that enhances poor-quality input gray-scale images by contrasting their image brightness via a fuzzy reasoning-based inference method to overcome vagueness and generate outputted gray-scale images that are particularly suited for conversion to binary images. Fuzzy reasoning is a logical reasoning technique that attempts to mimic more accurately how the human brain reasons. Fuzzy techniques are nonlinear, knowledge-based and robust. They can process imperfect data if this imperfection originates from vagueness and ambiguity rather than randomness. Under the fuzzy reasoning approach, a logic problem becomes more than deciding whether to assign a particular value to a particular pixel or parameter. Fuzzy reasoning goes one step further and recognizes that there is information contained in the degree to which a given value possesses one or more particular characteristics.</p>
+  <p num="p-0012">In the specific application of converting a gray-scale image to a binary image, the inventor has discovered that if vagueness and ambiguity is first removed from the gray-scale image using a fuzzy reasoning-based inference method before the binarization process, then when the enhanced gray-scale image is converted to binary, the resulting binary image retains more detailed information from the original gray-scale image. To eliminate vagueness and ambiguity in the gray-scale image, the technique of the present invention analyzes each pixel in the image by comparing the pixel&#39;s gray scale value, which is indicative of its relative brightness, to the values of pixels immediately surrounding the selected pixel. If the value of the selected pixel differs greatly from the average value of the surrounding pixels, this is an indication that the selected pixel&#39;s value is most likely an anomaly in the image that will contribute to the image&#39;s vagueness and ambiguity. If the selected pixel&#39;s value is then adjusted to bring it closer to the average value of the surrounding pixels, then the vagueness and ambiguity in the image will be reduced. It is not sufficient, however, to merely adjust the selected pixel&#39;s value to be equal to the average value of the surrounding pixels for each pixel in an image is expected to differ to a certain extent from its neighboring pixels. This is where fuzzy reasoning comes into play in the present invention. In particular, the degree to which each pixel in the image differs in value from the values of surrounding pixels is employed as the variable in a fuzzy reasoning-based analysis that determines an appropriate amount by which the selected pixel&#39;s value should be adjusted to reduce vagueness and ambiguity in the image.</p>
+  <p num="p-0013">Using fuzzy reasoning-based analysis, an image made up of an array of pixels can thus be considered as an array of fuzzy singletons, each having a dimensionless membership value between 0.0 and 1.0 that denotes its degree of having a particular characteristic. The membership value for each pixel is determined by using an input membership function. In the preferred embodiment of the present invention, a plurality of triangular membership functions, preferably five, is employed, each of which defines a degree to which the value of each pixel in the image differs from the average values of pixels surrounding the selected pixel. In other words, the membership functions each define a degree to which the selected pixel differs in brightness from the surrounding pixels. In the preferred embodiment, the five functions specifically include: much darker, slightly darker, equal, slightly brighter and much brighter. The dimensionless membership value is assigned for each function and pixel value. A membership value of 0.0 indicates that the pixel does not posses the particular characteristic at all, while a membership value of 1.0 indicates that the pixel fully possesses the particular characteristic. In the preferred embodiment, the triangular membership functions are formed using a technique known as Mandani&#39;s method and overlap one another such that some pixels in the image will have values in more than one of the functions.</p>
+  <p num="p-0014">To determine a crisp output value for use in adjusting the value of a selected pixel, thereby enhancing the image, a plurality of output membership functions is employed, each of which corresponds to one of the input membership functions. Using a singleton-based inference method also known as True Value Flow Interference is (TVFI), a weighted average of the values for each singleton is determined and this value, which can be positive or negative, is then added to the selected pixel value to make the pixel either darker or brighter.</p>
+  <p num="p-0015">Experiments using the subject technique have confirmed that if a gray-scale image is first enhanced using the subject technique and then this enhanced image is converted to binary, the resulting image will retain more of certain kinds of information, such as text and numbers.</p>
+
+
+  <description-of-drawings>
+    <heading>BRIEF DESCRIPTION OF THE DRAWINGS</heading>
+    <p num="p-0016">The features and advantages of the present invention will become apparent from the following detailed description of a preferred embodiment thereof, taken in conjunction with the accompanying drawings, in which:</p>
+    <p num="p-0017"> <figref idrefs="DRAWINGS">FIG. 1</figref> is a block diagram of a computer system for converting gray-scale images to binary images using a fuzzy reasoning based image enhancement technique in accordance with the preferred embodiment of the present invention;</p>
+    <p num="p-0018"> <figref idrefs="DRAWINGS">FIG. 2</figref> is a flowchart showing the steps carried out by the image enhancement technique of the preferred embodiment;</p>
+    <p num="p-0019"> <figref idrefs="DRAWINGS">FIG. 3</figref> is an illustration of a 3×3 pixel window that is employed in the preferred embodiment to scan a gray-scale image and determine the difference in values between a center pixel (1,1) in the window and the average value of the eight surrounding pixels in the window;</p>
+    <p num="p-0020"> <figref idrefs="DRAWINGS">FIG. 4A</figref> illustrates first and second membership graphs and a mapping relationship between the two that are employed in the preferred embodiment for performing a fuzzy reasoning based image enhancement on a pixel by pixel basis, the first graph on the left being of five triangular input membership functions and the graph on the right being of 5 singleton type output membership functions;</p>
+    <p num="p-0021"> <figref idrefs="DRAWINGS">FIG. 4B</figref> is a graphical illustration of how an adjustment value for a selected pixel is determined from the output values of the membership output function of <figref idrefs="DRAWINGS">FIG. 4A</figref>;</p>
+    <p num="p-0022"> <figref idrefs="DRAWINGS">FIGS. 5A and 5B</figref> are illustrations of gray-scale images that have been converted to binary both with and without the image enhancement technique of the preferred embodiment; and</p>
+    <p num="p-0023"> <figref idrefs="DRAWINGS">FIG. 6</figref> shows another gray-scale image and four different binary conversions thereof, three of which were obtained with three different known binarization techniques, but without the image enhancement technique of the subject invention and the fourth of which was obtained using the image enhancement technique of the subject invention before binarization with the FRAT binarization technique.</p>
+  </description-of-drawings>
+
+
+  <heading>DETAILED DESCRIPTION OF THE PREFERRED EMBODIMENT</heading>
+  <p num="p-0024">With reference to <figref idrefs="DRAWINGS">FIG. 1</figref>, a computer system <b>10</b> is illustrated which is configured to convert multiple bit gray-scale digital images into binary images using any suitable technique, such as the image thresholding technique disclosed in copending U.S. application Ser. No. 10/779,551, filed Feb. 11, 2004 and which is referred to as Fuzzy Reasoning Adaptive Thresholding (FRAT). The system <b>10</b> includes a processor <b>12</b> which is interfaced to an operating memory <b>14</b> and a storage memory <b>16</b>, as is conventional. Loaded into the operating memory <b>14</b> is a binarization program or software module <b>18</b>.</p>
+  <p num="p-0025">Gray-scale images to be converted to binary are either retrieved from the storage memory <b>16</b> or from an external image source <b>20</b> and are fed into the binarization program <b>18</b>, which performs the conversion. To accomplish this, the binarization program <b>18</b> includes an image enhancement algorithm or subroutine <b>22</b> that preprocesses the gray-scale images before they are converted to binary. Each gray-scale image is analyzed by the image enhancement algorithm <b>22</b> and modified if necessary to improve the conversion to binary such that more of certain types of information, such as text or numbers, are retained in the image after the binarization conversion.</p>
+  <p num="p-0026">The image enhancement algorithm <b>22</b> implements a computational technique that is based on fuzzy reasoning and is designed to adjust the brightness of each pixel in the image based on the average brightness of surrounding pixels. The flow chart of <figref idrefs="DRAWINGS">FIG. 2</figref> illustrates the steps carried out by the enhancement algorithm <b>22</b> to adjust each pixel in the gray-scale image as necessary to improve its subsequent binarization. The first preliminary step <b>100</b> is to scan the entire image and find the highest pixel value (M). This value will be used later during determination of the amount that each pixel&#39;s value can be adjusted and defines an upper bound for pixel values in the image.</p>
+  <p num="p-0027">Next, at step <b>102</b>, scanning of the image begins using an n×n window, where n=3, 5, 7, 9, . . . , and with the selected pixel being the center pixel in the window. In the preferred embodiment of the present invention, the gray scale value of each pixel in the image to be binarized is compared to the average values of the pixels surrounding the selected pixel. <figref idrefs="DRAWINGS">FIG. 3</figref> illustrates an example 3×3 window where the center pixel labeled (1,1) is the selected pixel to be adjusted and there are 8 surrounding pixels.</p>
+  <p num="p-0028">Here, the neighboring pixels are identified as (0,0), (0,1), (0,2), (1,0), (1,2), (2,0), (2,1) and (2,2). The next step <b>104</b> is to compute the average value N for the neighboring pixels. In this example, each pixel is represented by an 8 bit value that identifies its relative brightness, with 0 representing black or no brightness and 255 representing white or full brightness. N is calculated using equation (1), where the numbers in parentheses represent the pixel values for the designated pixels in the window:</p>
+  <p num="p-0029">
+    <maths id="MATH-US-00001" num="00001">
+      <math overflow="scroll">
+        <mtable>
+          <mtr>
+            <mtd>
+              <mrow>
+                <mi>N</mi>
+                <mo>=</mo>
+                <mfrac>
+                  <mtable>
+                    <mtr>
+                      <mtd>
+                        <mrow>
+                          <mrow>
+                            <mo>(</mo>
+                            <mrow>
+                              <mn>0</mn>
+                              <mo>,</mo>
+                              <mn>0</mn>
+                            </mrow>
+                            <mo>)</mo>
+                          </mrow>
+                          <mo>+</mo>
+                          <mrow>
+                            <mo>(</mo>
+                            <mrow>
+                              <mn>0</mn>
+                              <mo>,</mo>
+                              <mn>1</mn>
+                            </mrow>
+                            <mo>)</mo>
+                          </mrow>
+                          <mo>+</mo>
+                          <mrow>
+                            <mo>(</mo>
+                            <mrow>
+                              <mn>0</mn>
+                              <mo>,</mo>
+                              <mn>2</mn>
+                            </mrow>
+                            <mo>)</mo>
+                          </mrow>
+                          <mo>+</mo>
+                          <mrow>
+                            <mo>(</mo>
+                            <mrow>
+                              <mn>1</mn>
+                              <mo>,</mo>
+                              <mn>0</mn>
+                            </mrow>
+                            <mo>)</mo>
+                          </mrow>
+                          <mo>+</mo>
+                        </mrow>
+                      </mtd>
+                    </mtr>
+                    <mtr>
+                      <mtd>
+                        <mrow>
+                          <mrow>
+                            <mo>(</mo>
+                            <mrow>
+                              <mn>1</mn>
+                              <mo>,</mo>
+                              <mn>2</mn>
+                            </mrow>
+                            <mo>)</mo>
+                          </mrow>
+                          <mo>+</mo>
+                          <mrow>
+                            <mo>(</mo>
+                            <mrow>
+                              <mn>2</mn>
+                              <mo>,</mo>
+                              <mn>0</mn>
+                            </mrow>
+                            <mo>)</mo>
+                          </mrow>
+                          <mo>+</mo>
+                          <mrow>
+                            <mo>(</mo>
+                            <mrow>
+                              <mn>2</mn>
+                              <mo>,</mo>
+                              <mn>1</mn>
+                            </mrow>
+                            <mo>)</mo>
+                          </mrow>
+                          <mo>+</mo>
+                          <mrow>
+                            <mo>(</mo>
+                            <mrow>
+                              <mn>2</mn>
+                              <mo>,</mo>
+                              <mn>2</mn>
+                            </mrow>
+                            <mo>)</mo>
+                          </mrow>
+                        </mrow>
+                      </mtd>
+                    </mtr>
+                  </mtable>
+                  <mn>8</mn>
+                </mfrac>
+              </mrow>
+            </mtd>
+            <mtd>
+              <mrow>
+                <mo>(</mo>
+                <mn>1</mn>
+                <mo>)</mo>
+              </mrow>
+            </mtd>
+          </mtr>
+        </mtable>
+      </math>
+    </maths>
+  </p>
+  <p num="p-0030">Next, at step <b>106</b>, the normalized difference d between the average value N and the value of the selected pixel (1,1) is computed using the equation (2):</p>
+  <p num="p-0031">
+    <maths id="MATH-US-00002" num="00002">
+      <math overflow="scroll">
+        <mtable>
+          <mtr>
+            <mtd>
+              <mrow>
+                <mi>d</mi>
+                <mo>=</mo>
+                <mfrac>
+                  <mrow>
+                    <mi>N</mi>
+                    <mo>-</mo>
+                    <mrow>
+                      <mo>(</mo>
+                      <mrow>
+                        <mn>1</mn>
+                        <mo>,</mo>
+                        <mn>1</mn>
+                      </mrow>
+                      <mo>)</mo>
+                    </mrow>
+                  </mrow>
+                  <mn>255</mn>
+                </mfrac>
+              </mrow>
+            </mtd>
+            <mtd>
+              <mrow>
+                <mo>(</mo>
+                <mn>2</mn>
+                <mo>)</mo>
+              </mrow>
+            </mtd>
+          </mtr>
+        </mtable>
+      </math>
+    </maths>
+  </p>
+  <p num="p-0032">The resulting value of d will be between 0.0 and 1.0, since the value of N—(1,1) is divided by 255, the highest possible pixel value in this example. The reason for normalizing the difference value is so that this value can be used as a dimensionless input membership value at step <b>108</b> to one or more membership functions. This is where fuzzification occurs using a fuzzy set method known as the Mandani method. In the preferred embodiment, five such functions are employed as illustrated in the left hand graph of <figref idrefs="DRAWINGS">FIG. 4A</figref>. The membership functions are selected so that each defines a different degree to which the selected pixel differs in brightness from the average value N of the pixels in the selected window. In the preferred embodiment, the five functions specifically include: much darker, slightly darker, equal, slightly brighter and much brighter. A dimensionless membership output value is assigned for each function and difference input value. A membership value of 0.0 indicates that the pixel does not posses the particular characteristic at all, while a membership value of 1.0 indicates that the pixel fully possesses the particular characteristic.</p>
+  <p num="p-0033">As illustrated in <figref idrefs="DRAWINGS">FIG. 4A</figref>, the Mandani-type input membership functions are triangular. In the preferred embodiment, the starting and end points for the input membership functions are as follows: Much Darker: (−1.0, 1.00) (−0.6, 1.00) (0.0, 0.0) (1.0, 0.0); Slightly Darker: (−1.0, 0.0) (−0.6, 0.0) (0.3, 1.00) (0.0, 0.0) (1.0, 0.0); Equal: (−1.0, 0.0) (−0.2, 0.0) (0.0, 1.0) (0.2, 0.0) (1.0, 0.0); Slightly Brighter:(−1.0, 0.0) (0.0, 0.0) (0.3, 1.00) (0.6, 0.0) (1.0, 0.0); and Much Brighter:(−1.0, 0.0) (0.0, 0.0) (0.6, 1.0) (1.0, 1.0).</p>
+  <p num="p-0034">The next step of the process involves application of the following five inference rules: 1) if N (average value of surrounding pixels) is equal to the value of the selected pixel, (1,1), then make no change to the pixel value; 2) if N is much darker than (1,1), then make a high decrement to the pixel value; 3) if N is slightly darker than (1,1), then make a medium decrement to the pixel value; 4) if N is much brighter than (1,1), then make a high increment to the pixel value; and, 5) if N is slightly brighter than (1,1), then make a medium increment to the pixel value. These rules are applied through application of the outputs generated by the input membership functions as inputs to five corresponding output membership functions as illustrated in the right-hand graph of <figref idrefs="DRAWINGS">FIG. 4A</figref>. The output membership functions are based on a method referred to as the Truth Value Flow Inference (TVFI) method that uses singletons instead of triangular membership functions as used in the Mandani method. Thus, instead of being triangular, the output membership functions are simply represented by vertical lines at each of 5 equally spaced intervals along the horizontal axis as follows: high decrement=−1.0; medium decrement=−0.5; no change=0.0; medium increment=0.5; and high increment=1.0.</p>
+  <p num="p-0035">The next step <b>110</b> is thus to determine the output values from the output membership functions based on the inference rules applied by the input membership functions and the union of singletons at the output membership functions. As an example, <figref idrefs="DRAWINGS">FIGS. 4A and 4B</figref> illustrate the case where the difference value d obtained from equation (2) is determined to be −0.25. In <figref idrefs="DRAWINGS">FIG. 4A</figref>, the value −0.25 is used as input to the input membership functions, which produces values of 0.3 for the much darker function and 0.7 for the slightly darker function. These two values trigger rules 2) and 3) that lead to the mapping of their corresponding output functions, high decrement from rule 2) and medium decrement from rule 3).</p>
+  <p num="p-0036">The final step <b>112</b> is the defuzzification step in which the crisp output value by which the selected pixel&#39;s value will be adjusted is determined. First, the increment/decrement weight value A is determined by taking the weighted average of the output membership function values illustrated in <figref idrefs="DRAWINGS">FIG. 4A</figref>. Here, A is calculated as—(1.0) (0.3)+−(0.5) (0.7), which equals −0.65 as illustrated in <figref idrefs="DRAWINGS">FIG. 4B</figref>. The final computation of the new pixel value P for the selected pixel is determined by equation (3):
+<br/>
+<i>P</i>=(1,1)+<i>MΔ</i>  (3)
+<br/>
+where M is the maximum pixel value in the image found in step <b>100</b>.
+</p>
+  <p num="p-0037">Once the selected pixel value is adjusted by MΔ, the algorithm returns to step <b>102</b> for the next pixel in the image. This process continues until all pixels in the image, with the exception of the pixels along the four edges of the image, have been adjusted in accordance with the enhancement algorithm. The edge pixels are not included because a 3×3 window cannot be formed around them. If a larger window, such as 5×5, 7×7, etc. were employed, multiple rows of pixels along the edges of the image would have to be excluded from the enhancement process.</p>
+  <p num="p-0038">To demonstrate the effectiveness of the subject image enhancement technique, various types of gray-scale images were converted to binary using the aforementioned FRAT and other binarization techniques, both with and without the subject image enhancement technique. The resulting images are illustrated in <figref idrefs="DRAWINGS">FIGS. 5A</figref>, <b>5</b>B and <b>6</b>. <figref idrefs="DRAWINGS">FIGS. 5A and 5B</figref> show the results of the enhancement approach and its respective FRAT binarization of two noisy text images holding different blurring levels. As may be seen in <figref idrefs="DRAWINGS">FIG. 5B</figref>, especially for the blurred text image, the enhancement approach yields better-binarized images.</p>
+  <p num="p-0039">Finally, <figref idrefs="DRAWINGS">FIG. 6</figref> perhaps provides the most vivid demonstration of the effectiveness of the subject enhancement technique. In <figref idrefs="DRAWINGS">FIG. 6</figref>, a gray-scaled image containing Korean characters is binarized using three different adaptive methods: FRAT, Otsu, and Huang-Wang. Each method fails to digitize all the characters since the background has a dark area at the right with pixel values approaching those of the characters. However, when the subject image enhancement technique is applied prior to the binarization (via FRAT), every character appears in the resulting binary image.</p>
+  <p num="p-0040">In conclusion, the subject image enhancement technique utilizes fuzzy ruled-based reasoning to handle the uncertainty, imprecision and incompleteness naturally involved in the binarization of gray-scaled/color images. The enhancement technique tolerates approximate reasoning and partial truth in order to achieve tractability, robustness, low solution cost and a close resemblance to human like decision making on gray-scaled/color images prior to its binarization. The technique provides sufficient provision for representing the uncertainties at the gray-scaled image so its binarization, the next stage, can be associated with less uncertainty and better performance.</p>
+  <p num="p-0041">Although the invention has been disclosed in terms of a preferred embodiment, it will be understood that modifications and variations could be made thereto without departing from the scope of the invention as set forth in the following claims.</p>
+
+</div>
+  </div>
+  </section>
+
+  <section itemprop="claims" itemscope>
+    <h2>Claims (<span itemprop="count">20</span>)</h2>
+    
+    <div itemprop="content" html><div mxw-id="PCLM9533787" lang="EN" load-source="patent-office" class="claims">
+  <div class="claim"> <div id="CLM-00001" num="00001" class="claim">
+    <div class="claim-text">1. A computer-based method for converting a gray-scale multiple pixel image to a binary image, said method comprising the steps of:
+<div class="claim-text">a) loading a gray-scale image to be converted to a binary image into an operating memory of a computer, said gray-scale image being formed of a plurality of pixels, each pixel having a value that defines a relative brightness level of said pixel;</div>
+<div class="claim-text">b) enhancing said gray-scale image by executing an application with said computer that adjusts the brightness level of pixels in said image, said application carrying out the steps of:
+<div class="claim-text">1) determining a difference value by which a value of a selected pixel in said image differs in brightness from an average brightness value of a plurality of pixels surrounding said selected pixel;</div>
+<div class="claim-text">2) employing said difference value as input to a plurality of overlapping triangular fuzzy set type membership input functions to determine a corresponding plurality of membership values for said selected pixel;</div>
+<div class="claim-text">3) applying said plurality of membership values as inputs to a corresponding plurality of single valued singleton type fuzzy membership output functions, each of which generates a single valued output;</div>
+<div class="claim-text">4) generating a crisp output value from said single valued outputs from said membership output functions that identifies a relative amount by which said selected pixel&#39;s brightness should be adjusted</div>
+<div class="claim-text">5) adjusting the brightness of said selected pixel by adding said crisp output value to said selected pixel value to obtain an adjusted pixel value for said selected pixel;</div>
+<div class="claim-text">6) repeating steps (1)-(5) for additional pixels in said image, thereby generating an enhanced gray-scale image; and</div>
+</div>
+<div class="claim-text">c) converting said enhanced gray-scale image to a binary image.</div>
+</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00002" num="00002" class="claim">
+    <div class="claim-text">2. The method of <claim-ref idref="CLM-00001">claim 1</claim-ref>, wherein said crisp output value is derived from a weighted average of said single valued outputs from said membership output functions.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00003" num="00003" class="claim">
+    <div class="claim-text">3. The method of <claim-ref idref="CLM-00002">claim 2</claim-ref>, wherein said crisp output value is generated by multiplying said weighted average of said single valued outputs by a maximum pixel value in said gray-scale image to be converted to binary.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00004" num="00004" class="claim">
+    <div class="claim-text">4. The method of <claim-ref idref="CLM-00001">claim 1</claim-ref>, wherein at least five each of said input membership functions and said output membership functions are employed.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00005" num="00005" class="claim">
+    <div class="claim-text">5. The method of <claim-ref idref="CLM-00004">claim 4</claim-ref>, wherein five of said input membership functions are provided and define a degree to which said selected pixel is much darker, somewhat darker, equal to, somewhat brighter or much brighter than the average brightness of said surrounding pixels.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00006" num="00006" class="claim">
+    <div class="claim-text">6. The method of <claim-ref idref="CLM-00005">claim 5</claim-ref>, wherein five of said singleton type fuzzy membership output functions are provided which correspond to the five membership input functions and the single valued outputs from said output functions indicate a degree to which the brightness of said pixel should be subject to a high decrement, a medium decrement, no change, a medium increment, and a high increment, respectively.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00007" num="00007" class="claim">
+    <div class="claim-text">7. The method of <claim-ref idref="CLM-00001">claim 1</claim-ref>, wherein an n×n pixel window is employed to determine the average value of pixels surrounding said selected pixel, with the selected pixel located at the center of the window and n being an odd number of 3 or greater.</div>
+  </div>
+  </div> <div class="claim"> <div id="CLM-00008" num="00008" class="claim">
+    <div class="claim-text">8. A computer-based method for converting a gray-scale multiple pixel image to a binary image, said method comprising the steps of:
+<div class="claim-text">a) loading a gray-scale image to be converted to a binary image into an operating memory of a computer, said gray-scale image being formed of a plurality of pixels, each pixel having a value that defines a relative brightness level of said pixel;</div>
+<div class="claim-text">b) enhancing said gray-scale image by executing an application with said computer that adjusts the brightness level of pixels in said image, said application carrying out the steps of:
+<div class="claim-text">1) determining a difference value by which a value of a selected pixel in said image differs in brightness from an average brightness value of a plurality of pixels surrounding said selected pixel wherein an n×n pixel window is employed to determine the average value of pixels surrounding said selected pixel, with the selected pixel located at the center of the window and n being an odd number of 3 or greater;</div>
+<div class="claim-text">2) employing said difference value as input to a plurality of overlapping triangular fuzzy set type membership input functions to determine a corresponding plurality of membership values for said selected pixel;</div>
+<div class="claim-text">3) applying said plurality of membership values as inputs to a corresponding plurality of single valued singleton type fuzzy membership output functions, each of which generates a single valued output;</div>
+<div class="claim-text">4) generating a crisp output value from said single valued outputs from said membership output functions that identifies a relative amount by which said selected pixel&#39;s brightness should be adjusted;</div>
+<div class="claim-text">5) adjusting the brightness of said selected pixel by adding said crisp output value to said selected pixel value to obtain an adjusted pixel value for said selected pixel;</div>
+<div class="claim-text">6) repeating steps (1)-(5) for additional pixels in said image, thereby generating an enhanced gray-scale image; and</div>
+</div>
+<div class="claim-text">c) converting said enhanced gray-scale image to a binary image.</div>
+</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00009" num="00009" class="claim">
+    <div class="claim-text">9. The method of <claim-ref idref="CLM-00008">claim 8</claim-ref>, wherein said crisp output value is derived from a weighted average of said single valued outputs from said membership output functions.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00010" num="00010" class="claim">
+    <div class="claim-text">10. The method of <claim-ref idref="CLM-00009">claim 9</claim-ref>, wherein said crisp output value is generated by multiplying said weighted average of said single valued outputs by a maximum pixel value in said gray-scale image to be converted to binary.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00011" num="00011" class="claim">
+    <div class="claim-text">11. The method of <claim-ref idref="CLM-00008">claim 8</claim-ref>, wherein at least five each of said input membership functions and said output membership functions are employed.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00012" num="00012" class="claim">
+    <div class="claim-text">12. The method of <claim-ref idref="CLM-00011">claim 11</claim-ref>, wherein five of said input membership functions are provided and define a degree to which said selected pixel is much darker, somewhat darker, equal to, somewhat brighter or much brighter than the average brightness of said surrounding pixels.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00013" num="00013" class="claim">
+    <div class="claim-text">13. The method of <claim-ref idref="CLM-00012">claim 12</claim-ref>, wherein five of said singleton type fuzzy membership output functions are provided which correspond to the five membership input functions and the single valued outputs from said output functions indicate a degree to which the brightness of said pixel should be subject to a high decrement, a medium decrement, no change, a medium increment, and a high increment, respectively.</div>
+  </div>
+  </div> <div class="claim"> <div id="CLM-00014" num="00014" class="claim">
+    <div class="claim-text">14. A computer system for converting for converting a gray-scale multiple pixel image to a binary image comprising:
+<div class="claim-text">a) a processor;</div>
+<div class="claim-text">b) an operating memory;</div>
+<div class="claim-text">c) a source of multiple pixel gray-scale digital images; and</div>
+<div class="claim-text">d) a program for performing a conversion of said gray-scale multiple pixel images into binary images, said program including a method for enhancing a gray-scale image before converting said enhanced image to binary, said method comprising the steps of:
+<div class="claim-text">1) loading a gray-scale image to be converted to a binary image into said operating memory, said gray-scale image being formed by a plurality of pixels, each pixel having a value that defines a relative brightness level of said pixel;</div>
+<div class="claim-text">2) enhancing said gray-scale image by executing an application with said processor that adjusts the brightness level of pixels in said image, said application carrying out the steps of:
+<div class="claim-text">i) determining a difference value by which a value of a selected pixel in said image differs in brightness from an average brightness value of a plurality of pixels surrounding said selected pixel;</div>
+<div class="claim-text">ii) employing said difference value as input to a plurality of overlapping triangular fuzzy set type membership input functions to determine a corresponding plurality of membership values for said selected pixel;</div>
+<div class="claim-text">iii) applying said plurality of membership values as inputs to a corresponding plurality of single valued singleton type fuzzy membership output functions, each of which generates a single valued output;</div>
+<div class="claim-text">iv) generating a crisp output value from said single valued outputs from said membership output functions that identifies a relative amount by which said selected pixel&#39;s brightness should be adjusted;</div>
+<div class="claim-text">v) adjusting the brightness of said selected pixel by adding said crisp output value to said selected pixel value to obtain an adjusted pixel value for said selected pixel; and</div>
+<div class="claim-text">vi) repeating steps (i)-(v) for additional pixels in said image, thereby generating an enhanced gray-scale image; and</div>
+</div>
+<div class="claim-text">3) converting said enhanced gray-scale image to a binary image.</div>
+</div>
+</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00015" num="00015" class="claim">
+    <div class="claim-text">15. The system of <claim-ref idref="CLM-00014">claim 14</claim-ref>, wherein said crisp output value is derived from a weighted average of said single valued outputs from said membership output functions.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00016" num="00016" class="claim">
+    <div class="claim-text">16. The system of <claim-ref idref="CLM-00015">claim 15</claim-ref>, wherein said crisp output value is generated by multiplying said weighted average of said single valued outputs by a maximum pixel value in said gray-scale image to be converted to binary.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00017" num="00017" class="claim">
+    <div class="claim-text">17. The system of <claim-ref idref="CLM-00014">claim 14</claim-ref>, wherein at least five each of said input membership functions and said output membership functions are employed.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00018" num="00018" class="claim">
+    <div class="claim-text">18. The system of <claim-ref idref="CLM-00017">claim 17</claim-ref>, wherein five of said input membership functions are provided and define a degree to which said selected pixel is much darker, somewhat darker, equal to, somewhat brighter or much brighter than the average brightness of said surrounding pixels.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00019" num="00019" class="claim">
+    <div class="claim-text">19. The system of <claim-ref idref="CLM-00018">claim 18</claim-ref>, wherein five of said singleton type fuzzy membership output functions are provided which correspond to the five membership input functions and the single valued outputs from said output functions indicate a degree to which the brightness of said pixel should be subject to a high decrement, a medium decrement, no change, a medium increment, and a high increment, respectively.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00020" num="00020" class="claim">
+    <div class="claim-text">20. The system of <claim-ref idref="CLM-00014">claim 14</claim-ref>, wherein an n×n pixel window is employed to determine the average value of pixels surrounding said selected pixel, with the selected pixel located at the center of the window and n being an odd number of 3 or greater. </div>
+  </div>
+</div> </div>
+  </div>
+  </section>
+
+  <section itemprop="application" itemscope>
+
+    <section itemprop="metadata" itemscope>
+        <span itemprop="applicationNumber">US11/010,698</span>
+        <span itemprop="priorityDate">2004-01-02</span>
+        <span itemprop="filingDate">2004-12-01</span>
+        <span itemprop="title">Image processing for binarization enhancement via fuzzy reasoning 
+       </span>
+        <span itemprop="ifiStatus">Expired - Fee Related</span>
+        
+        <a href="/patent/US7496237B1/en">
+            <span itemprop="representativePublication">US7496237B1</span>
+            (<span itemprop="primaryLanguage">en</span>)
+        </a>
+    </section>
+
+    <h2>Priority Applications (2)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                    <th>Title</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="priorityApps" itemscope repeat>
+                <td>
+                   <span itemprop="applicationNumber">US53364104P</span>
+                   <span itemprop="isUsProvisional">true</span>
+                   
+                <td itemprop="priorityDate">2004-01-02</td>
+                <td itemprop="filingDate">2004-01-02</td>
+                <td itemprop="title"></td>
+              </tr><tr itemprop="priorityApps" itemscope repeat>
+                <td>
+                   <span itemprop="applicationNumber">US11/010,698</span>
+                   
+                   <a href="/patent/US7496237B1/en">
+                        <span itemprop="representativePublication">US7496237B1</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                <td itemprop="priorityDate">2004-01-02</td>
+                <td itemprop="filingDate">2004-12-01</td>
+                <td itemprop="title">Image processing for binarization enhancement via fuzzy reasoning 
+       </td>
+              </tr>
+           </tbody>
+       </table>
+
+    <h2>Applications Claiming Priority (1)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                    <th>Title</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="appsClaimingPriority" itemscope repeat>
+                <td>
+                   <span itemprop="applicationNumber">US11/010,698</span>
+                   <a href="/patent/US7496237B1/en">
+                        <span itemprop="representativePublication">US7496237B1</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                <td itemprop="priorityDate">2004-01-02</td>
+                <td itemprop="filingDate">2004-12-01</td>
+                <td itemprop="title">Image processing for binarization enhancement via fuzzy reasoning 
+       </td>
+              </tr>
+           </tbody>
+       </table>
+
+    
+
+    
+
+    <h2>Publications (1)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Publication Number</th>
+                    <th>Publication Date</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="pubs" itemscope repeat>
+                <td>
+                   <span itemprop="publicationNumber">US7496237B1</span>
+                   
+                   <span itemprop="thisPatent">true</span>
+                   <a href="/patent/US7496237B1/en">US7496237B1
+                       (<span itemprop="primaryLanguage">en</span>)
+                   </a>
+                </td>
+                <td itemprop="publicationDate">2009-02-24</td>
+              </tr>
+           </tbody>
+        </table>
+
+  </section>
+
+  <section itemprop="family" itemscope>
+    <h1>Family</h1>
+    <h2>ID=40364664</h2>
+
+    <h2>Family Applications (1)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Title</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="applications" itemscope repeat>
+                <td>
+                    <span itemprop="applicationNumber">US11/010,698</span>
+                    <span itemprop="ifiStatus">Expired - Fee Related</span>
+                    
+                    <a href="/patent/US7496237B1/en">
+                        <span itemprop="representativePublication">US7496237B1</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                </td>
+                <td itemprop="priorityDate">2004-01-02</td>
+                <td itemprop="filingDate">2004-12-01</td>
+                <td itemprop="title">Image processing for binarization enhancement via fuzzy reasoning 
+       </td>
+              </tr>
+           </tbody>
+        </table>
+
+    
+
+    
+
+    <h2>Country Status (1)</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Country</th>
+            <th>Link</th>
+          </tr>
+        </thead>
+        <tbody>
+        <tr itemprop="countryStatus" itemscope repeat>
+            <td>
+              <span itemprop="countryCode">US</span>
+                (<span itemprop="num">1</span>)
+              <meta itemprop="thisCountry" content="true">
+            </td>
+            <td>
+              <a href="/patent/US7496237B1/en">
+                <span itemprop="representativePublication">US7496237B1</span>
+                  (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+    <h2>Cited By (5)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20110051154A1/en">
+              <span itemprop="publicationNumber">US20110051154A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2009-09-02</td>
+          <td itemprop="publicationDate">2011-03-03</td>
+          <td><span itemprop="assigneeOriginal">Xerox Corporation</span></td>
+          <td itemprop="title">Method and system for controlling darkening of image data 
+       </td>
+        </tr><tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US8537423B2/en">
+              <span itemprop="publicationNumber">US8537423B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2011-01-14</td>
+          <td itemprop="publicationDate">2013-09-17</td>
+          <td><span itemprop="assigneeOriginal">Hewlett-Packard Development Company, L.P.</span></td>
+          <td itemprop="title">Method and system for enhancing a digital halftone representation for printing 
+       </td>
+        </tr><tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20170084040A1/en">
+              <span itemprop="publicationNumber">US20170084040A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2015-09-17</td>
+          <td itemprop="publicationDate">2017-03-23</td>
+          <td><span itemprop="assigneeOriginal">Board Of Regents, The University Of Texas System</span></td>
+          <td itemprop="title">Systems And Methods For Containerizing Multilayer Image Segmentation 
+       </td>
+        </tr><tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/WO2019104616A1/en">
+              <span itemprop="publicationNumber">WO2019104616A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2017-11-30</td>
+          <td itemprop="publicationDate">2019-06-06</td>
+          <td><span itemprop="assigneeOriginal">深圳配天智能技术研究院有限公司</span></td>
+          <td itemprop="title">Image processing method and device and computer-readable storage medium 
+       </td>
+        </tr><tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US10388004B2/en">
+              <span itemprop="publicationNumber">US10388004B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2013-12-13</td>
+          <td itemprop="publicationDate">2019-08-20</td>
+          <td><span itemprop="assigneeOriginal">Tencent Technology (Shenzhen) Company Limited</span></td>
+          <td itemprop="title">Image processing method and apparatus 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+
+    
+
+    <h2>Citations (31)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US4554593A/en">
+              <span itemprop="publicationNumber">US4554593A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1981-01-02</td>
+          <td itemprop="publicationDate">1985-11-19</td>
+          <td><span itemprop="assigneeOriginal">International Business Machines Corporation</span></td>
+          <td itemprop="title">Universal thresholder/discriminator 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US4853970A/en">
+              <span itemprop="publicationNumber">US4853970A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1984-03-24</td>
+          <td itemprop="publicationDate">1989-08-01</td>
+          <td><span itemprop="assigneeOriginal">Integrated Automation</span></td>
+          <td itemprop="title">Apparatus for processing digitized images 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5179599A/en">
+              <span itemprop="publicationNumber">US5179599A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1991-06-17</td>
+          <td itemprop="publicationDate">1993-01-12</td>
+          <td><span itemprop="assigneeOriginal">Hewlett-Packard Company</span></td>
+          <td itemprop="title">Dynamic thresholding system for documents using structural information of the documents 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5293430A/en">
+              <span itemprop="publicationNumber">US5293430A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1991-06-27</td>
+          <td itemprop="publicationDate">1994-03-08</td>
+          <td><span itemprop="assigneeOriginal">Xerox Corporation</span></td>
+          <td itemprop="title">Automatic image segmentation using local area maximum and minimum image signals 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5377020A/en">
+              <span itemprop="publicationNumber">US5377020A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1992-05-28</td>
+          <td itemprop="publicationDate">1994-12-27</td>
+          <td><span itemprop="assigneeOriginal">Contex A/S</span></td>
+          <td itemprop="title">Method and apparatus for scanning an original and updating threshold values for use in the processing of data 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5434927A/en">
+              <span itemprop="publicationNumber">US5434927A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1993-12-08</td>
+          <td itemprop="publicationDate">1995-07-18</td>
+          <td><span itemprop="assigneeOriginal">Minnesota Mining And Manufacturing Company</span></td>
+          <td itemprop="title">Method and apparatus for machine vision classification and tracking 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5442462A/en">
+              <span itemprop="publicationNumber">US5442462A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1992-06-10</td>
+          <td itemprop="publicationDate">1995-08-15</td>
+          <td><span itemprop="assigneeOriginal">D.V.P. Technologies Ltd.</span></td>
+          <td itemprop="title">Apparatus and method for smoothing images 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5479526A/en">
+              <span itemprop="publicationNumber">US5479526A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1993-03-23</td>
+          <td itemprop="publicationDate">1995-12-26</td>
+          <td><span itemprop="assigneeOriginal">Martin Marietta</span></td>
+          <td itemprop="title">Pixel designator for small objects 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5481620A/en">
+              <span itemprop="publicationNumber">US5481620A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1991-09-27</td>
+          <td itemprop="publicationDate">1996-01-02</td>
+          <td><span itemprop="assigneeOriginal">E. I. Du Pont De Nemours And Company</span></td>
+          <td itemprop="title">Adaptive vision system 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5590220A/en">
+              <span itemprop="publicationNumber">US5590220A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1992-08-12</td>
+          <td itemprop="publicationDate">1996-12-31</td>
+          <td><span itemprop="assigneeOriginal">International Business Machines Corporation</span></td>
+          <td itemprop="title">Bending point extraction method for optical character recognition system 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5651077A/en">
+              <span itemprop="publicationNumber">US5651077A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1993-12-21</td>
+          <td itemprop="publicationDate">1997-07-22</td>
+          <td><span itemprop="assigneeOriginal">Hewlett-Packard Company</span></td>
+          <td itemprop="title">Automatic threshold determination for a digital scanner 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5754709A/en">
+              <span itemprop="publicationNumber">US5754709A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1994-11-10</td>
+          <td itemprop="publicationDate">1998-05-19</td>
+          <td><span itemprop="assigneeOriginal">Matsushita Electric Industrial Co., Ltd.</span></td>
+          <td itemprop="title">Method and apparatus for gradation correction and image edge extraction 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5784490A/en">
+              <span itemprop="publicationNumber">US5784490A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1994-06-07</td>
+          <td itemprop="publicationDate">1998-07-21</td>
+          <td><span itemprop="assigneeOriginal">Massachusetts Institute Of Technology</span></td>
+          <td itemprop="title">Method and apparatus for automated recognition of text embedded in cluttered observations 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5799111A/en">
+              <span itemprop="publicationNumber">US5799111A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1991-06-14</td>
+          <td itemprop="publicationDate">1998-08-25</td>
+          <td><span itemprop="assigneeOriginal">D.V.P. Technologies, Ltd.</span></td>
+          <td itemprop="title">Apparatus and methods for smoothing images 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5870495A/en">
+              <span itemprop="publicationNumber">US5870495A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1995-01-13</td>
+          <td itemprop="publicationDate">1999-02-09</td>
+          <td><span itemprop="assigneeOriginal">Sgs-Thomson Microelectronics S.R.L.</span></td>
+          <td itemprop="title">Fuzzy method and device for the recognition of geometric shapes in images 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5880767A/en">
+              <span itemprop="publicationNumber">US5880767A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1996-09-11</td>
+          <td itemprop="publicationDate">1999-03-09</td>
+          <td><span itemprop="assigneeOriginal">Hewlett-Packard Company</span></td>
+          <td itemprop="title">Perceptual image resolution enhancement system 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5933540A/en">
+              <span itemprop="publicationNumber">US5933540A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1995-05-11</td>
+          <td itemprop="publicationDate">1999-08-03</td>
+          <td><span itemprop="assigneeOriginal">General Electric Company</span></td>
+          <td itemprop="title">Filter system and method for efficiently suppressing noise and improving edge definition in a digitized image 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5974174A/en">
+              <span itemprop="publicationNumber">US5974174A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1996-09-26</td>
+          <td itemprop="publicationDate">1999-10-26</td>
+          <td><span itemprop="assigneeOriginal">Victor Company Of Japan, Ltd.</span></td>
+          <td itemprop="title">Picture-information processing apparatus 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6016370A/en">
+              <span itemprop="publicationNumber">US6016370A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1996-07-09</td>
+          <td itemprop="publicationDate">2000-01-18</td>
+          <td><span itemprop="assigneeOriginal">Sanyo Electric Co., Ltd.</span></td>
+          <td itemprop="title">Image data processing apparatus having pixel quantity conversion and error diffusion functions 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6094508A/en">
+              <span itemprop="publicationNumber">US6094508A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1997-12-08</td>
+          <td itemprop="publicationDate">2000-07-25</td>
+          <td><span itemprop="assigneeOriginal">Intel Corporation</span></td>
+          <td itemprop="title">Perceptual thresholding for gradient-based local edge detection 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6137907A/en">
+              <span itemprop="publicationNumber">US6137907A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1998-09-23</td>
+          <td itemprop="publicationDate">2000-10-24</td>
+          <td><span itemprop="assigneeOriginal">Xerox Corporation</span></td>
+          <td itemprop="title">Method and apparatus for pixel-level override of halftone detection within classification blocks to reduce rectangular artifacts 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6185336B1/en">
+              <span itemprop="publicationNumber">US6185336B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1998-09-23</td>
+          <td itemprop="publicationDate">2001-02-06</td>
+          <td><span itemprop="assigneeOriginal">Xerox Corporation</span></td>
+          <td itemprop="title">Method and system for classifying a halftone pixel based on noise injected halftone frequency estimation 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6285801B1/en">
+              <span itemprop="publicationNumber">US6285801B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1998-05-29</td>
+          <td itemprop="publicationDate">2001-09-04</td>
+          <td><span itemprop="assigneeOriginal">Stmicroelectronics, Inc.</span></td>
+          <td itemprop="title">Non-linear adaptive image filter for filtering noise such as blocking artifacts 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6347153B1/en">
+              <span itemprop="publicationNumber">US6347153B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1998-01-21</td>
+          <td itemprop="publicationDate">2002-02-12</td>
+          <td><span itemprop="assigneeOriginal">Xerox Corporation</span></td>
+          <td itemprop="title">Method and system for classifying and processing of pixels of image data 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6498660B2/en">
+              <span itemprop="publicationNumber">US6498660B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2001-02-16</td>
+          <td itemprop="publicationDate">2002-12-24</td>
+          <td><span itemprop="assigneeOriginal">Oak Technology, Inc.</span></td>
+          <td itemprop="title">System and method for the dynamic thresholding of grayscale image data 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6671395B1/en">
+              <span itemprop="publicationNumber">US6671395B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1999-10-15</td>
+          <td itemprop="publicationDate">2003-12-30</td>
+          <td><span itemprop="assigneeOriginal">D. Michael Ott</span></td>
+          <td itemprop="title">Document image processing with stroke preservation and background suppression 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20040042645A1/en">
+              <span itemprop="publicationNumber">US20040042645A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2002-09-04</td>
+          <td itemprop="publicationDate">2004-03-04</td>
+          <td><span itemprop="assigneeOriginal">Changchun Hongda Optoelectronic</span></td>
+          <td itemprop="title">Fingerprint recognition method, and fingerprint control method and system 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6798906B1/en">
+              <span itemprop="publicationNumber">US6798906B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1999-06-14</td>
+          <td itemprop="publicationDate">2004-09-28</td>
+          <td><span itemprop="assigneeOriginal">Fuji Xerox Co., Ltd.</span></td>
+          <td itemprop="title">Image processing apparatus and method including line segment data extraction 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7057595B1/en">
+              <span itemprop="publicationNumber">US7057595B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1999-06-15</td>
+          <td itemprop="publicationDate">2006-06-06</td>
+          <td><span itemprop="assigneeOriginal">Solystic</span></td>
+          <td itemprop="title">Image binarization method 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7085013B2/en">
+              <span itemprop="publicationNumber">US7085013B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2001-05-25</td>
+          <td itemprop="publicationDate">2006-08-01</td>
+          <td><span itemprop="assigneeOriginal">Ricoh Company, Ltd.</span></td>
+          <td itemprop="title">Image processing apparatus including low-linear-density dot region detection unit, and image forming apparatus including the same 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7336390B2/en">
+              <span itemprop="publicationNumber">US7336390B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2003-04-29</td>
+          <td itemprop="publicationDate">2008-02-26</td>
+          <td><span itemprop="assigneeOriginal">Pfu Limited</span></td>
+          <td itemprop="title">Method and apparatus for reducing multi-bit image data 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+
+    
+
+    
+    <ul>
+      
+      <li itemprop="applicationsByYear" itemscope repeat>
+        <span itemprop="year">2004</span>
+        <ul>
+          
+          <li itemprop="application" itemscope repeat>
+            <span itemprop="filingDate">2004-12-01</span>
+            <span itemprop="countryCode">US</span>
+            <span itemprop="applicationNumber">US11/010,698</span>
+            <a href="/patent/US7496237B1/en"><span itemprop="documentId">patent/US7496237B1/en</span></a>
+            <span itemprop="legalStatusCat">not_active</span>
+            <span itemprop="legalStatus">Expired - Fee Related</span>
+            
+            <span itemprop="thisApp" content="true" bool></span>
+            
+          </li>
+          
+        </ul>
+      </li>
+      
+    </ul>
+    
+
+    </section>
+
+  <section>
+    <h2>Patent Citations (32)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US4554593A/en">
+              <span itemprop="publicationNumber">US4554593A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1981-01-02</td>
+          <td itemprop="publicationDate">1985-11-19</td>
+          <td><span itemprop="assigneeOriginal">International Business Machines Corporation</span></td>
+          <td itemprop="title">Universal thresholder/discriminator 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US4853970A/en">
+              <span itemprop="publicationNumber">US4853970A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1984-03-24</td>
+          <td itemprop="publicationDate">1989-08-01</td>
+          <td><span itemprop="assigneeOriginal">Integrated Automation</span></td>
+          <td itemprop="title">Apparatus for processing digitized images 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5799111A/en">
+              <span itemprop="publicationNumber">US5799111A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1991-06-14</td>
+          <td itemprop="publicationDate">1998-08-25</td>
+          <td><span itemprop="assigneeOriginal">D.V.P. Technologies, Ltd.</span></td>
+          <td itemprop="title">Apparatus and methods for smoothing images 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5179599A/en">
+              <span itemprop="publicationNumber">US5179599A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1991-06-17</td>
+          <td itemprop="publicationDate">1993-01-12</td>
+          <td><span itemprop="assigneeOriginal">Hewlett-Packard Company</span></td>
+          <td itemprop="title">Dynamic thresholding system for documents using structural information of the documents 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5293430A/en">
+              <span itemprop="publicationNumber">US5293430A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1991-06-27</td>
+          <td itemprop="publicationDate">1994-03-08</td>
+          <td><span itemprop="assigneeOriginal">Xerox Corporation</span></td>
+          <td itemprop="title">Automatic image segmentation using local area maximum and minimum image signals 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5481620A/en">
+              <span itemprop="publicationNumber">US5481620A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1991-09-27</td>
+          <td itemprop="publicationDate">1996-01-02</td>
+          <td><span itemprop="assigneeOriginal">E. I. Du Pont De Nemours And Company</span></td>
+          <td itemprop="title">Adaptive vision system 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5377020A/en">
+              <span itemprop="publicationNumber">US5377020A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1992-05-28</td>
+          <td itemprop="publicationDate">1994-12-27</td>
+          <td><span itemprop="assigneeOriginal">Contex A/S</span></td>
+          <td itemprop="title">Method and apparatus for scanning an original and updating threshold values for use in the processing of data 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5442462A/en">
+              <span itemprop="publicationNumber">US5442462A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1992-06-10</td>
+          <td itemprop="publicationDate">1995-08-15</td>
+          <td><span itemprop="assigneeOriginal">D.V.P. Technologies Ltd.</span></td>
+          <td itemprop="title">Apparatus and method for smoothing images 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5590220A/en">
+              <span itemprop="publicationNumber">US5590220A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1992-08-12</td>
+          <td itemprop="publicationDate">1996-12-31</td>
+          <td><span itemprop="assigneeOriginal">International Business Machines Corporation</span></td>
+          <td itemprop="title">Bending point extraction method for optical character recognition system 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5479526A/en">
+              <span itemprop="publicationNumber">US5479526A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1993-03-23</td>
+          <td itemprop="publicationDate">1995-12-26</td>
+          <td><span itemprop="assigneeOriginal">Martin Marietta</span></td>
+          <td itemprop="title">Pixel designator for small objects 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5761326A/en">
+              <span itemprop="publicationNumber">US5761326A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1993-12-08</td>
+          <td itemprop="publicationDate">1998-06-02</td>
+          <td><span itemprop="assigneeOriginal">Minnesota Mining And Manufacturing Company</span></td>
+          <td itemprop="title">Method and apparatus for machine vision classification and tracking 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5434927A/en">
+              <span itemprop="publicationNumber">US5434927A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1993-12-08</td>
+          <td itemprop="publicationDate">1995-07-18</td>
+          <td><span itemprop="assigneeOriginal">Minnesota Mining And Manufacturing Company</span></td>
+          <td itemprop="title">Method and apparatus for machine vision classification and tracking 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5651077A/en">
+              <span itemprop="publicationNumber">US5651077A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1993-12-21</td>
+          <td itemprop="publicationDate">1997-07-22</td>
+          <td><span itemprop="assigneeOriginal">Hewlett-Packard Company</span></td>
+          <td itemprop="title">Automatic threshold determination for a digital scanner 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5784490A/en">
+              <span itemprop="publicationNumber">US5784490A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1994-06-07</td>
+          <td itemprop="publicationDate">1998-07-21</td>
+          <td><span itemprop="assigneeOriginal">Massachusetts Institute Of Technology</span></td>
+          <td itemprop="title">Method and apparatus for automated recognition of text embedded in cluttered observations 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5754709A/en">
+              <span itemprop="publicationNumber">US5754709A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1994-11-10</td>
+          <td itemprop="publicationDate">1998-05-19</td>
+          <td><span itemprop="assigneeOriginal">Matsushita Electric Industrial Co., Ltd.</span></td>
+          <td itemprop="title">Method and apparatus for gradation correction and image edge extraction 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5870495A/en">
+              <span itemprop="publicationNumber">US5870495A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1995-01-13</td>
+          <td itemprop="publicationDate">1999-02-09</td>
+          <td><span itemprop="assigneeOriginal">Sgs-Thomson Microelectronics S.R.L.</span></td>
+          <td itemprop="title">Fuzzy method and device for the recognition of geometric shapes in images 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5933540A/en">
+              <span itemprop="publicationNumber">US5933540A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1995-05-11</td>
+          <td itemprop="publicationDate">1999-08-03</td>
+          <td><span itemprop="assigneeOriginal">General Electric Company</span></td>
+          <td itemprop="title">Filter system and method for efficiently suppressing noise and improving edge definition in a digitized image 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6016370A/en">
+              <span itemprop="publicationNumber">US6016370A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1996-07-09</td>
+          <td itemprop="publicationDate">2000-01-18</td>
+          <td><span itemprop="assigneeOriginal">Sanyo Electric Co., Ltd.</span></td>
+          <td itemprop="title">Image data processing apparatus having pixel quantity conversion and error diffusion functions 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5880767A/en">
+              <span itemprop="publicationNumber">US5880767A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1996-09-11</td>
+          <td itemprop="publicationDate">1999-03-09</td>
+          <td><span itemprop="assigneeOriginal">Hewlett-Packard Company</span></td>
+          <td itemprop="title">Perceptual image resolution enhancement system 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5974174A/en">
+              <span itemprop="publicationNumber">US5974174A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1996-09-26</td>
+          <td itemprop="publicationDate">1999-10-26</td>
+          <td><span itemprop="assigneeOriginal">Victor Company Of Japan, Ltd.</span></td>
+          <td itemprop="title">Picture-information processing apparatus 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6094508A/en">
+              <span itemprop="publicationNumber">US6094508A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1997-12-08</td>
+          <td itemprop="publicationDate">2000-07-25</td>
+          <td><span itemprop="assigneeOriginal">Intel Corporation</span></td>
+          <td itemprop="title">Perceptual thresholding for gradient-based local edge detection 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6347153B1/en">
+              <span itemprop="publicationNumber">US6347153B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1998-01-21</td>
+          <td itemprop="publicationDate">2002-02-12</td>
+          <td><span itemprop="assigneeOriginal">Xerox Corporation</span></td>
+          <td itemprop="title">Method and system for classifying and processing of pixels of image data 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6285801B1/en">
+              <span itemprop="publicationNumber">US6285801B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1998-05-29</td>
+          <td itemprop="publicationDate">2001-09-04</td>
+          <td><span itemprop="assigneeOriginal">Stmicroelectronics, Inc.</span></td>
+          <td itemprop="title">Non-linear adaptive image filter for filtering noise such as blocking artifacts 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6137907A/en">
+              <span itemprop="publicationNumber">US6137907A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1998-09-23</td>
+          <td itemprop="publicationDate">2000-10-24</td>
+          <td><span itemprop="assigneeOriginal">Xerox Corporation</span></td>
+          <td itemprop="title">Method and apparatus for pixel-level override of halftone detection within classification blocks to reduce rectangular artifacts 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6185336B1/en">
+              <span itemprop="publicationNumber">US6185336B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1998-09-23</td>
+          <td itemprop="publicationDate">2001-02-06</td>
+          <td><span itemprop="assigneeOriginal">Xerox Corporation</span></td>
+          <td itemprop="title">Method and system for classifying a halftone pixel based on noise injected halftone frequency estimation 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6798906B1/en">
+              <span itemprop="publicationNumber">US6798906B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1999-06-14</td>
+          <td itemprop="publicationDate">2004-09-28</td>
+          <td><span itemprop="assigneeOriginal">Fuji Xerox Co., Ltd.</span></td>
+          <td itemprop="title">Image processing apparatus and method including line segment data extraction 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7057595B1/en">
+              <span itemprop="publicationNumber">US7057595B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1999-06-15</td>
+          <td itemprop="publicationDate">2006-06-06</td>
+          <td><span itemprop="assigneeOriginal">Solystic</span></td>
+          <td itemprop="title">Image binarization method 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6671395B1/en">
+              <span itemprop="publicationNumber">US6671395B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1999-10-15</td>
+          <td itemprop="publicationDate">2003-12-30</td>
+          <td><span itemprop="assigneeOriginal">D. Michael Ott</span></td>
+          <td itemprop="title">Document image processing with stroke preservation and background suppression 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6498660B2/en">
+              <span itemprop="publicationNumber">US6498660B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2001-02-16</td>
+          <td itemprop="publicationDate">2002-12-24</td>
+          <td><span itemprop="assigneeOriginal">Oak Technology, Inc.</span></td>
+          <td itemprop="title">System and method for the dynamic thresholding of grayscale image data 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7085013B2/en">
+              <span itemprop="publicationNumber">US7085013B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2001-05-25</td>
+          <td itemprop="publicationDate">2006-08-01</td>
+          <td><span itemprop="assigneeOriginal">Ricoh Company, Ltd.</span></td>
+          <td itemprop="title">Image processing apparatus including low-linear-density dot region detection unit, and image forming apparatus including the same 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20040042645A1/en">
+              <span itemprop="publicationNumber">US20040042645A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2002-09-04</td>
+          <td itemprop="publicationDate">2004-03-04</td>
+          <td><span itemprop="assigneeOriginal">Changchun Hongda Optoelectronic</span></td>
+          <td itemprop="title">Fingerprint recognition method, and fingerprint control method and system 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7336390B2/en">
+              <span itemprop="publicationNumber">US7336390B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2003-04-29</td>
+          <td itemprop="publicationDate">2008-02-26</td>
+          <td><span itemprop="assigneeOriginal">Pfu Limited</span></td>
+          <td itemprop="title">Method and apparatus for reducing multi-bit image data 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Non-Patent Citations (1)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Zhang, Impulse Noise Detection Using Laplacian Operators and Fuzzy Logic, IEEE 2002, p. 845-484.</span>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <h2>Cited By (7)</h2>
+  <table>
+    <caption>* Cited by examiner, † Cited by third party</caption>
+    <thead>
+      <tr>
+        <th>Publication number</th>
+        <th>Priority date</th>
+        <th>Publication date</th>
+        <th>Assignee</th>
+        <th>Title</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US20110051154A1/en">
+            <span itemprop="publicationNumber">US20110051154A1</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2009-09-02</td>
+        <td itemprop="publicationDate">2011-03-03</td>
+        <td><span itemprop="assigneeOriginal">Xerox Corporation</span></td>
+        <td itemprop="title">Method and system for controlling darkening of image data 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US8289574B2/en">
+            <span itemprop="publicationNumber">US8289574B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          
+          
+        </td>
+        <td itemprop="priorityDate">2009-09-02</td>
+        <td itemprop="publicationDate">2012-10-16</td>
+        <td><span itemprop="assigneeOriginal">Xerox Corporation</span></td>
+        <td itemprop="title">Method and system for controlling darkening of image data 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US8537423B2/en">
+            <span itemprop="publicationNumber">US8537423B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          
+          
+        </td>
+        <td itemprop="priorityDate">2011-01-14</td>
+        <td itemprop="publicationDate">2013-09-17</td>
+        <td><span itemprop="assigneeOriginal">Hewlett-Packard Development Company, L.P.</span></td>
+        <td itemprop="title">Method and system for enhancing a digital halftone representation for printing 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US10388004B2/en">
+            <span itemprop="publicationNumber">US10388004B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2013-12-13</td>
+        <td itemprop="publicationDate">2019-08-20</td>
+        <td><span itemprop="assigneeOriginal">Tencent Technology (Shenzhen) Company Limited</span></td>
+        <td itemprop="title">Image processing method and apparatus 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US20170084040A1/en">
+            <span itemprop="publicationNumber">US20170084040A1</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2015-09-17</td>
+        <td itemprop="publicationDate">2017-03-23</td>
+        <td><span itemprop="assigneeOriginal">Board Of Regents, The University Of Texas System</span></td>
+        <td itemprop="title">Systems And Methods For Containerizing Multilayer Image Segmentation 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US10217017B2/en">
+            <span itemprop="publicationNumber">US10217017B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2015-09-17</td>
+        <td itemprop="publicationDate">2019-02-26</td>
+        <td><span itemprop="assigneeOriginal">Board Of Regents, The University Of Texas System</span></td>
+        <td itemprop="title">Systems and methods for containerizing multilayer image segmentation 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/WO2019104616A1/en">
+            <span itemprop="publicationNumber">WO2019104616A1</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2017-11-30</td>
+        <td itemprop="publicationDate">2019-06-06</td>
+        <td><span itemprop="assigneeOriginal">深圳配天智能技术研究院有限公司</span></td>
+        <td itemprop="title">Image processing method and device and computer-readable storage medium 
+       </td>
+      </tr>
+    </tbody>
+  </table>
+
+  
+
+  <section>
+    <h2>Similar Documents</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Publication</th>
+          <th>Publication Date</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="2289746146619769012">
+              <a href="/scholar/2289746146619769012"><span itemprop="scholarAuthors">Shafait et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2008">2008</time>
+            
+          </td>
+          <td itemprop="title">Efficient implementation of local adaptive thresholding techniques using integral images</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/JP2977969B2/en">
+                <span itemprop="publicationNumber">JP2977969B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="1999-11-15">1999-11-15</time>
+            
+            
+          </td>
+          <td itemprop="title">  The image processing system of the edge detection method and apparatus  </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/EP1146472B1/en">
+                <span itemprop="publicationNumber">EP1146472B1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2010-06-02">2010-06-02</time>
+            
+            
+          </td>
+          <td itemprop="title">Loose-gray-scale template matching 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US5375197A/en">
+                <span itemprop="publicationNumber">US5375197A</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="1994-12-20">1994-12-20</time>
+            
+            
+          </td>
+          <td itemprop="title">System and method for automatically distinguishing between graphic information and text information of image data 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US6983068B2/en">
+                <span itemprop="publicationNumber">US6983068B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2006-01-03">2006-01-03</time>
+            
+            
+          </td>
+          <td itemprop="title">Picture/graphics classification system and method 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="5675571166402708193">
+              <a href="/scholar/5675571166402708193"><span itemprop="scholarAuthors">Moshtagh</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2005">2005</time>
+            
+          </td>
+          <td itemprop="title">Minimum volume enclosing ellipsoid</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="4963015593774933819">
+              <a href="/scholar/4963015593774933819"><span itemprop="scholarAuthors">Soille et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2001">2001</time>
+            
+          </td>
+          <td itemprop="title">Directional morphological filtering</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/EP0622750A2/en">
+                <span itemprop="publicationNumber">EP0622750A2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="1994-11-02">1994-11-02</time>
+            
+            
+          </td>
+          <td itemprop="title">Pattern recognition 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US6347156B1/en">
+                <span itemprop="publicationNumber">US6347156B1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2002-02-12">2002-02-12</time>
+            
+            
+          </td>
+          <td itemprop="title">Device, method and storage medium for recognizing a document image 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/EP0712094B1/en">
+                <span itemprop="publicationNumber">EP0712094B1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2004-05-19">2004-05-19</time>
+            
+            
+          </td>
+          <td itemprop="title">A multi-windowing technique for threshholding an image using local image properties 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="7171129549993884869">
+              <a href="/scholar/7171129549993884869"><span itemprop="scholarAuthors">Papamarkos et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2000">2000</time>
+            
+          </td>
+          <td itemprop="title">Multithresholding of color and gray-level images through a neural network technique</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US20100098331A1/en">
+                <span itemprop="publicationNumber">US20100098331A1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2010-04-22">2010-04-22</time>
+            
+            
+          </td>
+          <td itemprop="title">System and method for segmenting foreground and background in a video 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US20040239762A1/en">
+                <span itemprop="publicationNumber">US20040239762A1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2004-12-02">2004-12-02</time>
+            
+            
+          </td>
+          <td itemprop="title">Adaptive background image updating 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/JP2005157679A/en">
+                <span itemprop="publicationNumber">JP2005157679A</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2005-06-16">2005-06-16</time>
+            
+            
+          </td>
+          <td itemprop="title">Object detecting device and method and group learning device and method 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US5832132A/en">
+                <span itemprop="publicationNumber">US5832132A</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="1998-11-03">1998-11-03</time>
+            
+            
+          </td>
+          <td itemprop="title">Image processing using neural network 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US7411699B2/en">
+                <span itemprop="publicationNumber">US7411699B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2008-08-12">2008-08-12</time>
+            
+            
+          </td>
+          <td itemprop="title">Method and apparatus to enhance digital image quality 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/KR100223495B1/en">
+                <span itemprop="publicationNumber">KR100223495B1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="1999-10-15">1999-10-15</time>
+            
+            
+          </td>
+          <td itemprop="title">Image processing method and apparatus 
+     </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US20040001624A1/en">
+                <span itemprop="publicationNumber">US20040001624A1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2004-01-01">2004-01-01</time>
+            
+            
+          </td>
+          <td itemprop="title">Separation system for Multiple Raster Content (MRC) representation of documents 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/JP4942510B2/en">
+                <span itemprop="publicationNumber">JP4942510B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2012-05-30">2012-05-30</time>
+            
+            
+          </td>
+          <td itemprop="title">Vehicle image recognition apparatus and method 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/EP0228553B1/en">
+                <span itemprop="publicationNumber">EP0228553B1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="1992-03-25">1992-03-25</time>
+            
+            
+          </td>
+          <td itemprop="title">Apparatus and method for processing multi-value pixel images 
+     </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/JPH1074257A/en">
+                <span itemprop="publicationNumber">JPH1074257A</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="1998-03-17">1998-03-17</time>
+            
+            
+          </td>
+          <td itemprop="title">Pixel sorting method and pixel fuzzy sorting method 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/JP2967014B2/en">
+                <span itemprop="publicationNumber">JP2967014B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="1999-10-25">1999-10-25</time>
+            
+            
+          </td>
+          <td itemprop="title">  Image processing apparatus  </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/JP2000050109A/en">
+                <span itemprop="publicationNumber">JP2000050109A</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2000-02-18">2000-02-18</time>
+            
+            
+          </td>
+          <td itemprop="title">Nonlinear image filter for removing noise 
+     </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/EP0461903A2/en">
+                <span itemprop="publicationNumber">EP0461903A2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="1991-12-18">1991-12-18</time>
+            
+            
+          </td>
+          <td itemprop="title">Image processing apparatus using neural network 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US7031518B2/en">
+                <span itemprop="publicationNumber">US7031518B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2006-04-18">2006-04-18</time>
+            
+            
+          </td>
+          <td itemprop="title">Segmentation method and system for Multiple Raster Content (MRC) representation of documents 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Legal Events</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Code</th>
+          <th>Title</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2009-01-09">2009-01-09</time></td>
+          <td itemprop="code">AS</td>
+          <td itemprop="title">Assignment</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Owner name</strong>:
+              <span itemprop="value">UNITED STATES OF AMERICA AS REPRESENTED BY THE ADM</span>
+            </p>
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">ASSIGNMENT OF ASSIGNORS INTEREST;ASSIGNOR:ASRC AEROSPACE, INC.;REEL/FRAME:022082/0355</span>
+            </p>
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Effective date</strong>:
+              <span itemprop="value">20090109</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2012-08-01">2012-08-01</time></td>
+          <td itemprop="code">FPAY</td>
+          <td itemprop="title">Fee payment</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Year of fee payment</strong>:
+              <span itemprop="value">4</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2016-10-07">2016-10-07</time></td>
+          <td itemprop="code">REMI</td>
+          <td itemprop="title">Maintenance fee reminder mailed</td>
+          <td>
+            
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2017-02-24">2017-02-24</time></td>
+          <td itemprop="code">LAPS</td>
+          <td itemprop="title">Lapse for failure to pay maintenance fees</td>
+          <td>
+            
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2017-03-27">2017-03-27</time></td>
+          <td itemprop="code">STCH</td>
+          <td itemprop="title">Information on status: patent discontinuation</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">PATENT EXPIRED DUE TO NONPAYMENT OF MAINTENANCE FEES UNDER 37 CFR 1.362</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2017-04-18">2017-04-18</time></td>
+          <td itemprop="code">FP</td>
+          <td itemprop="title">Expired due to failure to pay maintenance fee</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Effective date</strong>:
+              <span itemprop="value">20170224</span>
+            </p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+</article>
+
+    </search-app>
+    <script type="text/javascript" src="//www.gstatic.com/feedback/api.js"></script>
+    <script async="" defer="" src="//www.google.com/insights/consumersurveys/async_survey?site=cxkjf7ipxgbnnjy6k35ezcvbbe"></script>
+  </body>
+</html>

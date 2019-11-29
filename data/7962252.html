@@ -1,0 +1,4014 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>US7962252B2 - Self-contained avionics sensing and flight control system for small unmanned aerial vehicle 
+        - Google Patents</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="referrer" content="origin-when-crossorigin">
+    <link rel="canonical" href="https://patents.google.com/patent/US7962252B2/en">
+    <meta name="description" content="
+     A self-contained avionics sensing and flight control system is provided for an unmanned aerial vehicle (UAV). The system includes sensors for sensing flight control parameters and surveillance parameters, and a Global Positioning System (GPS) receiver. Flight control parameters and location signals are processed to generate flight control signals. A Field Programmable Gate Array (FPGA) is configured to provide a look-up table storing sets of values with each set being associated with a servo mechanism mounted on the UAV and with each value in each set indicating a unique duty cycle for the servo mechanism associated therewith. Each value in each set is further indexed to a bit position indicative of a unique percentage of a maximum duty cycle for the servo mechanism associated therewith. The FPGA is further configured to provide a plurality of pulse width modulation (PWM) generators coupled to the look-up table. Each PWM generator is associated with and adapted to be coupled to one of the servo mechanisms. 
+   
+   ">
+    
+    <meta name="DC.type" content="patent">
+    
+    <meta name="DC.title" content="Self-contained avionics sensing and flight control system for small unmanned aerial vehicle 
+       ">
+    
+    <meta name="DC.date" content="2006-06-08" scheme="dateSubmitted">
+    
+    <meta name="DC.description" content="
+     A self-contained avionics sensing and flight control system is provided for an unmanned aerial vehicle (UAV). The system includes sensors for sensing flight control parameters and surveillance parameters, and a Global Positioning System (GPS) receiver. Flight control parameters and location signals are processed to generate flight control signals. A Field Programmable Gate Array (FPGA) is configured to provide a look-up table storing sets of values with each set being associated with a servo mechanism mounted on the UAV and with each value in each set indicating a unique duty cycle for the servo mechanism associated therewith. Each value in each set is further indexed to a bit position indicative of a unique percentage of a maximum duty cycle for the servo mechanism associated therewith. The FPGA is further configured to provide a plurality of pulse width modulation (PWM) generators coupled to the look-up table. Each PWM generator is associated with and adapted to be coupled to one of the servo mechanisms. 
+   
+   ">
+    
+    <meta name="citation_patent_application_number" content="US:11/422,984">
+    
+    <meta name="citation_pdf_url" content="https://patentimages.storage.googleapis.com/79/2c/6a/f8281b8d0ffae5/US7962252.pdf">
+    
+    <meta name="citation_patent_number" content="US:7962252">
+    
+    <meta name="DC.date" content="2011-06-14" scheme="issue">
+    
+    <meta name="DC.contributor" content="Qamar A. Shams" scheme="inventor">
+    
+    <meta name="DC.contributor" content="Michael J. Logan" scheme="inventor">
+    
+    <meta name="DC.contributor" content="Robert L. Fox" scheme="inventor">
+    
+    <meta name="DC.contributor" content="John C. Ingham" scheme="inventor">
+    
+    <meta name="DC.contributor" content="Sean A. Laughter" scheme="inventor">
+    
+    <meta name="DC.contributor" content="Theodore R. Kuhn, III" scheme="inventor">
+    
+    <meta name="DC.contributor" content="James K. Adams" scheme="inventor">
+    
+    <meta name="DC.contributor" content="Walter C. Babel, III" scheme="inventor">
+    
+    <meta name="DC.contributor" content="National Aeronautics and Space Administration (NASA)" scheme="assignee">
+    
+    <meta name="DC.relation" content="US:5581250" scheme="references">
+    
+    <meta name="DC.relation" content="US:6122572" scheme="references">
+    
+    <meta name="DC.relation" content="US:20030009270:A1" scheme="references">
+    
+    <meta name="DC.relation" content="US:6539290" scheme="references">
+    
+    <meta name="DC.relation" content="US:6023061" scheme="references">
+    
+    <meta name="DC.relation" content="US:5904724" scheme="references">
+    
+    <meta name="DC.relation" content="US:6085127" scheme="references">
+    
+    <meta name="DC.relation" content="US:6140958" scheme="references">
+    
+    <meta name="DC.relation" content="US:6208936" scheme="references">
+    
+    <meta name="DC.relation" content="US:6584382" scheme="references">
+    
+    <meta name="DC.relation" content="US:6925382" scheme="references">
+    
+    <meta name="DC.relation" content="US:6710567" scheme="references">
+    
+    <meta name="DC.relation" content="US:6694228" scheme="references">
+    
+    <meta name="DC.relation" content="US:6711477" scheme="references">
+    
+    <meta name="DC.relation" content="US:6859729" scheme="references">
+    
+    <meta name="DC.relation" content="US:6873886" scheme="references">
+    
+    <meta name="DC.relation" content="US:6948681" scheme="references">
+    
+    <meta name="DC.relation" content="US:6856894" scheme="references">
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,400italic,500,500italic,700">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Product+Sans">
+    <style>
+      body { transition: none; }
+    </style>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-27188110-4', 'auto');
+
+      version = 'patent-search.search_20191120_RC00';
+
+      function sendFeedback() {
+        userfeedback.api.startFeedback({
+          'productId': '713680',
+          'bucket': 'patent-search-web',
+          'productVersion': version,
+        });
+      }
+
+      window.experiments = {};
+      window.experiments.patentCountries = "ae,ag,al,am,ao,ap,ar,at,au,aw,az,ba,bb,bd,be,bf,bg,bh,bj,bn,bo,br,bw,bx,by,bz,ca,cf,cg,ch,ci,cl,cm,cn,co,cr,cs,cu,cy,cz,dd,de,dj,dk,dm,do,dz,ea,ec,ee,eg,em,ep,es,fi,fr,ga,gb,gc,gd,ge,gh,gm,gn,gq,gr,gt,gw,hk,hn,hr,hu,ib,id,ie,il,in,ir,is,it,jo,jp,ke,kg,kh,km,kn,kp,kr,kw,kz,la,lc,li,lk,lr,ls,lt,lu,lv,ly,ma,mc,md,me,mg,mk,ml,mn,mo,mr,mt,mw,mx,my,mz,na,ne,ng,ni,nl,no,nz,oa,om,pa,pe,pg,ph,pl,pt,py,qa,ro,rs,ru,rw,sa,sc,sd,se,sg,si,sk,sl,sm,sn,st,su,sv,sy,sz,td,tg,th,tj,tm,tn,tr,tt,tw,tz,ua,ug,us,uy,uz,vc,ve,vn,wo,yu,za,zm,zw";
+      
+      
+      window.profilePicture = "";
+
+      window.Polymer = {
+        dom: 'shady',
+        lazyRegister: true,
+      };
+    </script>
+
+    <script src="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/webcomponentsjs/webcomponents-lite.min.js"></script>
+    
+    <link rel="import" href="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/search-app-vulcanized.html">
+    
+  </head>
+  <body unresolved>
+    
+    <script src="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/search-app-vulcanized.js"></script>
+    
+    <search-app>
+      
+      
+
+      <article class="result" itemscope itemtype="http://schema.org/ScholarlyArticle">
+  <h1 itemprop="pageTitle">US7962252B2 - Self-contained avionics sensing and flight control system for small unmanned aerial vehicle 
+        - Google Patents</h1>
+  <span itemprop="title">Self-contained avionics sensing and flight control system for small unmanned aerial vehicle 
+       </span>
+
+  <meta itemprop="type" content="patent">
+  <a href="https://patentimages.storage.googleapis.com/79/2c/6a/f8281b8d0ffae5/US7962252.pdf" itemprop="pdfLink">Download PDF</a>
+  <h2>Info</h2>
+
+  <dl>
+    <dt>Publication number</dt>
+    <dd itemprop="publicationNumber">US7962252B2</dd>
+    <meta itemprop="numberWithoutCodes" content="7962252">
+    <meta itemprop="kindCode" content="B2">
+    <meta itemprop="publicationDescription" content="Patent ( having previously published pre-grant publication)">
+    
+    <span>US7962252B2</span>
+    
+    <span>US11/422,984</span>
+    
+    <span>US42298406A</span>
+    
+    <span>US7962252B2</span>
+    
+    <span>US 7962252 B2</span>
+    
+    <span>US7962252 B2</span>
+    
+    <span>US 7962252B2</span>
+    
+    <span>  </span>
+    
+    <span> </span>
+    
+    <span> </span>
+    
+    <span>US 42298406 A</span>
+    
+    <span>US42298406 A</span>
+    
+    <span>US 42298406A</span>
+    
+    <span>US 7962252 B2</span>
+    
+    <span>US7962252 B2</span>
+    
+    <span>US 7962252B2</span>
+    
+
+    <dt>Authority</dt>
+    <dd itemprop="countryCode">US</dd>
+    <dd itemprop="countryName">United States</dd>
+
+    <dt>Prior art keywords</dt>
+    
+    <dd itemprop="priorArtKeywords" repeat>flight control</dd>
+    <dd itemprop="priorArtKeywords" repeat>avionics</dd>
+    <dd itemprop="priorArtKeywords" repeat>control system</dd>
+    <dd itemprop="priorArtKeywords" repeat>sensing</dd>
+    <dd itemprop="priorArtKeywords" repeat>mounted</dd>
+
+    <dt>Prior art date</dt>
+    <dd><time itemprop="priorArtDate" datetime="2005-06-20">2005-06-20</time></dd>
+
+    <dt>Legal status (The legal status is an assumption and is not a legal conclusion. Google has not performed a legal analysis and makes no representation as to the accuracy of the status listed.)</dt>
+    <dd itemprop="legalStatusIfi" itemscope>
+      <span itemprop="status">Active</span>, expires <time itemprop="expiration" datetime="2028-01-14">2028-01-14</time>
+    </dd>
+  </dl>
+
+  <dt>Application number</dt>
+  <dd itemprop="applicationNumber">US11/422,984</dd>
+
+  
+
+  <dt>Other versions</dt>
+  <dd itemprop="directAssociations" itemscope repeat>
+    
+    <a href="/patent/US20070069083A1/en">
+      <span itemprop="publicationNumber">US20070069083A1</span>
+      (<span itemprop="primaryLanguage">en</span>
+    </a>
+  </dd>
+
+  <dt>Inventor</dt>
+  <dd itemprop="inventor" repeat>Qamar A. Shams</dd>
+  <dd itemprop="inventor" repeat>Michael J. Logan</dd>
+  <dd itemprop="inventor" repeat>Robert L. Fox</dd>
+  <dd itemprop="inventor" repeat>John C. Ingham</dd>
+  <dd itemprop="inventor" repeat>Sean A. Laughter</dd>
+  <dd itemprop="inventor" repeat>Theodore R. Kuhn, III</dd>
+  <dd itemprop="inventor" repeat>James K. Adams</dd>
+  <dd itemprop="inventor" repeat>Walter C. Babel, III</dd>
+  <dt>Current Assignee (The listed assignees may be inaccurate. Google has not performed a legal analysis and makes no representation or warranty as to the accuracy of the list.)</dt>
+  <dd itemprop="assigneeCurrent" repeat>
+    National Aeronautics and Space Administration (NASA)
+  </dd><dd itemprop="assigneeCurrent" repeat>
+    US Secretary of Navy
+  </dd>
+
+  <dt>Original Assignee</dt>
+  <dd itemprop="assigneeOriginal" repeat>National Aeronautics and Space Administration (NASA)</dd>
+
+  <dt>Priority date (The priority date is an assumption and is not a legal conclusion. Google has not performed a legal analysis and makes no representation as to the accuracy of the date listed.)</dt>
+  <dd><time itemprop="priorityDate" datetime="2005-06-20">2005-06-20</time></dd>
+
+  <dt>Filing date</dt>
+  <dd><time itemprop="filingDate" datetime="2006-06-08">2006-06-08</time></dd>
+
+  <dt>Publication date</dt>
+  <dd><time itemprop="publicationDate" datetime="2011-06-14">2011-06-14</time></dd>
+
+  
+
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2005-06-20">2005-06-20</time>
+    <span itemprop="title">Priority to US69271205P</span>
+    <span itemprop="type">priority</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2006-06-08">2006-06-08</time>
+    <span itemprop="title">Application filed by National Aeronautics and Space Administration (NASA)</span>
+    <span itemprop="type">filed</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    <span itemprop="assigneeSearch">National Aeronautics and Space Administration (NASA)</span>
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2006-06-08">2006-06-08</time>
+    <span itemprop="title">Priority to US11/422,984</span>
+    <span itemprop="type">priority</span>
+    
+    
+    
+    <span itemprop="documentId">patent/US7962252B2/en</span>
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2006-06-21">2006-06-21</time>
+    <span itemprop="title">Assigned to UNITED STATES OF AMERICA AS REPRESENTED BY THE ADMINISTRATOR OF THE NATIONAL AERONAUTICS AND SPACE ADMINISTRATION</span>
+    <span itemprop="type">reassignment</span>
+    
+    
+    
+    
+    <span itemprop="assigneeSearch">UNITED STATES OF AMERICA AS REPRESENTED BY THE ADMINISTRATOR OF THE NATIONAL AERONAUTICS AND SPACE ADMINISTRATION</span>
+    
+    
+    <span itemprop="description" repeat>ASSIGNMENT OF ASSIGNORS INTEREST (SEE DOCUMENT FOR DETAILS).</span>
+    
+    <span itemprop="description" repeat>Assignors: LOGAN, MICHAEL J., FOX (DECEASED), ROBERT L., ADAMS, JAMES K., LAUGHTER, SEAN A., SHAMS, QAMAR A.</span>
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2006-07-13">2006-07-13</time>
+    <span itemprop="title">Assigned to UNITED STATES OF AMERICA, REPRESENTED BY SECRETARY OF THE NAVY</span>
+    <span itemprop="type">reassignment</span>
+    
+    
+    
+    
+    <span itemprop="assigneeSearch">UNITED STATES OF AMERICA, REPRESENTED BY SECRETARY OF THE NAVY</span>
+    
+    
+    <span itemprop="description" repeat>ASSIGNMENT OF ASSIGNORS INTEREST (SEE DOCUMENT FOR DETAILS).</span>
+    
+    <span itemprop="description" repeat>Assignors: KUHN, III, THEODORE R.</span>
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2006-07-28">2006-07-28</time>
+    <span itemprop="title">Assigned to UNITED STATES OF AMERICA AS REPRESENTED BY THE ADMINISTRATOR OF THE NATIONAL AERONAUTICS AND SPACE ADMINISTRATION</span>
+    <span itemprop="type">reassignment</span>
+    
+    
+    
+    
+    <span itemprop="assigneeSearch">UNITED STATES OF AMERICA AS REPRESENTED BY THE ADMINISTRATOR OF THE NATIONAL AERONAUTICS AND SPACE ADMINISTRATION</span>
+    
+    
+    <span itemprop="description" repeat>ASSIGNMENT OF ASSIGNORS INTEREST (SEE DOCUMENT FOR DETAILS).</span>
+    
+    <span itemprop="description" repeat>Assignors: SCIENCE APPLICATION INTERNATIONAL CORPORATION</span>
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2007-03-29">2007-03-29</time>
+    <span itemprop="title">Publication of US20070069083A1</span>
+    <span itemprop="type">publication</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    <span itemprop="documentId">patent/US20070069083A1/en</span>
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2007-06-08">2007-06-08</time>
+    <span itemprop="title">Assigned to THE UNITED STATES OF AMERICA AS REPRESENTED BY THE ADMINISTRATOR OF THE NATIONAL AERONAUTICS AND SPACE ADMINISTRATION</span>
+    <span itemprop="type">reassignment</span>
+    
+    
+    
+    
+    <span itemprop="assigneeSearch">THE UNITED STATES OF AMERICA AS REPRESENTED BY THE ADMINISTRATOR OF THE NATIONAL AERONAUTICS AND SPACE ADMINISTRATION</span>
+    
+    
+    <span itemprop="description" repeat>ASSIGNMENT OF ASSIGNORS INTEREST (SEE DOCUMENT FOR DETAILS).</span>
+    
+    <span itemprop="description" repeat>Assignors: INGHAM, JOHN C.</span>
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2011-06-14">2011-06-14</time>
+    <span itemprop="title">Publication of US7962252B2</span>
+    <span itemprop="type">publication</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    <span itemprop="documentId">patent/US7962252B2/en</span>
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2011-06-14">2011-06-14</time>
+    <span itemprop="title">Application granted</span>
+    <span itemprop="type">granted</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2019-11-26">2019-11-26</time>
+    <span itemprop="title">Application status is Active</span>
+    <span itemprop="type">legal-status</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2028-01-14">2028-01-14</time>
+    <span itemprop="title">Adjusted expiration</span>
+    <span itemprop="type">legal-status</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+
+  <h2>Links</h2>
+
+  <ul>
+    
+          <li itemprop="links" itemscope repeat>
+            <meta itemprop="id" content="usptoLink">
+            <a href="http://patft.uspto.gov/netacgi/nph-Parser?Sect1=PTO1&Sect2=HITOFF&p=1&u=/netahtml/PTO/srchnum.html&r=1&f=G&l=50&d=PALL&s1=7962252.PN." itemprop="url" target="_blank"><span itemprop="text">USPTO</span></a>
+          </li>
+        <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="usptoAssignmentLink">
+          <a href="https://assignment.uspto.gov/patent/index.html#/patent/search/resultFilter?searchInput=7962252" itemprop="url" target="_blank"><span itemprop="text">USPTO Assignment</span></a>
+        </li>
+
+    <li itemprop="links" itemscope repeat>
+        <meta itemprop="id" content="espacenetLink">
+        <a href="http://worldwide.espacenet.com/publicationDetails/biblio?CC=US&amp;NR=7962252B2&amp;KC=B2&amp;FT=D" itemprop="url" target="_blank"><span itemprop="text">Espacenet</span></a>
+      </li>
+      
+
+    
+
+    
+      <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="globalDossierLink">
+          <a href="http://globaldossier.uspto.gov/#/result/patent/US/7962252/1" itemprop="url" target="_blank"><span itemprop="text">Global Dossier</span></a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="stackexchangeLink">
+          <a href="https://patents.stackexchange.com/questions/tagged/US7962252" itemprop="url"><span itemprop="text">Discuss</span></a>
+        </li>
+      
+  </ul>
+
+  
+  <ul itemprop="concept" itemscope>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000010006</span>
+      <span itemprop="name">flight</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>abstract</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="sections" repeat>title</span>
+      
+      <span itemprop="count">64</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000000051</span>
+      <span itemprop="name">modifying</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>abstract</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">4</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000011295</span>
+      <span itemprop="name">pitch</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000015654</span>
+      <span itemprop="name">memory</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">5</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000000875</span>
+      <span itemprop="name">corresponding</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">4</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001133</span>
+      <span itemprop="name">acceleration</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000003860</span>
+      <span itemprop="name">storage</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000005303</span>
+      <span itemprop="name">weighing</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">FRLJSGOEGLARCA-UHFFFAOYSA-N</span>
+      <span itemprop="name">Cadmium sulfide</span>
+      <span itemprop="domain">Chemical compound</span>
+      <span itemprop="svg_large">data:image/svg&#43;xml;base64,PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0naXNvLTg4NTktMSc/Pgo8c3ZnIHZlcnNpb249JzEuMScgYmFzZVByb2ZpbGU9J2Z1bGwnCiAgICAgICAgICAgICAgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJwogICAgICAgICAgICAgICAgICAgICAgeG1sbnM6cmRraXQ9J2h0dHA6Ly93d3cucmRraXQub3JnL3htbCcKICAgICAgICAgICAgICAgICAgICAgIHhtbG5zOnhsaW5rPSdodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rJwogICAgICAgICAgICAgICAgICB4bWw6c3BhY2U9J3ByZXNlcnZlJwp3aWR0aD0nMzAwcHgnIGhlaWdodD0nMzAwcHgnID4KPCEtLSBFTkQgT0YgSEVBREVSIC0tPgo8cmVjdCBzdHlsZT0nb3BhY2l0eToxLjA7ZmlsbDojRkZGRkZGO3N0cm9rZTpub25lJyB3aWR0aD0nMzAwJyBoZWlnaHQ9JzMwMCcgeD0nMCcgeT0nMCc&#43;IDwvcmVjdD4KPHRleHQgeD0nNTEuODEwOCcgeT0nMTU4LjI1JyBzdHlsZT0nZm9udC1zaXplOjE1cHg7Zm9udC1zdHlsZTpub3JtYWw7Zm9udC13ZWlnaHQ6bm9ybWFsO2ZpbGwtb3BhY2l0eToxO3N0cm9rZTpub25lO2ZvbnQtZmFtaWx5OnNhbnMtc2VyaWY7dGV4dC1hbmNob3I6c3RhcnQ7ZmlsbDojQ0NDQzAwJyA&#43;PHRzcGFuPlM8L3RzcGFuPjx0c3BhbiBzdHlsZT0nYmFzZWxpbmUtc2hpZnQ6c3VwZXI7Zm9udC1zaXplOjExLjI1cHg7Jz4tMjwvdHNwYW4&#43;PHRzcGFuPjwvdHNwYW4&#43;PC90ZXh0Pgo8dGV4dCB4PScxODkuNjE3JyB5PScxNTguMjUnIHN0eWxlPSdmb250LXNpemU6MTVweDtmb250LXN0eWxlOm5vcm1hbDtmb250LXdlaWdodDpub3JtYWw7ZmlsbC1vcGFjaXR5OjE7c3Ryb2tlOm5vbmU7Zm9udC1mYW1pbHk6c2Fucy1zZXJpZjt0ZXh0LWFuY2hvcjpzdGFydDtmaWxsOiMwMDAwMDAnID48dHNwYW4&#43;Q2Q8L3RzcGFuPjx0c3BhbiBzdHlsZT0nYmFzZWxpbmUtc2hpZnQ6c3VwZXI7Zm9udC1zaXplOjExLjI1cHg7Jz4rMjwvdHNwYW4&#43;PHRzcGFuPjwvdHNwYW4&#43;PC90ZXh0Pgo8L3N2Zz4K</span>
+      <span itemprop="svg_small">data:image/svg&#43;xml;base64,PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0naXNvLTg4NTktMSc/Pgo8c3ZnIHZlcnNpb249JzEuMScgYmFzZVByb2ZpbGU9J2Z1bGwnCiAgICAgICAgICAgICAgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJwogICAgICAgICAgICAgICAgICAgICAgeG1sbnM6cmRraXQ9J2h0dHA6Ly93d3cucmRraXQub3JnL3htbCcKICAgICAgICAgICAgICAgICAgICAgIHhtbG5zOnhsaW5rPSdodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rJwogICAgICAgICAgICAgICAgICB4bWw6c3BhY2U9J3ByZXNlcnZlJwp3aWR0aD0nODVweCcgaGVpZ2h0PSc4NXB4JyA&#43;CjwhLS0gRU5EIE9GIEhFQURFUiAtLT4KPHJlY3Qgc3R5bGU9J29wYWNpdHk6MS4wO2ZpbGw6I0ZGRkZGRjtzdHJva2U6bm9uZScgd2lkdGg9Jzg1JyBoZWlnaHQ9Jzg1JyB4PScwJyB5PScwJz4gPC9yZWN0Pgo8dGV4dCB4PSc3LjAwNzY3JyB5PSc1MC4yNScgc3R5bGU9J2ZvbnQtc2l6ZToxNHB4O2ZvbnQtc3R5bGU6bm9ybWFsO2ZvbnQtd2VpZ2h0Om5vcm1hbDtmaWxsLW9wYWNpdHk6MTtzdHJva2U6bm9uZTtmb250LWZhbWlseTpzYW5zLXNlcmlmO3RleHQtYW5jaG9yOnN0YXJ0O2ZpbGw6I0NDQ0MwMCcgPjx0c3Bhbj5TPC90c3Bhbj48dHNwYW4gc3R5bGU9J2Jhc2VsaW5lLXNoaWZ0OnN1cGVyO2ZvbnQtc2l6ZToxMC41cHg7Jz4tMjwvdHNwYW4&#43;PHRzcGFuPjwvdHNwYW4&#43;PC90ZXh0Pgo8dGV4dCB4PSc0MS4zMDA0JyB5PSc1MC4yNScgc3R5bGU9J2ZvbnQtc2l6ZToxNHB4O2ZvbnQtc3R5bGU6bm9ybWFsO2ZvbnQtd2VpZ2h0Om5vcm1hbDtmaWxsLW9wYWNpdHk6MTtzdHJva2U6bm9uZTtmb250LWZhbWlseTpzYW5zLXNlcmlmO3RleHQtYW5jaG9yOnN0YXJ0O2ZpbGw6IzAwMDAwMCcgPjx0c3Bhbj5DZDwvdHNwYW4&#43;PHRzcGFuIHN0eWxlPSdiYXNlbGluZS1zaGlmdDpzdXBlcjtmb250LXNpemU6MTAuNXB4Oyc&#43;KzI8L3RzcGFuPjx0c3Bhbj48L3RzcGFuPjwvdGV4dD4KPC9zdmc&#43;Cg==</span>
+      <span itemprop="smiles">[S-2].[Cd&#43;2]</span>
+      <span itemprop="inchi_key">FRLJSGOEGLARCA-UHFFFAOYSA-N</span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">240000007320</span>
+      <span itemprop="name">Pinus strobus</span>
+      <span itemprop="domain">Species</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000003570</span>
+      <span itemprop="name">air</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000005225</span>
+      <span itemprop="name">electronics</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000005516</span>
+      <span itemprop="name">engineering processes</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000002708</span>
+      <span itemprop="name">enhancing</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000004310</span>
+      <span itemprop="name">industry</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000004301</span>
+      <span itemprop="name">light adaptation</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000004048</span>
+      <span itemprop="name">modification</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000006011</span>
+      <span itemprop="name">modification</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000002093</span>
+      <span itemprop="name">peripheral</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000035945</span>
+      <span itemprop="name">sensitivity</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001702</span>
+      <span itemprop="name">transmitter</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000000007</span>
+      <span itemprop="name">visual effect</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+  </ul>
+  
+
+  <section>
+    <h2>Images</h2>
+    <ul>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/25/e8/52/0b141cd72cf760/US07962252-20110614-D00000.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/fb/cd/85/9196a7b3ecfc94/US07962252-20110614-D00000.png">
+        <ul>
+          <li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="100">
+            <meta itemprop="label" content="system">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="2564">
+              <meta itemprop="top" content="92">
+              <meta itemprop="right" content="2648">
+              <meta itemprop="bottom" content="135">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="100A">
+            <meta itemprop="label" content="aspects">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1628">
+              <meta itemprop="top" content="180">
+              <meta itemprop="right" content="1726">
+              <meta itemprop="bottom" content="222">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="100B">
+            <meta itemprop="label" content="flight control aspects">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="2161">
+              <meta itemprop="top" content="214">
+              <meta itemprop="right" content="2278">
+              <meta itemprop="bottom" content="259">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="12A">
+            <meta itemprop="label" content="single circuit board">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1451">
+              <meta itemprop="top" content="197">
+              <meta itemprop="right" content="1535">
+              <meta itemprop="bottom" content="240">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="12B">
+            <meta itemprop="label" content="separate circuit board">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="2150">
+              <meta itemprop="top" content="307">
+              <meta itemprop="right" content="2228">
+              <meta itemprop="bottom" content="350">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="20">
+            <meta itemprop="label" content="differential pressure sensor">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="149">
+              <meta itemprop="top" content="235">
+              <meta itemprop="right" content="203">
+              <meta itemprop="bottom" content="276">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="200">
+            <meta itemprop="label" content="UAV">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="2435">
+              <meta itemprop="top" content="1712">
+              <meta itemprop="right" content="2525">
+              <meta itemprop="bottom" content="1753">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="202">
+            <meta itemprop="label" content="servo mechanisms">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1804">
+              <meta itemprop="top" content="1766">
+              <meta itemprop="right" content="1887">
+              <meta itemprop="bottom" content="1808">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="202">
+            <meta itemprop="label" content="servo mechanisms">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="2297">
+              <meta itemprop="top" content="1768">
+              <meta itemprop="right" content="2377">
+              <meta itemprop="bottom" content="1810">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="22">
+            <meta itemprop="label" content="Absolute pressure sensor">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="135">
+              <meta itemprop="top" content="353">
+              <meta itemprop="right" content="205">
+              <meta itemprop="bottom" content="400">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="24">
+            <meta itemprop="label" content="accelerometers">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="147">
+              <meta itemprop="top" content="477">
+              <meta itemprop="right" content="199">
+              <meta itemprop="bottom" content="521">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="26">
+            <meta itemprop="label" content="gyros">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="148">
+              <meta itemprop="top" content="601">
+              <meta itemprop="right" content="217">
+              <meta itemprop="bottom" content="644">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="28">
+            <meta itemprop="label" content="level altitude sensor">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="140">
+              <meta itemprop="top" content="722">
+              <meta itemprop="right" content="198">
+              <meta itemprop="bottom" content="766">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="50">
+            <meta itemprop="label" content="multiplexer">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="923">
+              <meta itemprop="top" content="1250">
+              <meta itemprop="right" content="1009">
+              <meta itemprop="bottom" content="1297">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="52">
+            <meta itemprop="label" content="digital converter">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1212">
+              <meta itemprop="top" content="1114">
+              <meta itemprop="right" content="1290">
+              <meta itemprop="bottom" content="1159">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="54">
+            <meta itemprop="label" content="controller">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1233">
+              <meta itemprop="top" content="638">
+              <meta itemprop="right" content="1289">
+              <meta itemprop="bottom" content="680">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="56">
+            <meta itemprop="label" content="flash memory">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1290">
+              <meta itemprop="top" content="870">
+              <meta itemprop="right" content="1345">
+              <meta itemprop="bottom" content="912">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="60">
+            <meta itemprop="label" content="provisional application">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1234">
+              <meta itemprop="top" content="374">
+              <meta itemprop="right" content="1294">
+              <meta itemprop="bottom" content="415">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="70">
+            <meta itemprop="label" content="flight controller">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="2056">
+              <meta itemprop="top" content="420">
+              <meta itemprop="right" content="2117">
+              <meta itemprop="bottom" content="462">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="72">
+            <meta itemprop="label" content="flash memory">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="2261">
+              <meta itemprop="top" content="425">
+              <meta itemprop="right" content="2366">
+              <meta itemprop="bottom" content="491">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="80">
+            <meta itemprop="label" content="FPGA">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="2293">
+              <meta itemprop="top" content="638">
+              <meta itemprop="right" content="2354">
+              <meta itemprop="bottom" content="679">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="84">
+            <meta itemprop="label" content="O ports">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1926">
+              <meta itemprop="top" content="1192">
+              <meta itemprop="right" content="1980">
+              <meta itemprop="bottom" content="1234">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="84">
+            <meta itemprop="label" content="O ports">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="2295">
+              <meta itemprop="top" content="1192">
+              <meta itemprop="right" content="2350">
+              <meta itemprop="bottom" content="1235">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="86">
+            <meta itemprop="label" content="appropriate PWM generator">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="2297">
+              <meta itemprop="top" content="1390">
+              <meta itemprop="right" content="2351">
+              <meta itemprop="bottom" content="1432">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="86">
+            <meta itemprop="label" content="appropriate PWM generator">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1925">
+              <meta itemprop="top" content="1388">
+              <meta itemprop="right" content="1981">
+              <meta itemprop="bottom" content="1430">
+            </span>
+          </li>
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/7e/12/4b/29935a12b895e8/US07962252-20110614-D00001.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/51/da/0c/6a3f879e7d5236/US07962252-20110614-D00001.png">
+        <ul>
+          <li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="100A">
+            <meta itemprop="label" content="aspects">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="176">
+              <meta itemprop="top" content="978">
+              <meta itemprop="right" content="218">
+              <meta itemprop="bottom" content="1072">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="100B">
+            <meta itemprop="label" content="flight control aspects">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="200">
+              <meta itemprop="top" content="431">
+              <meta itemprop="right" content="274">
+              <meta itemprop="bottom" content="562">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="12A">
+            <meta itemprop="label" content="single circuit board">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="194">
+              <meta itemprop="top" content="1171">
+              <meta itemprop="right" content="235">
+              <meta itemprop="bottom" content="1247">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="12B">
+            <meta itemprop="label" content="separate circuit board">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="304">
+              <meta itemprop="top" content="482">
+              <meta itemprop="right" content="346">
+              <meta itemprop="bottom" content="557">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="200">
+            <meta itemprop="label" content="UAV">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1709">
+              <meta itemprop="top" content="181">
+              <meta itemprop="right" content="1751">
+              <meta itemprop="bottom" content="277">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="202">
+            <meta itemprop="label" content="servo mechanisms">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1762">
+              <meta itemprop="top" content="825">
+              <meta itemprop="right" content="1806">
+              <meta itemprop="bottom" content="912">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="202">
+            <meta itemprop="label" content="servo mechanisms">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1765">
+              <meta itemprop="top" content="336">
+              <meta itemprop="right" content="1806">
+              <meta itemprop="bottom" content="403">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="26">
+            <meta itemprop="label" content="gyros">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="580">
+              <meta itemprop="top" content="2500">
+              <meta itemprop="right" content="644">
+              <meta itemprop="bottom" content="2561">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="28">
+            <meta itemprop="label" content="level altitude sensor">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="709">
+              <meta itemprop="top" content="2500">
+              <meta itemprop="right" content="769">
+              <meta itemprop="bottom" content="2557">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="50">
+            <meta itemprop="label" content="multiplexer">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1242">
+              <meta itemprop="top" content="1705">
+              <meta itemprop="right" content="1284">
+              <meta itemprop="bottom" content="1756">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="72">
+            <meta itemprop="label" content="flash memory">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="431">
+              <meta itemprop="top" content="353">
+              <meta itemprop="right" content="473">
+              <meta itemprop="bottom" content="389">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="84">
+            <meta itemprop="label" content="O ports">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1184">
+              <meta itemprop="top" content="734">
+              <meta itemprop="right" content="1232">
+              <meta itemprop="bottom" content="775">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="84">
+            <meta itemprop="label" content="O ports">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1182">
+              <meta itemprop="top" content="354">
+              <meta itemprop="right" content="1240">
+              <meta itemprop="bottom" content="404">
+            </span>
+          </li>
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/fd/f2/30/be13fa6747005a/US07962252-20110614-D00002.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/48/2d/04/528201383b8da8/US07962252-20110614-D00002.png">
+        <ul>
+          <li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="2">
+            <meta itemprop="id" content="82A">
+            <meta itemprop="label" content="Storage locations">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="315">
+              <meta itemprop="top" content="934">
+              <meta itemprop="right" content="360">
+              <meta itemprop="bottom" content="1016">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="2">
+            <meta itemprop="id" content="82A">
+            <meta itemprop="label" content="Storage locations">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="343">
+              <meta itemprop="top" content="129">
+              <meta itemprop="right" content="386">
+              <meta itemprop="bottom" content="200">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="2">
+            <meta itemprop="id" content="82A">
+            <meta itemprop="label" content="Storage locations">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="421">
+              <meta itemprop="top" content="127">
+              <meta itemprop="right" content="465">
+              <meta itemprop="bottom" content="206">
+            </span>
+          </li>
+        </ul>
+      </li>
+      </ul>
+  </section>
+
+  <section>
+    <h2>Classifications</h2>
+    
+    <ul>
+      <li>
+        <ul itemprop="cpcs" itemscope repeat>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G</span>&mdash;<span itemprop="Description">PHYSICS</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G05</span>&mdash;<span itemprop="Description">CONTROLLING; REGULATING</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G05D</span>&mdash;<span itemprop="Description">SYSTEMS FOR CONTROLLING OR REGULATING NON-ELECTRIC VARIABLES</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G05D1/00</span>&mdash;<span itemprop="Description">Control of position, course or altitude of land, water, air, or space vehicles, e.g. automatic pilot</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G05D1/10</span>&mdash;<span itemprop="Description">Simultaneous control of position or course in three dimensions</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G05D1/101</span>&mdash;<span itemprop="Description">Simultaneous control of position or course in three dimensions specially adapted for aircraft</span>
+            <meta itemprop="Leaf" content="true">
+            
+            <meta itemprop="FirstCode" content="true">
+          </li>
+          </ul>
+      </li>
+      </ul>
+  </section>
+
+  <section itemprop="abstract" itemscope>
+    <h2>Abstract</h2>
+    
+    <div itemprop="content" html><abstract mxw-id="PA85552295" lang="EN" load-source="patent-office">
+    <div num="p-0001" class="abstract">A self-contained avionics sensing and flight control system is provided for an unmanned aerial vehicle (UAV). The system includes sensors for sensing flight control parameters and surveillance parameters, and a Global Positioning System (GPS) receiver. Flight control parameters and location signals are processed to generate flight control signals. A Field Programmable Gate Array (FPGA) is configured to provide a look-up table storing sets of values with each set being associated with a servo mechanism mounted on the UAV and with each value in each set indicating a unique duty cycle for the servo mechanism associated therewith. Each value in each set is further indexed to a bit position indicative of a unique percentage of a maximum duty cycle for the servo mechanism associated therewith. The FPGA is further configured to provide a plurality of pulse width modulation (PWM) generators coupled to the look-up table. Each PWM generator is associated with and adapted to be coupled to one of the servo mechanisms.</div>
+  </abstract>
+  </div>
+  </section>
+
+  <section itemprop="description" itemscope>
+    <h2>Description</h2>
+    
+    <div itemprop="content" html><div mxw-id="PDES42141024" lang="EN" load-source="patent-office" class="description">
+    
+    <heading>CLAIM OF BENEFIT OF PROVISIONAL APPLICATION</heading>
+    <p num="p-0002">Pursuant to 35 U.S.C. §119, the benefit of priority from provisional application 60/692,712, with a filing date of Jun. 20, 2005, is claimed for this non-provisional application.</p>
+    
+    
+    <heading>ORIGIN OF THE INVENTION</heading>
+    <p num="p-0003">The invention was made in part by employees of the United States Government and may be manufactured and used by or for the Government of the United States of America for governmental purposes without the payment of any royalties thereon or therefor.</p>
+    
+    
+    <heading>BACKGROUND OF THE INVENTION</heading>
+    <p num="p-0004">1. Field of the Invention</p>
+    <p num="p-0005">This invention relates to unmanned aerial vehicles. More specifically, the invention is a self-contained avionics sensing and flight control system for use onboard a variety of small unmanned aerial vehicles.</p>
+    <p num="p-0006">2. Description of the Related Art</p>
+    <p num="p-0007">The “unmanned aerial vehicle” (UAV) is rapidly gaining prominence in the fields of intelligence gathering, surveillance, and/or reconnaissance. In each of these applications, the UAV must be properly equipped for flight and sensing operations to suit a particular application. For larger UAVs (e.g., on the order of hundreds or thousands of pounds), a variety of flight control systems and sensor suites are readily available as size/weight/cost constraints of these items/systems are not of paramount concern. However, as the demand increases for small UAVs (e.g., sometimes with wingspans on the order of 6 inches and weighing less than one pound), there is a need to provide flight control and sensing systems commensurate in scale with the size/weight/cost of the UAV structures.</p>
+    <heading>SUMMARY OF THE INVENTION</heading>
+    <p num="p-0008">Accordingly, it is an object of the present invention to provide avionic sensing and flight control system for use on small UAVs. Other objects and advantages of the present invention wilt become more obvious hereinafter in the specification and drawings.</p>
+    <p num="p-0009">In accordance with the present invention, a self-contained avionics sensing and flight control system is provided. The system is adapted to be mounted on one or more circuit boards that are installed on an unmanned aerial vehicle (UAV). In terms of sensing, the system includes sensors for sensing flight control and surveillance parameters, and a Global Positioning System (GPS) receiver for providing signals indicative of location. The flight control parameters and signals indicative of location are processed by a controller to generate flight control signals. A Field Programmable Gate Array (FPGA) coupled to the controller is configured to provide a look-up table storing sets of values with each set being associated with a servo mechanism mounted on the UAV and with each value in each set indicating a unique duty cycle for the servo mechanism associated therewith. Each value in each set is further indexed to a bit position indicative of a unique percentage of a maximum duty cycle for the servo mechanism associated therewith. The FPGA is further configured to provide a plurality of pulse width modulation (PWM) generators coupled to the look-up table. Each PWM generator is associated with and adapted to be coupled to one of the servo mechanisms. Each flight control signal from the controller specifies one of the bit positions. Then, the one PWM generator so-specified outputs a PWM signal having a duty cycle dictated by the one value in the one set stored at the one bit position so-specified.</p>
+    
+    
+    <description-of-drawings>
+      <heading>BRIEF DESCRIPTION OF THE DRAWINGS</heading>
+      <p num="p-0010"> <figref idrefs="DRAWINGS">FIG. 1</figref> is a block diagram of an avionics sensing and flight control system for an unmanned aerial vehicle (UAV) in accordance with an embodiment of the present invention; and</p>
+      <p num="p-0011"> <figref idrefs="DRAWINGS">FIG. 2</figref> is a pictorial representation of a look-up table storing servo mechanism control values in accordance with the present invention.</p>
+    </description-of-drawings>
+    
+    
+    <heading>DETAILED DESCRIPTION OF THE INVENTION</heading>
+    <p num="p-0012">Referring now to the drawings and more particularly to <figref idrefs="DRAWINGS">FIG. 1</figref>, an avionics sensing and flight control system for use with a small unmanned aerial vehicle (UAV) <b>200</b> in accordance with the present invention is shown and is referenced generally by numeral <b>100</b>. The sensing aspects of system <b>100</b> are indicated generally by numeral <b>100</b>A and the flight control aspects are indicated generally by numeral <b>100</b>B. Delineating the functions of system <b>100</b> in this way provides a design that permits usage of just sensing aspects <b>100</b>A when a UAV is already equipped with a flight control system. However, for purposes of the present description, it will be assumed that both sensing aspects <b>100</b>A and flight control aspects <b>100</b>B are incorporated in system <b>100</b>.</p>
+    <p num="p-0013">As will be explained further below, system <b>100</b> is designed for use onboard a variety of small UAVs where “small” can be defined to include UAVs having wingspans on the order of six inches and/or weighing less than one pound. That is, the elements used in system <b>100</b> as well as the system configuration provide a small form-factor design. While this is the great advantage of the present invention, it is to be understood that the present invention could also be used on larger UAVs.</p>
+    <p num="p-0014">In the illustrated embodiment, sensing aspects <b>100</b>A utilize a variety of sensors and support circuitry mounted on a single circuit board <b>12</b>A, while the elements of flight control aspects <b>100</b>B are mounted on a separate circuit board <b>12</b>B. Note that while the use of two circuit boards provides additional flexibility, it is also possible to use a single circuit board for both sensing aspects <b>100</b>A and flight control aspects <b>100</b>B. Still further, the sensors could be distributed about/on the UAV for an application requiring more customization.</p>
+    <p num="p-0015">Sensing aspects <b>100</b>A includes sensors that sense parameters used in flight control and various surveillance parameters required by a particular mission. In terms of flight control parameters, system <b>100</b> includes a differential pressure sensor <b>20</b> for measuring airspeed, an absolute pressure sensor <b>22</b> for measuring altitude, accelerometer(s) <b>24</b> for measuring acceleration in three-dimensions, and orthogonally-oriented gyros <b>26</b> for measuring pitch, roll and yaw rates. To satisfy small form-factor system requirements, “micro-electro-mechanical systems” (MEMS) devices are preferably used to realize the various flight control sensing devices. The MEMS-based devices are commercially available single chip devices that lend themselves to easy integration onto circuit board <b>12</b>A. Power for these devices can come from a battery (not shown). However, since MEMS devices generally require low voltages, power could also come from solar cells (not shown) mounted on the UAV.</p>
+    <p num="p-0016">Accelerometer(s) <b>24</b> measures acceleration in each of three mutually orthogonal axes. Accordingly, accelerometers <b>24</b> could be realized by a single triaxial accelerometer, three single-axis accelerometers appropriately oriented, or one single-axis accelerometer and one two-axis accelerometer. MEMS-based devices can be used in each instance. Gyros <b>26</b> can also be MEMS-based devices or can be piezoelectric-based devices. When using a MEMS-based gyro, the gyro&#39;s mass is constrained such that it can only resonate in one direction.</p>
+    <p num="p-0017">Absolute pressure sensor <b>22</b> uses the absolute pressure of ambient air as the means to reliably indicate altitude as is well known in the art. However, MEMS-based absolute pressure sensors are most reliable at altitudes higher than ten feet. Accordingly, in order for system <b>100</b> to be able to control flight near the ground, a reliable low-level altitude sensor <b>28</b> can be provided. Such low-level altitude sensing can be achieved using an ultrasonic transducer. In such a case, the output of altitude sensor <b>28</b> is used during take-off and landing whereas the output of pressure sensor <b>22</b> is used when altitude is greater than approximately ten feet.</p>
+    <p num="p-0018">As mentioned above, sensing aspects <b>100</b>A of system <b>100</b> include the capability to sense/monitor a variety of environmental and/or visual conditions during the UAV&#39;s flight. Generally, these conditions will be critical to the UAV&#39;s surveillance mission which can include intelligence gathering, reconnaissance, etc. Such sensing/monitoring devices include, but are not limited to the following:
+</p> <ul> <li id="ul0001-0001" num="0000"> <ul> <li id="ul0002-0001" num="0018">a humidity sensor <b>30</b> (e.g., a commercially available hydrothermal MEMS chip utilizing shear stress/strain technology),</li> <li id="ul0002-0002" num="0019">a microphone <b>32</b> (e.g., a commercially-available MEMS chip having an omni-directional sensitivity),</li> <li id="ul0002-0003" num="0020">a magnetic sensor <b>34</b> for detecting the earth&#39;s magnetic field component that is parallel to the earth&#39;s surface as a means for determining compass direction,</li> <li id="ul0002-0004" num="0021">a magnetic compass <b>36</b> (e.g., a commercially-available three-axis tilt-compensated device that uses a two-axis accelerometer to enhance performance),</li> <li id="ul0002-0005" num="0022">a temperature sensor <b>38</b>,</li> <li id="ul0002-0006" num="0023">a light sensor <b>40</b> (e.g., a cadmium sulphide logarithmic sensor),</li> <li id="ul0002-0007" num="0024">a camera <b>42</b> (e.g., a small infrared camera for night reconnaissance), and</li> <li id="ul0002-0008" num="0025">an ultraviolet sensor <b>44</b>.
+<br/>
+Obviously, particular types of surveillance sensors could be omitted or provided in multiples thereof depending on mission requirements.
+</li> </ul> </li> </ul>
+
+    <p num="p-0019">The analog outputs from the above-described flight control and surveillance sensors are multiplexed at a multiplexer <b>50</b> and then digitized at an analog-to-digital converter <b>52</b>. Control of the multiplexing and digitizing operations is governed by an avionics sensor controller <b>54</b>. The output of analog-to-digital converter <b>52</b> is raw, digitized samples of data (e.g., in a “serial peripheral interface” (SPI) protocol). While this data format has no start/stop bits or identifiers, it may still be suitable for archival storage on a flash memory <b>56</b>. The stored data could then be downloaded to a computer after the UAV&#39;s mission.</p>
+    <p num="p-0020">Controller <b>54</b> generates data packages using the raw data (output from analog-to-digital converter <b>52</b>) into a format for use in flight control aspects <b>100</b>B. The channel of multiplexer <b>50</b> is used to identify the data type (e.g., absolute pressure, humidity, etc.). Each data package is provided with a header, start/stop bits, etc., (as would be understood in the art), and contains sensed information that is either (i) used for flight control, or (ii) comprises a piece of surveillance information. The data can be provided to flight control aspects <b>100</b>B in some standard transmission/reception format (e.g., a Universal Asynchronous Receiver/Transmitter or “UART” transmission format). In addition, controller <b>54</b> could convert the packaged data into a format (e.g., RS232 serial) for direct output to a conventional personal computer. This option is useful for ground testing of system <b>100</b>.</p>
+    <p num="p-0021">Sensing aspects <b>100</b>A also includes a Global Positioning System (GPS) receiver module <b>60</b> that will output a serial stream of location data in the industry standard National Marine Electronics Association (NMEA) protocol. This data stream is in UART form and is, therefore, ready for re-transmission to flight control aspects <b>100</b>B by controller <b>54</b>. Note that the GPS data could also be made available as a conventional serial (e.g., RS232) output.</p>
+    <p num="p-0022">Each data package (i.e., a flight control parameter data package, surveillance parameter data package, or GPS location data package) is provided to flight control aspects <b>100</b>B. More specifically, a flight controller <b>70</b> receives the data packages. The surveillance parameter data packages are stored in a flash memory <b>72</b> coupled to flight controller <b>70</b>. Note that if the surveillance data was already stored in its raw form in flash memory <b>56</b>, flash memory <b>72</b> may not be needed for this purpose.</p>
+    <p num="p-0023">The GPS location data packages and the flight control parameter data packages are processed by flight controller <b>70</b> to generate flight control signals used for in-flight control of UAV <b>200</b>. If system <b>100</b> is to be used for fully autonomous flight control, flash memory <b>72</b> can be used to store flight patterns, lists of way points, etc., used by flight controller <b>70</b> in conjunction with the sensed flight control parameters to develop flight control signals. In general, UAV <b>200</b> is equipped with a number of controllable surfaces (not shown), each of which has an actuator or servo mechanism <b>202</b> coupled thereto to re-position the controllable surface. Each servo mechanism <b>202</b> has a range of positional movement or duty cycle ranging from 0% (i.e., no movement) to 100% (i.e., the maximum amount of positional movement).</p>
+    <p num="p-0024">Control of servo mechanisms <b>202</b> is simplified in the present invention in the following fashion. Flight controller <b>70</b> need only generate a flight control signal that defines a percentage of positional movement for a particular one of servo mechanisms <b>202</b>. That is, the flight control programmer does not need to know any absolute control values for the particular servo mechanisms onboard UAV <b>200</b>. Flight controller <b>70</b> converts the percentage of positional movement to a digital address transmitted to a Field Programmable Gate Array (FPGA) <b>80</b>. Along with this address is the identification of the particular servo mechanism <b>202</b> that is to be repositioned.</p>
+    <p num="p-0025">FPGA <b>80</b> is configured to define a look-up table <b>82</b>, a number of input/output (I/O) ports <b>84</b> corresponding to the number of servo mechanisms <b>202</b>, and a corresponding number of pulse width modulation (PWM) generators <b>86</b> that provide a PWM signal to an associated servo mechanism <b>202</b>. Look-up table <b>82</b> uses the digital address indicative of the percentage of positional movement as a pointer. For example, if the address length is 8-bits or 256 possible values, each digital address is indicative of a unique percentage of positional movement resolved to approximately 0.4%. That is, a digital address of “0001” equates to approximately 0.4% of positional movement, a digital address of “0010” equates to approximately 0.8% of positional movement, etc.</p>
+    <p num="p-0026">The digital address equated to a percentage of positional movement for one of servo mechanisms <b>202</b>, as well as the identity of the particular servo mechanisms <b>202</b> that is to be repositioned, are passed to look-up table <b>82</b>. Table <b>82</b> stores absolute control values for each of servo mechanisms <b>202</b>. A pictorial representation of look-up table <b>82</b> is illustrated in <figref idrefs="DRAWINGS">FIG. 2</figref> to aid in the understanding of the present invention. Storage locations <b>82</b>A of look-up table <b>82</b> contain absolute control values (e.g., xxx, yyy, etc., for SERVO <b>0</b>) for each of servo mechanisms <b>202</b>. Thus, table <b>82</b> outputs an absolute control value stored at one of locations <b>82</b>A. The absolute control value is provided to the appropriate one of servo mechanisms <b>202</b> as flight controller <b>70</b> addresses/strobes the corresponding one of I/O ports <b>84</b> via address lines <b>88</b>. The absolute control value output from table <b>82</b> is thus passed to the appropriate PWM generator <b>86</b> to drive the corresponding servo mechanism <b>202</b> in accordance with the appropriate duty cycle.</p>
+    <p num="p-0027">The advantages of the present invention are numerous. Small UAVs can simply be designed to accommodate the self-contained avionics sensing and flight control system (i.e., circuit board(s)) of the present invention. Adaptation to a particular UAV and its servo mechanisms is made simply by updating the absolute values stored in the system&#39;s look-up table. The system can further be used for autonomous flight control by using sensor data in conjunction with provided flight plans, lists of way points, etc.</p>
+    <p num="p-0028">Although the invention has been described relative to a specific embodiment thereof, there are numerous variations and modifications that will be readily apparent to those skilled in the art in light of the above teachings. It is therefore to be understood that, within the scope of the appended claims, the invention may be practiced other than as specifically described.</p>
+    
+  </div>
+  </div>
+  </section>
+
+  <section itemprop="claims" itemscope>
+    <h2>Claims (<span itemprop="count">7</span>)</h2>
+    
+    <div itemprop="content" html><div mxw-id="PCLM36423534" lang="EN" load-source="patent-office" class="claims">
+    <div class="claim"> <div id="CLM-00001" num="00001" class="claim">
+      <div class="claim-text">1. An avionics sensing and flight control system, comprising:
+<div class="claim-text">a first circuit board adapted to be mounted on an unmanned aerial vehicle (UAV);</div>
+<div class="claim-text">a first plurality of sensors mounted on said first circuit board for sensing a plurality of flight control parameters;</div>
+<div class="claim-text">a second plurality of sensors mounted on said first circuit board for sensing a plurality of surveillance parameters;</div>
+<div class="claim-text">a Global Positioning System (GPS) receiver mounted on said first circuit board for providing signals indicative of location;</div>
+<div class="claim-text">means, mounted on said first circuit board and coupled to said first and second plurality of sensors and said GPS receiver, for generating data packages with each of said data packages containing one of said flight control parameters, said surveillance parameters, and said signals indicative of location;</div>
+<div class="claim-text">a second circuit board adapted to be mounted on the UAV;</div>
+<div class="claim-text">a controller mounted on said second circuit board for processing ones of said data packages containing said flight control parameters and said signals indicative of location to generate flight control signals, and for storing ones of said data packages containing said surveillance parameters; and</div>
+<div class="claim-text">a Field Programmable Gate Array (FPGA) coupled to said controller and configured to provide</div>
+<div class="claim-text">(i) a look-up table storing sets of values with each of said sets being associated with a particular control surface&#39;s servo mechanism mounted on the UAV and with each of said values in each of said sets defining a unique absolute control value for the servo mechanism associated therewith, each of said values in each of said sets being indexed to a digital address in said look-up table that is indicative of a unique percentage of a maximum duty cycle for the servo mechanism associated therewith, and</div>
+<div class="claim-text">(ii) a plurality of pulse width modulation (PWM) generators coupled to said look-up table, each of said PWM generators being associated with and adapted to be coupled to one of the servo mechanisms, wherein each of said flight control signals specifies one said digital address in one of said sets and one of said PWM generators, and wherein said absolute control value stored at said one digital address is provided to said one of said PWM generators so-specified to thereby output a PWM signal to the servo mechanism associated with said one of said PWM generators.</div>
+</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00002" num="00002" class="claim">
+      <div class="claim-text">2. An avionics and flight control system as in <claim-ref idref="CLM-00001">claim 1</claim-ref> wherein said first plurality of sensors comprises accelerometers, gyros, pressure sensors, and ultrasonic sensors.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00003" num="00003" class="claim">
+      <div class="claim-text">3. An avionics and flight control system as in <claim-ref idref="CLM-00002">claim 2</claim-ref> wherein said pressure sensors comprise absolute and differential pressure sensors.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00004" num="00004" class="claim">
+      <div class="claim-text">4. An avionics and flight control system as in <claim-ref idref="CLM-00002">claim 2</claim-ref> wherein said pressure sensors comprise micro-electro-mechanical systems (MEMS) devices.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00005" num="00005" class="claim">
+      <div class="claim-text">5. An avionics and flight control system as in <claim-ref idref="CLM-00002">claim 2</claim-ref> wherein said gyros comprise a first gyro configured to measure pitch rate, a second gyro configured to measure roll rate, and a third gyro configured to measure yaw rate.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00006" num="00006" class="claim">
+      <div class="claim-text">6. An avionics and flight control system as in <claim-ref idref="CLM-00002">claim 2</claim-ref> wherein said gyros comprise micro-electro-mechanical systems (MEMS) devices.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00007" num="00007" class="claim">
+      <div class="claim-text">7. An avionics and flight control system as in <claim-ref idref="CLM-00002">claim 2</claim-ref> wherein said accelerometers comprise micro-electro-mechanical systems (MEMS) devices. </div>
+    </div>
+  </div> </div>
+  </div>
+  </section>
+
+  <section itemprop="application" itemscope>
+
+    <section itemprop="metadata" itemscope>
+        <span itemprop="applicationNumber">US11/422,984</span>
+        <span itemprop="priorityDate">2005-06-20</span>
+        <span itemprop="filingDate">2006-06-08</span>
+        <span itemprop="title">Self-contained avionics sensing and flight control system for small unmanned aerial vehicle 
+       </span>
+        <span itemprop="ifiStatus">Active</span>
+        <span itemprop="ifiExpiration">2028-01-14</span>
+        <a href="/patent/US7962252B2/en">
+            <span itemprop="representativePublication">US7962252B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+        </a>
+    </section>
+
+    <h2>Priority Applications (2)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                    <th>Title</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="priorityApps" itemscope repeat>
+                <td>
+                   <span itemprop="applicationNumber">US69271205P</span>
+                   <span itemprop="isUsProvisional">true</span>
+                   
+                <td itemprop="priorityDate">2005-06-20</td>
+                <td itemprop="filingDate">2005-06-20</td>
+                <td itemprop="title"></td>
+              </tr><tr itemprop="priorityApps" itemscope repeat>
+                <td>
+                   <span itemprop="applicationNumber">US11/422,984</span>
+                   
+                   <a href="/patent/US7962252B2/en">
+                        <span itemprop="representativePublication">US7962252B2</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                <td itemprop="priorityDate">2005-06-20</td>
+                <td itemprop="filingDate">2006-06-08</td>
+                <td itemprop="title">Self-contained avionics sensing and flight control system for small unmanned aerial vehicle 
+       </td>
+              </tr>
+           </tbody>
+       </table>
+
+    <h2>Applications Claiming Priority (1)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                    <th>Title</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="appsClaimingPriority" itemscope repeat>
+                <td>
+                   <span itemprop="applicationNumber">US11/422,984</span>
+                   <a href="/patent/US7962252B2/en">
+                        <span itemprop="representativePublication">US7962252B2</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                <td itemprop="priorityDate">2005-06-20</td>
+                <td itemprop="filingDate">2006-06-08</td>
+                <td itemprop="title">Self-contained avionics sensing and flight control system for small unmanned aerial vehicle 
+       </td>
+              </tr>
+           </tbody>
+       </table>
+
+    
+
+    
+
+    <h2>Publications (2)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Publication Number</th>
+                    <th>Publication Date</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="pubs" itemscope repeat>
+                <td>
+                   <span itemprop="publicationNumber">US20070069083A1</span>
+                   
+                   <a href="/patent/US20070069083A1/en">US20070069083A1
+                       (<span itemprop="primaryLanguage">en</span>)
+                   </a>
+                </td>
+                <td itemprop="publicationDate">2007-03-29</td>
+              </tr><tr itemprop="pubs" itemscope repeat>
+                <td>
+                   <span itemprop="publicationNumber">US7962252B2</span>
+                   
+                   <span itemprop="thisPatent">true</span>
+                   <a href="/patent/US7962252B2/en">US7962252B2
+                       (<span itemprop="primaryLanguage">en</span>)
+                   </a>
+                </td>
+                <td itemprop="publicationDate">2011-06-14</td>
+              </tr>
+           </tbody>
+        </table>
+
+  </section>
+
+  <section itemprop="family" itemscope>
+    <h1>Family</h1>
+    <h2>ID=37892683</h2>
+
+    <h2>Family Applications (1)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Title</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="applications" itemscope repeat>
+                <td>
+                    <span itemprop="applicationNumber">US11/422,984</span>
+                    <span itemprop="ifiStatus">Active</span>
+                    <span itemprop="ifiExpiration">2028-01-14</span>
+                    <a href="/patent/US7962252B2/en">
+                        <span itemprop="representativePublication">US7962252B2</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                </td>
+                <td itemprop="priorityDate">2005-06-20</td>
+                <td itemprop="filingDate">2006-06-08</td>
+                <td itemprop="title">Self-contained avionics sensing and flight control system for small unmanned aerial vehicle 
+       </td>
+              </tr>
+           </tbody>
+        </table>
+
+    
+
+    
+
+    <h2>Country Status (1)</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Country</th>
+            <th>Link</th>
+          </tr>
+        </thead>
+        <tbody>
+        <tr itemprop="countryStatus" itemscope repeat>
+            <td>
+              <span itemprop="countryCode">US</span>
+                (<span itemprop="num">1</span>)
+              <meta itemprop="thisCountry" content="true">
+            </td>
+            <td>
+              <a href="/patent/US7962252B2/en">
+                <span itemprop="representativePublication">US7962252B2</span>
+                  (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+    <h2>Cited By (13)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20110320068A1/en">
+              <span itemprop="publicationNumber">US20110320068A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2010-06-24</td>
+          <td itemprop="publicationDate">2011-12-29</td>
+          <td><span itemprop="assigneeOriginal">Hon Hai Precision Industry Co., Ltd.</span></td>
+          <td itemprop="title">Electronic device and method for controlling unmanned aerial vehicle using the same 
+       </td>
+        </tr><tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US9044543B2/en">
+              <span itemprop="publicationNumber">US9044543B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2012-07-17</td>
+          <td itemprop="publicationDate">2015-06-02</td>
+          <td><span itemprop="assigneeOriginal">Elwha Llc</span></td>
+          <td itemprop="title">Unmanned device utilization methods and systems 
+       </td>
+        </tr><tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US9061102B2/en">
+              <span itemprop="publicationNumber">US9061102B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2012-07-17</td>
+          <td itemprop="publicationDate">2015-06-23</td>
+          <td><span itemprop="assigneeOriginal">Elwha Llc</span></td>
+          <td itemprop="title">Unmanned device interaction methods and systems 
+       </td>
+        </tr><tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/CN105068552A/en">
+              <span itemprop="publicationNumber">CN105068552A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2015-08-31</td>
+          <td itemprop="publicationDate">2015-11-18</td>
+          <td><span itemprop="assigneeOriginal">致导科技（北京）有限公司</span></td>
+          <td itemprop="title">Automatic pilot of unmanned plane 
+       </td>
+        </tr><tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/CN105404204A/en">
+              <span itemprop="publicationNumber">CN105404204A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2015-12-05</td>
+          <td itemprop="publicationDate">2016-03-16</td>
+          <td><span itemprop="assigneeOriginal">中国航空工业集团公司洛阳电光设备研究所</span></td>
+          <td itemprop="title">Control circuit of starting board of avionic device 
+       </td>
+        </tr><tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20160159462A1/en">
+              <span itemprop="publicationNumber">US20160159462A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2013-08-30</td>
+          <td itemprop="publicationDate">2016-06-09</td>
+          <td><span itemprop="assigneeOriginal">Insitu, Inc.</span></td>
+          <td itemprop="title">Systems and methods for configurable user interfaces 
+       </td>
+        </tr><tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20160341531A1/en">
+              <span itemprop="publicationNumber">US20160341531A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2014-01-22</td>
+          <td itemprop="publicationDate">2016-11-24</td>
+          <td><span itemprop="assigneeOriginal">Mbda France</span></td>
+          <td itemprop="title">Target marking device and target processing system comprising such a target marking device 
+       </td>
+        </tr><tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US9922282B2/en">
+              <span itemprop="publicationNumber">US9922282B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2015-07-21</td>
+          <td itemprop="publicationDate">2018-03-20</td>
+          <td><span itemprop="assigneeOriginal">Limitless Computing, Inc.</span></td>
+          <td itemprop="title">Automated readiness evaluation system (ARES) for use with an unmanned aircraft system (UAS) 
+       </td>
+        </tr><tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/WO2018086087A1/en">
+              <span itemprop="publicationNumber">WO2018086087A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2016-11-14</td>
+          <td itemprop="publicationDate">2018-05-17</td>
+          <td><span itemprop="assigneeOriginal">钟玲珑</span></td>
+          <td itemprop="title">Unmanned flight control system 
+       </td>
+        </tr><tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/USD825381S1/en">
+              <span itemprop="publicationNumber">USD825381S1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2017-07-13</td>
+          <td itemprop="publicationDate">2018-08-14</td>
+          <td><span itemprop="assigneeOriginal">Fat Shark Technology SEZC</span></td>
+          <td itemprop="title">Unmanned aerial vehicle 
+       </td>
+        </tr><tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US10179647B1/en">
+              <span itemprop="publicationNumber">US10179647B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2017-07-13</td>
+          <td itemprop="publicationDate">2019-01-15</td>
+          <td><span itemprop="assigneeOriginal">Fat Shark Technology SEZC</span></td>
+          <td itemprop="title">Unmanned aerial vehicle 
+       </td>
+        </tr><tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/USD848383S1/en">
+              <span itemprop="publicationNumber">USD848383S1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2017-07-13</td>
+          <td itemprop="publicationDate">2019-05-14</td>
+          <td><span itemprop="assigneeOriginal">Fat Shark Technology SEZC</span></td>
+          <td itemprop="title">Printed circuit board 
+       </td>
+        </tr><tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US10392125B2/en">
+              <span itemprop="publicationNumber">US10392125B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2016-05-23</td>
+          <td itemprop="publicationDate">2019-08-27</td>
+          <td><span itemprop="assigneeOriginal">United States Of America As Represented By The Administrator Of Nasa</span></td>
+          <td itemprop="title">System and method for onboard wake and clear air turbulence avoidance 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Families Citing this family (28)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7681832B2/en">
+              <span itemprop="publicationNumber">US7681832B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2007-05-02</td>
+          <td itemprop="publicationDate">2010-03-23</td>
+          <td><span itemprop="assigneeOriginal">Honeywell International Inc.</span></td>
+          <td itemprop="title">Ducted fan air vehicle with deployable wings 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7970532B2/en">
+              <span itemprop="publicationNumber">US7970532B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2007-05-24</td>
+          <td itemprop="publicationDate">2011-06-28</td>
+          <td><span itemprop="assigneeOriginal">Honeywell International Inc.</span></td>
+          <td itemprop="title">Flight path planning to reduce detection of an unmanned aerial vehicle 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/FR2922666B1/en">
+              <span itemprop="publicationNumber">FR2922666B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2007-10-17</td>
+          <td itemprop="publicationDate">2011-07-22</td>
+          <td><span itemprop="assigneeOriginal">Aerodrones</span></td>
+          <td itemprop="title">Method and modular system for controlling and operating a miniature flying platform with intelligence on board 
+     </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/WO2010008639A1/en">
+              <span itemprop="publicationNumber">WO2010008639A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2008-04-09</td>
+          <td itemprop="publicationDate">2010-01-21</td>
+          <td><span itemprop="assigneeOriginal">Christopher William Weller</span></td>
+          <td itemprop="title">Intelligent jungle canopy surveillance appartus and method 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US8109711B2/en">
+              <span itemprop="publicationNumber">US8109711B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2008-07-18</td>
+          <td itemprop="publicationDate">2012-02-07</td>
+          <td><span itemprop="assigneeOriginal">Honeywell International Inc.</span></td>
+          <td itemprop="title">Tethered autonomous air vehicle with wind turbines 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US8070092B2/en">
+              <span itemprop="publicationNumber">US8070092B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2008-10-31</td>
+          <td itemprop="publicationDate">2011-12-06</td>
+          <td><span itemprop="assigneeOriginal">Honeywell International Inc.</span></td>
+          <td itemprop="title">Noise-suppressing strut support system for an unmanned aerial vehicle 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20110001017A1/en">
+              <span itemprop="publicationNumber">US20110001017A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2008-12-08</td>
+          <td itemprop="publicationDate">2011-01-06</td>
+          <td><span itemprop="assigneeOriginal">Honeywell International Inc.</span></td>
+          <td itemprop="title">Uav ducted fan swept and lean stator design 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20100152933A1/en">
+              <span itemprop="publicationNumber">US20100152933A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2008-12-11</td>
+          <td itemprop="publicationDate">2010-06-17</td>
+          <td><span itemprop="assigneeOriginal">Honeywell International Inc.</span></td>
+          <td itemprop="title">Apparatus and method for unmanned aerial vehicle ground proximity detection, landing and descent 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US8348190B2/en">
+              <span itemprop="publicationNumber">US8348190B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2009-01-26</td>
+          <td itemprop="publicationDate">2013-01-08</td>
+          <td><span itemprop="assigneeOriginal">Honeywell International Inc.</span></td>
+          <td itemprop="title">Ducted fan UAV control alternatives 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US8359178B2/en">
+              <span itemprop="publicationNumber">US8359178B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2009-03-04</td>
+          <td itemprop="publicationDate">2013-01-22</td>
+          <td><span itemprop="assigneeOriginal">Honeywell International Inc.</span></td>
+          <td itemprop="title">Method and apparatus for identifying erroneous sensor outputs 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US8386095B2/en">
+              <span itemprop="publicationNumber">US8386095B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2009-04-02</td>
+          <td itemprop="publicationDate">2013-02-26</td>
+          <td><span itemprop="assigneeOriginal">Honeywell International Inc.</span></td>
+          <td itemprop="title">Performing corrective action on unmanned aerial vehicle using one axis of three-axis magnetometer 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US8515609B2/en">
+              <span itemprop="publicationNumber">US8515609B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2009-07-06</td>
+          <td itemprop="publicationDate">2013-08-20</td>
+          <td><span itemprop="assigneeOriginal">Honeywell International Inc.</span></td>
+          <td itemprop="title">Flight technical control management for an unmanned aerial vehicle 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20110095530A1/en">
+              <span itemprop="publicationNumber">US20110095530A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2009-10-26</td>
+          <td itemprop="publicationDate">2011-04-28</td>
+          <td><span itemprop="assigneeOriginal">Honeywell International Inc.</span></td>
+          <td itemprop="title">Tethered aquatic device with water power turbine 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US9004393B2/en">
+              <span itemprop="publicationNumber">US9004393B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2010-10-24</td>
+          <td itemprop="publicationDate">2015-04-14</td>
+          <td><span itemprop="assigneeOriginal">University Of Kansas</span></td>
+          <td itemprop="title">Supersonic hovering air vehicle 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/TW201235949A/en">
+              <span itemprop="publicationNumber">TW201235949A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2011-02-24</td>
+          <td itemprop="publicationDate">2012-09-01</td>
+          <td><span itemprop="assigneeOriginal">Hon Hai Prec Ind Co Ltd</span></td>
+          <td itemprop="title">Unmanned aerial vehicle and method for adjusting control command of the unmanned aerial vehicle 
+     </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/CA2845094A1/en">
+              <span itemprop="publicationNumber">CA2845094A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2011-08-16</td>
+          <td itemprop="publicationDate">2013-04-18</td>
+          <td><span itemprop="assigneeOriginal">Unmanned Innovation Inc.</span></td>
+          <td itemprop="title">Modular flight management system incorporating an autopilot 
+     </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/CN102361394B/en">
+              <span itemprop="publicationNumber">CN102361394B</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2011-09-04</td>
+          <td itemprop="publicationDate">2014-01-08</td>
+          <td><span itemprop="assigneeOriginal">中国科学院近代物理研究所</span></td>
+          <td itemprop="title">Adjusting system and adjusting method of digital power supply of ion cancer therapy accelerator 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/CN102431643A/en">
+              <span itemprop="publicationNumber">CN102431643A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2011-11-30</td>
+          <td itemprop="publicationDate">2012-05-02</td>
+          <td><span itemprop="assigneeOriginal">中国南方航空工业(集团)有限公司</span></td>
+          <td itemprop="title">Automatic pilot of unmanned plane 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US9256994B2/en">
+              <span itemprop="publicationNumber">US9256994B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2014-05-12</td>
+          <td itemprop="publicationDate">2016-02-09</td>
+          <td><span itemprop="assigneeOriginal">Unmanned Innovation, Inc.</span></td>
+          <td itemprop="title">Unmanned aerial vehicle authorization and geofence envelope determination 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US9273981B1/en">
+              <span itemprop="publicationNumber">US9273981B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2014-05-12</td>
+          <td itemprop="publicationDate">2016-03-01</td>
+          <td><span itemprop="assigneeOriginal">Unmanned Innovation, Inc.</span></td>
+          <td itemprop="title">Distributed unmanned aerial vehicle architecture 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/CN104698934A/en">
+              <span itemprop="publicationNumber">CN104698934A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2015-02-27</td>
+          <td itemprop="publicationDate">2015-06-10</td>
+          <td><span itemprop="assigneeOriginal">福建工程学院</span></td>
+          <td itemprop="title">Method for acquiring and processing remote control information of unmanned aerial vehicle steering engines based on FPGA 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/CN105159175A/en">
+              <span itemprop="publicationNumber">CN105159175A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2015-09-01</td>
+          <td itemprop="publicationDate">2015-12-16</td>
+          <td><span itemprop="assigneeOriginal">江苏艾锐泰克无人飞行器科技有限公司</span></td>
+          <td itemprop="title">Line concentration device of unmanned plane 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/CN105700540B/en">
+              <span itemprop="publicationNumber">CN105700540B</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2016-03-09</td>
+          <td itemprop="publicationDate">2019-02-01</td>
+          <td><span itemprop="assigneeOriginal">哈尔滨工业大学深圳研究生院</span></td>
+          <td itemprop="title">UAV Flight Control circuit based on FPGA 
+     </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/WO2018032433A1/en">
+              <span itemprop="publicationNumber">WO2018032433A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2016-08-17</td>
+          <td itemprop="publicationDate">2018-02-22</td>
+          <td><span itemprop="assigneeOriginal">邹霞</span></td>
+          <td itemprop="title">Dsp module-based autopilot for miniature unmanned aerial vehicle 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/CN106200675A/en">
+              <span itemprop="publicationNumber">CN106200675A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2016-08-17</td>
+          <td itemprop="publicationDate">2016-12-07</td>
+          <td><span itemprop="assigneeOriginal">邹霞</span></td>
+          <td itemprop="title">Small unmanned aerial vehicle self-driving instrument based on DSP (digital signal processor) modularization 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/CN106325295B/en">
+              <span itemprop="publicationNumber">CN106325295B</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2016-08-29</td>
+          <td itemprop="publicationDate">2019-04-19</td>
+          <td><span itemprop="assigneeOriginal">林为庆</span></td>
+          <td itemprop="title">A kind of field action situation map generation system and method based on unmanned plane 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/CN107707626A/en">
+              <span itemprop="publicationNumber">CN107707626A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2017-09-05</td>
+          <td itemprop="publicationDate">2018-02-16</td>
+          <td><span itemprop="assigneeOriginal">百度在线网络技术（北京）有限公司</span></td>
+          <td itemprop="title">Data collecting card, data collecting system and collecting method based on FPGA 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US10423831B2/en">
+              <span itemprop="publicationNumber">US10423831B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2017-09-15</td>
+          <td itemprop="publicationDate">2019-09-24</td>
+          <td><span itemprop="assigneeOriginal">Honeywell International Inc.</span></td>
+          <td itemprop="title">Unmanned aerial vehicle based expansion joint failure detection system 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Citations (18)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5581250A/en">
+              <span itemprop="publicationNumber">US5581250A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1995-02-24</td>
+          <td itemprop="publicationDate">1996-12-03</td>
+          <td><span itemprop="assigneeOriginal">Khvilivitzky; Alexander</span></td>
+          <td itemprop="title">Visual collision avoidance system for unmanned aerial vehicles 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5904724A/en">
+              <span itemprop="publicationNumber">US5904724A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1996-01-19</td>
+          <td itemprop="publicationDate">1999-05-18</td>
+          <td><span itemprop="assigneeOriginal">Margolin; Jed</span></td>
+          <td itemprop="title">Method and apparatus for remotely piloting an aircraft 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6023061A/en">
+              <span itemprop="publicationNumber">US6023061A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1995-12-04</td>
+          <td itemprop="publicationDate">2000-02-08</td>
+          <td><span itemprop="assigneeOriginal">Microcam Corporation</span></td>
+          <td itemprop="title">Miniature infrared camera 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6085127A/en">
+              <span itemprop="publicationNumber">US6085127A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1997-03-18</td>
+          <td itemprop="publicationDate">2000-07-04</td>
+          <td><span itemprop="assigneeOriginal">Aurora Flight Sciences Corporation</span></td>
+          <td itemprop="title">Fault tolerant automatic control system utilizing analytic redundancy 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6122572A/en">
+              <span itemprop="publicationNumber">US6122572A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1995-05-08</td>
+          <td itemprop="publicationDate">2000-09-19</td>
+          <td><span itemprop="assigneeOriginal">State Of Israel</span></td>
+          <td itemprop="title">Autonomous command and control unit for mobile platform 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6140958A/en">
+              <span itemprop="publicationNumber">US6140958A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1997-05-30</td>
+          <td itemprop="publicationDate">2000-10-31</td>
+          <td><span itemprop="assigneeOriginal">Rockwell Science Center, Inc.</span></td>
+          <td itemprop="title">Remote position sensing system for use with an unmanned apparatus 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6208936B1/en">
+              <span itemprop="publicationNumber">US6208936B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1999-06-18</td>
+          <td itemprop="publicationDate">2001-03-27</td>
+          <td><span itemprop="assigneeOriginal">Rockwell Collins, Inc.</span></td>
+          <td itemprop="title">Utilization of a magnetic sensor to compensate a MEMS-IMU/GPS and de-spin strapdown on rolling missiles 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20030009270A1/en">
+              <span itemprop="publicationNumber">US20030009270A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1995-06-07</td>
+          <td itemprop="publicationDate">2003-01-09</td>
+          <td><span itemprop="assigneeOriginal">Breed David S.</span></td>
+          <td itemprop="title">Telematics system for vehicle diagnostics 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6539290B1/en">
+              <span itemprop="publicationNumber">US6539290B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1995-06-07</td>
+          <td itemprop="publicationDate">2003-03-25</td>
+          <td><span itemprop="assigneeOriginal">Dabulamanzi Holdings, Llc</span></td>
+          <td itemprop="title">Method, apparatus and design procedure for controlling multi-input, multi-output (MIMO) parameter dependent systems using feedback LTI&#39;zation 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6584382B2/en">
+              <span itemprop="publicationNumber">US6584382B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2000-05-17</td>
+          <td itemprop="publicationDate">2003-06-24</td>
+          <td><span itemprop="assigneeOriginal">Abraham E. Karem</span></td>
+          <td itemprop="title">Intuitive vehicle and machine control 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6694228B2/en">
+              <span itemprop="publicationNumber">US6694228B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2002-05-09</td>
+          <td itemprop="publicationDate">2004-02-17</td>
+          <td><span itemprop="assigneeOriginal">Sikorsky Aircraft Corporation</span></td>
+          <td itemprop="title">Control system for remotely operated vehicles for operational payload employment 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6710567B2/en">
+              <span itemprop="publicationNumber">US6710567B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2000-11-27</td>
+          <td itemprop="publicationDate">2004-03-23</td>
+          <td><span itemprop="assigneeOriginal">Seagate Technology Llc</span></td>
+          <td itemprop="title">Velocity dependent reference profile for spindle motor acceleration control 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6711477B1/en">
+              <span itemprop="publicationNumber">US6711477B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2002-08-29</td>
+          <td itemprop="publicationDate">2004-03-23</td>
+          <td><span itemprop="assigneeOriginal">Lockheed Martin Corporation</span></td>
+          <td itemprop="title">Automatic flight envelope protection for uninhabited air vehicles: method for determining point in flight envelope 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6856894B1/en">
+              <span itemprop="publicationNumber">US6856894B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2003-10-23</td>
+          <td itemprop="publicationDate">2005-02-15</td>
+          <td><span itemprop="assigneeOriginal">International Business Machines Corporation</span></td>
+          <td itemprop="title">Navigating a UAV under remote control and manual control with three dimensional flight depiction 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6859729B2/en">
+              <span itemprop="publicationNumber">US6859729B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2002-10-21</td>
+          <td itemprop="publicationDate">2005-02-22</td>
+          <td><span itemprop="assigneeOriginal">Bae Systems Integrated Defense Solutions Inc.</span></td>
+          <td itemprop="title">Navigation of remote controlled vehicles 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6873886B1/en">
+              <span itemprop="publicationNumber">US6873886B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2002-11-27</td>
+          <td itemprop="publicationDate">2005-03-29</td>
+          <td><span itemprop="assigneeOriginal">The United States Of America As Represented By The Secretary Of The Navy</span></td>
+          <td itemprop="title">Modular mission payload control software 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6925382B2/en">
+              <span itemprop="publicationNumber">US6925382B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2000-10-16</td>
+          <td itemprop="publicationDate">2005-08-02</td>
+          <td><span itemprop="assigneeOriginal">Richard H. Lahn</span></td>
+          <td itemprop="title">Remote image management system (RIMS) 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6948681B2/en">
+              <span itemprop="publicationNumber">US6948681B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2003-01-13</td>
+          <td itemprop="publicationDate">2005-09-27</td>
+          <td><span itemprop="assigneeOriginal">Boxair Engineering Llc</span></td>
+          <td itemprop="title">Automated cargo transportation system 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+
+    
+
+    
+    <ul>
+      
+      <li itemprop="applicationsByYear" itemscope repeat>
+        <span itemprop="year">2006</span>
+        <ul>
+          
+          <li itemprop="application" itemscope repeat>
+            <span itemprop="filingDate">2006-06-08</span>
+            <span itemprop="countryCode">US</span>
+            <span itemprop="applicationNumber">US11/422,984</span>
+            <a href="/patent/US7962252B2/en"><span itemprop="documentId">patent/US7962252B2/en</span></a>
+            <span itemprop="legalStatusCat">active</span>
+            <span itemprop="legalStatus">Active</span>
+            
+            <span itemprop="thisApp" content="true" bool></span>
+            
+          </li>
+          
+        </ul>
+      </li>
+      
+    </ul>
+    
+
+    </section>
+
+  <section>
+    <h2>Patent Citations (18)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5581250A/en">
+              <span itemprop="publicationNumber">US5581250A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1995-02-24</td>
+          <td itemprop="publicationDate">1996-12-03</td>
+          <td><span itemprop="assigneeOriginal">Khvilivitzky; Alexander</span></td>
+          <td itemprop="title">Visual collision avoidance system for unmanned aerial vehicles 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6122572A/en">
+              <span itemprop="publicationNumber">US6122572A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1995-05-08</td>
+          <td itemprop="publicationDate">2000-09-19</td>
+          <td><span itemprop="assigneeOriginal">State Of Israel</span></td>
+          <td itemprop="title">Autonomous command and control unit for mobile platform 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20030009270A1/en">
+              <span itemprop="publicationNumber">US20030009270A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1995-06-07</td>
+          <td itemprop="publicationDate">2003-01-09</td>
+          <td><span itemprop="assigneeOriginal">Breed David S.</span></td>
+          <td itemprop="title">Telematics system for vehicle diagnostics 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6539290B1/en">
+              <span itemprop="publicationNumber">US6539290B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1995-06-07</td>
+          <td itemprop="publicationDate">2003-03-25</td>
+          <td><span itemprop="assigneeOriginal">Dabulamanzi Holdings, Llc</span></td>
+          <td itemprop="title">Method, apparatus and design procedure for controlling multi-input, multi-output (MIMO) parameter dependent systems using feedback LTI&#39;zation 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6023061A/en">
+              <span itemprop="publicationNumber">US6023061A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1995-12-04</td>
+          <td itemprop="publicationDate">2000-02-08</td>
+          <td><span itemprop="assigneeOriginal">Microcam Corporation</span></td>
+          <td itemprop="title">Miniature infrared camera 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5904724A/en">
+              <span itemprop="publicationNumber">US5904724A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1996-01-19</td>
+          <td itemprop="publicationDate">1999-05-18</td>
+          <td><span itemprop="assigneeOriginal">Margolin; Jed</span></td>
+          <td itemprop="title">Method and apparatus for remotely piloting an aircraft 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6085127A/en">
+              <span itemprop="publicationNumber">US6085127A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1997-03-18</td>
+          <td itemprop="publicationDate">2000-07-04</td>
+          <td><span itemprop="assigneeOriginal">Aurora Flight Sciences Corporation</span></td>
+          <td itemprop="title">Fault tolerant automatic control system utilizing analytic redundancy 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6140958A/en">
+              <span itemprop="publicationNumber">US6140958A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1997-05-30</td>
+          <td itemprop="publicationDate">2000-10-31</td>
+          <td><span itemprop="assigneeOriginal">Rockwell Science Center, Inc.</span></td>
+          <td itemprop="title">Remote position sensing system for use with an unmanned apparatus 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6208936B1/en">
+              <span itemprop="publicationNumber">US6208936B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1999-06-18</td>
+          <td itemprop="publicationDate">2001-03-27</td>
+          <td><span itemprop="assigneeOriginal">Rockwell Collins, Inc.</span></td>
+          <td itemprop="title">Utilization of a magnetic sensor to compensate a MEMS-IMU/GPS and de-spin strapdown on rolling missiles 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6584382B2/en">
+              <span itemprop="publicationNumber">US6584382B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2000-05-17</td>
+          <td itemprop="publicationDate">2003-06-24</td>
+          <td><span itemprop="assigneeOriginal">Abraham E. Karem</span></td>
+          <td itemprop="title">Intuitive vehicle and machine control 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6925382B2/en">
+              <span itemprop="publicationNumber">US6925382B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2000-10-16</td>
+          <td itemprop="publicationDate">2005-08-02</td>
+          <td><span itemprop="assigneeOriginal">Richard H. Lahn</span></td>
+          <td itemprop="title">Remote image management system (RIMS) 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6710567B2/en">
+              <span itemprop="publicationNumber">US6710567B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2000-11-27</td>
+          <td itemprop="publicationDate">2004-03-23</td>
+          <td><span itemprop="assigneeOriginal">Seagate Technology Llc</span></td>
+          <td itemprop="title">Velocity dependent reference profile for spindle motor acceleration control 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6694228B2/en">
+              <span itemprop="publicationNumber">US6694228B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2002-05-09</td>
+          <td itemprop="publicationDate">2004-02-17</td>
+          <td><span itemprop="assigneeOriginal">Sikorsky Aircraft Corporation</span></td>
+          <td itemprop="title">Control system for remotely operated vehicles for operational payload employment 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6711477B1/en">
+              <span itemprop="publicationNumber">US6711477B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2002-08-29</td>
+          <td itemprop="publicationDate">2004-03-23</td>
+          <td><span itemprop="assigneeOriginal">Lockheed Martin Corporation</span></td>
+          <td itemprop="title">Automatic flight envelope protection for uninhabited air vehicles: method for determining point in flight envelope 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6859729B2/en">
+              <span itemprop="publicationNumber">US6859729B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2002-10-21</td>
+          <td itemprop="publicationDate">2005-02-22</td>
+          <td><span itemprop="assigneeOriginal">Bae Systems Integrated Defense Solutions Inc.</span></td>
+          <td itemprop="title">Navigation of remote controlled vehicles 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6873886B1/en">
+              <span itemprop="publicationNumber">US6873886B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2002-11-27</td>
+          <td itemprop="publicationDate">2005-03-29</td>
+          <td><span itemprop="assigneeOriginal">The United States Of America As Represented By The Secretary Of The Navy</span></td>
+          <td itemprop="title">Modular mission payload control software 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6948681B2/en">
+              <span itemprop="publicationNumber">US6948681B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2003-01-13</td>
+          <td itemprop="publicationDate">2005-09-27</td>
+          <td><span itemprop="assigneeOriginal">Boxair Engineering Llc</span></td>
+          <td itemprop="title">Automated cargo transportation system 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6856894B1/en">
+              <span itemprop="publicationNumber">US6856894B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2003-10-23</td>
+          <td itemprop="publicationDate">2005-02-15</td>
+          <td><span itemprop="assigneeOriginal">International Business Machines Corporation</span></td>
+          <td itemprop="title">Navigating a UAV under remote control and manual control with three dimensional flight depiction 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  
+
+  <h2>Cited By (25)</h2>
+  <table>
+    <caption>* Cited by examiner, † Cited by third party</caption>
+    <thead>
+      <tr>
+        <th>Publication number</th>
+        <th>Priority date</th>
+        <th>Publication date</th>
+        <th>Assignee</th>
+        <th>Title</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US20110320068A1/en">
+            <span itemprop="publicationNumber">US20110320068A1</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2010-06-24</td>
+        <td itemprop="publicationDate">2011-12-29</td>
+        <td><span itemprop="assigneeOriginal">Hon Hai Precision Industry Co., Ltd.</span></td>
+        <td itemprop="title">Electronic device and method for controlling unmanned aerial vehicle using the same 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US8457809B2/en">
+            <span itemprop="publicationNumber">US8457809B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2010-06-24</td>
+        <td itemprop="publicationDate">2013-06-04</td>
+        <td><span itemprop="assigneeOriginal">Hon Hai Precision Industry Co., Ltd.</span></td>
+        <td itemprop="title">Electronic device and method for controlling unmanned aerial vehicle using the same 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US9044543B2/en">
+            <span itemprop="publicationNumber">US9044543B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          
+          
+        </td>
+        <td itemprop="priorityDate">2012-07-17</td>
+        <td itemprop="publicationDate">2015-06-02</td>
+        <td><span itemprop="assigneeOriginal">Elwha Llc</span></td>
+        <td itemprop="title">Unmanned device utilization methods and systems 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US9061102B2/en">
+            <span itemprop="publicationNumber">US9061102B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          
+          
+        </td>
+        <td itemprop="priorityDate">2012-07-17</td>
+        <td itemprop="publicationDate">2015-06-23</td>
+        <td><span itemprop="assigneeOriginal">Elwha Llc</span></td>
+        <td itemprop="title">Unmanned device interaction methods and systems 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US10019000B2/en">
+            <span itemprop="publicationNumber">US10019000B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          
+          
+        </td>
+        <td itemprop="priorityDate">2012-07-17</td>
+        <td itemprop="publicationDate">2018-07-10</td>
+        <td><span itemprop="assigneeOriginal">Elwha Llc</span></td>
+        <td itemprop="title">Unmanned device utilization methods and systems 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US9254363B2/en">
+            <span itemprop="publicationNumber">US9254363B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          
+          
+        </td>
+        <td itemprop="priorityDate">2012-07-17</td>
+        <td itemprop="publicationDate">2016-02-09</td>
+        <td><span itemprop="assigneeOriginal">Elwha Llc</span></td>
+        <td itemprop="title">Unmanned device interaction methods and systems 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US9713675B2/en">
+            <span itemprop="publicationNumber">US9713675B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          
+          
+        </td>
+        <td itemprop="priorityDate">2012-07-17</td>
+        <td itemprop="publicationDate">2017-07-25</td>
+        <td><span itemprop="assigneeOriginal">Elwha Llc</span></td>
+        <td itemprop="title">Unmanned device interaction methods and systems 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US9733644B2/en">
+            <span itemprop="publicationNumber">US9733644B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          
+          
+        </td>
+        <td itemprop="priorityDate">2012-07-17</td>
+        <td itemprop="publicationDate">2017-08-15</td>
+        <td><span itemprop="assigneeOriginal">Elwha Llc</span></td>
+        <td itemprop="title">Unmanned device interaction methods and systems 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US9798325B2/en">
+            <span itemprop="publicationNumber">US9798325B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          
+          
+        </td>
+        <td itemprop="priorityDate">2012-07-17</td>
+        <td itemprop="publicationDate">2017-10-24</td>
+        <td><span itemprop="assigneeOriginal">Elwha Llc</span></td>
+        <td itemprop="title">Unmanned device interaction methods and systems 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US9676472B2/en">
+            <span itemprop="publicationNumber">US9676472B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2013-08-30</td>
+        <td itemprop="publicationDate">2017-06-13</td>
+        <td><span itemprop="assigneeOriginal">Insitu, Inc.</span></td>
+        <td itemprop="title">Systems and methods for configurable user interfaces 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US20160159462A1/en">
+            <span itemprop="publicationNumber">US20160159462A1</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2013-08-30</td>
+        <td itemprop="publicationDate">2016-06-09</td>
+        <td><span itemprop="assigneeOriginal">Insitu, Inc.</span></td>
+        <td itemprop="title">Systems and methods for configurable user interfaces 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US10252788B2/en">
+            <span itemprop="publicationNumber">US10252788B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2013-08-30</td>
+        <td itemprop="publicationDate">2019-04-09</td>
+        <td><span itemprop="assigneeOriginal">The Boeing Company</span></td>
+        <td itemprop="title">Systems and methods for configurable user interfaces 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US20160341531A1/en">
+            <span itemprop="publicationNumber">US20160341531A1</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2014-01-22</td>
+        <td itemprop="publicationDate">2016-11-24</td>
+        <td><span itemprop="assigneeOriginal">Mbda France</span></td>
+        <td itemprop="title">Target marking device and target processing system comprising such a target marking device 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US10234252B2/en">
+            <span itemprop="publicationNumber">US10234252B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2014-01-22</td>
+        <td itemprop="publicationDate">2019-03-19</td>
+        <td><span itemprop="assigneeOriginal">Mbda France</span></td>
+        <td itemprop="title">Target marking device and target processing system comprising such a target marking device 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US9922282B2/en">
+            <span itemprop="publicationNumber">US9922282B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          
+          
+        </td>
+        <td itemprop="priorityDate">2015-07-21</td>
+        <td itemprop="publicationDate">2018-03-20</td>
+        <td><span itemprop="assigneeOriginal">Limitless Computing, Inc.</span></td>
+        <td itemprop="title">Automated readiness evaluation system (ARES) for use with an unmanned aircraft system (UAS) 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US10115048B2/en">
+            <span itemprop="publicationNumber">US10115048B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          
+          
+        </td>
+        <td itemprop="priorityDate">2015-07-21</td>
+        <td itemprop="publicationDate">2018-10-30</td>
+        <td><span itemprop="assigneeOriginal">Limitless Computing, Inc.</span></td>
+        <td itemprop="title">Method and system for configurable and scalable unmanned aerial vehicles and systems 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/CN105068552A/en">
+            <span itemprop="publicationNumber">CN105068552A</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2015-08-31</td>
+        <td itemprop="publicationDate">2015-11-18</td>
+        <td><span itemprop="assigneeOriginal">致导科技（北京）有限公司</span></td>
+        <td itemprop="title">Automatic pilot of unmanned plane 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/CN105068552B/en">
+            <span itemprop="publicationNumber">CN105068552B</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2015-08-31</td>
+        <td itemprop="publicationDate">2018-12-11</td>
+        <td><span itemprop="assigneeOriginal">致导科技（北京）有限公司</span></td>
+        <td itemprop="title">A kind of UAV autopilot 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/CN105404204A/en">
+            <span itemprop="publicationNumber">CN105404204A</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2015-12-05</td>
+        <td itemprop="publicationDate">2016-03-16</td>
+        <td><span itemprop="assigneeOriginal">中国航空工业集团公司洛阳电光设备研究所</span></td>
+        <td itemprop="title">Control circuit of starting board of avionic device 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/CN105404204B/en">
+            <span itemprop="publicationNumber">CN105404204B</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2015-12-05</td>
+        <td itemprop="publicationDate">2019-03-15</td>
+        <td><span itemprop="assigneeOriginal">中国航空工业集团公司洛阳电光设备研究所</span></td>
+        <td itemprop="title">A kind of control circuit of avionic device starting plate 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US10392125B2/en">
+            <span itemprop="publicationNumber">US10392125B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          
+          
+        </td>
+        <td itemprop="priorityDate">2016-05-23</td>
+        <td itemprop="publicationDate">2019-08-27</td>
+        <td><span itemprop="assigneeOriginal">United States Of America As Represented By The Administrator Of Nasa</span></td>
+        <td itemprop="title">System and method for onboard wake and clear air turbulence avoidance 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/WO2018086087A1/en">
+            <span itemprop="publicationNumber">WO2018086087A1</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2016-11-14</td>
+        <td itemprop="publicationDate">2018-05-17</td>
+        <td><span itemprop="assigneeOriginal">钟玲珑</span></td>
+        <td itemprop="title">Unmanned flight control system 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US10179647B1/en">
+            <span itemprop="publicationNumber">US10179647B1</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          
+          
+        </td>
+        <td itemprop="priorityDate">2017-07-13</td>
+        <td itemprop="publicationDate">2019-01-15</td>
+        <td><span itemprop="assigneeOriginal">Fat Shark Technology SEZC</span></td>
+        <td itemprop="title">Unmanned aerial vehicle 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/USD825381S1/en">
+            <span itemprop="publicationNumber">USD825381S1</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          
+          
+        </td>
+        <td itemprop="priorityDate">2017-07-13</td>
+        <td itemprop="publicationDate">2018-08-14</td>
+        <td><span itemprop="assigneeOriginal">Fat Shark Technology SEZC</span></td>
+        <td itemprop="title">Unmanned aerial vehicle 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/USD848383S1/en">
+            <span itemprop="publicationNumber">USD848383S1</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          
+          
+        </td>
+        <td itemprop="priorityDate">2017-07-13</td>
+        <td itemprop="publicationDate">2019-05-14</td>
+        <td><span itemprop="assigneeOriginal">Fat Shark Technology SEZC</span></td>
+        <td itemprop="title">Printed circuit board 
+       </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <section>
+    <h2>Also Published As</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Publication date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="docdbFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20070069083A1/en">
+              <span itemprop="publicationNumber">US20070069083A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+          </td>
+          <td itemprop="publicationDate">2007-03-29</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Similar Documents</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Publication</th>
+          <th>Publication Date</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="7701858168523623882">
+              <a href="/scholar/7701858168523623882"><span itemprop="scholarAuthors">Bernard et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2011">2011</time>
+            
+          </td>
+          <td itemprop="title">Autonomous transportation and deployment with aerial robots for search and rescue missions</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/EP2763896B1/en">
+                <span itemprop="publicationNumber">EP2763896B1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2017-09-20">2017-09-20</time>
+            
+            
+          </td>
+          <td itemprop="title">A multi-rotor unmanned aerial vehicle 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US6134485A/en">
+                <span itemprop="publicationNumber">US6134485A</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2000-10-17">2000-10-17</time>
+            
+            
+          </td>
+          <td itemprop="title">System and method for measuring physical parameters using an integrated multisensor system 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="18330667444153062472">
+              <a href="/scholar/18330667444153062472"><span itemprop="scholarAuthors">Kingston et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2004">2004</time>
+            
+          </td>
+          <td itemprop="title">Real-time attitude and position estimation for small UAVs using low-cost sensors</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US4212443A/en">
+                <span itemprop="publicationNumber">US4212443A</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="1980-07-15">1980-07-15</time>
+            
+            
+          </td>
+          <td itemprop="title">Strapped down attitude and heading reference system for aircraft employing skewed axis two-degree-of-freedom rate gyros 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US20120083945A1/en">
+                <span itemprop="publicationNumber">US20120083945A1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2012-04-05">2012-04-05</time>
+            
+            
+          </td>
+          <td itemprop="title">Helicopter with multi-rotors and wireless capability 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/EP3424820A1/en">
+                <span itemprop="publicationNumber">EP3424820A1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2019-01-09">2019-01-09</time>
+            
+            
+          </td>
+          <td itemprop="title">Controlled flight of a multicopter experiencing a failure affecting an effector 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US7400246B2/en">
+                <span itemprop="publicationNumber">US7400246B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2008-07-15">2008-07-15</time>
+            
+            
+          </td>
+          <td itemprop="title">Inertial Sensor Tracking System 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US7970500B2/en">
+                <span itemprop="publicationNumber">US7970500B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2011-06-28">2011-06-28</time>
+            
+            
+          </td>
+          <td itemprop="title">Sensor fusion system and method for estimating position, speed and orientation of a vehicle, in particular an aircraft 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="11433903784956579198">
+              <a href="/scholar/11433903784956579198"><span itemprop="scholarAuthors">Chao et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2010">2010</time>
+            
+          </td>
+          <td itemprop="title">Autopilots for small unmanned aerial vehicles: a survey</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US7979231B2/en">
+                <span itemprop="publicationNumber">US7979231B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2011-07-12">2011-07-12</time>
+            
+            
+          </td>
+          <td itemprop="title">Method and system for estimation of inertial sensor errors in remote inertial measurement unit 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US20080071480A1/en">
+                <span itemprop="publicationNumber">US20080071480A1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2008-03-20">2008-03-20</time>
+            
+            
+          </td>
+          <td itemprop="title">Method and system for integrated inertial stabilization mechanism 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US10025307B2/en">
+                <span itemprop="publicationNumber">US10025307B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2018-07-17">2018-07-17</time>
+            
+            
+          </td>
+          <td itemprop="title">Modular flight management system incorporating an autopilot 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US9753355B2/en">
+                <span itemprop="publicationNumber">US9753355B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2017-09-05">2017-09-05</time>
+            
+            
+          </td>
+          <td itemprop="title">Flying camera with string assembly for localization and interaction 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US6494093B2/en">
+                <span itemprop="publicationNumber">US6494093B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2002-12-17">2002-12-17</time>
+            
+            
+          </td>
+          <td itemprop="title">Method of measuring motion 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/CN102016605B/en">
+                <span itemprop="publicationNumber">CN102016605B</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2013-07-10">2013-07-10</time>
+            
+            
+          </td>
+          <td itemprop="title">Accelerometer and method for error compensation 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US8229606B2/en">
+                <span itemprop="publicationNumber">US8229606B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2012-07-24">2012-07-24</time>
+            
+            
+          </td>
+          <td itemprop="title">Systems and methods for estimating position, attitude, and/or heading of a vehicle 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US7302316B2/en">
+                <span itemprop="publicationNumber">US7302316B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2007-11-27">2007-11-27</time>
+            
+            
+          </td>
+          <td itemprop="title">Programmable autopilot system for autonomous flight of unmanned aerial vehicles 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/TWI622339B/en">
+                <span itemprop="publicationNumber">TWI622339B</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2018-04-21">2018-04-21</time>
+            
+            
+          </td>
+          <td itemprop="title">Payload mounting platform 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="3708971524018489819">
+              <a href="/scholar/3708971524018489819"><span itemprop="scholarAuthors">Chao et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2010">2010</time>
+            
+          </td>
+          <td itemprop="title">A comparative evaluation of low-cost IMUs for unmanned autonomous systems</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US6427131B1/en">
+                <span itemprop="publicationNumber">US6427131B1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2002-07-30">2002-07-30</time>
+            
+            
+          </td>
+          <td itemprop="title">Processing method for motion measurement 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/CN1740746B/en">
+                <span itemprop="publicationNumber">CN1740746B</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2010-08-04">2010-08-04</time>
+            
+            
+          </td>
+          <td itemprop="title">Micro-dynamic carrier attitude measuring apparatus and measuring method thereof 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="13184529750026047439">
+              <a href="/scholar/13184529750026047439"><span itemprop="scholarAuthors">Davis</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1996">1996</time>
+            
+          </td>
+          <td itemprop="title">Using low-cost MEMS accelerometers and gyroscopes as strapdown IMUs on rolling projectiles</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="16825382410517020008">
+              <a href="/scholar/16825382410517020008"><span itemprop="scholarAuthors">Schmidt</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2011">2011</time>
+            
+          </td>
+          <td itemprop="title">Simulation and control of a quadrotor unmanned aerial vehicle</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US6615165B2/en">
+                <span itemprop="publicationNumber">US6615165B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2003-09-02">2003-09-02</time>
+            
+            
+          </td>
+          <td itemprop="title">Cable connections between an unmanned aircraft and a detachable data handling module 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Legal Events</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Code</th>
+          <th>Title</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2006-06-21">2006-06-21</time></td>
+          <td itemprop="code">AS</td>
+          <td itemprop="title">Assignment</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Owner name</strong>:
+              <span itemprop="value">UNITED STATES OF AMERICA AS REPRESENTED BY THE ADM</span>
+            </p>
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">ASSIGNMENT OF ASSIGNORS INTEREST;ASSIGNORS:SHAMS, QAMAR A.;LOGAN, MICHAEL J.;FOX (DECEASED), ROBERT L.;AND OTHERS;REEL/FRAME:017822/0605;SIGNING DATES FROM 20060609 TO 20060620</span>
+            </p>
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Owner name</strong>:
+              <span itemprop="value">UNITED STATES OF AMERICA AS REPRESENTED BY THE ADM</span>
+            </p>
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">ASSIGNMENT OF ASSIGNORS INTEREST;ASSIGNORS:SHAMS, QAMAR A.;LOGAN, MICHAEL J.;FOX (DECEASED), ROBERT L.;AND OTHERS;SIGNING DATES FROM 20060609 TO 20060620;REEL/FRAME:017822/0605</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2006-07-13">2006-07-13</time></td>
+          <td itemprop="code">AS</td>
+          <td itemprop="title">Assignment</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Owner name</strong>:
+              <span itemprop="value">UNITED STATES OF AMERICA, REPRESENTED BY SECRETARY</span>
+            </p>
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">ASSIGNMENT OF ASSIGNORS INTEREST;ASSIGNOR:KUHN, III, THEODORE R.;REEL/FRAME:017927/0841</span>
+            </p>
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Effective date</strong>:
+              <span itemprop="value">20060613</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2006-07-28">2006-07-28</time></td>
+          <td itemprop="code">AS</td>
+          <td itemprop="title">Assignment</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Owner name</strong>:
+              <span itemprop="value">UNITED STATES OF AMERICA AS REPRESENTED BY THE ADM</span>
+            </p>
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">ASSIGNMENT OF ASSIGNORS INTEREST;ASSIGNOR:SCIENCE APPLICATION INTERNATIONAL CORPORATION;REEL/FRAME:018018/0025</span>
+            </p>
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Effective date</strong>:
+              <span itemprop="value">20060721</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2007-06-08">2007-06-08</time></td>
+          <td itemprop="code">AS</td>
+          <td itemprop="title">Assignment</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Owner name</strong>:
+              <span itemprop="value">THE UNITED STATES OF AMERICA AS REPRESENTED BY THE</span>
+            </p>
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">ASSIGNMENT OF ASSIGNORS INTEREST;ASSIGNOR:INGHAM, JOHN C.;REEL/FRAME:019402/0986</span>
+            </p>
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Effective date</strong>:
+              <span itemprop="value">20070608</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2011-05-25">2011-05-25</time></td>
+          <td itemprop="code">STCF</td>
+          <td itemprop="title">Information on status: patent grant</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">PATENTED CASE</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2014-10-02">2014-10-02</time></td>
+          <td itemprop="code">FPAY</td>
+          <td itemprop="title">Fee payment</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Year of fee payment</strong>:
+              <span itemprop="value">4</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2018-12-14">2018-12-14</time></td>
+          <td itemprop="code">MAFP</td>
+          <td itemprop="title">Maintenance fee payment</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">PAYMENT OF MAINTENANCE FEE, 8TH YEAR, LARGE ENTITY (ORIGINAL EVENT CODE: M1552); ENTITY STATUS OF PATENT OWNER: LARGE ENTITY</span>
+            </p>
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Year of fee payment</strong>:
+              <span itemprop="value">8</span>
+            </p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+</article>
+
+    </search-app>
+    <script type="text/javascript" src="//www.gstatic.com/feedback/api.js"></script>
+    <script async="" defer="" src="//www.google.com/insights/consumersurveys/async_survey?site=cxkjf7ipxgbnnjy6k35ezcvbbe"></script>
+  </body>
+</html>

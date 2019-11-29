@@ -1,0 +1,4245 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>US8155939B2 - Particle-surface interaction model and method of determining particle-surface interactions 
+        - Google Patents</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="referrer" content="origin-when-crossorigin">
+    <link rel="canonical" href="https://patents.google.com/patent/US8155939B2/en">
+    <meta name="description" content="
+     A method and model of predicting particle-surface interactions with a surface, such as the surface of a spacecraft. The method includes the steps of: determining a trajectory path of a plurality of moving particles; predicting whether any of the moving particles will intersect a surface; predicting whether any of the particles will be captured by the surface and/or; predicting a reflected trajectory and velocity of particles reflected from the surface. 
+   
+   ">
+    
+    <meta name="DC.type" content="patent">
+    
+    <meta name="DC.title" content="Particle-surface interaction model and method of determining particle-surface interactions 
+       ">
+    
+    <meta name="DC.date" content="2008-07-10" scheme="dateSubmitted">
+    
+    <meta name="DC.description" content="
+     A method and model of predicting particle-surface interactions with a surface, such as the surface of a spacecraft. The method includes the steps of: determining a trajectory path of a plurality of moving particles; predicting whether any of the moving particles will intersect a surface; predicting whether any of the particles will be captured by the surface and/or; predicting a reflected trajectory and velocity of particles reflected from the surface. 
+   
+   ">
+    
+    <meta name="citation_patent_application_number" content="US:12/170,683">
+    
+    <meta name="citation_pdf_url" content="https://patentimages.storage.googleapis.com/4d/e9/4a/620b4b35446db6/US8155939.pdf">
+    
+    <meta name="citation_patent_number" content="US:8155939">
+    
+    <meta name="DC.date" content="2012-04-10" scheme="issue">
+    
+    <meta name="DC.contributor" content="David W. Hughes" scheme="inventor">
+    
+    <meta name="DC.contributor" content="National Aeronautics and Space Administration (NASA)" scheme="assignee">
+    
+    <meta name="citation_reference" content="&#34;Contamination Control Plan for Midshipman Space Technology Applications Research (MidSTAR)-1 Spacecraft&#34;, 2004, 11 pages, accessed at http://www.usna.edu/Satellite/midstar/.../Contamination%20Control%20Plan.doc." scheme="references">
+    
+    <meta name="citation_reference" content="A. Busnaina et al., &#34;Submicron Particle Motion and Deposition in a CVD Chamber&#34;, Institute of Environmental Sciences Proceedings vol. 2 (1992), pp. 1-9." scheme="references">
+    
+    <meta name="citation_reference" content="A.L.Lee, &#34;Particle Dispersion Around a Spacecraft&#34;, American Institute of Aeronautics and Astronautics, Aerospace Science Meeting, 21st, Reno, NV (1983), 8 pages." scheme="references">
+    
+    <meta name="citation_reference" content="Baraff, D. &#34;An Introduction to Physically Based Modelling: Reigid Body Simulation I-Unconstrained Rigid Body Dynamics&#34;, SIGGRAPH &#39;97 Course Notes, 1997, 32 pages." scheme="references">
+    
+    <meta name="citation_reference" content="Baraff, D. “An Introduction to Physically Based Modelling: Reigid Body Simulation I—Unconstrained Rigid Body Dynamics”, SIGGRAPH &#39;97 Course Notes, 1997, 32 pages." scheme="references">
+    
+    <meta name="citation_reference" content="C. Thornton et al., &#34;A theoretical model for the stick/bounce behavior of adhesive, elastic-plastic spheres&#34;, Powder Technology 99 (1998), pp. 154-162." scheme="references">
+    
+    <meta name="citation_reference" content="Cross, R. &#34;Measurements of the horizontal coefficient of restitution for a superball and a tennis ball&#34;, Am. J. Phys. vol. 70 No. 5, May 2002, pp. 482-489." scheme="references">
+    
+    <meta name="citation_reference" content="Deverich, I.V. &#34;Probabilistic Model of a Particle-Rough Wall Collision&#34;, Journal of Applied Mechanics and Technical Physics, vol. 40, No. 5, 1999, pp. 989-994." scheme="references">
+    
+    <meta name="citation_reference" content="Eugene N. Borson, &#34;A model for particle redistribution during spacecraft launch&#34;, Proceedings of SPIE, vol. 4774, (2002), pp. 67-78." scheme="references">
+    
+    <meta name="citation_reference" content="Farkas et al. &#34;Measurement of coefficient of restitution made easy&#34;, Physics Education vol. 40, No. 1, Jan. 2006, 4 pages." scheme="references">
+    
+    <meta name="citation_reference" content="Lee, A.L. &#34;Particle Dispersion Around a Spacecraft&#34;, AIAA &#39;83, Jan. 10-13, 1983, 8 pages." scheme="references">
+    
+    <meta name="citation_reference" content="Neumann, E. &#34;MyPhysicsLab-Rigid Body Collisions&#34;, 2004, 11 pages, accessible at http://www.myphysicslab.com/collision.html." scheme="references">
+    
+    <meta name="citation_reference" content="Neumann, E. “MyPhysicsLab—Rigid Body Collisions”, 2004, 11 pages, accessible at http://www.myphysicslab.com/collision.html." scheme="references">
+    
+    <meta name="citation_reference" content="Robinson, S. &#34;The Visualisation of Forces in Dynamic Simulations&#34;, May 2002, 67 pages." scheme="references">
+    
+    <meta name="citation_reference" content="Stokes, S. &#34;Collision detection in the simulation of rigid body motion&#34;, Sep. 29, 2005, 60 pages." scheme="references">
+    
+    <meta name="citation_reference" content="Thornton et al. &#34;A theoretical model for the stick/bound behavior of adhesive, elastic-plastic spheres&#34;, Powder Technology vol. 99, 1998, pp. 154-162." scheme="references">
+    
+    <meta name="citation_reference" content="Witkin, A. &#34;Physically Based Modelling: Principles and Practice Particle System Dynamics&#34;, SIGGRAPH &#39;97 Course Notes, 1997, 13 pages." scheme="references">
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,400italic,500,500italic,700">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Product+Sans">
+    <style>
+      body { transition: none; }
+    </style>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-27188110-4', 'auto');
+
+      version = 'patent-search.search_20191120_RC00';
+
+      function sendFeedback() {
+        userfeedback.api.startFeedback({
+          'productId': '713680',
+          'bucket': 'patent-search-web',
+          'productVersion': version,
+        });
+      }
+
+      window.experiments = {};
+      window.experiments.patentCountries = "ae,ag,al,am,ao,ap,ar,at,au,aw,az,ba,bb,bd,be,bf,bg,bh,bj,bn,bo,br,bw,bx,by,bz,ca,cf,cg,ch,ci,cl,cm,cn,co,cr,cs,cu,cy,cz,dd,de,dj,dk,dm,do,dz,ea,ec,ee,eg,em,ep,es,fi,fr,ga,gb,gc,gd,ge,gh,gm,gn,gq,gr,gt,gw,hk,hn,hr,hu,ib,id,ie,il,in,ir,is,it,jo,jp,ke,kg,kh,km,kn,kp,kr,kw,kz,la,lc,li,lk,lr,ls,lt,lu,lv,ly,ma,mc,md,me,mg,mk,ml,mn,mo,mr,mt,mw,mx,my,mz,na,ne,ng,ni,nl,no,nz,oa,om,pa,pe,pg,ph,pl,pt,py,qa,ro,rs,ru,rw,sa,sc,sd,se,sg,si,sk,sl,sm,sn,st,su,sv,sy,sz,td,tg,th,tj,tm,tn,tr,tt,tw,tz,ua,ug,us,uy,uz,vc,ve,vn,wo,yu,za,zm,zw";
+      
+      
+      window.profilePicture = "";
+
+      window.Polymer = {
+        dom: 'shady',
+        lazyRegister: true,
+      };
+    </script>
+
+    <script src="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/webcomponentsjs/webcomponents-lite.min.js"></script>
+    
+    <link rel="import" href="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/search-app-vulcanized.html">
+    
+  </head>
+  <body unresolved>
+    
+    <script src="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/search-app-vulcanized.js"></script>
+    
+    <search-app>
+      
+      
+
+      <article class="result" itemscope itemtype="http://schema.org/ScholarlyArticle">
+  <h1 itemprop="pageTitle">US8155939B2 - Particle-surface interaction model and method of determining particle-surface interactions 
+        - Google Patents</h1>
+  <span itemprop="title">Particle-surface interaction model and method of determining particle-surface interactions 
+       </span>
+
+  <meta itemprop="type" content="patent">
+  <a href="https://patentimages.storage.googleapis.com/4d/e9/4a/620b4b35446db6/US8155939.pdf" itemprop="pdfLink">Download PDF</a>
+  <h2>Info</h2>
+
+  <dl>
+    <dt>Publication number</dt>
+    <dd itemprop="publicationNumber">US8155939B2</dd>
+    <meta itemprop="numberWithoutCodes" content="8155939">
+    <meta itemprop="kindCode" content="B2">
+    <meta itemprop="publicationDescription" content="Patent ( having previously published pre-grant publication)">
+    
+    <span>US8155939B2</span>
+    
+    <span>US12/170,683</span>
+    
+    <span>US17068308A</span>
+    
+    <span>US8155939B2</span>
+    
+    <span>US 8155939 B2</span>
+    
+    <span>US8155939 B2</span>
+    
+    <span>US 8155939B2</span>
+    
+    <span>  </span>
+    
+    <span> </span>
+    
+    <span> </span>
+    
+    <span>US 17068308 A</span>
+    
+    <span>US17068308 A</span>
+    
+    <span>US 17068308A</span>
+    
+    <span>US 8155939 B2</span>
+    
+    <span>US8155939 B2</span>
+    
+    <span>US 8155939B2</span>
+    
+
+    <dt>Authority</dt>
+    <dd itemprop="countryCode">US</dd>
+    <dd itemprop="countryName">United States</dd>
+
+    <dt>Prior art keywords</dt>
+    
+    <dd itemprop="priorArtKeywords" repeat>particle</dd>
+    <dd itemprop="priorArtKeywords" repeat>determining</dd>
+    <dd itemprop="priorArtKeywords" repeat>surface</dd>
+    <dd itemprop="priorArtKeywords" repeat>particles</dd>
+    <dd itemprop="priorArtKeywords" repeat>velocity</dd>
+
+    <dt>Prior art date</dt>
+    <dd><time itemprop="priorArtDate" datetime="2008-06-12">2008-06-12</time></dd>
+
+    <dt>Legal status (The legal status is an assumption and is not a legal conclusion. Google has not performed a legal analysis and makes no representation as to the accuracy of the status listed.)</dt>
+    <dd itemprop="legalStatusIfi" itemscope>
+      <span itemprop="status">Active</span>, expires <time itemprop="expiration" datetime="2030-09-29">2030-09-29</time>
+    </dd>
+  </dl>
+
+  <dt>Application number</dt>
+  <dd itemprop="applicationNumber">US12/170,683</dd>
+
+  
+
+  <dt>Other versions</dt>
+  <dd itemprop="directAssociations" itemscope repeat>
+    
+    <a href="/patent/US20090312994A1/en">
+      <span itemprop="publicationNumber">US20090312994A1</span>
+      (<span itemprop="primaryLanguage">en</span>
+    </a>
+  </dd>
+
+  <dt>Inventor</dt>
+  <dd itemprop="inventor" repeat>David W. Hughes</dd>
+  <dt>Current Assignee (The listed assignees may be inaccurate. Google has not performed a legal analysis and makes no representation or warranty as to the accuracy of the list.)</dt>
+  <dd itemprop="assigneeCurrent" repeat>
+    National Aeronautics and Space Administration (NASA)
+  </dd>
+
+  <dt>Original Assignee</dt>
+  <dd itemprop="assigneeOriginal" repeat>National Aeronautics and Space Administration (NASA)</dd>
+
+  <dt>Priority date (The priority date is an assumption and is not a legal conclusion. Google has not performed a legal analysis and makes no representation as to the accuracy of the date listed.)</dt>
+  <dd><time itemprop="priorityDate" datetime="2008-06-12">2008-06-12</time></dd>
+
+  <dt>Filing date</dt>
+  <dd><time itemprop="filingDate" datetime="2008-07-10">2008-07-10</time></dd>
+
+  <dt>Publication date</dt>
+  <dd><time itemprop="publicationDate" datetime="2012-04-10">2012-04-10</time></dd>
+
+  
+
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2008-06-12">2008-06-12</time>
+    <span itemprop="title">Priority to US6103308P</span>
+    <span itemprop="type">priority</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2008-07-10">2008-07-10</time>
+    <span itemprop="title">Application filed by National Aeronautics and Space Administration (NASA)</span>
+    <span itemprop="type">filed</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    <span itemprop="assigneeSearch">National Aeronautics and Space Administration (NASA)</span>
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2008-07-10">2008-07-10</time>
+    <span itemprop="title">Priority to US12/170,683</span>
+    <span itemprop="type">priority</span>
+    
+    
+    
+    <span itemprop="documentId">patent/US8155939B2/en</span>
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2009-12-17">2009-12-17</time>
+    <span itemprop="title">Publication of US20090312994A1</span>
+    <span itemprop="type">publication</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    <span itemprop="documentId">patent/US20090312994A1/en</span>
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2012-03-09">2012-03-09</time>
+    <span itemprop="title">Assigned to UNITED STATES OF AMERICA AS REPRESENTED BY THE ADMINISTRATOR OF THE NATIONAL AERONAUTICS AND SPACE ADMINISTRATION</span>
+    <span itemprop="type">reassignment</span>
+    
+    
+    
+    
+    <span itemprop="assigneeSearch">UNITED STATES OF AMERICA AS REPRESENTED BY THE ADMINISTRATOR OF THE NATIONAL AERONAUTICS AND SPACE ADMINISTRATION</span>
+    
+    
+    <span itemprop="description" repeat>ASSIGNMENT OF ASSIGNORS INTEREST (SEE DOCUMENT FOR DETAILS).</span>
+    
+    <span itemprop="description" repeat>Assignors: HUGHES, DAVID W., MR.</span>
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2012-04-10">2012-04-10</time>
+    <span itemprop="title">Application granted</span>
+    <span itemprop="type">granted</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2012-04-10">2012-04-10</time>
+    <span itemprop="title">Publication of US8155939B2</span>
+    <span itemprop="type">publication</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    <span itemprop="documentId">patent/US8155939B2/en</span>
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2019-11-26">2019-11-26</time>
+    <span itemprop="title">Application status is Active</span>
+    <span itemprop="type">legal-status</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2030-09-29">2030-09-29</time>
+    <span itemprop="title">Adjusted expiration</span>
+    <span itemprop="type">legal-status</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+
+  <h2>Links</h2>
+
+  <ul>
+    
+          <li itemprop="links" itemscope repeat>
+            <meta itemprop="id" content="usptoLink">
+            <a href="http://patft.uspto.gov/netacgi/nph-Parser?Sect1=PTO1&Sect2=HITOFF&p=1&u=/netahtml/PTO/srchnum.html&r=1&f=G&l=50&d=PALL&s1=8155939.PN." itemprop="url" target="_blank"><span itemprop="text">USPTO</span></a>
+          </li>
+        <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="usptoAssignmentLink">
+          <a href="https://assignment.uspto.gov/patent/index.html#/patent/search/resultFilter?searchInput=8155939" itemprop="url" target="_blank"><span itemprop="text">USPTO Assignment</span></a>
+        </li>
+
+    <li itemprop="links" itemscope repeat>
+        <meta itemprop="id" content="espacenetLink">
+        <a href="http://worldwide.espacenet.com/publicationDetails/biblio?CC=US&amp;NR=8155939B2&amp;KC=B2&amp;FT=D" itemprop="url" target="_blank"><span itemprop="text">Espacenet</span></a>
+      </li>
+      
+
+    
+
+    
+      <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="globalDossierLink">
+          <a href="http://globaldossier.uspto.gov/#/result/patent/US/8155939/1" itemprop="url" target="_blank"><span itemprop="text">Global Dossier</span></a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="stackexchangeLink">
+          <a href="https://patents.stackexchange.com/questions/tagged/US8155939" itemprop="url"><span itemprop="text">Discuss</span></a>
+        </li>
+      
+  </ul>
+
+  
+  <ul itemprop="concept" itemscope>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000003993</span>
+      <span itemprop="name">interaction</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>abstract</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="sections" repeat>title</span>
+      
+      <span itemprop="count">18</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000002245</span>
+      <span itemprop="name">particles</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>abstract</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">153</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000009826</span>
+      <span itemprop="name">distribution</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">5</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000005259</span>
+      <span itemprop="name">measurements</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000006243</span>
+      <span itemprop="name">chemical reaction</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">7</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000003570</span>
+      <span itemprop="name">air</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">5</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000000727</span>
+      <span itemprop="name">fractions</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">5</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000000463</span>
+      <span itemprop="name">materials</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">5</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000000047</span>
+      <span itemprop="name">products</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">4</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000004422</span>
+      <span itemprop="name">calculation algorithm</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">3</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000000295</span>
+      <span itemprop="name">complement</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">3</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000000694</span>
+      <span itemprop="name">effects</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">3</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000010006</span>
+      <span itemprop="name">flight</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">3</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000011521</span>
+      <span itemprop="name">glass</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">3</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000002609</span>
+      <span itemprop="name">media</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">3</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001603</span>
+      <span itemprop="name">reducing</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">3</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000004088</span>
+      <span itemprop="name">simulation</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">3</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000003860</span>
+      <span itemprop="name">storage</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">3</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000007906</span>
+      <span itemprop="name">compression</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000003116</span>
+      <span itemprop="name">impacting</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000004048</span>
+      <span itemprop="name">modification</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000006011</span>
+      <span itemprop="name">modification</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000002829</span>
+      <span itemprop="name">reduced</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000006722</span>
+      <span itemprop="name">reduction reaction</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000000717</span>
+      <span itemprop="name">retained</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000003746</span>
+      <span itemprop="name">surface roughness</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000005299</span>
+      <span itemprop="name">abrasion</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001133</span>
+      <span itemprop="name">acceleration</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001070</span>
+      <span itemprop="name">adhesive</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000000853</span>
+      <span itemprop="name">adhesives</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000011324</span>
+      <span itemprop="name">beads</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000006399</span>
+      <span itemprop="name">behavior</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000009739</span>
+      <span itemprop="name">binding</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000027455</span>
+      <span itemprop="name">binding</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000004364</span>
+      <span itemprop="name">calculation methods</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000015556</span>
+      <span itemprop="name">catabolic process</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000005520</span>
+      <span itemprop="name">cutting process</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000004059</span>
+      <span itemprop="name">degradation</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000006731</span>
+      <span itemprop="name">degradation</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001419</span>
+      <span itemprop="name">dependent</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000006185</span>
+      <span itemprop="name">dispersions</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000005553</span>
+      <span itemprop="name">drilling</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000005516</span>
+      <span itemprop="name">engineering processes</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000000835</span>
+      <span itemprop="name">fiber</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000000227</span>
+      <span itemprop="name">grinding</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000003384</span>
+      <span itemprop="name">imaging method</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000015654</span>
+      <span itemprop="name">memory</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000000034</span>
+      <span itemprop="name">methods</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000000203</span>
+      <span itemprop="name">mixtures</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000003287</span>
+      <span itemprop="name">optical</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000002093</span>
+      <span itemprop="name">peripheral</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000004033</span>
+      <span itemprop="name">plastic</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">229920003023</span>
+      <span itemprop="name">plastics</span>
+      <span itemprop="domain">Polymers</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000005381</span>
+      <span itemprop="name">potential energy</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000000843</span>
+      <span itemprop="name">powders</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000005096</span>
+      <span itemprop="name">rolling process</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000002123</span>
+      <span itemprop="name">temporal effects</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001131</span>
+      <span itemprop="name">transforming</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000001993</span>
+      <span itemprop="name">wax</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+  </ul>
+  
+
+  <section>
+    <h2>Images</h2>
+    <ul>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/7d/d1/c9/3ab15f0b48426d/US08155939-20120410-D00000.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/fc/97/fe/e9f2acd840fac5/US08155939-20120410-D00000.png">
+        <ul>
+          <li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="104">
+            <meta itemprop="label" content="step">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1643">
+              <meta itemprop="top" content="65">
+              <meta itemprop="right" content="1721">
+              <meta itemprop="bottom" content="112">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="110">
+            <meta itemprop="label" content="step">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1752">
+              <meta itemprop="top" content="1213">
+              <meta itemprop="right" content="1859">
+              <meta itemprop="bottom" content="1260">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="82">
+            <meta itemprop="label" content="next step">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1784">
+              <meta itemprop="top" content="329">
+              <meta itemprop="right" content="1842">
+              <meta itemprop="bottom" content="373">
+            </span>
+          </li>
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/b6/67/ae/97a9b50dbc5a3a/US08155939-20120410-D00001.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/16/e0/32/b6e85e935bf210/US08155939-20120410-D00001.png">
+        <ul>
+          <li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="10">
+            <meta itemprop="label" content="Vector">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="330">
+              <meta itemprop="top" content="517">
+              <meta itemprop="right" content="400">
+              <meta itemprop="bottom" content="564">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="14">
+            <meta itemprop="label" content="vector">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1019">
+              <meta itemprop="top" content="384">
+              <meta itemprop="right" content="1072">
+              <meta itemprop="bottom" content="430">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="16">
+            <meta itemprop="label" content="specular reflection vector">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1324">
+              <meta itemprop="top" content="572">
+              <meta itemprop="right" content="1380">
+              <meta itemprop="bottom" content="616">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="18">
+            <meta itemprop="label" content="diffuseness vector">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1536">
+              <meta itemprop="top" content="444">
+              <meta itemprop="right" content="1591">
+              <meta itemprop="bottom" content="487">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="30">
+            <meta itemprop="label" content="step">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1583">
+              <meta itemprop="top" content="1179">
+              <meta itemprop="right" content="1652">
+              <meta itemprop="bottom" content="1226">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="32">
+            <meta itemprop="label" content="step">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1514">
+              <meta itemprop="top" content="1368">
+              <meta itemprop="right" content="1581">
+              <meta itemprop="bottom" content="1413">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="34">
+            <meta itemprop="label" content="step">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1765">
+              <meta itemprop="top" content="1516">
+              <meta itemprop="right" content="1827">
+              <meta itemprop="bottom" content="1563">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="36">
+            <meta itemprop="label" content="step">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1762">
+              <meta itemprop="top" content="2080">
+              <meta itemprop="right" content="1815">
+              <meta itemprop="bottom" content="2126">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="38">
+            <meta itemprop="label" content="step">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1201">
+              <meta itemprop="top" content="2145">
+              <meta itemprop="right" content="1273">
+              <meta itemprop="bottom" content="2193">
+            </span>
+          </li>
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/23/56/91/16fd6bed6781da/US08155939-20120410-D00002.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/74/b1/e5/4574eb4694b4b7/US08155939-20120410-D00002.png">
+        <ul>
+          <li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="2">
+            <meta itemprop="id" content="36">
+            <meta itemprop="label" content="step">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1595">
+              <meta itemprop="top" content="118">
+              <meta itemprop="right" content="1654">
+              <meta itemprop="bottom" content="164">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="2">
+            <meta itemprop="id" content="40">
+            <meta itemprop="label" content="step">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1546">
+              <meta itemprop="top" content="342">
+              <meta itemprop="right" content="1615">
+              <meta itemprop="bottom" content="388">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="2">
+            <meta itemprop="id" content="42">
+            <meta itemprop="label" content="step">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1547">
+              <meta itemprop="top" content="605">
+              <meta itemprop="right" content="1605">
+              <meta itemprop="bottom" content="650">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="2">
+            <meta itemprop="id" content="44">
+            <meta itemprop="label" content="step">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1685">
+              <meta itemprop="top" content="942">
+              <meta itemprop="right" content="1754">
+              <meta itemprop="bottom" content="988">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="2">
+            <meta itemprop="id" content="46">
+            <meta itemprop="label" content="next step">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1611">
+              <meta itemprop="top" content="1279">
+              <meta itemprop="right" content="1679">
+              <meta itemprop="bottom" content="1325">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="2">
+            <meta itemprop="id" content="48">
+            <meta itemprop="label" content="step">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1708">
+              <meta itemprop="top" content="1579">
+              <meta itemprop="right" content="1767">
+              <meta itemprop="bottom" content="1623">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="2">
+            <meta itemprop="id" content="50">
+            <meta itemprop="label" content="next step">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1625">
+              <meta itemprop="top" content="1907">
+              <meta itemprop="right" content="1692">
+              <meta itemprop="bottom" content="1952">
+            </span>
+          </li>
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/51/15/7f/c68fd7f5da15cc/US08155939-20120410-D00003.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/ef/79/06/b774bf4c9181e4/US08155939-20120410-D00003.png">
+        <ul>
+          <li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="3">
+            <meta itemprop="id" content="50">
+            <meta itemprop="label" content="next step">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1860">
+              <meta itemprop="top" content="102">
+              <meta itemprop="right" content="1927">
+              <meta itemprop="bottom" content="147">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="3">
+            <meta itemprop="id" content="52">
+            <meta itemprop="label" content="step">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1639">
+              <meta itemprop="top" content="268">
+              <meta itemprop="right" content="1696">
+              <meta itemprop="bottom" content="312">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="3">
+            <meta itemprop="id" content="54">
+            <meta itemprop="label" content="step">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1801">
+              <meta itemprop="top" content="518">
+              <meta itemprop="right" content="1869">
+              <meta itemprop="bottom" content="563">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="3">
+            <meta itemprop="id" content="56">
+            <meta itemprop="label" content="step">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1811">
+              <meta itemprop="top" content="684">
+              <meta itemprop="right" content="1873">
+              <meta itemprop="bottom" content="731">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="3">
+            <meta itemprop="id" content="60">
+            <meta itemprop="label" content="step">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1594">
+              <meta itemprop="top" content="1068">
+              <meta itemprop="right" content="1659">
+              <meta itemprop="bottom" content="1112">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="3">
+            <meta itemprop="id" content="62">
+            <meta itemprop="label" content="step">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1845">
+              <meta itemprop="top" content="1209">
+              <meta itemprop="right" content="1905">
+              <meta itemprop="bottom" content="1254">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="3">
+            <meta itemprop="id" content="64">
+            <meta itemprop="label" content="step">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1890">
+              <meta itemprop="top" content="1285">
+              <meta itemprop="right" content="1951">
+              <meta itemprop="bottom" content="1331">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="3">
+            <meta itemprop="id" content="66">
+            <meta itemprop="label" content="step">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1688">
+              <meta itemprop="top" content="1622">
+              <meta itemprop="right" content="1755">
+              <meta itemprop="bottom" content="1667">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="3">
+            <meta itemprop="id" content="68">
+            <meta itemprop="label" content="step">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1718">
+              <meta itemprop="top" content="1847">
+              <meta itemprop="right" content="1778">
+              <meta itemprop="bottom" content="1893">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="3">
+            <meta itemprop="id" content="70">
+            <meta itemprop="label" content="step">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1942">
+              <meta itemprop="top" content="1847">
+              <meta itemprop="right" content="2006">
+              <meta itemprop="bottom" content="1891">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="3">
+            <meta itemprop="id" content="72">
+            <meta itemprop="label" content="step">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1787">
+              <meta itemprop="top" content="2222">
+              <meta itemprop="right" content="1856">
+              <meta itemprop="bottom" content="2268">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="3">
+            <meta itemprop="id" content="74">
+            <meta itemprop="label" content="step">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1757">
+              <meta itemprop="top" content="2592">
+              <meta itemprop="right" content="1811">
+              <meta itemprop="bottom" content="2637">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="3">
+            <meta itemprop="id" content="74">
+            <meta itemprop="label" content="step">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1811">
+              <meta itemprop="top" content="2410">
+              <meta itemprop="right" content="1870">
+              <meta itemprop="bottom" content="2455">
+            </span>
+          </li>
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/f0/ca/65/b4a246aa7a3144/US08155939-20120410-D00004.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/0c/25/27/4b3b38f0c9157f/US08155939-20120410-D00004.png">
+        <ul>
+          <li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="4">
+            <meta itemprop="id" content="102">
+            <meta itemprop="label" content="step">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1705">
+              <meta itemprop="top" content="1989">
+              <meta itemprop="right" content="1785">
+              <meta itemprop="bottom" content="2034">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="4">
+            <meta itemprop="id" content="80">
+            <meta itemprop="label" content="step">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1495">
+              <meta itemprop="top" content="68">
+              <meta itemprop="right" content="1562">
+              <meta itemprop="bottom" content="113">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="4">
+            <meta itemprop="id" content="82">
+            <meta itemprop="label" content="next step">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1701">
+              <meta itemprop="top" content="377">
+              <meta itemprop="right" content="1760">
+              <meta itemprop="bottom" content="421">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="4">
+            <meta itemprop="id" content="84">
+            <meta itemprop="label" content="step">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1647">
+              <meta itemprop="top" content="674">
+              <meta itemprop="right" content="1705">
+              <meta itemprop="bottom" content="719">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="4">
+            <meta itemprop="id" content="86">
+            <meta itemprop="label" content="step">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1649">
+              <meta itemprop="top" content="924">
+              <meta itemprop="right" content="1707">
+              <meta itemprop="bottom" content="969">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="4">
+            <meta itemprop="id" content="90">
+            <meta itemprop="label" content="step">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1645">
+              <meta itemprop="top" content="1464">
+              <meta itemprop="right" content="1712">
+              <meta itemprop="bottom" content="1508">
+            </span>
+          </li>
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/d0/d3/8f/e140d07e1ede51/US08155939-20120410-D00005.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/65/b3/33/5f88fff39ca2e1/US08155939-20120410-D00005.png">
+        <ul>
+          <li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="5">
+            <meta itemprop="id" content="104">
+            <meta itemprop="label" content="step">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1672">
+              <meta itemprop="top" content="65">
+              <meta itemprop="right" content="1751">
+              <meta itemprop="bottom" content="113">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="5">
+            <meta itemprop="id" content="114">
+            <meta itemprop="label" content="computer">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="179">
+              <meta itemprop="top" content="1828">
+              <meta itemprop="right" content="247">
+              <meta itemprop="bottom" content="1874">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="5">
+            <meta itemprop="id" content="116">
+            <meta itemprop="label" content="storage devices">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="773">
+              <meta itemprop="top" content="2390">
+              <meta itemprop="right" content="854">
+              <meta itemprop="bottom" content="2437">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="5">
+            <meta itemprop="id" content="118">
+            <meta itemprop="label" content="program">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1690">
+              <meta itemprop="top" content="1940">
+              <meta itemprop="right" content="1776">
+              <meta itemprop="bottom" content="1987">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="5">
+            <meta itemprop="id" content="82">
+            <meta itemprop="label" content="next step">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1815">
+              <meta itemprop="top" content="328">
+              <meta itemprop="right" content="1875">
+              <meta itemprop="bottom" content="375">
+            </span>
+          </li>
+        </ul>
+      </li>
+      </ul>
+  </section>
+
+  <section>
+    <h2>Classifications</h2>
+    
+    <ul>
+      <li>
+        <ul itemprop="cpcs" itemscope repeat>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G</span>&mdash;<span itemprop="Description">PHYSICS</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06</span>&mdash;<span itemprop="Description">COMPUTING; CALCULATING; COUNTING</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06F</span>&mdash;<span itemprop="Description">ELECTRIC DIGITAL DATA PROCESSING</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06F17/00</span>&mdash;<span itemprop="Description">Digital computing or data processing equipment or methods, specially adapted for specific functions</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06F17/50</span>&mdash;<span itemprop="Description">Computer-aided design</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06F17/5009</span>&mdash;<span itemprop="Description">Computer-aided design using simulation</span>
+            <meta itemprop="Leaf" content="true">
+            
+            <meta itemprop="FirstCode" content="true">
+          </li>
+          </ul>
+      </li>
+      <li>
+        <ul itemprop="cpcs" itemscope repeat>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G</span>&mdash;<span itemprop="Description">PHYSICS</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06</span>&mdash;<span itemprop="Description">COMPUTING; CALCULATING; COUNTING</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06F</span>&mdash;<span itemprop="Description">ELECTRIC DIGITAL DATA PROCESSING</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06F2217/00</span>&mdash;<span itemprop="Description">Indexing scheme relating to computer aided design [CAD]</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06F2217/16</span>&mdash;<span itemprop="Description">Numerical modeling</span>
+            <meta itemprop="Leaf" content="true">
+            <meta itemprop="Additional" content="true">
+            
+          </li>
+          </ul>
+      </li>
+      </ul>
+  </section>
+
+  <section itemprop="abstract" itemscope>
+    <h2>Abstract</h2>
+    
+    <div itemprop="content" html><abstract mxw-id="PA93930258" lang="EN" load-source="patent-office">
+    <div num="p-0001" class="abstract">A method and model of predicting particle-surface interactions with a surface, such as the surface of a spacecraft. The method includes the steps of: determining a trajectory path of a plurality of moving particles; predicting whether any of the moving particles will intersect a surface; predicting whether any of the particles will be captured by the surface and/or; predicting a reflected trajectory and velocity of particles reflected from the surface.</div>
+  </abstract>
+  </div>
+  </section>
+
+  <section itemprop="description" itemscope>
+    <h2>Description</h2>
+    
+    <div itemprop="content" html><div mxw-id="PDES45502646" lang="EN" load-source="patent-office" class="description">
+    
+    <heading>ORIGIN OF INVENTION</heading>
+    <p num="p-0002">The invention described herein was made by an employee of the United States Government, and may be manufactured and used by or for the Government for governmental purposes without the payment of any royalties thereon or therefor.</p>
+    
+    
+    <heading>RELATED APPLICATION</heading>
+    <p num="p-0003">This application is based upon prior filed provisional patent application Ser. No. 61/061,033 filed Jun. 12, 2008, the entire subject matter of which are incorporated by reference herein.</p>
+    <heading>BACKGROUND OF THE INVENTION</heading>
+    <p num="p-0004">The present invention is related to the modeling of the interactions between particles and surfaces.</p>
+    <p num="p-0005">Modeling of the transport of particles around spacecraft in orbit is a poorly developed science. No current models account for the way in which real particles bounce off of surfaces when they impact.</p>
+    <p num="p-0006">The process by which particle contamination moves throughout a system may be divided into three phases. The first phase is generation and release from a surface, the second phase is transport through air or vacuum, and the third phase is reflection or deposition on a surface. The first two phases have been the focus of prior art, such as the studies referenced in E. N. Borson, “A model for particle redistribution during spacecraft launch,” Proceedings of SPIE Vol. 4774, (2002), pp 67-78, the entire disclosure of which is incorporated by reference herein.</p>
+    <p num="p-0007">With respect to the generation and release of particles from a surface, many particles are generated by wear between moving surfaces while other particles are “pre-existing” on a surface due to contamination built up over the life of the surface.</p>
+    <p num="p-0008">Most particle generation on spacecraft occurs during ground processing. Particles shed from personnel, such as garment fibers and skin cells, have a low mass to drag ratio and are transported throughout the clean room by air flow. Abrasion of materials, such as drilling, grinding, and cutting, produces particles with a high mass to drag ratio, and these particles settle close to the point of generation.</p>
+    <p num="p-0009">Deployable systems such as antenna booms, solar arrays, and covers create materials after spacecraft are in orbit. Actuators create particles at various velocities: pyrotechnical devices release high speed particles, spring cutters release medium speed particles, and sealed wax actuators release slow particles.</p>
+    <p num="p-0010">Particles may be released from surfaces by vibration or other external forces.</p>
+    <p num="p-0011">With respect to the transport of particles, drag is the viscous friction effect exerted on a moving particle by the medium it is in. The result is that large particles tend to stray from the flow direction because of momentum but small particles follow the flow direction and are less likely to impact surfaces. The equations of motion of particles suspended in air may be found in A. Busnaina and X. Zhu, “Submicron Particle Motion and Deposition in a CVD Chamber,” Institute of Environmental Sciences Proceedings Volume 2 (1992), pp 1-9, the entire disclosure of which is incorporated by reference herein. As air density drops, the drag also drops, until in vacuum the particles are affected only by gravity. More information regarding particle motion in a vacuum can be found in A. L. Lee, “Particle Dispersion Around a Spacecraft”, American Institute of Aeronautics and Astronautics, Aerospace Science Meeting, 21<sup>st</sup>, Reno, Nev., Jan. 10-13, 1983, the entire disclosure of which is incorporated by reference herein.</p>
+    <p num="p-0012">Regarding the reflection or deposition on a surface, when a moving particle impacts a surface, energy is lost through the compression of the particle and the surface. Some theoretical treatment of this phenomenon exists in the literature such as C. Thornton et al., “A theoretical model for the stick/bounce behavior of adhesive, elastic-plastic spheres”, Powder Technology 99 (1998), pp 154-162 the entire disclosure of which is incorporated herein by reference. Kinetic energy is also converted between translational and rotational modes as the particle tumbles. The tendency to tumble is a function of surface roughness, particle shape, and impact angle.</p>
+    <p num="p-0013">Whether a particle impacting a surface will stick is determined by whether the potential energy stored in compression is great enough to overcome the forces holding the particle to the surface. Particles on a surface are held to the surface by several forces, but the large forces are electrostatic attraction, surface energy, and surface tension.</p>
+    <p num="p-0014">If the particle bounces, the direction of the bounce may be affected by rotational momentum, surface roughness, and particle shape.</p>
+    <p num="p-0015">The prior art is lacking in a model for this last phase of particle transport. The present invention provides a comprehensive approach for describing and modeling the interactions between a particle and a surface.</p>
+    <heading>SUMMARY OF THE INVENTION</heading>
+    <p num="p-0016">The present invention is directed to a method of predicting particle-surface interactions with a surface such as a spacecraft. The method includes the steps of: determining a trajectory path of a plurality of moving particles; predicting whether any of the moving particles will intersect a surface; predicting whether any of the particles will be captured by the surface and/or; predicting a reflected trajectory and velocity of particles reflected from the surface.</p>
+    
+    
+    <description-of-drawings>
+      <heading>BRIEF DESCRIPTION OF THE DRAWINGS</heading>
+      <p num="p-0017">The features of the invention believed to be novel and the elements characteristic of the invention are set forth with particularity in the appended claims. The Figures are for illustration purposes only and are not drawn to scale. The invention itself, however, both as to organization and method of operation, may best be understood by reference to the detailed description which follows taken in conjunction with the accompanying drawings in which:</p>
+      <p num="p-0018"> <figref idrefs="DRAWINGS">FIG. 1</figref> is a diagram of a particle—surface interaction.</p>
+      <p num="p-0019"> <figref idrefs="DRAWINGS">FIGS. 2 through 7</figref> are flow charts illustrating the method according to the present invention.</p>
+    </description-of-drawings>
+    
+    
+    <heading>DETAILED DESCRIPTION OF THE INVENTION</heading>
+    <p num="p-0020">Referring to the Figures in more detail and particularly referring to <figref idrefs="DRAWINGS">FIG. 1</figref>, there is shown a diagram of a particle surface interaction. Arrow <b>10</b> denotes a vector of an incoming particle having incoming velocity v<sub>0</sub>. Vector <b>10</b> strikes surface <b>12</b> and is reflected from the surface as shown by arrow <b>14</b> which denotes a vector of the reflected particle having reflected or outgoing velocity v<sub>1</sub>. Arrow <b>16</b> denotes a vector of the specular reflection of the particle. The specular reflection means that the angle of reflection of the reflected particle (as measured between the surface normal <b>20</b> and the reflected vector) β equals the angle of incidence (as measured between the surface normal <b>20</b> and the incoming vector) α. The difference between the actual reflected vector <b>14</b> and the specular reflection vector <b>16</b> is a diffuseness vector <b>18</b>. The angle between the actual reflected vector <b>14</b> and the specular vector is ⊖.</p>
+    <p num="p-0021">According to one preferred embodiment of the invention, there is a model for particle-surface interactions which includes a coefficient of restitution parameter, a diffuseness parameter, a coefficient of momentum transfer parameter, and a sticking velocity parameter.</p>
+    <p num="p-0022">The coefficient of restitution (COR) is the fraction of translational momentum retained by the particle after interacting with the surface. In a perfectly inelastic collision, all of the energy is retained by the particle and the COR is 1. The highest measured COR for materials is around 0.9 for glass beads on a glass plate. COR is a material property and applies to both the particle and the surface; the effective COR is the product of the individual particle and surface COR values.</p>
+    <p num="p-0023">The coefficient of momentum transfer (COM) is a measure of the conversion between rotational and translational modes during a particle-surface interaction. COM is primarily a function of the particle moments of inertia. The fraction of energy converted on any given bounce is a random number with a Gaussian distribution about 0 (negative being taken as conversion to translational momentum, positive as conversion to rotational momentum). The COM is the standard deviation of the aforementioned Gaussian distribution. Neither momentum is allowed to become negative. The conversion is applied after the energy reduction due to the COR.</p>
+    <p num="p-0024">The diffuseness parameter, also known as diffusivity, is a measure of the randomness of the bounce direction. Alternately, the complement (1-diffusivity) is the specularity of the bounce. For a perfectly specular bounce such that diffusivity=0, the angle between the incoming direction and surface normal equals the angle between the reflecting direction and surface normal, and the reflecting vector is in the plane of the incoming vector and surface normal. A perfectly diffuse bounce has the reflecting vector distributed in a Lambertian fashion, with the probability of any direction being proportional to the cosine of the angle between the surface normal and that direction. The model of the present invention uses the diffusivity as an interpolation fraction between the specular direction and a random, Lambertian direction. Other distributions besides Lambertian may be used to model surfaces with anisotropic diffuseness. Diffusivity is a function of the particle shape and surface irregularities. The two diffusivities must be combined in a manner that meets certain criteria: when one value is 0 (perfectly specular), the result should equal the other value of diffusivity; the maximum value should be 1; and when both values are intermediate, the result should be larger than the higher of the values, because the higher of the values would be used if the smaller were zero. The method of combination that meets these criteria is to use the complement of the combined specularity, where the combined specularity is the product of the particle and surface specularities.</p>
+    <p num="p-0025">An additional feature of the model is the assumption that conversion between rotational and translational modes affects the direction of travel. This is implemented by using the ratio of the converted momentum to the total momentum as an additional diffuseness term that is combined according to the multiplication of specularities. The result is that no change in diffuseness occurs when the momentum conversion is zero, but transformation of all of the momentum would result in total randomization of the direction.</p>
+    <p num="p-0026">The sticking velocity is the velocity below which the particle does not possess enough kinetic energy to escape from the forces holding it to the surface. Both the particle and the surface contribute to the binding energy. Because kinetic energy is proportional to velocity squared, the effective sticking velocity is given by the square root of the sum of the squared velocities. The algorithm applies this test after energy is converted between translational and rotational modes. If the particle does not possess the velocity required to escape, but does possess rotational velocity, the condition may be interpreted as rolling on the surface.</p>
+    <p num="p-0027">In operation of the particle—surface interaction model, the sticking velocity parameter is determined to see if the particle sticks to the surface. If the particle does not stick to the surface then the coefficient of restitution parameter, diffuseness parameter and coefficient of momentum transfer parameter are determined to result in the direction that the particle bounces from the surface.</p>
+    <p num="p-0028">As will be apparent to those skilled in the art of numerical simulation, the surface interaction model may be easily added to any particle transport simulation wherein the influence of surface bounces on the particle motion is non-negligible.</p>
+    <p num="p-0029">According to one preferred embodiment of the invention, there is a method for determining particle—surface interactions. The algorithm here gives the example for motion of particles in a vacuum that are sufficiently separated that particle-particle collisions are negligible.</p>
+    <p num="p-0030">Referring to <figref idrefs="DRAWINGS">FIGS. 2 to 4</figref>, and particularly <figref idrefs="DRAWINGS">FIG. 2</figref>, the method according to the present invention is illustrated. The method includes first in step <b>30</b> inputting properties for the particles and surface followed by a loop in which a specified number of particles are tracked from generation through capture on a surface in step <b>32</b>, and then determining particle distribution statistics from the results of the tracked particles in step <b>38</b>.</p>
+    <p num="p-0031">The tracking loop of tracking particles through capture on a surface in step <b>32</b> includes initializing each particle to a position and velocity in step <b>34</b>, using rules specified by the user, and then moving the particle and interacting with surfaces until the particle velocity is set to zero in step <b>36</b> or the particle exits the simulation domain (spatial or temporal extent).</p>
+    <p num="p-0032">Referring now to <figref idrefs="DRAWINGS">FIG. 3</figref>, moving the particle (step <b>36</b> from <figref idrefs="DRAWINGS">FIG. 2</figref>) includes calculating the path of the particle through space in step <b>40</b>, checking for intersection of the particle path with surfaces in step <b>42</b>, and if an intersection occurs with a surface. If there is no intersection with a surface, the calculation is done as indicated in step <b>44</b> because there will be no particle—surface intersection. If there is an intersection of the particle with a surface, then the method continues. After it is determined that there is a particle—surface intersection in step <b>42</b>, the next step <b>46</b> is checking to see if the particle is captured by the surface. If the particle is captured by the surface, the modeling is done as indicated by step <b>48</b> because there will be no further particle or surface activity. If the particle is not captured by the surface, then the next step <b>50</b> in the method is determining the new direction and velocity of the particle after the surface intersection.</p>
+    <p num="p-0033">Referring now to <figref idrefs="DRAWINGS">FIG. 4</figref>, further steps are described with respect to calculating the new direction and velocity of the particle (step <b>50</b> in <figref idrefs="DRAWINGS">FIG. 3</figref>). Initially, the coefficient of restitution is determined in step <b>52</b> or may occur prior to step <b>30</b> and be provided to step <b>52</b> as a constant value. More details will be provided hereafter on the method for determining the COR.</p>
+    <p num="p-0034">Then, the momentum loss is determined from the COR in step <b>54</b>. Surface COR is combined with particle COR by taking the product of the two. The particle COR may be fixed, or may be calculated from material properties and the velocity at impact.</p>
+    <p num="p-0035">In the following equations, “y” is understood to be in the vertical direction and “x” is understood to be in the horizontal direction.</p>
+    <p num="p-0036">In the following equations 1 through 17, the following symbols have the noted meanings:</p>
+    <p num="p-0037">v<sub>y1</sub>, v<sub>x1</sub>=reflected velocity in the y and x directions, respectively</p>
+    <p num="p-0038">v<sub>y0</sub>, v<sub>x0</sub>=incoming velocity in the y and x directions, respectively</p>
+    <p num="p-0039">a=acceleration</p>
+    <p num="p-0040">t=time</p>
+    <p num="p-0041">y<sub>1</sub>=reflected height of particle</p>
+    <p num="p-0042">y<sub>0</sub>=initial height of particle</p>
+    <p num="p-0043">x<sub>1</sub>=reflected distance in x direction</p>
+    <p num="p-0044">x<sub>0</sub>=initial distance in x direction</p>
+    <p num="p-0045">v<sub>x0</sub>=the initial velocity in the x direction</p>
+    <p num="p-0046">v=total velocity</p>
+    <p num="p-0047">{right arrow over (u)}=unit vector</p>
+    <p num="p-0048">v<sub>x</sub>=velocity in x direction</p>
+    <p num="p-0049">v<sub>y</sub>=velocity in y direction</p>
+    <p num="p-0050">K=translational kinetic energy</p>
+    <p num="p-0051">U=rotational kinetic energy</p>
+    <p num="p-0052">m=mass of particle</p>
+    <p num="p-0053">I=moment of inertia</p>
+    <p num="p-0054">ω<sub>1</sub>=rotational velocity after reflection</p>
+    <p num="p-0055">ω<sub>0</sub>=rotational velocity before reflection</p>
+    <p num="p-0056">COR=coefficient of restitution</p>
+    <p num="p-0057">COM=coefficient of momentum transfer</p>
+    <p num="p-0058">{right arrow over (v)}=vector representing reflected particle</p>
+    <p num="p-0059">{right arrow over (v)}<sub>specular</sub>=vector representing reflected particle in specular direction</p>
+    <p num="p-0060">{right arrow over (v)}<sub>lambertian</sub>=vector representing reflected particle in a random direction</p>
+    <p num="p-0061">⊖=angle between reflected particle vector and specular vector</p>
+    <p num="p-0062">d=diffuseness</p>
+    <p num="p-0063">The pre-impact kinetic energy is determined in step <b>56</b> as one half particle mass multiplied by the particle velocity (relative to the surface) squared:</p>
+    <p num="p-0064">
+      <maths id="MATH-US-00001" num="00001">
+        <math overflow="scroll">
+          <mtable>
+            <mtr>
+              <mtd>
+                <mrow>
+                  <msub>
+                    <mi>K</mi>
+                    <mn>0</mn>
+                  </msub>
+                  <mo>=</mo>
+                  <mrow>
+                    <mfrac>
+                      <mn>1</mn>
+                      <mn>2</mn>
+                    </mfrac>
+                    <mo>⁢</mo>
+                    <msubsup>
+                      <mi>mv</mi>
+                      <mn>0</mn>
+                      <mn>2</mn>
+                    </msubsup>
+                  </mrow>
+                </mrow>
+              </mtd>
+              <mtd>
+                <mrow>
+                  <mi>Equation</mi>
+                  <mo>⁢</mo>
+                  <mstyle>
+                    <mspace width="0.8em" height="0.8ex"> </mspace>
+                  </mstyle>
+                  <mo>⁢</mo>
+                  <mrow>
+                    <mo>(</mo>
+                    <mn>1</mn>
+                    <mo>)</mo>
+                  </mrow>
+                </mrow>
+              </mtd>
+            </mtr>
+          </mtable>
+        </math>
+      </maths>
+    </p>
+    <p num="p-0065">This is multiplied by the square of the effective COR to determine the post impact kinetic energy in step <b>58</b>:</p>
+    <p num="p-0066">
+      <maths id="MATH-US-00002" num="00002">
+        <math overflow="scroll">
+          <mtable>
+            <mtr>
+              <mtd>
+                <mrow>
+                  <msub>
+                    <mi>K</mi>
+                    <mn>1</mn>
+                  </msub>
+                  <mo>=</mo>
+                  <mrow>
+                    <mfrac>
+                      <mn>1</mn>
+                      <mn>2</mn>
+                    </mfrac>
+                    <mo>⁢</mo>
+                    <mrow>
+                      <mi>m</mi>
+                      <mo>⁡</mo>
+                      <mrow>
+                        <mo>(</mo>
+                        <msup>
+                          <mi>COR</mi>
+                          <mn>2</mn>
+                        </msup>
+                        <mo>)</mo>
+                      </mrow>
+                    </mrow>
+                    <mo>⁢</mo>
+                    <mrow>
+                      <msubsup>
+                        <mi>v</mi>
+                        <mn>0</mn>
+                        <mn>2</mn>
+                      </msubsup>
+                      <mo>.</mo>
+                    </mrow>
+                  </mrow>
+                </mrow>
+              </mtd>
+              <mtd>
+                <mrow>
+                  <mi>Equation</mi>
+                  <mo>⁢</mo>
+                  <mstyle>
+                    <mspace width="0.8em" height="0.8ex"> </mspace>
+                  </mstyle>
+                  <mo>⁢</mo>
+                  <mrow>
+                    <mo>(</mo>
+                    <mn>2</mn>
+                    <mo>)</mo>
+                  </mrow>
+                </mrow>
+              </mtd>
+            </mtr>
+          </mtable>
+        </math>
+      </maths>
+    </p>
+    <p num="p-0067">The coefficient of momentum transfer (COM) is determined in step <b>60</b>, or may occur prior to step <b>30</b> and be provided to step <b>60</b> as a constant value. More details will be provided hereafter on the methodology for determining COM.</p>
+    <p num="p-0068">If the particle has a COM, the change in rotational energy is determined in step <b>62</b> as the product of the post impact kinetic energy and a random variable with a Gaussian distribution centered at zero with a standard deviation equal to the COM:
+<br/>
+Δ<i>Iω</i> <sup>2</sup>=[Gaussian(0<i>,COM</i>)][<i>K</i> <sub>1</sub>]  Equation (3)
+</p>
+    <p num="p-0069">If the change in momentum would decrease the particle rotational momentum below zero, the change in momentum is set equal to the particle rotational momentum, indicating that no rotation will be present after the bounce. If the change in momentum would reduce the kinetic energy below a fixed percentage of the post impact value, the change is reduced to ensure that some translational energy remains; if not, the particle could spin in place, a non-physical result.</p>
+    <p num="p-0070">The post impact kinetic energy and the particle rotational momentum are updated in step <b>64</b> with the change in momentum:
+<br/>
+<i>K</i> <sub>2</sub> <i>=K</i> <sub>1</sub> <i>−ΔIω</i> <sup>2</sup>  Equation (4)
+</p>
+    <p num="p-0071">The post impact velocity is determined in step <b>66</b> from the square root of two divided by particle mass multiplied by the kinetic energy:</p>
+    <p num="p-0072">
+      <maths id="MATH-US-00003" num="00003">
+        <math overflow="scroll">
+          <mtable>
+            <mtr>
+              <mtd>
+                <mrow>
+                  <msub>
+                    <mi>v</mi>
+                    <mn>1</mn>
+                  </msub>
+                  <mo>=</mo>
+                  <msqrt>
+                    <mfrac>
+                      <mrow>
+                        <mn>2</mn>
+                        <mo>⁢</mo>
+                        <msub>
+                          <mi>K</mi>
+                          <mn>2</mn>
+                        </msub>
+                      </mrow>
+                      <mi>m</mi>
+                    </mfrac>
+                  </msqrt>
+                </mrow>
+              </mtd>
+              <mtd>
+                <mrow>
+                  <mi>Equation</mi>
+                  <mo>⁢</mo>
+                  <mstyle>
+                    <mspace width="0.8em" height="0.8ex"> </mspace>
+                  </mstyle>
+                  <mo>⁢</mo>
+                  <mrow>
+                    <mo>(</mo>
+                    <mn>5</mn>
+                    <mo>)</mo>
+                  </mrow>
+                </mrow>
+              </mtd>
+            </mtr>
+          </mtable>
+        </math>
+      </maths>
+    </p>
+    <p num="p-0073">The total energy is determined in step <b>68</b> as the sum of the particle rotational and translational energy. If this value is greater than zero, the diffuseness of the bounce is determined as the complement of one minus the fraction change in momentum divided by total momentum, multiplied by one minus particle diffuseness, multiplied by one minus the surface diffuseness:
+<br/>
+1−<i>d</i> <sub>Effective</sub>=[1−<i>d</i> <sub>COM</sub>][1−<i>d</i> <sub>Particle][</sub>1−<i>d</i> <sub>Surface</sub>]  Equation (6)
+</p>
+    <p num="p-0074">The determination of the diffuseness is discussed in more detail hereafter.</p>
+    <p num="p-0075">If the diffuseness is greater than zero, a random unit length direction vector is generated in step <b>70</b>. The length of this vector is multiplied by the diffuseness. The specular reflection direction in step <b>72</b>, which was determined during the step of checking for intersection with surfaces in step <b>42</b> in <figref idrefs="DRAWINGS">FIG. 3</figref>, is multiplied by one minus the diffuseness. These two vectors are added together to get the post impact reflection direction in step <b>74</b> which is multiplied by the post impact velocity scalar to get the reflection velocity vector in step <b>76</b>:
+<br/>
+<i>{right arrow over (v)}</i> <sub>1</sub> <i>={right arrow over (v)}</i>([1−<i>d]{right arrow over (u)}</i> <sub>Specular</sub> <i>+[d]{right arrow over (u)}</i> <sub>Random</sub>)  Equation (7)
+</p>
+    <p num="p-0076">If the surface is moving, the reflection velocity vector is decomposed into a component normal to the surface and a component in the plane of the surface. The surface friction is used to update the in-plane component by adding the element in-plane motion multiplied by friction to the reflection in-plane component multiplied by one minus the friction. The surface normal component of motion is added to the reflection normal component. The velocity vector is re-composed by adding these two resultant vectors.</p>
+    <p num="p-0077">A special condition exists when the surface motion is away from the particle; the reflection velocity may be towards the surface rather than away. This is interpreted as a soft landing, and the post impact velocity is set to zero.</p>
+    <p num="p-0078">At this point, the model is complete in that the direction and velocity of the reflected particle has been determined after the particle—surface interaction.</p>
+    <p num="p-0079">Referring now to <figref idrefs="DRAWINGS">FIG. 5</figref>, the methodology for obtaining the COR will be described. The methodology begins in step <b>80</b> with bouncing a plurality of particles on a plate (one at a time) under the influence of gravity and the location and times of impact are observed, for example with a pair or high speed cameras.</p>
+    <p num="p-0080">From Newton&#39;s laws of motion, assuming no air drag (performing the test in a vacuum chamber), there is a ballistic trajectory:</p>
+    <p num="p-0081">
+      <maths id="MATH-US-00004" num="00004">
+        <math overflow="scroll">
+          <mtable>
+            <mtr>
+              <mtd>
+                <mrow>
+                  <mrow>
+                    <msub>
+                      <mi>v</mi>
+                      <mrow>
+                        <mi>Y</mi>
+                        <mo>⁢</mo>
+                        <mstyle>
+                          <mspace width="0.3em" height="0.3ex"> </mspace>
+                        </mstyle>
+                        <mo>⁢</mo>
+                        <mn>1</mn>
+                      </mrow>
+                    </msub>
+                    <mo>=</mo>
+                    <mrow>
+                      <msub>
+                        <mi>v</mi>
+                        <mrow>
+                          <mi>Y</mi>
+                          <mo>⁢</mo>
+                          <mstyle>
+                            <mspace width="0.3em" height="0.3ex"> </mspace>
+                          </mstyle>
+                          <mo>⁢</mo>
+                          <mn>0</mn>
+                        </mrow>
+                      </msub>
+                      <mo>+</mo>
+                      <mi>at</mi>
+                    </mrow>
+                  </mrow>
+                  <mo>⁢</mo>
+                  <mstyle>
+                    <mtext>
+</mtext>
+                  </mstyle>
+                  <mo>⁢</mo>
+                  <mrow>
+                    <msub>
+                      <mi>y</mi>
+                      <mn>1</mn>
+                    </msub>
+                    <mo>=</mo>
+                    <mrow>
+                      <msub>
+                        <mi>y</mi>
+                        <mn>0</mn>
+                      </msub>
+                      <mo>+</mo>
+                      <mrow>
+                        <msub>
+                          <mi>v</mi>
+                          <mrow>
+                            <mi>Y</mi>
+                            <mo>⁢</mo>
+                            <mstyle>
+                              <mspace width="0.3em" height="0.3ex"> </mspace>
+                            </mstyle>
+                            <mo>⁢</mo>
+                            <mn>0</mn>
+                          </mrow>
+                        </msub>
+                        <mo>⁢</mo>
+                        <mi>t</mi>
+                      </mrow>
+                      <mo>+</mo>
+                      <mrow>
+                        <mfrac>
+                          <mn>1</mn>
+                          <mn>2</mn>
+                        </mfrac>
+                        <mo>⁢</mo>
+                        <msup>
+                          <mi>at</mi>
+                          <mn>2</mn>
+                        </msup>
+                      </mrow>
+                    </mrow>
+                  </mrow>
+                  <mo>⁢</mo>
+                  <mstyle>
+                    <mtext>
+</mtext>
+                  </mstyle>
+                  <mo>⁢</mo>
+                  <mrow>
+                    <msub>
+                      <mi>x</mi>
+                      <mn>1</mn>
+                    </msub>
+                    <mo>=</mo>
+                    <mrow>
+                      <msub>
+                        <mi>x</mi>
+                        <mn>0</mn>
+                      </msub>
+                      <mo>+</mo>
+                      <mrow>
+                        <msub>
+                          <mi>v</mi>
+                          <mrow>
+                            <mi>X</mi>
+                            <mo>⁢</mo>
+                            <mstyle>
+                              <mspace width="0.3em" height="0.3ex"> </mspace>
+                            </mstyle>
+                            <mo>⁢</mo>
+                            <mn>0</mn>
+                          </mrow>
+                        </msub>
+                        <mo>⁢</mo>
+                        <mi>t</mi>
+                      </mrow>
+                    </mrow>
+                  </mrow>
+                </mrow>
+              </mtd>
+              <mtd>
+                <mrow>
+                  <mi>Equation</mi>
+                  <mo>⁢</mo>
+                  <mstyle>
+                    <mspace width="0.8em" height="0.8ex"> </mspace>
+                  </mstyle>
+                  <mo>⁢</mo>
+                  <mrow>
+                    <mo>(</mo>
+                    <mn>8</mn>
+                    <mo>)</mo>
+                  </mrow>
+                </mrow>
+              </mtd>
+            </mtr>
+          </mtable>
+        </math>
+      </maths>
+    </p>
+    <p num="p-0082">In the next step <b>82</b>, the height of the bounce of each particle is measured and the time to reach apogee is determined. The maximum height of a bounce is achieved when vertical velocity is reduced to zero, which can be solved for the time to reach apogee. The total time of flight is twice that time, yielding the following solution for the initial velocity components in step <b>84</b> as a function of distance traveled and time of flight:</p>
+    <p num="p-0083">
+      <maths id="MATH-US-00005" num="00005">
+        <math overflow="scroll">
+          <mtable>
+            <mtr>
+              <mtd>
+                <mrow>
+                  <mrow>
+                    <msub>
+                      <mi>v</mi>
+                      <mrow>
+                        <mi>Y</mi>
+                        <mo>⁢</mo>
+                        <mstyle>
+                          <mspace width="0.3em" height="0.3ex"> </mspace>
+                        </mstyle>
+                        <mo>⁢</mo>
+                        <mn>0</mn>
+                      </mrow>
+                    </msub>
+                    <mo>=</mo>
+                    <mrow>
+                      <mrow>
+                        <mo>-</mo>
+                        <mi>a</mi>
+                      </mrow>
+                      <mo>⁢</mo>
+                      <mfrac>
+                        <mi>t</mi>
+                        <mn>2</mn>
+                      </mfrac>
+                    </mrow>
+                  </mrow>
+                  <mo>⁢</mo>
+                  <mstyle>
+                    <mtext>
+</mtext>
+                  </mstyle>
+                  <mo>⁢</mo>
+                  <mrow>
+                    <msub>
+                      <mi>v</mi>
+                      <mrow>
+                        <mi>X</mi>
+                        <mo>⁢</mo>
+                        <mstyle>
+                          <mspace width="0.3em" height="0.3ex"> </mspace>
+                        </mstyle>
+                        <mo>⁢</mo>
+                        <mn>0</mn>
+                      </mrow>
+                    </msub>
+                    <mo>=</mo>
+                    <mfrac>
+                      <mrow>
+                        <mi>Δ</mi>
+                        <mo>⁢</mo>
+                        <mstyle>
+                          <mspace width="0.3em" height="0.3ex"> </mspace>
+                        </mstyle>
+                        <mo>⁢</mo>
+                        <mi>x</mi>
+                      </mrow>
+                      <mi>t</mi>
+                    </mfrac>
+                  </mrow>
+                </mrow>
+              </mtd>
+              <mtd>
+                <mrow>
+                  <mi>Equation</mi>
+                  <mo>⁢</mo>
+                  <mstyle>
+                    <mspace width="0.8em" height="0.8ex"> </mspace>
+                  </mstyle>
+                  <mo>⁢</mo>
+                  <mrow>
+                    <mo>(</mo>
+                    <mn>9</mn>
+                    <mo>)</mo>
+                  </mrow>
+                </mrow>
+              </mtd>
+            </mtr>
+          </mtable>
+        </math>
+      </maths>
+    </p>
+    <p num="p-0084">Total velocity may be found by combining the vector components:
+<br/>
+<i>v=</i>√{right arrow over (<i>v</i> <sub>X</sub> <sup>2</sup> <i>+v</i> <sub>Y</sub> <sup>2</sup>)}  Equation (10)
+</p>
+    <p num="p-0085">Ideally, the velocity decreases after each bounce by the COR of the particle and surface so that the reflected velocity in step <b>86</b> is:
+<br/>
+<i>v</i> <sub>1</sub> <i>=v</i> <sub>0</sub> <i>COR</i> <sub>particle</sub> <i>COR</i> <sub>surface</sub>  Equation (11)
+</p>
+    <p num="p-0086">Real particles, however, have angular momentum; energy transferred between translational and angular momentum will cause a reduction or increase in the velocity. Assuming the particle and surface COR are fixed properties, the ratio of velocities at each bounce (v<sub>1</sub>/v<sub>0</sub>, v<sub>2</sub>/v<sub>1</sub>, etc) will be a constant plus or minus the fraction of energy participating in the translational—angular momentum conversion in step <b>90</b>. The energy balance is therefore:</p>
+    <p num="p-0087">
+      <maths id="MATH-US-00006" num="00006">
+        <math overflow="scroll">
+          <mtable>
+            <mtr>
+              <mtd>
+                <mrow>
+                  <mrow>
+                    <mrow>
+                      <mi>K</mi>
+                      <mo>+</mo>
+                      <mi>U</mi>
+                    </mrow>
+                    <mo>=</mo>
+                    <mrow>
+                      <mrow>
+                        <mfrac>
+                          <mn>1</mn>
+                          <mn>2</mn>
+                        </mfrac>
+                        <mo>⁢</mo>
+                        <msup>
+                          <mi>mv</mi>
+                          <mn>2</mn>
+                        </msup>
+                      </mrow>
+                      <mo>+</mo>
+                      <mrow>
+                        <mi>I</mi>
+                        <mo>⁢</mo>
+                        <mstyle>
+                          <mspace width="0.3em" height="0.3ex"> </mspace>
+                        </mstyle>
+                        <mo>⁢</mo>
+                        <mi>ω</mi>
+                      </mrow>
+                    </mrow>
+                  </mrow>
+                  <mo>⁢</mo>
+                  <mstyle>
+                    <mtext>
+</mtext>
+                  </mstyle>
+                  <mo>⁢</mo>
+                  <mrow>
+                    <mrow>
+                      <mrow>
+                        <mfrac>
+                          <mn>1</mn>
+                          <mn>2</mn>
+                        </mfrac>
+                        <mo>⁢</mo>
+                        <msubsup>
+                          <mi>mv</mi>
+                          <mn>1</mn>
+                          <mn>2</mn>
+                        </msubsup>
+                      </mrow>
+                      <mo>+</mo>
+                      <mrow>
+                        <mi>I</mi>
+                        <mo>⁢</mo>
+                        <mstyle>
+                          <mspace width="0.3em" height="0.3ex"> </mspace>
+                        </mstyle>
+                        <mo>⁢</mo>
+                        <msubsup>
+                          <mi>ω</mi>
+                          <mn>1</mn>
+                          <mn>2</mn>
+                        </msubsup>
+                      </mrow>
+                    </mrow>
+                    <mo>=</mo>
+                    <mrow>
+                      <mrow>
+                        <mfrac>
+                          <mn>1</mn>
+                          <mn>2</mn>
+                        </mfrac>
+                        <mo>⁢</mo>
+                        <msubsup>
+                          <mi>mv</mi>
+                          <mn>0</mn>
+                          <mn>2</mn>
+                        </msubsup>
+                      </mrow>
+                      <mo>+</mo>
+                      <mrow>
+                        <mi>I</mi>
+                        <mo>⁢</mo>
+                        <mstyle>
+                          <mspace width="0.3em" height="0.3ex"> </mspace>
+                        </mstyle>
+                        <mo>⁢</mo>
+                        <msubsup>
+                          <mi>ω</mi>
+                          <mn>0</mn>
+                          <mn>2</mn>
+                        </msubsup>
+                      </mrow>
+                      <mo>-</mo>
+                      <mrow>
+                        <mfrac>
+                          <mn>1</mn>
+                          <mn>2</mn>
+                        </mfrac>
+                        <mo>⁢</mo>
+                        <msup>
+                          <mrow>
+                            <mi>m</mi>
+                            <mo>⁡</mo>
+                            <mrow>
+                              <mo>[</mo>
+                              <mrow>
+                                <mrow>
+                                  <mo>(</mo>
+                                  <mi>COR</mi>
+                                  <mo>)</mo>
+                                </mrow>
+                                <mo>⁢</mo>
+                                <msub>
+                                  <mi>v</mi>
+                                  <mn>0</mn>
+                                </msub>
+                              </mrow>
+                              <mo>]</mo>
+                            </mrow>
+                          </mrow>
+                          <mn>2</mn>
+                        </msup>
+                      </mrow>
+                    </mrow>
+                  </mrow>
+                </mrow>
+              </mtd>
+              <mtd>
+                <mrow>
+                  <mi>Equation</mi>
+                  <mo>⁢</mo>
+                  <mstyle>
+                    <mspace width="0.8em" height="0.8ex"> </mspace>
+                  </mstyle>
+                  <mo>⁢</mo>
+                  <mrow>
+                    <mo>(</mo>
+                    <mn>12</mn>
+                    <mo>)</mo>
+                  </mrow>
+                </mrow>
+              </mtd>
+            </mtr>
+          </mtable>
+        </math>
+      </maths>
+    </p>
+    <p num="p-0088">From which we can get the predicted velocity v<sub>1 </sub>or measured change in rotational energy:</p>
+    <p num="p-0089">
+      <maths id="MATH-US-00007" num="00007">
+        <math overflow="scroll">
+          <mtable>
+            <mtr>
+              <mtd>
+                <mrow>
+                  <mrow>
+                    <msub>
+                      <mi>v</mi>
+                      <mn>1</mn>
+                    </msub>
+                    <mo>=</mo>
+                    <msqrt>
+                      <mrow>
+                        <mfrac>
+                          <mn>2</mn>
+                          <mi>m</mi>
+                        </mfrac>
+                        <mo>⁡</mo>
+                        <mrow>
+                          <mo>[</mo>
+                          <mrow>
+                            <mrow>
+                              <mfrac>
+                                <mn>1</mn>
+                                <mn>2</mn>
+                              </mfrac>
+                              <mo>⁢</mo>
+                              <mrow>
+                                <mi>m</mi>
+                                <mo>⁡</mo>
+                                <mrow>
+                                  <mo>[</mo>
+                                  <mrow>
+                                    <mn>1</mn>
+                                    <mo>-</mo>
+                                    <msup>
+                                      <mrow>
+                                        <mo>(</mo>
+                                        <mi>COR</mi>
+                                        <mo>)</mo>
+                                      </mrow>
+                                      <mn>2</mn>
+                                    </msup>
+                                  </mrow>
+                                  <mo>]</mo>
+                                </mrow>
+                              </mrow>
+                              <mo>⁢</mo>
+                              <msubsup>
+                                <mi>v</mi>
+                                <mn>0</mn>
+                                <mn>2</mn>
+                              </msubsup>
+                            </mrow>
+                            <mo>+</mo>
+                            <mrow>
+                              <mi>I</mi>
+                              <mo>⁡</mo>
+                              <mrow>
+                                <mo>(</mo>
+                                <mrow>
+                                  <msubsup>
+                                    <mi>ω</mi>
+                                    <mn>0</mn>
+                                    <mn>2</mn>
+                                  </msubsup>
+                                  <mo>-</mo>
+                                  <msubsup>
+                                    <mi>ω</mi>
+                                    <mn>1</mn>
+                                    <mn>2</mn>
+                                  </msubsup>
+                                </mrow>
+                                <mo>)</mo>
+                              </mrow>
+                            </mrow>
+                          </mrow>
+                          <mo>]</mo>
+                        </mrow>
+                      </mrow>
+                    </msqrt>
+                  </mrow>
+                  <mo>⁢</mo>
+                  <mstyle>
+                    <mtext>
+</mtext>
+                  </mstyle>
+                  <mo>⁢</mo>
+                  <mrow>
+                    <mrow>
+                      <mi>Δ</mi>
+                      <mo>⁢</mo>
+                      <mstyle>
+                        <mspace width="0.3em" height="0.3ex"> </mspace>
+                      </mstyle>
+                      <mo>⁢</mo>
+                      <mi>I</mi>
+                      <mo>⁢</mo>
+                      <mstyle>
+                        <mspace width="0.3em" height="0.3ex"> </mspace>
+                      </mstyle>
+                      <mo>⁢</mo>
+                      <msup>
+                        <mi>ω</mi>
+                        <mn>2</mn>
+                      </msup>
+                    </mrow>
+                    <mo>=</mo>
+                    <mrow>
+                      <mfrac>
+                        <mn>1</mn>
+                        <mn>2</mn>
+                      </mfrac>
+                      <mo>⁢</mo>
+                      <mrow>
+                        <mi>m</mi>
+                        <mo>⁡</mo>
+                        <mrow>
+                          <mo>(</mo>
+                          <mrow>
+                            <mrow>
+                              <mrow>
+                                <mo>[</mo>
+                                <mrow>
+                                  <mn>1</mn>
+                                  <mo>-</mo>
+                                  <msup>
+                                    <mrow>
+                                      <mo>(</mo>
+                                      <mi>COR</mi>
+                                      <mo>)</mo>
+                                    </mrow>
+                                    <mn>2</mn>
+                                  </msup>
+                                </mrow>
+                                <mo>]</mo>
+                              </mrow>
+                              <mo>⁢</mo>
+                              <msubsup>
+                                <mi>v</mi>
+                                <mn>0</mn>
+                                <mn>2</mn>
+                              </msubsup>
+                            </mrow>
+                            <mo>-</mo>
+                            <msubsup>
+                              <mi>v</mi>
+                              <mn>1</mn>
+                              <mn>2</mn>
+                            </msubsup>
+                          </mrow>
+                          <mo>)</mo>
+                        </mrow>
+                      </mrow>
+                    </mrow>
+                  </mrow>
+                </mrow>
+              </mtd>
+              <mtd>
+                <mrow>
+                  <mi>Equation</mi>
+                  <mo>⁢</mo>
+                  <mstyle>
+                    <mspace width="0.8em" height="0.8ex"> </mspace>
+                  </mstyle>
+                  <mo>⁢</mo>
+                  <mrow>
+                    <mo>(</mo>
+                    <mn>13</mn>
+                    <mo>)</mo>
+                  </mrow>
+                </mrow>
+              </mtd>
+            </mtr>
+          </mtable>
+        </math>
+      </maths>
+    </p>
+    <p num="p-0090">If the changes in rotational energy are distributed normally, the Coefficient of Momentum transfers (step <b>100</b>) may be considered the standard deviation of the energy change normalized by kinetic energy:</p>
+    <p num="p-0091">
+      <maths id="MATH-US-00008" num="00008">
+        <math overflow="scroll">
+          <mtable>
+            <mtr>
+              <mtd>
+                <mrow>
+                  <mi>COM</mi>
+                  <mo>=</mo>
+                  <mrow>
+                    <mi>stdev</mi>
+                    <mo>(</mo>
+                    <mfrac>
+                      <mrow>
+                        <mi>Δ</mi>
+                        <mo>⁢</mo>
+                        <mstyle>
+                          <mspace width="0.3em" height="0.3ex"> </mspace>
+                        </mstyle>
+                        <mo>⁢</mo>
+                        <mi>I</mi>
+                        <mo>⁢</mo>
+                        <mstyle>
+                          <mspace width="0.3em" height="0.3ex"> </mspace>
+                        </mstyle>
+                        <mo>⁢</mo>
+                        <msup>
+                          <mi>ω</mi>
+                          <mn>2</mn>
+                        </msup>
+                      </mrow>
+                      <mrow>
+                        <mfrac>
+                          <mn>1</mn>
+                          <mn>2</mn>
+                        </mfrac>
+                        <mo>⁢</mo>
+                        <msubsup>
+                          <mi>mv</mi>
+                          <mn>0</mn>
+                          <mn>2</mn>
+                        </msubsup>
+                      </mrow>
+                    </mfrac>
+                    <mo>)</mo>
+                  </mrow>
+                </mrow>
+              </mtd>
+              <mtd>
+                <mrow>
+                  <mi>Equation</mi>
+                  <mo>⁢</mo>
+                  <mstyle>
+                    <mspace width="0.8em" height="0.8ex"> </mspace>
+                  </mstyle>
+                  <mo>⁢</mo>
+                  <mrow>
+                    <mo>(</mo>
+                    <mn>14</mn>
+                    <mo>)</mo>
+                  </mrow>
+                </mrow>
+              </mtd>
+            </mtr>
+          </mtable>
+        </math>
+      </maths>
+    </p>
+    <p num="p-0092">Furthermore, assuming the changes in angular velocity are distributed normally, the particle COR may be found by using equation (4) as the average of many measurements. The individual COR values calculated this way will be normally distributed around the particle COR due to the effect of the momentum transfer. Then, using a surface for which COR<sub>surface </sub>is known (such as 0.9 for a glass plate), equation 4 may be easily solved to determined COR<sub>particle </sub>as shown in step <b>102</b>.</p>
+    <p num="p-0093">Referring now to <figref idrefs="DRAWINGS">FIG. 6</figref>, the methodology for obtaining the diffuseness parameter will be described. The methodology begins in step <b>104</b> by bouncing a plurality of particles (one at a time) on a plate under the influence of gravity and the location and times of impact are observed, for example with a pair or high speed cameras.</p>
+    <p num="p-0094">The angle of incidence when impacting after the ballistic trajectory it followed equals the launch angle. The variation in the launch angle after impact is modeled according to the following relationship using diffuseness to interpolate between the specular direction and a random lambertian vector:
+<br/>
+<i>{right arrow over (v)}</i> <sub>1</sub> <i>={right arrow over (v)}</i> <sub>specular</sub>(1−diffuseness)+<i>{right arrow over (v)}</i> <sub>lambertian</sub>(diffuseness)
+<br/>
+θ=arc cos(<i>{right arrow over (v)}</i> <sub>1</sub> <i>·{right arrow over (v)}</i>  Equation (15)
+</p>
+    <p num="p-0095">The velocity and direction of the incoming particle is determined (step <b>106</b>) from the measured data and then the velocity and direction of the reflected particle is determined (step <b>108</b>) from the measured data. Next, in step <b>110</b>, the angle variation may be found from the measured data using:</p>
+    <p num="p-0096">
+      <maths id="MATH-US-00009" num="00009">
+        <math overflow="scroll">
+          <mtable>
+            <mtr>
+              <mtd>
+                <mrow>
+                  <mi>θ</mi>
+                  <mo>=</mo>
+                  <mrow>
+                    <mi>arccos</mi>
+                    <mo>(</mo>
+                    <mfrac>
+                      <mrow>
+                        <mrow>
+                          <msub>
+                            <mi>v</mi>
+                            <mrow>
+                              <mi>X</mi>
+                              <mo>⁢</mo>
+                              <mstyle>
+                                <mspace width="0.3em" height="0.3ex"> </mspace>
+                              </mstyle>
+                              <mo>⁢</mo>
+                              <mn>1</mn>
+                            </mrow>
+                          </msub>
+                          <mo>⁢</mo>
+                          <msub>
+                            <mi>v</mi>
+                            <mrow>
+                              <mi>X</mi>
+                              <mo>⁢</mo>
+                              <mstyle>
+                                <mspace width="0.3em" height="0.3ex"> </mspace>
+                              </mstyle>
+                              <mo>⁢</mo>
+                              <mn>0</mn>
+                            </mrow>
+                          </msub>
+                        </mrow>
+                        <mo>+</mo>
+                        <mrow>
+                          <msub>
+                            <mi>v</mi>
+                            <mrow>
+                              <mi>Y</mi>
+                              <mo>⁢</mo>
+                              <mstyle>
+                                <mspace width="0.3em" height="0.3ex"> </mspace>
+                              </mstyle>
+                              <mo>⁢</mo>
+                              <mn>1</mn>
+                            </mrow>
+                          </msub>
+                          <mo>⁢</mo>
+                          <msub>
+                            <mi>v</mi>
+                            <mrow>
+                              <mi>Y</mi>
+                              <mo>⁢</mo>
+                              <mstyle>
+                                <mspace width="0.3em" height="0.3ex"> </mspace>
+                              </mstyle>
+                              <mo>⁢</mo>
+                              <mn>0</mn>
+                            </mrow>
+                          </msub>
+                        </mrow>
+                      </mrow>
+                      <mrow>
+                        <msqrt>
+                          <mrow>
+                            <msubsup>
+                              <mi>v</mi>
+                              <mrow>
+                                <mi>X</mi>
+                                <mo>⁢</mo>
+                                <mstyle>
+                                  <mspace width="0.3em" height="0.3ex"> </mspace>
+                                </mstyle>
+                                <mo>⁢</mo>
+                                <mn>1</mn>
+                              </mrow>
+                              <mn>2</mn>
+                            </msubsup>
+                            <mo>+</mo>
+                            <msubsup>
+                              <mi>v</mi>
+                              <mrow>
+                                <mi>Y</mi>
+                                <mo>⁢</mo>
+                                <mstyle>
+                                  <mspace width="0.3em" height="0.3ex"> </mspace>
+                                </mstyle>
+                                <mo>⁢</mo>
+                                <mn>1</mn>
+                              </mrow>
+                              <mn>2</mn>
+                            </msubsup>
+                          </mrow>
+                        </msqrt>
+                        <mo>⁢</mo>
+                        <msqrt>
+                          <mrow>
+                            <msubsup>
+                              <mi>v</mi>
+                              <mrow>
+                                <mi>X</mi>
+                                <mo>⁢</mo>
+                                <mstyle>
+                                  <mspace width="0.3em" height="0.3ex"> </mspace>
+                                </mstyle>
+                                <mo>⁢</mo>
+                                <mn>0</mn>
+                              </mrow>
+                              <mn>2</mn>
+                            </msubsup>
+                            <mo>+</mo>
+                            <msubsup>
+                              <mi>v</mi>
+                              <mrow>
+                                <mi>Y</mi>
+                                <mo>⁢</mo>
+                                <mstyle>
+                                  <mspace width="0.3em" height="0.3ex"> </mspace>
+                                </mstyle>
+                                <mo>⁢</mo>
+                                <mn>0</mn>
+                              </mrow>
+                              <mn>2</mn>
+                            </msubsup>
+                          </mrow>
+                        </msqrt>
+                      </mrow>
+                    </mfrac>
+                    <mo>)</mo>
+                  </mrow>
+                </mrow>
+              </mtd>
+              <mtd>
+                <mrow>
+                  <mi>Equation</mi>
+                  <mo>⁢</mo>
+                  <mstyle>
+                    <mspace width="0.8em" height="0.8ex"> </mspace>
+                  </mstyle>
+                  <mo>⁢</mo>
+                  <mrow>
+                    <mo>(</mo>
+                    <mn>16</mn>
+                    <mo>)</mo>
+                  </mrow>
+                </mrow>
+              </mtd>
+            </mtr>
+          </mtable>
+        </math>
+      </maths>
+    </p>
+    <p num="p-0097">Since the maximum deviation would occur when the lambertian vector is parallel but opposite the X velocity component, and the specular direction has the initial velocity components,</p>
+    <p num="p-0098">
+      <maths id="MATH-US-00010" num="00010">
+        <math overflow="scroll">
+          <mtable>
+            <mtr>
+              <mtd>
+                <mrow>
+                  <mrow>
+                    <msub>
+                      <mover>
+                        <mi>v</mi>
+                        <mo>→</mo>
+                      </mover>
+                      <mi>specular</mi>
+                    </msub>
+                    <mo>=</mo>
+                    <mrow>
+                      <mo>〈</mo>
+                      <mrow>
+                        <msub>
+                          <mi>v</mi>
+                          <mrow>
+                            <mi>X</mi>
+                            <mo>⁢</mo>
+                            <mstyle>
+                              <mspace width="0.3em" height="0.3ex"> </mspace>
+                            </mstyle>
+                            <mo>⁢</mo>
+                            <mn>0</mn>
+                          </mrow>
+                        </msub>
+                        <mo>,</mo>
+                        <msub>
+                          <mi>v</mi>
+                          <mrow>
+                            <mi>Y</mi>
+                            <mo>⁢</mo>
+                            <mstyle>
+                              <mspace width="0.3em" height="0.3ex"> </mspace>
+                            </mstyle>
+                            <mo>⁢</mo>
+                            <mn>0</mn>
+                          </mrow>
+                        </msub>
+                      </mrow>
+                      <mo>〉</mo>
+                    </mrow>
+                  </mrow>
+                  <mo>⁢</mo>
+                  <mstyle>
+                    <mtext>
+</mtext>
+                  </mstyle>
+                  <mo>⁢</mo>
+                  <mtable>
+                    <mtr>
+                      <mtd>
+                        <mrow>
+                          <msub>
+                            <mover>
+                              <mi>v</mi>
+                              <mo>→</mo>
+                            </mover>
+                            <mn>1</mn>
+                          </msub>
+                          <mo>=</mo>
+                          <mrow>
+                            <mrow>
+                              <mrow>
+                                <mo>〈</mo>
+                                <mrow>
+                                  <msub>
+                                    <mi>v</mi>
+                                    <mrow>
+                                      <mi>X</mi>
+                                      <mo>⁢</mo>
+                                      <mstyle>
+                                        <mspace width="0.3em" height="0.3ex"> </mspace>
+                                      </mstyle>
+                                      <mo>⁢</mo>
+                                      <mn>0</mn>
+                                    </mrow>
+                                  </msub>
+                                  <mo>,</mo>
+                                  <msub>
+                                    <mi>v</mi>
+                                    <mrow>
+                                      <mi>Y</mi>
+                                      <mo>⁢</mo>
+                                      <mstyle>
+                                        <mspace width="0.3em" height="0.3ex"> </mspace>
+                                      </mstyle>
+                                      <mo>⁢</mo>
+                                      <mn>0</mn>
+                                    </mrow>
+                                  </msub>
+                                </mrow>
+                                <mo>〉</mo>
+                              </mrow>
+                              <mo>⁢</mo>
+                              <mrow>
+                                <mo>(</mo>
+                                <mrow>
+                                  <mn>1</mn>
+                                  <mo>-</mo>
+                                  <mi>d</mi>
+                                </mrow>
+                                <mo>)</mo>
+                              </mrow>
+                            </mrow>
+                            <mo>+</mo>
+                            <mrow>
+                              <mrow>
+                                <mo>〈</mo>
+                                <mrow>
+                                  <mrow>
+                                    <mo>-</mo>
+                                    <msub>
+                                      <mi>v</mi>
+                                      <mrow>
+                                        <mi>X</mi>
+                                        <mo>⁢</mo>
+                                        <mstyle>
+                                          <mspace width="0.3em" height="0.3ex"> </mspace>
+                                        </mstyle>
+                                        <mo>⁢</mo>
+                                        <mn>0</mn>
+                                      </mrow>
+                                    </msub>
+                                  </mrow>
+                                  <mo>,</mo>
+                                  <mn>0</mn>
+                                </mrow>
+                                <mo>〉</mo>
+                              </mrow>
+                              <mo>⁢</mo>
+                              <mrow>
+                                <mo>(</mo>
+                                <mi>d</mi>
+                                <mo>)</mo>
+                              </mrow>
+                            </mrow>
+                          </mrow>
+                        </mrow>
+                      </mtd>
+                    </mtr>
+                    <mtr>
+                      <mtd>
+                        <mrow>
+                          <mo>=</mo>
+                          <mrow>
+                            <mo>〈</mo>
+                            <mrow>
+                              <mrow>
+                                <mrow>
+                                  <mo>(</mo>
+                                  <mrow>
+                                    <mn>1</mn>
+                                    <mo>-</mo>
+                                    <mrow>
+                                      <mn>2</mn>
+                                      <mo>⁢</mo>
+                                      <mi>d</mi>
+                                    </mrow>
+                                  </mrow>
+                                  <mo>)</mo>
+                                </mrow>
+                                <mo>⁢</mo>
+                                <msub>
+                                  <mi>v</mi>
+                                  <mrow>
+                                    <mi>X</mi>
+                                    <mo>⁢</mo>
+                                    <mstyle>
+                                      <mspace width="0.3em" height="0.3ex"> </mspace>
+                                    </mstyle>
+                                    <mo>⁢</mo>
+                                    <mn>0</mn>
+                                  </mrow>
+                                </msub>
+                              </mrow>
+                              <mo>,</mo>
+                              <mrow>
+                                <mrow>
+                                  <mo>(</mo>
+                                  <mrow>
+                                    <mn>1</mn>
+                                    <mo>-</mo>
+                                    <mi>d</mi>
+                                  </mrow>
+                                  <mo>)</mo>
+                                </mrow>
+                                <mo>⁢</mo>
+                                <msub>
+                                  <mi>v</mi>
+                                  <mrow>
+                                    <mi>Y</mi>
+                                    <mo>⁢</mo>
+                                    <mstyle>
+                                      <mspace width="0.3em" height="0.3ex"> </mspace>
+                                    </mstyle>
+                                    <mo>⁢</mo>
+                                    <mn>0</mn>
+                                  </mrow>
+                                </msub>
+                              </mrow>
+                            </mrow>
+                            <mo>〉</mo>
+                          </mrow>
+                        </mrow>
+                      </mtd>
+                    </mtr>
+                    <mtr>
+                      <mtd>
+                        <mrow>
+                          <mo>=</mo>
+                          <mrow>
+                            <mo>〈</mo>
+                            <mrow>
+                              <msub>
+                                <mi>v</mi>
+                                <mrow>
+                                  <mi>X</mi>
+                                  <mo>⁢</mo>
+                                  <mstyle>
+                                    <mspace width="0.3em" height="0.3ex"> </mspace>
+                                  </mstyle>
+                                  <mo>⁢</mo>
+                                  <mn>1</mn>
+                                </mrow>
+                              </msub>
+                              <mo>,</mo>
+                              <msub>
+                                <mi>v</mi>
+                                <mrow>
+                                  <mi>Y</mi>
+                                  <mo>⁢</mo>
+                                  <mstyle>
+                                    <mspace width="0.3em" height="0.3ex"> </mspace>
+                                  </mstyle>
+                                  <mo>⁢</mo>
+                                  <mn>1</mn>
+                                </mrow>
+                              </msub>
+                            </mrow>
+                            <mo>〉</mo>
+                          </mrow>
+                        </mrow>
+                      </mtd>
+                    </mtr>
+                  </mtable>
+                  <mo>⁢</mo>
+                  <mstyle>
+                    <mtext>
+</mtext>
+                  </mstyle>
+                  <mo>⁢</mo>
+                  <mrow>
+                    <mi>d</mi>
+                    <mo>=</mo>
+                    <mrow>
+                      <mrow>
+                        <mfrac>
+                          <mn>1</mn>
+                          <mn>2</mn>
+                        </mfrac>
+                        <mo>⁢</mo>
+                        <mrow>
+                          <mo>(</mo>
+                          <mrow>
+                            <mn>1</mn>
+                            <mo>-</mo>
+                            <mfrac>
+                              <msub>
+                                <mi>v</mi>
+                                <mrow>
+                                  <mi>X</mi>
+                                  <mo>⁢</mo>
+                                  <mstyle>
+                                    <mspace width="0.3em" height="0.3ex"> </mspace>
+                                  </mstyle>
+                                  <mo>⁢</mo>
+                                  <mn>1</mn>
+                                </mrow>
+                              </msub>
+                              <msub>
+                                <mi>v</mi>
+                                <mrow>
+                                  <mi>X</mi>
+                                  <mo>⁢</mo>
+                                  <mstyle>
+                                    <mspace width="0.3em" height="0.3ex"> </mspace>
+                                  </mstyle>
+                                  <mo>⁢</mo>
+                                  <mn>0</mn>
+                                </mrow>
+                              </msub>
+                            </mfrac>
+                          </mrow>
+                          <mo>)</mo>
+                        </mrow>
+                      </mrow>
+                      <mo>=</mo>
+                      <mrow>
+                        <mo>(</mo>
+                        <mrow>
+                          <mn>1</mn>
+                          <mo>-</mo>
+                          <mfrac>
+                            <msub>
+                              <mi>v</mi>
+                              <mrow>
+                                <mi>Y</mi>
+                                <mo>⁢</mo>
+                                <mstyle>
+                                  <mspace width="0.3em" height="0.3ex"> </mspace>
+                                </mstyle>
+                                <mo>⁢</mo>
+                                <mn>1</mn>
+                              </mrow>
+                            </msub>
+                            <msub>
+                              <mi>v</mi>
+                              <mrow>
+                                <mi>Y</mi>
+                                <mo>⁢</mo>
+                                <mstyle>
+                                  <mspace width="0.3em" height="0.3ex"> </mspace>
+                                </mstyle>
+                                <mo>⁢</mo>
+                                <mn>0</mn>
+                              </mrow>
+                            </msub>
+                          </mfrac>
+                        </mrow>
+                        <mo>)</mo>
+                      </mrow>
+                    </mrow>
+                  </mrow>
+                </mrow>
+              </mtd>
+              <mtd>
+                <mrow>
+                  <mi>Equation</mi>
+                  <mo>⁢</mo>
+                  <mstyle>
+                    <mspace width="0.8em" height="0.8ex"> </mspace>
+                  </mstyle>
+                  <mo>⁢</mo>
+                  <mrow>
+                    <mo>(</mo>
+                    <mn>17</mn>
+                    <mo>)</mo>
+                  </mrow>
+                </mrow>
+              </mtd>
+            </mtr>
+          </mtable>
+        </math>
+      </maths>
+    </p>
+    <p num="p-0099">Diffuseness can then be solved for using either horizontal or vertical velocity change, assuming enough trials have been run so that the worst case deviation from specular has been measured.</p>
+    <p num="p-0100">Alternatively, diffuseness can be solved for by geometric reasoning.</p>
+    <p num="p-0101">For small particles, it is possible to find sticking velocity by reducing the drop distance until no bounces occur and calculating the velocity from the drop distance. Alternatively, the model may implement a velocity dependent sticking velocity as proposed in the Thornton et al. paper discussed above.</p>
+    <p num="p-0102">One application of the present invention is spacecraft contamination control. Particle contamination can cause failure of spacecraft mechanisms and degradation of optical imaging capability, and can interfere with guidance and navigation sensors. By implementing the particle surface interaction model of the present invention, one can predict contamination transport, or where particle contamination will likely develop. By knowing the relative movement of the spacecraft, rotational and translation movement in orbit, the likely sources of particle contamination, the interaction model can be integrated into an algorithm to map particle contamination on the surfaces of the spacecraft. Knowledge of likely contaminated surfaces is useful during the design and control of spacecraft. By continuing to apply the interaction model, the design can be altered and evolve to curb or isolate contamination on certain surfaces of the spacecraft. Particle surface contamination can also be a factor to control flight dynamics of an orbiting space, again curbing or isolating particle contamination on more sensitive portions of the spacecraft.</p>
+    <p num="p-0103">It should be understood that while the bulk of the foregoing discussion has focused on particulate contamination on spacecraft, the present invention is not limited to such applications and is applicable to other particle sources and environments.</p>
+    <p num="p-0104"> <figref idrefs="DRAWINGS">FIG. 7</figref> is a block diagram that illustrates an exemplary hardware environment of the present invention. The present invention is typically implemented using a computer <b>114</b> comprised of microprocessor means, random access memory (RAM), read-only memory (ROM) and other components. The computer may be a personal computer, mainframe computer or other computing device. Resident in the computer <b>114</b>, or peripheral to it, will be a storage device <b>116</b> of some type such as a hard disk drive, floppy disk drive, CD-ROM drive, tape drive or other storage device.</p>
+    <p num="p-0105">Generally speaking, the software implementation of the present invention, program <b>118</b> in <figref idrefs="DRAWINGS">FIG. 7</figref>, is tangibly embodied in a computer-readable medium such as one of the storage devices <b>116</b> mentioned above. The program <b>118</b> comprises instructions which, when read and executed by the microprocessor of the computer <b>114</b> causes the computer <b>114</b> to perform the steps necessary to execute the steps or elements of the present invention.</p>
+    <p num="p-0106">It will be apparent to those skilled in the art having regard to this disclosure that other modifications of this invention beyond those embodiments specifically described here may be made without departing from the spirit of the invention. Accordingly, such modifications are considered within the scope of the invention as limited solely by the appended claims.</p>
+    
+  </div>
+  </div>
+  </section>
+
+  <section itemprop="claims" itemscope>
+    <h2>Claims (<span itemprop="count">1</span>)</h2>
+    
+    <div itemprop="content" html><div mxw-id="PCLM57507035" lang="EN" load-source="patent-office" class="claims">
+    <claim-statement>The invention claimed is:</claim-statement>
+    <div class="claim"> <div id="CLM-00001" num="00001" class="claim">
+      <div class="claim-text">1. A program storage device readable by a machine, tangibly embodying a program of instructions executable by the machine to perform method steps for determining particle—surface interactions, the method steps comprising the steps of:
+<div class="claim-text">inputting particle and surface properties;</div>
+<div class="claim-text">tracking a plurality of particles through capture on a surface; and</div>
+<div class="claim-text">determining a distribution of particles reflecting from the surface;
+<div class="claim-text">wherein the step of tracking a plurality of particles through capture on a surface comprises the step of initializing each particle to a position and velocity and moving the particles and interacting with a surface;
+<div class="claim-text">wherein moving the particles and interacting with a surface comprises the steps of</div>
+<div class="claim-text">determining a path of each of the particles;</div>
+<div class="claim-text">checking whether each of the particles intersects with the surface and proceeding to the next step for each particle where there is an intersection;</div>
+<div class="claim-text">checking whether each of the particles is captured by the surface and proceeding to the next step for each particle which is not captured by the surface; and</div>
+<div class="claim-text">determining a new direction and velocity for each particle;</div>
+</div>
+<div class="claim-text">wherein the step of determining a new direction and velocity for each particle comprises the steps of:
+<div class="claim-text">determining a coefficient of restitution;</div>
+<div class="claim-text">determining a momentum loss from the coefficient of restitution;</div>
+<div class="claim-text">determining a pre-impact kinetic energy;</div>
+<div class="claim-text">determining a post-impact kinetic energy;</div>
+<div class="claim-text">determining a coefficient of momentum transfer;</div>
+<div class="claim-text">determining a change in rotational momentum of each particle;</div>
+<div class="claim-text">updating the post-impact kinetic energy and rotational momentum of each particle;</div>
+<div class="claim-text">determining a post-impact velocity of each particle;</div>
+<div class="claim-text">determining a total momentum of each particle;</div>
+<div class="claim-text">determining a diffuseness of each particle;</div>
+<div class="claim-text">generating a diffuseness vector for each particle;</div>
+<div class="claim-text">determining a specular reflection vector;</div>
+<div class="claim-text">determining a post-impact reflection direction; and</div>
+<div class="claim-text">determining a reflection velocity vector</div>
+</div>
+<div class="claim-text">wherein the step of determining a diffuseness of each particle comprises the steps of:</div>
+</div>
+<div class="claim-text">inputting measurements of an apogee of each bounce of a plurality of particles bounded on a plate and time to reach the apogee;
+<div class="claim-text">determining a velocity and a direction of each incoming particle;</div>
+<div class="claim-text">determining a velocity and a direction of each reflected particle;</div>
+<div class="claim-text">determining an angle between a specular reflection vector and an actual reflection vector; and</div>
+<div class="claim-text">determining diffuseness from the angle.</div>
+</div>
+</div>
+    </div>
+  </div> </div>
+  </div>
+  </section>
+
+  <section itemprop="application" itemscope>
+
+    <section itemprop="metadata" itemscope>
+        <span itemprop="applicationNumber">US12/170,683</span>
+        <span itemprop="priorityDate">2008-06-12</span>
+        <span itemprop="filingDate">2008-07-10</span>
+        <span itemprop="title">Particle-surface interaction model and method of determining particle-surface interactions 
+       </span>
+        <span itemprop="ifiStatus">Active</span>
+        <span itemprop="ifiExpiration">2030-09-29</span>
+        <a href="/patent/US8155939B2/en">
+            <span itemprop="representativePublication">US8155939B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+        </a>
+    </section>
+
+    <h2>Priority Applications (2)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                    <th>Title</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="priorityApps" itemscope repeat>
+                <td>
+                   <span itemprop="applicationNumber">US6103308P</span>
+                   <span itemprop="isUsProvisional">true</span>
+                   
+                <td itemprop="priorityDate">2008-06-12</td>
+                <td itemprop="filingDate">2008-06-12</td>
+                <td itemprop="title"></td>
+              </tr><tr itemprop="priorityApps" itemscope repeat>
+                <td>
+                   <span itemprop="applicationNumber">US12/170,683</span>
+                   
+                   <a href="/patent/US8155939B2/en">
+                        <span itemprop="representativePublication">US8155939B2</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                <td itemprop="priorityDate">2008-06-12</td>
+                <td itemprop="filingDate">2008-07-10</td>
+                <td itemprop="title">Particle-surface interaction model and method of determining particle-surface interactions 
+       </td>
+              </tr>
+           </tbody>
+       </table>
+
+    <h2>Applications Claiming Priority (1)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                    <th>Title</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="appsClaimingPriority" itemscope repeat>
+                <td>
+                   <span itemprop="applicationNumber">US12/170,683</span>
+                   <a href="/patent/US8155939B2/en">
+                        <span itemprop="representativePublication">US8155939B2</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                <td itemprop="priorityDate">2008-06-12</td>
+                <td itemprop="filingDate">2008-07-10</td>
+                <td itemprop="title">Particle-surface interaction model and method of determining particle-surface interactions 
+       </td>
+              </tr>
+           </tbody>
+       </table>
+
+    
+
+    
+
+    <h2>Publications (2)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Publication Number</th>
+                    <th>Publication Date</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="pubs" itemscope repeat>
+                <td>
+                   <span itemprop="publicationNumber">US20090312994A1</span>
+                   
+                   <a href="/patent/US20090312994A1/en">US20090312994A1
+                       (<span itemprop="primaryLanguage">en</span>)
+                   </a>
+                </td>
+                <td itemprop="publicationDate">2009-12-17</td>
+              </tr><tr itemprop="pubs" itemscope repeat>
+                <td>
+                   <span itemprop="publicationNumber">US8155939B2</span>
+                   
+                   <span itemprop="thisPatent">true</span>
+                   <a href="/patent/US8155939B2/en">US8155939B2
+                       (<span itemprop="primaryLanguage">en</span>)
+                   </a>
+                </td>
+                <td itemprop="publicationDate">2012-04-10</td>
+              </tr>
+           </tbody>
+        </table>
+
+  </section>
+
+  <section itemprop="family" itemscope>
+    <h1>Family</h1>
+    <h2>ID=41415554</h2>
+
+    <h2>Family Applications (1)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Title</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="applications" itemscope repeat>
+                <td>
+                    <span itemprop="applicationNumber">US12/170,683</span>
+                    <span itemprop="ifiStatus">Active</span>
+                    <span itemprop="ifiExpiration">2030-09-29</span>
+                    <a href="/patent/US8155939B2/en">
+                        <span itemprop="representativePublication">US8155939B2</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                </td>
+                <td itemprop="priorityDate">2008-06-12</td>
+                <td itemprop="filingDate">2008-07-10</td>
+                <td itemprop="title">Particle-surface interaction model and method of determining particle-surface interactions 
+       </td>
+              </tr>
+           </tbody>
+        </table>
+
+    
+
+    
+
+    <h2>Country Status (1)</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Country</th>
+            <th>Link</th>
+          </tr>
+        </thead>
+        <tbody>
+        <tr itemprop="countryStatus" itemscope repeat>
+            <td>
+              <span itemprop="countryCode">US</span>
+                (<span itemprop="num">1</span>)
+              <meta itemprop="thisCountry" content="true">
+            </td>
+            <td>
+              <a href="/patent/US8155939B2/en">
+                <span itemprop="representativePublication">US8155939B2</span>
+                  (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+    
+
+    <h2>Families Citing this family (1)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/JP6098330B2/en">
+              <span itemprop="publicationNumber">JP6098330B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2013-04-19</td>
+          <td itemprop="publicationDate">2017-03-22</td>
+          <td><span itemprop="assigneeOriginal">富士通株式会社</span></td>
+          <td itemprop="title">Numerical calculation program, numerical calculation method, and information processing apparatus 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+
+    
+
+    
+
+    
+    <ul>
+      
+      <li itemprop="applicationsByYear" itemscope repeat>
+        <span itemprop="year">2008</span>
+        <ul>
+          
+          <li itemprop="application" itemscope repeat>
+            <span itemprop="filingDate">2008-07-10</span>
+            <span itemprop="countryCode">US</span>
+            <span itemprop="applicationNumber">US12/170,683</span>
+            <a href="/patent/US8155939B2/en"><span itemprop="documentId">patent/US8155939B2/en</span></a>
+            <span itemprop="legalStatusCat">active</span>
+            <span itemprop="legalStatus">Active</span>
+            
+            <span itemprop="thisApp" content="true" bool></span>
+            
+          </li>
+          
+        </ul>
+      </li>
+      
+    </ul>
+    
+
+    </section>
+
+  
+
+  <section>
+    <h2>Non-Patent Citations (17)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">"<a href='http://scholar.google.com/scholar?q="Contamination+Control+Plan+for+Midshipman+Space+Technology+Applications+Research+%28MidSTAR%29-1+Spacecraft"'>Contamination Control Plan for Midshipman Space Technology Applications Research (MidSTAR)-1 Spacecraft</a>", 2004, 11 pages, accessed at http://www.usna.edu/Satellite/midstar/.../Contamination%20Control%20Plan.doc.</span>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">A. Busnaina et al., "<a href='http://scholar.google.com/scholar?q="Submicron+Particle+Motion+and+Deposition+in+a+CVD+Chamber"'>Submicron Particle Motion and Deposition in a CVD Chamber</a>", Institute of Environmental Sciences Proceedings vol. 2 (1992), pp. 1-9.</span>
+            
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">A.L.Lee, "<a href='http://scholar.google.com/scholar?q="Particle+Dispersion+Around+a+Spacecraft"'>Particle Dispersion Around a Spacecraft</a>", American Institute of Aeronautics and Astronautics, Aerospace Science Meeting, 21st, Reno, NV (1983), 8 pages.</span>
+            
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Baraff, D. "<a href='http://scholar.google.com/scholar?q="An+Introduction+to+Physically+Based+Modelling%3A+Reigid+Body+Simulation+I-Unconstrained+Rigid+Body+Dynamics"'>An Introduction to Physically Based Modelling: Reigid Body Simulation I-Unconstrained Rigid Body Dynamics</a>", SIGGRAPH '97 Course Notes, 1997, 32 pages.</span>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Baraff, D. "<a href='http://scholar.google.com/scholar?q="An+Introduction+to+Physically+Based+Modelling%3A+Reigid+Body+Simulation+I%E2%80%94Unconstrained+Rigid+Body+Dynamics"'>An Introduction to Physically Based Modelling: Reigid Body Simulation I—Unconstrained Rigid Body Dynamics</a>", SIGGRAPH '97 Course Notes, 1997, 32 pages.</span>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">C. Thornton et al., "<a href='http://scholar.google.com/scholar?q="A+theoretical+model+for+the+stick%2Fbounce+behavior+of+adhesive%2C+elastic-plastic+spheres"'>A theoretical model for the stick/bounce behavior of adhesive, elastic-plastic spheres</a>", Powder Technology 99 (1998), pp. 154-162.</span>
+            
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Cross, R. "<a href='http://scholar.google.com/scholar?q="Measurements+of+the+horizontal+coefficient+of+restitution+for+a+superball+and+a+tennis+ball"'>Measurements of the horizontal coefficient of restitution for a superball and a tennis ball</a>", Am. J. Phys. vol. 70 No. 5, May 2002, pp. 482-489.</span>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Deverich, I.V. "<a href='http://scholar.google.com/scholar?q="Probabilistic+Model+of+a+Particle-Rough+Wall+Collision"'>Probabilistic Model of a Particle-Rough Wall Collision</a>", Journal of Applied Mechanics and Technical Physics, vol. 40, No. 5, 1999, pp. 989-994.</span>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Eugene N. Borson, "<a href='http://scholar.google.com/scholar?q="A+model+for+particle+redistribution+during+spacecraft+launch"'>A model for particle redistribution during spacecraft launch</a>", Proceedings of SPIE, vol. 4774, (2002), pp. 67-78.</span>
+            
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Farkas et al. "<a href='http://scholar.google.com/scholar?q="Measurement+of+coefficient+of+restitution+made+easy"'>Measurement of coefficient of restitution made easy</a>", Physics Education vol. 40, No. 1, Jan. 2006, 4 pages.</span>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Lee, A.L. "<a href='http://scholar.google.com/scholar?q="Particle+Dispersion+Around+a+Spacecraft"'>Particle Dispersion Around a Spacecraft</a>", AIAA '83, Jan. 10-13, 1983, 8 pages.</span>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Neumann, E. "<a href='http://scholar.google.com/scholar?q="MyPhysicsLab-Rigid+Body+Collisions"'>MyPhysicsLab-Rigid Body Collisions</a>", 2004, 11 pages, accessible at http://www.myphysicslab.com/collision.html.</span>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Neumann, E. "<a href='http://scholar.google.com/scholar?q="MyPhysicsLab%E2%80%94Rigid+Body+Collisions"'>MyPhysicsLab—Rigid Body Collisions</a>", 2004, 11 pages, accessible at http://www.myphysicslab.com/collision.html.</span>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Robinson, S. "<a href='http://scholar.google.com/scholar?q="The+Visualisation+of+Forces+in+Dynamic+Simulations"'>The Visualisation of Forces in Dynamic Simulations</a>", May 2002, 67 pages.</span>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Stokes, S. "<a href='http://scholar.google.com/scholar?q="Collision+detection+in+the+simulation+of+rigid+body+motion"'>Collision detection in the simulation of rigid body motion</a>", Sep. 29, 2005, 60 pages.</span>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Thornton et al. "<a href='http://scholar.google.com/scholar?q="A+theoretical+model+for+the+stick%2Fbound+behavior+of+adhesive%2C+elastic-plastic+spheres"'>A theoretical model for the stick/bound behavior of adhesive, elastic-plastic spheres</a>", Powder Technology vol. 99, 1998, pp. 154-162.</span>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Witkin, A. "<a href='http://scholar.google.com/scholar?q="Physically+Based+Modelling%3A+Principles+and+Practice+Particle+System+Dynamics"'>Physically Based Modelling: Principles and Practice Particle System Dynamics</a>", SIGGRAPH '97 Course Notes, 1997, 13 pages.</span>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  
+
+  <section>
+    <h2>Also Published As</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Publication date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="docdbFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20090312994A1/en">
+              <span itemprop="publicationNumber">US20090312994A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+          </td>
+          <td itemprop="publicationDate">2009-12-17</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Similar Documents</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Publication</th>
+          <th>Publication Date</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="1643789822340024302">
+              <a href="/scholar/1643789822340024302"><span itemprop="scholarAuthors">Kawamura et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2011">2011</time>
+            
+          </td>
+          <td itemprop="title">The Japanese space gravitational wave antenna: DECIGO</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="10095326259462251709">
+              <a href="/scholar/10095326259462251709"><span itemprop="scholarAuthors">Ozernoy et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2000">2000</time>
+            
+          </td>
+          <td itemprop="title">Signatures of exosolar planets in dust debris disks</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="3520200159089234418">
+              <a href="/scholar/3520200159089234418"><span itemprop="scholarAuthors">Sharif-Khodaei et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2012">2012</time>
+            
+          </td>
+          <td itemprop="title">Determination of impact location on composite stiffened panels</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="5201649557176714214">
+              <a href="/scholar/5201649557176714214"><span itemprop="scholarAuthors">Wada et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2006">2006</time>
+            
+          </td>
+          <td itemprop="title">Numerical simulation of impact cratering on granular material</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="15786216893925184325">
+              <a href="/scholar/15786216893925184325"><span itemprop="scholarAuthors">Babić et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1990">1990</time>
+            
+          </td>
+          <td itemprop="title">The stress tensor in granular shear flows of uniform, deformable disks at high solids concentrations</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="5750604072123306435">
+              <a href="/scholar/5750604072123306435"><span itemprop="scholarAuthors">Horányi et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2015">2015</time>
+            
+          </td>
+          <td itemprop="title">A permanent, asymmetric dust cloud around the Moon</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="13967143422607621354">
+              <a href="/scholar/13967143422607621354"><span itemprop="scholarAuthors">Vokrouhlicky et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2015">2015</time>
+            
+          </td>
+          <td itemprop="title">The Yarkovsky and YORP effects</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="16655319006460844944">
+              <a href="/scholar/16655319006460844944"><span itemprop="scholarAuthors">Kobayashi et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2001">2001</time>
+            
+          </td>
+          <td itemprop="title">The effects of a stellar encounter on a planetesimal disk</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="357744532080691825">
+              <a href="/scholar/357744532080691825"><span itemprop="scholarAuthors">Richardson et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2009">2009</time>
+            
+          </td>
+          <td itemprop="title">Numerical simulations of asteroids modelled as gravitational aggregates with cohesion</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="12043034733884382966">
+              <a href="/scholar/12043034733884382966"><span itemprop="scholarAuthors">Jiang et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2010">2010</time>
+            
+          </td>
+          <td itemprop="title">The evolution of wide binary stars</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="14929670695165697220">
+              <a href="/scholar/14929670695165697220"><span itemprop="scholarAuthors">Leine et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2014">2014</time>
+            
+          </td>
+          <td itemprop="title">Simulation of rockfall trajectories with consideration of rock shape</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="12151673168339434500">
+              <a href="/scholar/12151673168339434500"><span itemprop="scholarAuthors">Granvik et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2012">2012</time>
+            
+          </td>
+          <td itemprop="title">The population of natural Earth satellites</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="12365219517017280159">
+              <a href="/scholar/12365219517017280159"><span itemprop="scholarAuthors">Venugopal et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2001">2001</time>
+            
+          </td>
+          <td itemprop="title">3D simulation of charge motion in tumbling mills by the discrete element method</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="16017037376789110122">
+              <a href="/scholar/16017037376789110122"><span itemprop="scholarAuthors">Scheeres et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2000">2000</time>
+            
+          </td>
+          <td itemprop="title">Effects of gravitational interactions on asteroid spin states</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="1614448610285597563">
+              <a href="/scholar/1614448610285597563"><span itemprop="scholarAuthors">Horányi et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2004">2004</time>
+            
+          </td>
+          <td itemprop="title">Dusty plasma effects in Saturn&#39;s magnetosphere</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="12060752008169584906">
+              <a href="/scholar/12060752008169584906"><span itemprop="scholarAuthors">Rozitis et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2012">2012</time>
+            
+          </td>
+          <td itemprop="title">The influence of rough surface thermal-infrared beaming on the Yarkovsky and YORP effects</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="15088111424402363702">
+              <a href="/scholar/15088111424402363702"><span itemprop="scholarAuthors">Teufelsbauer et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2009">2009</time>
+            
+          </td>
+          <td itemprop="title">Flow–obstacle interaction in rapid granular avalanches: DEM simulation and comparison with experiment</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="8794807761600737304">
+              <a href="/scholar/8794807761600737304"><span itemprop="scholarAuthors">Ignatov</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1996">1996</time>
+            
+          </td>
+          <td itemprop="title">Lesage gravity in dusty plasmas</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="15380637450599176666">
+              <a href="/scholar/15380637450599176666"><span itemprop="scholarAuthors">Lee et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2012">2012</time>
+            
+          </td>
+          <td itemprop="title">Review of pyroshock wave measurement and simulation for space systems</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="10951991285385353117">
+              <a href="/scholar/10951991285385353117"><span itemprop="scholarAuthors">Hamilton</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1996">1996</time>
+            
+          </td>
+          <td itemprop="title">The asymmetric time-variable rings of Mars</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="16738764555549315655">
+              <a href="/scholar/16738764555549315655"><span itemprop="scholarAuthors">Bowler</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2013">2013</time>
+            
+          </td>
+          <td itemprop="title">Gravitation and Relativity: International Series in Natural Philosophy</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="43168334216982848">
+              <a href="/scholar/43168334216982848"><span itemprop="scholarAuthors">Colombo et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2011">2011</time>
+            
+          </td>
+          <td itemprop="title">Orbital Dynamics of&#34; Smart-Dust&#34; Devices with Solar Radiation Pressure and Drag</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="15338786351125289949">
+              <a href="/scholar/15338786351125289949"><span itemprop="scholarAuthors">Ziebart et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2005">2005</time>
+            
+          </td>
+          <td itemprop="title">Combined radiation pressure and thermal modelling of complex satellites: Algorithms and on-orbit tests</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="16698185917713984430">
+              <a href="/scholar/16698185917713984430"><span itemprop="scholarAuthors">Altobelli et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2003">2003</time>
+            
+          </td>
+          <td itemprop="title">Cassini between Venus and Earth: Detection of interstellar dust</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="369878749120404289">
+              <a href="/scholar/369878749120404289"><span itemprop="scholarAuthors">Davies</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2004">2004</time>
+            
+          </td>
+          <td itemprop="title">Quantum mechanics and the equivalence principle</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Legal Events</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Code</th>
+          <th>Title</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2012-03-09">2012-03-09</time></td>
+          <td itemprop="code">AS</td>
+          <td itemprop="title">Assignment</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Owner name</strong>:
+              <span itemprop="value">UNITED STATES OF AMERICA AS REPRESENTED BY THE ADM</span>
+            </p>
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">ASSIGNMENT OF ASSIGNORS INTEREST;ASSIGNOR:HUGHES, DAVID W., MR.;REEL/FRAME:027834/0834</span>
+            </p>
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Effective date</strong>:
+              <span itemprop="value">20080612</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2012-03-21">2012-03-21</time></td>
+          <td itemprop="code">STCF</td>
+          <td itemprop="title">Information on status: patent grant</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">PATENTED CASE</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2015-10-15">2015-10-15</time></td>
+          <td itemprop="code">FPAY</td>
+          <td itemprop="title">Fee payment</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Year of fee payment</strong>:
+              <span itemprop="value">4</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2015-10-15">2015-10-15</time></td>
+          <td itemprop="code">SULP</td>
+          <td itemprop="title">Surcharge for late payment</td>
+          <td>
+            
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+</article>
+
+    </search-app>
+    <script type="text/javascript" src="//www.gstatic.com/feedback/api.js"></script>
+    <script async="" defer="" src="//www.google.com/insights/consumersurveys/async_survey?site=cxkjf7ipxgbnnjy6k35ezcvbbe"></script>
+  </body>
+</html>

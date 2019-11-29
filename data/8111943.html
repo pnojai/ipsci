@@ -1,0 +1,3766 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>US8111943B2 - Smart image enhancement process 
+        - Google Patents</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="referrer" content="origin-when-crossorigin">
+    <link rel="canonical" href="https://patents.google.com/patent/US8111943B2/en">
+    <meta name="description" content="
+     Contrast and lightness measures are used to first classify the image as being one of non-turbid and turbid. If turbid, the original image is enhanced to generate a first enhanced image. If non-turbid, the original image is classified in terms of a merged contrast/lightness score based on the contrast and lightness measures. The non-turbid image is enhanced to generate a second enhanced image when a poor contrast/lightness score is associated therewith. When the second enhanced image has a poor contrast/lightness score associated therewith, this image is enhanced to generate a third enhanced image. A sharpness measure is computed for one image that is selected from (i) the non-turbid image, (ii) the first enhanced image, (iii) the second enhanced image when a good contrast/lightness score is associated therewith, and (iv) the third enhanced image. If the selected image is not-sharp, it is sharpened to generate a sharpened image. The final image is selected from the selected image and the sharpened image. 
+   
+   ">
+    
+    <meta name="DC.type" content="patent">
+    
+    <meta name="DC.title" content="Smart image enhancement process 
+       ">
+    
+    <meta name="DC.date" content="2009-04-15" scheme="dateSubmitted">
+    
+    <meta name="DC.description" content="
+     Contrast and lightness measures are used to first classify the image as being one of non-turbid and turbid. If turbid, the original image is enhanced to generate a first enhanced image. If non-turbid, the original image is classified in terms of a merged contrast/lightness score based on the contrast and lightness measures. The non-turbid image is enhanced to generate a second enhanced image when a poor contrast/lightness score is associated therewith. When the second enhanced image has a poor contrast/lightness score associated therewith, this image is enhanced to generate a third enhanced image. A sharpness measure is computed for one image that is selected from (i) the non-turbid image, (ii) the first enhanced image, (iii) the second enhanced image when a good contrast/lightness score is associated therewith, and (iv) the third enhanced image. If the selected image is not-sharp, it is sharpened to generate a sharpened image. The final image is selected from the selected image and the sharpened image. 
+   
+   ">
+    
+    <meta name="citation_patent_application_number" content="US:12/423,907">
+    
+    <meta name="citation_pdf_url" content="https://patentimages.storage.googleapis.com/2d/6d/41/35e5db47626d6e/US8111943.pdf">
+    
+    <meta name="citation_patent_number" content="US:8111943">
+    
+    <meta name="DC.date" content="2012-02-07" scheme="issue">
+    
+    <meta name="DC.contributor" content="Daniel J. Jobson" scheme="inventor">
+    
+    <meta name="DC.contributor" content="Zia-ur Rahman" scheme="inventor">
+    
+    <meta name="DC.contributor" content="Glenn A. Woodell" scheme="inventor">
+    
+    <meta name="DC.contributor" content="National Aeronautics and Space Administration (NASA)" scheme="assignee">
+    
+    <meta name="DC.relation" content="US:5287176" scheme="references">
+    
+    <meta name="DC.relation" content="US:5841911" scheme="references">
+    
+    <meta name="DC.relation" content="US:5991456" scheme="references">
+    
+    <meta name="DC.relation" content="US:6205257" scheme="references">
+    
+    <meta name="DC.relation" content="US:20070201763:A1" scheme="references">
+    
+    <meta name="DC.relation" content="US:7283683" scheme="references">
+    
+    <meta name="DC.relation" content="US:20070172121:A1" scheme="references">
+    
+    <meta name="DC.relation" content="US:20060092474:A1" scheme="references">
+    
+    <meta name="DC.relation" content="US:7136508" scheme="references">
+    
+    <meta name="DC.relation" content="US:7013025" scheme="references">
+    
+    <meta name="DC.relation" content="US:6842543" scheme="references">
+    
+    <meta name="DC.relation" content="US:7099520" scheme="references">
+    
+    <meta name="DC.relation" content="US:6843125" scheme="references">
+    
+    <meta name="DC.relation" content="US:20040136605:A1" scheme="references">
+    
+    <meta name="DC.relation" content="US:7170645" scheme="references">
+    
+    <meta name="DC.relation" content="US:7187808" scheme="references">
+    
+    <meta name="DC.relation" content="US:6909815" scheme="references">
+    
+    <meta name="DC.relation" content="US:7315656" scheme="references">
+    
+    <meta name="DC.relation" content="US:7209183" scheme="references">
+    
+    <meta name="DC.relation" content="US:20060216959:A1" scheme="references">
+    
+    <meta name="DC.relation" content="US:7308154" scheme="references">
+    
+    <meta name="DC.relation" content="US:20050123211:A1" scheme="references">
+    
+    <meta name="DC.relation" content="US:20050163393:A1" scheme="references">
+    
+    <meta name="DC.relation" content="US:20060126959:A1" scheme="references">
+    
+    <meta name="DC.relation" content="US:20060245647:A1" scheme="references">
+    
+    <meta name="DC.relation" content="US:20060268180:A1" scheme="references">
+    
+    <meta name="DC.relation" content="US:7352410" scheme="references">
+    
+    <meta name="DC.relation" content="US:20070009167:A1" scheme="references">
+    
+    <meta name="DC.relation" content="US:20070172145:A1" scheme="references">
+    
+    <meta name="DC.relation" content="US:20070217707:A1" scheme="references">
+    
+    <meta name="DC.relation" content="US:20070223814:A1" scheme="references">
+    
+    <meta name="DC.relation" content="US:20070286522:A1" scheme="references">
+    
+    <meta name="DC.relation" content="US:20080044083:A1" scheme="references">
+    
+    <meta name="DC.relation" content="US:20080050031:A1" scheme="references">
+    
+    <meta name="citation_reference" content="Mahiny et al, &#34;A Comparison of Four Common Atmospheric Correction Methods&#34;, Photogrammetric Engineering and Remote Sensing, 2007." scheme="references">
+    
+    <meta name="citation_reference" content="Narasimhan et al, &#34;Contrast Restoration of Weather Degraded Images&#34;, IEEE 2003." scheme="references">
+    
+    <meta name="citation_reference" content="Narasimhan et al, &#34;Vision and the Atmosphere&#34;, IJCV 2002." scheme="references">
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,400italic,500,500italic,700">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Product+Sans">
+    <style>
+      body { transition: none; }
+    </style>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-27188110-4', 'auto');
+
+      version = 'patent-search.search_20191120_RC00';
+
+      function sendFeedback() {
+        userfeedback.api.startFeedback({
+          'productId': '713680',
+          'bucket': 'patent-search-web',
+          'productVersion': version,
+        });
+      }
+
+      window.experiments = {};
+      window.experiments.patentCountries = "ae,ag,al,am,ao,ap,ar,at,au,aw,az,ba,bb,bd,be,bf,bg,bh,bj,bn,bo,br,bw,bx,by,bz,ca,cf,cg,ch,ci,cl,cm,cn,co,cr,cs,cu,cy,cz,dd,de,dj,dk,dm,do,dz,ea,ec,ee,eg,em,ep,es,fi,fr,ga,gb,gc,gd,ge,gh,gm,gn,gq,gr,gt,gw,hk,hn,hr,hu,ib,id,ie,il,in,ir,is,it,jo,jp,ke,kg,kh,km,kn,kp,kr,kw,kz,la,lc,li,lk,lr,ls,lt,lu,lv,ly,ma,mc,md,me,mg,mk,ml,mn,mo,mr,mt,mw,mx,my,mz,na,ne,ng,ni,nl,no,nz,oa,om,pa,pe,pg,ph,pl,pt,py,qa,ro,rs,ru,rw,sa,sc,sd,se,sg,si,sk,sl,sm,sn,st,su,sv,sy,sz,td,tg,th,tj,tm,tn,tr,tt,tw,tz,ua,ug,us,uy,uz,vc,ve,vn,wo,yu,za,zm,zw";
+      
+      
+      window.profilePicture = "";
+
+      window.Polymer = {
+        dom: 'shady',
+        lazyRegister: true,
+      };
+    </script>
+
+    <script src="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/webcomponentsjs/webcomponents-lite.min.js"></script>
+    
+    <link rel="import" href="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/search-app-vulcanized.html">
+    
+  </head>
+  <body unresolved>
+    
+    <script src="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/search-app-vulcanized.js"></script>
+    
+    <search-app>
+      
+      
+
+      <article class="result" itemscope itemtype="http://schema.org/ScholarlyArticle">
+  <h1 itemprop="pageTitle">US8111943B2 - Smart image enhancement process 
+        - Google Patents</h1>
+  <span itemprop="title">Smart image enhancement process 
+       </span>
+
+  <meta itemprop="type" content="patent">
+  <a href="https://patentimages.storage.googleapis.com/2d/6d/41/35e5db47626d6e/US8111943.pdf" itemprop="pdfLink">Download PDF</a>
+  <h2>Info</h2>
+
+  <dl>
+    <dt>Publication number</dt>
+    <dd itemprop="publicationNumber">US8111943B2</dd>
+    <meta itemprop="numberWithoutCodes" content="8111943">
+    <meta itemprop="kindCode" content="B2">
+    <meta itemprop="publicationDescription" content="Patent ( having previously published pre-grant publication)">
+    
+    <span>US8111943B2</span>
+    
+    <span>US12/423,907</span>
+    
+    <span>US42390709A</span>
+    
+    <span>US8111943B2</span>
+    
+    <span>US 8111943 B2</span>
+    
+    <span>US8111943 B2</span>
+    
+    <span>US 8111943B2</span>
+    
+    <span>  </span>
+    
+    <span> </span>
+    
+    <span> </span>
+    
+    <span>US 42390709 A</span>
+    
+    <span>US42390709 A</span>
+    
+    <span>US 42390709A</span>
+    
+    <span>US 8111943 B2</span>
+    
+    <span>US8111943 B2</span>
+    
+    <span>US 8111943B2</span>
+    
+
+    <dt>Authority</dt>
+    <dd itemprop="countryCode">US</dd>
+    <dd itemprop="countryName">United States</dd>
+
+    <dt>Prior art keywords</dt>
+    
+    <dd itemprop="priorArtKeywords" repeat>image</dd>
+    <dd itemprop="priorArtKeywords" repeat>contrast</dd>
+    <dd itemprop="priorArtKeywords" repeat>turbid</dd>
+    <dd itemprop="priorArtKeywords" repeat>measure</dd>
+    <dd itemprop="priorArtKeywords" repeat>score</dd>
+
+    <dt>Prior art date</dt>
+    <dd><time itemprop="priorArtDate" datetime="2009-04-15">2009-04-15</time></dd>
+
+    <dt>Legal status (The legal status is an assumption and is not a legal conclusion. Google has not performed a legal analysis and makes no representation as to the accuracy of the status listed.)</dt>
+    <dd itemprop="legalStatusIfi" itemscope>
+      <span itemprop="status">Active</span>, expires <time itemprop="expiration" datetime="2030-09-14">2030-09-14</time>
+    </dd>
+  </dl>
+
+  <dt>Application number</dt>
+  <dd itemprop="applicationNumber">US12/423,907</dd>
+
+  
+
+  <dt>Other versions</dt>
+  <dd itemprop="directAssociations" itemscope repeat>
+    
+    <a href="/patent/US20100266214A1/en">
+      <span itemprop="publicationNumber">US20100266214A1</span>
+      (<span itemprop="primaryLanguage">en</span>
+    </a>
+  </dd>
+
+  <dt>Inventor</dt>
+  <dd itemprop="inventor" repeat>Daniel J. Jobson</dd>
+  <dd itemprop="inventor" repeat>Zia-ur Rahman</dd>
+  <dd itemprop="inventor" repeat>Glenn A. Woodell</dd>
+  <dt>Current Assignee (The listed assignees may be inaccurate. Google has not performed a legal analysis and makes no representation or warranty as to the accuracy of the list.)</dt>
+  <dd itemprop="assigneeCurrent" repeat>
+    National Aeronautics and Space Administration (NASA)
+  </dd>
+
+  <dt>Original Assignee</dt>
+  <dd itemprop="assigneeOriginal" repeat>National Aeronautics and Space Administration (NASA)</dd>
+
+  <dt>Priority date (The priority date is an assumption and is not a legal conclusion. Google has not performed a legal analysis and makes no representation as to the accuracy of the date listed.)</dt>
+  <dd><time itemprop="priorityDate" datetime="2009-04-15">2009-04-15</time></dd>
+
+  <dt>Filing date</dt>
+  <dd><time itemprop="filingDate" datetime="2009-04-15">2009-04-15</time></dd>
+
+  <dt>Publication date</dt>
+  <dd><time itemprop="publicationDate" datetime="2012-02-07">2012-02-07</time></dd>
+
+  
+
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2009-04-15">2009-04-15</time>
+    <span itemprop="title">Application filed by National Aeronautics and Space Administration (NASA)</span>
+    <span itemprop="type">filed</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    <span itemprop="assigneeSearch">National Aeronautics and Space Administration (NASA)</span>
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2009-04-15">2009-04-15</time>
+    <span itemprop="title">Priority to US12/423,907</span>
+    <span itemprop="type">priority</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    <span itemprop="documentId">patent/US8111943B2/en</span>
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2009-04-23">2009-04-23</time>
+    <span itemprop="title">Assigned to UNITED STATES OF AMERICA AS REPRESENTED BY THE ADMINISTRATOR OF THE NATIONAL AERONAUTICS AND SPACE ADMINISTRATION</span>
+    <span itemprop="type">reassignment</span>
+    
+    
+    
+    
+    <span itemprop="assigneeSearch">UNITED STATES OF AMERICA AS REPRESENTED BY THE ADMINISTRATOR OF THE NATIONAL AERONAUTICS AND SPACE ADMINISTRATION</span>
+    
+    
+    <span itemprop="description" repeat>ASSIGNMENT OF ASSIGNORS INTEREST (SEE DOCUMENT FOR DETAILS).</span>
+    
+    <span itemprop="description" repeat>Assignors: WOODELL, GLENN A., JOBSON, DANIEL J.</span>
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2009-05-11">2009-05-11</time>
+    <span itemprop="title">Assigned to UNITED STATES OF AMERICA AS REPRESENTED BY THE ADMINISTRATOR OF THE NATIONAL AERONAUTICS AND SPACE ADMINISTRATION</span>
+    <span itemprop="type">reassignment</span>
+    
+    
+    
+    
+    <span itemprop="assigneeSearch">UNITED STATES OF AMERICA AS REPRESENTED BY THE ADMINISTRATOR OF THE NATIONAL AERONAUTICS AND SPACE ADMINISTRATION</span>
+    
+    
+    <span itemprop="description" repeat>ASSIGNMENT OF ASSIGNORS INTEREST (SEE DOCUMENT FOR DETAILS).</span>
+    
+    <span itemprop="description" repeat>Assignors: COLLEGE OF WILLIAM AND MARY</span>
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2010-10-21">2010-10-21</time>
+    <span itemprop="title">Publication of US20100266214A1</span>
+    <span itemprop="type">publication</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    <span itemprop="documentId">patent/US20100266214A1/en</span>
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2012-02-07">2012-02-07</time>
+    <span itemprop="title">Application granted</span>
+    <span itemprop="type">granted</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2012-02-07">2012-02-07</time>
+    <span itemprop="title">Publication of US8111943B2</span>
+    <span itemprop="type">publication</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    <span itemprop="documentId">patent/US8111943B2/en</span>
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2019-11-26">2019-11-26</time>
+    <span itemprop="title">Application status is Active</span>
+    <span itemprop="type">legal-status</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2030-09-14">2030-09-14</time>
+    <span itemprop="title">Adjusted expiration</span>
+    <span itemprop="type">legal-status</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+
+  <h2>Links</h2>
+
+  <ul>
+    
+          <li itemprop="links" itemscope repeat>
+            <meta itemprop="id" content="usptoLink">
+            <a href="http://patft.uspto.gov/netacgi/nph-Parser?Sect1=PTO1&Sect2=HITOFF&p=1&u=/netahtml/PTO/srchnum.html&r=1&f=G&l=50&d=PALL&s1=8111943.PN." itemprop="url" target="_blank"><span itemprop="text">USPTO</span></a>
+          </li>
+        <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="usptoAssignmentLink">
+          <a href="https://assignment.uspto.gov/patent/index.html#/patent/search/resultFilter?searchInput=8111943" itemprop="url" target="_blank"><span itemprop="text">USPTO Assignment</span></a>
+        </li>
+
+    <li itemprop="links" itemscope repeat>
+        <meta itemprop="id" content="espacenetLink">
+        <a href="http://worldwide.espacenet.com/publicationDetails/biblio?CC=US&amp;NR=8111943B2&amp;KC=B2&amp;FT=D" itemprop="url" target="_blank"><span itemprop="text">Espacenet</span></a>
+      </li>
+      
+
+    
+
+    
+      <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="globalDossierLink">
+          <a href="http://globaldossier.uspto.gov/#/result/patent/US/8111943/1" itemprop="url" target="_blank"><span itemprop="text">Global Dossier</span></a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="stackexchangeLink">
+          <a href="https://patents.stackexchange.com/questions/tagged/US8111943" itemprop="url"><span itemprop="text">Discuss</span></a>
+        </li>
+      
+  </ul>
+
+  
+  <ul itemprop="concept" itemscope>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000000034</span>
+      <span itemprop="name">methods</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="sections" repeat>title</span>
+      
+      <span itemprop="count">29</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000002708</span>
+      <span itemprop="name">enhancing</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">8</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000003595</span>
+      <span itemprop="name">spectral</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">7</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000003384</span>
+      <span itemprop="name">imaging method</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">14</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000003897</span>
+      <span itemprop="name">fog</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">6</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000000007</span>
+      <span itemprop="name">visual effect</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">6</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000000203</span>
+      <span itemprop="name">mixtures</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">5</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000006011</span>
+      <span itemprop="name">modification</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">5</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000004048</span>
+      <span itemprop="name">modification</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">5</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000003672</span>
+      <span itemprop="name">processing method</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">3</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000011159</span>
+      <span itemprop="name">matrix materials</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000000779</span>
+      <span itemprop="name">smoke</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000005429</span>
+      <span itemprop="name">turbidity</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000011203</span>
+      <span itemprop="name">carbon fibre reinforced carbon</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000008264</span>
+      <span itemprop="name">clouds</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000003086</span>
+      <span itemprop="name">colorant</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001721</span>
+      <span itemprop="name">combination</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000004891</span>
+      <span itemprop="name">communication</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000000694</span>
+      <span itemprop="name">effects</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000004438</span>
+      <span itemprop="name">eyesight</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">-1</span>
+      <span itemprop="name">haze</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000003707</span>
+      <span itemprop="name">image sharpening</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000002609</span>
+      <span itemprop="name">media</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000003287</span>
+      <span itemprop="name">optical</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000003909</span>
+      <span itemprop="name">pattern recognition</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000003405</span>
+      <span itemprop="name">preventing</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000002829</span>
+      <span itemprop="name">reduced</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+  </ul>
+  
+
+  <section>
+    <h2>Images</h2>
+    <ul>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/05/d4/64/a24771c9df8dab/US08111943-20120207-D00000.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/f6/e1/e4/1eaee22c4e8c9a/US08111943-20120207-D00000.png">
+        <ul>
+          <li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="100">
+            <meta itemprop="label" content="image">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="112">
+              <meta itemprop="top" content="851">
+              <meta itemprop="right" content="214">
+              <meta itemprop="bottom" content="913">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="102">
+            <meta itemprop="label" content="step">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="410">
+              <meta itemprop="top" content="814">
+              <meta itemprop="right" content="510">
+              <meta itemprop="bottom" content="874">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="104">
+            <meta itemprop="label" content="image determination step">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="632">
+              <meta itemprop="top" content="1261">
+              <meta itemprop="right" content="738">
+              <meta itemprop="bottom" content="1325">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="106">
+            <meta itemprop="label" content="step">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="603">
+              <meta itemprop="top" content="592">
+              <meta itemprop="right" content="712">
+              <meta itemprop="bottom" content="651">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="108">
+            <meta itemprop="label" content="step">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1538">
+              <meta itemprop="top" content="837">
+              <meta itemprop="right" content="1645">
+              <meta itemprop="bottom" content="894">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="108">
+            <meta itemprop="label" content="step">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1553">
+              <meta itemprop="top" content="825">
+              <meta itemprop="right" content="1645">
+              <meta itemprop="bottom" content="914">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="110">
+            <meta itemprop="label" content="step">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="890">
+              <meta itemprop="top" content="1322">
+              <meta itemprop="right" content="994">
+              <meta itemprop="bottom" content="1379">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="112">
+            <meta itemprop="label" content="steps">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="820">
+              <meta itemprop="top" content="1492">
+              <meta itemprop="right" content="910">
+              <meta itemprop="bottom" content="1552">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="114">
+            <meta itemprop="label" content="step">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1739">
+              <meta itemprop="top" content="946">
+              <meta itemprop="right" content="1835">
+              <meta itemprop="bottom" content="1004">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="116">
+            <meta itemprop="label" content="step">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="2190">
+              <meta itemprop="top" content="883">
+              <meta itemprop="right" content="2286">
+              <meta itemprop="bottom" content="941">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="118">
+            <meta itemprop="label" content="measure computation step">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="988">
+              <meta itemprop="top" content="479">
+              <meta itemprop="right" content="1086">
+              <meta itemprop="bottom" content="538">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="120">
+            <meta itemprop="label" content="step">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="980">
+              <meta itemprop="top" content="206">
+              <meta itemprop="right" content="1090">
+              <meta itemprop="bottom" content="266">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="122">
+            <meta itemprop="label" content="step">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="2016">
+              <meta itemprop="top" content="126">
+              <meta itemprop="right" content="2116">
+              <meta itemprop="bottom" content="195">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="124">
+            <meta itemprop="label" content="step">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1704">
+              <meta itemprop="top" content="369">
+              <meta itemprop="right" content="1794">
+              <meta itemprop="bottom" content="430">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="200">
+            <meta itemprop="label" content="outgoing image">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="725">
+              <meta itemprop="top" content="226">
+              <meta itemprop="right" content="836">
+              <meta itemprop="bottom" content="288">
+            </span>
+          </li>
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/77/07/21/340d879c36d41f/US08111943-20120207-D00001.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/3c/84/20/c274ab4656573c/US08111943-20120207-D00001.png">
+        <ul>
+          <li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="108">
+            <meta itemprop="label" content="step">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="825">
+              <meta itemprop="top" content="969">
+              <meta itemprop="right" content="917">
+              <meta itemprop="bottom" content="1064">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="114">
+            <meta itemprop="label" content="step">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="942">
+              <meta itemprop="top" content="779">
+              <meta itemprop="right" content="1004">
+              <meta itemprop="bottom" content="861">
+            </span>
+          </li>
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/99/b4/bd/f3f0954acc3813/US08111943-20120207-D00002.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/cd/64/97/86213990c2f923/US08111943-20120207-D00002.png">
+        <ul>
+          <li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="2">
+            <meta itemprop="id" content="1040">
+            <meta itemprop="label" content="step">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="732">
+              <meta itemprop="top" content="2371">
+              <meta itemprop="right" content="791">
+              <meta itemprop="bottom" content="2494">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="2">
+            <meta itemprop="id" content="1042">
+            <meta itemprop="label" content="step">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="349">
+              <meta itemprop="top" content="2333">
+              <meta itemprop="right" content="409">
+              <meta itemprop="bottom" content="2443">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="2">
+            <meta itemprop="id" content="1044">
+            <meta itemprop="label" content="step">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="711">
+              <meta itemprop="top" content="1706">
+              <meta itemprop="right" content="768">
+              <meta itemprop="bottom" content="1838">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="2">
+            <meta itemprop="id" content="1046">
+            <meta itemprop="label" content="step">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="351">
+              <meta itemprop="top" content="1688">
+              <meta itemprop="right" content="414">
+              <meta itemprop="bottom" content="1813">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="2">
+            <meta itemprop="id" content="1048">
+            <meta itemprop="label" content="step">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="728">
+              <meta itemprop="top" content="973">
+              <meta itemprop="right" content="785">
+              <meta itemprop="bottom" content="1105">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="2">
+            <meta itemprop="id" content="1050">
+            <meta itemprop="label" content="step">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="358">
+              <meta itemprop="top" content="953">
+              <meta itemprop="right" content="419">
+              <meta itemprop="bottom" content="1077">
+            </span>
+          </li>
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/08/b2/6a/aebac3f2f3fb40/US08111943-20120207-D00003.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/05/de/83/db37abe2fdfc7f/US08111943-20120207-D00003.png">
+        <ul>
+          <li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="3">
+            <meta itemprop="id" content="1042A">
+            <meta itemprop="label" content="step">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="900">
+              <meta itemprop="top" content="581">
+              <meta itemprop="right" content="1086">
+              <meta itemprop="bottom" content="644">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="3">
+            <meta itemprop="id" content="1042B">
+            <meta itemprop="label" content="step">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="900">
+              <meta itemprop="top" content="134">
+              <meta itemprop="right" content="1091">
+              <meta itemprop="bottom" content="198">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="3">
+            <meta itemprop="id" content="1046A">
+            <meta itemprop="label" content="step">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="896">
+              <meta itemprop="top" content="2111">
+              <meta itemprop="right" content="1076">
+              <meta itemprop="bottom" content="2175">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="3">
+            <meta itemprop="id" content="1046B">
+            <meta itemprop="label" content="step">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="899">
+              <meta itemprop="top" content="1662">
+              <meta itemprop="right" content="1088">
+              <meta itemprop="bottom" content="1721">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="3">
+            <meta itemprop="id" content="1046C">
+            <meta itemprop="label" content="step">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="902">
+              <meta itemprop="top" content="1221">
+              <meta itemprop="right" content="1094">
+              <meta itemprop="bottom" content="1289">
+            </span>
+          </li>
+        </ul>
+      </li>
+      </ul>
+  </section>
+
+  <section>
+    <h2>Classifications</h2>
+    
+    <ul>
+      <li>
+        <ul itemprop="cpcs" itemscope repeat>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G</span>&mdash;<span itemprop="Description">PHYSICS</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06</span>&mdash;<span itemprop="Description">COMPUTING; CALCULATING; COUNTING</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06T</span>&mdash;<span itemprop="Description">IMAGE DATA PROCESSING OR GENERATION, IN GENERAL</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06T5/00</span>&mdash;<span itemprop="Description">Image enhancement or restoration</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06T5/001</span>&mdash;<span itemprop="Description">Image restoration</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06T5/003</span>&mdash;<span itemprop="Description">Deblurring; Sharpening</span>
+            <meta itemprop="Leaf" content="true">
+            
+            <meta itemprop="FirstCode" content="true">
+          </li>
+          </ul>
+      </li>
+      <li>
+        <ul itemprop="cpcs" itemscope repeat>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G</span>&mdash;<span itemprop="Description">PHYSICS</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06</span>&mdash;<span itemprop="Description">COMPUTING; CALCULATING; COUNTING</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06T</span>&mdash;<span itemprop="Description">IMAGE DATA PROCESSING OR GENERATION, IN GENERAL</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06T5/00</span>&mdash;<span itemprop="Description">Image enhancement or restoration</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06T5/007</span>&mdash;<span itemprop="Description">Dynamic range modification</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06T5/009</span>&mdash;<span itemprop="Description">Global, i.e. based on properties of the image as a whole</span>
+            <meta itemprop="Leaf" content="true">
+            
+            
+          </li>
+          </ul>
+      </li>
+      <li>
+        <ul itemprop="cpcs" itemscope repeat>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G</span>&mdash;<span itemprop="Description">PHYSICS</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06</span>&mdash;<span itemprop="Description">COMPUTING; CALCULATING; COUNTING</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06T</span>&mdash;<span itemprop="Description">IMAGE DATA PROCESSING OR GENERATION, IN GENERAL</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06T5/00</span>&mdash;<span itemprop="Description">Image enhancement or restoration</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06T5/40</span>&mdash;<span itemprop="Description">Image enhancement or restoration by the use of histogram techniques</span>
+            <meta itemprop="Leaf" content="true">
+            
+            
+          </li>
+          </ul>
+      </li>
+      </ul>
+  </section>
+
+  <section itemprop="abstract" itemscope>
+    <h2>Abstract</h2>
+    
+    <div itemprop="content" html><abstract mxw-id="PA91942555" lang="EN" load-source="patent-office">
+    <div num="p-0001" class="abstract">Contrast and lightness measures are used to first classify the image as being one of non-turbid and turbid. If turbid, the original image is enhanced to generate a first enhanced image. If non-turbid, the original image is classified in terms of a merged contrast/lightness score based on the contrast and lightness measures. The non-turbid image is enhanced to generate a second enhanced image when a poor contrast/lightness score is associated therewith. When the second enhanced image has a poor contrast/lightness score associated therewith, this image is enhanced to generate a third enhanced image. A sharpness measure is computed for one image that is selected from (i) the non-turbid image, (ii) the first enhanced image, (iii) the second enhanced image when a good contrast/lightness score is associated therewith, and (iv) the third enhanced image. If the selected image is not-sharp, it is sharpened to generate a sharpened image. The final image is selected from the selected image and the sharpened image.</div>
+  </abstract>
+  </div>
+  </section>
+
+  <section itemprop="description" itemscope>
+    <h2>Description</h2>
+    
+    <div itemprop="content" html><div mxw-id="PDES44965990" lang="EN" load-source="patent-office" class="description">
+    
+    <heading>ORIGIN OF THE INVENTION</heading>
+    <p num="p-0002">This invention was made in part by employees of the United States Government and may be manufactured and used by or for the Government of the United States of America for governmental purposes without the payment of any royalties thereon or therefor.</p>
+    
+    
+    <heading>BACKGROUND OF THE INVENTION</heading>
+    <p num="p-0003">1. Field of the Invention</p>
+    <p num="p-0004">This invention relates to digital image processing. More specifically, the invention is a method for optimizing the visual quality of any digital image based on contrast, lightness and sharpness measures thereof.</p>
+    <p num="p-0005">2. Description of the Related Art</p>
+    <p num="p-0006">The image of a scene captured by imaging equipment is affected by the environments between the imaging equipment and the scene. For example, if the environment is a low-light environment, image features can be lost due to flow contrast and low lightness. If the environment is turbid (e.g., foggy, smoke, rain, snow, murky water, etc.), there is very little contrast in an image. The combination or low light and a turbid environment makes image feature detection even more difficult.</p>
+    <p num="p-0007">Conventional image processing approaches are typically designed to cope with one of these environments but not the effects caused by combinations of these environments. Further, conventional image processing approaches are either manual methods or passive automatic image enhancement methods that do not evaluate and adapt to visual qualities. The manual methods require significant operator training, are time consuming and expensive, and/or are inconvenient for some applications. Existing automatic methods include auto level enhancement, histogram enhancement, and retinex image processing as disclosed in U.S. Pat. Nos. 5,991,456, 6,834,125 and 6,842,543.</p>
+    <p num="p-0008">Auto level or “fixed gain” enhancement does not work with wide dynamic range images as saturation occurs. Histogram enhancement performance is unpredictable. Retinex image processing performs relatively well in terms of contrast and lightness enhancement across wide ranging imaging conditions. However, the effectiveness of retinex image processing is reduced for narrow dynamic range images generated in low-light or turbid environments. Finally, each of the automatic enhancement approaches operates on all images even when some images are visually acceptable. From a processing cost perspective, this is inefficient.</p>
+    <heading>SUMMARY OF THE INVENTION</heading>
+    <p num="p-0009">Accordingly, it is an object of the present invention to provide a method of image processing that effectively and efficiently enhances images that are unsatisfactory.</p>
+    <p num="p-0010">Another object of the present invention is to provide an automatic method of image enhancement.</p>
+    <p num="p-0011">Still another object of the present invention is to provide an image enhancement method that achieves pattern constancy for a variety of low light, low-contrast, and/or turbid imaging environments.</p>
+    <p num="p-0012">Other objects and advantages of the present invention will become more obvious hereinafter in the specification and drawings.</p>
+    <p num="p-0013">In accordance with the present invention, a method of smart image processing is provided. Contrast and lightness measures are computed for a digital image and used to first classify the image as being one of non-turbid and turbid. If a turbid image, the original image is enhanced to generate a first enhanced image. If a non-turbid image, the original image is then classified as having one of a good contrast/lightness score and a poor contrast/lightness score based on the contrast and lightness measures. The non-turbid image is enhanced when a poor contrast/lightness score is associated therewith. As a result, a second enhanced image is generated. A revised contrast measure and revised lightness measure are computed for the second enhanced image. This second enhanced image is then classified as having one of a good contrast/lightness score and a poor contrast/lightness score based on the revised contrast and lightness measures. When the second enhanced image has a poor contrast/lightness score associated therewith, this image is enhanced so that a third enhanced image is generated. A sharpness measure is computed for one image that is selected from (i) the non-turbid image, the first enhanced image, (iii) the second enhanced image when a good contrast/lightness score is associated therewith, and (iv) the third enhanced image. This selected image is then classified as having one of a sharp image score and a not-sharp image score based on the sharpness measure. The selected image having a not-sharp score associated therewith is then sharpened to generate a sharpened image. A contrast measure and revised sharpness measure are then computed for the sharpened image. The sharpened image is classified as having one of a sharp image score and a not-sharp image score based on the contrast measure associated with the sharpened image. The final image is selected from (i) the selected image having the sharp image score, (ii) the sharpened image having the sharp image score, and, in some instances, (iii) the sharpened image having the not-sharp image score.</p>
+    
+    
+    <description-of-drawings>
+      <heading>BRIEF DESCRIPTION OF THE DRAWINGS</heading>
+      <p num="p-0014"> <figref idrefs="DRAWINGS">FIG. 1</figref> is a flow diagram of an image processing method in accordance with the present invention;</p>
+      <p num="p-0015"> <figref idrefs="DRAWINGS">FIG. 2</figref> is a flow diagram of turbid image detection and enhancement processing in accordance with an embodiment of the present invention;</p>
+      <p num="p-0016"> <figref idrefs="DRAWINGS">FIG. 3</figref> is a flow diagram of an embodiment of image enhancement for a low-contrast imaging environment, and</p>
+      <p num="p-0017"> <figref idrefs="DRAWINGS">FIG. 4</figref> is a flow diagram of an embodiment of image enhancement for a low-contrast and low-light imaging environment.</p>
+    </description-of-drawings>
+    
+    
+    <heading>DETAILED DESCRIPTION OF THE INVENTION</heading>
+    <p num="p-0018">Referring now to the drawings and more particularly to <figref idrefs="DRAWINGS">FIG. 1</figref>, a flow diagram of an image processing method in accordance with the present invention is shown. The method operates on digital image data that can be captured by digital imaging equipment, or analog imaging equipment coupled to an analog-to-digital converter. Accordingly, the choice of imaging equipment is not a limitation of the present invention. In addition, the digital image data processed in accordance with the present invention can be a single still image or a single frame from a video data stream. Still further, the method described herein can be applied as post-processing to archived image data, or can be incorporated into imaging equipment to provide real-time image (i.e., still or video image) enhancement.</p>
+    <p num="p-0019">In accordance with the present invention, a raw incoming image <b>100</b> in digital form will be provided. Image <b>100</b> is a single frame of an image and is defined by an N×M array of pixels with each pixel having an intensity value associated therewith as would be well understood in the art. As mentioned above, image <b>100</b> can be a still image or a single frame from a video stream as processing will be the same in either case. In general, image <b>100</b> will be evaluated in accordance with a number of novel “measures” of visual quality, and then enhanced (if necessary) predicated on the computed measures. The process is automatic and adapts to all imaging environments. Thus, the present invention can be viewed as a “visual servo control” process.</p>
+    <p num="p-0020">The first measures are computed for image <b>100</b> at step <b>102</b>. These first measures are a contrast measure “C” and lightness measure “L”. While the determination of these measures will be described further below, it is sufficient at this point in the description to say that these two measures define the contrast and lightness of image <b>100</b> relative to predetermined/acceptable criteria.</p>
+    <p num="p-0021">Image <b>100</b> is then evaluated in terms of its turbidity at step <b>104</b>. In general and as referred to herein, a “turbid” image is one exhibiting low contrast due to (i) image environment conditions such as fog, haze, smoke, rain, snow, cloudy or muddy water, etc., that cloud the medium between the scene and the imaging device, (ii) insufficient light at the time of image capture as is the case during the low-light times of dawn or dusk, or (iii) severe underexposure errors during image acquisition.</p>
+    <p num="p-0022">Step <b>104</b> utilizes the computations of step <b>102</b> to perform one or more evaluations of image <b>100</b> to determine if image <b>100</b> is a turbid image. If image <b>100</b> is determined to be turbid, the image is enhanced at step <b>106</b>. Details of turbid-image determination step <b>104</b> and an exemplary enhancement process <b>106</b> will be described in detail further below. If generated, the enhanced turbid image is supplied to a sharpness measure computation step <b>118</b>.</p>
+    <p num="p-0023">If image <b>100</b> is not turbid, processing of image <b>100</b> proceeds to step <b>108</b> where a merged contrast and lightness classification is performed using contrast measure C and lightness measure L. At this point in the description, it is sufficient to say that step <b>108</b> classifies image <b>100</b> as being either GOOD or POOR in terms of the present invention&#39;s merged contrast/lightness evaluation that will be described further below. If image <b>100</b> is classified as GOOD, image <b>100</b> is provided to sharpness measure computation step <b>118</b>.</p>
+    <p num="p-0024">If image <b>100</b> is classified as being POOR in terms of its contrast/lightness evaluation, then image <b>100</b> is enhanced at step <b>110</b>. For example, enhancement step <b>110</b> can utilize retinex processing techniques disclosed by one or more of U.S. Pat. Nos. 5,991,456, 6,334,125 and 6,842,543, the contents of which are each hereby incorporated by reference in their entirety. Should enhancement step <b>110</b> utilize the processing techniques disclosed by all three of these patents, enhancement step <b>110</b> is said to employ a “multi-scale retinex with color restoration” (MSRCR) process as it is known in the art. However, it is also to be understood that step <b>110</b> is not limited to the MSRCR process as other or additional image enhancement techniques could be used without departing from the scope of the present invention.</p>
+    <p num="p-0025">The resulting enhanced image from step <b>110</b> is re-evaluated in terms of contrast and lightness. More specifically, the enhanced image from step <b>110</b> has contrast and lightness measures associated therewith computed at step <b>112</b> where such computations are the same ones used in step <b>102</b>. The computed contrast measure “C<sub>E</sub>” and lightness measure “L<sub>E</sub>” for the enhanced image are then utilized in a merged fashion by classification step <b>114</b>. Classification determination processing at step <b>114</b> is the same as that performed at step <b>108</b>. As a result of step <b>114</b>, the enhanced image from step <b>110</b> is classified as being either GOOD or POOR in terms of the present invention&#39;s merged contrast/lightness evaluation.</p>
+    <p num="p-0026">If step <b>114</b> classifies the enhanced image as POOR, the enhanced image (from step <b>110</b>) is further enhanced (e.g., by auto level processing, histogram modification, etc.) at step <b>116</b>. One of the enhanced image classified as GOOD or the re-enhanced image from step <b>116</b> is provided to a sharpness measure computation step <b>118</b>.</p>
+    <p num="p-0027">As a result of the above-described processing, one “image” is provided to step <b>118</b> for computation of a sharpness measure associated therewith. The image provided to step <b>118</b> can be the original image <b>100</b> (i.e., a GOOD classification from step <b>108</b>), an enhanced turbid image from step <b>106</b>, an enhanced original image classified as GOOD at step <b>114</b>, or a re-enhanced image from step <b>116</b>. Regardless of the “image” provided thereto, step <b>118</b> generates a sharpness measure therefrom and provides same to a classification step <b>120</b> that evaluates the sharpness of the currently-processed image in terms of it sharpness. Once again, while details of step <b>120</b> will be provided further below, it is sufficient at this point to say that step <b>120</b> identifies the currently-processed image as SHARP or NOT SHARP.</p>
+    <p num="p-0028">An image classified as SHARP becomes an outgoing image <b>200</b> requiring no additional processing. An image classified as NOT SHARP is sharpened at step <b>122</b> in accordance with any one or more image sharpening techniques, a variety of which are well known in the art. For reasons that will become clearer below, the sharpened image from step <b>122</b> has a contrast measure associated therewith computed at step <b>124</b>. This computation is the same as that used in steps <b>102</b> and <b>112</b>. The sharpened image is provided to step <b>124</b> where a new contrast measure is computed. This computation is the same as that used in steps <b>102</b> and <b>112</b>. Classification step <b>120</b> is then repeated using the new sharpness measure (step <b>118</b>) and contrast measure (step <b>124</b>) computed for the sharpened image.</p>
+    <p num="p-0029">When testing the present invention, it was discovered that the sharpening “loop” does not provide image improvements after a few passes. Accordingly, classification step <b>120</b> can include a counter operation to limit the number of passes therethrough thereby preventing “infinite loop” processing. In this case, outgoing image <b>200</b> could also be defined by a sharpened image that is still classified as NOT SHARP by the criteria embodied in step <b>120</b>. By making classification step <b>120</b> a “count-limited” classification step, the processing method will be guaranteed to generate outgoing image <b>200</b> with efficiency.</p>
+    <p num="p-0030">The various “measure” computations and turbid image detection/processing will now be described. It will be assumed that the image being evaluated has multiple spectral channels (e.g., colors, bands, etc.). Contrast and lightness measures are determined in the following fashion. The image being evaluated is divided evenly into “R” non-overlapping blocks or regions. For each j-th spectral channel of each k-th region, the mean and standard deviation are determined. Then, the maximum spectral mean and maximum spectral standard deviation are selected for further processing. That is, for each k-th region, the mean μ<sub>k </sub>selected for further processing is
+<br/>
+μ<sub>k</sub>=max(μ<sub>j</sub>), <i>j=</i>1<i>, . . . ,J</i>  (1)
+<br/>
+and the standard deviation σ<sub>k </sub>selected for further processing is
+<br/>
+σ<sub>k</sub>=max(σ<sub>j</sub>), <i>j=</i>1<i>, . . . ,J</i>  (2)
+<br/>
+where J is the number of spectral channels. Thus, μ<sub>k </sub>and σ<sub>k </sub>are indicative of perceived lightness and contrast, respectively, of the image.
+</p>
+    <p num="p-0031">The next step in determining the contrast measure C is to classify each k-th region as having good or poor contrast. A region&#39;s contrast is good when
+<br/>
+σ<sub>k</sub> <i>≧K</i> <sub>1</sub>  (3)
+</p>
+    <p num="p-0032">where K<sub>1 </sub>is a predetermined canonical value. The contrast measure C is the number of regions having good contrast divided by the total number of regions R. The first step in determining the lightness measure L is to determine which regions having poor contrast have good lightness. A region&#39;s lightness is good when
+<br/>
+μ<sub>k</sub> <i>≧K</i> <sub>2</sub>  (4)
+<br/>
+where K<sub>2 </sub>is a predetermined threshold value. The lightness measure L is the number of regions satisfying equation (4) divided by the total number of regions R.
+</p>
+    <p num="p-0033">Contrast and lightness classification steps <b>108</b> and <b>114</b> perform a merged contrast/lightness classification in accordance with the following logic:
+<br/>
+If <i>C≧K</i> <sub>3 </sub>AND (<i>C+L</i>)≧<i>K</i> <sub>4</sub>,  (5)
+</p>
+    <p num="p-0034">then classify the image as having GOOD lightness and contrast; else, classify the image having POOR lightness and contrast.</p>
+    <p num="h-0006">Here, the constants K<sub>3 </sub>and K<sub>4 </sub>are predetermined via experimentation.</p>
+    <p num="p-0035">The sharpness measure computation begins by convolving the image (provided to step <b>118</b>) with a smallest Difference-of-Gaussian kernel in accordance with methods disclosed by D. Jobson in “Spatial Vision Procession: From the Optical Image to the Symbolic Structures of Contour Information,” NASA Technical Paper No. 2838, November, 1988, and F. Huck et al. in “Visual Communication: An Information Theory Approach,” Kluwer Academic Publishers, 1997, p. 145. The resulting matrix of image pixels S(x,y) is then half-rectified to identify a matrix S′ (x,y) of all non-negative-intensity-value pixels or
+<br/>
+<i>S</i>′(<i>x,y</i>)=<i>S</i>(<i>x,y</i>)≧0  (6)
+</p>
+    <p num="p-0036">Next, each non-negative-intensity-value pixel S′(x,y) is classified as SHARP or NOT SHARP in accordance with the following relationship:
+<br/>
+If <i>S</i>′(<i>x,y</i>)≧<i>K</i> <sub>5</sub>,  (7)
+</p>
+    <p num="p-0037">then classify the pixel at (x,y) as SHARP; else, classify the pixel at (x,y) as UNSHARP.</p>
+    <p num="p-0038">Here, the constant K<sub>5 </sub>is an experimentally determined canonical constant. The total number of pixels classified as SHARP for an image is counted and is designated herein as “S<sub>p</sub>”. The raw global sharpness measure “S” is the number of sharp pixels of S<sub>p </sub>divided by the total number of pixels in the image.</p>
+    <p num="p-0039">Sharpness classification step <b>120</b> uses the sharpness measure S to classify an entire image as SHARP or NOT SHARP in accordance with the logic
+<br/>
+If <i>S≧T,</i>  (8)
+</p>
+    <p num="p-0040">then classify the image SHARP; else, classify the image as NOT SHARP.</p>
+    <p num="p-0041">Here, T is an experimentally determined threshold of the form
+<br/>
+<i>T=</i>(<i>C/C</i> <sub>T</sub>)<i>K</i> <sub>6</sub>  (9)
+<br/>
+where C is the contrast measure (from step <b>102</b>, step <b>112</b>, or step <b>124</b>), C<sub>T </sub>is a canonical constant determined For minimum GOOD contrast scoring images, and K<sub>6 </sub>is an experimentally-determined constant.
+</p>
+    <p num="p-0042">Turbid image detection and processing in accordance with the present invention will now be described with reference to <figref idrefs="DRAWINGS">FIGS. 2-4</figref>. Referring first to <figref idrefs="DRAWINGS">FIG. 2</figref>, the original image <b>100</b> is evaluated at step <b>1040</b> to determine if very low contrast conditions exist across the entire image. Such conditions are indicative of a foggy or smoky environment. More specifically, step <b>1040</b> compares the sum of the regional standard deviations μ<sub>K </sub>(from equation (1)) to a predetermined threshold value K<sub>7 </sub>according to the following relationship</p>
+    <p num="p-0043">
+      <maths id="MATH-US-00001" num="00001">
+        <math overflow="scroll">
+          <mtable>
+            <mtr>
+              <mtd>
+                <mrow>
+                  <mrow>
+                    <mrow>
+                      <mi>If</mi>
+                      <mo>⁢</mo>
+                      <mstyle>
+                        <mspace width="0.8em" height="0.8ex"> </mspace>
+                      </mstyle>
+                      <mo>⁢</mo>
+                      <mrow>
+                        <munderover>
+                          <mo>∑</mo>
+                          <mrow>
+                            <mi>k</mi>
+                            <mo>=</mo>
+                            <mn>1</mn>
+                          </mrow>
+                          <mi>R</mi>
+                        </munderover>
+                        <mo>⁢</mo>
+                        <msub>
+                          <mi>σ</mi>
+                          <mi>k</mi>
+                        </msub>
+                      </mrow>
+                    </mrow>
+                    <mo>≤</mo>
+                    <msub>
+                      <mi>K</mi>
+                      <mn>7</mn>
+                    </msub>
+                  </mrow>
+                  <mo>,</mo>
+                </mrow>
+              </mtd>
+              <mtd>
+                <mrow>
+                  <mo>(</mo>
+                  <mn>10</mn>
+                  <mo>)</mo>
+                </mrow>
+              </mtd>
+            </mtr>
+          </mtable>
+        </math>
+      </maths>
+    </p>
+    <p num="p-0044">then the original image is FOGGY; else, the image is NOT FOGGY.</p>
+    <p num="p-0045">If the original image <b>100</b> is FOGGY, it is enhanced in step <b>1042</b>. For example, step <b>1042</b> can be realized by the process illustrated in <figref idrefs="DRAWINGS">FIG. 3</figref> where the original image <b>100</b> is first processed at step <b>1042</b>A in accordance with a modified retinex process. That is, the modified retinex process is deadened by the processing techniques disclosed in just two of the previously-cited U.S. patents (i.e., U.S. Pat. Nos. 5,991,456 and 6,834,125). Thus, step <b>1042</b>A can be said to employ an MSRCR process with the white balancing operation (i.e., disclosed in U.S. Pat. No. 6,842,543) turned off. In foggy images, the brightness is high. Therefore, the original foggy image tends to overwhelm the white balance operation in a full MSRCR process. To counteract this, the white balance operation is turned off in order to allow the retinex processing to impact the original image. The enhanced FOGGY image is further processed by a conventional histogram modification at step <b>1042</b>B.</p>
+    <p num="p-0046">Referring again to <figref idrefs="DRAWINGS">FIG. 2</figref>, if the original image <b>100</b> is determined to be NOT FOGGY, it is then checked at step <b>1044</b> for the combination of low contrast and low light conditions that would typically exist at either dawn or dusk. Note that dawn and dusk are the times of day when humans experience the greatest visibility deficiency due to the prevalence of blue light. Specifically, step <b>1044</b> performs the following logic using the contrast C and lightness measure L from step <b>102</b> as follows:
+<br/>
+If (<i>C&lt;K</i> <sub>9</sub>) AND (<i>L&lt;K</i> <sub>10</sub>),  (11)
+</p>
+    <p num="p-0047">then a DAWN/DUSK condition exists; else, NOT DAWN/DUSK. Here, K<sub>9 </sub>is a preset contrast measure threshold and K<sub>10 </sub>is a preset lightness measure threshold indicative of dawn/dusk conditions.</p>
+    <p num="p-0048">If a DAWN/DUSK condition is indicated, the original image <b>100</b> is enhanced at step <b>1046</b>. For example, step <b>1046</b> can be realized by the process illustrated in <figref idrefs="DRAWINGS">FIG. 4</figref> where the original image <b>100</b> first has its pixel intensity values inverted at step <b>1046</b>A. The inverted-value image is then enhanced at step <b>1046</b>B by an MSRCR process with the white balancing operations turned off, i.e., the same as process step <b>1042</b>A. The pixel intensity values are inverted prior to MSRCR processing to allow the log operator (in the MSRCR process) to accentuate the details in the bright regions of the image. The enhanced DAWN/DUSK image is further processed by a conventional histogram modification at step <b>1046</b>C.</p>
+    <p num="p-0049">Referring again to <figref idrefs="DRAWINGS">FIG. 2</figref>, if the original image <b>100</b> is determined to be not DAWN/DUSK, it is then checked at step <b>1048</b> for the combination of low contrast with light conditions that are bright enough to not trigger DAWN/DUSK, but too dark for adequate handling by enhancement step <b>1042</b>. This condition would typically exist when there is very heavy fog or haze in daylight. Specifically, step <b>1048</b> performs the following logic using the contrast measure C and lightness measure L from step <b>102</b> as follows:
+<br/>
+If (<i>C&lt;K</i> <sub>9</sub>) AND (<i>L≦K</i> <sub>11</sub>),  (12)
+</p>
+    <p num="p-0050">then VERY HEAVY FOG condition exists; else, NOT VERY HEAVY FOG.</p>
+    <p num="h-0007">Here, K<sub>11 </sub>is a preset lightness measure value satisfying K<sub>10</sub>&lt;L≦K<sub>11</sub>.</p>
+    <p num="p-0051">If the original image <b>100</b> is VERY HEAVY FOG, it is enhanced at step <b>1050</b> which can be realized by the same “MSRCR-with-white-balancing-turned-off” process described above, followed by a conventional histogram modification (i.e., the same enhancement combination as process steps <b>1042</b>A and <b>1042</b>B). However, in this case, a different set of canonical gain and offset values is used with the “MSRCR-with-white-balancing-turned-off” process to compensate for the additional poor lightness and contrast. If a NOT VERY HEAVY FOG condition exists, the original image <b>100</b> is passed to step <b>108</b> for processing as described earlier herein. If any of the turbid image detection/processing produces an enhanced image, that enhanced image is provided to sharpness measure computation step <b>118</b>.</p>
+    <p num="p-0052">The advantages of the present invention are numerous. A wide variety of image environment conditions are evaluated with the optimum image enhancement processes) being selected/implemented to optimize image contrast, lightness and sharpness. The process provides for variations in visual preferences by selection of threshold constants used throughout the process. Tests of the present invention on a wide variety of imaging conditions have yielded pattern constancy across the various conditions. In terms of image processing systems/methods, “pattern constancy” refers to a system/method&#39;s ability to extract a pattern from the image of a scene that is stable over wide ranging extraneous variations in scene lighting conditions, atmospheric turbidity, and exposure errors present in the image acquisition device. Thus, the present invention would be particularly useful in aviation to provide a pilot with (i) good and consistent images regardless of the visibility conditions, and (ii) stable pattern information for use in in-flight computer pattern processing and pattern recognition systems.</p>
+    <p num="p-0053">Although the invention has been described relative to a specific embodiment thereof, there are numerous variations and modifications that will be readily apparent to those skilled in the art in light of the above teachings. While the present invention provides an automatic “poor” image detection/enhancement process, aspects of the present invention could be used by themselves. For example, the novel contrast, lightness and/or sharpness measures could be utilized in other image classification/processing schemes. The turbid image detection and/or enhancement schemes could be used in a “stand alone” fashion. For example, the FOGGY/NOT FOGGY detection scheme could be used for aviation and underwater imaging to provide a warning or announcement that poor visibility conditions are approaching. It is therefore to be understood that, within the scope of the appended claims, the invention may be practiced other than as specifically described.</p>
+    
+  </div>
+  </div>
+  </section>
+
+  <section itemprop="claims" itemscope>
+    <h2>Claims (<span itemprop="count">9</span>)</h2>
+    
+    <div itemprop="content" html><div mxw-id="PCLM39437975" lang="EN" load-source="patent-office" class="claims">
+    <div class="claim"> <div id="CLM-00001" num="00001" class="claim">
+      <div class="claim-text">1. A method of image processing, comprising the steps of:
+<div class="claim-text">providing a digital image;</div>
+<div class="claim-text">dividing said digital image into non-overlapping regions;</div>
+<div class="claim-text">computing a standard deviation for each spectral channel of each off said regions wherein a plurality of standard deviations are computed for each of said regions, and wherein a regional standard deviation is defined for each of said regions by a maximum of said plurality of standard deviations associated therewith;</div>
+<div class="claim-text">classifying each of said regions as having one of a good contrast score and a poor contrast score based on said regional standard deviation associated therewith, wherein said contrast measure is defined by a ratio of said regions having said good contrast score relative to a total number of said regions in said digital image;</div>
+<div class="claim-text">computing a mean for each spectral channel of said regions having a poor contrast score wherein a plurality of means are computed, and wherein a regional mean is defined for each of said regions having a poor contrast score by a maximum of said plurality of means associated therewith;</div>
+<div class="claim-text">classifying each of said regions having poor contrast score as having one of a good lightness score and a poor lightness score based on said regional mean associated therewith, wherein said lightness measure is defined by a ratio of said regions having said good lightness score relative to a total number of said regions in said digital image;</div>
+<div class="claim-text">classifying said digital image as being one of non-turbid and turbid based on at least said contrast measure, wherein said digital image is respectively identified as being one of a non-turbid image and a turbid image;</div>
+<div class="claim-text">enhancing said turbid image, wherein a first enhanced image is generated;</div>
+<div class="claim-text">classifying said non-turbid image as having one of a good contrast/lightness score and a poor contrast/lightness score based on said contrast measure and said lightness measure;</div>
+<div class="claim-text">enhancing said non-turbid image when said poor contrast/lightness score is associated therewith, wherein a second enhanced image is generated;</div>
+<div class="claim-text">computing a revised contrast measure and a revised lightness measure for said second enhanced image;</div>
+<div class="claim-text">classifying said second enhanced image as having one of a good contrast lightness score and a poor contrast/lightness score based on said revised contrast measure and said revised lightness measure;</div>
+<div class="claim-text">enhancing said second enhanced image when said poor contrast/lightness score is associated therewith, wherein a third enhanced image is generated;</div>
+<div class="claim-text">computing a sharpness measure for one image selected from the group consisting of (i) said non-turbid image, (ii) said first enhanced image, (iii) said second enhanced image when said good contrast/lightness score is associated therewith, and (iv) said third enhanced image;</div>
+<div class="claim-text">classifying said one image as having one of a sharp image score and a not-sharp image score based on said sharpness measure;</div>
+<div class="claim-text">sharpening said one image when said not-sharp score is associated therewith, wherein a sharpened image is generated;</div>
+<div class="claim-text">computing a contrast measure and a revised sharpness measure for said sharpened image; and</div>
+<div class="claim-text">classifying said sharpened image as having one of a sharp image score and a not-sharp image score based on said contrast measure associated with said sharpened image, wherein a final image is selected from the group consisting of (i) said one image having said sharp image score, (ii) said sharpened image having said sharp image score, and (iii) said sharpened image having said not-sharp image score.</div>
+</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00002" num="00002" class="claim">
+      <div class="claim-text">2. A method according to <claim-ref idref="CLM-00001">claim 1</claim-ref>, wherein a plurality of regional standard deviations are defined for said digital image, and wherein said step of classifying said digital image includes the step of comparing a sum of said plurality of regional standard deviations to a threshold in order to classify said digital image as being one of non-turbid and turbid.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00003" num="00003" class="claim">
+      <div class="claim-text">3. A method according to <claim-ref idref="CLM-00001">claim 1</claim-ref>, wherein said step of classifying said digital image includes the steps of:
+<div class="claim-text">comparing said contrast measure to a first threshold; and</div>
+<div class="claim-text">comparing said lightness measure to a second threshold and a third threshold, said second threshold being less than said third threshold, wherein a first turbid classification is defined when said contrast measure is less than said first threshold and said lightness measure is less than said second threshold, and wherein a second turbid classification is defined when said contrast measure is less than said first threshold and said lightness measure is greater than said second threshold but less than said third threshold.</div>
+</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00004" num="00004" class="claim">
+      <div class="claim-text">4. A method according to <claim-ref idref="CLM-00003">claim 3</claim-ref> wherein, when said first turbid classification is defined, said method further comprises the step of inverting intensity values associated with said turbid image prior to said step of enhancing said turbid image.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00005" num="00005" class="claim">
+      <div class="claim-text">5. A method according to <claim-ref idref="CLM-00001">claim 1</claim-ref>, wherein said step of computing said sharpness measure comprises the steps of:
+<div class="claim-text">convolving said one image with a smallest Difference-of-Gaussian kernel to generate a sharpness image;</div>
+<div class="claim-text">identifying non-negative-intensity pixels in said sharpness image; and</div>
+<div class="claim-text">classifying each of said non-negative-intensity pixels as being one of sharp and not-sharp based on a comparison of each of said non-negative-intensity pixels to a predetermined constants wherein said sharpness measure is defined by a ratio of a number of said non-negative-intensity pixels so-classified as sharp to a total number of pixels in said digital image.</div>
+</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00006" num="00006" class="claim">
+      <div class="claim-text">6. A method according to <claim-ref idref="CLM-00005">claim 5</claim-ref>, wherein said step of identifying comprises the step of half-rectifying said sharpness image.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00007" num="00007" class="claim">
+      <div class="claim-text">7. A method according to <claim-ref idref="CLM-00001">claim 1</claim-ref>, wherein said step of enhancing said non-turbid image comprises the step of applying a multi-scale-retinex-with-color-restoration process to said non-turbid image.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00008" num="00008" class="claim">
+      <div class="claim-text">8. A method according to <claim-ref idref="CLM-00001">claim 1</claim-ref>, wherein said step of enhancing said second enhanced image comprises the step of applying a histogram operation to said second enhanced image.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00009" num="00009" class="claim">
+      <div class="claim-text">9. A method according to <claim-ref idref="CLM-00001">claim 1</claim-ref>, wherein said step of enhancing said turbid image includes the step of applying a multi-scale-retinex-with-color-restoration-and-without-white-balancing process to said turbid image.</div>
+    </div>
+  </div> </div>
+  </div>
+  </section>
+
+  <section itemprop="application" itemscope>
+
+    <section itemprop="metadata" itemscope>
+        <span itemprop="applicationNumber">US12/423,907</span>
+        <span itemprop="priorityDate">2009-04-15</span>
+        <span itemprop="filingDate">2009-04-15</span>
+        <span itemprop="title">Smart image enhancement process 
+       </span>
+        <span itemprop="ifiStatus">Active</span>
+        <span itemprop="ifiExpiration">2030-09-14</span>
+        <a href="/patent/US8111943B2/en">
+            <span itemprop="representativePublication">US8111943B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+        </a>
+    </section>
+
+    <h2>Priority Applications (1)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                    <th>Title</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="priorityApps" itemscope repeat>
+                <td>
+                   <span itemprop="applicationNumber">US12/423,907</span>
+                   
+                   <a href="/patent/US8111943B2/en">
+                        <span itemprop="representativePublication">US8111943B2</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                <td itemprop="priorityDate">2009-04-15</td>
+                <td itemprop="filingDate">2009-04-15</td>
+                <td itemprop="title">Smart image enhancement process 
+       </td>
+              </tr>
+           </tbody>
+       </table>
+
+    <h2>Applications Claiming Priority (1)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                    <th>Title</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="appsClaimingPriority" itemscope repeat>
+                <td>
+                   <span itemprop="applicationNumber">US12/423,907</span>
+                   <a href="/patent/US8111943B2/en">
+                        <span itemprop="representativePublication">US8111943B2</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                <td itemprop="priorityDate">2009-04-15</td>
+                <td itemprop="filingDate">2009-04-15</td>
+                <td itemprop="title">Smart image enhancement process 
+       </td>
+              </tr>
+           </tbody>
+       </table>
+
+    
+
+    
+
+    <h2>Publications (2)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Publication Number</th>
+                    <th>Publication Date</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="pubs" itemscope repeat>
+                <td>
+                   <span itemprop="publicationNumber">US20100266214A1</span>
+                   
+                   <a href="/patent/US20100266214A1/en">US20100266214A1
+                       (<span itemprop="primaryLanguage">en</span>)
+                   </a>
+                </td>
+                <td itemprop="publicationDate">2010-10-21</td>
+              </tr><tr itemprop="pubs" itemscope repeat>
+                <td>
+                   <span itemprop="publicationNumber">US8111943B2</span>
+                   
+                   <span itemprop="thisPatent">true</span>
+                   <a href="/patent/US8111943B2/en">US8111943B2
+                       (<span itemprop="primaryLanguage">en</span>)
+                   </a>
+                </td>
+                <td itemprop="publicationDate">2012-02-07</td>
+              </tr>
+           </tbody>
+        </table>
+
+  </section>
+
+  <section itemprop="family" itemscope>
+    <h1>Family</h1>
+    <h2>ID=42981020</h2>
+
+    <h2>Family Applications (1)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Title</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="applications" itemscope repeat>
+                <td>
+                    <span itemprop="applicationNumber">US12/423,907</span>
+                    <span itemprop="ifiStatus">Active</span>
+                    <span itemprop="ifiExpiration">2030-09-14</span>
+                    <a href="/patent/US8111943B2/en">
+                        <span itemprop="representativePublication">US8111943B2</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                </td>
+                <td itemprop="priorityDate">2009-04-15</td>
+                <td itemprop="filingDate">2009-04-15</td>
+                <td itemprop="title">Smart image enhancement process 
+       </td>
+              </tr>
+           </tbody>
+        </table>
+
+    
+
+    
+
+    <h2>Country Status (1)</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Country</th>
+            <th>Link</th>
+          </tr>
+        </thead>
+        <tbody>
+        <tr itemprop="countryStatus" itemscope repeat>
+            <td>
+              <span itemprop="countryCode">US</span>
+                (<span itemprop="num">1</span>)
+              <meta itemprop="thisCountry" content="true">
+            </td>
+            <td>
+              <a href="/patent/US8111943B2/en">
+                <span itemprop="representativePublication">US8111943B2</span>
+                  (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+    <h2>Cited By (3)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20110019096A1/en">
+              <span itemprop="publicationNumber">US20110019096A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2009-07-21</td>
+          <td itemprop="publicationDate">2011-01-27</td>
+          <td><span itemprop="assigneeOriginal">Louie Lee</span></td>
+          <td itemprop="title">Method and system for detection and enhancement of video images 
+       </td>
+        </tr><tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20140328539A1/en">
+              <span itemprop="publicationNumber">US20140328539A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2013-04-19</td>
+          <td itemprop="publicationDate">2014-11-06</td>
+          <td><span itemprop="assigneeOriginal">Huawei Technologies Co., Ltd.</span></td>
+          <td itemprop="title">Method and apparatus for enhancing color 
+       </td>
+        </tr><tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20150043818A1/en">
+              <span itemprop="publicationNumber">US20150043818A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2012-04-04</td>
+          <td itemprop="publicationDate">2015-02-12</td>
+          <td><span itemprop="assigneeOriginal">Nextchip Co., Ltd.</span></td>
+          <td itemprop="title">Apparatus and method for recovering images damaged by weather phenomena 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Families Citing this family (7)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US8660373B2/en">
+              <span itemprop="publicationNumber">US8660373B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2008-07-22</td>
+          <td itemprop="publicationDate">2014-02-25</td>
+          <td><span itemprop="assigneeOriginal">Xerox Corporation</span></td>
+          <td itemprop="title">PDF de-chunking and object classification 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US8675957B2/en">
+              <span itemprop="publicationNumber">US8675957B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2010-11-18</td>
+          <td itemprop="publicationDate">2014-03-18</td>
+          <td><span itemprop="assigneeOriginal">Ebay, Inc.</span></td>
+          <td itemprop="title">Image quality assessment to merchandise an item 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/CN102231791B/en">
+              <span itemprop="publicationNumber">CN102231791B</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2011-06-30</td>
+          <td itemprop="publicationDate">2013-08-14</td>
+          <td><span itemprop="assigneeOriginal">北京云加速信息技术有限公司</span></td>
+          <td itemprop="title">Video image defogging method based on image brightness stratification 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/JP6030396B2/en">
+              <span itemprop="publicationNumber">JP6030396B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2012-09-28</td>
+          <td itemprop="publicationDate">2016-11-24</td>
+          <td><span itemprop="assigneeOriginal">日立マクセル株式会社</span></td>
+          <td itemprop="title">Video processing device 
+     </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US9721292B2/en">
+              <span itemprop="publicationNumber">US9721292B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2012-12-21</td>
+          <td itemprop="publicationDate">2017-08-01</td>
+          <td><span itemprop="assigneeOriginal">Ebay Inc.</span></td>
+          <td itemprop="title">System and method for image quality scoring 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/CN103955901A/en">
+              <span itemprop="publicationNumber">CN103955901A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2014-05-08</td>
+          <td itemprop="publicationDate">2014-07-30</td>
+          <td><span itemprop="assigneeOriginal">国网上海市电力公司</span></td>
+          <td itemprop="title">Enhancing method of weak-illumination video image 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US9569213B1/en">
+              <span itemprop="publicationNumber">US9569213B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2015-08-25</td>
+          <td itemprop="publicationDate">2017-02-14</td>
+          <td><span itemprop="assigneeOriginal">Adobe Systems Incorporated</span></td>
+          <td itemprop="title">Semantic visual hash injection into user activity streams 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Citations (33)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5287176A/en">
+              <span itemprop="publicationNumber">US5287176A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1992-04-03</td>
+          <td itemprop="publicationDate">1994-02-15</td>
+          <td><span itemprop="assigneeOriginal">Carl-Zeiss-Stiftung</span></td>
+          <td itemprop="title">Automatic contrast and brightness control for thermal image apparatus integrated into an aircraft 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5841911A/en">
+              <span itemprop="publicationNumber">US5841911A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1995-06-06</td>
+          <td itemprop="publicationDate">1998-11-24</td>
+          <td><span itemprop="assigneeOriginal">Ben Gurion, University Of The Negev</span></td>
+          <td itemprop="title">Method for the restoration of images disturbed by the atmosphere 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5991456A/en">
+              <span itemprop="publicationNumber">US5991456A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1996-05-29</td>
+          <td itemprop="publicationDate">1999-11-23</td>
+          <td><span itemprop="assigneeOriginal">Science And Technology Corporation</span></td>
+          <td itemprop="title">Method of improving a digital image 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6205257B1/en">
+              <span itemprop="publicationNumber">US6205257B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1996-12-31</td>
+          <td itemprop="publicationDate">2001-03-20</td>
+          <td><span itemprop="assigneeOriginal">Xerox Corporation</span></td>
+          <td itemprop="title">System and method for selectively noise-filtering digital images 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20040136605A1/en">
+              <span itemprop="publicationNumber">US20040136605A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2002-01-22</td>
+          <td itemprop="publicationDate">2004-07-15</td>
+          <td><span itemprop="assigneeOriginal">Ulrich Seger</span></td>
+          <td itemprop="title">Method and device for image processing, in addition to a night viewing system for motor vehicles 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6842543B2/en">
+              <span itemprop="publicationNumber">US6842543B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2001-06-25</td>
+          <td itemprop="publicationDate">2005-01-11</td>
+          <td><span itemprop="assigneeOriginal">Science And Technology Corporation</span></td>
+          <td itemprop="title">Method of improving a digital image having white zones 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6843125B2/en">
+              <span itemprop="publicationNumber">US6843125B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2002-01-08</td>
+          <td itemprop="publicationDate">2005-01-18</td>
+          <td><span itemprop="assigneeOriginal">Robert Peterson</span></td>
+          <td itemprop="title">Fluid-aligned measurement apparatus and method 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20050123211A1/en">
+              <span itemprop="publicationNumber">US20050123211A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2003-12-09</td>
+          <td itemprop="publicationDate">2005-06-09</td>
+          <td><span itemprop="assigneeOriginal">Wong Kam F.</span></td>
+          <td itemprop="title">Digital image processing system and method for processing digital images 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6909815B2/en">
+              <span itemprop="publicationNumber">US6909815B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2003-01-31</td>
+          <td itemprop="publicationDate">2005-06-21</td>
+          <td><span itemprop="assigneeOriginal">Spectral Sciences, Inc.</span></td>
+          <td itemprop="title">Method for performing automated in-scene based atmospheric compensation for multi-and hyperspectral imaging sensors in the solar reflective spectral region 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20050163393A1/en">
+              <span itemprop="publicationNumber">US20050163393A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2004-01-23</td>
+          <td itemprop="publicationDate">2005-07-28</td>
+          <td><span itemprop="assigneeOriginal">Old Dominion University</span></td>
+          <td itemprop="title">Visibility improvement in color video stream 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7013025B2/en">
+              <span itemprop="publicationNumber">US7013025B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2000-11-22</td>
+          <td itemprop="publicationDate">2006-03-14</td>
+          <td><span itemprop="assigneeOriginal">Minolta Co., Ltd.</span></td>
+          <td itemprop="title">Image correction apparatus 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20060092474A1/en">
+              <span itemprop="publicationNumber">US20060092474A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2000-02-22</td>
+          <td itemprop="publicationDate">2006-05-04</td>
+          <td><span itemprop="assigneeOriginal">Visualgold.Com, Inc.</span></td>
+          <td itemprop="title">System and method for image processing 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20060126959A1/en">
+              <span itemprop="publicationNumber">US20060126959A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2004-12-13</td>
+          <td itemprop="publicationDate">2006-06-15</td>
+          <td><span itemprop="assigneeOriginal">Digitalglobe, Inc.</span></td>
+          <td itemprop="title">Method and apparatus for enhancing a digital image 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7099520B2/en">
+              <span itemprop="publicationNumber">US7099520B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2001-07-05</td>
+          <td itemprop="publicationDate">2006-08-29</td>
+          <td><span itemprop="assigneeOriginal">Minolta Co., Ltd.</span></td>
+          <td itemprop="title">Image processing apparatus, image processing method, and program product for image processing 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20060216959A1/en">
+              <span itemprop="publicationNumber">US20060216959A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2003-08-11</td>
+          <td itemprop="publicationDate">2006-09-28</td>
+          <td><span itemprop="assigneeOriginal">Hirschmann Electronics Gmbh &amp; Co., Kg</span></td>
+          <td itemprop="title">Clippable elastic contact element 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20060245647A1/en">
+              <span itemprop="publicationNumber">US20060245647A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2005-04-29</td>
+          <td itemprop="publicationDate">2006-11-02</td>
+          <td><span itemprop="assigneeOriginal">Samsung Techwin Co., Ltd.</span></td>
+          <td itemprop="title">Method of controlling digital image processing apparatus to effectively display histogram and digital image processing apparatus using the method 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7136508B2/en">
+              <span itemprop="publicationNumber">US7136508B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2000-11-09</td>
+          <td itemprop="publicationDate">2006-11-14</td>
+          <td><span itemprop="assigneeOriginal">Minolta Co., Ltd.</span></td>
+          <td itemprop="title">Image processing apparatus, method, and program for processing a moving image 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20060268180A1/en">
+              <span itemprop="publicationNumber">US20060268180A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2005-05-31</td>
+          <td itemprop="publicationDate">2006-11-30</td>
+          <td><span itemprop="assigneeOriginal">Chih-Hsien Chou</span></td>
+          <td itemprop="title">Method and system for automatic brightness and contrast adjustment of a video source 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20070009167A1/en">
+              <span itemprop="publicationNumber">US20070009167A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2005-07-05</td>
+          <td itemprop="publicationDate">2007-01-11</td>
+          <td><span itemprop="assigneeOriginal">Dance Christopher R</span></td>
+          <td itemprop="title">Contrast enhancement of images 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7170645B2/en">
+              <span itemprop="publicationNumber">US7170645B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2002-09-06</td>
+          <td itemprop="publicationDate">2007-01-30</td>
+          <td><span itemprop="assigneeOriginal">Samsung Electronics Co., Ltd.</span></td>
+          <td itemprop="title">Method and apparatus for enhancing digital image quality 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7187808B2/en">
+              <span itemprop="publicationNumber">US7187808B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2002-09-14</td>
+          <td itemprop="publicationDate">2007-03-06</td>
+          <td><span itemprop="assigneeOriginal">Samsung Electronics Co., Ltd.</span></td>
+          <td itemprop="title">Method and apparatus for enhancing digital image quality 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7209183B2/en">
+              <span itemprop="publicationNumber">US7209183B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2003-06-30</td>
+          <td itemprop="publicationDate">2007-04-24</td>
+          <td><span itemprop="assigneeOriginal">Samsung Electronics Co., Ltd.</span></td>
+          <td itemprop="title">Method of automatically setting image quality 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20070172145A1/en">
+              <span itemprop="publicationNumber">US20070172145A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2006-01-26</td>
+          <td itemprop="publicationDate">2007-07-26</td>
+          <td><span itemprop="assigneeOriginal">Vestel Elektronik Sanayi Ve Ticaret A.S.</span></td>
+          <td itemprop="title">Method and apparatus for adjusting the contrast of an image 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20070172121A1/en">
+              <span itemprop="publicationNumber">US20070172121A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1998-04-14</td>
+          <td itemprop="publicationDate">2007-07-26</td>
+          <td><span itemprop="assigneeOriginal">Minolta Co., Ltd.</span></td>
+          <td itemprop="title">Image processing method, recording medium with recorded image processing program and image processing apparatus 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20070201763A1/en">
+              <span itemprop="publicationNumber">US20070201763A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1997-06-09</td>
+          <td itemprop="publicationDate">2007-08-30</td>
+          <td><span itemprop="assigneeOriginal">Seiko Epson Corporation</span></td>
+          <td itemprop="title">Image Processing Method and Image Processing Apparatus 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20070217707A1/en">
+              <span itemprop="publicationNumber">US20070217707A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2006-03-16</td>
+          <td itemprop="publicationDate">2007-09-20</td>
+          <td><span itemprop="assigneeOriginal">Lin Peng W</span></td>
+          <td itemprop="title">Test method for image sharpness 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20070223814A1/en">
+              <span itemprop="publicationNumber">US20070223814A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2006-03-23</td>
+          <td itemprop="publicationDate">2007-09-27</td>
+          <td><span itemprop="assigneeOriginal">Rei-Hong Chang</span></td>
+          <td itemprop="title">Method of processing brightness of an image and related device 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7283683B1/en">
+              <span itemprop="publicationNumber">US7283683B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1998-01-23</td>
+          <td itemprop="publicationDate">2007-10-16</td>
+          <td><span itemprop="assigneeOriginal">Sharp Kabushiki Kaisha</span></td>
+          <td itemprop="title">Image processing device and image processing method 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7308154B1/en">
+              <span itemprop="publicationNumber">US7308154B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2003-10-20</td>
+          <td itemprop="publicationDate">2007-12-11</td>
+          <td><span itemprop="assigneeOriginal">Rockwell Collins, Inc.</span></td>
+          <td itemprop="title">Method and apparatus for enhancing a degraded digital image 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20070286522A1/en">
+              <span itemprop="publicationNumber">US20070286522A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2006-03-27</td>
+          <td itemprop="publicationDate">2007-12-13</td>
+          <td><span itemprop="assigneeOriginal">Sony Deutschland Gmbh</span></td>
+          <td itemprop="title">Method for sharpness enhancing an image 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7315656B2/en">
+              <span itemprop="publicationNumber">US7315656B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2003-05-22</td>
+          <td itemprop="publicationDate">2008-01-01</td>
+          <td><span itemprop="assigneeOriginal">The Boeing Company</span></td>
+          <td itemprop="title">Methods and apparatus for enhanced viewing of aerial refueling operations 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20080044083A1/en">
+              <span itemprop="publicationNumber">US20080044083A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2006-08-15</td>
+          <td itemprop="publicationDate">2008-02-21</td>
+          <td><span itemprop="assigneeOriginal">Nokia Corporation</span></td>
+          <td itemprop="title">Adaptive contrast optimization of digital color images 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20080050031A1/en">
+              <span itemprop="publicationNumber">US20080050031A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2006-08-24</td>
+          <td itemprop="publicationDate">2008-02-28</td>
+          <td><span itemprop="assigneeOriginal">Goh Itoh</span></td>
+          <td itemprop="title">Image processing apparatus and imaging device 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+
+    
+
+    
+    <ul>
+      
+      <li itemprop="applicationsByYear" itemscope repeat>
+        <span itemprop="year">2009</span>
+        <ul>
+          
+          <li itemprop="application" itemscope repeat>
+            <span itemprop="filingDate">2009-04-15</span>
+            <span itemprop="countryCode">US</span>
+            <span itemprop="applicationNumber">US12/423,907</span>
+            <a href="/patent/US8111943B2/en"><span itemprop="documentId">patent/US8111943B2/en</span></a>
+            <span itemprop="legalStatusCat">active</span>
+            <span itemprop="legalStatus">Active</span>
+            
+            <span itemprop="thisApp" content="true" bool></span>
+            
+          </li>
+          
+        </ul>
+      </li>
+      
+    </ul>
+    
+
+    </section>
+
+  <section>
+    <h2>Patent Citations (34)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5287176A/en">
+              <span itemprop="publicationNumber">US5287176A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1992-04-03</td>
+          <td itemprop="publicationDate">1994-02-15</td>
+          <td><span itemprop="assigneeOriginal">Carl-Zeiss-Stiftung</span></td>
+          <td itemprop="title">Automatic contrast and brightness control for thermal image apparatus integrated into an aircraft 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5841911A/en">
+              <span itemprop="publicationNumber">US5841911A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1995-06-06</td>
+          <td itemprop="publicationDate">1998-11-24</td>
+          <td><span itemprop="assigneeOriginal">Ben Gurion, University Of The Negev</span></td>
+          <td itemprop="title">Method for the restoration of images disturbed by the atmosphere 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5991456A/en">
+              <span itemprop="publicationNumber">US5991456A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1996-05-29</td>
+          <td itemprop="publicationDate">1999-11-23</td>
+          <td><span itemprop="assigneeOriginal">Science And Technology Corporation</span></td>
+          <td itemprop="title">Method of improving a digital image 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6205257B1/en">
+              <span itemprop="publicationNumber">US6205257B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1996-12-31</td>
+          <td itemprop="publicationDate">2001-03-20</td>
+          <td><span itemprop="assigneeOriginal">Xerox Corporation</span></td>
+          <td itemprop="title">System and method for selectively noise-filtering digital images 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20070201763A1/en">
+              <span itemprop="publicationNumber">US20070201763A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1997-06-09</td>
+          <td itemprop="publicationDate">2007-08-30</td>
+          <td><span itemprop="assigneeOriginal">Seiko Epson Corporation</span></td>
+          <td itemprop="title">Image Processing Method and Image Processing Apparatus 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7283683B1/en">
+              <span itemprop="publicationNumber">US7283683B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1998-01-23</td>
+          <td itemprop="publicationDate">2007-10-16</td>
+          <td><span itemprop="assigneeOriginal">Sharp Kabushiki Kaisha</span></td>
+          <td itemprop="title">Image processing device and image processing method 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20070172121A1/en">
+              <span itemprop="publicationNumber">US20070172121A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1998-04-14</td>
+          <td itemprop="publicationDate">2007-07-26</td>
+          <td><span itemprop="assigneeOriginal">Minolta Co., Ltd.</span></td>
+          <td itemprop="title">Image processing method, recording medium with recorded image processing program and image processing apparatus 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20060092474A1/en">
+              <span itemprop="publicationNumber">US20060092474A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2000-02-22</td>
+          <td itemprop="publicationDate">2006-05-04</td>
+          <td><span itemprop="assigneeOriginal">Visualgold.Com, Inc.</span></td>
+          <td itemprop="title">System and method for image processing 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7136508B2/en">
+              <span itemprop="publicationNumber">US7136508B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2000-11-09</td>
+          <td itemprop="publicationDate">2006-11-14</td>
+          <td><span itemprop="assigneeOriginal">Minolta Co., Ltd.</span></td>
+          <td itemprop="title">Image processing apparatus, method, and program for processing a moving image 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7013025B2/en">
+              <span itemprop="publicationNumber">US7013025B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2000-11-22</td>
+          <td itemprop="publicationDate">2006-03-14</td>
+          <td><span itemprop="assigneeOriginal">Minolta Co., Ltd.</span></td>
+          <td itemprop="title">Image correction apparatus 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6842543B2/en">
+              <span itemprop="publicationNumber">US6842543B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2001-06-25</td>
+          <td itemprop="publicationDate">2005-01-11</td>
+          <td><span itemprop="assigneeOriginal">Science And Technology Corporation</span></td>
+          <td itemprop="title">Method of improving a digital image having white zones 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7099520B2/en">
+              <span itemprop="publicationNumber">US7099520B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2001-07-05</td>
+          <td itemprop="publicationDate">2006-08-29</td>
+          <td><span itemprop="assigneeOriginal">Minolta Co., Ltd.</span></td>
+          <td itemprop="title">Image processing apparatus, image processing method, and program product for image processing 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6843125B2/en">
+              <span itemprop="publicationNumber">US6843125B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2002-01-08</td>
+          <td itemprop="publicationDate">2005-01-18</td>
+          <td><span itemprop="assigneeOriginal">Robert Peterson</span></td>
+          <td itemprop="title">Fluid-aligned measurement apparatus and method 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20040136605A1/en">
+              <span itemprop="publicationNumber">US20040136605A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2002-01-22</td>
+          <td itemprop="publicationDate">2004-07-15</td>
+          <td><span itemprop="assigneeOriginal">Ulrich Seger</span></td>
+          <td itemprop="title">Method and device for image processing, in addition to a night viewing system for motor vehicles 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7170645B2/en">
+              <span itemprop="publicationNumber">US7170645B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2002-09-06</td>
+          <td itemprop="publicationDate">2007-01-30</td>
+          <td><span itemprop="assigneeOriginal">Samsung Electronics Co., Ltd.</span></td>
+          <td itemprop="title">Method and apparatus for enhancing digital image quality 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7187808B2/en">
+              <span itemprop="publicationNumber">US7187808B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2002-09-14</td>
+          <td itemprop="publicationDate">2007-03-06</td>
+          <td><span itemprop="assigneeOriginal">Samsung Electronics Co., Ltd.</span></td>
+          <td itemprop="title">Method and apparatus for enhancing digital image quality 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6909815B2/en">
+              <span itemprop="publicationNumber">US6909815B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2003-01-31</td>
+          <td itemprop="publicationDate">2005-06-21</td>
+          <td><span itemprop="assigneeOriginal">Spectral Sciences, Inc.</span></td>
+          <td itemprop="title">Method for performing automated in-scene based atmospheric compensation for multi-and hyperspectral imaging sensors in the solar reflective spectral region 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7315656B2/en">
+              <span itemprop="publicationNumber">US7315656B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2003-05-22</td>
+          <td itemprop="publicationDate">2008-01-01</td>
+          <td><span itemprop="assigneeOriginal">The Boeing Company</span></td>
+          <td itemprop="title">Methods and apparatus for enhanced viewing of aerial refueling operations 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7209183B2/en">
+              <span itemprop="publicationNumber">US7209183B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2003-06-30</td>
+          <td itemprop="publicationDate">2007-04-24</td>
+          <td><span itemprop="assigneeOriginal">Samsung Electronics Co., Ltd.</span></td>
+          <td itemprop="title">Method of automatically setting image quality 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20060216959A1/en">
+              <span itemprop="publicationNumber">US20060216959A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2003-08-11</td>
+          <td itemprop="publicationDate">2006-09-28</td>
+          <td><span itemprop="assigneeOriginal">Hirschmann Electronics Gmbh &amp; Co., Kg</span></td>
+          <td itemprop="title">Clippable elastic contact element 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7308154B1/en">
+              <span itemprop="publicationNumber">US7308154B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2003-10-20</td>
+          <td itemprop="publicationDate">2007-12-11</td>
+          <td><span itemprop="assigneeOriginal">Rockwell Collins, Inc.</span></td>
+          <td itemprop="title">Method and apparatus for enhancing a degraded digital image 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20050123211A1/en">
+              <span itemprop="publicationNumber">US20050123211A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2003-12-09</td>
+          <td itemprop="publicationDate">2005-06-09</td>
+          <td><span itemprop="assigneeOriginal">Wong Kam F.</span></td>
+          <td itemprop="title">Digital image processing system and method for processing digital images 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20050163393A1/en">
+              <span itemprop="publicationNumber">US20050163393A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2004-01-23</td>
+          <td itemprop="publicationDate">2005-07-28</td>
+          <td><span itemprop="assigneeOriginal">Old Dominion University</span></td>
+          <td itemprop="title">Visibility improvement in color video stream 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20060126959A1/en">
+              <span itemprop="publicationNumber">US20060126959A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2004-12-13</td>
+          <td itemprop="publicationDate">2006-06-15</td>
+          <td><span itemprop="assigneeOriginal">Digitalglobe, Inc.</span></td>
+          <td itemprop="title">Method and apparatus for enhancing a digital image 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20060245647A1/en">
+              <span itemprop="publicationNumber">US20060245647A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2005-04-29</td>
+          <td itemprop="publicationDate">2006-11-02</td>
+          <td><span itemprop="assigneeOriginal">Samsung Techwin Co., Ltd.</span></td>
+          <td itemprop="title">Method of controlling digital image processing apparatus to effectively display histogram and digital image processing apparatus using the method 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20060268180A1/en">
+              <span itemprop="publicationNumber">US20060268180A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2005-05-31</td>
+          <td itemprop="publicationDate">2006-11-30</td>
+          <td><span itemprop="assigneeOriginal">Chih-Hsien Chou</span></td>
+          <td itemprop="title">Method and system for automatic brightness and contrast adjustment of a video source 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7352410B2/en">
+              <span itemprop="publicationNumber">US7352410B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2005-05-31</td>
+          <td itemprop="publicationDate">2008-04-01</td>
+          <td><span itemprop="assigneeOriginal">Kolorific, Inc.</span></td>
+          <td itemprop="title">Method and system for automatic brightness and contrast adjustment of a video source 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20070009167A1/en">
+              <span itemprop="publicationNumber">US20070009167A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2005-07-05</td>
+          <td itemprop="publicationDate">2007-01-11</td>
+          <td><span itemprop="assigneeOriginal">Dance Christopher R</span></td>
+          <td itemprop="title">Contrast enhancement of images 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20070172145A1/en">
+              <span itemprop="publicationNumber">US20070172145A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2006-01-26</td>
+          <td itemprop="publicationDate">2007-07-26</td>
+          <td><span itemprop="assigneeOriginal">Vestel Elektronik Sanayi Ve Ticaret A.S.</span></td>
+          <td itemprop="title">Method and apparatus for adjusting the contrast of an image 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20070217707A1/en">
+              <span itemprop="publicationNumber">US20070217707A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2006-03-16</td>
+          <td itemprop="publicationDate">2007-09-20</td>
+          <td><span itemprop="assigneeOriginal">Lin Peng W</span></td>
+          <td itemprop="title">Test method for image sharpness 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20070223814A1/en">
+              <span itemprop="publicationNumber">US20070223814A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2006-03-23</td>
+          <td itemprop="publicationDate">2007-09-27</td>
+          <td><span itemprop="assigneeOriginal">Rei-Hong Chang</span></td>
+          <td itemprop="title">Method of processing brightness of an image and related device 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20070286522A1/en">
+              <span itemprop="publicationNumber">US20070286522A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2006-03-27</td>
+          <td itemprop="publicationDate">2007-12-13</td>
+          <td><span itemprop="assigneeOriginal">Sony Deutschland Gmbh</span></td>
+          <td itemprop="title">Method for sharpness enhancing an image 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20080044083A1/en">
+              <span itemprop="publicationNumber">US20080044083A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2006-08-15</td>
+          <td itemprop="publicationDate">2008-02-21</td>
+          <td><span itemprop="assigneeOriginal">Nokia Corporation</span></td>
+          <td itemprop="title">Adaptive contrast optimization of digital color images 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20080050031A1/en">
+              <span itemprop="publicationNumber">US20080050031A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2006-08-24</td>
+          <td itemprop="publicationDate">2008-02-28</td>
+          <td><span itemprop="assigneeOriginal">Goh Itoh</span></td>
+          <td itemprop="title">Image processing apparatus and imaging device 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Non-Patent Citations (3)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Mahiny et al, "<a href='http://scholar.google.com/scholar?q="A+Comparison+of+Four+Common+Atmospheric+Correction+Methods"'>A Comparison of Four Common Atmospheric Correction Methods</a>", Photogrammetric Engineering and Remote Sensing, 2007.</span>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Narasimhan et al, "<a href='http://scholar.google.com/scholar?q="Contrast+Restoration+of+Weather+Degraded+Images"'>Contrast Restoration of Weather Degraded Images</a>", IEEE 2003.</span>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Narasimhan et al, "<a href='http://scholar.google.com/scholar?q="Vision+and+the+Atmosphere"'>Vision and the Atmosphere</a>", IJCV 2002.</span>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <h2>Cited By (6)</h2>
+  <table>
+    <caption>* Cited by examiner, † Cited by third party</caption>
+    <thead>
+      <tr>
+        <th>Publication number</th>
+        <th>Priority date</th>
+        <th>Publication date</th>
+        <th>Assignee</th>
+        <th>Title</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US20110019096A1/en">
+            <span itemprop="publicationNumber">US20110019096A1</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2009-07-21</td>
+        <td itemprop="publicationDate">2011-01-27</td>
+        <td><span itemprop="assigneeOriginal">Louie Lee</span></td>
+        <td itemprop="title">Method and system for detection and enhancement of video images 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US8395708B2/en">
+            <span itemprop="publicationNumber">US8395708B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2009-07-21</td>
+        <td itemprop="publicationDate">2013-03-12</td>
+        <td><span itemprop="assigneeOriginal">Qualcomm Incorporated</span></td>
+        <td itemprop="title">Method and system for detection and enhancement of video images 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US20150043818A1/en">
+            <span itemprop="publicationNumber">US20150043818A1</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2012-04-04</td>
+        <td itemprop="publicationDate">2015-02-12</td>
+        <td><span itemprop="assigneeOriginal">Nextchip Co., Ltd.</span></td>
+        <td itemprop="title">Apparatus and method for recovering images damaged by weather phenomena 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US9589337B2/en">
+            <span itemprop="publicationNumber">US9589337B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2012-04-04</td>
+        <td itemprop="publicationDate">2017-03-07</td>
+        <td><span itemprop="assigneeOriginal">Nextchip Co., Ltd.</span></td>
+        <td itemprop="title">Apparatus and method for recovering images damaged by weather phenomena 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US20140328539A1/en">
+            <span itemprop="publicationNumber">US20140328539A1</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2013-04-19</td>
+        <td itemprop="publicationDate">2014-11-06</td>
+        <td><span itemprop="assigneeOriginal">Huawei Technologies Co., Ltd.</span></td>
+        <td itemprop="title">Method and apparatus for enhancing color 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US9196024B2/en">
+            <span itemprop="publicationNumber">US9196024B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2013-04-19</td>
+        <td itemprop="publicationDate">2015-11-24</td>
+        <td><span itemprop="assigneeOriginal">Huawei Technologies Co., Ltd.</span></td>
+        <td itemprop="title">Method and apparatus for enhancing color 
+       </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <section>
+    <h2>Also Published As</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Publication date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="docdbFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20100266214A1/en">
+              <span itemprop="publicationNumber">US20100266214A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+          </td>
+          <td itemprop="publicationDate">2010-10-21</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Similar Documents</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Publication</th>
+          <th>Publication Date</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="12215418530155512232">
+              <a href="/scholar/12215418530155512232"><span itemprop="scholarAuthors">O&#39;Malley et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2010">2010</time>
+            
+          </td>
+          <td itemprop="title">Rear-lamp vehicle detection and tracking in low-exposure color video for night conditions</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="6632438392896404283">
+              <a href="/scholar/6632438392896404283"><span itemprop="scholarAuthors">Tarel et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2009">2009</time>
+            
+          </td>
+          <td itemprop="title">Fast visibility restoration from a single color or gray level image</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/JP4643715B2/en">
+                <span itemprop="publicationNumber">JP4643715B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2011-03-02">2011-03-02</time>
+            
+            
+          </td>
+          <td itemprop="title">Automatic detection and correction of defects caused by non-red eye flash 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/DE60008486T2/en">
+                <span itemprop="publicationNumber">DE60008486T2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2004-12-16">2004-12-16</time>
+            
+            
+          </td>
+          <td itemprop="title">  Method sky detection in images  </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="17114772230324894087">
+              <a href="/scholar/17114772230324894087"><span itemprop="scholarAuthors">Narasimhan et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2001">2001</time>
+            
+          </td>
+          <td itemprop="title">Removing weather effects from monochrome images</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US8396324B2/en">
+                <span itemprop="publicationNumber">US8396324B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2013-03-12">2013-03-12</time>
+            
+            
+          </td>
+          <td itemprop="title">Image processing method and apparatus for correcting distortion caused by air particles as in fog 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="12551570900749426477">
+              <a href="/scholar/12551570900749426477"><span itemprop="scholarAuthors">Kranthi et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2011">2011</time>
+            
+          </td>
+          <td itemprop="title">Automatic number plate recognition</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US9230175B2/en">
+                <span itemprop="publicationNumber">US9230175B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2016-01-05">2016-01-05</time>
+            
+            
+          </td>
+          <td itemprop="title">System and method for motion detection in a surveillance video 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="4206210509848200270">
+              <a href="/scholar/4206210509848200270"><span itemprop="scholarAuthors">Xu et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2012">2012</time>
+            
+          </td>
+          <td itemprop="title">Fast image dehazing using improved dark channel prior</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="18004248700282096866">
+              <a href="/scholar/18004248700282096866"><span itemprop="scholarAuthors">Roser et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2008">2008</time>
+            
+          </td>
+          <td itemprop="title">Classification of weather situations on single color images</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="16934802992839367963">
+              <a href="/scholar/16934802992839367963"><span itemprop="scholarAuthors">Faro et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2011">2011</time>
+            
+          </td>
+          <td itemprop="title">Adaptive background modeling integrated with luminosity sensors and occlusion processing for reliable vehicle detection</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US20040239762A1/en">
+                <span itemprop="publicationNumber">US20040239762A1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2004-12-02">2004-12-02</time>
+            
+            
+          </td>
+          <td itemprop="title">Adaptive background image updating 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/JP4942510B2/en">
+                <span itemprop="publicationNumber">JP4942510B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2012-05-30">2012-05-30</time>
+            
+            
+          </td>
+          <td itemprop="title">Vehicle image recognition apparatus and method 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US20050175253A1/en">
+                <span itemprop="publicationNumber">US20050175253A1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2005-08-11">2005-08-11</time>
+            
+            
+          </td>
+          <td itemprop="title">Method for producing cloud free and cloud-shadow free images 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US8417053B2/en">
+                <span itemprop="publicationNumber">US8417053B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2013-04-09">2013-04-09</time>
+            
+            
+          </td>
+          <td itemprop="title">Cleaning method for foggy images 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="8212816892716733775">
+              <a href="/scholar/8212816892716733775"><span itemprop="scholarAuthors">Ancuti et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2010">2010</time>
+            
+          </td>
+          <td itemprop="title">Effective single image dehazing by fusion</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="4322878443020855291">
+              <a href="/scholar/4322878443020855291"><span itemprop="scholarAuthors">Li et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2015">2015</time>
+            
+          </td>
+          <td itemprop="title">Nighttime haze removal with glow and multiple light colors</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US8294794B2/en">
+                <span itemprop="publicationNumber">US8294794B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2012-10-23">2012-10-23</time>
+            
+            
+          </td>
+          <td itemprop="title">Shadow removal in an image captured by a vehicle-based camera for clear path detection 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="17147071303949923575">
+              <a href="/scholar/17147071303949923575"><span itemprop="scholarAuthors">Xu et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2015">2015</time>
+            
+          </td>
+          <td itemprop="title">Review of video and image defogging algorithms and related studies on image restoration and enhancement</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="13242525102758971803">
+              <a href="/scholar/13242525102758971803"><span itemprop="scholarAuthors">Badr et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2011">2011</time>
+            
+          </td>
+          <td itemprop="title">Automatic number plate recognition system</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US20070110309A1/en">
+                <span itemprop="publicationNumber">US20070110309A1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2007-05-17">2007-05-17</time>
+            
+            
+          </td>
+          <td itemprop="title">Shadow detection in images 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="16294819842702556566">
+              <a href="/scholar/16294819842702556566"><span itemprop="scholarAuthors">Xu et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2009">2009</time>
+            
+          </td>
+          <td itemprop="title">Fog removal from video sequences using contrast limited adaptive histogram equalization</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/EP1892666A1/en">
+                <span itemprop="publicationNumber">EP1892666A1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2008-02-27">2008-02-27</time>
+            
+            
+          </td>
+          <td itemprop="title">A method, an apparatus and a computer-readable medium for processing an image dataset 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="6231088403215912872">
+              <a href="/scholar/6231088403215912872"><span itemprop="scholarAuthors">Tripathi et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2012">2012</time>
+            
+          </td>
+          <td itemprop="title">Single image fog removal using bilateral filter</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US9077869B2/en">
+                <span itemprop="publicationNumber">US9077869B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2015-07-07">2015-07-07</time>
+            
+            
+          </td>
+          <td itemprop="title">Method and apparatus for detection and removal of rain from videos using temporal and spatiotemporal properties 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Legal Events</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Code</th>
+          <th>Title</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2009-04-23">2009-04-23</time></td>
+          <td itemprop="code">AS</td>
+          <td itemprop="title">Assignment</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Owner name</strong>:
+              <span itemprop="value">UNITED STATES OF AMERICA AS REPRESENTED BY THE ADM</span>
+            </p>
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">ASSIGNMENT OF ASSIGNORS INTEREST;ASSIGNORS:JOBSON, DANIEL J.;WOODELL, GLENN A.;SIGNING DATES FROM 20090415 TO 20090420;REEL/FRAME:022586/0321</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2009-05-11">2009-05-11</time></td>
+          <td itemprop="code">AS</td>
+          <td itemprop="title">Assignment</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Owner name</strong>:
+              <span itemprop="value">UNITED STATES OF AMERICA AS REPRESENTED BY THE ADM</span>
+            </p>
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">ASSIGNMENT OF ASSIGNORS INTEREST;ASSIGNOR:COLLEGE OF WILLIAM AND MARY;REEL/FRAME:022661/0793</span>
+            </p>
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Effective date</strong>:
+              <span itemprop="value">20090430</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2012-01-18">2012-01-18</time></td>
+          <td itemprop="code">STCF</td>
+          <td itemprop="title">Information on status: patent grant</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">PATENTED CASE</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2015-07-29">2015-07-29</time></td>
+          <td itemprop="code">FPAY</td>
+          <td itemprop="title">Fee payment</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Year of fee payment</strong>:
+              <span itemprop="value">4</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2019-08-06">2019-08-06</time></td>
+          <td itemprop="code">MAFP</td>
+          <td itemprop="title">Maintenance fee payment</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">PAYMENT OF MAINTENANCE FEE, 8TH YEAR, LARGE ENTITY (ORIGINAL EVENT CODE: M1552); ENTITY STATUS OF PATENT OWNER: LARGE ENTITY</span>
+            </p>
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Year of fee payment</strong>:
+              <span itemprop="value">8</span>
+            </p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+</article>
+
+    </search-app>
+    <script type="text/javascript" src="//www.gstatic.com/feedback/api.js"></script>
+    <script async="" defer="" src="//www.google.com/insights/consumersurveys/async_survey?site=cxkjf7ipxgbnnjy6k35ezcvbbe"></script>
+  </body>
+</html>

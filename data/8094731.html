@@ -1,0 +1,2726 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>US8094731B2 - System and method for transferring telemetry data between a ground station and a control center 
+        - Google Patents</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="referrer" content="origin-when-crossorigin">
+    <link rel="canonical" href="https://patents.google.com/patent/US8094731B2/en">
+    <meta name="description" content="
+     Disclosed herein are systems, computer-implemented methods, and tangible computer-readable media for coordinating communications between a ground station, a control center, and a spacecraft. The method receives a call to a simple, unified application programmer interface implementing communications protocols related to outer space, when instruction relates to receiving a command at the control center for the ground station generate an abstract message by agreeing upon a format for each type of abstract message with the ground station and using a set of message definitions to configure the command in the agreed upon format, encode the abstract message to generate an encoded message, and transfer the encoded message to the ground station, and perform similar actions when the instruction relates to receiving a second command as a second encoded message at the ground station from the control center and when the determined instruction type relates to transmitting information to the control center. 
+   
+   ">
+    
+    <meta name="DC.type" content="patent">
+    
+    <meta name="DC.title" content="System and method for transferring telemetry data between a ground station and a control center 
+       ">
+    
+    <meta name="DC.date" content="2009-01-21" scheme="dateSubmitted">
+    
+    <meta name="DC.description" content="
+     Disclosed herein are systems, computer-implemented methods, and tangible computer-readable media for coordinating communications between a ground station, a control center, and a spacecraft. The method receives a call to a simple, unified application programmer interface implementing communications protocols related to outer space, when instruction relates to receiving a command at the control center for the ground station generate an abstract message by agreeing upon a format for each type of abstract message with the ground station and using a set of message definitions to configure the command in the agreed upon format, encode the abstract message to generate an encoded message, and transfer the encoded message to the ground station, and perform similar actions when the instruction relates to receiving a second command as a second encoded message at the ground station from the control center and when the determined instruction type relates to transmitting information to the control center. 
+   
+   ">
+    
+    <meta name="citation_patent_application_number" content="US:12/357,081">
+    
+    <meta name="citation_pdf_url" content="https://patentimages.storage.googleapis.com/ed/fd/75/bd33617f8da19f/US8094731.pdf">
+    
+    <meta name="citation_patent_number" content="US:8094731">
+    
+    <meta name="DC.date" content="2012-01-10" scheme="issue">
+    
+    <meta name="DC.contributor" content="Timothy J. Ray" scheme="inventor">
+    
+    <meta name="DC.contributor" content="Vuong T. Ly" scheme="inventor">
+    
+    <meta name="DC.contributor" content="National Aeronautics and Space Administration (NASA)" scheme="assignee">
+    
+    <meta name="DC.relation" content="US:5966640" scheme="references">
+    
+    <meta name="DC.relation" content="US:6883167" scheme="references">
+    
+    <meta name="DC.relation" content="US:20040252053:A1" scheme="references">
+    
+    <meta name="DC.relation" content="US:20050218237:A1" scheme="references">
+    
+    <meta name="DC.relation" content="US:20050219299:A1" scheme="references">
+    
+    <meta name="DC.relation" content="US:20050230487:A1" scheme="references">
+    
+    <meta name="DC.relation" content="US:20060052099:A1" scheme="references">
+    
+    <meta name="DC.relation" content="US:20060209736:A1" scheme="references">
+    
+    <meta name="DC.relation" content="US:20060209737:A1" scheme="references">
+    
+    <meta name="DC.relation" content="US:7365674" scheme="references">
+    
+    <meta name="DC.relation" content="US:7856294" scheme="references">
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,400italic,500,500italic,700">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Product+Sans">
+    <style>
+      body { transition: none; }
+    </style>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-27188110-4', 'auto');
+
+      version = 'patent-search.search_20191120_RC00';
+
+      function sendFeedback() {
+        userfeedback.api.startFeedback({
+          'productId': '713680',
+          'bucket': 'patent-search-web',
+          'productVersion': version,
+        });
+      }
+
+      window.experiments = {};
+      window.experiments.patentCountries = "ae,ag,al,am,ao,ap,ar,at,au,aw,az,ba,bb,bd,be,bf,bg,bh,bj,bn,bo,br,bw,bx,by,bz,ca,cf,cg,ch,ci,cl,cm,cn,co,cr,cs,cu,cy,cz,dd,de,dj,dk,dm,do,dz,ea,ec,ee,eg,em,ep,es,fi,fr,ga,gb,gc,gd,ge,gh,gm,gn,gq,gr,gt,gw,hk,hn,hr,hu,ib,id,ie,il,in,ir,is,it,jo,jp,ke,kg,kh,km,kn,kp,kr,kw,kz,la,lc,li,lk,lr,ls,lt,lu,lv,ly,ma,mc,md,me,mg,mk,ml,mn,mo,mr,mt,mw,mx,my,mz,na,ne,ng,ni,nl,no,nz,oa,om,pa,pe,pg,ph,pl,pt,py,qa,ro,rs,ru,rw,sa,sc,sd,se,sg,si,sk,sl,sm,sn,st,su,sv,sy,sz,td,tg,th,tj,tm,tn,tr,tt,tw,tz,ua,ug,us,uy,uz,vc,ve,vn,wo,yu,za,zm,zw";
+      
+      
+      window.profilePicture = "";
+
+      window.Polymer = {
+        dom: 'shady',
+        lazyRegister: true,
+      };
+    </script>
+
+    <script src="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/webcomponentsjs/webcomponents-lite.min.js"></script>
+    
+    <link rel="import" href="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/search-app-vulcanized.html">
+    
+  </head>
+  <body unresolved>
+    
+    <script src="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/search-app-vulcanized.js"></script>
+    
+    <search-app>
+      
+      
+
+      <article class="result" itemscope itemtype="http://schema.org/ScholarlyArticle">
+  <h1 itemprop="pageTitle">US8094731B2 - System and method for transferring telemetry data between a ground station and a control center 
+        - Google Patents</h1>
+  <span itemprop="title">System and method for transferring telemetry data between a ground station and a control center 
+       </span>
+
+  <meta itemprop="type" content="patent">
+  <a href="https://patentimages.storage.googleapis.com/ed/fd/75/bd33617f8da19f/US8094731.pdf" itemprop="pdfLink">Download PDF</a>
+  <h2>Info</h2>
+
+  <dl>
+    <dt>Publication number</dt>
+    <dd itemprop="publicationNumber">US8094731B2</dd>
+    <meta itemprop="numberWithoutCodes" content="8094731">
+    <meta itemprop="kindCode" content="B2">
+    <meta itemprop="publicationDescription" content="Patent ( having previously published pre-grant publication)">
+    
+    <span>US8094731B2</span>
+    
+    <span>US12/357,081</span>
+    
+    <span>US35708109A</span>
+    
+    <span>US8094731B2</span>
+    
+    <span>US 8094731 B2</span>
+    
+    <span>US8094731 B2</span>
+    
+    <span>US 8094731B2</span>
+    
+    <span>  </span>
+    
+    <span> </span>
+    
+    <span> </span>
+    
+    <span>US 35708109 A</span>
+    
+    <span>US35708109 A</span>
+    
+    <span>US 35708109A</span>
+    
+    <span>US 8094731 B2</span>
+    
+    <span>US8094731 B2</span>
+    
+    <span>US 8094731B2</span>
+    
+
+    <dt>Authority</dt>
+    <dd itemprop="countryCode">US</dd>
+    <dd itemprop="countryName">United States</dd>
+
+    <dt>Prior art keywords</dt>
+    
+    <dd itemprop="priorArtKeywords" repeat>message</dd>
+    <dd itemprop="priorArtKeywords" repeat>control center</dd>
+    <dd itemprop="priorArtKeywords" repeat>ground station</dd>
+    <dd itemprop="priorArtKeywords" repeat>command</dd>
+    <dd itemprop="priorArtKeywords" repeat>abstract</dd>
+
+    <dt>Prior art date</dt>
+    <dd><time itemprop="priorArtDate" datetime="2009-01-21">2009-01-21</time></dd>
+
+    <dt>Legal status (The legal status is an assumption and is not a legal conclusion. Google has not performed a legal analysis and makes no representation as to the accuracy of the status listed.)</dt>
+    <dd itemprop="legalStatusIfi" itemscope>
+      <span itemprop="status">Active</span>, expires <time itemprop="expiration" datetime="2030-06-10">2030-06-10</time>
+    </dd>
+  </dl>
+
+  <dt>Application number</dt>
+  <dd itemprop="applicationNumber">US12/357,081</dd>
+
+  
+
+  <dt>Other versions</dt>
+  <dd itemprop="directAssociations" itemscope repeat>
+    
+    <a href="/patent/US20100183082A1/en">
+      <span itemprop="publicationNumber">US20100183082A1</span>
+      (<span itemprop="primaryLanguage">en</span>
+    </a>
+  </dd>
+
+  <dt>Inventor</dt>
+  <dd itemprop="inventor" repeat>Timothy J. Ray</dd>
+  <dd itemprop="inventor" repeat>Vuong T. Ly</dd>
+  <dt>Current Assignee (The listed assignees may be inaccurate. Google has not performed a legal analysis and makes no representation or warranty as to the accuracy of the list.)</dt>
+  <dd itemprop="assigneeCurrent" repeat>
+    National Aeronautics and Space Administration (NASA)
+  </dd>
+
+  <dt>Original Assignee</dt>
+  <dd itemprop="assigneeOriginal" repeat>National Aeronautics and Space Administration (NASA)</dd>
+
+  <dt>Priority date (The priority date is an assumption and is not a legal conclusion. Google has not performed a legal analysis and makes no representation as to the accuracy of the date listed.)</dt>
+  <dd><time itemprop="priorityDate" datetime="2009-01-21">2009-01-21</time></dd>
+
+  <dt>Filing date</dt>
+  <dd><time itemprop="filingDate" datetime="2009-01-21">2009-01-21</time></dd>
+
+  <dt>Publication date</dt>
+  <dd><time itemprop="publicationDate" datetime="2012-01-10">2012-01-10</time></dd>
+
+  
+
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2009-01-21">2009-01-21</time>
+    <span itemprop="title">Application filed by National Aeronautics and Space Administration (NASA)</span>
+    <span itemprop="type">filed</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    <span itemprop="assigneeSearch">National Aeronautics and Space Administration (NASA)</span>
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2009-01-21">2009-01-21</time>
+    <span itemprop="title">Priority to US12/357,081</span>
+    <span itemprop="type">priority</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    <span itemprop="documentId">patent/US8094731B2/en</span>
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2009-05-22">2009-05-22</time>
+    <span itemprop="title">Assigned to UNITED STATES OF AMERICA AS REPRESENTED BY THE ADMINISTRATOR OF THE NATIONAL AERONAUTICS AND SPACE ADMINISTRATION</span>
+    <span itemprop="type">reassignment</span>
+    
+    
+    
+    
+    <span itemprop="assigneeSearch">UNITED STATES OF AMERICA AS REPRESENTED BY THE ADMINISTRATOR OF THE NATIONAL AERONAUTICS AND SPACE ADMINISTRATION</span>
+    
+    
+    <span itemprop="description" repeat>ASSIGNMENT OF ASSIGNORS INTEREST (SEE DOCUMENT FOR DETAILS).</span>
+    
+    <span itemprop="description" repeat>Assignors: LY, VUONG T., MR., RAY, TIMOTHY J., MR.</span>
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2010-07-22">2010-07-22</time>
+    <span itemprop="title">Publication of US20100183082A1</span>
+    <span itemprop="type">publication</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    <span itemprop="documentId">patent/US20100183082A1/en</span>
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2012-01-10">2012-01-10</time>
+    <span itemprop="title">Application granted</span>
+    <span itemprop="type">granted</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2012-01-10">2012-01-10</time>
+    <span itemprop="title">Publication of US8094731B2</span>
+    <span itemprop="type">publication</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    <span itemprop="documentId">patent/US8094731B2/en</span>
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2019-11-26">2019-11-26</time>
+    <span itemprop="title">Application status is Active</span>
+    <span itemprop="type">legal-status</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2030-06-10">2030-06-10</time>
+    <span itemprop="title">Adjusted expiration</span>
+    <span itemprop="type">legal-status</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+
+  <h2>Links</h2>
+
+  <ul>
+    
+          <li itemprop="links" itemscope repeat>
+            <meta itemprop="id" content="usptoLink">
+            <a href="http://patft.uspto.gov/netacgi/nph-Parser?Sect1=PTO1&Sect2=HITOFF&p=1&u=/netahtml/PTO/srchnum.html&r=1&f=G&l=50&d=PALL&s1=8094731.PN." itemprop="url" target="_blank"><span itemprop="text">USPTO</span></a>
+          </li>
+        <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="usptoAssignmentLink">
+          <a href="https://assignment.uspto.gov/patent/index.html#/patent/search/resultFilter?searchInput=8094731" itemprop="url" target="_blank"><span itemprop="text">USPTO Assignment</span></a>
+        </li>
+
+    <li itemprop="links" itemscope repeat>
+        <meta itemprop="id" content="espacenetLink">
+        <a href="http://worldwide.espacenet.com/publicationDetails/biblio?CC=US&amp;NR=8094731B2&amp;KC=B2&amp;FT=D" itemprop="url" target="_blank"><span itemprop="text">Espacenet</span></a>
+      </li>
+      
+
+    
+
+    
+      <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="globalDossierLink">
+          <a href="http://globaldossier.uspto.gov/#/result/patent/US/8094731/1" itemprop="url" target="_blank"><span itemprop="text">Global Dossier</span></a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="stackexchangeLink">
+          <a href="https://patents.stackexchange.com/questions/tagged/US8094731" itemprop="url"><span itemprop="text">Discuss</span></a>
+        </li>
+      
+  </ul>
+
+  
+  <ul itemprop="concept" itemscope>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000002609</span>
+      <span itemprop="name">media</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>abstract</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">21</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000010410</span>
+      <span itemprop="name">layers</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">34</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000000872</span>
+      <span itemprop="name">buffers</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">19</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000015654</span>
+      <span itemprop="name">memory</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">11</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000004891</span>
+      <span itemprop="name">communication</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">10</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000002104</span>
+      <span itemprop="name">routine</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">7</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000003860</span>
+      <span itemprop="name">storage</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">7</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000003993</span>
+      <span itemprop="name">interaction</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">6</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000000203</span>
+      <span itemprop="name">mixtures</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">6</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000011162</span>
+      <span itemprop="name">core materials</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">4</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001976</span>
+      <span itemprop="name">improved</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">3</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001721</span>
+      <span itemprop="name">combination</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001276</span>
+      <span itemprop="name">controlling effects</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000003287</span>
+      <span itemprop="name">optical</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000004044</span>
+      <span itemprop="name">response</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">206010000210</span>
+      <span itemprop="name">Abortion</span>
+      <span itemprop="domain">Diseases</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">241000220317</span>
+      <span itemprop="name">Rosa</span>
+      <span itemprop="domain">Species</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000036462</span>
+      <span itemprop="name">Unbound</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000003139</span>
+      <span itemprop="name">buffering</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000000875</span>
+      <span itemprop="name">corresponding</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001934</span>
+      <span itemprop="name">delay</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000005225</span>
+      <span itemprop="name">electronics</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000002349</span>
+      <span itemprop="name">favourable</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000000835</span>
+      <span itemprop="name">fiber</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000036541</span>
+      <span itemprop="name">health</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000000670</span>
+      <span itemprop="name">limiting</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000004048</span>
+      <span itemprop="name">modification</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000006011</span>
+      <span itemprop="name">modification</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000002093</span>
+      <span itemprop="name">peripheral</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000005365</span>
+      <span itemprop="name">production</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001360</span>
+      <span itemprop="name">synchronised</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+  </ul>
+  
+
+  <section>
+    <h2>Images</h2>
+    <ul>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/4e/73/de/11b672ed5f7fa3/US08094731-20120110-D00000.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/45/58/39/6813717b316f82/US08094731-20120110-D00000.png">
+        <ul>
+          <li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="100">
+            <meta itemprop="label" content="computing device">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="572">
+              <meta itemprop="top" content="79">
+              <meta itemprop="right" content="673">
+              <meta itemprop="bottom" content="140">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="110">
+            <meta itemprop="label" content="system bus">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1730">
+              <meta itemprop="top" content="759">
+              <meta itemprop="right" content="1821">
+              <meta itemprop="bottom" content="820">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="120">
+            <meta itemprop="label" content="processing unit">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1319">
+              <meta itemprop="top" content="885">
+              <meta itemprop="right" content="1405">
+              <meta itemprop="bottom" content="943">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="130">
+            <meta itemprop="label" content="Other system memory">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="816">
+              <meta itemprop="top" content="195">
+              <meta itemprop="right" content="909">
+              <meta itemprop="bottom" content="258">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="140">
+            <meta itemprop="label" content="ROM">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1096">
+              <meta itemprop="top" content="200">
+              <meta itemprop="right" content="1187">
+              <meta itemprop="bottom" content="262">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="140">
+            <meta itemprop="label" content="ROM">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1109">
+              <meta itemprop="top" content="196">
+              <meta itemprop="right" content="1186">
+              <meta itemprop="bottom" content="273">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="160">
+            <meta itemprop="label" content="hard disk drive">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1681">
+              <meta itemprop="top" content="204">
+              <meta itemprop="right" content="1766">
+              <meta itemprop="bottom" content="261">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="170">
+            <meta itemprop="label" content="device output">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="41">
+              <meta itemprop="top" content="520">
+              <meta itemprop="right" content="123">
+              <meta itemprop="bottom" content="576">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="180">
+            <meta itemprop="label" content="communications interface">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="41">
+              <meta itemprop="top" content="758">
+              <meta itemprop="right" content="124">
+              <meta itemprop="bottom" content="814">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="190">
+            <meta itemprop="label" content="input device">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="42">
+              <meta itemprop="top" content="314">
+              <meta itemprop="right" content="125">
+              <meta itemprop="bottom" content="371">
+            </span>
+          </li>
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/bf/a6/be/d15a43ae66a4ac/US08094731-20120110-D00001.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/95/5c/c6/6d3e2a4a6f0a35/US08094731-20120110-D00001.png">
+        <ul>
+          <li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="100">
+            <meta itemprop="label" content="computing device">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="588">
+              <meta itemprop="top" content="82">
+              <meta itemprop="right" content="673">
+              <meta itemprop="bottom" content="139">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="110">
+            <meta itemprop="label" content="system bus">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1738">
+              <meta itemprop="top" content="763">
+              <meta itemprop="right" content="1821">
+              <meta itemprop="bottom" content="819">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="120">
+            <meta itemprop="label" content="processing unit">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1324">
+              <meta itemprop="top" content="884">
+              <meta itemprop="right" content="1409">
+              <meta itemprop="bottom" content="942">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="130">
+            <meta itemprop="label" content="Other system memory">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="818">
+              <meta itemprop="top" content="195">
+              <meta itemprop="right" content="910">
+              <meta itemprop="bottom" content="258">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="140">
+            <meta itemprop="label" content="ROM">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1106">
+              <meta itemprop="top" content="203">
+              <meta itemprop="right" content="1191">
+              <meta itemprop="bottom" content="260">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="160">
+            <meta itemprop="label" content="hard disk drive">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1678">
+              <meta itemprop="top" content="201">
+              <meta itemprop="right" content="1779">
+              <meta itemprop="bottom" content="262">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="170">
+            <meta itemprop="label" content="device output">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="44">
+              <meta itemprop="top" content="513">
+              <meta itemprop="right" content="129">
+              <meta itemprop="bottom" content="578">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="180">
+            <meta itemprop="label" content="communications interface">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="48">
+              <meta itemprop="top" content="755">
+              <meta itemprop="right" content="130">
+              <meta itemprop="bottom" content="818">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="190">
+            <meta itemprop="label" content="input device">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="50">
+              <meta itemprop="top" content="315">
+              <meta itemprop="right" content="133">
+              <meta itemprop="bottom" content="371">
+            </span>
+          </li>
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/69/40/92/8c8517ecfb42f6/US08094731-20120110-D00002.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/62/b9/ee/cc658c34215ab5/US08094731-20120110-D00002.png">
+        <ul>
+          
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/a5/d5/47/579ce2786dbc02/US08094731-20120110-D00003.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/9c/5e/07/acfd048fd7000f/US08094731-20120110-D00003.png">
+        <ul>
+          
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/13/1d/ed/32547233ebdcd7/US08094731-20120110-D00004.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/39/02/0f/afa48177f9cf0e/US08094731-20120110-D00004.png">
+        <ul>
+          
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/a7/fe/48/f5e75791db82a0/US08094731-20120110-D00005.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/06/a5/5d/f76c2baee642c7/US08094731-20120110-D00005.png">
+        <ul>
+          
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/5c/2a/9a/d527b0fc80bb6b/US08094731-20120110-D00006.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/3d/71/d3/8470aa4a06fd4b/US08094731-20120110-D00006.png">
+        <ul>
+          
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/22/d2/a6/9b567419af64f0/US08094731-20120110-D00007.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/a3/64/6f/76e749af7de7eb/US08094731-20120110-D00007.png">
+        <ul>
+          <li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="7">
+            <meta itemprop="id" content="604">
+            <meta itemprop="label" content="network connection">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1511">
+              <meta itemprop="top" content="474">
+              <meta itemprop="right" content="1606">
+              <meta itemprop="bottom" content="539">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="7">
+            <meta itemprop="id" content="608">
+            <meta itemprop="label" content="way link">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1533">
+              <meta itemprop="top" content="652">
+              <meta itemprop="right" content="1606">
+              <meta itemprop="bottom" content="717">
+            </span>
+          </li>
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/24/ab/f5/6df28823a0d513/US08094731-20120110-D00008.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/1a/b7/20/13bc42aaf1e4fb/US08094731-20120110-D00008.png">
+        <ul>
+          <li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="8">
+            <meta itemprop="id" content="702">
+            <meta itemprop="label" content="term Invocation">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="174">
+              <meta itemprop="top" content="338">
+              <meta itemprop="right" content="268">
+              <meta itemprop="bottom" content="404">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="8">
+            <meta itemprop="id" content="704">
+            <meta itemprop="label" content="term Return">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1795">
+              <meta itemprop="top" content="296">
+              <meta itemprop="right" content="1878">
+              <meta itemprop="bottom" content="353">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="8">
+            <meta itemprop="id" content="706">
+            <meta itemprop="label" content="term Invocation">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="178">
+              <meta itemprop="top" content="609">
+              <meta itemprop="right" content="262">
+              <meta itemprop="bottom" content="674">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="8">
+            <meta itemprop="id" content="708">
+            <meta itemprop="label" content="term Return">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1004">
+              <meta itemprop="top" content="451">
+              <meta itemprop="right" content="1094">
+              <meta itemprop="bottom" content="513">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="8">
+            <meta itemprop="id" content="710">
+            <meta itemprop="label" content="information">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1798">
+              <meta itemprop="top" content="566">
+              <meta itemprop="right" content="1889">
+              <meta itemprop="bottom" content="621">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="8">
+            <meta itemprop="id" content="712">
+            <meta itemprop="label" content="information">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="174">
+              <meta itemprop="top" content="868">
+              <meta itemprop="right" content="268">
+              <meta itemprop="bottom" content="932">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="8">
+            <meta itemprop="id" content="714">
+            <meta itemprop="label" content="notification">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1023">
+              <meta itemprop="top" content="1072">
+              <meta itemprop="right" content="1109">
+              <meta itemprop="bottom" content="1131">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="8">
+            <meta itemprop="id" content="716">
+            <meta itemprop="label" content="term Invocation">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1793">
+              <meta itemprop="top" content="837">
+              <meta itemprop="right" content="1888">
+              <meta itemprop="bottom" content="907">
+            </span>
+          </li>
+        </ul>
+      </li>
+      </ul>
+  </section>
+
+  <section>
+    <h2>Classifications</h2>
+    
+    <ul>
+      <li>
+        <ul itemprop="cpcs" itemscope repeat>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">H</span>&mdash;<span itemprop="Description">ELECTRICITY</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">H04</span>&mdash;<span itemprop="Description">ELECTRIC COMMUNICATION TECHNIQUE</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">H04Q</span>&mdash;<span itemprop="Description">SELECTING</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">H04Q9/00</span>&mdash;<span itemprop="Description">Arrangements in telecontrol or telemetry systems for selectively calling a substation from a main station, in which substation desired apparatus is selected for applying a control signal thereto or for obtaining measured values therefrom</span>
+            <meta itemprop="Leaf" content="true">
+            
+            <meta itemprop="FirstCode" content="true">
+          </li>
+          </ul>
+      </li>
+      <li>
+        <ul itemprop="cpcs" itemscope repeat>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">H</span>&mdash;<span itemprop="Description">ELECTRICITY</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">H04</span>&mdash;<span itemprop="Description">ELECTRIC COMMUNICATION TECHNIQUE</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">H04Q</span>&mdash;<span itemprop="Description">SELECTING</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">H04Q2209/00</span>&mdash;<span itemprop="Description">Arrangements in telecontrol or telemetry systems</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">H04Q2209/40</span>&mdash;<span itemprop="Description">Arrangements in telecontrol or telemetry systems using a wireless architecture</span>
+            <meta itemprop="Leaf" content="true">
+            <meta itemprop="Additional" content="true">
+            
+          </li>
+          </ul>
+      </li>
+      </ul>
+  </section>
+
+  <section itemprop="abstract" itemscope>
+    <h2>Abstract</h2>
+    
+    <div itemprop="content" html><abstract mxw-id="PA88093178" lang="EN" load-source="patent-office">
+    <div num="p-0001" class="abstract">Disclosed herein are systems, computer-implemented methods, and tangible computer-readable media for coordinating communications between a ground station, a control center, and a spacecraft. The method receives a call to a simple, unified application programmer interface implementing communications protocols related to outer space, when instruction relates to receiving a command at the control center for the ground station generate an abstract message by agreeing upon a format for each type of abstract message with the ground station and using a set of message definitions to configure the command in the agreed upon format, encode the abstract message to generate an encoded message, and transfer the encoded message to the ground station, and perform similar actions when the instruction relates to receiving a second command as a second encoded message at the ground station from the control center and when the determined instruction type relates to transmitting information to the control center.</div>
+  </abstract>
+  </div>
+  </section>
+
+  <section itemprop="description" itemscope>
+    <h2>Description</h2>
+    
+    <div itemprop="content" html><div mxw-id="PDES44151969" lang="EN" load-source="patent-office" class="description">
+    
+    <heading>BACKGROUND OF THE INVENTION</heading>
+    <p num="p-0002">1. Field of the Invention</p>
+    <p num="p-0003">The present invention relates to space-related communications and more specifically to communicating telemetry data in a standardized way between a ground station and a control center.</p>
+    <p num="p-0004">2. Introduction</p>
+    <p num="p-0005">To monitor the health and safety of spacecraft, a spacecraft must transmit spacecraft telemetry data to a ground station (such as a large antenna or a radio dish), a mission control center (such as those maintained by NASA, ESA, and FKA) must receive that telemetry data from the ground station, and the mission control center must be able to send commands and/or other information to the spacecraft through the ground station. The ground station and mission control center are often far from each other for logistical and other reasons. The criteria for an ideal ground station site, such as lack of interference and favorable weather, usually place ground stations in remote locations like New Norcia, Australia, and Kaena Point, Hi. Housing, education, and other human-resource related needs of the extensive staff of a mission control center make such remote locations impractical for mission control centers. Thus, the current practice is to place the ground station and mission control center in respectively well-suited locations and establish a communication link between the two.</p>
+    <p num="p-0006">In the past, each space mission implemented custom data communication designs and protocols to communicate between the spacecraft, ground station, and mission control center. As the number of space missions and spacecraft rose, so did the number of incompatible communication protocols. Communication required numerous translation and interpretation modules to bridge these incompatibilities. These extra translation and interpretation modules are not perfect and can introduce delays or errors into communication with spacecraft. The Consultative Committee for Space Data Systems (CCSDS) developed Space Link Extension (SLE) services to standardize the interfaces and enable ground stations and mission control centers across different national and international space agencies to interoperate without the need for ad hoc custom data communications designs.</p>
+    <p num="p-0007">Software libraries exist which implement SLE, but users must access them through an overly cumbersome and complex interface. For example, the existing SLE Return Channel Frames libraries define over 1,000 interface routines. Accordingly, what is needed in the art is a simplified, streamlined, unified way to coordinate communication between spacecraft, ground stations, and control centers.</p>
+    <heading>SUMMARY</heading>
+    <p num="p-0008">Additional features and advantages of the invention will be set forth in the description which follows, and in part will be obvious from the description, or may be learned by practice of the invention. The features and advantages of the invention may be realized and obtained by means of the instruments and combinations particularly pointed out in the appended claims. These and other features of the present invention will become more fully apparent from the following description and appended claims, or may be learned by the practice of the invention as set forth herein.</p>
+    <p num="p-0009">Disclosed are systems, methods, and tangible computer readable-media for coordinating communications between a ground station, a control center, and a spacecraft. The method includes receiving instructions as a call and arguments to a simple, unified application programmer interface implementing communications protocols related to outer space, determining an instruction type of the received instructions, when the determined instruction type relates to receiving a first command at the control center for the ground station (1) translate the first command to generate a first abstract message by agreeing upon a format for each type of abstract message with the ground station and using a discrete set of abstract message definitions to configure the first command in the agreed upon format, (2) encode the first abstract message using an encoding layer to generate a first encoded message, and (3) transfer the first encoded message to the ground station using a transport mapping layer, and perform similar actions when the determined instruction type relates to receiving a second command as a second encoded message at the ground station from the control center and when the determined instruction type relates to transmitting information to the control center, the information being received at the ground station from the spacecraft.</p>
+    
+    
+    <description-of-drawings>
+      <heading>BRIEF DESCRIPTION OF THE DRAWINGS</heading>
+      <p num="p-0010">In order to describe the manner in which the above-recited and other advantages and features of the invention can be obtained, a more particular description of the invention briefly described above will be rendered by reference to specific embodiments thereof which are illustrated in the appended drawings. Understanding that these drawings depict only exemplary embodiments of the invention and are not therefore to be considered to be limiting of its scope, the invention will be described and explained with additional specificity and detail through the use of the accompanying drawings in which:</p>
+      <p num="p-0011"> <figref idrefs="DRAWINGS">FIG. 1</figref> illustrates an example system embodiment;</p>
+      <p num="p-0012"> <figref idrefs="DRAWINGS">FIG. 2</figref> illustrates an example method embodiment for controlling a ground station;</p>
+      <p num="p-0013"> <figref idrefs="DRAWINGS">FIG. 3</figref> illustrates an example method embodiment for executing received commands at a ground station;</p>
+      <p num="p-0014"> <figref idrefs="DRAWINGS">FIG. 4</figref> illustrates an example method embodiment for relaying information from a spacecraft to a control center;</p>
+      <p num="p-0015"> <figref idrefs="DRAWINGS">FIG. 5</figref> illustrates an example method embodiment combining <figref idrefs="DRAWINGS">FIGS. 2-4</figref>;</p>
+      <p num="p-0016"> <figref idrefs="DRAWINGS">FIG. 6</figref> illustrates a communication flow between a control center, a ground station, and a spacecraft;</p>
+      <p num="p-0017"> <figref idrefs="DRAWINGS">FIG. 7</figref> illustrates an example step-by-step interaction between a control center and a ground station; and</p>
+      <p num="p-0018"> <figref idrefs="DRAWINGS">FIG. 8</figref> illustrates three example data delivery modes.</p>
+    </description-of-drawings>
+    
+    
+    <heading>DETAILED DESCRIPTION</heading>
+    <p num="p-0019">Various embodiments of the invention are discussed in detail below. While specific implementations are discussed, it should be understood that this is done for illustration purposes only. A person skilled in the relevant art will recognize that other components and configurations may be used without parting from the spirit and scope of the invention.</p>
+    <p num="p-0020">With reference to <figref idrefs="DRAWINGS">FIG. 1</figref>, an exemplary system includes a general-purpose computing device <b>100</b>, including a processing unit (CPU) <b>120</b> and a system bus <b>110</b> that couples various system components including the system memory such as read only memory (ROM) <b>140</b> and random access memory (RAM) <b>150</b> to the processing unit <b>120</b>. Other system memory <b>130</b> may be available for use as well. It can be appreciated that the invention may operate on a computing device with more than one CPU <b>120</b> or on a group or cluster of computing devices networked together to provide greater processing capability. A processing unit <b>120</b> can include a general purpose CPU controlled by software as well as a special-purpose processor. An Intel Xeon LV L7345 processor is an example of a general purpose CPU which is controlled by software. Particular functionality may also be built into the design of a separate computer chip. A STMicroelectronics STA013 processor is an example of a special-purpose processor which decodes MP3 audio files. Of course, a processing unit includes any general purpose CPU and a module configured to control the CPU as well as a special-purpose processor where software is effectively incorporated into the actual processor design. A processing unit may essentially be a completely self-contained computing system, containing multiple cores or CPUs, a bus, memory controller, cache, etc. A multi-core processing unit may be symmetric or asymmetric.</p>
+    <p num="p-0021">The system bus <b>110</b> may be any of several types of bus structures including a memory bus or memory controller, a peripheral bus, and a local bus using any of a variety of bus architectures. A basic input/output (BIOS) stored in ROM <b>140</b> or the like, may provide the basic routine that helps to transfer information between elements within the computing device <b>100</b>, such as during start-up. The computing device <b>100</b> further includes storage devices such as a hard disk drive <b>160</b>, a magnetic disk drive, an optical disk drive, tape drive or the like. The storage device <b>160</b> is connected to the system bus <b>110</b> by a drive interface. The drives and the associated computer readable media provide nonvolatile storage of computer readable instructions, data structures, program modules and other data for the computing device <b>100</b>. In one aspect, a hardware module that performs a particular function includes the software component stored in a tangible computer-readable medium in connection with the necessary hardware components, such as the CPU, bus, display, and so forth, to carry out the function. The basic components are known to those of skill in the art and appropriate variations are contemplated depending on the type of device, such as whether the device is a small, handheld computing device, a desktop computer, or a computer server.</p>
+    <p num="p-0022">Although the exemplary environment described herein employs the hard disk, it should be appreciated by those skilled in the art that other types of computer readable media which can store data that are accessible by a computer, such as magnetic cassettes, flash memory cards, digital versatile disks, cartridges, random access memories (RAMs), read only memory (ROM), a cable or wireless signal containing a bit stream and the like, may also be used in the exemplary operating environment.</p>
+    <p num="p-0023">To enable user interaction with the computing device <b>100</b>, an input device <b>190</b> represents any number of input mechanisms, such as a microphone for speech, a touch-sensitive screen for gesture or graphical input, keyboard, mouse, motion input, speech and so forth. The input may be used by the presenter to indicate the beginning of a speech search query. The device output <b>170</b> can also be one or more of a number of output mechanisms known to those of skill in the art. In some instances, multimodal systems enable a user to provide multiple types of input to communicate with the computing device <b>100</b>. The communications interface <b>180</b> generally governs and manages the user input and system output. There is no restriction on the invention operating on any particular hardware arrangement and therefore the basic features here may easily be substituted for improved hardware or firmware arrangements as they are developed.</p>
+    <p num="p-0024">For clarity of explanation, the illustrative system embodiment is presented as comprising individual functional blocks (including functional blocks labeled as a “processor”). The functions these blocks represent may be provided through the use of either shared or dedicated hardware, including, but not limited to, hardware capable of executing software and hardware, such as a processor, that is purpose-built to operate as an equivalent to software executing on a general purpose processor. For example the functions of one or more processors presented in <figref idrefs="DRAWINGS">FIG. 1</figref> may be provided by a single shared processor or multiple processors. (Use of the term “processor” should not be construed to refer exclusively to hardware capable of executing software.) Illustrative embodiments may comprise microprocessor and/or digital signal processor (DSP) hardware, read-only memory (ROM) for storing software performing the operations discussed below, and random access memory (RAM) for storing results. Very large scale integration (VLSI) hardware embodiments, as well as custom VLSI circuitry in combination with a general purpose DSP circuit, may also be provided.</p>
+    <p num="p-0025">The logical operations of the various embodiments are implemented as: (1) a sequence of computer implemented steps, operations, or procedures running on a programmable circuit within a general use computer, (2) a sequence of computer implemented steps, operations, or procedures running on a specific-use programmable circuit; and/or (3) interconnected machine modules or program engines within the programmable circuits.</p>
+    <p num="p-0026">Having discussed the basic elements of a system configured to practice the invention, the disclosure turns to the exemplary method embodiment. The method embodiment is split into three distinct functionalities which can be implemented together as a unified software library, or application programmer interface (API). The disclosure discusses the method in terms of the above-described system configured to practice the method. <figref idrefs="DRAWINGS">FIG. 2</figref> illustrates an example method embodiment for controlling a ground station when the determined instruction type relates to receiving a first command at the control center for the ground station. The command can include control center credentials. The system can incorporate credentials automatically into the command or as directed by a user. Credentials can include cryptographic keys, such as those used in PGP. Credentials can serve as a signature or a unique identification that the command is from a proper source.</p>
+    <p num="p-0027">The system translates the first command to generate a first abstract message by agreeing upon a format for each type of abstract message with the ground station and using a discrete set of abstract message definitions to configure the first command in the agreed upon format (<b>204</b>). The system can incorporate Space Link Extension (SLE) protocols when dealing with abstract messages. Some aspects of SLE protocols include SLE Return Channel Frames (SLE-RCF) and SLE Forward Command Link Transmission Unit (SLE-Forward CLTU), each of which encompasses specific sets of functionality. The abstraction layer can interoperate with a variety of encoding layers and transport mapping layers, allowing for a simple and unified interface. The system encodes the first abstract message using an encoding layer to generate a first encoded message (<b>206</b>). When encoding the abstract message, the system can also convert the abstract message to a binary format. The system transfers the first encoded message to the ground station using a transport mapping layer (<b>208</b>). Transmission Control Protocol/Internet Protocol (TCP/IP) is the de facto standard for the transport mapping layer, but the system can use other transport mapping layers such as User Datagram Protocol (UDP) or Internetwork Packet Exchange/Sequenced Packet Exchange (IPX/SPX), for example. The transport mapping layer can operate in one of three modes. The first is a timely online delivery mode. The second is a complete online delivery mode also using an online frame buffer. The third is an offline delivery mode also using an offline frame buffer. Each of these three modes are depicted and discussed in more detail in <figref idrefs="DRAWINGS">FIG. 8</figref>.</p>
+    <p num="p-0028">The user interface for the system can operate under either event-driven approach or a polled approach. An event-driven interface controls the program flow based on input from a user, from sensors, from other threads, etc. A polled approach calls certain routines at set intervals to check for updates or tasks.</p>
+    <p num="p-0029"> <figref idrefs="DRAWINGS">FIG. 3</figref> illustrates an example method embodiment for executing commands when the determined instruction type relates to receiving a second command as a second encoded message at the ground station from the control center. The system decodes the second encoded message using a decoding layer to generate a second abstract message (<b>304</b>). The decoding layer can convert the encoded message from a binary format. The system translates the second abstract message to generate a second command by agreeing upon the format for each type of abstract message with the control center and using the discrete set of abstract message definitions to configure the second abstract message in the agreed upon format (<b>306</b>). The abstraction layer can interoperate with a variety of encoding layers. In this way, one unified interface can accept messages and commands generated by multiple encoding schemes. The system executes the second command (<b>308</b>). The system can optionally transmit to the control center an acknowledgment of receipt of the encoded message, a notice of success, and/or a notice of failure of executing the command. For example, if a command was issued to order the spacecraft to change course and the spacecraft did not respond, then the system can notify the control center that the command failed to execute.</p>
+    <p num="p-0030">The command can include control center credentials. In this case, the system can execute the command only after successful authentication of the control center credentials. The user interface for the system can be either event-driven approach or a polled approach. An event-driven interface controls the program flow based on input from a user, from sensors, from other threads, etc. A polled approach calls certain routines at set intervals to check for updates or tasks.</p>
+    <p num="p-0031"> <figref idrefs="DRAWINGS">FIG. 4</figref> illustrates an example method embodiment for when the determined instruction type relates to transmitting information to the control center, the information being received at the ground station from the spacecraft. The information can be a spacecraft telemetry (TM) transfer frame or an acquired of signal (AOS) transfer frame. The system translates the information to generate a third abstract message by agreeing upon the format for each type of abstract message with the control center and using the discrete set of abstract message definitions to configure the information in the agreed upon format (<b>404</b>). The abstraction layer can interoperate with a variety of encoding layers. In this way, one unified interface can accept messages and commands generated by multiple encoding schemes. The system encodes the third abstract message using the encoding layer to generate a third encoded message (<b>406</b>). The encoder can convert the abstract message to a binary format. The system transfers the third encoded message to the control center using the transport mapping layer (<b>408</b>). The system can transfer the encoded message using a transfer buffer in one of the following modes: a timely online delivery mode, a complete online delivery mode also using an online frame buffer, and an offline delivery mode also using an offline frame buffer. The user interface for the system can be either event-driven approach or a polled approach. An event-driven interface controls the program flow based on input from a user, from sensors, from other threads, etc. A polled approach calls certain routines at set intervals to check for updates or tasks.</p>
+    <p num="p-0032"> <figref idrefs="DRAWINGS">FIG. 5</figref> illustrates an example method embodiment combining and linking <figref idrefs="DRAWINGS">FIGS. 2-4</figref>. For clarity, the method is discussed in the context of a system configured to practice the method. The system first receives instructions as a call and arguments to a simple, unified application programmer interface implementing communications protocols related to outer space (<b>502</b>). The communications protocols related to outer space can include Space Link Extension—Return Channel Frames (SLE-RCF) protocol and Space Link Extension—Forward Command Link Transmission Unit (SLE-Forward CLTU) protocol. The system determines an instruction type of the received instructions (<b>504</b>). When the determined instruction type relates to receiving a first command at the control center for the ground station, the system follows the method as shown in <figref idrefs="DRAWINGS">FIG. 2</figref> (<b>506</b>). When the determined instruction type relates to receiving a second command as a second encoded message at the ground station from the control center, the system follows the method as shown in <figref idrefs="DRAWINGS">FIG. 3</figref> (<b>508</b>). When the determined instruction type relates to transmitting information to the control center, the information being received at the ground station from the spacecraft, the system follows the method as shown in <figref idrefs="DRAWINGS">FIG. 4</figref> (<b>510</b>). If the determined instruction type does not fall into any of those three categories, the system can return to the beginning.</p>
+    <p num="p-0033"> <figref idrefs="DRAWINGS">FIG. 6</figref> illustrates a communication flow between a control center, a ground station, and a spacecraft. The region depicted is the Earth and the space surrounding the Earth within communications distance <b>600</b>. The control center <b>602</b> is located on one continent. The control center communicates via a network connection <b>604</b> with the ground station <b>606</b>. The ground station is located on another continent halfway around the Earth. These facilities are constructed so far away from each other for many reasons. For example, the ground station may be in one location because of optimal weather, optimal latitude, minimal radio interference, etc. The control center may be in another location because of telecommunication infrastructure, nearby experts and specialists, cost of land, and/or other infrastructural needs. The network connection can be over the Internet, a dedicated connection (such as Ethernet, fiber optic cable, coaxial cable, wireless, etc.), or a blend.</p>
+    <p num="p-0034">The ground station <b>606</b> has a one-way or two-way link <b>608</b> with a spacecraft <b>610</b> such as a satellite, a space shuttle, a space station, a rocket, a telescope, etc. The link can be one-way in either direction, but it is more likely to be a two-way link. The control center <b>602</b> can issue commands and/or information to the ground station <b>606</b> which relays those commands and/or information to the spacecraft <b>610</b>. Conversely, the spacecraft <b>610</b> can send information (such as telemetry information) to the ground station <b>606</b>, which relays that information to the control center <b>602</b>.</p>
+    <p num="p-0035"> <figref idrefs="DRAWINGS">FIG. 7</figref> illustrates an example step-by-step interaction between a control center and a ground station. The term Invocation <b>702</b>, <b>706</b>, <b>716</b>, <b>720</b> refers to the initial message, and the term Return <b>704</b>, <b>708</b>, <b>718</b>, <b>722</b> refers to the response to the message, either positive or negative. The control center establishes a session <b>702</b>, <b>706</b> and the ground station acknowledges <b>704</b>, <b>708</b>. Session establishment can include two operations: Bind and Start. The ground station transfer buffer sends information <b>710</b>, <b>712</b> such as telemetry frames to the control center. The transfer of each data block can include one operation: Transfer-Data. The ground station sends a notification <b>714</b> to the control center that it is finished sending information. The control center then stops the transmission and terminates the connection <b>716</b>, <b>720</b>. The ground station acknowledges that the transmission is stopped and the connection is terminated <b>718</b>, <b>722</b>. Breaking a session can include two operations: Stop and Unbind.</p>
+    <p num="p-0036">A state-based protocol can govern interactions between the control center and the ground station. Some main states in such a state-based protocol include Unbound (no connection is established), Bound (a connection is established, but the ground station is not permitted to send data blocks), and Started (a connection is established and the ground station can send data blocks). Under such a state-based protocol, the system uses messages to accomplish the above operations. Some core messages are Bind <b>702</b>, <b>704</b>, Start <b>706</b>, <b>708</b>, Transfer-Data <b>710</b>, <b>712</b>, <b>714</b>, Stop <b>716</b>, <b>718</b>, and Unbind <b>720</b>, <b>722</b>.</p>
+    <p num="p-0037">The control center sends each of the core messages with the exception of Transfer-Data and can require a response from the ground station (i.e. an ack or nak, which are short for acknowledged or not acknowledged). With the exception of Transfer-Data where the ground station provides no Return message, a positive Return from the Provider indicates successful completion of the requested operation. Each Transfer-Data message can contain one telemetry frame. To maximize the usefulness of the data delivered from the ground station to the control center, the system can use one of the buffering mechanisms depicted in <figref idrefs="DRAWINGS">FIG. 7</figref> and map multiple Transfer-Data messages into a single protocol data unit. The control center and ground station determine the size of the protocol data unit in advance. In addition to the Transfer-Data message, the ground station can also send a Sync-Notify message to notify the control center of an event affecting the connection, such as an interruption in frame delivery or a change in production status. Each Sync-Notify message can convey one event from the ground station to the control center. When the control center receives all the frames, the ground station invokes the Sync-Notify operation to provide an ‘end-of-data’ notification <b>714</b>.</p>
+    <p num="p-0038">This interaction is exemplary; other interactions are possible. For example, if either the control center or the ground station detects a protocol violation from the other (such as one partner not responding to repeated attempts to establish communication), it aborts the session by issuing a Peer-Abort message and disconnecting. The outcome is the same regardless of which one issues the Peer-Abort message. The session is over, the connection is dropped, and the control center must establish a new session in order to continue communication. As another example, if the ground station experiences a service outage, it can alert a connected control center of the outage by sending a Sync-Notify message indicating the severity of the outage (Interrupted or Halted). When the service outage is over and the ground station can resume operations, the ground station sends the connected control center a Sync-Notify message indicating that it is operational.</p>
+    <p num="p-0039"> <figref idrefs="DRAWINGS">FIG. 8</figref> illustrates three example data delivery modes <b>800</b>. In the timely online delivery mode <b>802</b> the system stores telemetry frames and synchronous notifications in the transfer buffer <b>804</b>. The system releases the data when the transfer buffer <b>804</b> is full or the release timer expires. If the system cannot pass data to the communications service, the system discards the entire transfer buffer <b>804</b>. In the complete online delivery mode <b>806</b>, the system holds data in the online frame buffer <b>808</b>, rather than discarding the data, when it can not deliver the data to the transfer buffer <b>810</b> for a significant period of time. The online frame buffer <b>808</b> can be large enough to hold all the data for one space link session. In the offline delivery mode <b>812</b>, the offline frame buffer <b>814</b> can be large enough to hold all the data for several space link sessions.</p>
+    <p num="p-0040">One of the main advantages over the prior art is the simplicity. With the encoding layer and abstraction layer, a system can efficiently run a control center task in as little as a single thread, where existing implementations are much more bloated and wasteful. One existing software library defines over 1,000 interface routines, where less than 30 routines are needed to perform the same task based on the principles disclosed herein. Some other related advantages are ease of use, ease of maintenance, improved reliability, and improved performance. The methods described herein can be implemented as a software library allowing other software developers easy, simple, and unified API access to needed functionality.</p>
+    <p num="p-0041">Embodiments within the scope of the present invention may also include tangible computer-readable media for carrying or having computer-executable instructions or data structures stored thereon. Such tangible computer-readable media can be any available media that can be accessed by a general purpose or special purpose computer, including the functional design of any special purpose processor as discussed above. By way of example, and not limitation, such computer-readable media can comprise RAM, ROM, EEPROM, CD-ROM or other optical disk storage, magnetic disk storage or other magnetic storage devices, or any other medium which can be used to carry or store desired program code means in the form of computer-executable instructions, data structures, or processor chip design. When information is transferred or provided over a network or another communications connection (either hardwired, wireless, or combination thereof) to a computer, the computer properly views the connection as a computer-readable medium. Thus, any such connection is properly termed a computer-readable medium. Combinations of the above should also be included within the scope of the computer-readable media.</p>
+    <p num="p-0042">Computer-executable instructions include, for example, instructions and data which cause a general purpose computer, special purpose computer, or special purpose processing device to perform a certain function or group of functions. Computer-executable instructions also include program modules that are executed by computers in stand-alone or network environments. Generally, program modules include routines, programs, objects, components, data structures, and the functions inherent in the design of special-purpose processors, etc. that perform particular tasks or implement particular abstract data types. Computer-executable instructions, associated data structures, and program modules represent examples of the program code means for executing steps of the methods disclosed herein. The particular sequence of such executable instructions or associated data structures represents examples of corresponding acts for implementing the functions described in such steps.</p>
+    <p num="p-0043">Those of skill in the art will appreciate that other embodiments of the invention may be practiced in network computing environments with many types of computer system configurations, including personal computers, hand-held devices, multi-processor systems, microprocessor-based or programmable consumer electronics, network PCs, minicomputers, mainframe computers, and the like. Embodiments may also be practiced in distributed computing environments where tasks are performed by local and remote processing devices that are linked (either by hardwired links, wireless links, or by a combination thereof) through a communications network. In a distributed computing environment, program modules may be located in both local and remote memory storage devices.</p>
+    <p num="p-0044">The various embodiments described above are provided by way of illustration only and should not be construed to limit the invention. For example, the principles herein may be applied to extra-planetary control centers and ground stations. Those skilled in the art will readily recognize various modifications and changes that may be made to the present invention without following the example embodiments and applications illustrated and described herein, and without departing from the true spirit and scope of the present invention.</p>
+    
+  </div>
+  </div>
+  </section>
+
+  <section itemprop="claims" itemscope>
+    <h2>Claims (<span itemprop="count">16</span>)</h2>
+    
+    <div itemprop="content" html><div mxw-id="PCLM38618839" lang="EN" load-source="patent-office" class="claims">
+    <div class="claim"> <div id="CLM-00001" num="00001" class="claim">
+      <div class="claim-text">1. A non-transitory computer-readable medium storing instructions for coordinating communications between a ground station, a control center, and a spacecraft, the instructions comprising:
+<div class="claim-text">receiving instructions as a call and arguments to a simple, unified application programmer interface implementing communications protocols related to outer space;</div>
+<div class="claim-text">determining an instruction type of the received instructions;</div>
+<div class="claim-text">when the determined instruction type relates to receiving a first command at the control center for the ground station:
+<div class="claim-text">(1) translating the first command to generate a first abstract message by agreeing upon a format for each type of abstract message with the ground station and using a discrete set of abstract message definitions to configure the first command in the agreed upon format;</div>
+<div class="claim-text">(2) encoding the first abstract message using an encoding layer to generate a first encoded message;</div>
+<div class="claim-text">(3) transferring the first encoded message to the ground station using a transport mapping layer;</div>
+</div>
+<div class="claim-text">when the determined instruction type relates to receiving a second command as a second encoded message at the ground station from the control center:
+<div class="claim-text">(1) decoding the second encoded message using a decoding layer to generate a second abstract message;</div>
+<div class="claim-text">(2) translating the second abstract message to generate a second command by agreeing upon the format for each type of abstract message with the control center and using the discrete set of abstract message definitions to configure the second abstract message in the agreed upon format;</div>
+<div class="claim-text">(3) executing the second command;</div>
+</div>
+<div class="claim-text">when the determined instruction type relates to transmitting information to the control center, the information being received at the ground station from the spacecraft:
+<div class="claim-text">(1) translating the information to generate a third abstract message by agreeing upon the format for each type of abstract message with the control center and using the discrete set of abstract message definitions to configure the information in the agreed upon format;</div>
+<div class="claim-text">(2) encoding the third abstract message using the encoding layer to generate a third encoded message; and</div>
+<div class="claim-text">(3) transferring the third encoded message to the control center using the transport mapping layer.</div>
+</div>
+</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00002" num="00002" class="claim">
+      <div class="claim-text">2. The non-transitory computer-readable medium of <claim-ref idref="CLM-00001">claim 1</claim-ref>, wherein commands include credentials which must be verified before execution.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00003" num="00003" class="claim">
+      <div class="claim-text">3. The non-transitory computer-readable medium of <claim-ref idref="CLM-00001">claim 1</claim-ref>, wherein encoded messages are transferred using a transfer buffer in one of a timely online delivery mode, a complete online delivery mode also using an online frame buffer, and an offline delivery mode also using an offline frame buffer.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00004" num="00004" class="claim">
+      <div class="claim-text">4. The non-transitory computer-readable medium of <claim-ref idref="CLM-00001">claim 1</claim-ref>, wherein the information is a spacecraft telemetry (TM) transfer frame.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00005" num="00005" class="claim">
+      <div class="claim-text">5. The non-transitory computer-readable medium of <claim-ref idref="CLM-00001">claim 1</claim-ref>, when receiving a command as an encoded message at a ground station from a control center, the method further comprising transmitting to the control center a command execution notice.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00006" num="00006" class="claim">
+      <div class="claim-text">6. The non-transitory computer-readable medium of <claim-ref idref="CLM-00001">claim 1</claim-ref>, wherein abstract messages can interoperate with a variety of encoding layers and transport mapping layers.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00007" num="00007" class="claim">
+      <div class="claim-text">7. The non-transitory computer-readable medium of <claim-ref idref="CLM-00001">claim 1</claim-ref>, wherein the communications protocols related to outer space comprise Space Link Extension-Return Channel Frames (SLE-RCF) protocol and Space Link Extension-Forward Command Link Transmission Unit (SLE-Forward CLTU) protocol.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00008" num="00008" class="claim">
+      <div class="claim-text">8. The non-transitory computer-readable medium of <claim-ref idref="CLM-00001">claim 1</claim-ref>, wherein the communications protocols related to outer space comprise Space Link Extension-Return Channel Frames (SLE-RCF) protocol and Space Link Extension-Forward Command Link Transmission Unit (SLE-Forward CLTU) protocol.</div>
+    </div>
+    </div> <div class="claim"> <div id="CLM-00009" num="00009" class="claim">
+      <div class="claim-text">9. A method of coordinating communications between a ground station, a control center, and a spacecraft, the method comprising:
+<div class="claim-text">receiving instructions as a call and arguments to a simple, unified application programmer interface implementing communications protocols related to outer space;</div>
+<div class="claim-text">determining an instruction type of the received instructions;</div>
+<div class="claim-text">when the determined instruction type relates to receiving a first command at the control center for the ground station:
+<div class="claim-text">(1) translating the first command to generate a first abstract message by agreeing upon a format for each type of abstract message with the ground station and using a discrete set of abstract message definitions to configure the first command in the agreed upon format;</div>
+<div class="claim-text">(2) encoding the first abstract message using an encoding layer to generate a first encoded message;</div>
+<div class="claim-text">(3) transferring the first encoded message to the ground station using a transport mapping layer;</div>
+</div>
+<div class="claim-text">when the determined instruction type relates to receiving a second command as a second encoded message at the ground station from the control center:
+<div class="claim-text">(1) decoding the second encoded message using a decoding layer to generate a second abstract message;</div>
+<div class="claim-text">(2) translating the second abstract message to generate a second command by agreeing upon the format for each type of abstract message with the control center and using the discrete set of abstract message definitions to configure the second abstract message in the agreed upon format;</div>
+<div class="claim-text">(3) executing the second command;</div>
+</div>
+<div class="claim-text">when the determined instruction type relates to transmitting information to the control center, the information being received at the ground station from the spacecraft:
+<div class="claim-text">(1) translating the information to generate a third abstract message by agreeing upon the format for each type of abstract message with the control center and using the discrete set of abstract message definitions to configure the information in the agreed upon format;</div>
+<div class="claim-text">(2) encoding the third abstract message using the encoding layer to generate a third encoded message; and</div>
+<div class="claim-text">(3) transferring the third encoded message to the control center using the transport mapping layer.</div>
+</div>
+</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00010" num="00010" class="claim">
+      <div class="claim-text">10. The method of <claim-ref idref="CLM-00009">claim 9</claim-ref>, wherein one of an event-driven approach and a polled approach is used.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00011" num="00011" class="claim">
+      <div class="claim-text">11. The method of <claim-ref idref="CLM-00009">claim 9</claim-ref>, wherein commands include credentials which must be verified before execution.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00012" num="00012" class="claim">
+      <div class="claim-text">12. The method of <claim-ref idref="CLM-00009">claim 9</claim-ref>, wherein encoded messages are transferred using a transfer buffer in one of a timely online delivery mode, a complete online delivery mode also using an online frame buffer, and an offline delivery mode also using an offline frame buffer.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00013" num="00013" class="claim">
+      <div class="claim-text">13. The method of <claim-ref idref="CLM-00009">claim 9</claim-ref>, wherein the information is a spacecraft telemetry (TM) transfer frame.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00014" num="00014" class="claim">
+      <div class="claim-text">14. The method of <claim-ref idref="CLM-00009">claim 9</claim-ref>, when receiving a command as an encoded message at a ground station from a control center, the method further comprising transmitting to the control center a command execution notice.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00015" num="00015" class="claim">
+      <div class="claim-text">15. The method of <claim-ref idref="CLM-00009">claim 9</claim-ref>, wherein abstract messages can interoperate with a variety of encoding layers and transport mapping layers.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00016" num="00016" class="claim">
+      <div class="claim-text">16. The method of <claim-ref idref="CLM-00009">claim 9</claim-ref>, wherein the communications protocols related to outer space comprise Space Link Extension-Return Channel Frames (SLE-RCF) protocol and Space Link Extension-Forward Command Link Transmission Unit (SLE-Forward CLTU) protocol. </div>
+    </div>
+  </div> </div>
+  </div>
+  </section>
+
+  <section itemprop="application" itemscope>
+
+    <section itemprop="metadata" itemscope>
+        <span itemprop="applicationNumber">US12/357,081</span>
+        <span itemprop="priorityDate">2009-01-21</span>
+        <span itemprop="filingDate">2009-01-21</span>
+        <span itemprop="title">System and method for transferring telemetry data between a ground station and a control center 
+       </span>
+        <span itemprop="ifiStatus">Active</span>
+        <span itemprop="ifiExpiration">2030-06-10</span>
+        <a href="/patent/US8094731B2/en">
+            <span itemprop="representativePublication">US8094731B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+        </a>
+    </section>
+
+    <h2>Priority Applications (1)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                    <th>Title</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="priorityApps" itemscope repeat>
+                <td>
+                   <span itemprop="applicationNumber">US12/357,081</span>
+                   
+                   <a href="/patent/US8094731B2/en">
+                        <span itemprop="representativePublication">US8094731B2</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                <td itemprop="priorityDate">2009-01-21</td>
+                <td itemprop="filingDate">2009-01-21</td>
+                <td itemprop="title">System and method for transferring telemetry data between a ground station and a control center 
+       </td>
+              </tr>
+           </tbody>
+       </table>
+
+    <h2>Applications Claiming Priority (1)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                    <th>Title</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="appsClaimingPriority" itemscope repeat>
+                <td>
+                   <span itemprop="applicationNumber">US12/357,081</span>
+                   <a href="/patent/US8094731B2/en">
+                        <span itemprop="representativePublication">US8094731B2</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                <td itemprop="priorityDate">2009-01-21</td>
+                <td itemprop="filingDate">2009-01-21</td>
+                <td itemprop="title">System and method for transferring telemetry data between a ground station and a control center 
+       </td>
+              </tr>
+           </tbody>
+       </table>
+
+    
+
+    
+
+    <h2>Publications (2)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Publication Number</th>
+                    <th>Publication Date</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="pubs" itemscope repeat>
+                <td>
+                   <span itemprop="publicationNumber">US20100183082A1</span>
+                   
+                   <a href="/patent/US20100183082A1/en">US20100183082A1
+                       (<span itemprop="primaryLanguage">en</span>)
+                   </a>
+                </td>
+                <td itemprop="publicationDate">2010-07-22</td>
+              </tr><tr itemprop="pubs" itemscope repeat>
+                <td>
+                   <span itemprop="publicationNumber">US8094731B2</span>
+                   
+                   <span itemprop="thisPatent">true</span>
+                   <a href="/patent/US8094731B2/en">US8094731B2
+                       (<span itemprop="primaryLanguage">en</span>)
+                   </a>
+                </td>
+                <td itemprop="publicationDate">2012-01-10</td>
+              </tr>
+           </tbody>
+        </table>
+
+  </section>
+
+  <section itemprop="family" itemscope>
+    <h1>Family</h1>
+    <h2>ID=42336939</h2>
+
+    <h2>Family Applications (1)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Title</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="applications" itemscope repeat>
+                <td>
+                    <span itemprop="applicationNumber">US12/357,081</span>
+                    <span itemprop="ifiStatus">Active</span>
+                    <span itemprop="ifiExpiration">2030-06-10</span>
+                    <a href="/patent/US8094731B2/en">
+                        <span itemprop="representativePublication">US8094731B2</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                </td>
+                <td itemprop="priorityDate">2009-01-21</td>
+                <td itemprop="filingDate">2009-01-21</td>
+                <td itemprop="title">System and method for transferring telemetry data between a ground station and a control center 
+       </td>
+              </tr>
+           </tbody>
+        </table>
+
+    
+
+    
+
+    <h2>Country Status (1)</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Country</th>
+            <th>Link</th>
+          </tr>
+        </thead>
+        <tbody>
+        <tr itemprop="countryStatus" itemscope repeat>
+            <td>
+              <span itemprop="countryCode">US</span>
+                (<span itemprop="num">1</span>)
+              <meta itemprop="thisCountry" content="true">
+            </td>
+            <td>
+              <a href="/patent/US8094731B2/en">
+                <span itemprop="representativePublication">US8094731B2</span>
+                  (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+    <h2>Cited By (1)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20120259485A1/en">
+              <span itemprop="publicationNumber">US20120259485A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2011-04-06</td>
+          <td itemprop="publicationDate">2012-10-11</td>
+          <td><span itemprop="assigneeOriginal">Orbital Sciences Corporation</span></td>
+          <td itemprop="title">Emergency communications channel systems and methods for satellite command 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Families Citing this family (2)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20110106780A1/en">
+              <span itemprop="publicationNumber">US20110106780A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2009-11-05</td>
+          <td itemprop="publicationDate">2011-05-05</td>
+          <td><span itemprop="assigneeOriginal">European Space Agency</span></td>
+          <td itemprop="title">Method and apparatus for accessing data in a data store 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/CN102681529B/en">
+              <span itemprop="publicationNumber">CN102681529B</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2012-04-23</td>
+          <td itemprop="publicationDate">2014-07-02</td>
+          <td><span itemprop="assigneeOriginal">北京空间飞行器总体设计部</span></td>
+          <td itemprop="title">Spacecraft autonomous delay telemetering method adapted to parameter characteristics 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Citations (9)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5966640A/en">
+              <span itemprop="publicationNumber">US5966640A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1996-12-24</td>
+          <td itemprop="publicationDate">1999-10-12</td>
+          <td><span itemprop="assigneeOriginal">The United States Of America As Represented By The Administrator Of The National Aeronautics And Space Administration</span></td>
+          <td itemprop="title">Satellite antenna management system and method 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20040252053A1/en">
+              <span itemprop="publicationNumber">US20040252053A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2003-06-13</td>
+          <td itemprop="publicationDate">2004-12-16</td>
+          <td><span itemprop="assigneeOriginal">Harvey A. Stephen</span></td>
+          <td itemprop="title">Security system including a method and system for acquiring GPS satellite position 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6883167B1/en">
+              <span itemprop="publicationNumber">US6883167B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1999-08-04</td>
+          <td itemprop="publicationDate">2005-04-19</td>
+          <td><span itemprop="assigneeOriginal">Texas Instruments Incorporated</span></td>
+          <td itemprop="title">Method and system for visual linker 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20050218237A1/en">
+              <span itemprop="publicationNumber">US20050218237A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2004-04-02</td>
+          <td itemprop="publicationDate">2005-10-06</td>
+          <td><span itemprop="assigneeOriginal">Paul Lapstun And Kia Silverbrook</span></td>
+          <td itemprop="title">Surface having disposed therein or thereon coded data 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20060052099A1/en">
+              <span itemprop="publicationNumber">US20060052099A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2004-09-09</td>
+          <td itemprop="publicationDate">2006-03-09</td>
+          <td><span itemprop="assigneeOriginal">Parker Jeffrey L</span></td>
+          <td itemprop="title">Wireless protocol converter 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20060209736A1/en">
+              <span itemprop="publicationNumber">US20060209736A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2005-03-18</td>
+          <td itemprop="publicationDate">2006-09-21</td>
+          <td><span itemprop="assigneeOriginal">Barnhart Randy C</span></td>
+          <td itemprop="title">Data handling in a distributed communication network 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20060209737A1/en">
+              <span itemprop="publicationNumber">US20060209737A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2005-03-18</td>
+          <td itemprop="publicationDate">2006-09-21</td>
+          <td><span itemprop="assigneeOriginal">Barnhart Randy C</span></td>
+          <td itemprop="title">Data handling in a distributed communication network 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7365674B2/en">
+              <span itemprop="publicationNumber">US7365674B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2005-09-26</td>
+          <td itemprop="publicationDate">2008-04-29</td>
+          <td><span itemprop="assigneeOriginal">The Boeing Company</span></td>
+          <td itemprop="title">Airborne weather profiler network 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7856294B2/en">
+              <span itemprop="publicationNumber">US7856294B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2007-12-14</td>
+          <td itemprop="publicationDate">2010-12-21</td>
+          <td><span itemprop="assigneeOriginal">Sra International, Inc.</span></td>
+          <td itemprop="title">Intelligent system and method for spacecraft autonomous operations 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+
+    
+
+    
+    <ul>
+      
+      <li itemprop="applicationsByYear" itemscope repeat>
+        <span itemprop="year">2009</span>
+        <ul>
+          
+          <li itemprop="application" itemscope repeat>
+            <span itemprop="filingDate">2009-01-21</span>
+            <span itemprop="countryCode">US</span>
+            <span itemprop="applicationNumber">US12/357,081</span>
+            <a href="/patent/US8094731B2/en"><span itemprop="documentId">patent/US8094731B2/en</span></a>
+            <span itemprop="legalStatusCat">active</span>
+            <span itemprop="legalStatus">Active</span>
+            
+            <span itemprop="thisApp" content="true" bool></span>
+            
+          </li>
+          
+        </ul>
+      </li>
+      
+    </ul>
+    
+
+    </section>
+
+  <section>
+    <h2>Patent Citations (11)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5966640A/en">
+              <span itemprop="publicationNumber">US5966640A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1996-12-24</td>
+          <td itemprop="publicationDate">1999-10-12</td>
+          <td><span itemprop="assigneeOriginal">The United States Of America As Represented By The Administrator Of The National Aeronautics And Space Administration</span></td>
+          <td itemprop="title">Satellite antenna management system and method 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6883167B1/en">
+              <span itemprop="publicationNumber">US6883167B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1999-08-04</td>
+          <td itemprop="publicationDate">2005-04-19</td>
+          <td><span itemprop="assigneeOriginal">Texas Instruments Incorporated</span></td>
+          <td itemprop="title">Method and system for visual linker 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20040252053A1/en">
+              <span itemprop="publicationNumber">US20040252053A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2003-06-13</td>
+          <td itemprop="publicationDate">2004-12-16</td>
+          <td><span itemprop="assigneeOriginal">Harvey A. Stephen</span></td>
+          <td itemprop="title">Security system including a method and system for acquiring GPS satellite position 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20050218237A1/en">
+              <span itemprop="publicationNumber">US20050218237A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2004-04-02</td>
+          <td itemprop="publicationDate">2005-10-06</td>
+          <td><span itemprop="assigneeOriginal">Paul Lapstun And Kia Silverbrook</span></td>
+          <td itemprop="title">Surface having disposed therein or thereon coded data 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20050219299A1/en">
+              <span itemprop="publicationNumber">US20050219299A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2004-04-02</td>
+          <td itemprop="publicationDate">2005-10-06</td>
+          <td><span itemprop="assigneeOriginal">Kia Silverbrook And Paul Lapstun</span></td>
+          <td itemprop="title">Integrated printhead and image sensor 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20050230487A1/en">
+              <span itemprop="publicationNumber">US20050230487A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2004-04-02</td>
+          <td itemprop="publicationDate">2005-10-20</td>
+          <td><span itemprop="assigneeOriginal">Paul Lapstun And Kia Silverbrook</span></td>
+          <td itemprop="title">Data storage format for encoding a bit stream on or in a surface 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20060052099A1/en">
+              <span itemprop="publicationNumber">US20060052099A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2004-09-09</td>
+          <td itemprop="publicationDate">2006-03-09</td>
+          <td><span itemprop="assigneeOriginal">Parker Jeffrey L</span></td>
+          <td itemprop="title">Wireless protocol converter 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20060209736A1/en">
+              <span itemprop="publicationNumber">US20060209736A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2005-03-18</td>
+          <td itemprop="publicationDate">2006-09-21</td>
+          <td><span itemprop="assigneeOriginal">Barnhart Randy C</span></td>
+          <td itemprop="title">Data handling in a distributed communication network 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20060209737A1/en">
+              <span itemprop="publicationNumber">US20060209737A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2005-03-18</td>
+          <td itemprop="publicationDate">2006-09-21</td>
+          <td><span itemprop="assigneeOriginal">Barnhart Randy C</span></td>
+          <td itemprop="title">Data handling in a distributed communication network 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7365674B2/en">
+              <span itemprop="publicationNumber">US7365674B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2005-09-26</td>
+          <td itemprop="publicationDate">2008-04-29</td>
+          <td><span itemprop="assigneeOriginal">The Boeing Company</span></td>
+          <td itemprop="title">Airborne weather profiler network 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7856294B2/en">
+              <span itemprop="publicationNumber">US7856294B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2007-12-14</td>
+          <td itemprop="publicationDate">2010-12-21</td>
+          <td><span itemprop="assigneeOriginal">Sra International, Inc.</span></td>
+          <td itemprop="title">Intelligent system and method for spacecraft autonomous operations 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  
+
+  <h2>Cited By (2)</h2>
+  <table>
+    <caption>* Cited by examiner, † Cited by third party</caption>
+    <thead>
+      <tr>
+        <th>Publication number</th>
+        <th>Priority date</th>
+        <th>Publication date</th>
+        <th>Assignee</th>
+        <th>Title</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US20120259485A1/en">
+            <span itemprop="publicationNumber">US20120259485A1</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2011-04-06</td>
+        <td itemprop="publicationDate">2012-10-11</td>
+        <td><span itemprop="assigneeOriginal">Orbital Sciences Corporation</span></td>
+        <td itemprop="title">Emergency communications channel systems and methods for satellite command 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US8483888B2/en">
+            <span itemprop="publicationNumber">US8483888B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2011-04-06</td>
+        <td itemprop="publicationDate">2013-07-09</td>
+        <td><span itemprop="assigneeOriginal">Orbital Sciences Corporation</span></td>
+        <td itemprop="title">Emergency communications channel systems and methods for satellite command 
+       </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <section>
+    <h2>Also Published As</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Publication date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="docdbFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20100183082A1/en">
+              <span itemprop="publicationNumber">US20100183082A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+          </td>
+          <td itemprop="publicationDate">2010-07-22</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Similar Documents</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Publication</th>
+          <th>Publication Date</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="2953659796468971277">
+              <a href="/scholar/2953659796468971277"><span itemprop="scholarAuthors">Shi et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2016">2016</time>
+            
+          </td>
+          <td itemprop="title">Edge computing: Vision and challenges</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="4959823045115376806">
+              <a href="/scholar/4959823045115376806"><span itemprop="scholarAuthors">Mascolo et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2002">2002</time>
+            
+          </td>
+          <td itemprop="title">Mobile computing middleware</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/KR101490548B1/en">
+                <span itemprop="publicationNumber">KR101490548B1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2015-02-05">2015-02-05</time>
+            
+            
+          </td>
+          <td itemprop="title">Realtime kernel 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="13680069378267225814">
+              <a href="/scholar/13680069378267225814"><span itemprop="scholarAuthors">Sheng et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2015">2015</time>
+            
+          </td>
+          <td itemprop="title">Recent advances in industrial wireless sensor networks toward efficient management in IoT</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/CN103718578B/en">
+                <span itemprop="publicationNumber">CN103718578B</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2015-03-25">2015-03-25</time>
+            
+            
+          </td>
+          <td itemprop="title">Method and device for notification messages and providing notification messages 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US8276140B1/en">
+                <span itemprop="publicationNumber">US8276140B1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2012-09-25">2012-09-25</time>
+            
+            
+          </td>
+          <td itemprop="title">Adjustable virtual network performance 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US8412768B2/en">
+                <span itemprop="publicationNumber">US8412768B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2013-04-02">2013-04-02</time>
+            
+            
+          </td>
+          <td itemprop="title">Integration gateway 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="5814386877464598588">
+              <a href="/scholar/5814386877464598588"><span itemprop="scholarAuthors">Kushwaha et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2007">2007</time>
+            
+          </td>
+          <td itemprop="title">Oasis: A programming framework for service-oriented sensor networks</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US8688780B2/en">
+                <span itemprop="publicationNumber">US8688780B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2014-04-01">2014-04-01</time>
+            
+            
+          </td>
+          <td itemprop="title">Peer-to-peer exchange of data resources in a control system 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/KR101179554B1/en">
+                <span itemprop="publicationNumber">KR101179554B1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2012-09-05">2012-09-05</time>
+            
+            
+          </td>
+          <td itemprop="title">Mobile device adopting mobile cloud platform 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/CN1201539C/en">
+                <span itemprop="publicationNumber">CN1201539C</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2005-05-11">2005-05-11</time>
+            
+            
+          </td>
+          <td itemprop="title">Messaging proxy system 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US20100257539A1/en">
+                <span itemprop="publicationNumber">US20100257539A1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2010-10-07">2010-10-07</time>
+            
+            
+          </td>
+          <td itemprop="title">System, method and apparatus for providing functions to applications on a digital electronic device 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/CN1178141C/en">
+                <span itemprop="publicationNumber">CN1178141C</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2004-12-01">2004-12-01</time>
+            
+            
+          </td>
+          <td itemprop="title">Method and apparatus for controlling a device on network 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/KR20030096335A/en">
+                <span itemprop="publicationNumber">KR20030096335A</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2003-12-24">2003-12-24</time>
+            
+            
+          </td>
+          <td itemprop="title">Apparatus and method for communicating information to portable computing devices 
+     </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/RU2464710C2/en">
+                <span itemprop="publicationNumber">RU2464710C2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2012-10-20">2012-10-20</time>
+            
+            
+          </td>
+          <td itemprop="title">Method to optimise channels of communication of short range actions 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US20050267965A1/en">
+                <span itemprop="publicationNumber">US20050267965A1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2005-12-01">2005-12-01</time>
+            
+            
+          </td>
+          <td itemprop="title">Mobile router graceful shutdown system and method 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="4386536410308729877">
+              <a href="/scholar/4386536410308729877"><span itemprop="scholarAuthors">Orsini et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2015">2015</time>
+            
+          </td>
+          <td itemprop="title">Computing at the mobile edge: Designing elastic android applications for computation offloading</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US8725831B2/en">
+                <span itemprop="publicationNumber">US8725831B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2014-05-13">2014-05-13</time>
+            
+            
+          </td>
+          <td itemprop="title">Architecture and two-layered protocol for real-time location-aware applications 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/ES2641327T3/en">
+                <span itemprop="publicationNumber">ES2641327T3</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2017-11-08">2017-11-08</time>
+            
+            
+          </td>
+          <td itemprop="title">Data redirection for universal serial bus devices 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/CA2509483A1/en">
+                <span itemprop="publicationNumber">CA2509483A1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2006-01-09">2006-01-09</time>
+            
+            
+          </td>
+          <td itemprop="title">Implementation of concurrent programs in object-oriented languages 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/CN104620564B/en">
+                <span itemprop="publicationNumber">CN104620564B</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2018-05-15">2018-05-15</time>
+            
+            
+          </td>
+          <td itemprop="title">Apparatus and method for the transmission of the multi-protocol data element via the interface using data tunnel 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US20060248145A1/en">
+                <span itemprop="publicationNumber">US20060248145A1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2006-11-02">2006-11-02</time>
+            
+            
+          </td>
+          <td itemprop="title">System and method for providing various levels of reliable messaging between a client and a server 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="9121538564854776494">
+              <a href="/scholar/9121538564854776494"><span itemprop="scholarAuthors">Khan et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2015">2015</time>
+            
+          </td>
+          <td itemprop="title">Wireless sensor network virtualization: early architecture and research perspectives</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/CN103354542A/en">
+                <span itemprop="publicationNumber">CN103354542A</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2013-10-16">2013-10-16</time>
+            
+            
+          </td>
+          <td itemprop="title">Enabling web clients to provide web services 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/CN102497397A/en">
+                <span itemprop="publicationNumber">CN102497397A</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2012-06-13">2012-06-13</time>
+            
+            
+          </td>
+          <td itemprop="title">Home furnishing monitoring system and method 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Legal Events</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Code</th>
+          <th>Title</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2009-05-22">2009-05-22</time></td>
+          <td itemprop="code">AS</td>
+          <td itemprop="title">Assignment</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Owner name</strong>:
+              <span itemprop="value">UNITED STATES OF AMERICA AS REPRESENTED BY THE ADM</span>
+            </p>
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">ASSIGNMENT OF ASSIGNORS INTEREST;ASSIGNORS:RAY, TIMOTHY J., MR.;LY, VUONG T., MR.;SIGNING DATES FROM 20090415 TO 20090512;REEL/FRAME:022724/0534</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2011-12-21">2011-12-21</time></td>
+          <td itemprop="code">STCF</td>
+          <td itemprop="title">Information on status: patent grant</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">PATENTED CASE</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2015-06-22">2015-06-22</time></td>
+          <td itemprop="code">FPAY</td>
+          <td itemprop="title">Fee payment</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Year of fee payment</strong>:
+              <span itemprop="value">4</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2019-09-02">2019-09-02</time></td>
+          <td itemprop="code">FEPP</td>
+          <td itemprop="title">Fee payment procedure</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">MAINTENANCE FEE REMINDER MAILED (ORIGINAL EVENT CODE: REM.); ENTITY STATUS OF PATENT OWNER: LARGE ENTITY</span>
+            </p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+</article>
+
+    </search-app>
+    <script type="text/javascript" src="//www.gstatic.com/feedback/api.js"></script>
+    <script async="" defer="" src="//www.google.com/insights/consumersurveys/async_survey?site=cxkjf7ipxgbnnjy6k35ezcvbbe"></script>
+  </body>
+</html>

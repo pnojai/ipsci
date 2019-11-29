@@ -1,0 +1,3261 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>US7991491B2 - Control device and method for generating control signals for technical devices 
+        - Google Patents</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="referrer" content="origin-when-crossorigin">
+    <link rel="canonical" href="https://patents.google.com/patent/US7991491B2/en">
+    <meta name="description" content="
+     A control device for controlling a controlled system, such as steering, braking or accelerating when driving a car, as well other operations for other vehicles or systems, includes an automatic control system that generates automatically generated control signals, a haptic control command input device generates manual control command inputs, and an arbitration unit which resolves disputes between the automatically generated signals and the manual control command inputs. The haptic control generates control signals that depend on both the automatically generated control signals and the manual control command inputs, and adjustments are made continuously therebetween using rule based feed back control signals. Arbitration is performed in the dead spaced of the controlled system or the haptic control command input device. 
+   
+   ">
+    
+    <meta name="DC.type" content="patent">
+    
+    <meta name="DC.title" content="Control device and method for generating control signals for technical devices 
+       ">
+    
+    <meta name="DC.date" content="2006-11-14" scheme="dateSubmitted">
+    
+    <meta name="DC.description" content="
+     A control device for controlling a controlled system, such as steering, braking or accelerating when driving a car, as well other operations for other vehicles or systems, includes an automatic control system that generates automatically generated control signals, a haptic control command input device generates manual control command inputs, and an arbitration unit which resolves disputes between the automatically generated signals and the manual control command inputs. The haptic control generates control signals that depend on both the automatically generated control signals and the manual control command inputs, and adjustments are made continuously therebetween using rule based feed back control signals. Arbitration is performed in the dead spaced of the controlled system or the haptic control command input device. 
+   
+   ">
+    
+    <meta name="citation_patent_application_number" content="US:11/559,420">
+    
+    <meta name="citation_pdf_url" content="https://patentimages.storage.googleapis.com/24/56/e0/6fa63caf8ad210/US7991491.pdf">
+    
+    <meta name="citation_patent_number" content="US:7991491">
+    
+    <meta name="DC.date" content="2011-08-02" scheme="issue">
+    
+    <meta name="DC.contributor" content="Frank FLEMISCH" scheme="inventor">
+    
+    <meta name="DC.contributor" content="Jan Schomerus" scheme="inventor">
+    
+    <meta name="DC.contributor" content="Johann Kelsch" scheme="inventor">
+    
+    <meta name="DC.contributor" content="Deutsches Zentrum fur Luft- und Raumfahrt eV" scheme="assignee">
+    
+    <meta name="DC.relation" content="US:4563743" scheme="references">
+    
+    <meta name="DC.relation" content="US:5331558" scheme="references">
+    
+    <meta name="DC.relation" content="EP:0743581:B1" scheme="references">
+    
+    <meta name="DC.relation" content="US:6460810" scheme="references">
+    
+    <meta name="DC.relation" content="US:6067782" scheme="references">
+    
+    <meta name="DC.relation" content="US:20020198632:A1" scheme="references">
+    
+    <meta name="DC.relation" content="US:20060074538:A1" scheme="references">
+    
+    <meta name="DC.relation" content="US:6675076" scheme="references">
+    
+    <meta name="DC.relation" content="US:RE41358:E1" scheme="references">
+    
+    <meta name="DC.relation" content="US:20040215372:A1" scheme="references">
+    
+    <meta name="DC.relation" content="US:20070050101:A1" scheme="references">
+    
+    <meta name="DC.relation" content="US:7243014" scheme="references">
+    
+    <meta name="DC.relation" content="US:20050209762:A1" scheme="references">
+    
+    <meta name="DC.relation" content="US:20060235590:A1" scheme="references">
+    
+    <meta name="DC.relation" content="US:7676303" scheme="references">
+    
+    <meta name="citation_reference" content="Bellino et al, &#34;Lane Detection Algorithm for an onboard camera&#34;, 2005, Proceedings of SPIE vol. 5663, pp. 102-111." scheme="references">
+    
+    <meta name="citation_reference" content="Frank Flemisch et al. The H-Metaphor as a Guidelines for Vehicle Automation and Interaction, NASA/TM-2003-122672, Langley Research Center, Hampton, Virginia, Dec. 2003, pp. 1-30." scheme="references">
+    
+    <meta name="citation_reference" content="Frank Flemisch et al., At the Crossroads of Manually Controlled and Automated Transport: The H-Metaphor and its First Applications (Progress update 2005), ITS-1-3.6.2005, Hannover, Germany." scheme="references">
+    
+    <meta name="citation_reference" content="Wlodzislaw et al, &#34;Computational Intelligence Methods for Rule-Based Understanding&#34;, May 2004, Proceedings of the IEEE, vol. 92, No. 5, pp. 771-805." scheme="references">
+    
+    <meta name="citation_reference" content="Won, &#34;A Joystick Drving Control Algorithm with a Longitudinal Collision Avoidance Scheme for an elctrical vehicle&#34;, 2003, KSME international journal vol. 17, pp. 1399-1410." scheme="references">
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,400italic,500,500italic,700">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Product+Sans">
+    <style>
+      body { transition: none; }
+    </style>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-27188110-4', 'auto');
+
+      version = 'patent-search.search_20191120_RC00';
+
+      function sendFeedback() {
+        userfeedback.api.startFeedback({
+          'productId': '713680',
+          'bucket': 'patent-search-web',
+          'productVersion': version,
+        });
+      }
+
+      window.experiments = {};
+      window.experiments.patentCountries = "ae,ag,al,am,ao,ap,ar,at,au,aw,az,ba,bb,bd,be,bf,bg,bh,bj,bn,bo,br,bw,bx,by,bz,ca,cf,cg,ch,ci,cl,cm,cn,co,cr,cs,cu,cy,cz,dd,de,dj,dk,dm,do,dz,ea,ec,ee,eg,em,ep,es,fi,fr,ga,gb,gc,gd,ge,gh,gm,gn,gq,gr,gt,gw,hk,hn,hr,hu,ib,id,ie,il,in,ir,is,it,jo,jp,ke,kg,kh,km,kn,kp,kr,kw,kz,la,lc,li,lk,lr,ls,lt,lu,lv,ly,ma,mc,md,me,mg,mk,ml,mn,mo,mr,mt,mw,mx,my,mz,na,ne,ng,ni,nl,no,nz,oa,om,pa,pe,pg,ph,pl,pt,py,qa,ro,rs,ru,rw,sa,sc,sd,se,sg,si,sk,sl,sm,sn,st,su,sv,sy,sz,td,tg,th,tj,tm,tn,tr,tt,tw,tz,ua,ug,us,uy,uz,vc,ve,vn,wo,yu,za,zm,zw";
+      
+      
+      window.profilePicture = "";
+
+      window.Polymer = {
+        dom: 'shady',
+        lazyRegister: true,
+      };
+    </script>
+
+    <script src="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/webcomponentsjs/webcomponents-lite.min.js"></script>
+    
+    <link rel="import" href="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/search-app-vulcanized.html">
+    
+  </head>
+  <body unresolved>
+    
+    <script src="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/search-app-vulcanized.js"></script>
+    
+    <search-app>
+      
+      
+
+      <article class="result" itemscope itemtype="http://schema.org/ScholarlyArticle">
+  <h1 itemprop="pageTitle">US7991491B2 - Control device and method for generating control signals for technical devices 
+        - Google Patents</h1>
+  <span itemprop="title">Control device and method for generating control signals for technical devices 
+       </span>
+
+  <meta itemprop="type" content="patent">
+  <a href="https://patentimages.storage.googleapis.com/24/56/e0/6fa63caf8ad210/US7991491.pdf" itemprop="pdfLink">Download PDF</a>
+  <h2>Info</h2>
+
+  <dl>
+    <dt>Publication number</dt>
+    <dd itemprop="publicationNumber">US7991491B2</dd>
+    <meta itemprop="numberWithoutCodes" content="7991491">
+    <meta itemprop="kindCode" content="B2">
+    <meta itemprop="publicationDescription" content="Patent ( having previously published pre-grant publication)">
+    
+    <span>US7991491B2</span>
+    
+    <span>US11/559,420</span>
+    
+    <span>US55942006A</span>
+    
+    <span>US7991491B2</span>
+    
+    <span>US 7991491 B2</span>
+    
+    <span>US7991491 B2</span>
+    
+    <span>US 7991491B2</span>
+    
+    <span>  </span>
+    
+    <span> </span>
+    
+    <span> </span>
+    
+    <span>US 55942006 A</span>
+    
+    <span>US55942006 A</span>
+    
+    <span>US 55942006A</span>
+    
+    <span>US 7991491 B2</span>
+    
+    <span>US7991491 B2</span>
+    
+    <span>US 7991491B2</span>
+    
+
+    <dt>Authority</dt>
+    <dd itemprop="countryCode">US</dd>
+    <dd itemprop="countryName">United States</dd>
+
+    <dt>Prior art keywords</dt>
+    
+    <dd itemprop="priorArtKeywords" repeat>control</dd>
+    <dd itemprop="priorArtKeywords" repeat>control command</dd>
+    <dd itemprop="priorArtKeywords" repeat>automatically generated</dd>
+    <dd itemprop="priorArtKeywords" repeat>signals</dd>
+    <dd itemprop="priorArtKeywords" repeat>control signals</dd>
+
+    <dt>Prior art date</dt>
+    <dd><time itemprop="priorArtDate" datetime="2005-11-18">2005-11-18</time></dd>
+
+    <dt>Legal status (The legal status is an assumption and is not a legal conclusion. Google has not performed a legal analysis and makes no representation as to the accuracy of the status listed.)</dt>
+    <dd itemprop="legalStatusIfi" itemscope>
+      <span itemprop="status">Expired - Fee Related</span>, expires <time itemprop="expiration" datetime="2030-03-04">2030-03-04</time>
+    </dd>
+  </dl>
+
+  <dt>Application number</dt>
+  <dd itemprop="applicationNumber">US11/559,420</dd>
+
+  
+
+  <dt>Other versions</dt>
+  <dd itemprop="directAssociations" itemscope repeat>
+    
+    <a href="/patent/US20070129815A1/en">
+      <span itemprop="publicationNumber">US20070129815A1</span>
+      (<span itemprop="primaryLanguage">en</span>
+    </a>
+  </dd>
+
+  <dt>Inventor</dt>
+  <dd itemprop="inventor" repeat>Frank FLEMISCH</dd>
+  <dd itemprop="inventor" repeat>Jan Schomerus</dd>
+  <dd itemprop="inventor" repeat>Johann Kelsch</dd>
+  <dt>Current Assignee (The listed assignees may be inaccurate. Google has not performed a legal analysis and makes no representation or warranty as to the accuracy of the list.)</dt>
+  <dd itemprop="assigneeCurrent" repeat>
+    Deutsches Zentrum fur Luft- und Raumfahrt eV
+  </dd>
+
+  <dt>Original Assignee</dt>
+  <dd itemprop="assigneeOriginal" repeat>Deutsches Zentrum fur Luft- und Raumfahrt eV</dd>
+
+  <dt>Priority date (The priority date is an assumption and is not a legal conclusion. Google has not performed a legal analysis and makes no representation as to the accuracy of the date listed.)</dt>
+  <dd><time itemprop="priorityDate" datetime="2005-11-18">2005-11-18</time></dd>
+
+  <dt>Filing date</dt>
+  <dd><time itemprop="filingDate" datetime="2006-11-14">2006-11-14</time></dd>
+
+  <dt>Publication date</dt>
+  <dd><time itemprop="publicationDate" datetime="2011-08-02">2011-08-02</time></dd>
+
+  
+
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2005-11-18">2005-11-18</time>
+    <span itemprop="title">Priority to DE102005055584</span>
+    <span itemprop="type">priority</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2005-11-18">2005-11-18</time>
+    <span itemprop="title">Priority to DE200510055584</span>
+    <span itemprop="type">priority</span>
+    
+    
+    
+    <span itemprop="documentId">patent/DE102005055584B4/en</span>
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2006-11-14">2006-11-14</time>
+    <span itemprop="title">Application filed by Deutsches Zentrum fur Luft- und Raumfahrt eV</span>
+    <span itemprop="type">filed</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    <span itemprop="assigneeSearch">Deutsches Zentrum fur Luft- und Raumfahrt eV</span>
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2007-03-08">2007-03-08</time>
+    <span itemprop="title">Assigned to DEUTSCHES ZENTRUM FUR LUFT- UND RAUMFAHRT E.V.</span>
+    <span itemprop="type">reassignment</span>
+    
+    
+    
+    
+    <span itemprop="assigneeSearch">DEUTSCHES ZENTRUM FUR LUFT- UND RAUMFAHRT E.V.</span>
+    
+    
+    <span itemprop="description" repeat>ASSIGNMENT OF ASSIGNORS INTEREST (SEE DOCUMENT FOR DETAILS).</span>
+    
+    <span itemprop="description" repeat>Assignors: KELSCH, JOHANN, SCHOMERUS, JAN</span>
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2007-06-07">2007-06-07</time>
+    <span itemprop="title">Publication of US20070129815A1</span>
+    <span itemprop="type">publication</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    <span itemprop="documentId">patent/US20070129815A1/en</span>
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2011-08-02">2011-08-02</time>
+    <span itemprop="title">Application granted</span>
+    <span itemprop="type">granted</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2011-08-02">2011-08-02</time>
+    <span itemprop="title">Publication of US7991491B2</span>
+    <span itemprop="type">publication</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    <span itemprop="documentId">patent/US7991491B2/en</span>
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2019-11-26">2019-11-26</time>
+    <span itemprop="title">Application status is Expired - Fee Related</span>
+    <span itemprop="type">legal-status</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2030-03-04">2030-03-04</time>
+    <span itemprop="title">Adjusted expiration</span>
+    <span itemprop="type">legal-status</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+
+  <h2>Links</h2>
+
+  <ul>
+    
+          <li itemprop="links" itemscope repeat>
+            <meta itemprop="id" content="usptoLink">
+            <a href="http://patft.uspto.gov/netacgi/nph-Parser?Sect1=PTO1&Sect2=HITOFF&p=1&u=/netahtml/PTO/srchnum.html&r=1&f=G&l=50&d=PALL&s1=7991491.PN." itemprop="url" target="_blank"><span itemprop="text">USPTO</span></a>
+          </li>
+        <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="usptoAssignmentLink">
+          <a href="https://assignment.uspto.gov/patent/index.html#/patent/search/resultFilter?searchInput=7991491" itemprop="url" target="_blank"><span itemprop="text">USPTO Assignment</span></a>
+        </li>
+
+    <li itemprop="links" itemscope repeat>
+        <meta itemprop="id" content="espacenetLink">
+        <a href="http://worldwide.espacenet.com/publicationDetails/biblio?CC=US&amp;NR=7991491B2&amp;KC=B2&amp;FT=D" itemprop="url" target="_blank"><span itemprop="text">Espacenet</span></a>
+      </li>
+      
+
+    
+
+    
+      <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="globalDossierLink">
+          <a href="http://globaldossier.uspto.gov/#/result/patent/US/7991491/1" itemprop="url" target="_blank"><span itemprop="text">Global Dossier</span></a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="stackexchangeLink">
+          <a href="https://patents.stackexchange.com/questions/tagged/US7991491" itemprop="url"><span itemprop="text">Discuss</span></a>
+        </li>
+      
+  </ul>
+
+  
+  <ul itemprop="concept" itemscope>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000004044</span>
+      <span itemprop="name">response</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">12</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000003213</span>
+      <span itemprop="name">activating</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">11</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000004891</span>
+      <span itemprop="name">communication</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">9</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001264</span>
+      <span itemprop="name">neutralization</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">9</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000000694</span>
+      <span itemprop="name">effects</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">7</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000003287</span>
+      <span itemprop="name">optical</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">5</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000002829</span>
+      <span itemprop="name">reduced</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">5</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001419</span>
+      <span itemprop="name">dependent</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">4</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001603</span>
+      <span itemprop="name">reducing</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">3</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000003321</span>
+      <span itemprop="name">amplification</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000004452</span>
+      <span itemprop="name">animal feeding substances</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>abstract</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001276</span>
+      <span itemprop="name">controlling effects</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>abstract</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000035611</span>
+      <span itemprop="name">feeding</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>abstract</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000003199</span>
+      <span itemprop="name">nucleic acid amplification method</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000000007</span>
+      <span itemprop="name">visual effect</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">6</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000002596</span>
+      <span itemprop="name">correlated</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">4</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">241000283073</span>
+      <span itemprop="name">Equus caballus</span>
+      <span itemprop="domain">Species</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">210000000744</span>
+      <span itemprop="name">Eyelids</span>
+      <span itemprop="domain">Anatomy</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">210000003128</span>
+      <span itemprop="name">Head</span>
+      <span itemprop="domain">Anatomy</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000003935</span>
+      <span itemprop="name">attention</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001808</span>
+      <span itemprop="name">coupling</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000010168</span>
+      <span itemprop="name">coupling process</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000005859</span>
+      <span itemprop="name">coupling reaction</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000010006</span>
+      <span itemprop="name">flight</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001976</span>
+      <span itemprop="name">improved</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001965</span>
+      <span itemprop="name">increased</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000003993</span>
+      <span itemprop="name">interaction</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">241000282414</span>
+      <span itemprop="name">Homo sapiens</span>
+      <span itemprop="domain">Species</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001133</span>
+      <span itemprop="name">acceleration</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000015572</span>
+      <span itemprop="name">biosynthetic process</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000000295</span>
+      <span itemprop="name">complement</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000007796</span>
+      <span itemprop="name">conventional methods</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000000875</span>
+      <span itemprop="name">corresponding</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000005755</span>
+      <span itemprop="name">formation</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000010410</span>
+      <span itemprop="name">layers</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000004301</span>
+      <span itemprop="name">light adaptation</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000000670</span>
+      <span itemprop="name">limiting</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000000034</span>
+      <span itemprop="name">methods</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000009740</span>
+      <span itemprop="name">moulding (composite fabrication)</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000003825</span>
+      <span itemprop="name">pressing</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+  </ul>
+  
+
+  <section>
+    <h2>Images</h2>
+    <ul>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/8f/68/07/9ce5ff39379056/US07991491-20110802-D00000.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/24/86/42/2c28559c7d269d/US07991491-20110802-D00000.png">
+        <ul>
+          <li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="1">
+            <meta itemprop="label" content="control device">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="960">
+              <meta itemprop="top" content="489">
+              <meta itemprop="right" content="969">
+              <meta itemprop="bottom" content="500">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="2">
+            <meta itemprop="label" content="control command system">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="597">
+              <meta itemprop="top" content="182">
+              <meta itemprop="right" content="639">
+              <meta itemprop="bottom" content="233">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="2">
+            <meta itemprop="label" content="control command system">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="806">
+              <meta itemprop="top" content="182">
+              <meta itemprop="right" content="881">
+              <meta itemprop="bottom" content="242">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="3">
+            <meta itemprop="label" content="command input device">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="777">
+              <meta itemprop="top" content="608">
+              <meta itemprop="right" content="820">
+              <meta itemprop="bottom" content="660">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="4">
+            <meta itemprop="label" content="arbitration unit">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="521">
+              <meta itemprop="top" content="943">
+              <meta itemprop="right" content="563">
+              <meta itemprop="bottom" content="994">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="5">
+            <meta itemprop="label" content="actuator">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="614">
+              <meta itemprop="top" content="535">
+              <meta itemprop="right" content="646">
+              <meta itemprop="bottom" content="583">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="6">
+            <meta itemprop="label" content="sensor">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="449">
+              <meta itemprop="top" content="598">
+              <meta itemprop="right" content="480">
+              <meta itemprop="bottom" content="645">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="7">
+            <meta itemprop="label" content="system">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1375">
+              <meta itemprop="top" content="984">
+              <meta itemprop="right" content="1414">
+              <meta itemprop="bottom" content="1031">
+            </span>
+          </li>
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/18/d6/50/0313d28fb0cbc6/US07991491-20110802-D00001.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/d4/34/6c/b70364345375de/US07991491-20110802-D00001.png">
+        <ul>
+          <li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="1">
+            <meta itemprop="label" content="control device">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="960">
+              <meta itemprop="top" content="489">
+              <meta itemprop="right" content="969">
+              <meta itemprop="bottom" content="500">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="2">
+            <meta itemprop="label" content="control command system">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="596">
+              <meta itemprop="top" content="183">
+              <meta itemprop="right" content="640">
+              <meta itemprop="bottom" content="227">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="2">
+            <meta itemprop="label" content="control command system">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="806">
+              <meta itemprop="top" content="182">
+              <meta itemprop="right" content="881">
+              <meta itemprop="bottom" content="242">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="3">
+            <meta itemprop="label" content="command input device">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="777">
+              <meta itemprop="top" content="608">
+              <meta itemprop="right" content="820">
+              <meta itemprop="bottom" content="660">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="4">
+            <meta itemprop="label" content="arbitration unit">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="521">
+              <meta itemprop="top" content="943">
+              <meta itemprop="right" content="563">
+              <meta itemprop="bottom" content="994">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="5">
+            <meta itemprop="label" content="actuator">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="614">
+              <meta itemprop="top" content="535">
+              <meta itemprop="right" content="646">
+              <meta itemprop="bottom" content="583">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="6">
+            <meta itemprop="label" content="sensor">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="449">
+              <meta itemprop="top" content="598">
+              <meta itemprop="right" content="480">
+              <meta itemprop="bottom" content="645">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="7">
+            <meta itemprop="label" content="system">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1375">
+              <meta itemprop="top" content="985">
+              <meta itemprop="right" content="1414">
+              <meta itemprop="bottom" content="1032">
+            </span>
+          </li>
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/3d/c2/41/fd4f84522bede2/US07991491-20110802-D00002.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/78/13/bb/8f0c355fdd4318/US07991491-20110802-D00002.png">
+        <ul>
+          <li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="2">
+            <meta itemprop="id" content="1">
+            <meta itemprop="label" content="control device">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="154">
+              <meta itemprop="top" content="243">
+              <meta itemprop="right" content="174">
+              <meta itemprop="bottom" content="282">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="2">
+            <meta itemprop="id" content="1">
+            <meta itemprop="label" content="control device">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1143">
+              <meta itemprop="top" content="489">
+              <meta itemprop="right" content="1151">
+              <meta itemprop="bottom" content="501">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="2">
+            <meta itemprop="id" content="1">
+            <meta itemprop="label" content="control device">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="267">
+              <meta itemprop="top" content="1081">
+              <meta itemprop="right" content="275">
+              <meta itemprop="bottom" content="1093">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="2">
+            <meta itemprop="id" content="1">
+            <meta itemprop="label" content="control device">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1438">
+              <meta itemprop="top" content="1630">
+              <meta itemprop="right" content="1447">
+              <meta itemprop="bottom" content="1641">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="2">
+            <meta itemprop="id" content="1">
+            <meta itemprop="label" content="control device">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1135">
+              <meta itemprop="top" content="1943">
+              <meta itemprop="right" content="1144">
+              <meta itemprop="bottom" content="1954">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="2">
+            <meta itemprop="id" content="1">
+            <meta itemprop="label" content="control device">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="256">
+              <meta itemprop="top" content="1991">
+              <meta itemprop="right" content="263">
+              <meta itemprop="bottom" content="2002">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="2">
+            <meta itemprop="id" content="2">
+            <meta itemprop="label" content="control command system">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="665">
+              <meta itemprop="top" content="191">
+              <meta itemprop="right" content="701">
+              <meta itemprop="bottom" content="235">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="2">
+            <meta itemprop="id" content="3">
+            <meta itemprop="label" content="command input device">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="858">
+              <meta itemprop="top" content="610">
+              <meta itemprop="right" content="883">
+              <meta itemprop="bottom" content="648">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="2">
+            <meta itemprop="id" content="3">
+            <meta itemprop="label" content="command input device">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="837">
+              <meta itemprop="top" content="1850">
+              <meta itemprop="right" content="877">
+              <meta itemprop="bottom" content="1897">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="2">
+            <meta itemprop="id" content="4">
+            <meta itemprop="label" content="arbitration unit">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="599">
+              <meta itemprop="top" content="932">
+              <meta itemprop="right" content="638">
+              <meta itemprop="bottom" content="979">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="2">
+            <meta itemprop="id" content="5">
+            <meta itemprop="label" content="actuator">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="681">
+              <meta itemprop="top" content="535">
+              <meta itemprop="right" content="720">
+              <meta itemprop="bottom" content="582">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="2">
+            <meta itemprop="id" content="5a">
+            <meta itemprop="label" content="actuators">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="658">
+              <meta itemprop="top" content="1767">
+              <meta itemprop="right" content="718">
+              <meta itemprop="bottom" content="1814">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="2">
+            <meta itemprop="id" content="5b">
+            <meta itemprop="label" content="actuators">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="653">
+              <meta itemprop="top" content="1823">
+              <meta itemprop="right" content="725">
+              <meta itemprop="bottom" content="1872">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="2">
+            <meta itemprop="id" content="6">
+            <meta itemprop="label" content="sensor">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="533">
+              <meta itemprop="top" content="600">
+              <meta itemprop="right" content="558">
+              <meta itemprop="bottom" content="638">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="2">
+            <meta itemprop="id" content="7">
+            <meta itemprop="label" content="system">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1425">
+              <meta itemprop="top" content="2217">
+              <meta itemprop="right" content="1464">
+              <meta itemprop="bottom" content="2263">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="2">
+            <meta itemprop="id" content="7">
+            <meta itemprop="label" content="system">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1435">
+              <meta itemprop="top" content="964">
+              <meta itemprop="right" content="1473">
+              <meta itemprop="bottom" content="1008">
+            </span>
+          </li>
+        </ul>
+      </li>
+      </ul>
+  </section>
+
+  <section>
+    <h2>Classifications</h2>
+    
+    <ul>
+      <li>
+        <ul itemprop="cpcs" itemscope repeat>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G</span>&mdash;<span itemprop="Description">PHYSICS</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G05</span>&mdash;<span itemprop="Description">CONTROLLING; REGULATING</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G05B</span>&mdash;<span itemprop="Description">CONTROL OR REGULATING SYSTEMS IN GENERAL; FUNCTIONAL ELEMENTS OF SUCH SYSTEMS; MONITORING OR TESTING ARRANGEMENTS FOR SUCH SYSTEMS OR ELEMENTS</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G05B7/00</span>&mdash;<span itemprop="Description">Arrangements for obtaining smooth engagement or disengagement of automatic control</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G05B7/02</span>&mdash;<span itemprop="Description">Arrangements for obtaining smooth engagement or disengagement of automatic control electric</span>
+            <meta itemprop="Leaf" content="true">
+            
+            <meta itemprop="FirstCode" content="true">
+          </li>
+          </ul>
+      </li>
+      </ul>
+  </section>
+
+  <section itemprop="abstract" itemscope>
+    <h2>Abstract</h2>
+    
+    <div itemprop="content" html><abstract mxw-id="PA87990608" lang="EN" load-source="patent-office">
+    <div num="p-0001" class="abstract">A control device for controlling a controlled system, such as steering, braking or accelerating when driving a car, as well other operations for other vehicles or systems, includes an automatic control system that generates automatically generated control signals, a haptic control command input device generates manual control command inputs, and an arbitration unit which resolves disputes between the automatically generated signals and the manual control command inputs. The haptic control generates control signals that depend on both the automatically generated control signals and the manual control command inputs, and adjustments are made continuously therebetween using rule based feed back control signals. Arbitration is performed in the dead spaced of the controlled system or the haptic control command input device.</div>
+  </abstract>
+  </div>
+  </section>
+
+  <section itemprop="description" itemscope>
+    <h2>Description</h2>
+    
+    <div itemprop="content" html><div mxw-id="PDES44040188" lang="EN" load-source="patent-office" class="description">
+    
+    <p num="p-0002">The present invention relates to a control device using haptic arbitration, comprising:
+</p> <ul> <li id="ul0001-0001" num="0000"> <ul> <li id="ul0002-0001" num="0002">an automatic control command system for the automatic generation of control signals,</li> <li id="ul0002-0002" num="0003">a haptic control command input device which has at least one actuator for operating the control command input device in dependence on the automatically generated control signals and at least one sensor for detecting manual control command inputs by manual operation of the control command input device, and</li> <li id="ul0002-0003" num="0004">an arbitration unit for generating control signals which are conducted to a controlled system following the arbitration unit, in dependence on the automatically generated control signals and the manual control command inputs.</li> </ul> </li> </ul>
+
+    <p num="p-0003">The invention also relates to a method for generating control signals for technical devices which have at least one controlled system with dead space and such a control device.</p>
+    <p num="p-0004">Technical devices are increasingly controlled automatically. For reasons of safety and acceptance, however, manual control is also often required and wanted. Thus, for example in aircraft, fully automatic control by means of an autopilot is selected in certain flight phases. In the case of manual intervention, however, manual control is prioritized. A corresponding arrangement is known from motor vehicles which are equipped with an automatic speed control.</p>
+    <p num="p-0005">Due to technical advances, automation is becoming evermore complex and efficient, for example in motor vehicles or aircraft. Automatic control devices are increasingly becoming capable of performing actions which do not correspond to the intentions or actions of an operator. This is desirable in some cases when, for example, the operator performs hazardous actions due to fatigue, and sometimes undesirable when, for example, the automation has inadequate information at its disposal. Conventional methods of interaction with such automatic control systems are based on entering numerical values in the rotary input element, on pressing buttons or programming the automation behind them. Overriding of the automation by the human operator is mainly achieved by switching off the automation. The operator is influenced by the automation mainly by means of warnings which, in turn, are acted on by the operator via the actuators, or by limiting the control inputs at a lower technical layer. In individual cases, a haptic feedback of the automation is already used, for example in vehicle control, for example via entering forces or moments into a control command input device without, however, the automation having any idea about how this feedback is received by the operator.</p>
+    <p num="p-0006">Understanding and operating such complex automation is becoming more and more difficult for the user. In the aircraft field, for example, a so-called out-of-the-loop problem can occur in which the operator is no longer sufficiently involved due to the lack of feedback. Frequently, the different controllers and operating knobs can no longer be taken in mentally by the user (“One-box-at-a-time” automation). As well, the user can become confused with regard to the valid control mode (“mode confusion”) in which different operating states and the intended action of the automation are not detected or wrongly detected. Such conventional control devices with combined automatic and manual control command input are susceptible to accidents since operator and automation are possibly working against one another without conflict of action being adequately resolved.</p>
+    <p num="p-0007">In F. Flemisch, C. Adams, S. Conway, K. Goodrich, M. Palmer, P. Schutte: “The H-metaphor as a Guideline for Vehicle Automation and Interaction”, NASA/TM-2003-212672, December 2003, a control concept based on the so-called horse metaphor is described. The control concept is based on an intelligent automatic control system equipped with sensors which can be influenced with the aid of haptic control command input devices by means of manual control command input by a person. Similar to the guidance of a horse moving independently, the automatically generated and manual control profiles balance one another with the aid of force and counterforce of a haptic control command input device. In the case of “loose reins”, i.e. little influence by means of manual control command inputs, the automatic control command system takes over control, whereas in the case of “tight reins”, i.e. in the case of strong influence by means of manual control command inputs, the operator essentially takes over control.</p>
+    <p num="p-0008">In F. Flemisch, K. Goodrich, S. Conway: “At the crossroads of manually controlled and automated transport: The H-metaphor and its first applications”, in Fifth European Congress exhibition on intelligent transport systems and services (ITS); Hanover 1-3 Jun. 2005, an aircraft and vehicle control device based on the H-metaphor, comprising a haptic control command input device and an automatic control command system for automatically generating control signals is described. A vehicle is controlled by means of a haptic control command input device onto which a force characterizing the control command input and noticeable to the user is introduced with the aid of at least one actuator and automatically generated control signals. The user can counteract this force or follow it. To balance the manual and automatic control commands, there can be prioritization between the intention of the user and the automatic control command system.</p>
+    <p num="p-0009">DE 20 2004 050 584 A1 discloses a vehicle parking aid system, in which an additional steering force is applied to a steering wheel by use of a control module resulting in support of the driver of the vehicle in the parking process. The applied steering force is chosen such that the vehicle guidance is simulated for the driver, which can be stopped immediately by steering in the opposite direction.</p>
+    <p num="p-0010">DE 10 2004 026067 A1 discloses a vehicle steering system in which the clutch mechanism is provided in the steering column. By respective control of the clutch mechanism, the steering system can work selectively in “steer-by-wire mode”, a servo steering mode or a manual mode.</p>
+    <p num="p-0011">Further, EP 0 743 581 B1 discloses a system for resetting a pilot steering while automatic guidance by use of an auto-pilot. Actions of the auto-pilot resulting in control of the respective airplane control means are fed to the flight control input devices for the pilot so that the pilot is able to recognize which action the auto-pilot actually performs.</p>
+    <p num="p-0012">It is the object of the present invention to create an improved control device of the type initially mentioned.</p>
+    <p num="p-0013">According to the invention, the object is achieved by means of a control device of the type initially mentioned in that the arbitration unit is set up in order, in the case of mutually contradictory or overriding (i.e. excessively complementary) manual control command inputs and automatically generated control signals, to continuously adjust to one another, within an arbitration phase selected in dependence on the dead space of the haptic control command input device and/or the controlled system, the manual control command inputs and the automatically generated control signals, by rule-based generation of a correction signal and feeding back the correction signal to at least one actuator of the haptic control command input device.</p>
+    <p num="p-0014">The dead space comprises dead times, spatial dead zones and/or areas of low transmission (or increased attenuation) in the frequency domain. In the dead spaces, inputs at the haptic control command input device do not or only conditionally effect a change in the behaviour of the controlled system.</p>
+    <p num="p-0015">Due to the (continuous) input of the desired actions of the automatic control command system into the haptic control command input device and detection of the response of the user, i.e. of the manual control command inputs to the actions desired by the automatic control command system and correction of the automatically generated control signals in dependence on the detected response, a controlled-system control signal is generated which produces an action which is common and meaningful for the automatic system and the user. For this balancing of the automatically generated control commands and manual control command inputs, the dead spaces in most cases existing in the controlled system following and/or built into the control command input device are used as an arbitration phase in order to provide for inputs to the arbitration unit without the controlled system already responding. Taking into consideration the dead space thus prevents the controlled system from responding to the contradictory control commands of the operator and of the automatic system. In this arrangement, it is particularly advantageous to take into consideration the combination of dead time and dead zone.</p>
+    <p num="p-0016">Whereas the dead space has previously been considered as an unavoidable characteristic of a controlled system which is to be minimized, it is now advantageously utilized as arbitration space within which the controlled-system control signals conducted to the controlled system are generated from the manual and automatic control command input into the control command input device. The balancing between automatic and manual control takes place and is preferably concluded within the arbitration phase.</p>
+    <p num="p-0017">For example, the arbitration phase can be started when the difference between manual control command input and automatically generated control signal exceeds a defined threshold.</p>
+    <p num="p-0018">The correction signal of the arbitration unit to at least one of the actuators of the haptic control command input device can be fed back directly by application to the actuator in dependence on the correction signal and/or indirectly by feeding the correction signal back to the automatic control command system. The correction signal can be used as a correcting variable to a control signal generated by the automatic control command system, applying a drive signal correlated with the corrected signal to the actuators. However, it is also conceivable that the haptic control command input device has a first group of actuators which are exclusively activated by means of the automatically generated control signals of the automatic control system, and has a second group of actuators which are exclusively activated by means of the correction signals of the arbitration unit and may mechanically counteract the first group.</p>
+    <p num="p-0019">It is particularly advantageous if the control device is set up for a variable adjustment of the dead space of the controlled system. The control device can be parameterized by reducing or preferably increasing the dead time so that, as a result, it reacts more or less rapidly or temperamentally to control inputs.</p>
+    <p num="p-0020">The arbitration unit is preferably set up for evaluating the safety and urgency of the intended actions in each case predetermined by the automatically generated control signals and manual control command inputs and for prioritizing the control command input which produces a safer or more urgent control action. This solves conflicts between manual and automatic control and ensures that the control command preassessed as safer and more urgent is given priority. Arbitration can be effected with the aid of decision matrices in which predetermined control commands (decisions) are registered in dependence on states of the automatic and manual control.</p>
+    <p num="p-0021">For the purpose of prioritization, the automatically generated control signals are amplified, i.e. for example overweighted, when the control actions to be effected by the automatically generated control signals are preassessed as safer and/or more urgent than the control actions to be effected by the manual control command inputs. On the other hand, the automatically generated control signals can be reduced when the control actions to be effected by the manual control command inputs are preassessed as safer and/or more urgent than the control actions to be effected by the automatically generated control command inputs.</p>
+    <p num="p-0022">To balance the automatic and manual control commands in the case of a conflict, it is also advantageous if, for the purpose of prioritization, the automatically generated control signals are reduced when both the control actions to be effected by the automatically generated control signals and the control actions to be effected by the manual control command inputs are preassessed as safe and/or urgent. That is, the manual control action is accorded priority in this case when both the automatic control action and the manual control action are preassessed as safe and/or urgent.</p>
+    <p num="p-0023">It is also advantageous if the control device has a discrete change-over switch connected to the arbitration unit or a continuous switching element (for example a potentiometer) for prioritizing the manual control command input or automatically generated control signals. Prioritization can take place, for example, due to different weighting of the manual and automatic control commands.</p>
+    <p num="p-0024">A secondary arbitration phase, following the arbitration phase, still provides the yielding entity, person or automation, with the possibility of producing a change of the control signal generated in the arbitration phase by means of manual intervention or indirectly by means of additional visual, acoustic or haptic communication. The communication can also be supplemented by voice input/output, noise input/output or visual display. Furthermore, a coupling to states of the operator can be effected which are detected by recognizing the direction of looking or of the head or movement of eyelids. These states are then conducted to the arbitration unit.</p>
+    <p num="p-0025">The control device can have, for example, at least one optical, acoustic and/or haptic signal unit, coupled to the arbitration unit, for outputting a communication signal dependent on the correction of the automatically generated control signals. The automatic control command system can thus draw attention to the fact that it is proposing a different control action than has been adjusted in the arbitration phase or secondary arbitration phase, for example by means of acoustic or visual outputs. The control device <b>1</b> has at least one input unit, coupled to the arbitration unit <b>4</b> for the optical, acoustic or haptic input of communication signals or states for correction of the control-system control signal S<sub>R</sub>.</p>
+    <p num="p-0026">The control device is preferably set up for detecting discrete command inputs from manual control command inputs within an arbitration phase and generating additional control signals which are not forwarded to the controlled system following. This makes it possible also to have a discrete command input, in addition to the continuous control, without this affecting the controlled system. It is thus possible, for example, to issue switching instructions by short abrupt movements on a joystick or steering wheel without these abrupt movements having an effect on the steering characteristic. These discrete control command inputs are again possible by utilizing the dead space for the arbitration phase.</p>
+    <p num="p-0027">An advantageous embodiment correspondingly provides that the automatic control command system, by activating the haptic control command input device, conveys discrete commands to the user which, e.g. due to the dead space or due to filtering-out, are not forwarded to the controlled system, or only in a limited way.</p>
+    <p num="p-0028">To detect the discrete control commands, the control device preferably has a plurality of state machines or pattern recognizers, these state machines or pattern recognizers being activatable in dependence on detected signal patterns from manual control command inputs and coupled to one another for mutual activation for outputting defined control signals. The discrete control commands are detected in agreement with the arbitration unit in order to distinguish manual control command inputs from automatically generated control signals and, if necessary, to remove the discrete control commands from the arbitration. The state machines or pattern recognizers thus make it possible to detect and to convert and to filter out discrete control inputs in real time so that the discrete control inputs do not have any effect on the continuous control signals applied to the controlled system.</p>
+    <p num="p-0029">It is particularly advantageous if the automatic control command system is set up for generating neutral control signals not acting on the controlled system and the arbitration unit is set up for detecting the response by manual control command inputs to these neutral control signals and generating controlled-system control signals for the subsequent controlled system in dependence on the detected response. The neutral control signals can be signals which are limited in a defined manner in time, are amplitude limited, pulse-shaped or frequency-limited in a defined manner, which, due to their characteristic, can be filtered out in the arbitration unit so that they are not conducted to the controlled system. In this manner, the automatic control command system does not continuously provide a control signal for the controlled system which is only adjusted by means of a manual control signal which is not necessarily present. Instead, the neutral control signals are only used for indicating the control action proposed by the automatic control command system to the user via the control command input device. To influence the controlled system, i.e. to control a technical device, the response of the user to the proposals signalled is then of significance.</p>
+    <p num="p-0030">It is also the object of the present invention to create an improved method for generating control signals for technical devices of the type initially mentioned.</p>
+    <p num="p-0031">According to the invention, the object is achieved by means of the generic method, having the following steps:
+</p> <ul> <li id="ul0003-0001" num="0000"> <ul> <li id="ul0004-0001" num="0034">automatic generation of control signals and actuatory operation of a control command input device in dependence on the automatically generated control signals,</li> <li id="ul0004-0002" num="0035">detection of manual control command inputs via the control command input device in response to the actuatory operation of the control command input device by the automatically generated control signals,</li> <li id="ul0004-0003" num="0036">generation of controlled-system control signals for the controlled system by the arbitration unit with, in the case of mutually contradictory or overriding manual control command inputs and automatically generated control signals,
+        <ul> <li id="ul0005-0001" num="0037">continuous adjustment of the manual control command inputs and of the automatically generated control signals to one another by rule-based generation of a correction signal, and</li> <li id="ul0005-0002" num="0038">feedback of the correction signal to at least one actuator of the haptic control command input device within an arbitration phase selected in dependence on the dead space of the haptic control command input device and/or of the controlled system.</li> </ul>
+        </li> </ul> </li> </ul>
+
+    <p num="p-0032">Advantageous embodiments of the method are described in the subclaims in accordance with the described features of the control device.</p>
+    
+    
+    <description-of-drawings>
+      <p num="p-0033">In the text which follows, the invention will be explained in greater detail by means of an illustrative embodiment with attached drawings, in which:</p>
+      <p num="p-0034">FIG. <b>1</b>—shows a block diagram of a first embodiment of the control device;</p>
+      <p num="p-0035">FIG. <b>2</b>—shows a representation of the relationship between person, automation and environment, with arbitration between person and automation;</p>
+      <p num="p-0036">FIG. <b>3</b>—shows a block diagram of a second embodiment of the control device;</p>
+      <p num="p-0037">FIG. <b>4</b>—shows a block diagram of a third embodiment of the control device.</p>
+    </description-of-drawings>
+    
+    
+    <p num="p-0038"> <figref idrefs="DRAWINGS">FIG. 1</figref> shows a diagram of a control device <b>1</b> which essentially has an automatic control command system <b>2</b>, a haptic control command input device <b>3</b> and an arbitration unit <b>4</b>. The automatic control command system <b>2</b> is provided for the automatic generation of control signals S<sub>A </sub>and can be connected, in a manner known per se, to sensors etc. (not shown) for this purpose.</p>
+    <p num="p-0039">The haptic control command input device <b>3</b> has at least one actuator <b>5</b> for operating the control command input device <b>3</b> in dependence on a correction signal S<sub>1</sub>. Thus, a force, which displaces the control input element in accordance with the correction signal S<sub>1 </sub>is introduced into the control input element used by the operator such as, for example, a joystick or a steering wheel. In this manner, the user is sensibly informed about the result of the arbitration.</p>
+    <p num="p-0040">Furthermore, at least one sensor <b>6</b> is provided in the haptic control command input device <b>3</b> in order to detect the manual control command input S<sub>M</sub>. For this purpose, for example, the counterforce applied to the control input element by the user can be measured.</p>
+    <p num="p-0041">The automatically generated control signals S<sub>A </sub>and manual control command inputs S<sub>M </sub>are conducted to the arbitration unit <b>4</b> and are correlated with one another for the generation of the correction signals S<sub>1</sub>, S<sub>2 </sub>and of a controlled-system control signal S<sub>R </sub>which is applied to a subsequent controlled system <b>7</b>. The subsequent controlled system <b>7</b> can be, for example, the automatic steering mechanism, automatic braking mechanism or the like of a motor vehicle.</p>
+    <p num="p-0042">The arbitration unit utilizes the dead space of the subsequent controlled system <b>7</b> as arbitration space for the arbitration. During the arbitration, an adjustment between the manual and automatic control wishes takes place which are correlated with one another suitably weighted (adjusted in rule-based manner) for generating the controlled-system control signal S<sub>R</sub>.</p>
+    <p num="p-0043">As indicated by the dashed lines, states of the controlled system <b>7</b> can be optionally fed back to the automatic control command system <b>2</b> by means of the feedback signal S<sub>3 </sub>or to the arbitration unit <b>4</b> by means of the feedback signal S<sub>4</sub>. In this manner, a feedback control of the automatically generated control signals S<sub>A </sub>and of the correction signal S<sub>1 </sub>and controlled-system control signal S<sub>R</sub>, respectively, is implemented.</p>
+    <p num="p-0044"> <figref idrefs="DRAWINGS">FIG. 2</figref> shows the relationships between person, automation and environment as a diagram. It becomes clear that an arbitration, i.e. an adjustment of the automatic and manual control commands, takes place between the user input (person) and automatic control system (automation). The intentions of the person and of the automation are converted into a joint action which is conducted to the environment, i.e. the controlled system <b>7</b> in order to effect a control action.</p>
+    <p num="p-0045">To be able to generate the control signals manually by the person and automatically by the automation, the boundary conditions are perceived, for example by means of sensors or senses of the person.</p>
+    <p num="p-0046">In contrast to purely manually controlled technical devices such as, for example, vehicles, the assistance- or automation-supported technical devices to be controlled have an additional entity which perceives the environment in parallel with the person, forms intentions and thus again can act on the environment by means of action. Due to differences in the perception, for example, intentions of person and automation can be different. These conflicts are resolved by the formation of a common will, or arbitration.</p>
+    <p num="p-0047">An exemplary arbitration will be explained in the text which follows using the guidance of a vehicle as example. The fundamental task of starting to move or of stopping is described. Other, possibly more complex tasks can also be correspondingly solved.</p>
+    <p num="p-0048">In contrast to a traditional vehicle which is to be controlled by purely manual means, the vehicle, in the case of the control device <b>1</b>, is equipped with an additional will which can act on the vehicle in parallel or even in opposition to the driver. This will is formed in the automatic control command system <b>2</b>.</p>
+    <p num="p-0049">In an illustrative embodiment, the action space for the arbitration by the person and by the automation is discretized into five different states which can be easily transferred to other exemplary traffic situations:
+</p> <ul> <li id="ul0006-0001" num="0000"> <ul> <li id="ul0007-0001" num="0057">stop request:</li> <li id="ul0007-0002" num="0058">red traffic light with hazard situation (for example pedestrians which are running across the street directly in front of the vehicle at the same time)</li> <li id="ul0007-0003" num="0059">stop:</li> <li id="ul0007-0004" num="0060">red traffic light without hazard situation (for example intersection which is otherwise clear)</li> <li id="ul0007-0005" num="0061">indeterminate:</li> <li id="ul0007-0006" num="0062">all states are acceptable (indifferent)</li> <li id="ul0007-0007" num="0063">motion:</li> <li id="ul0007-0008" num="0064">starting without hazard situation (e.g. a vehicle is standing at a traffic light which switches to green)</li> <li id="ul0007-0009" num="0065">motion request:</li> <li id="ul0007-0010" num="0066">starting with a hazardous situation (e.g. a vehicle is standing on a railway crossing which is approached by a train).</li> </ul> </li> </ul>
+
+    <p num="p-0050">In order to resolve conflicts between such different states which are automatically and manually generated as control signals, the following sequence-dependent control concept is recommended:
+</p> <ul> <li id="ul0008-0001" num="0068">1. The person can always prevail if one distinctly communicates a (safe and urgent) intended action (stop request or motion request in hazard situation (person demand) prevails);</li> <li id="ul0008-0002" num="0069">2. The partner prevails who communicates a (safe and more urgent) intended action more clearly (stop request or motion request (demand) prevails);</li> <li id="ul0008-0003" num="0070">3. The partner with the more conservative intended action prevails (stop prevails).</li> </ul>
+
+    <p num="p-0051">To resolve conflicts, it is also advantageous to provide a second arbitration phase which follows the first arbitration phase. This makes it possible to prevent the user from attempting with all might to prevail against the will of the automatic control command system <b>2</b>. The user then has the opportunity first to stop when the automation stops, to reflect and only to prevail with an urgent control input where necessary (demand).</p>
+    <p num="p-0052">The secondary arbitration phase still provides the yielding entity, person or automation, with the possibility of changing the control signal generated in the arbitration phase by means of a manual intervention or indirectly by additional visual, acoustic or haptic communication. The communication can also be supplemented by voice input/output, noise input/output or visual indication. Thus, after the arbitration phase has elapsed, a prioritization can be effected, for example, by a different weighting of the manual and automatic control commands with the aid of discrete change-over switches or continuously switching elements (for example a potentiometer). Furthermore, there can be a coupling to states of the operator which are detected by recognizing the direction of his look or head or eyelid movement.</p>
+    <p num="p-0053">Using an optical, acoustic and/or haptic signal unit for outputting a communication signal dependent on the correction of the automatically generated control signal, it is possible to draw attention to the fact, for example by means of acoustic or visual outputs, that the automatic control command system <b>2</b> is proposing a different control action than has been agreed in the arbitration phase or secondary arbitration phase.</p>
+    <p num="p-0054">By means of suitable assessment of the automatic control signals S<sub>A </sub>and manual control command inputs S<sub>M</sub>, the arbitration unit <b>4</b> can be used for adjusting vehicles to have different “temperaments”. In the extreme case (especially for special cases) it is thus possible to have vehicles start to move distinctly more independently, or a safer and more urgent intended action of the automatic control command system <b>2</b> is distinctly more difficult to or can no longer be overridden by the user.</p>
+    <p num="p-0055">The deciding factor is that the primary arbitration phase of, for example, about two seconds, in which the automatic control command system <b>2</b> and the user can influence the haptic control command input device <b>3</b> in different ways, is used for the joint forming of wills. For this purpose, the actuator <b>5</b> of the haptic control command input device <b>3</b> is corrected by means of the correction signal S<sub>1</sub>. The automatically generated control signal S<sub>A </sub>is corrected by feeding back the correction signal S<sub>2 </sub>to the automatic control command system <b>2</b>. For example, this makes it possible to signal that the automatic control command system <b>2</b> is holding back although it still wishes to start the vehicle, in that no forces or only reduced forces are exerted on the control command input device <b>3</b>. During this “negotiation”, the vehicle has not yet started to move since due to the parameterization of the haptic control command input device <b>3</b>, the acceleration of the vehicle is only initiated at a position of the haptic control command input device <b>3</b> of a few degrees from a neutral position. Thus, a dead space predetermined by the dynamic vehicle and steering range is utilized as space for the arbitration.</p>
+    <p num="p-0056"> <figref idrefs="DRAWINGS">FIG. 3</figref> shows a second embodiment of the control device <b>1</b> which only differs from the first embodiment in the activation of the at least one actuator <b>5</b>. The activation unit <b>4</b> is fed back to the automatic control system <b>2</b> in order to correct the automatically generated control signals S<sub>A </sub>in dependence on the correction signal S<sub>2 </sub>at least within an arbitration phase. The at least one actuator is always activated in direct dependence on the automatically generated control signal S<sub>A</sub>. The detected manual control command inputs S<sub>M </sub>in this arrangement are the response of the operator to the actuatory adjustment of the control command input device <b>3</b> by the automatically generated control signals S<sub>A</sub>. Since, for the correction of the automatically generated control signals S<sub>A</sub>, the correction signal S<sub>2 </sub>is transferred to the automatic control system <b>2</b> from the arbitration unit and, as a result, an adaptation of the activity of the at least one actuator <b>5</b> takes place. That is, a balancing of the control actions takes place between operator and automatic control command system <b>2</b> at the haptic control command input device <b>3</b>.</p>
+    <p num="p-0057"> <figref idrefs="DRAWINGS">FIG. 4</figref> shows a third embodiment of the control device <b>1</b>. It differs from the second embodiment in that a first group of actuators <b>5</b> <i>a</i>, which are directly activated with a signal correlated with the automatically generated control signal S<sub>A </sub>via the automatic control command system <b>2</b> is provided in the haptic control command input device <b>3</b>. Furthermore, a second group of actuators <b>5</b> <i>b </i>is provided which are activated in dependence on the correction signal S<sub>1</sub>. The feedback of the correction signal S<sub>2 </sub>to the automatic control command system <b>2</b> is optional.</p>
+    <p num="p-0058">In this embodiment, the effect of the automatically generated control signal S<sub>A </sub>is mechanically corrected by the correction signal S<sub>1 </sub>in that the first and second group of actuators <b>5</b> <i>a</i>, <b>5</b> <i>b </i>operate together or against one another depending on arbitration.</p>
+    
+  </div>
+  </div>
+  </section>
+
+  <section itemprop="claims" itemscope>
+    <h2>Claims (<span itemprop="count">27</span>)</h2>
+    
+    <div itemprop="content" html><div mxw-id="PCLM38507058" lang="EN" load-source="patent-office" class="claims">
+    <div class="claim"> <div id="CLM-00001" num="00001" class="claim">
+      <div class="claim-text">1. Control device (<b>1</b>) comprising:
+<div class="claim-text">an automatic control command system (<b>2</b>) for the automatic generation of control signals (S<sub>A</sub>),</div>
+<div class="claim-text">a haptic control command input device (<b>3</b>) which has at least one actuator (<b>5</b>) for operating the control command input device (<b>3</b>) in dependence on the automatically generated control signals (S<sub>A</sub>) and at least one sensor (<b>6</b>) for detecting manual control command inputs (S<sub>M</sub>) by manual operation of the control command input device (<b>3</b>),</div>
+<div class="claim-text">an arbitration unit (<b>4</b>) for generating controlled system control signals (S<sub>R</sub>) which are conducted to a controlled system (<b>7</b>) following the arbitration unit (<b>4</b>), in dependence on the automatically generated control signals (S<sub>A</sub>) and the manual control command inputs (S<sub>M</sub>),</div>
+</div>
+      <div class="claim-text">characterized in that
+<div class="claim-text">the arbitration unit (<b>4</b>) is set up, in order, in the case of mutually contradictory or overriding manual control command inputs (S<sub>M</sub>) and automatically generated control signals (S<sub>A</sub>), and within an arbitration phase selected in dependence on a dead space of the haptic control command input device (<b>3</b>) or the controlled system (<b>7</b>), to continuously adjust the manual control command inputs (S<sub>M</sub>) and the automatically generated control signals (S<sub>A</sub>) to one another, by rule-based generation of one or more correction signals (S<sub>1</sub>, S<sub>2</sub>) and feeding back the one or more correction signals (S<sub>1</sub>, S<sub>2</sub>) to at least one actuator (<b>5</b>) of the haptic control command input device (<b>3</b>).</div>
+</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00002" num="00002" class="claim">
+      <div class="claim-text">2. Control device (<b>1</b>) according to <claim-ref idref="CLM-00001">claim 1</claim-ref>, characterized in that the arbitration unit (<b>4</b>) is connected to said at least one actuator (<b>5</b>) of the haptic control command input device (<b>3</b>) for activating the at least one actuator (<b>5</b>) in dependence on the one or more correction signals (S<sub>1</sub>, S<sub>2</sub>).</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00003" num="00003" class="claim">
+      <div class="claim-text">3. Control device (<b>1</b>) according to <claim-ref idref="CLM-00001">claim 1</claim-ref>, characterized in that the arbitration unit (<b>4</b>) is connected to the automatic control command system (<b>2</b>) for feeding back at least one of the one or more correction signals (S<sub>1</sub>, S<sub>2</sub>) to the automatically generated control signal (S<sub>A</sub>) and said at least one actuator (<b>5</b>) of the haptic control command input device (<b>3</b>) is activated in dependence on the automatically generated control signal (S<sub>A</sub>).</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00004" num="00004" class="claim">
+      <div class="claim-text">4. Control device (<b>1</b>) according to <claim-ref idref="CLM-00001">claim 1</claim-ref>, characterized in that the haptic control command input device (<b>3</b>) has a first group of actuators (<b>5</b> <i>a</i>) which are activated in dependence on the automatically generated control signals (S<sub>A</sub>) of the automatic control system, and a second group of actuators (<b>5</b> <i>b</i>) which are activated in dependence on at least one of the one or more correction signals (S<sub>1</sub>, S<sub>2</sub>) of the arbitration unit (<b>4</b>).</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00005" num="00005" class="claim">
+      <div class="claim-text">5. Control device (<b>1</b>) according to <claim-ref idref="CLM-00001">claim 1</claim-ref>, characterized in that the control device (<b>1</b>) is set up for a variable adjustment of the dead space of the controlled system (<b>7</b>).</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00006" num="00006" class="claim">
+      <div class="claim-text">6. Control device (<b>1</b>) according to <claim-ref idref="CLM-00001">claim 1</claim-ref>, characterized in that the arbitration unit (<b>4</b>) is set up for evaluating the safety and urgency of intended actions in each case predetermined by the automatically generated control signals (S<sub>A</sub>) and manual control command inputs (S<sub>M</sub>) and for prioritizing whichever (S<sub>A</sub>, S<sub>M</sub>) produces a safer or more urgent control action.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00007" num="00007" class="claim">
+      <div class="claim-text">7. Control device (<b>1</b>) according to <claim-ref idref="CLM-00006">claim 6</claim-ref>, characterized in that for prioritization, the automatically generated control signals (S<sub>A</sub>) are amplified when control actions to be effected by the automatically generated control signals (S<sub>A</sub>) are preassessed as safer or more urgent than the control actions to be effected by the manual control command inputs (S<sub>M</sub>), and the automatically generated control signals (S<sub>A</sub>) are reduced when control actions to be effected by the manual control command inputs (S<sub>M</sub>) are preassessed as safer or more urgent than the control actions to be effected by the automatically generated control command inputs (S<sub>A</sub>).</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00008" num="00008" class="claim">
+      <div class="claim-text">8. Control device (<b>1</b>) according to <claim-ref idref="CLM-00006">claim 6</claim-ref>, characterized in that, for prioritization, the automatically generated control signals (S<sub>A</sub>) are reduced when control actions to be effected by the automatically generated control signals (S<sub>A</sub>) and the control actions to be effected by the manual control command inputs (S<sub>M</sub>) are preassessed as safe and urgent.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00009" num="00009" class="claim">
+      <div class="claim-text">9. Control device (<b>1</b>) according to <claim-ref idref="CLM-00001">claim 1</claim-ref>, characterized in that the control device (<b>1</b>) has a discrete change-over switch connected to the arbitration unit (<b>4</b>) or a continuous switching element for prioritizing the manual control command input (S<sub>M</sub>).</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00010" num="00010" class="claim">
+      <div class="claim-text">10. Control device (<b>1</b>) according to <claim-ref idref="CLM-00001">claim 1</claim-ref>, characterized in that the control device (<b>1</b>) has at least one signal unit, coupled to the arbitration unit (<b>4</b>), for at least one of optical, acoustic and haptic output of a communication signal dependent on a correction of the automatically generated control signals (S<sub>A</sub>).</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00011" num="00011" class="claim">
+      <div class="claim-text">11. Control device (<b>1</b>) according to <claim-ref idref="CLM-00001">claim 1</claim-ref>, characterized in that the control device (<b>1</b>) has at least one input unit, coupled to the arbitration unit (<b>4</b>), for at least one of optical, acoustic and haptic input of communication signals or states for correcting the controlled-system control signals (S<sub>R</sub>).</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00012" num="00012" class="claim">
+      <div class="claim-text">12. Control device (<b>1</b>) according to <claim-ref idref="CLM-00001">claim 1</claim-ref>, characterized in that the control device (<b>1</b>) is set up for detecting discrete command inputs for manual control command inputs (S<sub>M</sub>) and generating additional control signals.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00013" num="00013" class="claim">
+      <div class="claim-text">13. Control device (<b>1</b>) according to <claim-ref idref="CLM-00012">claim 12</claim-ref>, characterized in that the arbitration unit (<b>4</b>) is set up for not forwarding the additional control signals to the controlled system (<b>7</b>) following the arbitration unit (<b>4</b>).</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00014" num="00014" class="claim">
+      <div class="claim-text">14. Control device (<b>1</b>) according to <claim-ref idref="CLM-00012">claim 12</claim-ref>, characterized in that the control device (<b>1</b>) has a plurality of state machines or pattern recognizers, wherein said state machines or pattern recognizers being activatable in dependence on detected signal patterns from manual control command inputs (S<sub>M</sub>) and coupled to one another for mutual activation for outputting defined control signals.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00015" num="00015" class="claim">
+      <div class="claim-text">15. Control device (<b>1</b>) according to <claim-ref idref="CLM-00001">claim 1</claim-ref>, characterized in that the automatic control command system (<b>2</b>) is set up for generating neutral control signals not acting on the controlled system (<b>7</b>) and the arbitration unit (<b>4</b>) is set up for detecting the response by manual control command inputs (S<sub>M</sub>) to the neutral control signals and generating control signals (S<sub>R</sub>) for the subsequent controlled system (<b>7</b>) in dependence on the detected response.</div>
+    </div>
+    </div> <div class="claim"> <div id="CLM-00016" num="00016" class="claim">
+      <div class="claim-text">16. Method for generating control signals for technical devices which have at least one controlled system and a control device (<b>1</b>) comprising:
+<div class="claim-text">an automatic control command system (<b>2</b>) for the automatic generation of control signals (S<sub>A</sub>),</div>
+<div class="claim-text">a haptic control command input device (<b>3</b>) which has at least one actuator (<b>5</b>) for operating the control command input device (<b>3</b>) in dependence on the automatically generated control signals (S<sub>A</sub>) and at least one sensor (<b>6</b>) for detecting manual control command inputs (S<sub>M</sub>) by manual operation of the control command input device (<b>3</b>),</div>
+<div class="claim-text">an arbitration unit (<b>4</b>) for generating control signals (S<sub>R</sub>) which are conducted to a controlled system (<b>7</b>) following the arbitration unit (<b>4</b>), in dependence on the automatically generated control signals (S<sub>A</sub>) and the manual control command inputs (S<sub>M</sub>),</div>
+</div>
+      <div class="claim-text">characterized in that
+<div class="claim-text">the arbitration unit (<b>4</b>) is set up in order, in the case of mutually contradictory or overriding manual control command inputs (S<sub>M</sub>) and automatically generated control signals (S<sub>A</sub>), to continuously adjust to one another, within an arbitration phase selected in dependence on a dead space of the haptic control command input device (<b>3</b>) or the controlled system (<b>7</b>), the manual control command inputs (S<sub>M</sub>) and the automatically generated control signals (S<sub>A</sub>), by rule-based generation of one or more correction signals (S<sub>1</sub>, S<sub>2</sub>) and feeding back the one or more correction signals (S<sub>1</sub>, S<sub>2</sub>) to at least one actuator (<b>5</b>) of the haptic control command input device (<b>3</b>), characterized by the following steps:</div>
+<div class="claim-text">automatic generation of control signals (S<sub>A</sub>) and actuatory operation of a control command input device (<b>3</b>) in dependence on the automatically generated control signals (S<sub>A</sub>),</div>
+<div class="claim-text">detection of manual control command inputs (S<sub>M</sub>) via the control command input device (<b>3</b>) as response to the actuatory operation of the control command input device (<b>3</b>) by the automatically generated control signals (S<sub>A</sub>),</div>
+<div class="claim-text">generation of controlled-system control signals (S<sub>R</sub>) for the controlled system (<b>7</b>) by the arbitration unit (<b>4</b>) comprising, in the case of mutually contradictory or overriding manual control command inputs (S<sub>M</sub>) and automatically generated control signals (S<sub>A</sub>),
+<div class="claim-text">continuous adjustment of the manual control command inputs (S<sub>M</sub>) and of the automatically generated control signals (S<sub>A</sub>) to one another by rule-based generation of the one or more correction signals (S<sub>1</sub>, S<sub>2</sub>), and</div>
+<div class="claim-text">feedback of the one or more correction signals correction signal (S<sub>1</sub>, S<sub>2</sub>) to at least one actuator (<b>5</b>) of the haptic control command input device (<b>3</b>) within an arbitration phase selected in dependence on a dead space of the haptic control command input device (<b>3</b>) or the controlled system (<b>7</b>).</div>
+</div>
+</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00017" num="00017" class="claim">
+      <div class="claim-text">17. Method according to <claim-ref idref="CLM-00016">claim 16</claim-ref>, characterized by feeding back the one or more correction signals (S<sub>1</sub>, S<sub>2</sub>) to the haptic control command input device (<b>3</b>) for activating the at least one actuator (<b>5</b>).</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00018" num="00018" class="claim">
+      <div class="claim-text">18. Method according to <claim-ref idref="CLM-00016">claim 16</claim-ref>, characterized by feeding back the one or more correction signals (S<sub>1</sub>, S<sub>2</sub>) to the automatic control command system (<b>2</b>) for correcting the automatically generated control signal (S<sub>A</sub>) and activating the at least one actuator (<b>5</b>) of the haptic control command input device (<b>3</b>) in dependence on the automatically generated control signal (S<sub>A</sub>).</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00019" num="00019" class="claim">
+      <div class="claim-text">19. Method according to <claim-ref idref="CLM-00016">claim 16</claim-ref>, characterized by activating a first group of actuators (<b>5</b> <i>a</i>) in dependence on the automatically generated control signals (S<sub>A</sub>) of the automatic control system (<b>2</b>) and activating a second group of actuators (<b>5</b> <i>b</i>) in dependence on the correction signals (S<sub>1</sub>, S<sub>2</sub>) of the arbitration unit (<b>4</b>).</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00020" num="00020" class="claim">
+      <div class="claim-text">20. Method according to <claim-ref idref="CLM-00016">claim 16</claim-ref>, characterized by variable adjustment of the dead space of the controlled system (<b>7</b>).</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00021" num="00021" class="claim">
+      <div class="claim-text">21. Method according to <claim-ref idref="CLM-00016">claim 16</claim-ref>, characterized by evaluation of safety and urgency of intended actions in each case predetermined by the automatically generated control signals (S<sub>A</sub>) and manual control command inputs (S<sub>M</sub>) and prioritization of whichever (S<sub>A</sub>, S<sub>M</sub>) produces a safer and more urgent control action.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00022" num="00022" class="claim">
+      <div class="claim-text">22. Method according to <claim-ref idref="CLM-00016">claim 16</claim-ref>, characterized by amplification of the automatically generated control signals (S<sub>A</sub>) for prioritization when the control actions to be effected by the automatically generated control signals (S<sub>A</sub>) are preassessed as safer or more urgent than the control actions to be effected by the manual control command inputs (S<sub>M</sub>), and reducing the effect of the automatically generated control signals (S<sub>A</sub>) when the control actions to be effected by the manual control command inputs (S<sub>M</sub>) are preassessed as safer or more urgent than the control actions to be effected by the automatically generated control signals (S<sub>M</sub>).</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00023" num="00023" class="claim">
+      <div class="claim-text">23. Method according to <claim-ref idref="CLM-00016">claim 16</claim-ref>, characterized by reducing the automatically generated control signals (S<sub>A</sub>) for prioritization, when both the control actions to be effected by the automatically generated control signals (S<sub>A</sub>) and the control actions to be effected by the manual control command inputs (S<sub>M</sub>) are preassessed as safe or urgent.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00024" num="00024" class="claim">
+      <div class="claim-text">24. Method according to <claim-ref idref="CLM-00016">claim 16</claim-ref>, characterized by discrete switch-over or continuous transition for prioritization of the manual control command input (S<sub>M</sub>) or automatically generated control signals (S<sub>A</sub>) after the arbitration phase has been completed, and generation of the controlled-system control signals (S<sub>R</sub>) in dependence on weighted manual control command inputs (S<sub>M</sub>) and weighted automatically generated control signals (S<sub>A</sub>).</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00025" num="00025" class="claim">
+      <div class="claim-text">25. Method according to <claim-ref idref="CLM-00016">claim 16</claim-ref>, characterized by the recognition of discrete command inputs from manual control command inputs (S<sub>M</sub>) and generation of additional control signals which are not forwarded to the controlled system (<b>7</b>) following the arbitration unit (<b>4</b>).</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00026" num="00026" class="claim">
+      <div class="claim-text">26. Method according to <claim-ref idref="CLM-00016">claim 16</claim-ref>, characterized by the detection of discrete control signals by recognizing individual signal patterns from the manual control command inputs (S<sub>M</sub>) and activation of state machines or pattern recognizers in dependence on signal patterns which are in each case predetermined.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00027" num="00027" class="claim">
+      <div class="claim-text">27. Method according to <claim-ref idref="CLM-00016">claim 16</claim-ref>, characterized by the generation of neutral control signals not acting on the controlled system (<b>7</b>) and detection of the response by manual control command inputs (S<sub>M</sub>) to the automatically generated neutral control signals and generation of controlled-system control signals (S<sub>R</sub>) for the controlled system (<b>7</b>) following the arbitration unit (<b>4</b>) in dependence on the detected response.</div>
+    </div>
+  </div> </div>
+  </div>
+  </section>
+
+  <section itemprop="application" itemscope>
+
+    <section itemprop="metadata" itemscope>
+        <span itemprop="applicationNumber">US11/559,420</span>
+        <span itemprop="priorityDate">2005-11-18</span>
+        <span itemprop="filingDate">2006-11-14</span>
+        <span itemprop="title">Control device and method for generating control signals for technical devices 
+       </span>
+        <span itemprop="ifiStatus">Expired - Fee Related</span>
+        
+        <a href="/patent/US7991491B2/en">
+            <span itemprop="representativePublication">US7991491B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+        </a>
+    </section>
+
+    <h2>Priority Applications (2)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                    <th>Title</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="priorityApps" itemscope repeat>
+                <td>
+                   <span itemprop="applicationNumber">DE102005055584</span>
+                   
+                   
+                <td itemprop="priorityDate"></td>
+                <td itemprop="filingDate">2005-11-18</td>
+                <td itemprop="title"></td>
+              </tr><tr itemprop="priorityApps" itemscope repeat>
+                <td>
+                   <span itemprop="applicationNumber">DE200510055584</span>
+                   
+                   <a href="/patent/DE102005055584B4/en">
+                        <span itemprop="representativePublication">DE102005055584B4</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                <td itemprop="priorityDate">2005-11-18</td>
+                <td itemprop="filingDate">2005-11-18</td>
+                <td itemprop="title">Control device and method for generating control signals for technical devices 
+       </td>
+              </tr>
+           </tbody>
+       </table>
+
+    
+
+    
+
+    
+
+    <h2>Publications (2)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Publication Number</th>
+                    <th>Publication Date</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="pubs" itemscope repeat>
+                <td>
+                   <span itemprop="publicationNumber">US20070129815A1</span>
+                   
+                   <a href="/patent/US20070129815A1/en">US20070129815A1
+                       (<span itemprop="primaryLanguage">en</span>)
+                   </a>
+                </td>
+                <td itemprop="publicationDate">2007-06-07</td>
+              </tr><tr itemprop="pubs" itemscope repeat>
+                <td>
+                   <span itemprop="publicationNumber">US7991491B2</span>
+                   
+                   <span itemprop="thisPatent">true</span>
+                   <a href="/patent/US7991491B2/en">US7991491B2
+                       (<span itemprop="primaryLanguage">en</span>)
+                   </a>
+                </td>
+                <td itemprop="publicationDate">2011-08-02</td>
+              </tr>
+           </tbody>
+        </table>
+
+  </section>
+
+  <section itemprop="family" itemscope>
+    <h1>Family</h1>
+    <h2>ID=38047433</h2>
+
+    <h2>Family Applications (1)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Title</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="applications" itemscope repeat>
+                <td>
+                    <span itemprop="applicationNumber">US11/559,420</span>
+                    <span itemprop="ifiStatus">Expired - Fee Related</span>
+                    
+                    <a href="/patent/US7991491B2/en">
+                        <span itemprop="representativePublication">US7991491B2</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                </td>
+                <td itemprop="priorityDate">2005-11-18</td>
+                <td itemprop="filingDate">2006-11-14</td>
+                <td itemprop="title">Control device and method for generating control signals for technical devices 
+       </td>
+              </tr>
+           </tbody>
+        </table>
+
+    
+
+    
+
+    <h2>Country Status (2)</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Country</th>
+            <th>Link</th>
+          </tr>
+        </thead>
+        <tbody>
+        <tr itemprop="countryStatus" itemscope repeat>
+            <td>
+              <span itemprop="countryCode">US</span>
+                (<span itemprop="num">1</span>)
+              <meta itemprop="thisCountry" content="true">
+            </td>
+            <td>
+              <a href="/patent/US7991491B2/en">
+                <span itemprop="representativePublication">US7991491B2</span>
+                  (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            </td>
+          </tr><tr itemprop="countryStatus" itemscope repeat>
+            <td>
+              <span itemprop="countryCode">DE</span>
+                (<span itemprop="num">1</span>)
+              
+            </td>
+            <td>
+              <a href="/patent/DE102005055584B4/en">
+                <span itemprop="representativePublication">DE102005055584B4</span>
+                  (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+    <h2>Cited By (1)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20120253555A1/en">
+              <span itemprop="publicationNumber">US20120253555A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2011-03-28</td>
+          <td itemprop="publicationDate">2012-10-04</td>
+          <td><span itemprop="assigneeOriginal">Honeywell International Inc.</span></td>
+          <td itemprop="title">Methods and systems for translating an emergency system alert signal to an automated flight system maneuver 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Families Citing this family (3)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/DE102008047346B4/en">
+              <span itemprop="publicationNumber">DE102008047346B4</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2008-09-15</td>
+          <td itemprop="publicationDate">2012-10-18</td>
+          <td><span itemprop="assigneeOriginal">Deutsches Zentrum für Luft- und Raumfahrt e.V.</span></td>
+          <td itemprop="title">Control device for controlling rail-bound vehicles 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20100131148A1/en">
+              <span itemprop="publicationNumber">US20100131148A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2008-11-26</td>
+          <td itemprop="publicationDate">2010-05-27</td>
+          <td><span itemprop="assigneeOriginal">Jaime Camhi</span></td>
+          <td itemprop="title">System and method for estimated driver intention for driver assistance system control 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/DE102013102678A1/en">
+              <span itemprop="publicationNumber">DE102013102678A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2013-03-15</td>
+          <td itemprop="publicationDate">2014-10-02</td>
+          <td><span itemprop="assigneeOriginal">Deutsches Zentrum für Luft- und Raumfahrt e.V.</span></td>
+          <td itemprop="title">pilot support system 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Citations (15)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US4563743A/en">
+              <span itemprop="publicationNumber">US4563743A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1983-02-22</td>
+          <td itemprop="publicationDate">1986-01-07</td>
+          <td><span itemprop="assigneeOriginal">United Technologies Corporation</span></td>
+          <td itemprop="title">Maneuver-force gradient system 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5331558A/en">
+              <span itemprop="publicationNumber">US5331558A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1991-11-19</td>
+          <td itemprop="publicationDate">1994-07-19</td>
+          <td><span itemprop="assigneeOriginal">Raytheon Company</span></td>
+          <td itemprop="title">Autopilot having an adaptive deadband feature 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/EP0743581B1/en">
+              <span itemprop="publicationNumber">EP0743581B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1995-05-15</td>
+          <td itemprop="publicationDate">1999-12-15</td>
+          <td><span itemprop="assigneeOriginal">The Boeing Company</span></td>
+          <td itemprop="title">System for backdrive of flight deck controls during autopilot operation 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6067782A/en">
+              <span itemprop="publicationNumber">US6067782A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1997-02-01</td>
+          <td itemprop="publicationDate">2000-05-30</td>
+          <td><span itemprop="assigneeOriginal">Claas Kgaa</span></td>
+          <td itemprop="title">Electrohydraulic steering system 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6460810B2/en">
+              <span itemprop="publicationNumber">US6460810B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1996-09-06</td>
+          <td itemprop="publicationDate">2002-10-08</td>
+          <td><span itemprop="assigneeOriginal">Terry Jack James</span></td>
+          <td itemprop="title">Semiautonomous flight director 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20020198632A1/en">
+              <span itemprop="publicationNumber">US20020198632A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1997-10-22</td>
+          <td itemprop="publicationDate">2002-12-26</td>
+          <td><span itemprop="assigneeOriginal">Breed David S.</span></td>
+          <td itemprop="title">Method and arrangement for communicating between vehicles 
+     </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6675076B1/en">
+              <span itemprop="publicationNumber">US6675076B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2002-10-21</td>
+          <td itemprop="publicationDate">2004-01-06</td>
+          <td><span itemprop="assigneeOriginal">The Boeing Company</span></td>
+          <td itemprop="title">System, autopilot supplement assembly and method for increasing autopilot control authority 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20040215372A1/en">
+              <span itemprop="publicationNumber">US20040215372A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2003-04-22</td>
+          <td itemprop="publicationDate">2004-10-28</td>
+          <td><span itemprop="assigneeOriginal">Bateman Charles D.</span></td>
+          <td itemprop="title">Aircraft autorecovery systems and methods 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20050209762A1/en">
+              <span itemprop="publicationNumber">US20050209762A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2004-03-18</td>
+          <td itemprop="publicationDate">2005-09-22</td>
+          <td><span itemprop="assigneeOriginal">Ford Global Technologies, Llc</span></td>
+          <td itemprop="title">Method and apparatus for controlling a vehicle using an object detection system and brake-steer 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20060074538A1/en">
+              <span itemprop="publicationNumber">US20060074538A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2002-06-19</td>
+          <td itemprop="publicationDate">2006-04-06</td>
+          <td><span itemprop="assigneeOriginal">Daimlerchrysler Ag</span></td>
+          <td itemprop="title">Emergency stop system for a non rail-based motor vehicle 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20060235590A1/en">
+              <span itemprop="publicationNumber">US20060235590A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2005-02-11</td>
+          <td itemprop="publicationDate">2006-10-19</td>
+          <td><span itemprop="assigneeOriginal">Farhad Bolourchi</span></td>
+          <td itemprop="title">Parking assist utilizing steering system 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20070050101A1/en">
+              <span itemprop="publicationNumber">US20070050101A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2003-05-16</td>
+          <td itemprop="publicationDate">2007-03-01</td>
+          <td><span itemprop="assigneeOriginal">Thales</span></td>
+          <td itemprop="title">Automatic flight protection system for an aircraft 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7243014B2/en">
+              <span itemprop="publicationNumber">US7243014B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2003-12-19</td>
+          <td itemprop="publicationDate">2007-07-10</td>
+          <td><span itemprop="assigneeOriginal">Toyota Jidosha Kabushiki Kaisha</span></td>
+          <td itemprop="title">Vehicle integrated control system 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7676303B2/en">
+              <span itemprop="publicationNumber">US7676303B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2005-07-14</td>
+          <td itemprop="publicationDate">2010-03-09</td>
+          <td><span itemprop="assigneeOriginal">Eads Deutschland Gmbh</span></td>
+          <td itemprop="title">System and method for converting an aircraft from a flight condition lying outside a permissible flight condition range to a flight condition lying within the permissible flight condition range 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/USRE41358E1/en">
+              <span itemprop="publicationNumber">USRE41358E1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2003-03-20</td>
+          <td itemprop="publicationDate">2010-05-25</td>
+          <td><span itemprop="assigneeOriginal">Hemisphere Gps Llc</span></td>
+          <td itemprop="title">Automatic steering system and method 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Family Cites Families (2)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="backwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6976555B2/en">
+              <span itemprop="publicationNumber">US6976555B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2003-06-30</td>
+          <td itemprop="publicationDate">2005-12-20</td>
+          <td><span itemprop="assigneeOriginal">Visteon Global Technologies, Inc.</span></td>
+          <td itemprop="title">Motor vehicle steering system 
+       </td>
+        </tr><tr itemprop="backwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/DE102004055584A1/en">
+              <span itemprop="publicationNumber">DE102004055584A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2003-12-09</td>
+          <td itemprop="publicationDate">2005-07-21</td>
+          <td><span itemprop="assigneeOriginal">Continental Teves Ag &amp; Co. Ohg</span></td>
+          <td itemprop="title">Parking aid 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+
+    
+    <ul>
+      
+      <li itemprop="applicationsByYear" itemscope repeat>
+        <span itemprop="year">2005</span>
+        <ul>
+          
+          <li itemprop="application" itemscope repeat>
+            <span itemprop="filingDate">2005-11-18</span>
+            <span itemprop="countryCode">DE</span>
+            <span itemprop="applicationNumber">DE200510055584</span>
+            <a href="/patent/DE102005055584B4/en"><span itemprop="documentId">patent/DE102005055584B4/en</span></a>
+            <span itemprop="legalStatusCat">not_active</span>
+            <span itemprop="legalStatus">Expired - Fee Related</span>
+            
+          </li>
+          
+        </ul>
+      </li>
+      
+      <li itemprop="applicationsByYear" itemscope repeat>
+        <span itemprop="year">2006</span>
+        <ul>
+          
+          <li itemprop="application" itemscope repeat>
+            <span itemprop="filingDate">2006-11-14</span>
+            <span itemprop="countryCode">US</span>
+            <span itemprop="applicationNumber">US11/559,420</span>
+            <a href="/patent/US7991491B2/en"><span itemprop="documentId">patent/US7991491B2/en</span></a>
+            <span itemprop="legalStatusCat">not_active</span>
+            <span itemprop="legalStatus">Expired - Fee Related</span>
+            
+            <span itemprop="thisApp" content="true" bool></span>
+            
+          </li>
+          
+        </ul>
+      </li>
+      
+    </ul>
+    
+
+    </section>
+
+  <section>
+    <h2>Patent Citations (15)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US4563743A/en">
+              <span itemprop="publicationNumber">US4563743A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1983-02-22</td>
+          <td itemprop="publicationDate">1986-01-07</td>
+          <td><span itemprop="assigneeOriginal">United Technologies Corporation</span></td>
+          <td itemprop="title">Maneuver-force gradient system 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5331558A/en">
+              <span itemprop="publicationNumber">US5331558A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1991-11-19</td>
+          <td itemprop="publicationDate">1994-07-19</td>
+          <td><span itemprop="assigneeOriginal">Raytheon Company</span></td>
+          <td itemprop="title">Autopilot having an adaptive deadband feature 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/EP0743581B1/en">
+              <span itemprop="publicationNumber">EP0743581B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1995-05-15</td>
+          <td itemprop="publicationDate">1999-12-15</td>
+          <td><span itemprop="assigneeOriginal">The Boeing Company</span></td>
+          <td itemprop="title">System for backdrive of flight deck controls during autopilot operation 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6460810B2/en">
+              <span itemprop="publicationNumber">US6460810B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1996-09-06</td>
+          <td itemprop="publicationDate">2002-10-08</td>
+          <td><span itemprop="assigneeOriginal">Terry Jack James</span></td>
+          <td itemprop="title">Semiautonomous flight director 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6067782A/en">
+              <span itemprop="publicationNumber">US6067782A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1997-02-01</td>
+          <td itemprop="publicationDate">2000-05-30</td>
+          <td><span itemprop="assigneeOriginal">Claas Kgaa</span></td>
+          <td itemprop="title">Electrohydraulic steering system 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20020198632A1/en">
+              <span itemprop="publicationNumber">US20020198632A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1997-10-22</td>
+          <td itemprop="publicationDate">2002-12-26</td>
+          <td><span itemprop="assigneeOriginal">Breed David S.</span></td>
+          <td itemprop="title">Method and arrangement for communicating between vehicles 
+     </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20060074538A1/en">
+              <span itemprop="publicationNumber">US20060074538A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2002-06-19</td>
+          <td itemprop="publicationDate">2006-04-06</td>
+          <td><span itemprop="assigneeOriginal">Daimlerchrysler Ag</span></td>
+          <td itemprop="title">Emergency stop system for a non rail-based motor vehicle 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6675076B1/en">
+              <span itemprop="publicationNumber">US6675076B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2002-10-21</td>
+          <td itemprop="publicationDate">2004-01-06</td>
+          <td><span itemprop="assigneeOriginal">The Boeing Company</span></td>
+          <td itemprop="title">System, autopilot supplement assembly and method for increasing autopilot control authority 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/USRE41358E1/en">
+              <span itemprop="publicationNumber">USRE41358E1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2003-03-20</td>
+          <td itemprop="publicationDate">2010-05-25</td>
+          <td><span itemprop="assigneeOriginal">Hemisphere Gps Llc</span></td>
+          <td itemprop="title">Automatic steering system and method 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20040215372A1/en">
+              <span itemprop="publicationNumber">US20040215372A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2003-04-22</td>
+          <td itemprop="publicationDate">2004-10-28</td>
+          <td><span itemprop="assigneeOriginal">Bateman Charles D.</span></td>
+          <td itemprop="title">Aircraft autorecovery systems and methods 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20070050101A1/en">
+              <span itemprop="publicationNumber">US20070050101A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2003-05-16</td>
+          <td itemprop="publicationDate">2007-03-01</td>
+          <td><span itemprop="assigneeOriginal">Thales</span></td>
+          <td itemprop="title">Automatic flight protection system for an aircraft 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7243014B2/en">
+              <span itemprop="publicationNumber">US7243014B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2003-12-19</td>
+          <td itemprop="publicationDate">2007-07-10</td>
+          <td><span itemprop="assigneeOriginal">Toyota Jidosha Kabushiki Kaisha</span></td>
+          <td itemprop="title">Vehicle integrated control system 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20050209762A1/en">
+              <span itemprop="publicationNumber">US20050209762A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2004-03-18</td>
+          <td itemprop="publicationDate">2005-09-22</td>
+          <td><span itemprop="assigneeOriginal">Ford Global Technologies, Llc</span></td>
+          <td itemprop="title">Method and apparatus for controlling a vehicle using an object detection system and brake-steer 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20060235590A1/en">
+              <span itemprop="publicationNumber">US20060235590A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2005-02-11</td>
+          <td itemprop="publicationDate">2006-10-19</td>
+          <td><span itemprop="assigneeOriginal">Farhad Bolourchi</span></td>
+          <td itemprop="title">Parking assist utilizing steering system 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7676303B2/en">
+              <span itemprop="publicationNumber">US7676303B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2005-07-14</td>
+          <td itemprop="publicationDate">2010-03-09</td>
+          <td><span itemprop="assigneeOriginal">Eads Deutschland Gmbh</span></td>
+          <td itemprop="title">System and method for converting an aircraft from a flight condition lying outside a permissible flight condition range to a flight condition lying within the permissible flight condition range 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Non-Patent Citations (5)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Bellino et al, "<a href='http://scholar.google.com/scholar?q="Lane+Detection+Algorithm+for+an+onboard+camera"'>Lane Detection Algorithm for an onboard camera</a>", 2005, Proceedings of SPIE vol. 5663, pp. 102-111.</span>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Frank Flemisch et al. The H-Metaphor as a Guidelines for Vehicle Automation and Interaction, NASA/TM-2003-122672, Langley Research Center, Hampton, Virginia, Dec. 2003, pp. 1-30.</span>
+            
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Frank Flemisch et al., At the Crossroads of Manually Controlled and Automated Transport: The H-Metaphor and its First Applications (Progress update 2005), ITS-1-3.6.2005, Hannover, Germany.</span>
+            
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Wlodzislaw et al, "<a href='http://scholar.google.com/scholar?q="Computational+Intelligence+Methods+for+Rule-Based+Understanding"'>Computational Intelligence Methods for Rule-Based Understanding</a>", May 2004, Proceedings of the IEEE, vol. 92, No. 5, pp. 771-805.</span>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Won, "<a href='http://scholar.google.com/scholar?q="A+Joystick+Drving+Control+Algorithm+with+a+Longitudinal+Collision+Avoidance+Scheme+for+an+elctrical+vehicle"'>A Joystick Drving Control Algorithm with a Longitudinal Collision Avoidance Scheme for an elctrical vehicle</a>", 2003, KSME international journal vol. 17, pp. 1399-1410.</span>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <h2>Cited By (2)</h2>
+  <table>
+    <caption>* Cited by examiner, † Cited by third party</caption>
+    <thead>
+      <tr>
+        <th>Publication number</th>
+        <th>Priority date</th>
+        <th>Publication date</th>
+        <th>Assignee</th>
+        <th>Title</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US20120253555A1/en">
+            <span itemprop="publicationNumber">US20120253555A1</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2011-03-28</td>
+        <td itemprop="publicationDate">2012-10-04</td>
+        <td><span itemprop="assigneeOriginal">Honeywell International Inc.</span></td>
+        <td itemprop="title">Methods and systems for translating an emergency system alert signal to an automated flight system maneuver 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US9870000B2/en">
+            <span itemprop="publicationNumber">US9870000B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2011-03-28</td>
+        <td itemprop="publicationDate">2018-01-16</td>
+        <td><span itemprop="assigneeOriginal">Honeywell International Inc.</span></td>
+        <td itemprop="title">Methods and systems for translating an emergency system alert signal to an automated flight system maneuver 
+       </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <section>
+    <h2>Also Published As</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Publication date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="docdbFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/DE102005055584B4/en">
+              <span itemprop="publicationNumber">DE102005055584B4</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+          </td>
+          <td itemprop="publicationDate">2009-04-09</td>
+        </tr><tr itemprop="docdbFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20070129815A1/en">
+              <span itemprop="publicationNumber">US20070129815A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+          </td>
+          <td itemprop="publicationDate">2007-06-07</td>
+        </tr><tr itemprop="docdbFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/DE102005055584A1/en">
+              <span itemprop="publicationNumber">DE102005055584A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+          </td>
+          <td itemprop="publicationDate">2007-06-06</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Similar Documents</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Publication</th>
+          <th>Publication Date</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/AU2006306523B2/en">
+                <span itemprop="publicationNumber">AU2006306523B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2011-05-19">2011-05-19</time>
+            
+            
+          </td>
+          <td itemprop="title">Systems and methods for switching between autonomous and manual operation of a vehicle 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US6982647B2/en">
+                <span itemprop="publicationNumber">US6982647B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2006-01-03">2006-01-03</time>
+            
+            
+          </td>
+          <td itemprop="title">Driving assist system for vehicle 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/JP5316706B2/en">
+                <span itemprop="publicationNumber">JP5316706B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2013-10-16">2013-10-16</time>
+            
+            
+          </td>
+          <td itemprop="title">Emergency vehicle evacuation device 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/DE102006048947B4/en">
+                <span itemprop="publicationNumber">DE102006048947B4</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2017-11-23">2017-11-23</time>
+            
+            
+          </td>
+          <td itemprop="title">Control unit and method for adjusting a trailer coupled to a vehicle 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/EP2314489B1/en">
+                <span itemprop="publicationNumber">EP2314489B1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2015-08-19">2015-08-19</time>
+            
+            
+          </td>
+          <td itemprop="title">Method for controlling the operation of a fully automatic driver assistance system of a motor vehicle for independent vehicle guidance and motor vehicle 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/EP2032406B1/en">
+                <span itemprop="publicationNumber">EP2032406B1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2011-08-10">2011-08-10</time>
+            
+            
+          </td>
+          <td itemprop="title">Method and apparatus for using an automated lane keeping system to maintain lateral vehicle spacing 
+     </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/JP5892482B2/en">
+                <span itemprop="publicationNumber">JP5892482B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2016-03-23">2016-03-23</time>
+            
+            
+          </td>
+          <td itemprop="title">Driving control method and system for vehicle lane keeping assistance 
+     </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US20060044119A1/en">
+                <span itemprop="publicationNumber">US20060044119A1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2006-03-02">2006-03-02</time>
+            
+            
+          </td>
+          <td itemprop="title">Warning device in a vehicle 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="8294522361938167139">
+              <a href="/scholar/8294522361938167139"><span itemprop="scholarAuthors">Macadam</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2003">2003</time>
+            
+          </td>
+          <td itemprop="title">Understanding and modeling the human driver</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US8406956B2/en">
+                <span itemprop="publicationNumber">US8406956B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2013-03-26">2013-03-26</time>
+            
+            
+          </td>
+          <td itemprop="title">Device and method for controlling a steering system in a vehicle 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US9891622B2/en">
+                <span itemprop="publicationNumber">US9891622B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2018-02-13">2018-02-13</time>
+            
+            
+          </td>
+          <td itemprop="title">Driving assistance device 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="4188019508408909164">
+              <a href="/scholar/4188019508408909164"><span itemprop="scholarAuthors">Raza et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1996">1996</time>
+            
+          </td>
+          <td itemprop="title">Vehicle following control design for automated highway systems</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/JP4521189B2/en">
+                <span itemprop="publicationNumber">JP4521189B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2010-08-11">2010-08-11</time>
+            
+            
+          </td>
+          <td itemprop="title">In-car information system in which output information is generated depending on driving mode 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/CN102753417B/en">
+                <span itemprop="publicationNumber">CN102753417B</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2015-11-25">2015-11-25</time>
+            
+            
+          </td>
+          <td itemprop="title">  Method and apparatus for autonomous driving without operating the user manipulation of the operation of the automobile automatic operation  </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/DE102013211278A1/en">
+                <span itemprop="publicationNumber">DE102013211278A1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2013-12-24">2013-12-24</time>
+            
+            
+          </td>
+          <td itemprop="title">Warning systems and methods for a vehicle 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US6941215B2/en">
+                <span itemprop="publicationNumber">US6941215B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2005-09-06">2005-09-06</time>
+            
+            
+          </td>
+          <td itemprop="title">Method and device for triggering a request for taking control in acc-controlled vehicles 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/CN104245392B/en">
+                <span itemprop="publicationNumber">CN104245392B</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2017-03-08">2017-03-08</time>
+            
+            
+          </td>
+          <td itemprop="title">Automobile with driver assistance device and the method for running automobile 
+     </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US20030171865A1/en">
+                <span itemprop="publicationNumber">US20030171865A1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2003-09-11">2003-09-11</time>
+            
+            
+          </td>
+          <td itemprop="title">Method and device for co-ordinating multiple driving system devices of a vehicle 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/EP1779355B1/en">
+                <span itemprop="publicationNumber">EP1779355B1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2010-06-02">2010-06-02</time>
+            
+            
+          </td>
+          <td itemprop="title">Device for evaluating driver attentiveness in a collision prevention system in motor vehicles 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/JP6320991B2/en">
+                <span itemprop="publicationNumber">JP6320991B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2018-05-09">2018-05-09</time>
+            
+            
+          </td>
+          <td itemprop="title">Autonomous mode vehicle control system and vehicle equipped with such a control system 
+     </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/JP2014065478A/en">
+                <span itemprop="publicationNumber">JP2014065478A</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2014-04-17">2014-04-17</time>
+            
+            
+          </td>
+          <td itemprop="title">Driving control right exchanging method for autonomous vehicle 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/CN101454189B/en">
+                <span itemprop="publicationNumber">CN101454189B</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2013-03-20">2013-03-20</time>
+            
+            
+          </td>
+          <td itemprop="title">Electromechanical steering with steering recommendation 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/CN101048305B/en">
+                <span itemprop="publicationNumber">CN101048305B</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2010-08-11">2010-08-11</time>
+            
+            
+          </td>
+          <td itemprop="title">Driver assistance method 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US20060052917A1/en">
+                <span itemprop="publicationNumber">US20060052917A1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2006-03-09">2006-03-09</time>
+            
+            
+          </td>
+          <td itemprop="title">Device for evaluating and or influencing a motion variable and or motion behavior of a vehicle 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/WO2002100698A1/en">
+                <span itemprop="publicationNumber">WO2002100698A1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2002-12-19">2002-12-19</time>
+            
+            
+          </td>
+          <td itemprop="title">Improvements in vehicle control 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Legal Events</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Code</th>
+          <th>Title</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2007-03-08">2007-03-08</time></td>
+          <td itemprop="code">AS</td>
+          <td itemprop="title">Assignment</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Owner name</strong>:
+              <span itemprop="value">DEUTSCHES ZENTRUM FUR LUFT- UND RAUMFAHRT E.V., GE</span>
+            </p>
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">ASSIGNMENT OF ASSIGNORS INTEREST;ASSIGNORS:SCHOMERUS, JAN;KELSCH, JOHANN;REEL/FRAME:018981/0484</span>
+            </p>
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Effective date</strong>:
+              <span itemprop="value">20070220</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2011-07-13">2011-07-13</time></td>
+          <td itemprop="code">STCF</td>
+          <td itemprop="title">Information on status: patent grant</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">PATENTED CASE</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2015-01-27">2015-01-27</time></td>
+          <td itemprop="code">FPAY</td>
+          <td itemprop="title">Fee payment</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Year of fee payment</strong>:
+              <span itemprop="value">4</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2019-03-25">2019-03-25</time></td>
+          <td itemprop="code">FEPP</td>
+          <td itemprop="title">Fee payment procedure</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">MAINTENANCE FEE REMINDER MAILED (ORIGINAL EVENT CODE: REM.); ENTITY STATUS OF PATENT OWNER: LARGE ENTITY</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2019-09-09">2019-09-09</time></td>
+          <td itemprop="code">LAPS</td>
+          <td itemprop="title">Lapse for failure to pay maintenance fees</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">PATENT EXPIRED FOR FAILURE TO PAY MAINTENANCE FEES (ORIGINAL EVENT CODE: EXP.); ENTITY STATUS OF PATENT OWNER: LARGE ENTITY</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2019-09-09">2019-09-09</time></td>
+          <td itemprop="code">STCH</td>
+          <td itemprop="title">Information on status: patent discontinuation</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">PATENT EXPIRED DUE TO NONPAYMENT OF MAINTENANCE FEES UNDER 37 CFR 1.362</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2019-10-01">2019-10-01</time></td>
+          <td itemprop="code">FP</td>
+          <td itemprop="title">Expired due to failure to pay maintenance fee</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Effective date</strong>:
+              <span itemprop="value">20190802</span>
+            </p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+</article>
+
+    </search-app>
+    <script type="text/javascript" src="//www.gstatic.com/feedback/api.js"></script>
+    <script async="" defer="" src="//www.google.com/insights/consumersurveys/async_survey?site=cxkjf7ipxgbnnjy6k35ezcvbbe"></script>
+  </body>
+</html>

@@ -1,0 +1,2991 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>US7346461B2 - System and method of analyzing vibrations and identifying failure signatures in the vibrations 
+        - Google Patents</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="referrer" content="origin-when-crossorigin">
+    <link rel="canonical" href="https://patents.google.com/patent/US7346461B2/en">
+    <meta name="description" content="
+     An apparatus, computer program product and method of analyzing structures. Intrinsic Mode Functions (IMFs) are extracted from the data and the most energetic IMF is selected. A spline is fit to the envelope for the selected IMF. The spline derivative is determined. A stability spectrum is developed by separating the positive and negative results into two different spectra representing stable (positive) and unstable (negative) damping factors. The stability spectrum and the non-linearity indicator are applied to the data to isolate unstable vibrations. 
+   
+   ">
+    
+    <meta name="DC.type" content="patent">
+    
+    <meta name="DC.title" content="System and method of analyzing vibrations and identifying failure signatures in the vibrations 
+       ">
+    
+    <meta name="DC.date" content="2005-09-30" scheme="dateSubmitted">
+    
+    <meta name="DC.description" content="
+     An apparatus, computer program product and method of analyzing structures. Intrinsic Mode Functions (IMFs) are extracted from the data and the most energetic IMF is selected. A spline is fit to the envelope for the selected IMF. The spline derivative is determined. A stability spectrum is developed by separating the positive and negative results into two different spectra representing stable (positive) and unstable (negative) damping factors. The stability spectrum and the non-linearity indicator are applied to the data to isolate unstable vibrations. 
+   
+   ">
+    
+    <meta name="citation_patent_application_number" content="US:11/251,004">
+    
+    <meta name="citation_pdf_url" content="https://patentimages.storage.googleapis.com/96/88/fc/008bb2accc3aea/US7346461.pdf">
+    
+    <meta name="citation_patent_number" content="US:7346461">
+    
+    <meta name="DC.date" content="2008-03-18" scheme="issue">
+    
+    <meta name="DC.contributor" content="Norden E. Huang" scheme="inventor">
+    
+    <meta name="DC.contributor" content="Liming W. Salvino" scheme="inventor">
+    
+    <meta name="DC.contributor" content="National Aeronautics and Space Administration (NASA)" scheme="assignee">
+    
+    <meta name="DC.relation" content="US:5983162" scheme="references">
+    
+    <meta name="DC.relation" content="US:6311130" scheme="references">
+    
+    <meta name="DC.relation" content="US:6192758" scheme="references">
+    
+    <meta name="DC.relation" content="US:6507798" scheme="references">
+    
+    <meta name="DC.relation" content="US:6862558" scheme="references">
+    
+    <meta name="DC.relation" content="US:7054792" scheme="references">
+    
+    <meta name="citation_reference" content="Kizhner et al., On the Hilbert-Huang Transform Data Processing System, Mar. 6-13, 2004, Aerospace Conference, vol. 3, pp. 1961-1979." scheme="references">
+    
+    <meta name="citation_reference" content="Qiang et al., Processing Time-Varying Signals by a New Method, 2001 IEEE, pp. 1011-1014." scheme="references">
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,400italic,500,500italic,700">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Product+Sans">
+    <style>
+      body { transition: none; }
+    </style>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-27188110-4', 'auto');
+
+      version = 'patent-search.search_20191120_RC00';
+
+      function sendFeedback() {
+        userfeedback.api.startFeedback({
+          'productId': '713680',
+          'bucket': 'patent-search-web',
+          'productVersion': version,
+        });
+      }
+
+      window.experiments = {};
+      window.experiments.patentCountries = "ae,ag,al,am,ao,ap,ar,at,au,aw,az,ba,bb,bd,be,bf,bg,bh,bj,bn,bo,br,bw,bx,by,bz,ca,cf,cg,ch,ci,cl,cm,cn,co,cr,cs,cu,cy,cz,dd,de,dj,dk,dm,do,dz,ea,ec,ee,eg,em,ep,es,fi,fr,ga,gb,gc,gd,ge,gh,gm,gn,gq,gr,gt,gw,hk,hn,hr,hu,ib,id,ie,il,in,ir,is,it,jo,jp,ke,kg,kh,km,kn,kp,kr,kw,kz,la,lc,li,lk,lr,ls,lt,lu,lv,ly,ma,mc,md,me,mg,mk,ml,mn,mo,mr,mt,mw,mx,my,mz,na,ne,ng,ni,nl,no,nz,oa,om,pa,pe,pg,ph,pl,pt,py,qa,ro,rs,ru,rw,sa,sc,sd,se,sg,si,sk,sl,sm,sn,st,su,sv,sy,sz,td,tg,th,tj,tm,tn,tr,tt,tw,tz,ua,ug,us,uy,uz,vc,ve,vn,wo,yu,za,zm,zw";
+      
+      
+      window.profilePicture = "";
+
+      window.Polymer = {
+        dom: 'shady',
+        lazyRegister: true,
+      };
+    </script>
+
+    <script src="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/webcomponentsjs/webcomponents-lite.min.js"></script>
+    
+    <link rel="import" href="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/search-app-vulcanized.html">
+    
+  </head>
+  <body unresolved>
+    
+    <script src="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/search-app-vulcanized.js"></script>
+    
+    <search-app>
+      
+      
+
+      <article class="result" itemscope itemtype="http://schema.org/ScholarlyArticle">
+  <h1 itemprop="pageTitle">US7346461B2 - System and method of analyzing vibrations and identifying failure signatures in the vibrations 
+        - Google Patents</h1>
+  <span itemprop="title">System and method of analyzing vibrations and identifying failure signatures in the vibrations 
+       </span>
+
+  <meta itemprop="type" content="patent">
+  <a href="https://patentimages.storage.googleapis.com/96/88/fc/008bb2accc3aea/US7346461.pdf" itemprop="pdfLink">Download PDF</a>
+  <h2>Info</h2>
+
+  <dl>
+    <dt>Publication number</dt>
+    <dd itemprop="publicationNumber">US7346461B2</dd>
+    <meta itemprop="numberWithoutCodes" content="7346461">
+    <meta itemprop="kindCode" content="B2">
+    <meta itemprop="publicationDescription" content="Patent ( having previously published pre-grant publication)">
+    
+    <span>US7346461B2</span>
+    
+    <span>US11/251,004</span>
+    
+    <span>US25100405A</span>
+    
+    <span>US7346461B2</span>
+    
+    <span>US 7346461 B2</span>
+    
+    <span>US7346461 B2</span>
+    
+    <span>US 7346461B2</span>
+    
+    <span>  </span>
+    
+    <span> </span>
+    
+    <span> </span>
+    
+    <span>US 25100405 A</span>
+    
+    <span>US25100405 A</span>
+    
+    <span>US 25100405A</span>
+    
+    <span>US 7346461 B2</span>
+    
+    <span>US7346461 B2</span>
+    
+    <span>US 7346461B2</span>
+    
+
+    <dt>Authority</dt>
+    <dd itemprop="countryCode">US</dd>
+    <dd itemprop="countryName">United States</dd>
+
+    <dt>Prior art keywords</dt>
+    
+    <dd itemprop="priorArtKeywords" repeat>vibrations</dd>
+    <dd itemprop="priorArtKeywords" repeat>analyzing</dd>
+    <dd itemprop="priorArtKeywords" repeat>derivative</dd>
+    <dd itemprop="priorArtKeywords" repeat>stability</dd>
+    <dd itemprop="priorArtKeywords" repeat>spline</dd>
+
+    <dt>Prior art date</dt>
+    <dd><time itemprop="priorArtDate" datetime="2005-09-30">2005-09-30</time></dd>
+
+    <dt>Legal status (The legal status is an assumption and is not a legal conclusion. Google has not performed a legal analysis and makes no representation as to the accuracy of the status listed.)</dt>
+    <dd itemprop="legalStatusIfi" itemscope>
+      <span itemprop="status">Active</span>
+    </dd>
+  </dl>
+
+  <dt>Application number</dt>
+  <dd itemprop="applicationNumber">US11/251,004</dd>
+
+  
+
+  <dt>Other versions</dt>
+  <dd itemprop="directAssociations" itemscope repeat>
+    
+    <a href="/patent/US20070078611A1/en">
+      <span itemprop="publicationNumber">US20070078611A1</span>
+      (<span itemprop="primaryLanguage">en</span>
+    </a>
+  </dd>
+
+  <dt>Inventor</dt>
+  <dd itemprop="inventor" repeat>Norden E. Huang</dd>
+  <dd itemprop="inventor" repeat>Liming W. Salvino</dd>
+  <dt>Current Assignee (The listed assignees may be inaccurate. Google has not performed a legal analysis and makes no representation or warranty as to the accuracy of the list.)</dt>
+  <dd itemprop="assigneeCurrent" repeat>
+    National Aeronautics and Space Administration (NASA)
+  </dd>
+
+  <dt>Original Assignee</dt>
+  <dd itemprop="assigneeOriginal" repeat>National Aeronautics and Space Administration (NASA)</dd>
+
+  <dt>Priority date (The priority date is an assumption and is not a legal conclusion. Google has not performed a legal analysis and makes no representation as to the accuracy of the date listed.)</dt>
+  <dd><time itemprop="priorityDate" datetime="2005-09-30">2005-09-30</time></dd>
+
+  <dt>Filing date</dt>
+  <dd><time itemprop="filingDate" datetime="2005-09-30">2005-09-30</time></dd>
+
+  <dt>Publication date</dt>
+  <dd><time itemprop="publicationDate" datetime="2008-03-18">2008-03-18</time></dd>
+
+  
+
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2005-09-30">2005-09-30</time>
+    <span itemprop="title">Application filed by National Aeronautics and Space Administration (NASA)</span>
+    <span itemprop="type">filed</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    <span itemprop="assigneeSearch">National Aeronautics and Space Administration (NASA)</span>
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2005-09-30">2005-09-30</time>
+    <span itemprop="title">Priority to US11/251,004</span>
+    <span itemprop="type">priority</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    <span itemprop="documentId">patent/US7346461B2/en</span>
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2007-04-05">2007-04-05</time>
+    <span itemprop="title">Publication of US20070078611A1</span>
+    <span itemprop="type">publication</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    <span itemprop="documentId">patent/US20070078611A1/en</span>
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2008-03-18">2008-03-18</time>
+    <span itemprop="title">Application granted</span>
+    <span itemprop="type">granted</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2008-03-18">2008-03-18</time>
+    <span itemprop="title">Publication of US7346461B2</span>
+    <span itemprop="type">publication</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    <span itemprop="documentId">patent/US7346461B2/en</span>
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2019-11-26">2019-11-26</time>
+    <span itemprop="title">Application status is Active</span>
+    <span itemprop="type">legal-status</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2025-09-30">2025-09-30</time>
+    <span itemprop="title">Anticipated expiration</span>
+    <span itemprop="type">legal-status</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+
+  <h2>Links</h2>
+
+  <ul>
+    
+          <li itemprop="links" itemscope repeat>
+            <meta itemprop="id" content="usptoLink">
+            <a href="http://patft.uspto.gov/netacgi/nph-Parser?Sect1=PTO1&Sect2=HITOFF&p=1&u=/netahtml/PTO/srchnum.html&r=1&f=G&l=50&d=PALL&s1=7346461.PN." itemprop="url" target="_blank"><span itemprop="text">USPTO</span></a>
+          </li>
+        <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="usptoAssignmentLink">
+          <a href="https://assignment.uspto.gov/patent/index.html#/patent/search/resultFilter?searchInput=7346461" itemprop="url" target="_blank"><span itemprop="text">USPTO Assignment</span></a>
+        </li>
+
+    <li itemprop="links" itemscope repeat>
+        <meta itemprop="id" content="espacenetLink">
+        <a href="http://worldwide.espacenet.com/publicationDetails/biblio?CC=US&amp;NR=7346461B2&amp;KC=B2&amp;FT=D" itemprop="url" target="_blank"><span itemprop="text">Espacenet</span></a>
+      </li>
+      
+
+    
+
+    
+      <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="globalDossierLink">
+          <a href="http://globaldossier.uspto.gov/#/result/patent/US/7346461/1" itemprop="url" target="_blank"><span itemprop="text">Global Dossier</span></a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="stackexchangeLink">
+          <a href="https://patents.stackexchange.com/questions/tagged/US7346461" itemprop="url"><span itemprop="text">Discuss</span></a>
+        </li>
+      
+  </ul>
+
+  
+  <ul itemprop="concept" itemscope>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000001228</span>
+      <span itemprop="name">spectrum</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>abstract</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">38</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000004590</span>
+      <span itemprop="name">computer program</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>abstract</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">17</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000009499</span>
+      <span itemprop="name">grossing</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">32</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000000875</span>
+      <span itemprop="name">corresponding</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">8</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000000354</span>
+      <span itemprop="name">decomposition</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">4</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000003534</span>
+      <span itemprop="name">oscillatory</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">4</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000000605</span>
+      <span itemprop="name">extraction</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000003860</span>
+      <span itemprop="name">storage</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000000284</span>
+      <span itemprop="name">extracts</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000002609</span>
+      <span itemprop="name">media</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000000694</span>
+      <span itemprop="name">effects</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">12</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000010006</span>
+      <span itemprop="name">flight</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">10</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000000463</span>
+      <span itemprop="name">materials</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">10</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000004458</span>
+      <span itemprop="name">analytical methods</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">5</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000001914</span>
+      <span itemprop="name">filtration</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">5</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000000034</span>
+      <span itemprop="name">methods</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">3</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000004593</span>
+      <span itemprop="name">Epoxy</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">229960001576</span>
+      <span itemprop="name">Octopamine</span>
+      <span itemprop="domain">Drugs</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">QHGUCRYDKWKLMG-UHFFFAOYSA-N</span>
+      <span itemprop="name">Octopamine</span>
+      <span itemprop="domain">Chemical compound</span>
+      <span itemprop="svg_large">data:image/svg&#43;xml;base64,PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0naXNvLTg4NTktMSc/Pgo8c3ZnIHZlcnNpb249JzEuMScgYmFzZVByb2ZpbGU9J2Z1bGwnCiAgICAgICAgICAgICAgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJwogICAgICAgICAgICAgICAgICAgICAgeG1sbnM6cmRraXQ9J2h0dHA6Ly93d3cucmRraXQub3JnL3htbCcKICAgICAgICAgICAgICAgICAgICAgIHhtbG5zOnhsaW5rPSdodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rJwogICAgICAgICAgICAgICAgICB4bWw6c3BhY2U9J3ByZXNlcnZlJwp3aWR0aD0nMzAwcHgnIGhlaWdodD0nMzAwcHgnID4KPCEtLSBFTkQgT0YgSEVBREVSIC0tPgo8cmVjdCBzdHlsZT0nb3BhY2l0eToxLjA7ZmlsbDojRkZGRkZGO3N0cm9rZTpub25lJyB3aWR0aD0nMzAwJyBoZWlnaHQ9JzMwMCcgeD0nMCcgeT0nMCc&#43;IDwvcmVjdD4KPHBhdGggY2xhc3M9J2JvbmQtMCcgZD0nTSA1NC44MDQ1LDEyMy45OTIgNjcuNzYzOSwxMjIuNzI5JyBzdHlsZT0nZmlsbDpub25lO2ZpbGwtcnVsZTpldmVub2RkO3N0cm9rZTojMDAwMEZGO3N0cm9rZS13aWR0aDoycHg7c3Ryb2tlLWxpbmVjYXA6YnV0dDtzdHJva2UtbGluZWpvaW46bWl0ZXI7c3Ryb2tlLW9wYWNpdHk6MScgLz4KPHBhdGggY2xhc3M9J2JvbmQtMCcgZD0nTSA2Ny43NjM5LDEyMi43MjkgODAuNzIzMywxMjEuNDY2JyBzdHlsZT0nZmlsbDpub25lO2ZpbGwtcnVsZTpldmVub2RkO3N0cm9rZTojMDAwMDAwO3N0cm9rZS13aWR0aDoycHg7c3Ryb2tlLWxpbmVjYXA6YnV0dDtzdHJva2UtbGluZWpvaW46bWl0ZXI7c3Ryb2tlLW9wYWNpdHk6MScgLz4KPHBhdGggY2xhc3M9J2JvbmQtMScgZD0nTSA4MC43MjMzLDEyMS40NjYgMTAzLjg5LDE1My44NjQnIHN0eWxlPSdmaWxsOm5vbmU7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOiMwMDAwMDA7c3Ryb2tlLXdpZHRoOjJweDtzdHJva2UtbGluZWNhcDpidXR0O3N0cm9rZS1saW5lam9pbjptaXRlcjtzdHJva2Utb3BhY2l0eToxJyAvPgo8cGF0aCBjbGFzcz0nYm9uZC0yJyBkPSdNIDEwMy44OSwxNTMuODY0IDk3LjE2MTIsMTY4LjY3Nicgc3R5bGU9J2ZpbGw6bm9uZTtmaWxsLXJ1bGU6ZXZlbm9kZDtzdHJva2U6IzAwMDAwMDtzdHJva2Utd2lkdGg6MnB4O3N0cm9rZS1saW5lY2FwOmJ1dHQ7c3Ryb2tlLWxpbmVqb2luOm1pdGVyO3N0cm9rZS1vcGFjaXR5OjEnIC8&#43;CjxwYXRoIGNsYXNzPSdib25kLTInIGQ9J00gOTcuMTYxMiwxNjguNjc2IDkwLjQzMiwxODMuNDg5JyBzdHlsZT0nZmlsbDpub25lO2ZpbGwtcnVsZTpldmVub2RkO3N0cm9rZTojRkYwMDAwO3N0cm9rZS13aWR0aDoycHg7c3Ryb2tlLWxpbmVjYXA6YnV0dDtzdHJva2UtbGluZWpvaW46bWl0ZXI7c3Ryb2tlLW9wYWNpdHk6MScgLz4KPHBhdGggY2xhc3M9J2JvbmQtMycgZD0nTSAxMDMuODksMTUzLjg2NCAxNDMuNTMyLDE1MCcgc3R5bGU9J2ZpbGw6bm9uZTtmaWxsLXJ1bGU6ZXZlbm9kZDtzdHJva2U6IzAwMDAwMDtzdHJva2Utd2lkdGg6MnB4O3N0cm9rZS1saW5lY2FwOmJ1dHQ7c3Ryb2tlLWxpbmVqb2luOm1pdGVyO3N0cm9rZS1vcGFjaXR5OjEnIC8&#43;CjxwYXRoIGNsYXNzPSdib25kLTQnIGQ9J00gMTQzLjUzMiwxNTAgMTYwLjAwNiwxMTMuNzM3JyBzdHlsZT0nZmlsbDpub25lO2ZpbGwtcnVsZTpldmVub2RkO3N0cm9rZTojMDAwMDAwO3N0cm9rZS13aWR0aDoycHg7c3Ryb2tlLWxpbmVjYXA6YnV0dDtzdHJva2UtbGluZWpvaW46bWl0ZXI7c3Ryb2tlLW9wYWNpdHk6MScgLz4KPHBhdGggY2xhc3M9J2JvbmQtNCcgZD0nTSAxNTMuMjU2LDE0Ny44NTUgMTY0Ljc4OCwxMjIuNDcyJyBzdHlsZT0nZmlsbDpub25lO2ZpbGwtcnVsZTpldmVub2RkO3N0cm9rZTojMDAwMDAwO3N0cm9rZS13aWR0aDoycHg7c3Ryb2tlLWxpbmVjYXA6YnV0dDtzdHJva2UtbGluZWpvaW46bWl0ZXI7c3Ryb2tlLW9wYWNpdHk6MScgLz4KPHBhdGggY2xhc3M9J2JvbmQtMTAnIGQ9J00gMTQzLjUzMiwxNTAgMTY2LjY5OSwxODIuMzk4JyBzdHlsZT0nZmlsbDpub25lO2ZpbGwtcnVsZTpldmVub2RkO3N0cm9rZTojMDAwMDAwO3N0cm9rZS13aWR0aDoycHg7c3Ryb2tlLWxpbmVjYXA6YnV0dDtzdHJva2UtbGluZWpvaW46bWl0ZXI7c3Ryb2tlLW9wYWNpdHk6MScgLz4KPHBhdGggY2xhc3M9J2JvbmQtNScgZD0nTSAxNjAuMDA2LDExMy43MzcgMTk5LjY0OCwxMDkuODczJyBzdHlsZT0nZmlsbDpub25lO2ZpbGwtcnVsZTpldmVub2RkO3N0cm9rZTojMDAwMDAwO3N0cm9rZS13aWR0aDoycHg7c3Ryb2tlLWxpbmVjYXA6YnV0dDtzdHJva2UtbGluZWpvaW46bWl0ZXI7c3Ryb2tlLW9wYWNpdHk6MScgLz4KPHBhdGggY2xhc3M9J2JvbmQtNicgZD0nTSAxOTkuNjQ4LDEwOS44NzMgMjIyLjgxNSwxNDIuMjcyJyBzdHlsZT0nZmlsbDpub25lO2ZpbGwtcnVsZTpldmVub2RkO3N0cm9rZTojMDAwMDAwO3N0cm9rZS13aWR0aDoycHg7c3Ryb2tlLWxpbmVjYXA6YnV0dDtzdHJva2UtbGluZWpvaW46bWl0ZXI7c3Ryb2tlLW9wYWNpdHk6MScgLz4KPHBhdGggY2xhc3M9J2JvbmQtNicgZD0nTSAxOTYuNjQzLDExOS4zNjYgMjEyLjg2LDE0Mi4wNDUnIHN0eWxlPSdmaWxsOm5vbmU7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOiMwMDAwMDA7c3Ryb2tlLXdpZHRoOjJweDtzdHJva2UtbGluZWNhcDpidXR0O3N0cm9rZS1saW5lam9pbjptaXRlcjtzdHJva2Utb3BhY2l0eToxJyAvPgo8cGF0aCBjbGFzcz0nYm9uZC03JyBkPSdNIDIyMi44MTUsMTQyLjI3MiAyMzYuNjU5LDE0MC45MjInIHN0eWxlPSdmaWxsOm5vbmU7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOiMwMDAwMDA7c3Ryb2tlLXdpZHRoOjJweDtzdHJva2UtbGluZWNhcDpidXR0O3N0cm9rZS1saW5lam9pbjptaXRlcjtzdHJva2Utb3BhY2l0eToxJyAvPgo8cGF0aCBjbGFzcz0nYm9uZC03JyBkPSdNIDIzNi42NTksMTQwLjkyMiAyNTAuNTAzLDEzOS41NzMnIHN0eWxlPSdmaWxsOm5vbmU7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOiNGRjAwMDA7c3Ryb2tlLXdpZHRoOjJweDtzdHJva2UtbGluZWNhcDpidXR0O3N0cm9rZS1saW5lam9pbjptaXRlcjtzdHJva2Utb3BhY2l0eToxJyAvPgo8cGF0aCBjbGFzcz0nYm9uZC04JyBkPSdNIDIyMi44MTUsMTQyLjI3MiAyMDYuMzQxLDE3OC41MzQnIHN0eWxlPSdmaWxsOm5vbmU7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOiMwMDAwMDA7c3Ryb2tlLXdpZHRoOjJweDtzdHJva2UtbGluZWNhcDpidXR0O3N0cm9rZS1saW5lam9pbjptaXRlcjtzdHJva2Utb3BhY2l0eToxJyAvPgo8cGF0aCBjbGFzcz0nYm9uZC05JyBkPSdNIDIwNi4zNDEsMTc4LjUzNCAxNjYuNjk5LDE4Mi4zOTgnIHN0eWxlPSdmaWxsOm5vbmU7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOiMwMDAwMDA7c3Ryb2tlLXdpZHRoOjJweDtzdHJva2UtbGluZWNhcDpidXR0O3N0cm9rZS1saW5lam9pbjptaXRlcjtzdHJva2Utb3BhY2l0eToxJyAvPgo8cGF0aCBjbGFzcz0nYm9uZC05JyBkPSdNIDE5OS42MjIsMTcxLjE4NiAxNzEuODczLDE3My44OTEnIHN0eWxlPSdmaWxsOm5vbmU7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOiMwMDAwMDA7c3Ryb2tlLXdpZHRoOjJweDtzdHJva2UtbGluZWNhcDpidXR0O3N0cm9rZS1saW5lam9pbjptaXRlcjtzdHJva2Utb3BhY2l0eToxJyAvPgo8dGV4dCB4PScyNy4zNTkxJyB5PScxMzIuNjMyJyBzdHlsZT0nZm9udC1zaXplOjEzcHg7Zm9udC1zdHlsZTpub3JtYWw7Zm9udC13ZWlnaHQ6bm9ybWFsO2ZpbGwtb3BhY2l0eToxO3N0cm9rZTpub25lO2ZvbnQtZmFtaWx5OnNhbnMtc2VyaWY7dGV4dC1hbmNob3I6c3RhcnQ7ZmlsbDojMDAwMEZGJyA&#43;PHRzcGFuPkg8L3RzcGFuPjx0c3BhbiBzdHlsZT0nYmFzZWxpbmUtc2hpZnQ6c3ViO2ZvbnQtc2l6ZTo5Ljc1cHg7Jz4yPC90c3Bhbj48dHNwYW4&#43;TjwvdHNwYW4&#43;PC90ZXh0Pgo8dGV4dCB4PSc3NS40NjI2JyB5PScxOTYuNzY1JyBzdHlsZT0nZm9udC1zaXplOjEzcHg7Zm9udC1zdHlsZTpub3JtYWw7Zm9udC13ZWlnaHQ6bm9ybWFsO2ZpbGwtb3BhY2l0eToxO3N0cm9rZTpub25lO2ZvbnQtZmFtaWx5OnNhbnMtc2VyaWY7dGV4dC1hbmNob3I6c3RhcnQ7ZmlsbDojRkYwMDAwJyA&#43;PHRzcGFuPk9IPC90c3Bhbj48L3RleHQ&#43;Cjx0ZXh0IHg9JzI1MC41MDMnIHk9JzE0NS4wNDYnIHN0eWxlPSdmb250LXNpemU6MTNweDtmb250LXN0eWxlOm5vcm1hbDtmb250LXdlaWdodDpub3JtYWw7ZmlsbC1vcGFjaXR5OjE7c3Ryb2tlOm5vbmU7Zm9udC1mYW1pbHk6c2Fucy1zZXJpZjt0ZXh0LWFuY2hvcjpzdGFydDtmaWxsOiNGRjAwMDAnID48dHNwYW4&#43;T0g8L3RzcGFuPjwvdGV4dD4KPC9zdmc&#43;Cg==</span>
+      <span itemprop="svg_small">data:image/svg&#43;xml;base64,PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0naXNvLTg4NTktMSc/Pgo8c3ZnIHZlcnNpb249JzEuMScgYmFzZVByb2ZpbGU9J2Z1bGwnCiAgICAgICAgICAgICAgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJwogICAgICAgICAgICAgICAgICAgICAgeG1sbnM6cmRraXQ9J2h0dHA6Ly93d3cucmRraXQub3JnL3htbCcKICAgICAgICAgICAgICAgICAgICAgIHhtbG5zOnhsaW5rPSdodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rJwogICAgICAgICAgICAgICAgICB4bWw6c3BhY2U9J3ByZXNlcnZlJwp3aWR0aD0nODVweCcgaGVpZ2h0PSc4NXB4JyA&#43;CjwhLS0gRU5EIE9GIEhFQURFUiAtLT4KPHJlY3Qgc3R5bGU9J29wYWNpdHk6MS4wO2ZpbGw6I0ZGRkZGRjtzdHJva2U6bm9uZScgd2lkdGg9Jzg1JyBoZWlnaHQ9Jzg1JyB4PScwJyB5PScwJz4gPC9yZWN0Pgo8cGF0aCBjbGFzcz0nYm9uZC0wJyBkPSdNIDE1LjAyOCwzNC42MzExIDE4LjY5OTgsMzQuMjczMicgc3R5bGU9J2ZpbGw6bm9uZTtmaWxsLXJ1bGU6ZXZlbm9kZDtzdHJva2U6IzAwMDBGRjtzdHJva2Utd2lkdGg6MnB4O3N0cm9rZS1saW5lY2FwOmJ1dHQ7c3Ryb2tlLWxpbmVqb2luOm1pdGVyO3N0cm9rZS1vcGFjaXR5OjEnIC8&#43;CjxwYXRoIGNsYXNzPSdib25kLTAnIGQ9J00gMTguNjk5OCwzNC4yNzMyIDIyLjM3MTYsMzMuOTE1Mycgc3R5bGU9J2ZpbGw6bm9uZTtmaWxsLXJ1bGU6ZXZlbm9kZDtzdHJva2U6IzAwMDAwMDtzdHJva2Utd2lkdGg6MnB4O3N0cm9rZS1saW5lY2FwOmJ1dHQ7c3Ryb2tlLWxpbmVqb2luOm1pdGVyO3N0cm9rZS1vcGFjaXR5OjEnIC8&#43;CjxwYXRoIGNsYXNzPSdib25kLTEnIGQ9J00gMjIuMzcxNiwzMy45MTUzIDI4LjkzNTYsNDMuMDk0OCcgc3R5bGU9J2ZpbGw6bm9uZTtmaWxsLXJ1bGU6ZXZlbm9kZDtzdHJva2U6IzAwMDAwMDtzdHJva2Utd2lkdGg6MnB4O3N0cm9rZS1saW5lY2FwOmJ1dHQ7c3Ryb2tlLWxpbmVqb2luOm1pdGVyO3N0cm9rZS1vcGFjaXR5OjEnIC8&#43;CjxwYXRoIGNsYXNzPSdib25kLTInIGQ9J00gMjguOTM1Niw0My4wOTQ4IDI3LjAyOSw0Ny4yOTE2JyBzdHlsZT0nZmlsbDpub25lO2ZpbGwtcnVsZTpldmVub2RkO3N0cm9rZTojMDAwMDAwO3N0cm9rZS13aWR0aDoycHg7c3Ryb2tlLWxpbmVjYXA6YnV0dDtzdHJva2UtbGluZWpvaW46bWl0ZXI7c3Ryb2tlLW9wYWNpdHk6MScgLz4KPHBhdGggY2xhc3M9J2JvbmQtMicgZD0nTSAyNy4wMjksNDcuMjkxNiAyNS4xMjI0LDUxLjQ4ODQnIHN0eWxlPSdmaWxsOm5vbmU7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOiNGRjAwMDA7c3Ryb2tlLXdpZHRoOjJweDtzdHJva2UtbGluZWNhcDpidXR0O3N0cm9rZS1saW5lam9pbjptaXRlcjtzdHJva2Utb3BhY2l0eToxJyAvPgo8cGF0aCBjbGFzcz0nYm9uZC0zJyBkPSdNIDI4LjkzNTYsNDMuMDk0OCA0MC4xNjc0LDQyJyBzdHlsZT0nZmlsbDpub25lO2ZpbGwtcnVsZTpldmVub2RkO3N0cm9rZTojMDAwMDAwO3N0cm9rZS13aWR0aDoycHg7c3Ryb2tlLWxpbmVjYXA6YnV0dDtzdHJva2UtbGluZWpvaW46bWl0ZXI7c3Ryb2tlLW9wYWNpdHk6MScgLz4KPHBhdGggY2xhc3M9J2JvbmQtNCcgZD0nTSA0MC4xNjc0LDQyIDQ0LjgzNTEsMzEuNzI1Nicgc3R5bGU9J2ZpbGw6bm9uZTtmaWxsLXJ1bGU6ZXZlbm9kZDtzdHJva2U6IzAwMDAwMDtzdHJva2Utd2lkdGg6MnB4O3N0cm9rZS1saW5lY2FwOmJ1dHQ7c3Ryb2tlLWxpbmVqb2luOm1pdGVyO3N0cm9rZS1vcGFjaXR5OjEnIC8&#43;CjxwYXRoIGNsYXNzPSdib25kLTQnIGQ9J00gNDIuOTIyNCw0MS4zOTI0IDQ2LjE4OTgsMzQuMjAwMycgc3R5bGU9J2ZpbGw6bm9uZTtmaWxsLXJ1bGU6ZXZlbm9kZDtzdHJva2U6IzAwMDAwMDtzdHJva2Utd2lkdGg6MnB4O3N0cm9rZS1saW5lY2FwOmJ1dHQ7c3Ryb2tlLWxpbmVqb2luOm1pdGVyO3N0cm9rZS1vcGFjaXR5OjEnIC8&#43;CjxwYXRoIGNsYXNzPSdib25kLTEwJyBkPSdNIDQwLjE2NzQsNDIgNDYuNzMxNCw1MS4xNzk2JyBzdHlsZT0nZmlsbDpub25lO2ZpbGwtcnVsZTpldmVub2RkO3N0cm9rZTojMDAwMDAwO3N0cm9rZS13aWR0aDoycHg7c3Ryb2tlLWxpbmVjYXA6YnV0dDtzdHJva2UtbGluZWpvaW46bWl0ZXI7c3Ryb2tlLW9wYWNpdHk6MScgLz4KPHBhdGggY2xhc3M9J2JvbmQtNScgZD0nTSA0NC44MzUxLDMxLjcyNTYgNTYuMDY2OSwzMC42MzA4JyBzdHlsZT0nZmlsbDpub25lO2ZpbGwtcnVsZTpldmVub2RkO3N0cm9rZTojMDAwMDAwO3N0cm9rZS13aWR0aDoycHg7c3Ryb2tlLWxpbmVjYXA6YnV0dDtzdHJva2UtbGluZWpvaW46bWl0ZXI7c3Ryb2tlLW9wYWNpdHk6MScgLz4KPHBhdGggY2xhc3M9J2JvbmQtNicgZD0nTSA1Ni4wNjY5LDMwLjYzMDggNjIuNjMwOSwzOS44MTAzJyBzdHlsZT0nZmlsbDpub25lO2ZpbGwtcnVsZTpldmVub2RkO3N0cm9rZTojMDAwMDAwO3N0cm9rZS13aWR0aDoycHg7c3Ryb2tlLWxpbmVjYXA6YnV0dDtzdHJva2UtbGluZWpvaW46bWl0ZXI7c3Ryb2tlLW9wYWNpdHk6MScgLz4KPHBhdGggY2xhc3M9J2JvbmQtNicgZD0nTSA1NS4yMTU2LDMzLjMyMDUgNTkuODEwNCwzOS43NDYyJyBzdHlsZT0nZmlsbDpub25lO2ZpbGwtcnVsZTpldmVub2RkO3N0cm9rZTojMDAwMDAwO3N0cm9rZS13aWR0aDoycHg7c3Ryb2tlLWxpbmVjYXA6YnV0dDtzdHJva2UtbGluZWpvaW46bWl0ZXI7c3Ryb2tlLW9wYWNpdHk6MScgLz4KPHBhdGggY2xhc3M9J2JvbmQtNycgZD0nTSA2Mi42MzA5LDM5LjgxMDMgNjYuNTUzNCwzOS40MjgnIHN0eWxlPSdmaWxsOm5vbmU7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOiMwMDAwMDA7c3Ryb2tlLXdpZHRoOjJweDtzdHJva2UtbGluZWNhcDpidXR0O3N0cm9rZS1saW5lam9pbjptaXRlcjtzdHJva2Utb3BhY2l0eToxJyAvPgo8cGF0aCBjbGFzcz0nYm9uZC03JyBkPSdNIDY2LjU1MzQsMzkuNDI4IDcwLjQ3NTgsMzkuMDQ1Nicgc3R5bGU9J2ZpbGw6bm9uZTtmaWxsLXJ1bGU6ZXZlbm9kZDtzdHJva2U6I0ZGMDAwMDtzdHJva2Utd2lkdGg6MnB4O3N0cm9rZS1saW5lY2FwOmJ1dHQ7c3Ryb2tlLWxpbmVqb2luOm1pdGVyO3N0cm9rZS1vcGFjaXR5OjEnIC8&#43;CjxwYXRoIGNsYXNzPSdib25kLTgnIGQ9J00gNjIuNjMwOSwzOS44MTAzIDU3Ljk2MzIsNTAuMDg0Nycgc3R5bGU9J2ZpbGw6bm9uZTtmaWxsLXJ1bGU6ZXZlbm9kZDtzdHJva2U6IzAwMDAwMDtzdHJva2Utd2lkdGg6MnB4O3N0cm9rZS1saW5lY2FwOmJ1dHQ7c3Ryb2tlLWxpbmVqb2luOm1pdGVyO3N0cm9rZS1vcGFjaXR5OjEnIC8&#43;CjxwYXRoIGNsYXNzPSdib25kLTknIGQ9J00gNTcuOTYzMiw1MC4wODQ3IDQ2LjczMTQsNTEuMTc5Nicgc3R5bGU9J2ZpbGw6bm9uZTtmaWxsLXJ1bGU6ZXZlbm9kZDtzdHJva2U6IzAwMDAwMDtzdHJva2Utd2lkdGg6MnB4O3N0cm9rZS1saW5lY2FwOmJ1dHQ7c3Ryb2tlLWxpbmVqb2luOm1pdGVyO3N0cm9rZS1vcGFjaXR5OjEnIC8&#43;CjxwYXRoIGNsYXNzPSdib25kLTknIGQ9J00gNTYuMDU5NSw0OC4wMDI2IDQ4LjE5NzIsNDguNzY5JyBzdHlsZT0nZmlsbDpub25lO2ZpbGwtcnVsZTpldmVub2RkO3N0cm9rZTojMDAwMDAwO3N0cm9rZS13aWR0aDoycHg7c3Ryb2tlLWxpbmVjYXA6YnV0dDtzdHJva2UtbGluZWpvaW46bWl0ZXI7c3Ryb2tlLW9wYWNpdHk6MScgLz4KPHRleHQgeD0nNy4yNTE3NCcgeT0nMzcuMDc5JyBzdHlsZT0nZm9udC1zaXplOjNweDtmb250LXN0eWxlOm5vcm1hbDtmb250LXdlaWdodDpub3JtYWw7ZmlsbC1vcGFjaXR5OjE7c3Ryb2tlOm5vbmU7Zm9udC1mYW1pbHk6c2Fucy1zZXJpZjt0ZXh0LWFuY2hvcjpzdGFydDtmaWxsOiMwMDAwRkYnID48dHNwYW4&#43;SDwvdHNwYW4&#43;PHRzcGFuIHN0eWxlPSdiYXNlbGluZS1zaGlmdDpzdWI7Zm9udC1zaXplOjIuMjVweDsnPjI8L3RzcGFuPjx0c3Bhbj5OPC90c3Bhbj48L3RleHQ&#43;Cjx0ZXh0IHg9JzIwLjg4MTEnIHk9JzU1LjI1MDEnIHN0eWxlPSdmb250LXNpemU6M3B4O2ZvbnQtc3R5bGU6bm9ybWFsO2ZvbnQtd2VpZ2h0Om5vcm1hbDtmaWxsLW9wYWNpdHk6MTtzdHJva2U6bm9uZTtmb250LWZhbWlseTpzYW5zLXNlcmlmO3RleHQtYW5jaG9yOnN0YXJ0O2ZpbGw6I0ZGMDAwMCcgPjx0c3Bhbj5PSDwvdHNwYW4&#43;PC90ZXh0Pgo8dGV4dCB4PSc3MC40NzU4JyB5PSc0MC41OTYzJyBzdHlsZT0nZm9udC1zaXplOjNweDtmb250LXN0eWxlOm5vcm1hbDtmb250LXdlaWdodDpub3JtYWw7ZmlsbC1vcGFjaXR5OjE7c3Ryb2tlOm5vbmU7Zm9udC1mYW1pbHk6c2Fucy1zZXJpZjt0ZXh0LWFuY2hvcjpzdGFydDtmaWxsOiNGRjAwMDAnID48dHNwYW4&#43;T0g8L3RzcGFuPjwvdGV4dD4KPC9zdmc&#43;Cg==</span>
+      <span itemprop="smiles">NCC(O)C1=CC=C(O)C=C1</span>
+      <span itemprop="inchi_key">QHGUCRYDKWKLMG-UHFFFAOYSA-N</span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000000295</span>
+      <span itemprop="name">complement</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000004069</span>
+      <span itemprop="name">differentiation</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000004519</span>
+      <span itemprop="name">manufacturing process</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000011159</span>
+      <span itemprop="name">matrix materials</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000006011</span>
+      <span itemprop="name">modification</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000004048</span>
+      <span itemprop="name">modification</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000000051</span>
+      <span itemprop="name">modifying</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000002829</span>
+      <span itemprop="name">reduced</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000004576</span>
+      <span itemprop="name">sand</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000000087</span>
+      <span itemprop="name">stabilizing</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000000725</span>
+      <span itemprop="name">suspension</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000002123</span>
+      <span itemprop="name">temporal effects</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">UJCHIZDEQZMODR-BYPYZUCNSA-N</span>
+      <span itemprop="name">(2R)-2-acetamido-3-sulfanylpropanamide</span>
+      <span itemprop="domain">Chemical compound</span>
+      <span itemprop="svg_large">data:image/svg&#43;xml;base64,PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0naXNvLTg4NTktMSc/Pgo8c3ZnIHZlcnNpb249JzEuMScgYmFzZVByb2ZpbGU9J2Z1bGwnCiAgICAgICAgICAgICAgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJwogICAgICAgICAgICAgICAgICAgICAgeG1sbnM6cmRraXQ9J2h0dHA6Ly93d3cucmRraXQub3JnL3htbCcKICAgICAgICAgICAgICAgICAgICAgIHhtbG5zOnhsaW5rPSdodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rJwogICAgICAgICAgICAgICAgICB4bWw6c3BhY2U9J3ByZXNlcnZlJwp3aWR0aD0nMzAwcHgnIGhlaWdodD0nMzAwcHgnID4KPCEtLSBFTkQgT0YgSEVBREVSIC0tPgo8cmVjdCBzdHlsZT0nb3BhY2l0eToxLjA7ZmlsbDojRkZGRkZGO3N0cm9rZTpub25lJyB3aWR0aD0nMzAwJyBoZWlnaHQ9JzMwMCcgeD0nMCcgeT0nMCc&#43;IDwvcmVjdD4KPHBhdGggY2xhc3M9J2JvbmQtMCcgZD0nTSAyODYuMzY0LDExNy40ODkgMjM5LjkzOCwxNDYuMDQ4JyBzdHlsZT0nZmlsbDpub25lO2ZpbGwtcnVsZTpldmVub2RkO3N0cm9rZTojMDAwMDAwO3N0cm9rZS13aWR0aDoycHg7c3Ryb2tlLWxpbmVjYXA6YnV0dDtzdHJva2UtbGluZWpvaW46bWl0ZXI7c3Ryb2tlLW9wYWNpdHk6MScgLz4KPHBhdGggY2xhc3M9J2JvbmQtMScgZD0nTSAyMzQuNDksMTQ2LjIwMSAyMzUuMTI0LDE2OC45MDEnIHN0eWxlPSdmaWxsOm5vbmU7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOiMwMDAwMDA7c3Ryb2tlLXdpZHRoOjJweDtzdHJva2UtbGluZWNhcDpidXR0O3N0cm9rZS1saW5lam9pbjptaXRlcjtzdHJva2Utb3BhY2l0eToxJyAvPgo8cGF0aCBjbGFzcz0nYm9uZC0xJyBkPSdNIDIzNS4xMjQsMTY4LjkwMSAyMzUuNzU3LDE5MS42MDInIHN0eWxlPSdmaWxsOm5vbmU7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOiNGRjAwMDA7c3Ryb2tlLXdpZHRoOjJweDtzdHJva2UtbGluZWNhcDpidXR0O3N0cm9rZS1saW5lam9pbjptaXRlcjtzdHJva2Utb3BhY2l0eToxJyAvPgo8cGF0aCBjbGFzcz0nYm9uZC0xJyBkPSdNIDI0NS4zODcsMTQ1Ljg5NiAyNDYuMDIxLDE2OC41OTcnIHN0eWxlPSdmaWxsOm5vbmU7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOiMwMDAwMDA7c3Ryb2tlLXdpZHRoOjJweDtzdHJva2UtbGluZWNhcDpidXR0O3N0cm9rZS1saW5lam9pbjptaXRlcjtzdHJva2Utb3BhY2l0eToxJyAvPgo8cGF0aCBjbGFzcz0nYm9uZC0xJyBkPSdNIDI0Ni4wMjEsMTY4LjU5NyAyNDYuNjU0LDE5MS4yOTcnIHN0eWxlPSdmaWxsOm5vbmU7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOiNGRjAwMDA7c3Ryb2tlLXdpZHRoOjJweDtzdHJva2UtbGluZWNhcDpidXR0O3N0cm9rZS1saW5lam9pbjptaXRlcjtzdHJva2Utb3BhY2l0eToxJyAvPgo8cGF0aCBjbGFzcz0nYm9uZC0yJyBkPSdNIDIzOS45MzgsMTQ2LjA0OCAyMjMuODM5LDEzNy4zNDMnIHN0eWxlPSdmaWxsOm5vbmU7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOiMwMDAwMDA7c3Ryb2tlLXdpZHRoOjJweDtzdHJva2UtbGluZWNhcDpidXR0O3N0cm9rZS1saW5lam9pbjptaXRlcjtzdHJva2Utb3BhY2l0eToxJyAvPgo8cGF0aCBjbGFzcz0nYm9uZC0yJyBkPSdNIDIyMy44MzksMTM3LjM0MyAyMDcuNzQsMTI4LjYzOCcgc3R5bGU9J2ZpbGw6bm9uZTtmaWxsLXJ1bGU6ZXZlbm9kZDtzdHJva2U6IzAwMDBGRjtzdHJva2Utd2lkdGg6MnB4O3N0cm9rZS1saW5lY2FwOmJ1dHQ7c3Ryb2tlLWxpbmVqb2luOm1pdGVyO3N0cm9rZS1vcGFjaXR5OjEnIC8&#43;CjxwYXRoIGNsYXNzPSdib25kLTMnIGQ9J00gMTc3LjIyNSwxMjkuMjA3IDE2MS4zOTYsMTM4Ljk0NScgc3R5bGU9J2ZpbGw6bm9uZTtmaWxsLXJ1bGU6ZXZlbm9kZDtzdHJva2U6IzAwMDBGRjtzdHJva2Utd2lkdGg6MnB4O3N0cm9rZS1saW5lY2FwOmJ1dHQ7c3Ryb2tlLWxpbmVqb2luOm1pdGVyO3N0cm9rZS1vcGFjaXR5OjEnIC8&#43;CjxwYXRoIGNsYXNzPSdib25kLTMnIGQ9J00gMTYxLjM5NiwxMzguOTQ1IDE0NS41NjcsMTQ4LjY4Mycgc3R5bGU9J2ZpbGw6bm9uZTtmaWxsLXJ1bGU6ZXZlbm9kZDtzdHJva2U6IzAwMDAwMDtzdHJva2Utd2lkdGg6MnB4O3N0cm9rZS1saW5lY2FwOmJ1dHQ7c3Ryb2tlLWxpbmVqb2luOm1pdGVyO3N0cm9rZS1vcGFjaXR5OjEnIC8&#43;CjxwYXRoIGNsYXNzPSdib25kLTQnIGQ9J00gMTQ1LjU2NywxNDguNjgzIDE0MS42MzksMjAzLjMyIDE1Mi41MzYsMjAzLjAxNiAxNDUuNTY3LDE0OC42ODMnIHN0eWxlPSdmaWxsOiMwMDAwMDA7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOiMwMDAwMDA7c3Ryb2tlLXdpZHRoOjJweDtzdHJva2UtbGluZWNhcDpidXR0O3N0cm9rZS1saW5lam9pbjptaXRlcjtzdHJva2Utb3BhY2l0eToxJyAvPgo8cGF0aCBjbGFzcz0nYm9uZC02JyBkPSdNIDE0NS41NjcsMTQ4LjY4MyA5Ny42MjA4LDEyMi43NTcnIHN0eWxlPSdmaWxsOm5vbmU7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOiMwMDAwMDA7c3Ryb2tlLXdpZHRoOjJweDtzdHJva2UtbGluZWNhcDpidXR0O3N0cm9rZS1saW5lam9pbjptaXRlcjtzdHJva2Utb3BhY2l0eToxJyAvPgo8cGF0aCBjbGFzcz0nYm9uZC01JyBkPSdNIDE0Ny4wODgsMjAzLjE2OCAxMzEuMjU5LDIxMi45MDYnIHN0eWxlPSdmaWxsOm5vbmU7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOiMwMDAwMDA7c3Ryb2tlLXdpZHRoOjJweDtzdHJva2UtbGluZWNhcDpidXR0O3N0cm9rZS1saW5lam9pbjptaXRlcjtzdHJva2Utb3BhY2l0eToxJyAvPgo8cGF0aCBjbGFzcz0nYm9uZC01JyBkPSdNIDEzMS4yNTksMjEyLjkwNiAxMTUuNDMsMjIyLjY0NCcgc3R5bGU9J2ZpbGw6bm9uZTtmaWxsLXJ1bGU6ZXZlbm9kZDtzdHJva2U6I0NDQ0MwMDtzdHJva2Utd2lkdGg6MnB4O3N0cm9rZS1saW5lY2FwOmJ1dHQ7c3Ryb2tlLWxpbmVqb2luOm1pdGVyO3N0cm9rZS1vcGFjaXR5OjEnIC8&#43;CjxwYXRoIGNsYXNzPSdib25kLTcnIGQ9J00gOTcuNjIwOCwxMjIuNzU3IDgyLjUzMDEsMTMyLjA0MScgc3R5bGU9J2ZpbGw6bm9uZTtmaWxsLXJ1bGU6ZXZlbm9kZDtzdHJva2U6IzAwMDAwMDtzdHJva2Utd2lkdGg6MnB4O3N0cm9rZS1saW5lY2FwOmJ1dHQ7c3Ryb2tlLWxpbmVqb2luOm1pdGVyO3N0cm9rZS1vcGFjaXR5OjEnIC8&#43;CjxwYXRoIGNsYXNzPSdib25kLTcnIGQ9J00gODIuNTMwMSwxMzIuMDQxIDY3LjQzOTQsMTQxLjMyNCcgc3R5bGU9J2ZpbGw6bm9uZTtmaWxsLXJ1bGU6ZXZlbm9kZDtzdHJva2U6IzAwMDBGRjtzdHJva2Utd2lkdGg6MnB4O3N0cm9rZS1saW5lY2FwOmJ1dHQ7c3Ryb2tlLWxpbmVqb2luOm1pdGVyO3N0cm9rZS1vcGFjaXR5OjEnIC8&#43;CjxwYXRoIGNsYXNzPSdib25kLTgnIGQ9J00gMTAzLjA2OSwxMjIuNjA1IDEwMi40MzYsOTkuOTA0OCcgc3R5bGU9J2ZpbGw6bm9uZTtmaWxsLXJ1bGU6ZXZlbm9kZDtzdHJva2U6IzAwMDAwMDtzdHJva2Utd2lkdGg6MnB4O3N0cm9rZS1saW5lY2FwOmJ1dHQ7c3Ryb2tlLWxpbmVqb2luOm1pdGVyO3N0cm9rZS1vcGFjaXR5OjEnIC8&#43;CjxwYXRoIGNsYXNzPSdib25kLTgnIGQ9J00gMTAyLjQzNiw5OS45MDQ4IDEwMS44MDIsNzcuMjA0Mycgc3R5bGU9J2ZpbGw6bm9uZTtmaWxsLXJ1bGU6ZXZlbm9kZDtzdHJva2U6I0ZGMDAwMDtzdHJva2Utd2lkdGg6MnB4O3N0cm9rZS1saW5lY2FwOmJ1dHQ7c3Ryb2tlLWxpbmVqb2luOm1pdGVyO3N0cm9rZS1vcGFjaXR5OjEnIC8&#43;CjxwYXRoIGNsYXNzPSdib25kLTgnIGQ9J00gOTIuMTcyMiwxMjIuOTA5IDkxLjUzODYsMTAwLjIwOScgc3R5bGU9J2ZpbGw6bm9uZTtmaWxsLXJ1bGU6ZXZlbm9kZDtzdHJva2U6IzAwMDAwMDtzdHJva2Utd2lkdGg6MnB4O3N0cm9rZS1saW5lY2FwOmJ1dHQ7c3Ryb2tlLWxpbmVqb2luOm1pdGVyO3N0cm9rZS1vcGFjaXR5OjEnIC8&#43;CjxwYXRoIGNsYXNzPSdib25kLTgnIGQ9J00gOTEuNTM4NiwxMDAuMjA5IDkwLjkwNDksNzcuNTA4NScgc3R5bGU9J2ZpbGw6bm9uZTtmaWxsLXJ1bGU6ZXZlbm9kZDtzdHJva2U6I0ZGMDAwMDtzdHJva2Utd2lkdGg6MnB4O3N0cm9rZS1saW5lY2FwOmJ1dHQ7c3Ryb2tlLWxpbmVqb2luOm1pdGVyO3N0cm9rZS1vcGFjaXR5OjEnIC8&#43;Cjx0ZXh0IHg9JzIzMi45NzUnIHk9JzIwOS42MTgnIHN0eWxlPSdmb250LXNpemU6MThweDtmb250LXN0eWxlOm5vcm1hbDtmb250LXdlaWdodDpub3JtYWw7ZmlsbC1vcGFjaXR5OjE7c3Ryb2tlOm5vbmU7Zm9udC1mYW1pbHk6c2Fucy1zZXJpZjt0ZXh0LWFuY2hvcjpzdGFydDtmaWxsOiNGRjAwMDAnID48dHNwYW4&#43;TzwvdHNwYW4&#43;PC90ZXh0Pgo8dGV4dCB4PScxNzYuMjQ0JyB5PScxMjkuMjA3JyBzdHlsZT0nZm9udC1zaXplOjE4cHg7Zm9udC1zdHlsZTpub3JtYWw7Zm9udC13ZWlnaHQ6bm9ybWFsO2ZpbGwtb3BhY2l0eToxO3N0cm9rZTpub25lO2ZvbnQtZmFtaWx5OnNhbnMtc2VyaWY7dGV4dC1hbmNob3I6c3RhcnQ7ZmlsbDojMDAwMEZGJyA&#43;PHRzcGFuPk5IPC90c3Bhbj48L3RleHQ&#43;Cjx0ZXh0IHg9Jzg1LjUxNDcnIHk9JzI0MC44MTInIHN0eWxlPSdmb250LXNpemU6MThweDtmb250LXN0eWxlOm5vcm1hbDtmb250LXdlaWdodDpub3JtYWw7ZmlsbC1vcGFjaXR5OjE7c3Ryb2tlOm5vbmU7Zm9udC1mYW1pbHk6c2Fucy1zZXJpZjt0ZXh0LWFuY2hvcjpzdGFydDtmaWxsOiNDQ0NDMDAnID48dHNwYW4&#43;SFM8L3RzcGFuPjwvdGV4dD4KPHRleHQgeD0nMzIuNDE1OScgeT0nMTYxLjMxJyBzdHlsZT0nZm9udC1zaXplOjE4cHg7Zm9udC1zdHlsZTpub3JtYWw7Zm9udC13ZWlnaHQ6bm9ybWFsO2ZpbGwtb3BhY2l0eToxO3N0cm9rZTpub25lO2ZvbnQtZmFtaWx5OnNhbnMtc2VyaWY7dGV4dC1hbmNob3I6c3RhcnQ7ZmlsbDojMDAwMEZGJyA&#43;PHRzcGFuPkg8L3RzcGFuPjx0c3BhbiBzdHlsZT0nYmFzZWxpbmUtc2hpZnQ6c3ViO2ZvbnQtc2l6ZToxMy41cHg7Jz4yPC90c3Bhbj48dHNwYW4&#43;TjwvdHNwYW4&#43;PC90ZXh0Pgo8dGV4dCB4PSc4Ny42MTUyJyB5PSc3Ny4zNTY0JyBzdHlsZT0nZm9udC1zaXplOjE4cHg7Zm9udC1zdHlsZTpub3JtYWw7Zm9udC13ZWlnaHQ6bm9ybWFsO2ZpbGwtb3BhY2l0eToxO3N0cm9rZTpub25lO2ZvbnQtZmFtaWx5OnNhbnMtc2VyaWY7dGV4dC1hbmNob3I6c3RhcnQ7ZmlsbDojRkYwMDAwJyA&#43;PHRzcGFuPk88L3RzcGFuPjwvdGV4dD4KPC9zdmc&#43;Cg==</span>
+      <span itemprop="svg_small">data:image/svg&#43;xml;base64,PD94bWwgdmVyc2lvbj0nMS4wJyBlbmNvZGluZz0naXNvLTg4NTktMSc/Pgo8c3ZnIHZlcnNpb249JzEuMScgYmFzZVByb2ZpbGU9J2Z1bGwnCiAgICAgICAgICAgICAgeG1sbnM9J2h0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnJwogICAgICAgICAgICAgICAgICAgICAgeG1sbnM6cmRraXQ9J2h0dHA6Ly93d3cucmRraXQub3JnL3htbCcKICAgICAgICAgICAgICAgICAgICAgIHhtbG5zOnhsaW5rPSdodHRwOi8vd3d3LnczLm9yZy8xOTk5L3hsaW5rJwogICAgICAgICAgICAgICAgICB4bWw6c3BhY2U9J3ByZXNlcnZlJwp3aWR0aD0nODVweCcgaGVpZ2h0PSc4NXB4JyA&#43;CjwhLS0gRU5EIE9GIEhFQURFUiAtLT4KPHJlY3Qgc3R5bGU9J29wYWNpdHk6MS4wO2ZpbGw6I0ZGRkZGRjtzdHJva2U6bm9uZScgd2lkdGg9Jzg1JyBoZWlnaHQ9Jzg1JyB4PScwJyB5PScwJz4gPC9yZWN0Pgo8cGF0aCBjbGFzcz0nYm9uZC0wJyBkPSdNIDgwLjYzNjQsMzIuNzg4NCA2Ny40ODI1LDQwLjg4MDQnIHN0eWxlPSdmaWxsOm5vbmU7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOiMwMDAwMDA7c3Ryb2tlLXdpZHRoOjJweDtzdHJva2UtbGluZWNhcDpidXR0O3N0cm9rZS1saW5lam9pbjptaXRlcjtzdHJva2Utb3BhY2l0eToxJyAvPgo8cGF0aCBjbGFzcz0nYm9uZC0xJyBkPSdNIDY1LjkzODgsNDAuOTIzNSA2Ni4xMTgzLDQ3LjM1NTMnIHN0eWxlPSdmaWxsOm5vbmU7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOiMwMDAwMDA7c3Ryb2tlLXdpZHRoOjJweDtzdHJva2UtbGluZWNhcDpidXR0O3N0cm9rZS1saW5lam9pbjptaXRlcjtzdHJva2Utb3BhY2l0eToxJyAvPgo8cGF0aCBjbGFzcz0nYm9uZC0xJyBkPSdNIDY2LjExODMsNDcuMzU1MyA2Ni4yOTc5LDUzLjc4NzEnIHN0eWxlPSdmaWxsOm5vbmU7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOiNGRjAwMDA7c3Ryb2tlLXdpZHRoOjJweDtzdHJva2UtbGluZWNhcDpidXR0O3N0cm9rZS1saW5lam9pbjptaXRlcjtzdHJva2Utb3BhY2l0eToxJyAvPgo8cGF0aCBjbGFzcz0nYm9uZC0xJyBkPSdNIDY5LjAyNjMsNDAuODM3MyA2OS4yMDU4LDQ3LjI2OTEnIHN0eWxlPSdmaWxsOm5vbmU7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOiMwMDAwMDA7c3Ryb2tlLXdpZHRoOjJweDtzdHJva2UtbGluZWNhcDpidXR0O3N0cm9rZS1saW5lam9pbjptaXRlcjtzdHJva2Utb3BhY2l0eToxJyAvPgo8cGF0aCBjbGFzcz0nYm9uZC0xJyBkPSdNIDY5LjIwNTgsNDcuMjY5MSA2OS4zODU0LDUzLjcwMDknIHN0eWxlPSdmaWxsOm5vbmU7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOiNGRjAwMDA7c3Ryb2tlLXdpZHRoOjJweDtzdHJva2UtbGluZWNhcDpidXR0O3N0cm9rZS1saW5lam9pbjptaXRlcjtzdHJva2Utb3BhY2l0eToxJyAvPgo8cGF0aCBjbGFzcz0nYm9uZC0yJyBkPSdNIDY3LjQ4MjUsNDAuODgwNCA2Mi45MjExLDM4LjQxMzknIHN0eWxlPSdmaWxsOm5vbmU7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOiMwMDAwMDA7c3Ryb2tlLXdpZHRoOjJweDtzdHJva2UtbGluZWNhcDpidXR0O3N0cm9rZS1saW5lam9pbjptaXRlcjtzdHJva2Utb3BhY2l0eToxJyAvPgo8cGF0aCBjbGFzcz0nYm9uZC0yJyBkPSdNIDYyLjkyMTEsMzguNDEzOSA1OC4zNTk3LDM1Ljk0NzUnIHN0eWxlPSdmaWxsOm5vbmU7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOiMwMDAwRkY7c3Ryb2tlLXdpZHRoOjJweDtzdHJva2UtbGluZWNhcDpidXR0O3N0cm9rZS1saW5lam9pbjptaXRlcjtzdHJva2Utb3BhY2l0eToxJyAvPgo8cGF0aCBjbGFzcz0nYm9uZC0zJyBkPSdNIDQ5LjcxMzgsMzYuMTA4OCA0NS4yMjg5LDM4Ljg2NzgnIHN0eWxlPSdmaWxsOm5vbmU7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOiMwMDAwRkY7c3Ryb2tlLXdpZHRoOjJweDtzdHJva2UtbGluZWNhcDpidXR0O3N0cm9rZS1saW5lam9pbjptaXRlcjtzdHJva2Utb3BhY2l0eToxJyAvPgo8cGF0aCBjbGFzcz0nYm9uZC0zJyBkPSdNIDQ1LjIyODksMzguODY3OCA0MC43NDQsNDEuNjI2OCcgc3R5bGU9J2ZpbGw6bm9uZTtmaWxsLXJ1bGU6ZXZlbm9kZDtzdHJva2U6IzAwMDAwMDtzdHJva2Utd2lkdGg6MnB4O3N0cm9rZS1saW5lY2FwOmJ1dHQ7c3Ryb2tlLWxpbmVqb2luOm1pdGVyO3N0cm9rZS1vcGFjaXR5OjEnIC8&#43;CjxwYXRoIGNsYXNzPSdib25kLTQnIGQ9J00gNDAuNzQ0LDQxLjYyNjggMzkuNjMxMiw1Ny4xMDc0IDQyLjcxODcsNTcuMDIxMiA0MC43NDQsNDEuNjI2OCcgc3R5bGU9J2ZpbGw6IzAwMDAwMDtmaWxsLXJ1bGU6ZXZlbm9kZDtzdHJva2U6IzAwMDAwMDtzdHJva2Utd2lkdGg6MnB4O3N0cm9rZS1saW5lY2FwOmJ1dHQ7c3Ryb2tlLWxpbmVqb2luOm1pdGVyO3N0cm9rZS1vcGFjaXR5OjEnIC8&#43;CjxwYXRoIGNsYXNzPSdib25kLTYnIGQ9J00gNDAuNzQ0LDQxLjYyNjggMjcuMTU5MiwzNC4yODEyJyBzdHlsZT0nZmlsbDpub25lO2ZpbGwtcnVsZTpldmVub2RkO3N0cm9rZTojMDAwMDAwO3N0cm9rZS13aWR0aDoycHg7c3Ryb2tlLWxpbmVjYXA6YnV0dDtzdHJva2UtbGluZWpvaW46bWl0ZXI7c3Ryb2tlLW9wYWNpdHk6MScgLz4KPHBhdGggY2xhc3M9J2JvbmQtNScgZD0nTSA0MS4xNzQ5LDU3LjA2NDMgMzYuNjksNTkuODIzMycgc3R5bGU9J2ZpbGw6bm9uZTtmaWxsLXJ1bGU6ZXZlbm9kZDtzdHJva2U6IzAwMDAwMDtzdHJva2Utd2lkdGg6MnB4O3N0cm9rZS1saW5lY2FwOmJ1dHQ7c3Ryb2tlLWxpbmVqb2luOm1pdGVyO3N0cm9rZS1vcGFjaXR5OjEnIC8&#43;CjxwYXRoIGNsYXNzPSdib25kLTUnIGQ9J00gMzYuNjksNTkuODIzMyAzMi4yMDUxLDYyLjU4MjQnIHN0eWxlPSdmaWxsOm5vbmU7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOiNDQ0NDMDA7c3Ryb2tlLXdpZHRoOjJweDtzdHJva2UtbGluZWNhcDpidXR0O3N0cm9rZS1saW5lam9pbjptaXRlcjtzdHJva2Utb3BhY2l0eToxJyAvPgo8cGF0aCBjbGFzcz0nYm9uZC03JyBkPSdNIDI3LjE1OTIsMzQuMjgxMiAyMi44ODM1LDM2LjkxMTYnIHN0eWxlPSdmaWxsOm5vbmU7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOiMwMDAwMDA7c3Ryb2tlLXdpZHRoOjJweDtzdHJva2UtbGluZWNhcDpidXR0O3N0cm9rZS1saW5lam9pbjptaXRlcjtzdHJva2Utb3BhY2l0eToxJyAvPgo8cGF0aCBjbGFzcz0nYm9uZC03JyBkPSdNIDIyLjg4MzUsMzYuOTExNiAxOC42MDc4LDM5LjU0MTknIHN0eWxlPSdmaWxsOm5vbmU7ZmlsbC1ydWxlOmV2ZW5vZGQ7c3Ryb2tlOiMwMDAwRkY7c3Ryb2tlLXdpZHRoOjJweDtzdHJva2UtbGluZWNhcDpidXR0O3N0cm9rZS1saW5lam9pbjptaXRlcjtzdHJva2Utb3BhY2l0eToxJyAvPgo8cGF0aCBjbGFzcz0nYm9uZC04JyBkPSdNIDI4LjcwMywzNC4yMzgxIDI4LjUyMzQsMjcuODA2Mycgc3R5bGU9J2ZpbGw6bm9uZTtmaWxsLXJ1bGU6ZXZlbm9kZDtzdHJva2U6IzAwMDAwMDtzdHJva2Utd2lkdGg6MnB4O3N0cm9rZS1saW5lY2FwOmJ1dHQ7c3Ryb2tlLWxpbmVqb2luOm1pdGVyO3N0cm9rZS1vcGFjaXR5OjEnIC8&#43;CjxwYXRoIGNsYXNzPSdib25kLTgnIGQ9J00gMjguNTIzNCwyNy44MDYzIDI4LjM0MzksMjEuMzc0NScgc3R5bGU9J2ZpbGw6bm9uZTtmaWxsLXJ1bGU6ZXZlbm9kZDtzdHJva2U6I0ZGMDAwMDtzdHJva2Utd2lkdGg6MnB4O3N0cm9rZS1saW5lY2FwOmJ1dHQ7c3Ryb2tlLWxpbmVqb2luOm1pdGVyO3N0cm9rZS1vcGFjaXR5OjEnIC8&#43;CjxwYXRoIGNsYXNzPSdib25kLTgnIGQ9J00gMjUuNjE1NSwzNC4zMjQzIDI1LjQzNTksMjcuODkyNScgc3R5bGU9J2ZpbGw6bm9uZTtmaWxsLXJ1bGU6ZXZlbm9kZDtzdHJva2U6IzAwMDAwMDtzdHJva2Utd2lkdGg6MnB4O3N0cm9rZS1saW5lY2FwOmJ1dHQ7c3Ryb2tlLWxpbmVqb2luOm1pdGVyO3N0cm9rZS1vcGFjaXR5OjEnIC8&#43;CjxwYXRoIGNsYXNzPSdib25kLTgnIGQ9J00gMjUuNDM1OSwyNy44OTI1IDI1LjI1NjQsMjEuNDYwNycgc3R5bGU9J2ZpbGw6bm9uZTtmaWxsLXJ1bGU6ZXZlbm9kZDtzdHJva2U6I0ZGMDAwMDtzdHJva2Utd2lkdGg6MnB4O3N0cm9rZS1saW5lY2FwOmJ1dHQ7c3Ryb2tlLWxpbmVqb2luOm1pdGVyO3N0cm9rZS1vcGFjaXR5OjEnIC8&#43;Cjx0ZXh0IHg9JzY1LjUwOTUnIHk9JzU4Ljg5MTknIHN0eWxlPSdmb250LXNpemU6NXB4O2ZvbnQtc3R5bGU6bm9ybWFsO2ZvbnQtd2VpZ2h0Om5vcm1hbDtmaWxsLW9wYWNpdHk6MTtzdHJva2U6bm9uZTtmb250LWZhbWlseTpzYW5zLXNlcmlmO3RleHQtYW5jaG9yOnN0YXJ0O2ZpbGw6I0ZGMDAwMCcgPjx0c3Bhbj5PPC90c3Bhbj48L3RleHQ&#43;Cjx0ZXh0IHg9JzQ5LjQzNTknIHk9JzM2LjEwODgnIHN0eWxlPSdmb250LXNpemU6NXB4O2ZvbnQtc3R5bGU6bm9ybWFsO2ZvbnQtd2VpZ2h0Om5vcm1hbDtmaWxsLW9wYWNpdHk6MTtzdHJva2U6bm9uZTtmb250LWZhbWlseTpzYW5zLXNlcmlmO3RleHQtYW5jaG9yOnN0YXJ0O2ZpbGw6IzAwMDBGRicgPjx0c3Bhbj5OSDwvdHNwYW4&#43;PC90ZXh0Pgo8dGV4dCB4PScyMy43MjkyJyB5PSc2Ny43MzAyJyBzdHlsZT0nZm9udC1zaXplOjVweDtmb250LXN0eWxlOm5vcm1hbDtmb250LXdlaWdodDpub3JtYWw7ZmlsbC1vcGFjaXR5OjE7c3Ryb2tlOm5vbmU7Zm9udC1mYW1pbHk6c2Fucy1zZXJpZjt0ZXh0LWFuY2hvcjpzdGFydDtmaWxsOiNDQ0NDMDAnID48dHNwYW4&#43;SFM8L3RzcGFuPjwvdGV4dD4KPHRleHQgeD0nOC42ODQ1MicgeT0nNDUuMjA0NScgc3R5bGU9J2ZvbnQtc2l6ZTo1cHg7Zm9udC1zdHlsZTpub3JtYWw7Zm9udC13ZWlnaHQ6bm9ybWFsO2ZpbGwtb3BhY2l0eToxO3N0cm9rZTpub25lO2ZvbnQtZmFtaWx5OnNhbnMtc2VyaWY7dGV4dC1hbmNob3I6c3RhcnQ7ZmlsbDojMDAwMEZGJyA&#43;PHRzcGFuPkg8L3RzcGFuPjx0c3BhbiBzdHlsZT0nYmFzZWxpbmUtc2hpZnQ6c3ViO2ZvbnQtc2l6ZTozLjc1cHg7Jz4yPC90c3Bhbj48dHNwYW4&#43;TjwvdHNwYW4&#43;PC90ZXh0Pgo8dGV4dCB4PScyNC4zMjQzJyB5PScyMS40MTc2JyBzdHlsZT0nZm9udC1zaXplOjVweDtmb250LXN0eWxlOm5vcm1hbDtmb250LXdlaWdodDpub3JtYWw7ZmlsbC1vcGFjaXR5OjE7c3Ryb2tlOm5vbmU7Zm9udC1mYW1pbHk6c2Fucy1zZXJpZjt0ZXh0LWFuY2hvcjpzdGFydDtmaWxsOiNGRjAwMDAnID48dHNwYW4&#43;TzwvdHNwYW4&#43;PC90ZXh0Pgo8L3N2Zz4K</span>
+      <span itemprop="smiles">CC(=O)N[C@@H](CS)C(N)=O</span>
+      <span itemprop="inchi_key">UJCHIZDEQZMODR-BYPYZUCNSA-N</span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000005452</span>
+      <span itemprop="name">bending</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000010276</span>
+      <span itemprop="name">construction</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000011162</span>
+      <span itemprop="name">core materials</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000007405</span>
+      <span itemprop="name">data analysis</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000002939</span>
+      <span itemprop="name">deleterious</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001419</span>
+      <span itemprop="name">dependent</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001066</span>
+      <span itemprop="name">destructive</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000009826</span>
+      <span itemprop="name">distribution</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001747</span>
+      <span itemprop="name">exhibited</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000004744</span>
+      <span itemprop="name">fabric</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000011152</span>
+      <span itemprop="name">fibreglass</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000006260</span>
+      <span itemprop="name">foams</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000010439</span>
+      <span itemprop="name">graphite</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000036541</span>
+      <span itemprop="name">health</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001965</span>
+      <span itemprop="name">increased</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000002245</span>
+      <span itemprop="name">particles</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000010010</span>
+      <span itemprop="name">raising</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000003014</span>
+      <span itemprop="name">reinforcing</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000003595</span>
+      <span itemprop="name">spectral</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000003068</span>
+      <span itemprop="name">static</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001629</span>
+      <span itemprop="name">suppression</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000002459</span>
+      <span itemprop="name">sustained</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001131</span>
+      <span itemprop="name">transforming</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000007514</span>
+      <span itemprop="name">turning</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+  </ul>
+  
+
+  
+
+  <section>
+    <h2>Classifications</h2>
+    
+    <ul>
+      <li>
+        <ul itemprop="cpcs" itemscope repeat>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G</span>&mdash;<span itemprop="Description">PHYSICS</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G01</span>&mdash;<span itemprop="Description">MEASURING; TESTING</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G01H</span>&mdash;<span itemprop="Description">MEASUREMENT OF MECHANICAL VIBRATIONS OR ULTRASONIC, SONIC OR INFRASONIC WAVES</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G01H1/00</span>&mdash;<span itemprop="Description">Measuring characteristics of vibrations in solids by using direct conduction to the detector</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G01H1/04</span>&mdash;<span itemprop="Description">Measuring characteristics of vibrations in solids by using direct conduction to the detector of vibrations which are transverse to direction of propagation</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G01H1/06</span>&mdash;<span itemprop="Description">Frequency</span>
+            <meta itemprop="Leaf" content="true">
+            
+            <meta itemprop="FirstCode" content="true">
+          </li>
+          </ul>
+      </li>
+      </ul>
+  </section>
+
+  <section itemprop="abstract" itemscope>
+    <h2>Abstract</h2>
+    
+    <div itemprop="content" html><abstract mxw-id="PA51277901" lang="EN" load-source="patent-office">
+    <div num="p-0001" class="abstract">An apparatus, computer program product and method of analyzing structures. Intrinsic Mode Functions (IMFs) are extracted from the data and the most energetic IMF is selected. A spline is fit to the envelope for the selected IMF. The spline derivative is determined. A stability spectrum is developed by separating the positive and negative results into two different spectra representing stable (positive) and unstable (negative) damping factors. The stability spectrum and the non-linearity indicator are applied to the data to isolate unstable vibrations.</div>
+  </abstract>
+  </div>
+  </section>
+
+  <section itemprop="description" itemscope>
+    <h2>Description</h2>
+    
+    <div itemprop="content" html><div mxw-id="PDES16380284" lang="EN" load-source="patent-office" class="description">
+
+  <heading>ORIGIN OF THE INVENTION</heading>
+  <p num="p-0002">The invention described herein was made by employees of the United States Government, and may be manufactured and used by or for the Government for governmental purposes without the payment of any royalties thereon or therefor.</p>
+  <heading>REFERENCE TO COMPUTER PROGRAM LISTING</heading>
+  <p num="p-0003">A computer listing labeled ISSpec.txt is fixed on a computer disc (CD) that is appended hereto and is being fixed herewith, the contents of which are incorporated herein by reference in their entirety.</p>
+  <heading>BACKGROUND OF THE INVENTION</heading>
+  <p num="p-0004">1. Field of the Invention</p>
+  <p num="p-0005">The present invention is generally related to a data analysis method, apparatus and article of manufacture and more particularly to an apparatus, article of manufacture and analysis method for measuring and analyzing vibrations and identifying failure signatures in the vibrations.</p>
+  <p num="p-0006">2. Background Description</p>
+  <p num="p-0007">System efficiency is a measure of the energy expended in performing a task with respect to the energy consumed by the system to perform the task. Energy may be lost, for example, thermally (e.g., as heat), optically (e.g., as light) or mechanically (e.g., as vibrations). Besides dissipating energy to reduce efficiency, vibrations can stress a structure to the point of failure. Thus, designers commonly resort to various design methods to reduce and minimize vibration. However, system dynamics may cause vibration, i.e., where time varying forces induce system vibrations. Consequently, structural vibrations can never be totally avoided or eliminated.</p>
+  <p num="p-0008">The renowned Tacoma Narrow Suspension Bridge is one well-known example of deleterious vibrations in a structure. Wind caused the bridge to vibrate at resonance. During a period of sustained high wind, the wind re-enforced the resonant vibrations. The bridge oscillation magnitude continually increased until a structural failure occurred and the bridge collapsed. Although most bridges sway in the wind to some extent, most do not collapse from the swaying. Unfortunately, no one had any idea that wind would cause the collapse of Tacoma Narrow Suspension Bridge. Otherwise, officials could have taken steps to address that instability, e.g., introduce members to change the resonant frequency or, at least, to dampen the vibrations that caused the bridge to sway.</p>
+  <p num="p-0009">So, while vibrations may be unavoidable, monitoring and analyzing vibrations, whether in the overall system or in a single structural member, can provide valuable insight and additional information regarding the dynamic characteristics of the structure/system. Every structural member has a natural resonant frequency that is related in part to its stiffness. Typically, material stiffness changes just prior to failing. For example, when bending a wire back and forth, one may notice that the wire gets softer just before it breaks. So, since one may determine changes in stiffness by measuring vibration frequency, measuring vibration frequency has proven to be one valuable indication for non-destructive health monitoring. The time-frequency distribution of vibrations in machinery as well as in static structures also have been analyzed to determine structural damping characteristics with respect to system dynamics.</p>
+  <p num="p-0010">Though a number of approaches are available for studying structural vibrations, unfortunately, those approaches do not separate stabilizing, dampening vibrations from de-stabilizing vibrations or vibrations that indicate instability. Further, those approaches typically, do not provide consistently reliable dampening predictor indications.</p>
+  <p num="p-0011">In particular, it is important to understand vibrational instability in modern airborne structures. State of the art aircraft materials and aircraft construction methods have led to structures that are lighter in weight but also are reduced in stiffness. Consequently, these aero-elastic design materials have such reduced stiffness that the resulting structures are susceptible to structural dynamics problems, specifically the onset of instability. Unfortunately, adequate tools are unavailable to predict stability margins for these structures, especially, tools applicable to understanding structural dynamic instabilities such as flutter. It is critical to flight safety in particular to have valid flight flutter prediction techniques that can determine the onset of instability in aero-elastic structures from the flight data.</p>
+  <p num="p-0012">Thus, there is a need for tools that reliably predict stability margins in aero-elastic structures applicable to structural dynamic instabilities such as flutter.</p>
+  <heading>SUMMARY OF THE INVENTION</heading>
+  <p num="p-0013">It is an aspect of the invention to reliably predict structural failures;</p>
+  <p num="p-0014">It is another aspect of the invention to characterize structural vibrations;</p>
+  <p num="p-0015">It is yet another aspect of the invention to identify changes in stiffness in vibrating structural members;</p>
+  <p num="p-0016">It is yet another aspect of the invention to identify changes in stiffness in a vibrating structural member that indicates the onset of a structural failure;</p>
+  <p num="p-0017">It is yet another aspect of the invention to identify changes in stiffness in a vibrating aero-elastic structure that indicates the onset of a failure of the aero-elastic structure.</p>
+  <p num="p-0018">The present invention relates to an apparatus, computer program product and method of analyzing structures. Intrinsic Mode Functions (IMFs) preferably are extracted from the data and the most energetic IMF is selected. A spline preferably is fit to the envelope for the selected IMF. The spline derivative preferably is determined. A stability spectrum preferably is developed by separating the positive and negative results into two different spectra representing stable (positive) and unstable (negative) damping factors. The stability spectrum and the non-linearity indicator preferably are applied to the data to isolate unstable vibrations.</p>
+
+
+  <description-of-drawings>
+    <heading>BRIEF DESCRIPTION OF THE DRAWINGS</heading>
+    <p num="p-0019">The foregoing and other aspects and advantages will be better understood from the following detailed description of a preferred embodiment of the invention with reference to the drawings, in which:</p>
+    <p num="p-0020"> <figref idrefs="DRAWINGS">FIG. 1</figref> shows a flow diagram example of steps in analyzing structural vibrations according to a preferred embodiment of the present invention;</p>
+    <p num="p-0021"> <figref idrefs="DRAWINGS">FIG. 2</figref> shows an example of a segment of vibration test data collected at a drastic failure event;</p>
+    <p num="p-0022"> <figref idrefs="DRAWINGS">FIGS. 3A-T</figref> show IMF components, c<sub>j</sub>(t), extracted from the signal, x(t);</p>
+    <p num="p-0023"> <figref idrefs="DRAWINGS">FIG. 4</figref> shows the segment of interest of the test data, comparing the NHHT amplitude envelope with a preferred embodiment cubic spline amplitude envelope;</p>
+    <p num="p-0024"> <figref idrefs="DRAWINGS">FIG. 5</figref> shows a comparison of the Hilbert transform envelope derivative and the spline envelope derivative;</p>
+    <p num="p-0025"> <figref idrefs="DRAWINGS">FIGS. 6A-B</figref> show examples of the effects of smoothing on determining the stability indicator in step, comparing the Hilbert transform derivative and spline envelope of a 5-point smoothing mean and a 21-point smoothing mean;</p>
+    <p num="p-0026"> <figref idrefs="DRAWINGS">FIGS. 7A-D</figref> show an example of 10-point averaging to smooth the Hilbert Stability spectrum from ISSpec with cutoff values at 0.001, 0.005, 0.01, and 0.1 with both positive and negative damping factors;</p>
+    <p num="p-0027"> <figref idrefs="DRAWINGS">FIGS. 8A-B</figref> show a summary view example of the effects of the cutoff limit selection;</p>
+    <p num="p-0028"> <figref idrefs="DRAWINGS">FIGS. 9A-E</figref> show an example comparing the smoothing length, D in 3, 5, 10, 15 and 20 point averaging, respectively, to smooth the Hilbert Stability spectrum from ISSpec with cutoff value at 0.01 for both positive and negative damping factors;</p>
+    <p num="p-0029"> <figref idrefs="DRAWINGS">FIGS. 10A-B</figref> show a summary view example of the effects of the smoothing length selection;</p>
+    <p num="p-0030"> <figref idrefs="DRAWINGS">FIGS. 11A-B</figref>, show a comparison of instantaneous frequency extracted using the Teager Energy Operator (TEO), NHHT and Generalized Zero-Crossing (GZC).</p>
+  </description-of-drawings>
+
+
+  <heading>DETAILED DESCRIPTION</heading>
+  <p num="p-0031">Turning now to the drawings and more particularly <figref idrefs="DRAWINGS">FIG. 1</figref> a flow diagram example <b>100</b> of steps in analyzing structural vibrations to identify changes in material stiffness according to a preferred embodiment of the present invention. In one embodiment, analysis begins in step <b>102</b> with collecting data. In step <b>104</b> Intrinsic Mode Functions (IMFs) preferably are extracted from the data. In step <b>106</b> the most energetic IMF preferably is applied to the most relevant frequency. In step <b>108</b> the envelope for the selected IMF preferably is defined using a spline function. Next, in step <b>110</b> the derivative of the spline function preferably is determined, which yields both positive and negative results. In step <b>112</b>, a stability spectrum preferably is developed by separating the positive and negative results into two different spectra representing stable (positive) and unstable (negative) damping factors. Also, the stability spectrum may be filtered to remove data from low level vibrations and smoothed to remove quantization related inconsistencies. In step <b>114</b>, a non-linearity indicator may be identified in the data. Finally, in step <b>116</b> the stability spectrum from step <b>112</b> and the non-linearity indicator identified in step <b>114</b> preferably are applied to the data to isolate unstable vibrations, that indicate a change in material stiffness and so, the onset of a failure.</p>
+  <p num="p-0032">Data collection may be effected in step <b>102</b> of <figref idrefs="DRAWINGS">FIG. 1</figref> by connecting sensors, e.g., accelerometers, directly to a suitable general purpose computer that has been suitably equipped, e.g., with one or more analog to digital (A/D) converter(s). Alternately, the data may be collected, independently and the collected data may be passed to such a suitable general purpose computer. IMFs may be extracted from the data step <b>104</b>, e.g., using the Hilbert Huang Transform (HHT) in Empirical Mode Decomposition (EMD) as described in U.S. Pat. No. 5,983,162, entitled “Empirical Mode Decomposition,” to Norden E. Huang, assigned to the assignee of the present invention and incorporated herein by reference in its entirety. The positive and negative results may be separated in step <b>112</b>, using a computer program such as the Instability Spectrum Analysis Program (ISSpec), which generates an instability spectrum (which is the complement of the stability spectrum) of the intrinsic mode functions. The ISSpec is fixed on a compact disc (CD) that is appended hereto, filed herewith, incorporated herein by reference in its entirety. Preferably, the damping factor is defined by the ratio of the derivative of the amplitude to the amplitude. So, damping factor values may dominate at the location where the vibration amplitude is small. Typically, however, when vibration amplitude is small, the energy in the vibrations may be low enough that energy density is of little dynamic consequence. Thus, an amplitude cutoff criterion may be used, e.g., by ISSpec, to ignore derivatives at low energy, so that the results are only from the vibrations with sufficient energy density. A non-linearity indicator may be identified in step <b>114</b>, e.g., as described in U.S. Pat. No. 6,862,558 to Norden E. Huang, assigned to the assignee of the present invention and incorporated herein by reference in its entirety. Preferably, the Teager Energy Operator (TEO) and the Normalized Hilbert Huang Transform (NHHT), or the Generalized Zero-Crossing (GZC) techniques are applied to compute the instantaneous frequency of the data. Thereafter, a general non-linear indicator may be defined as a substantial difference (e.g., at least a factor of 2) in the calculated instantaneous frequency, as determined by the TEO and the NHHT or the GZC</p>
+  <p num="p-0033">So, for example, <figref idrefs="DRAWINGS">FIG. 2</figref> shows an example of a segment of vibration test data collected in step <b>102</b> of <figref idrefs="DRAWINGS">FIG. 1</figref>. The data shown is only that portion at the onset of a drastic failure event that occurred 117.5 seconds into the test. From this data signals may be extracted to indicate the oncoming failure according to an embodiment of the present invention. The data was collected from a flight test specimen from an F-15B Flight Test Fixture from a NASA flight experiment by NASA Dryden Flight Research Center to validate flight flutter prediction techniques. Although not shown in this figure, at test start the vibration data begins with relatively uneventful, normal or background vibration until at about 115 seconds into the test, vibrations begin to increase until the test terminates at about 117.5 seconds. Thus, that 2.5 second segment is of interest for analysis. Previously, dampening vibrations in such a structure was effected as a result of studying the structure using smoothing through a moving means for the data. See, e.g., U.S. Pat. No. 6,507,798 B1, entitled “Time-Frequency Dependent Damping via Hilbert Damping Spectrum” to Salvino et al., issued Jan. 14, 2003, assigned to the assignee of the present invention and incorporated herein by reference in its entirety.</p>
+  <p num="p-0034">However, in addition to providing an indication that structural vibration dampening as in Salvino et al., one embodiment of the present invention performs structural vibration analysis that distinguishes between dampened vibrations in a stable system and reinforcing or resonant vibrations in an unstable or marginally stable system. Further, structural vibration stability characteristics may be extracted from the raw data to indicate whether the structure is stable or unstable. Thus, these vibration stability characteristics can serve as an operational safety criterion indicator. In particular, according to an embodiment of the present invention, the damping definition is generalized over Salvino et al., for example, to include both positive damping (stable) and negative damping (unstable), and the improvement of the damping computation. Advantageously, thereafter, one may easily distinguish such differences that are indicative of material stiffness changes, and if warranted, take steps in stabilizing an unstable or marginal structure. Although the present invention finds utility in studying and eliminating structural vibrations, it is understood that the present invention has application to any oscillatory or dampening secondary effects in a physical system.</p>
+  <p num="p-0035">The test specimen from which the data in <figref idrefs="DRAWINGS">FIG. 2</figref> was collected was the Aerostructures Test Wing (ATW), a NACA 65A004 airfoil with a wing area of 197 in<sup>2 </sup>and an aspect ratio of 3.28. The wing skin was 3 plies of fiberglass cloth 0.015″ thick and the wing core was rigid foam. Internally the wing had a spar at the 30% chord line, 1 ply, 0.005″ thick graphite-epoxy at its tip and 10 plies, 0.05″ thick at the root. The half span of the wing was 18 inches, with a root chord of 13.2 inches and a tip chord of 8.7 inches. The wing total weighed 2.66 pounds. A 1″ diameter, 15″ long graphite epoxy boom was attached to the wing. The boom included three internal accelerometers for collecting data (hereinafter ATW data) both in ground and flight-testing.</p>
+  <p num="p-0036"> <figref idrefs="DRAWINGS">FIGS. 3A-T</figref> show IMF components, c<sub>j</sub>(t), extracted as described in <figref idrefs="DRAWINGS">FIG. 1</figref> from the same ATW signal, x(t), that included the data segment of <figref idrefs="DRAWINGS">FIG. 2</figref>. EMD preferably is effected by filtering the digital data to extract IMFs in a manner analogous to electrically filtering harmonics or sifting sand with a mechanical sieve to separate aggregated sand particles according to their physical size. The digital signal data preferably are decomposed into a series of components according to their time scales with each component being an IMF. In particular, the signal can be decomposed through EMD as a sum of the IMFs with the form</p>
+  <p num="p-0037"> <maths id="MATH-US-00001" num="00001"> <math overflow="scroll"> <mrow> <mrow> <mi>x</mi> <mo>⁡</mo> <mrow> <mo>(</mo> <mi>t</mi> <mo>)</mo> </mrow> </mrow> <mo>=</mo> <mrow> <mrow> <munderover> <mo>∑</mo> <mrow> <mi>j</mi> <mo>=</mo> <mn>1</mn> </mrow> <mi>n</mi> </munderover> <mo>⁢</mo> <mrow> <msub> <mi>c</mi> <mi>j</mi> </msub> <mo>⁡</mo> <mrow> <mo>(</mo> <mi>t</mi> <mo>)</mo> </mrow> </mrow> </mrow> <mo>+</mo> <mrow> <msub> <mi>r</mi> <mi>n</mi> </msub> <mo>.</mo> </mrow> </mrow> </mrow> </math> </maths> <br/>
+In this equation r<sub>n </sub>represents the residual signal.
+</p>
+  <p num="p-0038">Each IMF represents an oscillation or vibration mode embedded in the data, as defined by the zero-crossings and involves only one mode of oscillation that satisfies the following two conditions: (a) the number of extrema and the number of zero-crossings either must be equal or differ at most by one within the data, and (b) at any point, the mean value of upper envelope defined by the maxima and the lower envelope defined by the minima is zero. For the exemplary signal of <figref idrefs="DRAWINGS">FIG. 2</figref>, 19 IMF components are extracted from the signal in step <b>104</b> of <figref idrefs="DRAWINGS">FIG. 1</figref>, and the signal may be reconstructed from those 19 components. It is apparent that the eighth component of <figref idrefs="DRAWINGS">FIG. 3H</figref> is the most energetic component with an amplitude range of from −50 to 50. Thus, this eighth component is selected in step <b>106</b>. It is also very apparent from these IMF components that the segment of interest is in the last couple of seconds.</p>
+  <p num="p-0039"> <figref idrefs="DRAWINGS">FIG. 4</figref> shows the segment of interest <b>120</b> of the ATW data, comparing the NHHT amplitude envelope <b>122</b> with an exemplary cubic spline amplitude envelope <b>124</b> from step <b>108</b> of <figref idrefs="DRAWINGS">FIG. 1</figref>. Hilbert transform envelope <b>122</b> shows clear amplitude modulation with significant ripple, i.e., a frequency component. However, the cubic spline envelope <b>124</b> has relatively little ripple.</p>
+  <p num="p-0040"> <figref idrefs="DRAWINGS">FIG. 5</figref> shows a comparison of the Hilbert transform envelope derivative <b>126</b> and the spline envelope derivative <b>128</b> from step <b>110</b> of <figref idrefs="DRAWINGS">FIG. 1</figref>. A derivative equivalent may be determined (within a constant factor of 1/Δt) by taking successive differences of each point. As can be seen from this example, the Hilbert transform envelope derivative <b>126</b> is somewhat sinusoidal with both positive and negative values with each period. It should be noted that these positive and negative swings are artifacts of the Hilbert transform and have nothing to do with the stability of the particular structure. By contrast, the spline derivative <b>128</b> ripple is at least 2 orders of magnitude smaller than the Hilbert transform envelope derivative <b>126</b>.</p>
+  <p num="p-0041">In step <b>112</b>, the instability spectrum (or by the complement, the stability spectrum) preferably is generated for the intrinsic mode functions by separating positive and negative results. As noted hereinabove, the instability spectrum may be generated using ISSpec. ISSpec is one suitable example of how the instability spectrum may be generated, e.g., using the Signal Processing Toolbox from The MathWorks®, Inc. In particular, ISSpec requires a number of control inputs, as well as the data results from previous steps to pre-filter the data, if selected, and to smooth the resulting spectrum over a selected number (n) of time points. The N IMF components may be provided in an M by N dimension matrix, with each column corresponding to an IMF, and each row corresponding to one of M different time points. Pre-filtering can be modified or removed by changing the appropriate lines in ISSpec. An out-put frequency bin number may be pre-selected with a default value set at 20. Minimum and maximum output frequency values may be selected in Hz with the default minimum at zero, and the default maximum set at infinite. An initial time may be selected, and is defaulted to zero seconds. A final time may be selected with a default final time of 100 seconds. As all differentiation operations necessarily generate noise, all data preferably are pre-filtered and the resulting spectrum is smoothed over a number of time points, D. The time segment over which to smooth the resulting Hilbert transformed spectral values, may be set with the default at 3 points. An amplitude cutoff ratio, per, may be selected, e.g., per may be defaulted to 1%=0.01, and subsequently selected at 0.05 for 5%. Below the amplitude cutoff ratio, derivative amplitude is set to zero (ignored). The output axis scale may be pre-selected to generate the output frequency vector in linear or log coordinates for display on a linear-linear or log-linear graph, with the default linear. If desired, HilbertE, a special program with end effects suppressed, but not eliminated, may be selected to pre-treat the data to minimize the end effects. ISSpec outputs include a matrix of instantaneous frequencies and the magnitude of the instability factor obtained from Hilbert transform, minimum and maximum instantaneous frequencies, as well as corresponding time and frequency points. Results can be plotted using any suitable toolbox built on Matlab® platform.</p>
+  <p num="p-0042"> <figref idrefs="DRAWINGS">FIGS. 6A-B</figref> show examples of the effects of smoothing on determining the stability indicator in step <b>114</b>, comparing a 5-point smoothing mean for the Hilbert transform derivative <b>130</b> and the spline envelope derivative <b>132</b>, and comparing a 21-point smoothing mean for the Hilbert transform derivative <b>134</b> and the spline envelope derivative <b>136</b>. While the magnitude for the Hilbert transform derivatives <b>130</b>, <b>134</b> decreases somewhat as the smoothing window widens, the sign of the derivative continues to switch. So, additional smoothing does not provide decipherable information from the Hilbert transform derivative about the vibrations. By contrast, the spline envelope derivative <b>132</b>, <b>136</b> only fluctuates somewhat either in the positive direction or negative direction. However, the spline envelope derivative <b>132</b>, <b>136</b> exhibits a single identifiable minimum and maximum that provides useful information for determining whether vibrations are from stable or unstable conditions, i.e., from changes in material stiffness. In particular, the spline envelope derivative <b>132</b>, <b>136</b> is consistently positive (stable vibrations) prior to <b>138</b> (i.e., at 117.3 seconds). However, the spline envelope derivative <b>132</b>, <b>136</b> begins changing sign to indicate a switch between stable (positive) and unstable (negative) vibrations. Thus, in step <b>114</b> the sign of spline envelope derivative <b>132</b>, <b>136</b> may be used as a stability indicator at <b>138</b>. Further, this stability indicator is available without determining a moving mean from the positive and negative derivative, which would obfuscate this difference.</p>
+  <p num="p-0043"> <figref idrefs="DRAWINGS">FIGS. 7A-D</figref> show an example of 10-point averaging to smooth the Hilbert stability spectrum from ISSpec with amplitude ratio cutoff values (per) at 0.001, 0.005, 0.01, and 0.1 with both positive and negative damping factors. Since the damping factor is defined by the ratio of the derivative of the amplitude to the amplitude, the amplitude derivative can dominate whenever the signal amplitude is low but changing. During such low amplitude periods, the signal energy density, most likely, is too low to be of any dynamic consequence. Thus, the amplitude ratio cutoff causes those periods to be ignored. As a result, the filtered results (for amplitude ratio cutoff, also called damping factor marginal) reflect only vibrations with sufficient energy density. From these figures, it is clear that selection of the cutoff value dramatically affects the results. With the cutoff set to 0.001 in <figref idrefs="DRAWINGS">FIG. 7A</figref>, almost nothing is removed, and the damping factor is dominated by very small amplitude vibrations at low frequencies. In particular, the information from small amplitude vibrations can swamp any more critical information at the larger signal amplitudes. As this example shows, by progressively raising the amplitude ratio cutoff criterion from 0.005 in <figref idrefs="DRAWINGS">FIG. 7B</figref> to 0.01 in <figref idrefs="DRAWINGS">FIG. 7C</figref>, insignificant components that contain negligible energy are filtered out. On the other hand, with the amplitude ratio cutoff too high, e.g., at 0.1 in <figref idrefs="DRAWINGS">FIG. 7D</figref>, valid information is obliterated and the result provides little useful information, if any.</p>
+  <p num="p-0044"> <figref idrefs="DRAWINGS">FIGS. 8A-B</figref> show a summary view example of the effects of the amplitude ratio cutoff selection in <figref idrefs="DRAWINGS">FIGS. 7A-D</figref>. <figref idrefs="DRAWINGS">FIG. 8A</figref> shows an example of the damping factor marginal value <b>140</b>, <b>142</b>, <b>144</b>, <b>146</b> plotted as a function of frequency for the various amplitude ratio cutoff values, i.e., 0.001, 0.005, 0.01 and 0.1, respectively. It is apparent that the derivative for the low amplitude signal dominates the damping factor marginal value <b>140</b> at low frequency, nearly totally obfuscating results of interest. However, as the cutoff limit increases, e.g., to 0.005, the damping factor marginal value <b>142</b> begins to stabilize with a very small difference between the damping factor marginal values <b>142</b> and <b>144</b>. Again, when the amplitude ratio cutoff is selected too high, e.g., at 0.1, the damping factor marginal values <b>142</b> are nearly totally eliminated, removing much of interest. Similarly, <figref idrefs="DRAWINGS">FIG. 8B</figref> compares damping factor marginal value <b>150</b>, <b>152</b>, <b>154</b>, <b>156</b> plotted as functions of time for the various cutoff limits, 0.001, 0.005, 0.01 and 0.1, respectively. Here, it is apparent that with the amplitude ratio cutoff selected too small <b>150</b> noise overwhelms negative damping throughout the test, while selecting it too large <b>156</b> removes most useful information, at least prior to the onset of the drastic failure (<b>138</b> in <figref idrefs="DRAWINGS">FIGS. 6A-B</figref>). However, with proper amplitude ratio cutoff selection at or just prior to failure <b>138</b>, each of the lower cutoff limits produce discernable damping factor indications, <b>150</b>, <b>152</b>, <b>154</b>.</p>
+  <p num="p-0045"> <figref idrefs="DRAWINGS">FIGS. 9A-E</figref> show an example of results from ISSpec with amplitude ratio cutoff value at 0.01 for both positive and negative damping factors and comparing the smoothing length, D in 3, 5, 10, 15 and 20 point averaging, respectively, to smooth the Hilbert stability spectrum. As can be seen from this example, with minimal 3 point smoothing in <figref idrefs="DRAWINGS">FIG. 9A</figref>, the data appears almost random. With the 15 and 20 point smoothing examples of <figref idrefs="DRAWINGS">FIGS. 9D</figref> and E, the data blur to the point that too much smoothing also obliterates temporal variations. However, the moderate 5 and 10 point smoothing examples of <figref idrefs="DRAWINGS">FIGS. 9B</figref> and C provide very, crisp clear results for structural vibration analysis.</p>
+  <p num="p-0046"> <figref idrefs="DRAWINGS">FIGS. 10A-B</figref> show a summary view example of the effects of the smoothing length selection in <figref idrefs="DRAWINGS">FIGS. 9A-E</figref>. In particular, <figref idrefs="DRAWINGS">FIG. 10A</figref> compares the effect of smoothing length on stability factor <b>160</b>, <b>162</b>, <b>164</b>, <b>166</b>, <b>168</b> with respect to frequency at smoothing lengths of 3, 5, 10, 15 and 20, respectively. Similarly, <figref idrefs="DRAWINGS">FIG. 10B</figref> compares the smoothing length on stability factor <b>170</b>, <b>172</b>, <b>174</b>, <b>176</b>, <b>178</b> with respect to time at the same smoothing lengths of 3, 5, 10, 15 and 20, respectively. The effect of smoothing is clearer in the temporal marginal presentation of <figref idrefs="DRAWINGS">FIG. 10B</figref>, where the smoothing eliminates variations to the point where the smoothed result is not particularly useful for D greater than 10.</p>
+  <p num="p-0047">Thus, it can be seen that differentiation generates noise in the results, that may be mitigated by pre-filtering the data and smoothing, e.g., over D time points. ISSpec allows pre-selecting or skipping pre-filtering, e.g., by selectively modifying appropriate ISSpec lines. Thus, the user can specify the resolution of the result by selecting the number of frequency bins, and the maximum and minimum values of the frequency range. The results can also be presented either in linear or logarithmic frequency axis scales. Optionally, the data can be pre-treated to minimize Hilbert transformation end effects.</p>
+  <p num="p-0048"> <figref idrefs="DRAWINGS">FIGS. 11A-B</figref>, show a comparison of instantaneous frequency extracted using the TEO <b>180</b>, NHHT <b>182</b> and GZC <b>184</b>. Extracted instantaneous frequency changes <b>180</b>, <b>182</b>, <b>184</b>, in the vibration data are shown as a function of time with the entire test period displayed in <figref idrefs="DRAWINGS">FIG. 11A</figref> and an expanded view of the segment of interest near the drastic failure event at 117.5. While it is apparent from <figref idrefs="DRAWINGS">FIG. 11A</figref> that the test airfoil experiences nonlinear vibration throughout the test, the corresponding instability is not overwhelming. Thus, it is necessary to determine when the non-linearity indicates that material stiffness is changing, and so, a failure is imminent. It is also apparent that the TEO <b>180</b> provides, a sharper identification of the presence of nonlinearities. Accordingly, the nonlinear indicator is taken as the time when the instantaneous frequency becomes drastically different from the values determined by these three approaches. So, for some given computational instability, the instantaneous frequency may be selected as that time when the instantaneous frequency from TEO <b>180</b> is more than a factor of two larger than the instantaneous frequency from NHHT <b>182</b> or GZC <b>184</b>.</p>
+  <p num="p-0049">Advantageously, dampening vibrations are distinguished from de-stabilizing vibrations or vibrations that indicate instability such that changes in material stiffness may be easily identified according to the present invention. Further, the present invention provides consistently reliable dampening predictor indications, especially for understanding vibrational instability in modem airborne structures. Thus, the present invention is especially helpful in analyzing flexible, light-weight structures that are made of advanced materials, e.g., the aero-elasticity of state of the art airborne structures. Thus, using an embodiment of the present invention, one can predict stability margins, even for these aero-elastic structures, and especially, for understanding structural dynamic instabilities such as flutter. Thus, one can determine the onset of instability in aero-elastic structures from the flight data to provide valid flight flutter prediction information and improve flight safety.</p>
+  <p num="p-0050">While the invention has been described in terms of exemplary embodiments, those skilled in the art will recognize that the invention can be practiced with modification within the spirit and scope of the appended claims. It is intended that all such variations and modifications fall within the scope of the appended claims.</p>
+
+</div>
+  </div>
+  </section>
+
+  <section itemprop="claims" itemscope>
+    <h2>Claims (<span itemprop="count">42</span>)</h2>
+    
+    <div itemprop="content" html><div mxw-id="PCLM9357740" lang="EN" load-source="patent-office" class="claims">
+  <div class="claim"> <div id="CLM-00001" num="00001" class="claim">
+    <div class="claim-text">1. A method of analyzing vibrations, said method comprising the steps of:
+<div class="claim-text">collecting vibration data;</div>
+</div>
+    <div class="claim-text">extracting intrinsic mode functions (IMFs) indicative of intrinsic oscillatory modes in said collected vibration data satisfying at least one of the conditions:
+<div class="claim-text">a) the number of extrema and number of minima crossings differ by at most a first predetermined value and</div>
+<div class="claim-text">b) the mean value of an upper envelope maxima and lower envelope minima approaches a second predetermined value;</div>
+<div class="claim-text">generating a stability spectrum for said vibration data from said IMFs by classifying said vibration data into positive and negative results and separating said positive and negative results;</div>
+<div class="claim-text">generating a non-linearity indicator for said stability spectrum; and,</div>
+<div class="claim-text">displaying non-linearity indicator in said stability spectrum, said non-linearity indicator indicating a transition from stability to instability.</div>
+</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00002" num="00002" class="claim">
+    <div class="claim-text">2. A method of analyzing vibrations as in <claim-ref idref="CLM-00001">claim 1</claim-ref>, wherein the step of extracting IMFs comprises applying a Hilbert Huang Transform to said collected vibration data.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00003" num="00003" class="claim">
+    <div class="claim-text">3. A method of analyzing vibrations as in <claim-ref idref="CLM-00002">claim 2</claim-ref>, wherein the extracted IMFs have the form</div>
+    <div class="claim-text">
+      <maths id="MATH-US-00002" num="00002">
+        <math overflow="scroll">
+          <mrow>
+            <mrow>
+              <mrow>
+                <mi>x</mi>
+                <mo>⁡</mo>
+                <mrow>
+                  <mo>(</mo>
+                  <mi>t</mi>
+                  <mo>)</mo>
+                </mrow>
+              </mrow>
+              <mo>=</mo>
+              <mrow>
+                <mrow>
+                  <munderover>
+                    <mo>∑</mo>
+                    <mrow>
+                      <mi>j</mi>
+                      <mo>=</mo>
+                      <mn>1</mn>
+                    </mrow>
+                    <mi>n</mi>
+                  </munderover>
+                  <mo>⁢</mo>
+                  <mrow>
+                    <msub>
+                      <mi>c</mi>
+                      <mi>j</mi>
+                    </msub>
+                    <mo>⁡</mo>
+                    <mrow>
+                      <mo>(</mo>
+                      <mi>t</mi>
+                      <mo>)</mo>
+                    </mrow>
+                  </mrow>
+                </mrow>
+                <mo>+</mo>
+                <msub>
+                  <mi>r</mi>
+                  <mi>n</mi>
+                </msub>
+              </mrow>
+            </mrow>
+            <mo>;</mo>
+          </mrow>
+        </math>
+      </maths>
+    </div>
+    <div class="claim-text">wherein c<sub>j</sub>(t) is the j<sup>th </sup>IMF component of the IMF and r<sub>n </sub>is the residual value.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00004" num="00004" class="claim">
+    <div class="claim-text">4. A method of analyzing vibrations as in <claim-ref idref="CLM-00001">claim 1</claim-ref>, wherein the step of generating the stability spectrum comprises:
+<div class="claim-text">identifying one of said extracted IMFs as most energetic; and</div>
+<div class="claim-text">calculating a spline fitting the envelope of said identified IMF.</div>
+</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00005" num="00005" class="claim">
+    <div class="claim-text">5. A method of analyzing vibrations as in <claim-ref idref="CLM-00004">claim 4</claim-ref>, wherein the vibration frequency of each IMF is taken as an indication of energy.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00006" num="00006" class="claim">
+    <div class="claim-text">6. A method of analyzing vibrations as in <claim-ref idref="CLM-00004">claim 4</claim-ref>, wherein the step of identifying said one extracted IMF as mast energetic, selects the IMF with the greatest vibration frequency.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00007" num="00007" class="claim">
+    <div class="claim-text">7. A method of analyzing vibrations as in <claim-ref idref="CLM-00006">claim 6</claim-ref>, wherein said non-linearity indicator occurs when said derivative of said spline changes sign.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00008" num="00008" class="claim">
+    <div class="claim-text">8. A method of analyzing vibrations as in <claim-ref idref="CLM-00007">claim 7</claim-ref>, wherein stability is indicated by a positive said derivative of said spline and instability is indicated by a negative said derivative.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00009" num="00009" class="claim">
+    <div class="claim-text">9. A method of analyzing vibrations as in <claim-ref idref="CLM-00004">claim 4</claim-ref>, wherein the step of generating the stability spectrum further comprises taking a derivative of said spline.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00010" num="00010" class="claim">
+    <div class="claim-text">10. A method of analyzing vibrations as in <claim-ref idref="CLM-00009">claim 9</claim-ref>, wherein the step of generating the stability spectrum comprises setting the derivative of said splint to zero whenever the ratio of the spline amplitude to a corresponding derivative value is below a threshold.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00011" num="00011" class="claim">
+    <div class="claim-text">11. A method of analyzing vibrations as in <claim-ref idref="CLM-00010">claim 10</claim-ref>, wherein the threshold is between about 0.5 and about —10%.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00012" num="00012" class="claim">
+    <div class="claim-text">12. A method of analyzing vibrations as in <claim-ref idref="CLM-00010">claim 10</claim-ref>, wherein the threshold is about 1%.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00013" num="00013" class="claim">
+    <div class="claim-text">13. A method of analyzing vibrations as in <claim-ref idref="CLM-00009">claim 9</claim-ref>, wherein the step of generating the stability spectrum further comprises smoothing said spline and said derivative of said spline.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00014" num="00014" class="claim">
+    <div class="claim-text">14. A method of analyzing vibrations as in <claim-ref idref="CLM-00013">claim 13</claim-ref>, wherein the step of smoothing comprises taking a running average.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00015" num="00015" class="claim">
+    <div class="claim-text">15. A method of analyzing vibrations as in <claim-ref idref="CLM-00014">claim 14</claim-ref>, wherein the running average is a 5 to 10 point running average.</div>
+  </div>
+  </div> <div class="claim"> <div id="CLM-00016" num="00016" class="claim">
+    <div class="claim-text">16. A computer program product for analyzing structural vibrations, said computer program product comprising a computer usable medium having computer readable program code comprising:
+<div class="claim-text">an extraction module for extracting intrinsic mode functions (IMFs) from vibration data, said IMFs being indicative of intrinsic oscillatory modes in said vibration data satisfying at least one of the conditions:</div>
+<div class="claim-text">a) the number of extrema and number of minima crossings differ by at most a first predetermined value and</div>
+<div class="claim-text">b) the mean value of an upper envelope maxima and lower envelope minima approaches a second predetermined value;</div>
+<div class="claim-text">a stability module for generating a stability spectrum from extracted said IMFs by classifying said vibration data into positive and negative results and separating said positive and negative results;</div>
+<div class="claim-text">generating a non-linearity indicator for said stability spectrum; and,</div>
+<div class="claim-text">a first identification module for identifying said non-linearity indicator in said stability spectrum, said non-linearity indicator indicating a transition from stability to instability.</div>
+</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00017" num="00017" class="claim">
+    <div class="claim-text">17. A computer program product for analyzing structural vibrations as in <claim-ref idref="CLM-00016">claim 16</claim-ref>, wherein the extraction module comprises an Empirical Mode Decomposition (EMD) module.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00018" num="00018" class="claim">
+    <div class="claim-text">18. A computer program product for analyzing structural vibrations as in <claim-ref idref="CLM-00016">claim 16</claim-ref>, wherein said EMD module comprises a computer readable program code for applying a Hilbert Huang Transform to said vibration data.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00019" num="00019" class="claim">
+    <div class="claim-text">19. A computer program product for analyzing structural vibrations as in <claim-ref idref="CLM-00016">claim 16</claim-ref>, wherein the extracted IMFs have the form</div>
+    <div class="claim-text">
+      <maths id="MATH-US-00003" num="00003">
+        <math overflow="scroll">
+          <mrow>
+            <mrow>
+              <mrow>
+                <mi>x</mi>
+                <mo>⁡</mo>
+                <mrow>
+                  <mo>(</mo>
+                  <mi>t</mi>
+                  <mo>)</mo>
+                </mrow>
+              </mrow>
+              <mo>=</mo>
+              <mrow>
+                <mrow>
+                  <munderover>
+                    <mo>∑</mo>
+                    <mrow>
+                      <mi>j</mi>
+                      <mo>=</mo>
+                      <mn>1</mn>
+                    </mrow>
+                    <mi>n</mi>
+                  </munderover>
+                  <mo>⁢</mo>
+                  <mrow>
+                    <msub>
+                      <mi>c</mi>
+                      <mi>j</mi>
+                    </msub>
+                    <mo>⁡</mo>
+                    <mrow>
+                      <mo>(</mo>
+                      <mi>t</mi>
+                      <mo>)</mo>
+                    </mrow>
+                  </mrow>
+                </mrow>
+                <mo>+</mo>
+                <msub>
+                  <mi>r</mi>
+                  <mi>n</mi>
+                </msub>
+              </mrow>
+            </mrow>
+            <mo>;</mo>
+          </mrow>
+        </math>
+      </maths>
+    </div>
+    <div class="claim-text">wherein c<sub>j</sub>(t) is the j<sup>th </sup>IMF component of the IMF and r<sub>n </sub>is the residual value.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00020" num="00020" class="claim">
+    <div class="claim-text">20. A computer program product for analyzing structural vibrations as in <claim-ref idref="CLM-00016">claim 16</claim-ref>, wherein the stability module comprises:
+<div class="claim-text">a second identification module for identifying a most energetic IMF; and</div>
+<div class="claim-text">a spline fitting module for fitting a spline to IMF envelopes.</div>
+</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00021" num="00021" class="claim">
+    <div class="claim-text">21. A computer program product for analyzing structural vibrations as in <claim-ref idref="CLM-00020">claim 20</claim-ref>, wherein the stability spectrum further comprises a computer readable program code for taking the derivative of an IMF envelope.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00022" num="00022" class="claim">
+    <div class="claim-text">22. A computer program product for analyzing structural vibrations as in <claim-ref idref="CLM-00021">claim 21</claim-ref>, wherein the stability module further comprises a computer readable program code for selectively ignoring said derivative responsive to an amplitude ratio between an envelope and an envelope derivative being below a threshold.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00023" num="00023" class="claim">
+    <div class="claim-text">23. A computer program product for analyzing structural vibrations as in <claim-ref idref="CLM-00021">claim 21</claim-ref>, wherein the threshold is between about 0.5 and about 10%.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00024" num="00024" class="claim">
+    <div class="claim-text">24. A computer program product for analyzing structural vibrations as in <claim-ref idref="CLM-00021">claim 21</claim-ref>, wherein the threshold is about 1%.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00025" num="00025" class="claim">
+    <div class="claim-text">25. A computer program product for analyzing structural vibrations as in <claim-ref idref="CLM-00020">claim 20</claim-ref>, wherein the first identification comprises computer readable program code for identifying when said envelope derivative changes sign.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00026" num="00026" class="claim">
+    <div class="claim-text">26. A computer program product for analyzing structural vibrations as in <claim-ref idref="CLM-00016">claim 16</claim-ref>, wherein the stability module further comprises a smoothing module for smoothing an envelope sad an envelope derivative.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00027" num="00027" class="claim">
+    <div class="claim-text">27. A computer program product for analyzing structural vibrations as in <claim-ref idref="CLM-00026">claim 26</claim-ref>, wherein the smoothing module comprises a computer readable program code for taking a running average.</div>
+  </div>
+  </div> <div class="claim"> <div id="CLM-00028" num="00028" class="claim">
+    <div class="claim-text">28. A system for analyzing structural vibrations comprising:
+<div class="claim-text">a storage device for storing vibration data;</div>
+<div class="claim-text">a sifting device for extracting intrinsic mode functions (IMFs) indicative of intrinsic oscillatory modes from stored said vibration data satisfying at least one of the conditions:</div>
+<div class="claim-text">a) the number of extrema and number of minima crossings differ by a first predetermined value and</div>
+<div class="claim-text">b) the mean value of an upper envelope maxima and lower envelope minima approaches a second predetermined value;</div>
+<div class="claim-text">a fitting device for calculating an envelope far each IMF;</div>
+<div class="claim-text">a derivative calculator for determining a derivative for said envelope;</div>
+<div class="claim-text">a stability spectrum generator for generating a stability spectrum from said IMFs by classifying said vibration data into positive and negative results and separating said positive and negative results;</div>
+<div class="claim-text">generating a non-linearity indicator for said stability spectrum; and</div>
+<div class="claim-text">wherein a non-linearity indicator in said stability spectrum is responsive to said derivative, said non-linearity indicator indicating a transition from stability to instability.</div>
+</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00029" num="00029" class="claim">
+    <div class="claim-text">29. A system for analyzing structural vibrations as in <claim-ref idref="CLM-00028">claim 28</claim-ref>, wherein said sifting device is adapted to extracts IMFs by Empirical Mode Decomposition (EMD).</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00030" num="00030" class="claim">
+    <div class="claim-text">30. A system for analyzing structural vibrations as in <claim-ref idref="CLM-00028">claim 28</claim-ref>, wherein said EMD) applies a Hilbert Huang Transform to said vibration data.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00031" num="00031" class="claim">
+    <div class="claim-text">31. A system for analyzing structural vibrations as in <claim-ref idref="CLM-00028">claim 28</claim-ref> wherein said extracted IMFs have the form</div>
+    <div class="claim-text">
+      <maths id="MATH-US-00004" num="00004">
+        <math overflow="scroll">
+          <mrow>
+            <mrow>
+              <mrow>
+                <mi>x</mi>
+                <mo>⁡</mo>
+                <mrow>
+                  <mo>(</mo>
+                  <mi>t</mi>
+                  <mo>)</mo>
+                </mrow>
+              </mrow>
+              <mo>=</mo>
+              <mrow>
+                <mrow>
+                  <munderover>
+                    <mo>∑</mo>
+                    <mrow>
+                      <mi>j</mi>
+                      <mo>=</mo>
+                      <mn>1</mn>
+                    </mrow>
+                    <mi>n</mi>
+                  </munderover>
+                  <mo>⁢</mo>
+                  <mrow>
+                    <msub>
+                      <mi>c</mi>
+                      <mi>j</mi>
+                    </msub>
+                    <mo>⁡</mo>
+                    <mrow>
+                      <mo>(</mo>
+                      <mi>t</mi>
+                      <mo>)</mo>
+                    </mrow>
+                  </mrow>
+                </mrow>
+                <mo>+</mo>
+                <msub>
+                  <mi>r</mi>
+                  <mi>n</mi>
+                </msub>
+              </mrow>
+            </mrow>
+            <mo>;</mo>
+          </mrow>
+        </math>
+      </maths>
+    </div>
+    <div class="claim-text">wherein c<sub>j</sub>(t) is the j<sup>th </sup>IMF component of the IMF and r<sub>n </sub>is the residual value.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00032" num="00032" class="claim">
+    <div class="claim-text">32. A system for analyzing structural vibrations as in <claim-ref idref="CLM-00028">claim 28</claim-ref>, wherein said fitting device is adapted to fit a splint to IMF envelopes and said system further comprises means for identifying IMF energy.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00033" num="00033" class="claim">
+    <div class="claim-text">33. A system for analyzing structural vibrations as in <claim-ref idref="CLM-00032">claim 32</claim-ref>, wherein said derivative calculator is adapted to takes the derivative of splines.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00034" num="00034" class="claim">
+    <div class="claim-text">34. A system for analyzing structural vibrations as in <claim-ref idref="CLM-00033">claim 33</claim-ref>, wherein the derivative is selectively ignored responsive to a threshold.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00035" num="00035" class="claim">
+    <div class="claim-text">35. A system for analyzing vibrations as in <claim-ref idref="CLM-00034">claim 34</claim-ref>, wherein the threshold is between about 0.5 and about 10%.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00036" num="00036" class="claim">
+    <div class="claim-text">36. A system for analyzing vibrations as in <claim-ref idref="CLM-00034">claim 34</claim-ref>, wherein the threshold is about 1%.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00037" num="00037" class="claim">
+    <div class="claim-text">37. A system for analyzing structural vibrations as in <claim-ref idref="CLM-00034">claim 34</claim-ref>, wherein said threshold is an amplitude ratio cutoff between each spline and corresponding spline derivative, said spine derivative being set to zero whenever the ratio of the amplitude of said each splint to the amplitude of said corresponding spline derivative is below said amplitude ratio cutoff.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00038" num="00038" class="claim">
+    <div class="claim-text">38. A system for analyzing structural vibrations as in <claim-ref idref="CLM-00034">claim 34</claim-ref>, further comprising a smoothing device adapted for smoothing the spline and spline derivative.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00039" num="00039" class="claim">
+    <div class="claim-text">39. A system for analyzing structural vibrations as in <claim-ref idref="CLM-00038">claim 38</claim-ref>, wherein said smoothing smooths the spline and spline derivative by taking a running average of a segment.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00040" num="00040" class="claim">
+    <div class="claim-text">40. A system for analyzing structural vibrations as in <claim-ref idref="CLM-00039">claim 39</claim-ref>, wherein said segment is a selected number of data points, each of said data points corresponding to a time vibration data was taken.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00041" num="00041" class="claim">
+    <div class="claim-text">41. A system for analyzing structural vibrations as in <claim-ref idref="CLM-00028">claim 28</claim-ref>, wherein the non-linearity indicator is identified responsive to said derivative of said spline changing sign.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00042" num="00042" class="claim">
+    <div class="claim-text">42. A system for analyzing structural vibrations as in <claim-ref idref="CLM-00041">claim 41</claim-ref>, further comprising a receiver for receiving vibration data, received said vibration data being stored in said storage device.</div>
+  </div>
+</div> </div>
+  </div>
+  </section>
+
+  <section itemprop="application" itemscope>
+
+    <section itemprop="metadata" itemscope>
+        <span itemprop="applicationNumber">US11/251,004</span>
+        <span itemprop="priorityDate">2005-09-30</span>
+        <span itemprop="filingDate">2005-09-30</span>
+        <span itemprop="title">System and method of analyzing vibrations and identifying failure signatures in the vibrations 
+       </span>
+        <span itemprop="ifiStatus">Active</span>
+        
+        <a href="/patent/US7346461B2/en">
+            <span itemprop="representativePublication">US7346461B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+        </a>
+    </section>
+
+    <h2>Priority Applications (1)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                    <th>Title</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="priorityApps" itemscope repeat>
+                <td>
+                   <span itemprop="applicationNumber">US11/251,004</span>
+                   
+                   <a href="/patent/US7346461B2/en">
+                        <span itemprop="representativePublication">US7346461B2</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                <td itemprop="priorityDate">2005-09-30</td>
+                <td itemprop="filingDate">2005-09-30</td>
+                <td itemprop="title">System and method of analyzing vibrations and identifying failure signatures in the vibrations 
+       </td>
+              </tr>
+           </tbody>
+       </table>
+
+    <h2>Applications Claiming Priority (1)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                    <th>Title</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="appsClaimingPriority" itemscope repeat>
+                <td>
+                   <span itemprop="applicationNumber">US11/251,004</span>
+                   <a href="/patent/US7346461B2/en">
+                        <span itemprop="representativePublication">US7346461B2</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                <td itemprop="priorityDate">2005-09-30</td>
+                <td itemprop="filingDate">2005-09-30</td>
+                <td itemprop="title">System and method of analyzing vibrations and identifying failure signatures in the vibrations 
+       </td>
+              </tr>
+           </tbody>
+       </table>
+
+    
+
+    
+
+    <h2>Publications (2)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Publication Number</th>
+                    <th>Publication Date</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="pubs" itemscope repeat>
+                <td>
+                   <span itemprop="publicationNumber">US20070078611A1</span>
+                   
+                   <a href="/patent/US20070078611A1/en">US20070078611A1
+                       (<span itemprop="primaryLanguage">en</span>)
+                   </a>
+                </td>
+                <td itemprop="publicationDate">2007-04-05</td>
+              </tr><tr itemprop="pubs" itemscope repeat>
+                <td>
+                   <span itemprop="publicationNumber">US7346461B2</span>
+                   
+                   <span itemprop="thisPatent">true</span>
+                   <a href="/patent/US7346461B2/en">US7346461B2
+                       (<span itemprop="primaryLanguage">en</span>)
+                   </a>
+                </td>
+                <td itemprop="publicationDate">2008-03-18</td>
+              </tr>
+           </tbody>
+        </table>
+
+  </section>
+
+  <section itemprop="family" itemscope>
+    <h1>Family</h1>
+    <h2>ID=37902901</h2>
+
+    <h2>Family Applications (1)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Title</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="applications" itemscope repeat>
+                <td>
+                    <span itemprop="applicationNumber">US11/251,004</span>
+                    <span itemprop="ifiStatus">Active</span>
+                    
+                    <a href="/patent/US7346461B2/en">
+                        <span itemprop="representativePublication">US7346461B2</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                </td>
+                <td itemprop="priorityDate">2005-09-30</td>
+                <td itemprop="filingDate">2005-09-30</td>
+                <td itemprop="title">System and method of analyzing vibrations and identifying failure signatures in the vibrations 
+       </td>
+              </tr>
+           </tbody>
+        </table>
+
+    
+
+    
+
+    <h2>Country Status (1)</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Country</th>
+            <th>Link</th>
+          </tr>
+        </thead>
+        <tbody>
+        <tr itemprop="countryStatus" itemscope repeat>
+            <td>
+              <span itemprop="countryCode">US</span>
+                (<span itemprop="num">1</span>)
+              <meta itemprop="thisCountry" content="true">
+            </td>
+            <td>
+              <a href="/patent/US7346461B2/en">
+                <span itemprop="representativePublication">US7346461B2</span>
+                  (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+    <h2>Cited By (4)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20090116595A1/en">
+              <span itemprop="publicationNumber">US20090116595A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2007-05-21</td>
+          <td itemprop="publicationDate">2009-05-07</td>
+          <td><span itemprop="assigneeOriginal">Florida State University</span></td>
+          <td itemprop="title">System and methods for determining masking signals for applying empirical mode decomposition (emd) and for demodulating intrinsic mode functions obtained from application of emd 
+       </td>
+        </tr><tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20100262390A1/en">
+              <span itemprop="publicationNumber">US20100262390A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2009-04-10</td>
+          <td itemprop="publicationDate">2010-10-14</td>
+          <td><span itemprop="assigneeOriginal">University Of South Carolina</span></td>
+          <td itemprop="title">System and method for modal identification using smart mobile sensors 
+       </td>
+        </tr><tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US8346385B2/en">
+              <span itemprop="publicationNumber">US8346385B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2010-06-14</td>
+          <td itemprop="publicationDate">2013-01-01</td>
+          <td><span itemprop="assigneeOriginal">Delta Electronics, Inc.</span></td>
+          <td itemprop="title">Early-warning apparatus for health detection of servo motor and method for operating the same 
+       </td>
+        </tr><tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/CN104344882A/en">
+              <span itemprop="publicationNumber">CN104344882A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2013-07-24</td>
+          <td itemprop="publicationDate">2015-02-11</td>
+          <td><span itemprop="assigneeOriginal">中国国际航空股份有限公司</span></td>
+          <td itemprop="title">Airplane jittering detection system and method 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Families Citing this family (10)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20080059086A1/en">
+              <span itemprop="publicationNumber">US20080059086A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2002-02-21</td>
+          <td itemprop="publicationDate">2008-03-06</td>
+          <td><span itemprop="assigneeOriginal">Ziyad Duron</span></td>
+          <td itemprop="title">System and method for determining and detecting stability loss in structures 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US8544331B2/en">
+              <span itemprop="publicationNumber">US8544331B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2008-12-04</td>
+          <td itemprop="publicationDate">2013-10-01</td>
+          <td><span itemprop="assigneeOriginal">University Of Ottawa</span></td>
+          <td itemprop="title">Parameter independent detection of rotating machinery faults 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/KR101566432B1/en">
+              <span itemprop="publicationNumber">KR101566432B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2009-03-05</td>
+          <td itemprop="publicationDate">2015-11-06</td>
+          <td><span itemprop="assigneeOriginal">삼성디스플레이 주식회사</span></td>
+          <td itemprop="title">Display device 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/CN102270829B/en">
+              <span itemprop="publicationNumber">CN102270829B</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2010-06-01</td>
+          <td itemprop="publicationDate">2014-12-03</td>
+          <td><span itemprop="assigneeOriginal">台达电子工业股份有限公司</span></td>
+          <td itemprop="title">Apparatus and calculating method for early warning on health of servo motor 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US8660848B1/en">
+              <span itemprop="publicationNumber">US8660848B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2010-08-20</td>
+          <td itemprop="publicationDate">2014-02-25</td>
+          <td><span itemprop="assigneeOriginal">Worcester Polytechnic Institute</span></td>
+          <td itemprop="title">Methods and systems for detection from and analysis of physical signals 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/TWI460416B/en">
+              <span itemprop="publicationNumber">TWI460416B</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2011-03-28</td>
+          <td itemprop="publicationDate">2014-11-11</td>
+          <td><span itemprop="assigneeOriginal">Univ Nat Taiwan</span></td>
+          <td itemprop="title">Method and apparatus for judging status of mechanic system 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US10360737B2/en">
+              <span itemprop="publicationNumber">US10360737B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2014-04-02</td>
+          <td itemprop="publicationDate">2019-07-23</td>
+          <td><span itemprop="assigneeOriginal">Sikorsky Aircraft Corporation</span></td>
+          <td itemprop="title">System and method for improved drive system diagnostics 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/CN104484506B/en">
+              <span itemprop="publicationNumber">CN104484506B</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2014-11-25</td>
+          <td itemprop="publicationDate">2017-05-24</td>
+          <td><span itemprop="assigneeOriginal">东北大学</span></td>
+          <td itemprop="title">Turning flutter forecasting method based on reliability lobe graph 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/CN106610918A/en">
+              <span itemprop="publicationNumber">CN106610918A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2015-10-22</td>
+          <td itemprop="publicationDate">2017-05-03</td>
+          <td><span itemprop="assigneeOriginal">中央大学</span></td>
+          <td itemprop="title">Empirical mode decomposition method and system for adaptive binary and conjugate shielding network 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/WO2018217677A1/en">
+              <span itemprop="publicationNumber">WO2018217677A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2017-05-22</td>
+          <td itemprop="publicationDate">2018-11-29</td>
+          <td><span itemprop="assigneeOriginal">Adaptive, Intelligent And Dynamic Brain Corporation (Aidbrain)</span></td>
+          <td itemprop="title">Method, module and system for analysis of brain electrical activity 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Citations (6)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5983162A/en">
+              <span itemprop="publicationNumber">US5983162A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1996-08-12</td>
+          <td itemprop="publicationDate">1999-11-09</td>
+          <td><span itemprop="assigneeOriginal">The United States Of America As Represented By The Administrator Of The National Aeronautics And Space Administration</span></td>
+          <td itemprop="title">Computer implemented empirical mode decomposition method, apparatus and article of manufacture 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6192758B1/en">
+              <span itemprop="publicationNumber">US6192758B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1998-12-14</td>
+          <td itemprop="publicationDate">2001-02-27</td>
+          <td><span itemprop="assigneeOriginal">Kang Huang</span></td>
+          <td itemprop="title">Structure safety inspection 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6311130B1/en">
+              <span itemprop="publicationNumber">US6311130B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1996-08-12</td>
+          <td itemprop="publicationDate">2001-10-30</td>
+          <td><span itemprop="assigneeOriginal">The United States Of America As Represented By The Administrator Of The National Aeronautics And Space Administration</span></td>
+          <td itemprop="title">Computer implemented empirical mode decomposition method, apparatus, and article of manufacture for two-dimensional signals 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6507798B1/en">
+              <span itemprop="publicationNumber">US6507798B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2000-10-12</td>
+          <td itemprop="publicationDate">2003-01-14</td>
+          <td><span itemprop="assigneeOriginal">The United States Of America As Represented By The Secretary Of The Navy</span></td>
+          <td itemprop="title">Time-frequency dependent damping via Hilbert damping spectrum 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6862558B2/en">
+              <span itemprop="publicationNumber">US6862558B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2001-02-14</td>
+          <td itemprop="publicationDate">2005-03-01</td>
+          <td><span itemprop="assigneeOriginal">The United States Of America As Represented By The Administrator Of The National Aeronautics And Space Administration</span></td>
+          <td itemprop="title">Empirical mode decomposition for analyzing acoustical signals 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7054792B2/en">
+              <span itemprop="publicationNumber">US7054792B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2002-10-11</td>
+          <td itemprop="publicationDate">2006-05-30</td>
+          <td><span itemprop="assigneeOriginal">Flint Hills Scientific, L.L.C.</span></td>
+          <td itemprop="title">Method, computer program, and system for intrinsic timescale decomposition, filtering, and automated analysis of signals of arbitrary origin or timescale 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+
+    
+
+    
+    <ul>
+      
+      <li itemprop="applicationsByYear" itemscope repeat>
+        <span itemprop="year">2005</span>
+        <ul>
+          
+          <li itemprop="application" itemscope repeat>
+            <span itemprop="filingDate">2005-09-30</span>
+            <span itemprop="countryCode">US</span>
+            <span itemprop="applicationNumber">US11/251,004</span>
+            <a href="/patent/US7346461B2/en"><span itemprop="documentId">patent/US7346461B2/en</span></a>
+            <span itemprop="legalStatusCat">active</span>
+            <span itemprop="legalStatus">Active</span>
+            
+            <span itemprop="thisApp" content="true" bool></span>
+            
+          </li>
+          
+        </ul>
+      </li>
+      
+    </ul>
+    
+
+    </section>
+
+  <section>
+    <h2>Patent Citations (6)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5983162A/en">
+              <span itemprop="publicationNumber">US5983162A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1996-08-12</td>
+          <td itemprop="publicationDate">1999-11-09</td>
+          <td><span itemprop="assigneeOriginal">The United States Of America As Represented By The Administrator Of The National Aeronautics And Space Administration</span></td>
+          <td itemprop="title">Computer implemented empirical mode decomposition method, apparatus and article of manufacture 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6311130B1/en">
+              <span itemprop="publicationNumber">US6311130B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1996-08-12</td>
+          <td itemprop="publicationDate">2001-10-30</td>
+          <td><span itemprop="assigneeOriginal">The United States Of America As Represented By The Administrator Of The National Aeronautics And Space Administration</span></td>
+          <td itemprop="title">Computer implemented empirical mode decomposition method, apparatus, and article of manufacture for two-dimensional signals 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6192758B1/en">
+              <span itemprop="publicationNumber">US6192758B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1998-12-14</td>
+          <td itemprop="publicationDate">2001-02-27</td>
+          <td><span itemprop="assigneeOriginal">Kang Huang</span></td>
+          <td itemprop="title">Structure safety inspection 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6507798B1/en">
+              <span itemprop="publicationNumber">US6507798B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2000-10-12</td>
+          <td itemprop="publicationDate">2003-01-14</td>
+          <td><span itemprop="assigneeOriginal">The United States Of America As Represented By The Secretary Of The Navy</span></td>
+          <td itemprop="title">Time-frequency dependent damping via Hilbert damping spectrum 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6862558B2/en">
+              <span itemprop="publicationNumber">US6862558B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2001-02-14</td>
+          <td itemprop="publicationDate">2005-03-01</td>
+          <td><span itemprop="assigneeOriginal">The United States Of America As Represented By The Administrator Of The National Aeronautics And Space Administration</span></td>
+          <td itemprop="title">Empirical mode decomposition for analyzing acoustical signals 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7054792B2/en">
+              <span itemprop="publicationNumber">US7054792B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2002-10-11</td>
+          <td itemprop="publicationDate">2006-05-30</td>
+          <td><span itemprop="assigneeOriginal">Flint Hills Scientific, L.L.C.</span></td>
+          <td itemprop="title">Method, computer program, and system for intrinsic timescale decomposition, filtering, and automated analysis of signals of arbitrary origin or timescale 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Non-Patent Citations (2)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Kizhner et al., On the Hilbert-Huang Transform Data Processing System, Mar. 6-13, 2004, Aerospace Conference, vol. 3, pp. 1961-1979.</span>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Qiang et al., Processing Time-Varying Signals by a New Method, 2001 IEEE, pp. 1011-1014.</span>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <h2>Cited By (6)</h2>
+  <table>
+    <caption>* Cited by examiner, † Cited by third party</caption>
+    <thead>
+      <tr>
+        <th>Publication number</th>
+        <th>Priority date</th>
+        <th>Publication date</th>
+        <th>Assignee</th>
+        <th>Title</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US20090116595A1/en">
+            <span itemprop="publicationNumber">US20090116595A1</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2007-05-21</td>
+        <td itemprop="publicationDate">2009-05-07</td>
+        <td><span itemprop="assigneeOriginal">Florida State University</span></td>
+        <td itemprop="title">System and methods for determining masking signals for applying empirical mode decomposition (emd) and for demodulating intrinsic mode functions obtained from application of emd 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US7908103B2/en">
+            <span itemprop="publicationNumber">US7908103B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2007-05-21</td>
+        <td itemprop="publicationDate">2011-03-15</td>
+        <td><span itemprop="assigneeOriginal">Nilanjan Senroy</span></td>
+        <td itemprop="title">System and methods for determining masking signals for applying empirical mode decomposition (EMD) and for demodulating intrinsic mode functions obtained from application of EMD 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US20100262390A1/en">
+            <span itemprop="publicationNumber">US20100262390A1</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2009-04-10</td>
+        <td itemprop="publicationDate">2010-10-14</td>
+        <td><span itemprop="assigneeOriginal">University Of South Carolina</span></td>
+        <td itemprop="title">System and method for modal identification using smart mobile sensors 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US8577628B2/en">
+            <span itemprop="publicationNumber">US8577628B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          
+          
+        </td>
+        <td itemprop="priorityDate">2009-04-10</td>
+        <td itemprop="publicationDate">2013-11-05</td>
+        <td><span itemprop="assigneeOriginal">University Of South Carolina</span></td>
+        <td itemprop="title">System and method for modal identification using smart mobile sensors 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US8346385B2/en">
+            <span itemprop="publicationNumber">US8346385B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2010-06-14</td>
+        <td itemprop="publicationDate">2013-01-01</td>
+        <td><span itemprop="assigneeOriginal">Delta Electronics, Inc.</span></td>
+        <td itemprop="title">Early-warning apparatus for health detection of servo motor and method for operating the same 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/CN104344882A/en">
+            <span itemprop="publicationNumber">CN104344882A</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2013-07-24</td>
+        <td itemprop="publicationDate">2015-02-11</td>
+        <td><span itemprop="assigneeOriginal">中国国际航空股份有限公司</span></td>
+        <td itemprop="title">Airplane jittering detection system and method 
+       </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <section>
+    <h2>Also Published As</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Publication date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="docdbFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20070078611A1/en">
+              <span itemprop="publicationNumber">US20070078611A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+          </td>
+          <td itemprop="publicationDate">2007-04-05</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Similar Documents</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Publication</th>
+          <th>Publication Date</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US8036836B2/en">
+                <span itemprop="publicationNumber">US8036836B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2011-10-11">2011-10-11</time>
+            
+            
+          </td>
+          <td itemprop="title">Dynamic environmental change compensation of sensor data in structural health monitoring systems 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="17049688174836445970">
+              <a href="/scholar/17049688174836445970"><span itemprop="scholarAuthors">Keilers Jr et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1995">1995</time>
+            
+          </td>
+          <td itemprop="title">Identifying delamination in composite beams using built-in piezoelectrics: part I—experiments and analysis</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="18089570536499493644">
+              <a href="/scholar/18089570536499493644"><span itemprop="scholarAuthors">Worden et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2007">2007</time>
+            
+          </td>
+          <td itemprop="title">The fundamental axioms of structural health monitoring</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US7341410B2/en">
+                <span itemprop="publicationNumber">US7341410B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2008-03-11">2008-03-11</time>
+            
+            
+          </td>
+          <td itemprop="title">Dynamical instrument for machining 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="8750606067474071763">
+              <a href="/scholar/8750606067474071763"><span itemprop="scholarAuthors">Sun et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2002">2002</time>
+            
+          </td>
+          <td itemprop="title">Structural damage assessment based on wavelet packet transform</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="17941475005584898566">
+              <a href="/scholar/17941475005584898566"><span itemprop="scholarAuthors">Cattarius et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1997">1997</time>
+            
+          </td>
+          <td itemprop="title">Time domain analysis for damage detection in smart structures</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="8074873543696708874">
+              <a href="/scholar/8074873543696708874"><span itemprop="scholarAuthors">Sheu et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2007">2007</time>
+            
+          </td>
+          <td itemprop="title">Chaotic dynamics of the fractionally damped Duffing equation</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="9746591969459102482">
+              <a href="/scholar/9746591969459102482"><span itemprop="scholarAuthors">Patil et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2001">2001</time>
+            
+          </td>
+          <td itemprop="title">Limit-cycle oscillations in high-aspect-ratio wings</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US6711523B2/en">
+                <span itemprop="publicationNumber">US6711523B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2004-03-23">2004-03-23</time>
+            
+            
+          </td>
+          <td itemprop="title">Method and apparatus for determining a condition indicator for use in evaluating the health of a component 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/CN1136445C/en">
+                <span itemprop="publicationNumber">CN1136445C</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2004-01-28">2004-01-28</time>
+            
+            
+          </td>
+          <td itemprop="title">Sinusoidal vibration test method for product durability validation 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US6212486B1/en">
+                <span itemprop="publicationNumber">US6212486B1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2001-04-03">2001-04-03</time>
+            
+            
+          </td>
+          <td itemprop="title">Method of identifying critical elements in fatigue analysis with von mises stress bounding and filtering modal displacement history using dynamic windowing 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="633746458125005954">
+              <a href="/scholar/633746458125005954"><span itemprop="scholarAuthors">Zhang et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2013">2013</time>
+            
+          </td>
+          <td itemprop="title">Damage detection method based on operating deflection shape curvature extracted from dynamic response of a passing vehicle</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US6728658B1/en">
+                <span itemprop="publicationNumber">US6728658B1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2004-04-27">2004-04-27</time>
+            
+            
+          </td>
+          <td itemprop="title">Method and apparatus for determining the health of a component using condition indicators 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/CN103314520B/en">
+                <span itemprop="publicationNumber">CN103314520B</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2016-06-01">2016-06-01</time>
+            
+            
+          </td>
+          <td itemprop="title">  Collection system and method for a vehicle vibrational energy  </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="2716305298613006764">
+              <a href="/scholar/2716305298613006764"><span itemprop="scholarAuthors">Gloth et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2004">2004</time>
+            
+          </td>
+          <td itemprop="title">Analysis of swept-sine runs during modal identification</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="15982063501760208503">
+              <a href="/scholar/15982063501760208503"><span itemprop="scholarAuthors">MIgnolet et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1999">1999</time>
+            
+          </td>
+          <td itemprop="title">Identification of mistuning characteristics of bladed disks from free response data—Part I</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="9367039563758601990">
+              <a href="/scholar/9367039563758601990"><span itemprop="scholarAuthors">Xia et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2006">2006</time>
+            
+          </td>
+          <td itemprop="title">Auto-parametric vibration of a cable-stayed-beam structure under random excitation</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="15813274013509995377">
+              <a href="/scholar/15813274013509995377"><span itemprop="scholarAuthors">Manwaring et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1996">1996</time>
+            
+          </td>
+          <td itemprop="title">Inlet distortion generated forced response of a low aspect ratio transonic fan</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="8270480678887868730">
+              <a href="/scholar/8270480678887868730"><span itemprop="scholarAuthors">Bartoli et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2006">2006</time>
+            
+          </td>
+          <td itemprop="title">Flutter mechanism for rectangular prisms in smooth and turbulent flow</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="18134148104447077265">
+              <a href="/scholar/18134148104447077265"><span itemprop="scholarAuthors">BogunovićJakobsen et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1995">1995</time>
+            
+          </td>
+          <td itemprop="title">Determination of the aerodynamic derivatives by a system identification method</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="6731827133288170257">
+              <a href="/scholar/6731827133288170257"><span itemprop="scholarAuthors">Feron et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1998">1998</time>
+            
+          </td>
+          <td itemprop="title">Time-frequency analysis for transfer function estimation and application to flutter clearance</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="11435990950921001670">
+              <a href="/scholar/11435990950921001670"><span itemprop="scholarAuthors">Schewe et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2003">2003</time>
+            
+          </td>
+          <td itemprop="title">Nonlinear effects in transonic flutter with emphasis on manifestations of limit cycle oscillations</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="2280946015502142744">
+              <a href="/scholar/2280946015502142744"><span itemprop="scholarAuthors">Carne et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2007">2007</time>
+            
+          </td>
+          <td itemprop="title">Support conditions for experimental modal analysis</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US5652386A/en">
+                <span itemprop="publicationNumber">US5652386A</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="1997-07-29">1997-07-29</time>
+            
+            
+          </td>
+          <td itemprop="title">Method and apparatus for predicting sturctural integrity by estimating modal damping factor 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US6754569B2/en">
+                <span itemprop="publicationNumber">US6754569B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2004-06-22">2004-06-22</time>
+            
+            
+          </td>
+          <td itemprop="title">Method and apparatus for normalizing condition indicators 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Legal Events</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Code</th>
+          <th>Title</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2008-02-27">2008-02-27</time></td>
+          <td itemprop="code">STCF</td>
+          <td itemprop="title">Information on status: patent grant</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">PATENTED CASE</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2011-03-18">2011-03-18</time></td>
+          <td itemprop="code">FPAY</td>
+          <td itemprop="title">Fee payment</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Year of fee payment</strong>:
+              <span itemprop="value">4</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2015-09-18">2015-09-18</time></td>
+          <td itemprop="code">FPAY</td>
+          <td itemprop="title">Fee payment</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Year of fee payment</strong>:
+              <span itemprop="value">8</span>
+            </p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+</article>
+
+    </search-app>
+    <script type="text/javascript" src="//www.gstatic.com/feedback/api.js"></script>
+    <script async="" defer="" src="//www.google.com/insights/consumersurveys/async_survey?site=cxkjf7ipxgbnnjy6k35ezcvbbe"></script>
+  </body>
+</html>

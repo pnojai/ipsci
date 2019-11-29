@@ -1,0 +1,3514 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>US8675922B1 - Visible motion blur 
+        - Google Patents</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="referrer" content="origin-when-crossorigin">
+    <link rel="canonical" href="https://patents.google.com/patent/US8675922B1/en">
+    <meta name="description" content="
+     A method of measuring motion blur is disclosed comprising obtaining a moving edge temporal profile r 1 (k) of an image of a high-contrast moving edge, calculating the masked local contrast m 1 (k) for r 1 (k) and the masked local contrast m 2 (k) for an ideal step edge waveform r 2 (k) with the same amplitude as r 1 (k), and calculating the measure or motion blur Ψ as a difference function,
+ 
+Ω= S (Δ xΣ   k   |m   1 ( k )− m   2 ( k )| β ) 1/β .
+ 
+The masked local contrasts are calculated using a set of convolution kernels scaled to simulate the performance of the human visual system, and Ψ is measured in units of just-noticeable differences.
+ 
+   
+   ">
+    
+    <meta name="DC.type" content="patent">
+    
+    <meta name="DC.title" content="Visible motion blur 
+       ">
+    
+    <meta name="DC.date" content="2012-04-11" scheme="dateSubmitted">
+    
+    <meta name="DC.description" content="
+     A method of measuring motion blur is disclosed comprising obtaining a moving edge temporal profile r 1 (k) of an image of a high-contrast moving edge, calculating the masked local contrast m 1 (k) for r 1 (k) and the masked local contrast m 2 (k) for an ideal step edge waveform r 2 (k) with the same amplitude as r 1 (k), and calculating the measure or motion blur Ψ as a difference function,
+ 
+Ω= S (Δ xΣ   k   |m   1 ( k )− m   2 ( k )| β ) 1/β .
+ 
+The masked local contrasts are calculated using a set of convolution kernels scaled to simulate the performance of the human visual system, and Ψ is measured in units of just-noticeable differences.
+ 
+   
+   ">
+    
+    <meta name="citation_patent_application_number" content="US:13/444,777">
+    
+    <meta name="citation_pdf_url" content="https://patentimages.storage.googleapis.com/3e/e3/03/b7e4b22becaf46/US8675922.pdf">
+    
+    <meta name="citation_patent_number" content="US:8675922">
+    
+    <meta name="DC.date" content="2014-03-18" scheme="issue">
+    
+    <meta name="DC.contributor" content="Andrew B. Watson" scheme="inventor">
+    
+    <meta name="DC.contributor" content="Albert J. Ahumada" scheme="inventor">
+    
+    <meta name="DC.contributor" content="National Aeronautics and Space Administration (NASA)" scheme="assignee">
+    
+    <meta name="DC.relation" content="US:20050168492:A1" scheme="references">
+    
+    <meta name="DC.relation" content="US:7317445" scheme="references">
+    
+    <meta name="DC.relation" content="US:7783130" scheme="references">
+    
+    <meta name="DC.relation" content="US:20080061220:A1" scheme="references">
+    
+    <meta name="DC.relation" content="US:20100066850:A1" scheme="references">
+    
+    <meta name="DC.relation" content="US:20080170124:A1" scheme="references">
+    
+    <meta name="citation_reference" content="A. B. Watson and A. J. Ahumada, &#34;Blur clarified: A review and synthesis of blur discrimination,&#34; J. Vision, 11(5): 10, 1-23, doi: 10.1167/11.5.10, 2011." scheme="references">
+    
+    <meta name="citation_reference" content="A. B. Watson and A. J. Ahumada, Jr., &#34;A standard model for foveal detection of spatial contrast,&#34; J Vision, 5, 717-40, 2005." scheme="references">
+    
+    <meta name="citation_reference" content="A. B. Watson and J. A. Solomon, &#34;Model of visual contrast gain control and pattern masking,&#34; J. Opt. Soc. Am. A, 14, 2379-91, 1997." scheme="references">
+    
+    <meta name="citation_reference" content="A. B. Watson, &#34;Display motion blur: Comparison of measurement methods,&#34; J. Soc. Information Display, 18, 179-90, 2010." scheme="references">
+    
+    <meta name="citation_reference" content="A. B. Watson, &#34;The Spatial Standard Observer: A human vision model for display inspection,&#34; SID Symposium Digest of Technical Papers, 37, 1312-15, 2006." scheme="references">
+    
+    <meta name="citation_reference" content="A. J. Ahumada, M. T. San-Martin, and J. Gille, &#34;Symbol discriminability models for improved flight displays,&#34; SPIE Proceedings, 30, 6057, 2006." scheme="references">
+    
+    <meta name="citation_reference" content="E. Peli, &#34;Contrast in complex images,&#34; J. Opt. Soc. Am. A, 7, 2032-40, 1990." scheme="references">
+    
+    <meta name="citation_reference" content="G. E. Legge and J. M. Foley, &#34;Contrast masking in human vision,&#34; J. Opt. Soc. Am., 70, 1458-71, 1980." scheme="references">
+    
+    <meta name="citation_reference" content="G. Westheimer, S. Brincat, and C. Wehrhahn, &#34;Contrast dependency of foveal spatial functions: orientation, vernier, separation, blur and displacement discrimination and the tilt and Poggendorff illusions,&#34; Vision Research, 39, 1631-39, 1999." scheme="references">
+    
+    <meta name="citation_reference" content="J. R. Hamerly and C. A. Dvorak, &#34;Detection and discrimination of blur in edges and lines,&#34; J. Opt. Soc. Am., 71, 448, 1981." scheme="references">
+    
+    <meta name="citation_reference" content="S. Tourancheau, P. Le Callet, K. Brunnström, and B. Andrén, &#34;Psychophysical study of LCD motion-blur perception,&#34; Human Vision and Electronic Imaging, 2009." scheme="references">
+    
+    <meta name="citation_reference" content="Video Electronics Standards Association (VESA), &#34;Flat Panel Display Measurements (FPDM2), Tech. Rep. 2.0 Update, May 2005&#34;, Video Electronics Standards Association, Milpitas, CA, 2005." scheme="references">
+    
+    <meta name="citation_reference" content="Video Electronics Standards Association (VESA), &#34;Flat Panel Display Measurements Standard (FPDM), Version 2.0,&#34; Video Electronics Standards Association, Milpitas, CA, 2001." scheme="references">
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,400italic,500,500italic,700">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Product+Sans">
+    <style>
+      body { transition: none; }
+    </style>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-27188110-4', 'auto');
+
+      version = 'patent-search.search_20191120_RC00';
+
+      function sendFeedback() {
+        userfeedback.api.startFeedback({
+          'productId': '713680',
+          'bucket': 'patent-search-web',
+          'productVersion': version,
+        });
+      }
+
+      window.experiments = {};
+      window.experiments.patentCountries = "ae,ag,al,am,ao,ap,ar,at,au,aw,az,ba,bb,bd,be,bf,bg,bh,bj,bn,bo,br,bw,bx,by,bz,ca,cf,cg,ch,ci,cl,cm,cn,co,cr,cs,cu,cy,cz,dd,de,dj,dk,dm,do,dz,ea,ec,ee,eg,em,ep,es,fi,fr,ga,gb,gc,gd,ge,gh,gm,gn,gq,gr,gt,gw,hk,hn,hr,hu,ib,id,ie,il,in,ir,is,it,jo,jp,ke,kg,kh,km,kn,kp,kr,kw,kz,la,lc,li,lk,lr,ls,lt,lu,lv,ly,ma,mc,md,me,mg,mk,ml,mn,mo,mr,mt,mw,mx,my,mz,na,ne,ng,ni,nl,no,nz,oa,om,pa,pe,pg,ph,pl,pt,py,qa,ro,rs,ru,rw,sa,sc,sd,se,sg,si,sk,sl,sm,sn,st,su,sv,sy,sz,td,tg,th,tj,tm,tn,tr,tt,tw,tz,ua,ug,us,uy,uz,vc,ve,vn,wo,yu,za,zm,zw";
+      
+      
+      window.profilePicture = "";
+
+      window.Polymer = {
+        dom: 'shady',
+        lazyRegister: true,
+      };
+    </script>
+
+    <script src="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/webcomponentsjs/webcomponents-lite.min.js"></script>
+    
+    <link rel="import" href="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/search-app-vulcanized.html">
+    
+  </head>
+  <body unresolved>
+    
+    <script src="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/search-app-vulcanized.js"></script>
+    
+    <search-app>
+      
+      
+
+      <article class="result" itemscope itemtype="http://schema.org/ScholarlyArticle">
+  <h1 itemprop="pageTitle">US8675922B1 - Visible motion blur 
+        - Google Patents</h1>
+  <span itemprop="title">Visible motion blur 
+       </span>
+
+  <meta itemprop="type" content="patent">
+  <a href="https://patentimages.storage.googleapis.com/3e/e3/03/b7e4b22becaf46/US8675922.pdf" itemprop="pdfLink">Download PDF</a>
+  <h2>Info</h2>
+
+  <dl>
+    <dt>Publication number</dt>
+    <dd itemprop="publicationNumber">US8675922B1</dd>
+    <meta itemprop="numberWithoutCodes" content="8675922">
+    <meta itemprop="kindCode" content="B1">
+    <meta itemprop="publicationDescription" content="Patent ( no pre-grant publication)">
+    
+    <span>US8675922B1</span>
+    
+    <span>US13/444,777</span>
+    
+    <span>US201213444777A</span>
+    
+    <span>US8675922B1</span>
+    
+    <span>US 8675922 B1</span>
+    
+    <span>US8675922 B1</span>
+    
+    <span>US 8675922B1</span>
+    
+    <span>  </span>
+    
+    <span> </span>
+    
+    <span> </span>
+    
+    <span>US 201213444777 A</span>
+    
+    <span>US201213444777 A</span>
+    
+    <span>US 201213444777A</span>
+    
+    <span>US 8675922 B1</span>
+    
+    <span>US8675922 B1</span>
+    
+    <span>US 8675922B1</span>
+    
+
+    <dt>Authority</dt>
+    <dd itemprop="countryCode">US</dd>
+    <dd itemprop="countryName">United States</dd>
+
+    <dt>Prior art keywords</dt>
+    
+    <dd itemprop="priorArtKeywords" repeat>method</dd>
+    <dd itemprop="priorArtKeywords" repeat>kernel</dd>
+    <dd itemprop="priorArtKeywords" repeat>scale</dd>
+    <dd itemprop="priorArtKeywords" repeat>masking</dd>
+    <dd itemprop="priorArtKeywords" repeat>motion blur</dd>
+
+    <dt>Prior art date</dt>
+    <dd><time itemprop="priorArtDate" datetime="2011-05-24">2011-05-24</time></dd>
+
+    <dt>Legal status (The legal status is an assumption and is not a legal conclusion. Google has not performed a legal analysis and makes no representation as to the accuracy of the status listed.)</dt>
+    <dd itemprop="legalStatusIfi" itemscope>
+      <span itemprop="status">Active</span>, expires <time itemprop="expiration" datetime="2032-08-31">2032-08-31</time>
+    </dd>
+  </dl>
+
+  <dt>Application number</dt>
+  <dd itemprop="applicationNumber">US13/444,777</dd>
+
+  
+
+  
+
+  <dt>Inventor</dt>
+  <dd itemprop="inventor" repeat>Andrew B. Watson</dd>
+  <dd itemprop="inventor" repeat>Albert J. Ahumada</dd>
+  <dt>Current Assignee (The listed assignees may be inaccurate. Google has not performed a legal analysis and makes no representation or warranty as to the accuracy of the list.)</dt>
+  <dd itemprop="assigneeCurrent" repeat>
+    National Aeronautics and Space Administration (NASA)
+  </dd>
+
+  <dt>Original Assignee</dt>
+  <dd itemprop="assigneeOriginal" repeat>National Aeronautics and Space Administration (NASA)</dd>
+
+  <dt>Priority date (The priority date is an assumption and is not a legal conclusion. Google has not performed a legal analysis and makes no representation as to the accuracy of the date listed.)</dt>
+  <dd><time itemprop="priorityDate" datetime="2011-05-24">2011-05-24</time></dd>
+
+  <dt>Filing date</dt>
+  <dd><time itemprop="filingDate" datetime="2012-04-11">2012-04-11</time></dd>
+
+  <dt>Publication date</dt>
+  <dd><time itemprop="publicationDate" datetime="2014-03-18">2014-03-18</time></dd>
+
+  
+
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2011-05-24">2011-05-24</time>
+    <span itemprop="title">Priority to US201161520357P</span>
+    <span itemprop="type">priority</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2012-04-11">2012-04-11</time>
+    <span itemprop="title">Application filed by National Aeronautics and Space Administration (NASA)</span>
+    <span itemprop="type">filed</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    <span itemprop="assigneeSearch">National Aeronautics and Space Administration (NASA)</span>
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2012-04-11">2012-04-11</time>
+    <span itemprop="title">Priority to US13/444,777</span>
+    <span itemprop="type">priority</span>
+    
+    
+    
+    <span itemprop="documentId">patent/US8675922B1/en</span>
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2012-04-12">2012-04-12</time>
+    <span itemprop="title">Assigned to USA AS REPRESENTED BY THE ADMINISTRATOR OF THE NASA</span>
+    <span itemprop="type">reassignment</span>
+    
+    
+    
+    
+    <span itemprop="assigneeSearch">USA AS REPRESENTED BY THE ADMINISTRATOR OF THE NASA</span>
+    
+    
+    <span itemprop="description" repeat>ASSIGNMENT OF ASSIGNORS INTEREST (SEE DOCUMENT FOR DETAILS).</span>
+    
+    <span itemprop="description" repeat>Assignors: WATSON, ANDREW B.</span>
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2012-06-22">2012-06-22</time>
+    <span itemprop="title">Assigned to USA AS REPRESENTED BY THE ADMINISTRATOR OF THE NASA</span>
+    <span itemprop="type">reassignment</span>
+    
+    
+    
+    
+    <span itemprop="assigneeSearch">USA AS REPRESENTED BY THE ADMINISTRATOR OF THE NASA</span>
+    
+    
+    <span itemprop="description" repeat>ASSIGNMENT OF ASSIGNORS INTEREST (SEE DOCUMENT FOR DETAILS).</span>
+    
+    <span itemprop="description" repeat>Assignors: AHUMADA, ALBERT J.</span>
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2014-03-18">2014-03-18</time>
+    <span itemprop="title">Application granted</span>
+    <span itemprop="type">granted</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2014-03-18">2014-03-18</time>
+    <span itemprop="title">Publication of US8675922B1</span>
+    <span itemprop="type">publication</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    <span itemprop="documentId">patent/US8675922B1/en</span>
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2019-11-26">2019-11-26</time>
+    <span itemprop="title">Application status is Active</span>
+    <span itemprop="type">legal-status</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2032-08-31">2032-08-31</time>
+    <span itemprop="title">Adjusted expiration</span>
+    <span itemprop="type">legal-status</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+
+  <h2>Links</h2>
+
+  <ul>
+    
+          <li itemprop="links" itemscope repeat>
+            <meta itemprop="id" content="usptoLink">
+            <a href="http://patft.uspto.gov/netacgi/nph-Parser?Sect1=PTO1&Sect2=HITOFF&p=1&u=/netahtml/PTO/srchnum.html&r=1&f=G&l=50&d=PALL&s1=8675922.PN." itemprop="url" target="_blank"><span itemprop="text">USPTO</span></a>
+          </li>
+        <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="usptoAssignmentLink">
+          <a href="https://assignment.uspto.gov/patent/index.html#/patent/search/resultFilter?searchInput=8675922" itemprop="url" target="_blank"><span itemprop="text">USPTO Assignment</span></a>
+        </li>
+
+    <li itemprop="links" itemscope repeat>
+        <meta itemprop="id" content="espacenetLink">
+        <a href="http://worldwide.espacenet.com/publicationDetails/biblio?CC=US&amp;NR=8675922B1&amp;KC=B1&amp;FT=D" itemprop="url" target="_blank"><span itemprop="text">Espacenet</span></a>
+      </li>
+      
+
+    
+
+    
+      <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="globalDossierLink">
+          <a href="http://globaldossier.uspto.gov/#/result/patent/US/8675922/1" itemprop="url" target="_blank"><span itemprop="text">Global Dossier</span></a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="stackexchangeLink">
+          <a href="https://patents.stackexchange.com/questions/tagged/US8675922" itemprop="url"><span itemprop="text">Discuss</span></a>
+        </li>
+      
+  </ul>
+
+  
+  <ul itemprop="concept" itemscope>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000000007</span>
+      <span itemprop="name">visual effect</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>abstract</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">34</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000002123</span>
+      <span itemprop="name">temporal effects</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>abstract</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">10</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000000873</span>
+      <span itemprop="name">masking</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">24</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">241000282414</span>
+      <span itemprop="name">Homo sapiens</span>
+      <span itemprop="domain">Species</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>abstract</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">7</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000004301</span>
+      <span itemprop="name">light adaptation</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">5</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000005516</span>
+      <span itemprop="name">engineering processes</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">235000019557</span>
+      <span itemprop="name">luminance</span>
+      <span itemprop="domain">Nutrition</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">25</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001186</span>
+      <span itemprop="name">cumulative</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">6</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000003384</span>
+      <span itemprop="name">imaging method</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">5</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000005259</span>
+      <span itemprop="name">measurements</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">5</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000035945</span>
+      <span itemprop="name">sensitivity</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">5</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000005225</span>
+      <span itemprop="name">electronics</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">4</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000007787</span>
+      <span itemprop="name">solids</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">4</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000002004</span>
+      <span itemprop="name">ayurvedic oil</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">3</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000004364</span>
+      <span itemprop="name">calculation methods</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">3</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000004044</span>
+      <span itemprop="name">response</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">3</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000000694</span>
+      <span itemprop="name">effects</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">210000000554</span>
+      <span itemprop="name">Iris</span>
+      <span itemprop="domain">Anatomy</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">210000001525</span>
+      <span itemprop="name">Retina</span>
+      <span itemprop="domain">Anatomy</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">210000003994</span>
+      <span itemprop="name">Retinal Ganglion Cells</span>
+      <span itemprop="domain">Anatomy</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">210000000538</span>
+      <span itemprop="name">Tail</span>
+      <span itemprop="domain">Anatomy</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000003042</span>
+      <span itemprop="name">antagnostic</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000006243</span>
+      <span itemprop="name">chemical reaction</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000000875</span>
+      <span itemprop="name">corresponding</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001419</span>
+      <span itemprop="name">dependent</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000000727</span>
+      <span itemprop="name">fractions</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000000034</span>
+      <span itemprop="name">methods</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000003278</span>
+      <span itemprop="name">mimic</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000003607</span>
+      <span itemprop="name">modifier</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001537</span>
+      <span itemprop="name">neural</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000010194</span>
+      <span itemprop="name">physical measurement</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000003825</span>
+      <span itemprop="name">pressing</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000002829</span>
+      <span itemprop="name">reduced</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+  </ul>
+  
+
+  <section>
+    <h2>Images</h2>
+    <ul>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/5f/9b/79/5905baaba5d41d/US08675922-20140318-D00000.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/f2/75/8d/08983f9fbe6e16/US08675922-20140318-D00000.png">
+        <ul>
+          <li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="0">
+            <meta itemprop="label" content="R">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="268">
+              <meta itemprop="top" content="918">
+              <meta itemprop="right" content="307">
+              <meta itemprop="bottom" content="965">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="50">
+            <meta itemprop="label" content="step">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="235">
+              <meta itemprop="top" content="796">
+              <meta itemprop="right" content="309">
+              <meta itemprop="bottom" content="868">
+            </span>
+          </li>
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/ba/04/bb/ac091517f8bdbe/US08675922-20140318-D00001.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/74/7d/97/c19ea8b37d15d8/US08675922-20140318-D00001.png">
+        <ul>
+          <li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="0">
+            <meta itemprop="label" content="R">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="331">
+              <meta itemprop="top" content="921">
+              <meta itemprop="right" content="356">
+              <meta itemprop="bottom" content="959">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="0">
+            <meta itemprop="label" content="R">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="381">
+              <meta itemprop="top" content="974">
+              <meta itemprop="right" content="421">
+              <meta itemprop="bottom" content="1022">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="0">
+            <meta itemprop="label" content="R">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="333">
+              <meta itemprop="top" content="2212">
+              <meta itemprop="right" content="358">
+              <meta itemprop="bottom" content="2250">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="50">
+            <meta itemprop="label" content="step">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="289">
+              <meta itemprop="top" content="809">
+              <meta itemprop="right" content="369">
+              <meta itemprop="bottom" content="857">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="50">
+            <meta itemprop="label" content="step">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="288">
+              <meta itemprop="top" content="2101">
+              <meta itemprop="right" content="370">
+              <meta itemprop="bottom" content="2151">
+            </span>
+          </li>
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/2c/7c/a1/895b4b4ac4cff4/US08675922-20140318-D00002.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/5b/5b/65/42be15fb0b7fa8/US08675922-20140318-D00002.png">
+        <ul>
+          <li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="2">
+            <meta itemprop="id" content="0">
+            <meta itemprop="label" content="R">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="779">
+              <meta itemprop="top" content="2498">
+              <meta itemprop="right" content="840">
+              <meta itemprop="bottom" content="2551">
+            </span>
+          </li>
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/5c/74/b0/007b5c30ed786d/US08675922-20140318-D00003.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/b1/33/b4/766562ae37d0ff/US08675922-20140318-D00003.png">
+        <ul>
+          <li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="3">
+            <meta itemprop="id" content="0">
+            <meta itemprop="label" content="R">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="320">
+              <meta itemprop="top" content="961">
+              <meta itemprop="right" content="365">
+              <meta itemprop="bottom" content="1016">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="3">
+            <meta itemprop="id" content="1">
+            <meta itemprop="label" content="equation">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="533">
+              <meta itemprop="top" content="2018">
+              <meta itemprop="right" content="567">
+              <meta itemprop="bottom" content="2046">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="3">
+            <meta itemprop="id" content="50">
+            <meta itemprop="label" content="step">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="273">
+              <meta itemprop="top" content="856">
+              <meta itemprop="right" content="364">
+              <meta itemprop="bottom" content="917">
+            </span>
+          </li>
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/5d/5f/4e/fc07191facfa97/US08675922-20140318-D00004.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/07/1f/2b/f3f512f5bfc1a0/US08675922-20140318-D00004.png">
+        <ul>
+          <li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="4">
+            <meta itemprop="id" content="50">
+            <meta itemprop="label" content="step">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="276">
+              <meta itemprop="top" content="849">
+              <meta itemprop="right" content="369">
+              <meta itemprop="bottom" content="912">
+            </span>
+          </li>
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/5a/98/c9/6218cccb0c03be/US08675922-20140318-D00005.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/7d/5a/95/979ff37dfa1ae4/US08675922-20140318-D00005.png">
+        <ul>
+          
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/bd/50/c8/7c2bbaa42eb0f4/US08675922-20140318-D00006.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/e8/ab/a4/9dd8343afdf044/US08675922-20140318-D00006.png">
+        <ul>
+          <li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="6">
+            <meta itemprop="id" content="0">
+            <meta itemprop="label" content="R">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="394">
+              <meta itemprop="top" content="1108">
+              <meta itemprop="right" content="426">
+              <meta itemprop="bottom" content="1158">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="6">
+            <meta itemprop="id" content="0">
+            <meta itemprop="label" content="R">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="452">
+              <meta itemprop="top" content="1180">
+              <meta itemprop="right" content="499">
+              <meta itemprop="bottom" content="1237">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="6">
+            <meta itemprop="id" content="10">
+            <meta itemprop="label" content="masking scale degrees">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="348">
+              <meta itemprop="top" content="754">
+              <meta itemprop="right" content="438">
+              <meta itemprop="bottom" content="814">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="6">
+            <meta itemprop="id" content="10">
+            <meta itemprop="label" content="masking scale degrees">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1260">
+              <meta itemprop="top" content="1176">
+              <meta itemprop="right" content="1346">
+              <meta itemprop="bottom" content="1232">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="6">
+            <meta itemprop="id" content="12">
+            <meta itemprop="label" content="Equation">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1422">
+              <meta itemprop="top" content="1175">
+              <meta itemprop="right" content="1508">
+              <meta itemprop="bottom" content="1232">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="6">
+            <meta itemprop="id" content="2">
+            <meta itemprop="label" content="N t">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="604">
+              <meta itemprop="top" content="1175">
+              <meta itemprop="right" content="665">
+              <meta itemprop="bottom" content="1236">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="6">
+            <meta itemprop="id" content="4">
+            <meta itemprop="label" content="Equation">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="784">
+              <meta itemprop="top" content="1180">
+              <meta itemprop="right" content="821">
+              <meta itemprop="bottom" content="1236">
+            </span>
+          </li>
+        </ul>
+      </li>
+      </ul>
+  </section>
+
+  <section>
+    <h2>Classifications</h2>
+    
+    <ul>
+      <li>
+        <ul itemprop="cpcs" itemscope repeat>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">H</span>&mdash;<span itemprop="Description">ELECTRICITY</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">H04</span>&mdash;<span itemprop="Description">ELECTRIC COMMUNICATION TECHNIQUE</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">H04N</span>&mdash;<span itemprop="Description">PICTORIAL COMMUNICATION, e.g. TELEVISION</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">H04N5/00</span>&mdash;<span itemprop="Description">Details of television systems</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">H04N5/222</span>&mdash;<span itemprop="Description">Studio circuitry; Studio devices; Studio equipment ; Cameras comprising an electronic image sensor, e.g. digital cameras, video cameras, TV cameras, video cameras, camcorders, webcams, camera modules for embedding in other devices, e.g. mobile phones, computers or vehicles</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">H04N5/225</span>&mdash;<span itemprop="Description">Television cameras ; Cameras comprising an electronic image sensor, e.g. digital cameras, video cameras, camcorders, webcams, camera modules specially adapted for being embedded in other devices, e.g. mobile phones, computers or vehicles</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">H04N5/232</span>&mdash;<span itemprop="Description">Devices for controlling television cameras, e.g. remote control ; Control of cameras comprising an electronic image sensor</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">H04N5/23248</span>&mdash;<span itemprop="Description">Devices for controlling television cameras, e.g. remote control ; Control of cameras comprising an electronic image sensor for stable pick-up of the scene in spite of camera body vibration</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">H04N5/23251</span>&mdash;<span itemprop="Description">Motion detection</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">H04N5/23254</span>&mdash;<span itemprop="Description">Motion detection based on the image signal</span>
+            <meta itemprop="Leaf" content="true">
+            
+            <meta itemprop="FirstCode" content="true">
+          </li>
+          </ul>
+      </li>
+      <li>
+        <ul itemprop="cpcs" itemscope repeat>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G</span>&mdash;<span itemprop="Description">PHYSICS</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06</span>&mdash;<span itemprop="Description">COMPUTING; CALCULATING; COUNTING</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06T</span>&mdash;<span itemprop="Description">IMAGE DATA PROCESSING OR GENERATION, IN GENERAL</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06T5/00</span>&mdash;<span itemprop="Description">Image enhancement or restoration</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06T5/001</span>&mdash;<span itemprop="Description">Image restoration</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06T5/003</span>&mdash;<span itemprop="Description">Deblurring; Sharpening</span>
+            <meta itemprop="Leaf" content="true">
+            
+            
+          </li>
+          </ul>
+      </li>
+      <li>
+        <ul itemprop="cpcs" itemscope repeat>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">H</span>&mdash;<span itemprop="Description">ELECTRICITY</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">H04</span>&mdash;<span itemprop="Description">ELECTRIC COMMUNICATION TECHNIQUE</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">H04N</span>&mdash;<span itemprop="Description">PICTORIAL COMMUNICATION, e.g. TELEVISION</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">H04N5/00</span>&mdash;<span itemprop="Description">Details of television systems</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">H04N5/222</span>&mdash;<span itemprop="Description">Studio circuitry; Studio devices; Studio equipment ; Cameras comprising an electronic image sensor, e.g. digital cameras, video cameras, TV cameras, video cameras, camcorders, webcams, camera modules for embedding in other devices, e.g. mobile phones, computers or vehicles</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">H04N5/225</span>&mdash;<span itemprop="Description">Television cameras ; Cameras comprising an electronic image sensor, e.g. digital cameras, video cameras, camcorders, webcams, camera modules specially adapted for being embedded in other devices, e.g. mobile phones, computers or vehicles</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">H04N5/232</span>&mdash;<span itemprop="Description">Devices for controlling television cameras, e.g. remote control ; Control of cameras comprising an electronic image sensor</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">H04N5/23248</span>&mdash;<span itemprop="Description">Devices for controlling television cameras, e.g. remote control ; Control of cameras comprising an electronic image sensor for stable pick-up of the scene in spite of camera body vibration</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">H04N5/23264</span>&mdash;<span itemprop="Description">Vibration or motion blur correction</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">H04N5/23267</span>&mdash;<span itemprop="Description">Vibration or motion blur correction performed by a processor, e.g. controlling the readout of an image memory</span>
+            <meta itemprop="Leaf" content="true">
+            
+            
+          </li>
+          </ul>
+      </li>
+      <li>
+        <ul itemprop="cpcs" itemscope repeat>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G</span>&mdash;<span itemprop="Description">PHYSICS</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06</span>&mdash;<span itemprop="Description">COMPUTING; CALCULATING; COUNTING</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06T</span>&mdash;<span itemprop="Description">IMAGE DATA PROCESSING OR GENERATION, IN GENERAL</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06T2207/00</span>&mdash;<span itemprop="Description">Indexing scheme for image analysis or image enhancement</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06T2207/20</span>&mdash;<span itemprop="Description">Special algorithmic details</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06T2207/20172</span>&mdash;<span itemprop="Description">Image enhancement details</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06T2207/20201</span>&mdash;<span itemprop="Description">Motion blur correction</span>
+            <meta itemprop="Leaf" content="true">
+            <meta itemprop="Additional" content="true">
+            
+          </li>
+          </ul>
+      </li>
+      </ul>
+  </section>
+
+  <section itemprop="abstract" itemscope>
+    <h2>Abstract</h2>
+    
+    <div itemprop="content" html><abstract mxw-id="PA131431963" lang="EN" load-source="patent-office">
+    <div num="p-0001" class="abstract">A method of measuring motion blur is disclosed comprising obtaining a moving edge temporal profile r<sub>1</sub>(k) of an image of a high-contrast moving edge, calculating the masked local contrast m<sub>1</sub>(k) for r<sub>1</sub>(k) and the masked local contrast m<sub>2</sub>(k) for an ideal step edge waveform r<sub>2</sub>(k) with the same amplitude as r<sub>1</sub>(k), and calculating the measure or motion blur Ψ as a difference function,
+<br/>
+Ω=<i>S</i>(Δ<i>xΣ</i> <sub>k</sub> <i>|m</i> <sub>1</sub>(<i>k</i>)−<i>m</i> <sub>2</sub>(<i>k</i>)|<sup>β</sup>)<sup>1/β</sup>.
+<br/>
+The masked local contrasts are calculated using a set of convolution kernels scaled to simulate the performance of the human visual system, and Ψ is measured in units of just-noticeable differences.
+</div>
+  </abstract>
+  </div>
+  </section>
+
+  <section itemprop="description" itemscope>
+    <h2>Description</h2>
+    
+    <div itemprop="content" html><div mxw-id="PDES66870785" lang="EN" load-source="patent-office" class="description">
+    
+    <heading>RELATED APPLICATION</heading>
+    <p num="p-0002">This application claims priority to U.S. Provisional Patent Application No. 61/520,357 filed May 24, 2011, which is hereby incorporated by reference.</p>
+    
+    
+    <heading>ORIGIN OF THE INVENTION</heading>
+    <p num="p-0003">The invention described herein was made by an employee of the United States Government and may be manufactured and used by or for the Government of the United States of America for governmental purposes without the payment of any royalties thereon or therefor.</p>
+    
+    
+    <heading>FIELD OF THE INVENTION</heading>
+    <p num="p-0004">One or more embodiments of the present invention relate to methods for measuring motion blur in imaging systems.</p>
+    <heading>BACKGROUND</heading>
+    <p num="p-0005">Motion blur is a significant defect of most current display technologies. Motion blur arises when the display presents individual frames that persist for significant fractions of a frame duration. When the eye smoothly tracks a moving image, the image is smeared across the retina during the frame duration. Although motion blur may be manifest in any moving image, one widely used test pattern is a moving edge. This pattern gives rise to measurements of what is called moving-edge blur.</p>
+    <p num="p-0006">A number of methods have been developed to measure moving edge blur, among them pursuit cameras, so-called digital pursuit cameras, and calculations starting from the step response of the display. These methods generally yield a waveform—the moving edge temporal profile (METP)—that describes the cross-sectional profile of the blur [1].</p>
+    <p num="p-0007">Several methods have also been developed to convert this waveform to a single-number metric of motion blur. Examples are the Blur Edge Time (BET), Gaussian Edge Time (GET), and Perceptual Blur Edge Time (PBET) [1]. However, none of these metrics attempts to provide a perceptual measure of the amount of motion blur.</p>
+    <p num="p-0008">First, none of these metrics takes into account the contrast of the edge, and its effect upon perceived blur. In general, blur becomes less visible when contrast decreases [2, 3], and the apparent width of motion blur declines with reduced contrast [4]. Second, contrast of the edge will mask the visibility of the blur [5, 6]. Thus a model of blur visibility must take into account this masking effect.</p>
+    <p num="p-0009">The need to incorporate contrast is especially pressing because measurements of motion blur are often made at several contrasts (gray-to-gray transitions) [7, 8]. Those separate measurements must then be combined in some perceptually relevant way.</p>
+    <p num="p-0010">Finally, none of the existing metrics take into account the visual resolution of the display (pixels/degree of visual angle). For a given speed in pixels/frame, a higher visual resolution will yield a less visible artifact.</p>
+    <heading>SUMMARY OF THE INVENTION</heading>
+    <p num="p-0011">A method of measuring motion blur is disclosed comprising obtaining a moving edge temporal profile r<sub>1</sub>(k) of an image of a high-contrast moving edge, calculating the masked local contrast m<sub>1</sub>(k) for r<sub>1</sub>(k) and the masked local contrast m<sub>2</sub>(k) for an ideal step edge waveform r<sub>2</sub>(k) with the same amplitude as r<sub>1</sub>(k), and calculating the measure or motion blur Ψ as a difference function,
+<br/>
+Ψ=<i>S</i>(Δ<i>xΣ</i> <sub>k</sub> <i>|m</i> <sub>1</sub>(<i>k</i>)−<i>m</i> <sub>2</sub>(<i>k</i>)|<sup>β</sup>)<sup>1/β</sup>.
+<br/>
+The masked local contrasts are calculated using a set of convolution kernels scaled to simulate the performance of the human visual system, and Ψ is measured in units of just-noticeable differences.
+</p>
+    
+    
+    <description-of-drawings>
+      <heading>BRIEF DESCRIPTION OF THE DRAWINGS</heading>
+      <p num="p-0012"> <figref idrefs="DRAWINGS">FIG. 1</figref> shows an example of a moving edge temporal profile (METP) for a blurred edge.</p>
+      <p num="p-0013"> <figref idrefs="DRAWINGS">FIG. 2</figref> shows a fit of a cumulative Gaussian curve to the waveform of <figref idrefs="DRAWINGS">FIG. 1</figref>.</p>
+      <p num="p-0014"> <figref idrefs="DRAWINGS">FIGS. 3</figref> A-C show examples of the center, surround, and masking kernels.</p>
+      <p num="p-0015"> <figref idrefs="DRAWINGS">FIG. 4</figref> shows the results of the convolutions of the center and surround kernels of <figref idrefs="DRAWINGS">FIG. 3</figref> with the waveform of <figref idrefs="DRAWINGS">FIG. 2</figref>.</p>
+      <p num="p-0016"> <figref idrefs="DRAWINGS">FIG. 5</figref> shows the contrast waveform, local contrast energy, and masked local contrast for the waveform of <figref idrefs="DRAWINGS">FIG. 2</figref>.</p>
+      <p num="p-0017"> <figref idrefs="DRAWINGS">FIG. 6</figref> shows an ideal step edge overlaid on the METP waveform.</p>
+      <p num="p-0018"> <figref idrefs="DRAWINGS">FIG. 7</figref> shows the masked local contrast waveforms for the two waveforms of <figref idrefs="DRAWINGS">FIG. 6</figref>.</p>
+      <p num="p-0019"> <figref idrefs="DRAWINGS">FIG. 8</figref> shows the difference between the two masked local contrast waveforms of <figref idrefs="DRAWINGS">FIG. 7</figref>.</p>
+      <p num="p-0020"> <figref idrefs="DRAWINGS">FIG. 9</figref> shows the value of visual motion blur as a function of the offset of the ideal step edge waveform from the METP waveform.</p>
+    </description-of-drawings>
+    
+    
+    <heading>DETAILED DESCRIPTION</heading>
+    <p num="p-0021">Before the present invention is described in detail, it is to be understood that unless otherwise indicated this invention is not limited to specific imaging systems.</p>
+    <p num="p-0022">It must be noted that as used herein and in the claims, the singular forms “a,” “and” and “the” include plural referents unless the context clearly dictates otherwise. Thus, for example, reference to “an imaging system” includes two or more imaging systems, and so forth.</p>
+    <p num="p-0023">Where a range of values is provided, it is understood that each intervening value, to the tenth of the unit of the lower limit unless the context clearly dictates otherwise, between the upper and lower limit of that range, and any other stated or intervening value in that stated range, is encompassed within the invention. The upper and lower limits of these smaller ranges may independently be included in the smaller ranges, and are also encompassed within the invention, subject to any specifically excluded limit in the stated range. Where the stated range includes one or both of the limits, ranges excluding either or both of those included limits are also included in the invention. Where the modifier “about” is used, variations of ±10% are considered to be within the scope of the disclosed limit.</p>
+    <p num="p-0024">As used herein, the following symbol definitions apply:</p>
+    <p num="p-0025">
+      <tables id="TABLE-US-00001" num="00001">
+        <tgroup align="left" colsep="0" rowsep="0" cols="4">
+            <colspec colname="1" colwidth="28pt" align="left"> </colspec>
+            <colspec colname="2" colwidth="126pt" align="left"> </colspec>
+            <colspec colname="3" colwidth="56pt" align="center"> </colspec>
+            <colspec colname="4" colwidth="70pt" align="left"> </colspec>
+            </tgroup> <row>
+                <entry namest="1" nameend="4" rowsep="1">TABLE 1</entry>
+              </row> <row>
+                <entry namest="1" nameend="4" align="center" rowsep="1"> </entry>
+              </row> <row>
+                <entry>Symbol</entry>
+                <entry>Definition</entry>
+                <entry>Example</entry>
+                <entry>Unit</entry>
+              </row> <row>
+                <entry namest="1" nameend="4" align="center" rowsep="1"> </entry>
+              </row> <row>
+                <entry>k</entry>
+                <entry>integer sample index</entry>
+                <entry>
+                  <maths id="MATH-US-00001" num="00001">
+                    <math overflow="scroll">
+                      <mrow>
+                        <mrow>
+                          <mrow>
+                            <mo>-</mo>
+                            <mfrac>
+                              <msub>
+                                <mi>N</mi>
+                                <mi>t</mi>
+                              </msub>
+                              <mn>2</mn>
+                            </mfrac>
+                          </mrow>
+                          <mo>⁢</mo>
+                          <mstyle>
+                            <mspace width="0.8em" height="0.8ex"> </mspace>
+                          </mstyle>
+                          <mo>⁢</mo>
+                          <mi>…</mi>
+                          <mo>⁢</mo>
+                          <mstyle>
+                            <mspace width="0.8em" height="0.8ex"> </mspace>
+                          </mstyle>
+                          <mo>⁢</mo>
+                          <mfrac>
+                            <msub>
+                              <mi>N</mi>
+                              <mi>t</mi>
+                            </msub>
+                            <mn>2</mn>
+                          </mfrac>
+                        </mrow>
+                        <mo>-</mo>
+                        <mn>1</mn>
+                      </mrow>
+                    </math>
+                  </maths>
+                </entry>
+                <entry>dimensionless</entry>
+              </row> <row>
+                <entry> </entry>
+              </row> <row>
+                <entry>r(k)</entry>
+                <entry>an arbitrary luminance waveform</entry>
+                <entry> </entry>
+                <entry>relative luminance</entry>
+              </row> <row>
+                <entry>r<sub>1</sub>(k)</entry>
+                <entry>r(k) for a moving edge (METP)</entry>
+                <entry> </entry>
+                <entry>relative luminance</entry>
+              </row> <row>
+                <entry>r<sub>2</sub>(k)</entry>
+                <entry>r(k) for an ideal step edge</entry>
+                <entry> </entry>
+                <entry>relative luminance</entry>
+              </row> <row>
+                <entry>R<sub>0</sub> </entry>
+                <entry>lower luminance level for step</entry>
+                <entry>50</entry>
+                <entry>relative luminance</entry>
+              </row> <row>
+                <entry>R<sub>1</sub> </entry>
+                <entry>upper luminance level for step</entry>
+                <entry>330</entry>
+                <entry>relative luminance</entry>
+              </row> <row>
+                <entry>Δt</entry>
+                <entry>time between samples</entry>
+                <entry>0.02867</entry>
+                <entry>frames</entry>
+              </row> <row>
+                <entry>Δx</entry>
+                <entry>distance between samples</entry>
+                <entry>0.007167</entry>
+                <entry>degrees of visual angle</entry>
+              </row> <row>
+                <entry>p</entry>
+                <entry>speed of moving edge</entry>
+                <entry>16</entry>
+                <entry>pixels/frame</entry>
+              </row> <row>
+                <entry>v</entry>
+                <entry>visual resolution</entry>
+                <entry>64</entry>
+                <entry>pixels/degree</entry>
+              </row> <row>
+                <entry>μ</entry>
+                <entry>center of cumulative Gaussian</entry>
+                <entry> </entry>
+                <entry>degrees of visual angle</entry>
+              </row> <row>
+                <entry>σ</entry>
+                <entry>standard deviation of cumulative Gaussian</entry>
+                <entry>0.0468</entry>
+                <entry>degrees of visual angle</entry>
+              </row> <row>
+                <entry>g</entry>
+                <entry>cumulative Gaussian</entry>
+                <entry> </entry>
+                <entry>relative luminance</entry>
+              </row> <row>
+                <entry>N</entry>
+                <entry>number of standard deviations for trim</entry>
+                <entry>32</entry>
+                <entry>dimensionless</entry>
+              </row> <row>
+                <entry>N<sub>t</sub> </entry>
+                <entry>number of samples in waveform after trim</entry>
+                <entry> </entry>
+                <entry>dimensionless</entry>
+              </row> <row>
+                <entry>h<sub>c</sub>(k)</entry>
+                <entry>center kernel</entry>
+                <entry> </entry>
+                <entry>dimensionless</entry>
+              </row> <row>
+                <entry>s<sub>c</sub> </entry>
+                <entry>scale of center kernel</entry>
+                <entry>2.77</entry>
+                <entry>degrees of visual angle</entry>
+              </row> <row>
+                <entry>h<sub>s</sub>(k)</entry>
+                <entry>surround kernel</entry>
+                <entry> </entry>
+                <entry>dimensionless</entry>
+              </row> <row>
+                <entry>s<sub>s</sub> </entry>
+                <entry>scale of surround kernel</entry>
+                <entry>21.6</entry>
+                <entry>degrees of visual angle</entry>
+              </row> <row>
+                <entry>h<sub>m</sub>(k)</entry>
+                <entry>masking kernel</entry>
+                <entry> </entry>
+                <entry>dimensionless</entry>
+              </row> <row>
+                <entry>s<sub>m</sub> </entry>
+                <entry>scale of masking kernel</entry>
+                <entry>10</entry>
+                <entry>degrees of visual angle</entry>
+              </row> <row>
+                <entry>κ</entry>
+                <entry>adaptation weight</entry>
+                <entry>0.772</entry>
+                <entry>dimensionless</entry>
+              </row> <row>
+                <entry>
+                  <o>R</o>
+                </entry>
+                <entry>mean relative luminance,</entry>
+                <entry>190</entry>
+                <entry>relative luminance</entry>
+              </row> <row>
+                <entry> </entry>
+                <entry>typically (R<sub>0 </sub>+ R<sub>1</sub>)/2</entry>
+                <entry> </entry>
+                <entry> </entry>
+              </row> <row>
+                <entry>T</entry>
+                <entry>masking threshold</entry>
+                <entry>0.3</entry>
+                <entry>contrast</entry>
+              </row> <row>
+                <entry>S</entry>
+                <entry>sensitivity</entry>
+                <entry>217.6</entry>
+                <entry>dimensionless</entry>
+              </row> <row>
+                <entry>β</entry>
+                <entry>pooling exponent</entry>
+                <entry>2</entry>
+                <entry>dimensionless</entry>
+              </row> <row>
+                <entry namest="1" nameend="4" align="center" rowsep="1"> </entry>
+              </row> <table frame="none" colsep="0" rowsep="0" pgwide="1" class="description-table">
+          <thead>
+              
+              
+              
+              
+            </thead>
+            <tbody valign="top">
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+            </tbody>
+          
+        </table>
+      </tables>
+    </p>
+    <p num="p-0026">The present invention discloses a perceptual metric for motion blur called Visible Motion Blur (VMB). VMB incorporates the three effects described in the Background section: contrast, masking, and visual resolution. It is based on the Spatial Standard Observer [9]. VMB converts a moving edge temporal profile (METP) waveform into a measure of motion blur quantified in units of just noticeable differences (JNDs). JND is a standard perceptual measure in which one JND is the least quantity that can be seen with specified reliability.</p>
+    <p num="p-0027">The starting point for the VMB metric is the METP, a discrete sequence of relative luminances, which we write here as r<sub>1</sub>(k), where k represents an integer sample index, and the time between samples is Δt in units of frames. This waveform is a standard physical measurement of motion blur and can be acquired in several ways [1]. These generally involve estimating the width of an edge subjected to motion blur.</p>
+    <p num="p-0028">The edge can be captured in any of three ways. The first method employs a pursuit camera that tracks a vertical edge (between two gray levels) as it moves horizontally across the screen. The camera is simulating the eye as it pursues the moving edge. The result, after averaging over time, is a picture of the blurred edge. After averaging over the vertical dimension (orthogonal to the motion), a one-dimensional waveform representing the cross-section of the blurred edge can be obtained. It describes relative luminance (a linear function of luminance) as a function of horizontal position in pixels. When recorded at several speeds of edge motion, the waveforms are usually found to correspond when the horizontal scale is divided by the speed. Therefore, it is conventional to rescale the horizontal axis of the profile (pixels) by dividing by the speed (pixels/frame) to obtain a waveform that is a function of time (frames)—the METP. It is also conventional to characterize the width of the METP in terms of the time interval between 10% and 90% points of the curve. This quantity is called the blur edge time (BET).</p>
+    <p num="p-0029">The second method employs a stationary high-speed camera. With a sufficiently high frame rate, it is possible to capture a sequence of frames, that, with appropriate shifting and adding, can also yield a record of the METP. The high-speed camera avoids the mechanical challenges of the pursuit camera. This second method can be called “digital pursuit.”</p>
+    <p num="p-0030">The third method employs a fixed non-imaging detector such as a photodiode, which measures the luminance over time as the display is switched from one gray level to another. This temporal step response is then convolved with a pulse of duration equal to the hold time (for an LCD, typically one frame), to obtain another version of the METP. This third method can be called the “temporal step” method. The temporal step method relies on an assumption that all pixels are independent. It has been demonstrated to be accurate in many cases, but may fail when motion-dependent processing is present.</p>
+    <p num="p-0031">An example of an METP is shown in <figref idrefs="DRAWINGS">FIG. 1</figref>. In this example Δt=0.02867 (i.e., 1/35 frame). Δt can be selected so that there are at least 10 samples across the step in luminance so that the blur is well resolved. The data from <figref idrefs="DRAWINGS">FIG. 1</figref> will be used throughout the exemplary embodiment of the invention below. Note that <figref idrefs="DRAWINGS">FIG. 1</figref> has a non-zero black-level. This is typical of situations where the METP is recorded in a dark environment, but the visibility of motion blur is to be estimated for a lit environment. A suitable “veiling luminance” can be added to the METP to accommodate this background level.</p>
+    <p num="p-0032">An exemplary embodiment of the calculation of the VMB metric is as follows. The first step is to determine the distance between samples Δx in units of degree of visual angle. This is given by</p>
+    <p num="p-0033"> <maths id="MATH-US-00002" num="00002"> <math overflow="scroll"> <mtable> <mtr> <mtd> <mrow> <mrow> <mrow> <mi>Δ</mi> <mo>⁢</mo> <mstyle> <mspace width="0.3em" height="0.3ex"> </mspace> </mstyle> <mo>⁢</mo> <mi>x</mi> </mrow> <mo>=</mo> <mfrac> <mrow> <mi>p</mi> <mo>⁢</mo> <mstyle> <mspace width="0.3em" height="0.3ex"> </mspace> </mstyle> <mo>⁢</mo> <mi>Δ</mi> <mo>⁢</mo> <mstyle> <mspace width="0.3em" height="0.3ex"> </mspace> </mstyle> <mo>⁢</mo> <mi>t</mi> </mrow> <mi>v</mi> </mfrac> </mrow> <mo>,</mo> </mrow> </mtd> <mtd> <mrow> <mo>(</mo> <mn>1</mn> <mo>)</mo> </mrow> </mtd> </mtr> </mtable> </math> </maths> <br/>
+where p is the assumed speed of edge motion in pixels/frame and v is the visual resolution of the display in pixels/degree. For example, if p=16 pixels/frame and v=64 pixels/degree, then Δx=0.007167 degrees.
+</p>
+    <p num="p-0034">The waveform r(k) consists of a transition between two relative luminance levels R<sub>0 </sub>and R<sub>1 </sub>(<figref idrefs="DRAWINGS">FIG. 1</figref>). (R<sub>0 </sub>is non-zero in the example of <figref idrefs="DRAWINGS">FIG. 1</figref> to show inclusion of veiling luminance.) It is useful (although not necessary) to trim the sequence r<sub>1</sub>(k) to the neighborhood of the transition to reduce subsequent computations. The waveform can be fitted to a cumulative Gaussian</p>
+    <p num="p-0035"> <maths id="MATH-US-00003" num="00003"> <math overflow="scroll"> <mtable> <mtr> <mtd> <mrow> <mrow> <mrow> <mi>g</mi> <mo>⁡</mo> <mrow> <mo>(</mo> <mrow> <mrow> <mi>k</mi> <mo>;</mo> <mi>μ</mi> </mrow> <mo>,</mo> <mi>σ</mi> <mo>,</mo> <msub> <mi>R</mi> <mn>0</mn> </msub> <mo>,</mo> <msub> <mi>R</mi> <mn>1</mn> </msub> </mrow> <mo>)</mo> </mrow> </mrow> <mo>=</mo> <mrow> <msub> <mi>R</mi> <mn>0</mn> </msub> <mo>+</mo> <mrow> <mfrac> <mrow> <msub> <mi>R</mi> <mn>1</mn> </msub> <mo>-</mo> <msub> <mi>R</mi> <mn>0</mn> </msub> </mrow> <mn>2</mn> </mfrac> <mo>⁢</mo> <mrow> <mo>(</mo> <mrow> <mn>1</mn> <mo>+</mo> <mrow> <mi>erf</mi> <mo>⁡</mo> <mrow> <mo>[</mo> <mfrac> <mrow> <mrow> <mi>k</mi> <mo>⁢</mo> <mstyle> <mspace width="0.3em" height="0.3ex"> </mspace> </mstyle> <mo>⁢</mo> <mi>Δ</mi> <mo>⁢</mo> <mstyle> <mspace width="0.3em" height="0.3ex"> </mspace> </mstyle> <mo>⁢</mo> <mi>x</mi> </mrow> <mo>-</mo> <mi>μ</mi> </mrow> <mrow> <msqrt> <mn>2</mn> </msqrt> <mo>⁢</mo> <mi>σ</mi> </mrow> </mfrac> <mo>]</mo> </mrow> </mrow> </mrow> <mo>)</mo> </mrow> </mrow> </mrow> </mrow> <mo>,</mo> </mrow> </mtd> <mtd> <mrow> <mo>(</mo> <mn>2</mn> <mo>)</mo> </mrow> </mtd> </mtr> </mtable> </math> </maths> <br/>
+where μ is the center of the Gaussian, and σ is the width (standard deviation). The waveform can then be trimmed to values of kthat are within Nstandard deviations of the mean, that is, a portion of r<sub>1</sub>(k) is selected for which
+<br/>
+|<i>kΔx−μ|≦Nσ.</i>  (3)
+</p>
+    <p num="p-0036"> <figref idrefs="DRAWINGS">FIG. 2</figref> shows the fit to the example METP waveform from <figref idrefs="DRAWINGS">FIG. 1</figref>. The waveform has also been trimmed using N=32, and the horizontal coordinate has been converted to degrees relative to μ (i.e., the horizontal axis is kΔx rather than k). It can also be convenient to make the length of the sequence an even number by deleting the last point if necessary. The length of the trimmed sequence is N. The waveform shown in <figref idrefs="DRAWINGS">FIG. 2</figref>, plotted against a spatial distance (degrees of visual angle) instead of time (frames) is sometimes referred to as a “Moving Edge Spatial Waveform” (MESP). When this terminology is used, an METP is converted to an MESP using the relationship between Δx and Δt given in equation 1.</p>
+    <p num="p-0037">The next step is to create three convolution kernels, h<sub>c</sub>(k), h<sub>s</sub>(k), and h<sub>m</sub>(k). These are discrete sequences obtained by evaluating kernel functions at a discrete set of points with k-values matching those of the trimmed METP waveform:</p>
+    <p num="p-0038">
+      <maths id="MATH-US-00004" num="00004">
+        <math overflow="scroll">
+          <mtable>
+            <mtr>
+              <mtd>
+                <mrow>
+                  <mi>k</mi>
+                  <mo>=</mo>
+                  <mrow>
+                    <mrow>
+                      <mrow>
+                        <mo>-</mo>
+                        <mfrac>
+                          <msub>
+                            <mi>N</mi>
+                            <mi>t</mi>
+                          </msub>
+                          <mn>2</mn>
+                        </mfrac>
+                      </mrow>
+                      <mo>⁢</mo>
+                      <mstyle>
+                        <mspace width="0.8em" height="0.8ex"> </mspace>
+                      </mstyle>
+                      <mo>⁢</mo>
+                      <mi>…</mi>
+                      <mo>⁢</mo>
+                      <mstyle>
+                        <mspace width="0.8em" height="0.8ex"> </mspace>
+                      </mstyle>
+                      <mo>⁢</mo>
+                      <mfrac>
+                        <msub>
+                          <mi>N</mi>
+                          <mi>t</mi>
+                        </msub>
+                        <mn>2</mn>
+                      </mfrac>
+                    </mrow>
+                    <mo>-</mo>
+                    <mn>1.</mn>
+                  </mrow>
+                </mrow>
+              </mtd>
+              <mtd>
+                <mrow>
+                  <mo>(</mo>
+                  <mn>4</mn>
+                  <mo>)</mo>
+                </mrow>
+              </mtd>
+            </mtr>
+          </mtable>
+        </math>
+      </maths>
+    </p>
+    <p num="p-0039">Exemplary embodiments of the convolution kernels are given by</p>
+    <p num="p-0040"> <maths id="MATH-US-00005" num="00005"> <math overflow="scroll"> <mtable> <mtr> <mtd> <mrow> <mrow> <mrow> <msub> <mi>h</mi> <mi>c</mi> </msub> <mo>⁡</mo> <mrow> <mo>(</mo> <mi>k</mi> <mo>)</mo> </mrow> </mrow> <mo>=</mo> <mrow> <mfrac> <mn>1</mn> <msub> <mi>s</mi> <mi>c</mi> </msub> </mfrac> <mo>⁢</mo> <mi>sech</mi> <mo>⁢</mo> <mstyle> <mspace width="0.3em" height="0.3ex"> </mspace> </mstyle> <mo>⁢</mo> <mi>π</mi> <mo>⁢</mo> <mfrac> <mrow> <mi>k</mi> <mo>⁢</mo> <mstyle> <mspace width="0.3em" height="0.3ex"> </mspace> </mstyle> <mo>⁢</mo> <mi>Δ</mi> <mo>⁢</mo> <mstyle> <mspace width="0.3em" height="0.3ex"> </mspace> </mstyle> <mo>⁢</mo> <mi>x</mi> </mrow> <msub> <mi>s</mi> <mi>c</mi> </msub> </mfrac> </mrow> </mrow> <mo>,</mo> </mrow> </mtd> <mtd> <mrow> <mo>(</mo> <mn>5</mn> <mo>)</mo> </mrow> </mtd> </mtr> <mtr> <mtd> <mrow> <mrow> <mrow> <msub> <mi>h</mi> <mi>s</mi> </msub> <mo>⁡</mo> <mrow> <mo>(</mo> <mi>k</mi> <mo>)</mo> </mrow> </mrow> <mo>=</mo> <mrow> <mfrac> <mn>1</mn> <msub> <mi>s</mi> <mi>s</mi> </msub> </mfrac> <mo>⁢</mo> <mrow> <mi>exp</mi> <mo>⁡</mo> <mrow> <mo>(</mo> <mrow> <mo>-</mo> <mstyle> <mspace width="0.3em" height="0.3ex"> </mspace> </mstyle> <mo>⁢</mo> <msup> <mrow> <mi>π</mi> <mo>⁡</mo> <mrow> <mo>(</mo> <mfrac> <mrow> <mi>k</mi> <mo>⁢</mo> <mstyle> <mspace width="0.3em" height="0.3ex"> </mspace> </mstyle> <mo>⁢</mo> <mi>Δ</mi> <mo>⁢</mo> <mstyle> <mspace width="0.3em" height="0.3ex"> </mspace> </mstyle> <mo>⁢</mo> <mi>x</mi> </mrow> <msub> <mi>s</mi> <mi>s</mi> </msub> </mfrac> <mo>)</mo> </mrow> </mrow> <mn>2</mn> </msup> </mrow> <mo>)</mo> </mrow> </mrow> </mrow> </mrow> <mo>,</mo> </mrow> </mtd> <mtd> <mrow> <mo>(</mo> <mn>6</mn> <mo>)</mo> </mrow> </mtd> </mtr> <mtr> <mtd> <mrow> <mrow> <mrow> <msub> <mi>h</mi> <mi>m</mi> </msub> <mo>⁡</mo> <mrow> <mo>(</mo> <mi>k</mi> <mo>)</mo> </mrow> </mrow> <mo>=</mo> <mrow> <mfrac> <mn>1</mn> <msub> <mi>s</mi> <mi>m</mi> </msub> </mfrac> <mo>⁢</mo> <mi>exp</mi> <mo>⁢</mo> <mstyle> <mspace width="0.3em" height="0.3ex"> </mspace> </mstyle> <mo>⁢</mo> <mrow> <mo>(</mo> <mrow> <mo>-</mo> <msup> <mrow> <mi>π</mi> <mo>⁡</mo> <mrow> <mo>(</mo> <mfrac> <mrow> <mi>k</mi> <mo>⁢</mo> <mstyle> <mspace width="0.3em" height="0.3ex"> </mspace> </mstyle> <mo>⁢</mo> <mi>Δ</mi> <mo>⁢</mo> <mstyle> <mspace width="0.3em" height="0.3ex"> </mspace> </mstyle> <mo>⁢</mo> <mi>x</mi> </mrow> <msub> <mi>s</mi> <mi>m</mi> </msub> </mfrac> <mo>)</mo> </mrow> </mrow> <mn>2</mn> </msup> </mrow> <mo>)</mo> </mrow> </mrow> </mrow> <mo>,</mo> </mrow> </mtd> <mtd> <mrow> <mo>(</mo> <mn>7</mn> <mo>)</mo> </mrow> </mtd> </mtr> </mtable> </math> </maths> <br/>
+These are called the “center” kernel, the “surround” kernel, and the “masking” kernel respectively. These kernels have “scales” (i.e., widths in the k-direction) of s<sub>c</sub>, s<sub>s</sub>, and s<sub>m</sub>, respectively, measured in degrees of visual angle. Each kernel is normalized to have an integral of 1. The first two can be thought of as simulating the processing of the luminance waveform by retinal ganglion cells with antagonistic center and surround components. Values of about 2.77 min and 21.6 min (i.e., 2.77/60 and 21.6/60 degrees of visual angle) are found to approximate human visual sensitivity. The center component incorporates the blur due to the visual optics, and possibly further early neural pooling, while the surround computes an average of the local luminance, and uses it to convert luminance to local contrast [10]. With the range defined by Equation 4, the kernels are each of the same length as the trimmed sequence. To reduce computation, they can alternatively be made of shorter and different lengths, each approximately four times its respective scale. Examples of the three kernels are shown in <figref idrefs="DRAWINGS">FIGS. 3</figref> A-C using a horizontal axis scale corresponding to the center one third of that of <figref idrefs="DRAWINGS">FIG. 2</figref>.
+</p>
+    <p num="p-0041">One of ordinary skill will recognize that the functional form of all of the kernels can vary provided that they generally have the indicated scales and are suitably normalized to have an integral of 1. The surround and masking kernel examples use Gaussian waveforms, while the center kernel example uses a hyperbolic secant. These produce similar peaked waveforms with differing tail shapes: a Gaussian tail decreases as exp(−[kΔx]<sup>2</sup>), while the hyperbolic secant tail decreases as exp (−k<div class="patent-image small-patent-image"><a href="https://patentimages.storage.googleapis.com/c5/17/17/ad493dbbc853d8/US08675922-20140318-P00001.png"><img id="CUSTOM-CHARACTER-00001" he="3.13mm" wi="1.78mm" file="US08675922-20140318-P00001.TIF" alt="Figure US08675922-20140318-P00001" img-content="character" img-format="tif" orientation="portrait" inline="no" width="7" height="13" alt="Figure US08675922-20140318-P00001" class="patent-full-image" src="https://patentimages.storage.googleapis.com/c5/17/17/ad493dbbc853d8/US08675922-20140318-P00001.png"/></a></div>Δx). Other similar peaked waveforms can also be used with similar results. A Cauchy or Lorentz waveform has tails which decrease as (kΔ<div class="patent-image small-patent-image"><a href="https://patentimages.storage.googleapis.com/6b/8b/91/18119511ec13a5/US08675922-20140318-P00002.png"><img id="CUSTOM-CHARACTER-00002" he="3.13mm" wi="1.78mm" file="US08675922-20140318-P00002.TIF" alt="Figure US08675922-20140318-P00002" img-content="character" img-format="tif" orientation="portrait" inline="no" width="7" height="13" alt="Figure US08675922-20140318-P00002" class="patent-full-image" src="https://patentimages.storage.googleapis.com/6b/8b/91/18119511ec13a5/US08675922-20140318-P00002.png"/></a></div>x)<sup>−2</sup>. Similar functional forms can be readily devised which decrease as any even power of k<div class="patent-image small-patent-image"><a href="https://patentimages.storage.googleapis.com/5a/ac/e5/b250ec741c4006/US08675922-20140318-P00003.png"><img id="CUSTOM-CHARACTER-00003" he="3.13mm" wi="1.78mm" file="US08675922-20140318-P00003.TIF" alt="Figure US08675922-20140318-P00003" img-content="character" img-format="tif" orientation="portrait" inline="no" width="7" height="13" alt="Figure US08675922-20140318-P00003" class="patent-full-image" src="https://patentimages.storage.googleapis.com/5a/ac/e5/b250ec741c4006/US08675922-20140318-P00003.png"/></a></div>Δx. The special case of “zero” power is also possible using a rectangular waveform with a width equal to one over the height. The example waveforms given in equations 5-7 are generally found to provide good correlation with the characteristics of the human visual system.</p>
+    <p num="p-0042">The trimmed waveform is convolved with the center and surround kernels h<sub>c </sub>and h<sub>s </sub>to yield h<sub>c</sub>*r<sub>1 </sub>and h<sub>s</sub>*r<sub>1</sub>, where * is the convolution operator. For example,
+<br/>
+<i>h</i> <sub>c</sub>(<i>k</i>)*<i>r</i> <sub>1</sub>(<i>k</i>)=Σ<sub>i</sub> <i>h</i> <sub>c</sub>(<i>i</i>)<i>r</i> <sub>1</sub>(<i>k−i</i>)Δ<i>x.</i>  (8)
+<br/>
+In principle, the sum is over all i-values from −∞ to ∞; in practice, it is sufficient to sum over i-values where h<sub>c</sub>(i) differs significantly from zero. <figref idrefs="DRAWINGS">FIG. 4</figref> shows the results of these two convolutions for the waveform of <figref idrefs="DRAWINGS">FIG. 2</figref> and the kernels of <figref idrefs="DRAWINGS">FIG. 3</figref>. The convolution with the center kernel is shown as a solid line, and the convolution with the surround kernel is shown as a dashed line.
+</p>
+    <p num="p-0043">Next, the local contrast waveform c(k) is computed. c(k) is defined by</p>
+    <p num="p-0044"> <maths id="MATH-US-00006" num="00006"> <math overflow="scroll"> <mtable> <mtr> <mtd> <mrow> <mrow> <mrow> <mi>c</mi> <mo>⁡</mo> <mrow> <mo>(</mo> <mi>k</mi> <mo>)</mo> </mrow> </mrow> <mo>=</mo> <mrow> <mfrac> <mrow> <msub> <mi>h</mi> <mi>c</mi> </msub> <mo>*</mo> <msub> <mi>r</mi> <mn>1</mn> </msub> </mrow> <mrow> <mrow> <mi>κ</mi> <mo>⁡</mo> <mrow> <mo>(</mo> <mrow> <msub> <mi>h</mi> <mi>s</mi> </msub> <mo>*</mo> <msub> <mi>r</mi> <mn>1</mn> </msub> </mrow> <mo>)</mo> </mrow> </mrow> <mo>+</mo> <mrow> <mrow> <mo>(</mo> <mrow> <mn>1</mn> <mo>-</mo> <mi>κ</mi> </mrow> <mo>)</mo> </mrow> <mo>⁢</mo> <mover> <mi>R</mi> <mi>_</mi> </mover> </mrow> </mrow> </mfrac> <mo>-</mo> <mn>1</mn> </mrow> </mrow> <mo>,</mo> </mrow> </mtd> <mtd> <mrow> <mo>(</mo> <mn>9</mn> <mo>)</mo> </mrow> </mtd> </mtr> </mtable> </math> </maths> <br/>
+where κ is an “adaptation weight” parameter and <o>R</o> is the mean relative luminance, typically computed as the average of the maximum and minimum relative luminances R<sub>0 </sub>and R<sub>1</sub>, as estimated from the fit of the cumulative Gaussian of Equation 2. The effective local contrast energy e(k) is computed using the masking kernel h<sub>m </sub>and a masking threshold parameter T:
+</p>
+    <p num="p-0045"> <maths id="MATH-US-00007" num="00007"> <math overflow="scroll"> <mtable> <mtr> <mtd> <mrow> <mrow> <mi>e</mi> <mo>⁡</mo> <mrow> <mo>(</mo> <mi>k</mi> <mo>)</mo> </mrow> </mrow> <mo>=</mo> <mrow> <mrow> <msub> <mi>h</mi> <mi>m</mi> </msub> <mo>⁡</mo> <mrow> <mo>(</mo> <mi>k</mi> <mo>)</mo> </mrow> </mrow> <mo>*</mo> <mrow> <msup> <mrow> <mo>(</mo> <mfrac> <mrow> <mi>c</mi> <mo>⁡</mo> <mrow> <mo>(</mo> <mi>k</mi> <mo>)</mo> </mrow> </mrow> <mi>T</mi> </mfrac> <mo>)</mo> </mrow> <mn>2</mn> </msup> <mo>.</mo> </mrow> </mrow> </mrow> </mtd> <mtd> <mrow> <mo>(</mo> <mn>10</mn> <mo>)</mo> </mrow> </mtd> </mtr> </mtable> </math> </maths> <br/>
+The masked local contrast m(k) is computed as
+</p>
+    <p num="p-0046"> <maths id="MATH-US-00008" num="00008"> <math overflow="scroll"> <mtable> <mtr> <mtd> <mrow> <mrow> <mi>m</mi> <mo>⁡</mo> <mrow> <mo>(</mo> <mi>k</mi> <mo>)</mo> </mrow> </mrow> <mo>=</mo> <mrow> <mfrac> <mrow> <mi>c</mi> <mo>⁡</mo> <mrow> <mo>(</mo> <mi>k</mi> <mo>)</mo> </mrow> </mrow> <msqrt> <mrow> <mn>1</mn> <mo>+</mo> <mrow> <mi>e</mi> <mo>⁡</mo> <mrow> <mo>(</mo> <mi>k</mi> <mo>)</mo> </mrow> </mrow> </mrow> </msqrt> </mfrac> <mo>.</mo> </mrow> </mrow> </mtd> <mtd> <mrow> <mo>(</mo> <mn>11</mn> <mo>)</mo> </mrow> </mtd> </mtr> </mtable> </math> </maths> <br/> <figref idrefs="DRAWINGS">FIG. 5</figref> shows c<sub>1</sub>(k) (solid line), e<sub>1</sub>(k) (short-dashed line), and m<sub>1</sub>(k) (long-dashed line) for the waveform of <figref idrefs="DRAWINGS">FIG. 2</figref> and the kernels of <figref idrefs="DRAWINGS">FIG. 3</figref>. This model of masking is similar to that developed by Ahumada in a study of symbol discrimination [11, 12, 13]. In these calculations, the local contrast energy e(k) is a measure of the visually effective pattern ensemble in the neighborhood of a point k, and it determines the amount of masking of nearby contrast patterns. Patterns are less visible when they are superimposed on other patterns.
+</p>
+    <p num="p-0047">To compute the visibility of the motion blur, we compare the masked contrast waveform m<sub>1 </sub>for the test edge as computed above to the masked contrast waveform m<sub>2 </sub>for an ideal edge of the same starting and ending luminance. The visible motion blur (VMB) can now be calculated in units of just noticeable differences (JNDs) by
+<br/>
+Ψ=<i>S</i>(Δ<i>xΣ</i> <sub>k</sub> <i>|m</i> <sub>1</sub>(<i>k</i>)−<i>m</i> <sub>2</sub>(<i>k</i>)|<sup>β</sup>)<sup>1/β</sup>,  (12)
+<br/>
+where S and β are parameters (a “sensitivity” and a “pooling exponent”). The location of the ideal edge is adjusted to find the minimum value of Ψ [12, 13]. The value of Ψ will still depend on the alignment of the blurred and ideal edges. The effective visible difference corresponds to the minimum of Ψ. This can be determined by computing V for various shifts of the ideal edge, as described below.
+</p>
+    <p num="p-0048">In greater detail, an ideal step edge waveform (defined for the k-range given by Equation 4) is given by
+<br/>
+<i>r</i> <sub>2</sub>(<i>k</i>)=<i>R</i> <sub>0</sub>+(<i>R</i> <sub>1</sub> <i>−R</i> <sub>0</sub>)step(<i>k</i>−δ),  (13)
+<br/>
+where step is the unit step function, and δ is between 1 and N<sub>t</sub>. δ can, but need not, be an integer. The contrast waveforms c<sub>2</sub>(k), e<sub>2</sub>(k), and m<sub>2</sub>(k) are computed as above substituting r<sub>2</sub>(k) for r<sub>1</sub>(k), and then JND is computed using Equation 12. This process is repeated for each possible value of δ and the smallest value of iris selected as the final value of VMB.
+</p>
+    <p num="p-0049"> <figref idrefs="DRAWINGS">FIG. 6</figref> shows the two input waveforms: the example waveform r<sub>1</sub>(k) (dotted line) and the ideal edge r<sub>2</sub>(k) (solid line), and <figref idrefs="DRAWINGS">FIG. 7</figref> shows the masked local contrast waveforms m<sub>1</sub>(k) (dotted line) and m<sub>2</sub>(k) (solid line). <figref idrefs="DRAWINGS">FIG. 8</figref> shows the difference between the two masked local contrasts. <figref idrefs="DRAWINGS">FIG. 9</figref> shows ψ as a function of the shift δ. The minimum is 7.5 JNDs. In this example, the motion blur is calculated to be clearly visible, because the VMB is substantially larger than 1 JND.</p>
+    <p num="p-0050">There are several adjustable parameters in the calculation described above. These parameters can be chosen to mimic the response of the human visual system to the motion blur of a particular test image. The parameters are summarized in Table 2. Values that have been tuned to provide a good match to human perception are provided as “example values.” However, the parameters can vary over the “usable range” to provide alternate embodiments of the present invention. The calculation of VMB incorporates several important features of human contrast detection: light adaptation (in the conversion to contrast), a contrast sensitivity function (via convolution with center and surround kernels h2, and h<sub>s </sub>in Equation 9), masking (via the masking kernel h<sub>m</sub>, and Equation 11), and non-linear pooling over space (via the power function and pooling convolution in Equation 12). Masking can provide an important function, because the detection of blur comprises detection of a small contrast (the departure from the perfect edge) superimposed on a large contrast pattern (the edge itself).</p>
+    <p num="p-0051">
+      <tables id="TABLE-US-00002" num="00002">
+        <tgroup align="left" colsep="0" rowsep="0" cols="5">
+            <colspec colname="1" colwidth="35pt" align="left"> </colspec>
+            <colspec colname="2" colwidth="56pt" align="left"> </colspec>
+            <colspec colname="3" colwidth="56pt" align="left"> </colspec>
+            <colspec colname="4" colwidth="28pt" align="left"> </colspec>
+            <colspec colname="5" colwidth="42pt" align="left"> </colspec>
+            </tgroup> <row>
+                <entry namest="1" nameend="5" rowsep="1">TABLE 2</entry>
+              </row> <row>
+                <entry namest="1" nameend="5" align="center" rowsep="1"> </entry>
+              </row> <row>
+                <entry> </entry>
+                <entry> </entry>
+                <entry> </entry>
+                <entry>example</entry>
+                <entry>usable</entry>
+              </row> <row>
+                <entry>symbol</entry>
+                <entry>definition</entry>
+                <entry>units</entry>
+                <entry>value</entry>
+                <entry>range</entry>
+              </row> <row>
+                <entry namest="1" nameend="5" align="center" rowsep="1"> </entry>
+              </row> <row>
+                <entry>s<sub>c</sub> </entry>
+                <entry>center scale</entry>
+                <entry>degrees</entry>
+                <entry>2.77/60</entry>
+                <entry>±50%</entry>
+              </row> <row>
+                <entry>s<sub>s</sub> </entry>
+                <entry>surround scale</entry>
+                <entry>degrees</entry>
+                <entry>21.6/60</entry>
+                <entry>±50%</entry>
+              </row> <row>
+                <entry>s<sub>m</sub> </entry>
+                <entry>masking scale</entry>
+                <entry>degrees</entry>
+                <entry>10/60</entry>
+                <entry>1/60 - 60/60</entry>
+              </row> <row>
+                <entry>T</entry>
+                <entry>masking threshold</entry>
+                <entry>contrast</entry>
+                <entry>0.3</entry>
+                <entry>0-1</entry>
+              </row> <row>
+                <entry>S</entry>
+                <entry>sensitivity</entry>
+                <entry>dimensionless </entry>
+                <entry>217.6</entry>
+                <entry>±50%</entry>
+              </row> <row>
+                <entry>β</entry>
+                <entry>pooling exponent</entry>
+                <entry>dimensionless</entry>
+                <entry>2</entry>
+                <entry>1-6</entry>
+              </row> <row>
+                <entry>κ</entry>
+                <entry>adaptation weight</entry>
+                <entry>dimensionless</entry>
+                <entry>0.772</entry>
+                <entry>0-1</entry>
+              </row> <row>
+                <entry namest="1" nameend="5" align="center" rowsep="1"> </entry>
+              </row> <table frame="none" colsep="0" rowsep="0" class="description-table">
+          <thead>
+              
+              
+              
+              
+              
+            </thead>
+            <tbody valign="top">
+              
+              
+              
+              
+              
+              
+              
+              
+            </tbody>
+          
+        </table>
+      </tables>
+    </p>
+    <p num="p-0052">It will be understood that the descriptions of one or more embodiments of the present invention do not limit the various alternative, modified and equivalent embodiments which may be included within the spirit and scope of the present invention as defined by the appended claims. Furthermore, in the detailed description above, numerous specific details are set forth to provide an understanding of various embodiments of the present invention. However, one or more embodiments of the present invention may be practiced without these specific details. In other instances, well known methods, procedures, and components have not been described in detail so as not to unnecessarily obscure aspects of the present embodiments.</p>
+    <heading>REFERENCES</heading>
+    <p num="p-0053">The following references are hereby incorporated by reference in their entireties:
+</p> <ul> <li id="ul0001-0001" num="0053">[1] A. B. Watson, “Display motion blur: Comparison of measurement methods,” <i>J. Soc. Information Display, </i>18, 179-90, 2010.</li> <li id="ul0001-0002" num="0054">[2] J. R. Hamerly and C. A. Dvorak, “Detection and discrimination of blur in edges and lines,” <i>J. Opt. Soc. Am., </i>71, 448, 1981.</li> <li id="ul0001-0003" num="0055">[3] G. Westheimer, S. Brincat, and C. Wehrhahn, “Contrast dependency of foveal spatial functions: orientation, vernier, separation, blur and displacement discrimination and the tilt and Poggendorff illusions,” <i>Vision Research, </i>39, 1631-39, 1999.</li> <li id="ul0001-0004" num="0056">[4] S. Tourancheau, P. Le Callet, K. Brunnstrom, and B. Andrén, “Psychophysical study of LCD motion-blur perception,” <i>Human Vision and Electronic Imaging, </i>2009.</li> <li id="ul0001-0005" num="0057">[5] G. E. Legge and J. M. Foley, “Contrast masking in human vision,” <i>J. Opt. Soc. Am., </i>70, 1458-71, 1980.</li> <li id="ul0001-0006" num="0058">[6] A. B. Watson and J. A. Solomon, “Model of visual contrast gain control and pattern masking,” <i>J. Opt. Soc. Am. A, </i>14, 2379-91, 1997.</li> <li id="ul0001-0007" num="0059">[7] Video Electronics Standards Association (VESA), “Flat Panel Display Measurements Standard (FPDM), Version 2.0,” Video Electronics Standards Association, Milpitas, Calif., 2001.</li> <li id="ul0001-0008" num="0060">[8] Video Electronics Standards Association (VESA), “Flat Panel Display Measurements (FPDM2), Tech. Rep. 2.0 Update, May 2005”, Video Electronics Standards Association, Milpitas, Calif., 2005.</li> <li id="ul0001-0009" num="0061">[9] A. B. Watson, “The Spatial Standard Observer: A human vision model for display inspection,” <i>SID Symposium Digest of Technical Papers, </i>37, 1312-15, 2006.</li> <li id="ul0001-0010" num="0062">[10] E. Peli, “Contrast in complex images,” <i>J. Opt. Soc. Am. A, </i>7, 2032-40, 1990.</li> <li id="ul0001-0011" num="0063">[11] A. J. Ahumada, M. T. San-Martin, and J. Gille, “Symbol discriminability models for improved flight displays,” <i>SPIE Proceedings, </i>30, 6057, 2006.</li> <li id="ul0001-0012" num="0064">[12] A. B. Watson and A. J. Ahumada, Jr., “A standard model for foveal detection of spatial contrast,” <i>J Vision, </i>5, 717-40, 2005.</li> <li id="ul0001-0013" num="0065">[13] A. B. Watson and A. J. Ahumada, “Blur clarified: A review and synthesis of blur discrimination,” <i>J. Vision, </i>11(5): 10, 1-23, doi: 10.1167/11.5.10, 2011.</li> </ul>
+
+    
+  </div>
+  </div>
+  </section>
+
+  <section itemprop="claims" itemscope>
+    <h2>Claims (<span itemprop="count">16</span>)</h2>
+    
+    <div itemprop="content" html><div mxw-id="PCLM59362403" lang="EN" load-source="patent-office" class="claims">
+    <claim-statement>What is claimed is:</claim-statement>
+    <div class="claim"> <div id="CLM-00001" num="00001" class="claim">
+      <div class="claim-text">1. A method of measuring visual motion blur Ψ comprising obtaining a moving edge temporal profile r<sub>1</sub>(k) of an image of a high-contrast moving edge with at least 10 samples across the step in r<sub>1</sub>(k);
+<div class="claim-text">calculating m<sub>1</sub>(k)=m(k) for r(k)=r<sub>1</sub>(k), and
+<div class="claim-text">m<sub>2</sub>(k)=m(k) for r(k)=r<sub>2</sub>(k), wherein r<sub>2</sub>(k) is the waveform for an ideal step edge waveform with the same amplitude as r<sub>1</sub>(k); and</div>
+</div>
+<div class="claim-text">calculating Ψ as a difference function,
+<div class="claim-text"> <br/>Ψ=<i>S</i>(Δ<i>xΣ</i> <sub>k</sub> <i>|m</i> <sub>1</sub>(<i>k</i>)−<i>m</i> <sub>2</sub>(<i>k</i>)|<sup>β</sup>)<sup>1/β</sup>,
+</div>
+</div>
+<div class="claim-text">where Δx is the sample interval in degrees of visual angle,</div>
+<div class="claim-text">S and β are parameters,
+<div class="claim-text">m(k) is the masked local contrast,</div>
+</div>
+</div>
+      <div class="claim-text">
+        <maths id="MATH-US-00009" num="00009">
+          <math overflow="scroll">
+            <mrow>
+              <mrow>
+                <mrow>
+                  <mi>m</mi>
+                  <mo>⁡</mo>
+                  <mrow>
+                    <mo>(</mo>
+                    <mi>k</mi>
+                    <mo>)</mo>
+                  </mrow>
+                </mrow>
+                <mo>=</mo>
+                <mfrac>
+                  <mrow>
+                    <mi>c</mi>
+                    <mo>⁡</mo>
+                    <mrow>
+                      <mo>(</mo>
+                      <mi>k</mi>
+                      <mo>)</mo>
+                    </mrow>
+                  </mrow>
+                  <msqrt>
+                    <mrow>
+                      <mn>1</mn>
+                      <mo>+</mo>
+                      <mrow>
+                        <mi>e</mi>
+                        <mo>⁡</mo>
+                        <mrow>
+                          <mo>(</mo>
+                          <mi>k</mi>
+                          <mo>)</mo>
+                        </mrow>
+                      </mrow>
+                    </mrow>
+                  </msqrt>
+                </mfrac>
+              </mrow>
+              <mo>,</mo>
+            </mrow>
+          </math>
+        </maths>
+        <div class="claim-text">
+          <div class="claim-text">e(k) is the effective local contrast energy,</div>
+        </div>
+      </div>
+      <div class="claim-text">
+        <maths id="MATH-US-00010" num="00010">
+          <math overflow="scroll">
+            <mrow>
+              <mrow>
+                <mrow>
+                  <mi>e</mi>
+                  <mo>⁡</mo>
+                  <mrow>
+                    <mo>(</mo>
+                    <mi>k</mi>
+                    <mo>)</mo>
+                  </mrow>
+                </mrow>
+                <mo>=</mo>
+                <mrow>
+                  <mrow>
+                    <msub>
+                      <mi>h</mi>
+                      <mi>m</mi>
+                    </msub>
+                    <mo>⁡</mo>
+                    <mrow>
+                      <mo>(</mo>
+                      <mi>k</mi>
+                      <mo>)</mo>
+                    </mrow>
+                  </mrow>
+                  <mo>⁢</mo>
+                  <msup>
+                    <mrow>
+                      <mo>(</mo>
+                      <mfrac>
+                        <mrow>
+                          <mi>c</mi>
+                          <mo>⁡</mo>
+                          <mrow>
+                            <mo>(</mo>
+                            <mi>k</mi>
+                            <mo>)</mo>
+                          </mrow>
+                        </mrow>
+                        <mi>T</mi>
+                      </mfrac>
+                      <mo>)</mo>
+                    </mrow>
+                    <mn>2</mn>
+                  </msup>
+                </mrow>
+              </mrow>
+              <mo>,</mo>
+            </mrow>
+          </math>
+        </maths>
+        <div class="claim-text">
+          <div class="claim-text">h<sub>m</sub>(k) is a masking kernel having a masking scale s<sub>m </sub>and unit area,</div>
+          <div class="claim-text">T is a masking threshold parameter,</div>
+          <div class="claim-text">c(k) is the local contrast waveform,</div>
+        </div>
+      </div>
+      <div class="claim-text">
+        <maths id="MATH-US-00011" num="00011">
+          <math overflow="scroll">
+            <mrow>
+              <mrow>
+                <mrow>
+                  <mi>c</mi>
+                  <mo>⁡</mo>
+                  <mrow>
+                    <mo>(</mo>
+                    <mi>k</mi>
+                    <mo>)</mo>
+                  </mrow>
+                </mrow>
+                <mo>=</mo>
+                <mrow>
+                  <mfrac>
+                    <mrow>
+                      <mrow>
+                        <msub>
+                          <mi>h</mi>
+                          <mi>c</mi>
+                        </msub>
+                        <mo>⁡</mo>
+                        <mrow>
+                          <mo>(</mo>
+                          <mi>k</mi>
+                          <mo>)</mo>
+                        </mrow>
+                      </mrow>
+                      <mo>*</mo>
+                      <mrow>
+                        <mi>r</mi>
+                        <mo>⁡</mo>
+                        <mrow>
+                          <mo>(</mo>
+                          <mi>k</mi>
+                          <mo>)</mo>
+                        </mrow>
+                      </mrow>
+                    </mrow>
+                    <mrow>
+                      <mrow>
+                        <mi>κ</mi>
+                        <mo>⁡</mo>
+                        <mrow>
+                          <mo>[</mo>
+                          <mrow>
+                            <mrow>
+                              <msub>
+                                <mi>h</mi>
+                                <mi>s</mi>
+                              </msub>
+                              <mo>⁡</mo>
+                              <mrow>
+                                <mo>(</mo>
+                                <mi>k</mi>
+                                <mo>)</mo>
+                              </mrow>
+                            </mrow>
+                            <mo>*</mo>
+                            <mrow>
+                              <mi>r</mi>
+                              <mo>⁡</mo>
+                              <mrow>
+                                <mo>(</mo>
+                                <mi>k</mi>
+                                <mo>)</mo>
+                              </mrow>
+                            </mrow>
+                          </mrow>
+                          <mo>]</mo>
+                        </mrow>
+                      </mrow>
+                      <mo>+</mo>
+                      <mrow>
+                        <mrow>
+                          <mo>(</mo>
+                          <mrow>
+                            <mn>1</mn>
+                            <mo>-</mo>
+                            <mi>κ</mi>
+                          </mrow>
+                          <mo>)</mo>
+                        </mrow>
+                        <mo>⁢</mo>
+                        <mover>
+                          <mi>R</mi>
+                          <mi>_</mi>
+                        </mover>
+                      </mrow>
+                    </mrow>
+                  </mfrac>
+                  <mo>-</mo>
+                  <mn>1</mn>
+                </mrow>
+              </mrow>
+              <mo>,</mo>
+            </mrow>
+          </math>
+        </maths>
+        <div class="claim-text">
+          <div class="claim-text">h<sub>c</sub>(k) is a center kernel having a center scale s<sub>c </sub>and unit area,</div>
+          <div class="claim-text">h<sub>s</sub>(k) is a surround kernel having a surround scale s<sub>s </sub>and unit area,</div>
+        </div>
+        <div class="claim-text"> <o>R</o> is the mean relative luminance of r<sub>1</sub>(k) or,</div>
+        <div class="claim-text">κ is an adaptation weight parameter, and</div>
+        <div class="claim-text">r(k) is an arbitrary waveform;</div>
+        <div class="claim-text">wherein the offset of the ideal step edge relative to r<sub>1</sub>(k) is adjusted to minimize Ψ; utilizing the measured visual motion blur to provide just noticeable differences of motion blur in display technology, where the measured visual motion blur is based on obtaining the moving edge temporal profile r1(k) of an image, calculating m1(k) and m2(k), and calculating visual motion blur as a difference function.</div>
+      </div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00002" num="00002" class="claim">
+      <div class="claim-text">2. The method of <claim-ref idref="CLM-00001">claim 1</claim-ref>, wherein the center kernel is given by</div>
+      <div class="claim-text">
+        <maths id="MATH-US-00012" num="00012">
+          <math overflow="scroll">
+            <mrow>
+              <mrow>
+                <msub>
+                  <mi>h</mi>
+                  <mi>c</mi>
+                </msub>
+                <mo>⁡</mo>
+                <mrow>
+                  <mo>(</mo>
+                  <mi>k</mi>
+                  <mo>)</mo>
+                </mrow>
+              </mrow>
+              <mo>=</mo>
+              <mrow>
+                <mfrac>
+                  <mn>1</mn>
+                  <msub>
+                    <mi>s</mi>
+                    <mi>c</mi>
+                  </msub>
+                </mfrac>
+                <mo>⁢</mo>
+                <mi>sech</mi>
+                <mo>⁢</mo>
+                <mstyle>
+                  <mspace width="0.3em" height="0.3ex"> </mspace>
+                </mstyle>
+                <mo>⁢</mo>
+                <mi>π</mi>
+                <mo>⁢</mo>
+                <mrow>
+                  <mfrac>
+                    <mrow>
+                      <mi>k</mi>
+                      <mo>⁢</mo>
+                      <mstyle>
+                        <mspace width="0.3em" height="0.3ex"> </mspace>
+                      </mstyle>
+                      <mo>⁢</mo>
+                      <mi>Δ</mi>
+                      <mo>⁢</mo>
+                      <mstyle>
+                        <mspace width="0.3em" height="0.3ex"> </mspace>
+                      </mstyle>
+                      <mo>⁢</mo>
+                      <mi>x</mi>
+                    </mrow>
+                    <msub>
+                      <mi>s</mi>
+                      <mi>c</mi>
+                    </msub>
+                  </mfrac>
+                  <mo>.</mo>
+                </mrow>
+              </mrow>
+            </mrow>
+          </math>
+        </maths>
+      </div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00003" num="00003" class="claim">
+      <div class="claim-text">3. The method of <claim-ref idref="CLM-00002">claim 2</claim-ref>, wherein the surround kernel is given by</div>
+      <div class="claim-text">
+        <maths id="MATH-US-00013" num="00013">
+          <math overflow="scroll">
+            <mrow>
+              <mrow>
+                <msub>
+                  <mi>h</mi>
+                  <mi>s</mi>
+                </msub>
+                <mo>⁡</mo>
+                <mrow>
+                  <mo>(</mo>
+                  <mi>k</mi>
+                  <mo>)</mo>
+                </mrow>
+              </mrow>
+              <mo>=</mo>
+              <mrow>
+                <mfrac>
+                  <mn>1</mn>
+                  <msub>
+                    <mi>s</mi>
+                    <mi>s</mi>
+                  </msub>
+                </mfrac>
+                <mo>⁢</mo>
+                <mrow>
+                  <mrow>
+                    <mi>exp</mi>
+                    <mo>⁡</mo>
+                    <mrow>
+                      <mo>(</mo>
+                      <mrow>
+                        <mo>-</mo>
+                        <mstyle>
+                          <mspace width="0.3em" height="0.3ex"> </mspace>
+                        </mstyle>
+                        <mo>⁢</mo>
+                        <msup>
+                          <mrow>
+                            <mi>π</mi>
+                            <mo>⁡</mo>
+                            <mrow>
+                              <mo>(</mo>
+                              <mfrac>
+                                <mrow>
+                                  <mi>k</mi>
+                                  <mo>⁢</mo>
+                                  <mstyle>
+                                    <mspace width="0.3em" height="0.3ex"> </mspace>
+                                  </mstyle>
+                                  <mo>⁢</mo>
+                                  <mi>Δ</mi>
+                                  <mo>⁢</mo>
+                                  <mstyle>
+                                    <mspace width="0.3em" height="0.3ex"> </mspace>
+                                  </mstyle>
+                                  <mo>⁢</mo>
+                                  <mi>x</mi>
+                                </mrow>
+                                <msub>
+                                  <mi>s</mi>
+                                  <mi>s</mi>
+                                </msub>
+                              </mfrac>
+                              <mo>)</mo>
+                            </mrow>
+                          </mrow>
+                          <mn>2</mn>
+                        </msup>
+                      </mrow>
+                      <mo>)</mo>
+                    </mrow>
+                  </mrow>
+                  <mo>.</mo>
+                </mrow>
+              </mrow>
+            </mrow>
+          </math>
+        </maths>
+      </div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00004" num="00004" class="claim">
+      <div class="claim-text">4. The method of <claim-ref idref="CLM-00003">claim 3</claim-ref> wherein the surround kernel scale s<sub>s </sub>is about 7.8 times the center kernel scale s<sub>c</sub>.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00005" num="00005" class="claim">
+      <div class="claim-text">5. The method of <claim-ref idref="CLM-00002">claim 2</claim-ref>, wherein the masking kernel is given by</div>
+      <div class="claim-text">
+        <maths id="MATH-US-00014" num="00014">
+          <math overflow="scroll">
+            <mrow>
+              <mrow>
+                <msub>
+                  <mi>h</mi>
+                  <mi>m</mi>
+                </msub>
+                <mo>⁡</mo>
+                <mrow>
+                  <mo>(</mo>
+                  <mi>k</mi>
+                  <mo>)</mo>
+                </mrow>
+              </mrow>
+              <mo>=</mo>
+              <mrow>
+                <mfrac>
+                  <mn>1</mn>
+                  <msub>
+                    <mi>s</mi>
+                    <mi>m</mi>
+                  </msub>
+                </mfrac>
+                <mo>⁢</mo>
+                <mi>exp</mi>
+                <mo>⁢</mo>
+                <mstyle>
+                  <mspace width="0.3em" height="0.3ex"> </mspace>
+                </mstyle>
+                <mo>⁢</mo>
+                <mrow>
+                  <mrow>
+                    <mo>(</mo>
+                    <mrow>
+                      <mo>-</mo>
+                      <msup>
+                        <mrow>
+                          <mi>π</mi>
+                          <mo>⁡</mo>
+                          <mrow>
+                            <mo>(</mo>
+                            <mfrac>
+                              <mrow>
+                                <mi>k</mi>
+                                <mo>⁢</mo>
+                                <mstyle>
+                                  <mspace width="0.3em" height="0.3ex"> </mspace>
+                                </mstyle>
+                                <mo>⁢</mo>
+                                <mi>Δ</mi>
+                                <mo>⁢</mo>
+                                <mstyle>
+                                  <mspace width="0.3em" height="0.3ex"> </mspace>
+                                </mstyle>
+                                <mo>⁢</mo>
+                                <mi>x</mi>
+                              </mrow>
+                              <msub>
+                                <mi>s</mi>
+                                <mi>m</mi>
+                              </msub>
+                            </mfrac>
+                            <mo>)</mo>
+                          </mrow>
+                        </mrow>
+                        <mn>2</mn>
+                      </msup>
+                    </mrow>
+                    <mo>)</mo>
+                  </mrow>
+                  <mo>.</mo>
+                </mrow>
+              </mrow>
+            </mrow>
+          </math>
+        </maths>
+      </div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00006" num="00006" class="claim">
+      <div class="claim-text">6. The method of <claim-ref idref="CLM-00005">claim 5</claim-ref> wherein the masking kernel scale s<sub>m </sub>is about 3.6 times the center kernel scale s<sub>c</sub>.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00007" num="00007" class="claim">
+      <div class="claim-text">7. The method of <claim-ref idref="CLM-00005">claim 5</claim-ref> wherein the center kernel scale s<sub>c </sub>is between about 1.38/60 and about 4.16/60 degrees of visual angle, the surround kernel scale s<sub>s</sub>, is between about 21.6/60 and about 32.4/60 degrees of visual angle, and the masking kernel scale s<sub>m </sub>is between about 1/60 and 60/60 degrees of visual angle.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00008" num="00008" class="claim">
+      <div class="claim-text">8. The method of <claim-ref idref="CLM-00007">claim 7</claim-ref>, wherein the center kernel scale s<sub>c </sub>is about 2.77/60 degrees of visual angle, the surround kernel scale s<sub>s </sub>is about 10.8/60 degrees of visual angle, and the masking kernel scale s<sub>m </sub>is about 10/60 degrees of visual angle.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00009" num="00009" class="claim">
+      <div class="claim-text">9. The method of <claim-ref idref="CLM-00001">claim 1</claim-ref>, wherein T is between 0 and 1.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00010" num="00010" class="claim">
+      <div class="claim-text">10. The method of <claim-ref idref="CLM-00009">claim 9</claim-ref>, wherein T is about 0.3.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00011" num="00011" class="claim">
+      <div class="claim-text">11. The method of <claim-ref idref="CLM-00001">claim 1</claim-ref>, wherein S is between about 109 and about 326.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00012" num="00012" class="claim">
+      <div class="claim-text">12. The method of <claim-ref idref="CLM-00011">claim 11</claim-ref>, wherein S is about 217.6.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00013" num="00013" class="claim">
+      <div class="claim-text">13. The method of <claim-ref idref="CLM-00001">claim 1</claim-ref>, wherein β is between 1 and 6.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00014" num="00014" class="claim">
+      <div class="claim-text">14. The method of <claim-ref idref="CLM-00013">claim 13</claim-ref> wherein β is 2.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00015" num="00015" class="claim">
+      <div class="claim-text">15. The method of <claim-ref idref="CLM-00001">claim 1</claim-ref>, wherein κ is between 0 and 1.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00016" num="00016" class="claim">
+      <div class="claim-text">16. The method of <claim-ref idref="CLM-00015">claim 15</claim-ref>, wherein κ is about 0.772.</div>
+    </div>
+  </div> </div>
+  </div>
+  </section>
+
+  <section itemprop="application" itemscope>
+
+    <section itemprop="metadata" itemscope>
+        <span itemprop="applicationNumber">US13/444,777</span>
+        <span itemprop="priorityDate">2011-05-24</span>
+        <span itemprop="filingDate">2012-04-11</span>
+        <span itemprop="title">Visible motion blur 
+       </span>
+        <span itemprop="ifiStatus">Active</span>
+        <span itemprop="ifiExpiration">2032-08-31</span>
+        <a href="/patent/US8675922B1/en">
+            <span itemprop="representativePublication">US8675922B1</span>
+            (<span itemprop="primaryLanguage">en</span>)
+        </a>
+    </section>
+
+    <h2>Priority Applications (2)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                    <th>Title</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="priorityApps" itemscope repeat>
+                <td>
+                   <span itemprop="applicationNumber">US201161520357P</span>
+                   <span itemprop="isUsProvisional">true</span>
+                   
+                <td itemprop="priorityDate">2011-05-24</td>
+                <td itemprop="filingDate">2011-05-24</td>
+                <td itemprop="title"></td>
+              </tr><tr itemprop="priorityApps" itemscope repeat>
+                <td>
+                   <span itemprop="applicationNumber">US13/444,777</span>
+                   
+                   <a href="/patent/US8675922B1/en">
+                        <span itemprop="representativePublication">US8675922B1</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                <td itemprop="priorityDate">2011-05-24</td>
+                <td itemprop="filingDate">2012-04-11</td>
+                <td itemprop="title">Visible motion blur 
+       </td>
+              </tr>
+           </tbody>
+       </table>
+
+    <h2>Applications Claiming Priority (1)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                    <th>Title</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="appsClaimingPriority" itemscope repeat>
+                <td>
+                   <span itemprop="applicationNumber">US13/444,777</span>
+                   <a href="/patent/US8675922B1/en">
+                        <span itemprop="representativePublication">US8675922B1</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                <td itemprop="priorityDate">2011-05-24</td>
+                <td itemprop="filingDate">2012-04-11</td>
+                <td itemprop="title">Visible motion blur 
+       </td>
+              </tr>
+           </tbody>
+       </table>
+
+    
+
+    
+
+    <h2>Publications (1)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Publication Number</th>
+                    <th>Publication Date</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="pubs" itemscope repeat>
+                <td>
+                   <span itemprop="publicationNumber">US8675922B1</span>
+                   
+                   <span itemprop="thisPatent">true</span>
+                   <a href="/patent/US8675922B1/en">US8675922B1
+                       (<span itemprop="primaryLanguage">en</span>)
+                   </a>
+                </td>
+                <td itemprop="publicationDate">2014-03-18</td>
+              </tr>
+           </tbody>
+        </table>
+
+  </section>
+
+  <section itemprop="family" itemscope>
+    <h1>Family</h1>
+    <h2>ID=50240407</h2>
+
+    <h2>Family Applications (1)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Title</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="applications" itemscope repeat>
+                <td>
+                    <span itemprop="applicationNumber">US13/444,777</span>
+                    <span itemprop="ifiStatus">Active</span>
+                    <span itemprop="ifiExpiration">2032-08-31</span>
+                    <a href="/patent/US8675922B1/en">
+                        <span itemprop="representativePublication">US8675922B1</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                </td>
+                <td itemprop="priorityDate">2011-05-24</td>
+                <td itemprop="filingDate">2012-04-11</td>
+                <td itemprop="title">Visible motion blur 
+       </td>
+              </tr>
+           </tbody>
+        </table>
+
+    
+
+    
+
+    <h2>Country Status (1)</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Country</th>
+            <th>Link</th>
+          </tr>
+        </thead>
+        <tbody>
+        <tr itemprop="countryStatus" itemscope repeat>
+            <td>
+              <span itemprop="countryCode">US</span>
+                (<span itemprop="num">1</span>)
+              <meta itemprop="thisCountry" content="true">
+            </td>
+            <td>
+              <a href="/patent/US8675922B1/en">
+                <span itemprop="representativePublication">US8675922B1</span>
+                  (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+    
+
+    
+
+    <h2>Citations (5)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20050168492A1/en">
+              <span itemprop="publicationNumber">US20050168492A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2002-05-28</td>
+          <td itemprop="publicationDate">2005-08-04</td>
+          <td><span itemprop="assigneeOriginal">Koninklijke Philips Electronics N.V.</span></td>
+          <td itemprop="title">Motion blur decrease in varying duty cycle 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20080061220A1/en">
+              <span itemprop="publicationNumber">US20080061220A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2006-08-28</td>
+          <td itemprop="publicationDate">2008-03-13</td>
+          <td><span itemprop="assigneeOriginal">Aklhiro Machida</span></td>
+          <td itemprop="title">Input apparatus and methods having multiple tracking modes 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20080170124A1/en">
+              <span itemprop="publicationNumber">US20080170124A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2007-01-12</td>
+          <td itemprop="publicationDate">2008-07-17</td>
+          <td><span itemprop="assigneeOriginal">Sanyo Electric Co., Ltd.</span></td>
+          <td itemprop="title">Apparatus and method for blur detection, and apparatus and method for blur correction 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20100066850A1/en">
+              <span itemprop="publicationNumber">US20100066850A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2006-11-30</td>
+          <td itemprop="publicationDate">2010-03-18</td>
+          <td><span itemprop="assigneeOriginal">Westar Display Technologies, Inc.</span></td>
+          <td itemprop="title">Motion artifact measurement for display devices 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7783130B2/en">
+              <span itemprop="publicationNumber">US7783130B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2005-01-24</td>
+          <td itemprop="publicationDate">2010-08-24</td>
+          <td><span itemprop="assigneeOriginal">The United States Of America As Represented By The Administrator Of The National Aeronautics And Space Administration</span></td>
+          <td itemprop="title">Spatial standard observer 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+
+    
+
+    
+    <ul>
+      
+      <li itemprop="applicationsByYear" itemscope repeat>
+        <span itemprop="year">2012</span>
+        <ul>
+          
+          <li itemprop="application" itemscope repeat>
+            <span itemprop="filingDate">2012-04-11</span>
+            <span itemprop="countryCode">US</span>
+            <span itemprop="applicationNumber">US13/444,777</span>
+            <a href="/patent/US8675922B1/en"><span itemprop="documentId">patent/US8675922B1/en</span></a>
+            <span itemprop="legalStatusCat">active</span>
+            <span itemprop="legalStatus">Active</span>
+            
+            <span itemprop="thisApp" content="true" bool></span>
+            
+          </li>
+          
+        </ul>
+      </li>
+      
+    </ul>
+    
+
+    </section>
+
+  <section>
+    <h2>Patent Citations (6)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20050168492A1/en">
+              <span itemprop="publicationNumber">US20050168492A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2002-05-28</td>
+          <td itemprop="publicationDate">2005-08-04</td>
+          <td><span itemprop="assigneeOriginal">Koninklijke Philips Electronics N.V.</span></td>
+          <td itemprop="title">Motion blur decrease in varying duty cycle 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7317445B2/en">
+              <span itemprop="publicationNumber">US7317445B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2002-05-28</td>
+          <td itemprop="publicationDate">2008-01-08</td>
+          <td><span itemprop="assigneeOriginal">Koninklijke Philips Electronics N. V.</span></td>
+          <td itemprop="title">Motion blur decrease in varying duty cycle 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7783130B2/en">
+              <span itemprop="publicationNumber">US7783130B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2005-01-24</td>
+          <td itemprop="publicationDate">2010-08-24</td>
+          <td><span itemprop="assigneeOriginal">The United States Of America As Represented By The Administrator Of The National Aeronautics And Space Administration</span></td>
+          <td itemprop="title">Spatial standard observer 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20080061220A1/en">
+              <span itemprop="publicationNumber">US20080061220A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2006-08-28</td>
+          <td itemprop="publicationDate">2008-03-13</td>
+          <td><span itemprop="assigneeOriginal">Aklhiro Machida</span></td>
+          <td itemprop="title">Input apparatus and methods having multiple tracking modes 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20100066850A1/en">
+              <span itemprop="publicationNumber">US20100066850A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2006-11-30</td>
+          <td itemprop="publicationDate">2010-03-18</td>
+          <td><span itemprop="assigneeOriginal">Westar Display Technologies, Inc.</span></td>
+          <td itemprop="title">Motion artifact measurement for display devices 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20080170124A1/en">
+              <span itemprop="publicationNumber">US20080170124A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2007-01-12</td>
+          <td itemprop="publicationDate">2008-07-17</td>
+          <td><span itemprop="assigneeOriginal">Sanyo Electric Co., Ltd.</span></td>
+          <td itemprop="title">Apparatus and method for blur detection, and apparatus and method for blur correction 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Non-Patent Citations (13)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">A. B. Watson and A. J. Ahumada, "<a href='http://scholar.google.com/scholar?q="Blur+clarified%3A+A+review+and+synthesis+of+blur+discrimination%2C"'>Blur clarified: A review and synthesis of blur discrimination,</a>" J. Vision, 11(5): 10, 1-23, doi: 10.1167/11.5.10, 2011.</span>
+            
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">A. B. Watson and A. J. Ahumada, Jr., "<a href='http://scholar.google.com/scholar?q="A+standard+model+for+foveal+detection+of+spatial+contrast%2C"'>A standard model for foveal detection of spatial contrast,</a>" J Vision, 5, 717-40, 2005.</span>
+            
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">A. B. Watson and J. A. Solomon, "<a href='http://scholar.google.com/scholar?q="Model+of+visual+contrast+gain+control+and+pattern+masking%2C"'>Model of visual contrast gain control and pattern masking,</a>" J. Opt. Soc. Am. A, 14, 2379-91, 1997.</span>
+            
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">A. B. Watson, "<a href='http://scholar.google.com/scholar?q="Display+motion+blur%3A+Comparison+of+measurement+methods%2C"'>Display motion blur: Comparison of measurement methods,</a>" J. Soc. Information Display, 18, 179-90, 2010.</span>
+            
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">A. B. Watson, "<a href='http://scholar.google.com/scholar?q="The+Spatial+Standard+Observer%3A+A+human+vision+model+for+display+inspection%2C"'>The Spatial Standard Observer: A human vision model for display inspection,</a>" SID Symposium Digest of Technical Papers, 37, 1312-15, 2006.</span>
+            
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">A. J. Ahumada, M. T. San-Martin, and J. Gille, "<a href='http://scholar.google.com/scholar?q="Symbol+discriminability+models+for+improved+flight+displays%2C"'>Symbol discriminability models for improved flight displays,</a>" SPIE Proceedings, 30, 6057, 2006.</span>
+            
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">E. Peli, "<a href='http://scholar.google.com/scholar?q="Contrast+in+complex+images%2C"'>Contrast in complex images,</a>" J. Opt. Soc. Am. A, 7, 2032-40, 1990.</span>
+            
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">G. E. Legge and J. M. Foley, "<a href='http://scholar.google.com/scholar?q="Contrast+masking+in+human+vision%2C"'>Contrast masking in human vision,</a>" J. Opt. Soc. Am., 70, 1458-71, 1980.</span>
+            
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">G. Westheimer, S. Brincat, and C. Wehrhahn, "<a href='http://scholar.google.com/scholar?q="Contrast+dependency+of+foveal+spatial+functions%3A+orientation%2C+vernier%2C+separation%2C+blur+and+displacement+discrimination+and+the+tilt+and+Poggendorff+illusions%2C"'>Contrast dependency of foveal spatial functions: orientation, vernier, separation, blur and displacement discrimination and the tilt and Poggendorff illusions,</a>" Vision Research, 39, 1631-39, 1999.</span>
+            
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">J. R. Hamerly and C. A. Dvorak, "<a href='http://scholar.google.com/scholar?q="Detection+and+discrimination+of+blur+in+edges+and+lines%2C"'>Detection and discrimination of blur in edges and lines,</a>" J. Opt. Soc. Am., 71, 448, 1981.</span>
+            
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">S. Tourancheau, P. Le Callet, K. Brunnström, and B. Andrén, "<a href='http://scholar.google.com/scholar?q="Psychophysical+study+of+LCD+motion-blur+perception%2C"'>Psychophysical study of LCD motion-blur perception,</a>" Human Vision and Electronic Imaging, 2009.</span>
+            
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Video Electronics Standards Association (VESA), "<a href='http://scholar.google.com/scholar?q="Flat+Panel+Display+Measurements+%28FPDM2%29%2C+Tech.+Rep.+2.0+Update%2C+May+2005"'>Flat Panel Display Measurements (FPDM2), Tech. Rep. 2.0 Update, May 2005</a>", Video Electronics Standards Association, Milpitas, CA, 2005.</span>
+            
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Video Electronics Standards Association (VESA), "<a href='http://scholar.google.com/scholar?q="Flat+Panel+Display+Measurements+Standard+%28FPDM%29%2C+Version+2.0%2C"'>Flat Panel Display Measurements Standard (FPDM), Version 2.0,</a>" Video Electronics Standards Association, Milpitas, CA, 2001.</span>
+            
+            
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  
+
+  
+
+  <section>
+    <h2>Similar Documents</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Publication</th>
+          <th>Publication Date</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="14027886711025603563">
+              <a href="/scholar/14027886711025603563"><span itemprop="scholarAuthors">Choi et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2015">2015</time>
+            
+          </td>
+          <td itemprop="title">Referenceless prediction of perceptual fog density and perceptual image defogging</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="17032134277705541693">
+              <a href="/scholar/17032134277705541693"><span itemprop="scholarAuthors">Ferzli et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2009">2009</time>
+            
+          </td>
+          <td itemprop="title">A no-reference objective image sharpness metric based on the notion of just noticeable blur (JNB)</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US7903166B2/en">
+                <span itemprop="publicationNumber">US7903166B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2011-03-08">2011-03-08</time>
+            
+            
+          </td>
+          <td itemprop="title">Methods and systems for display viewer motion compensation based on user image data 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US7991196B2/en">
+                <span itemprop="publicationNumber">US7991196B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2011-08-02">2011-08-02</time>
+            
+            
+          </td>
+          <td itemprop="title">Continuous extended range image processing 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/RU2419243C1/en">
+                <span itemprop="publicationNumber">RU2419243C1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2011-05-20">2011-05-20</time>
+            
+            
+          </td>
+          <td itemprop="title">Device and method to process images and device and method of images display 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US8588551B2/en">
+                <span itemprop="publicationNumber">US8588551B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2013-11-19">2013-11-19</time>
+            
+            
+          </td>
+          <td itemprop="title">Multi-image sharpening and denoising using lucky imaging 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US20030011679A1/en">
+                <span itemprop="publicationNumber">US20030011679A1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2003-01-16">2003-01-16</time>
+            
+            
+          </td>
+          <td itemprop="title">Method of measuring digital video quality 
+     </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US20040012675A1/en">
+                <span itemprop="publicationNumber">US20040012675A1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2004-01-22">2004-01-22</time>
+            
+            
+          </td>
+          <td itemprop="title">Method and apparatus for measuring the quality of video data 
+     </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US7623105B2/en">
+                <span itemprop="publicationNumber">US7623105B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2009-11-24">2009-11-24</time>
+            
+            
+          </td>
+          <td itemprop="title">Liquid crystal display with adaptive color 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US7099518B2/en">
+                <span itemprop="publicationNumber">US7099518B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2006-08-29">2006-08-29</time>
+            
+            
+          </td>
+          <td itemprop="title">Measurement of blurring in video sequences 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US7474798B2/en">
+                <span itemprop="publicationNumber">US7474798B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2009-01-06">2009-01-06</time>
+            
+            
+          </td>
+          <td itemprop="title">Method and device for image processing, in addition to a night viewing system for motor vehicles 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="7852364119085330663">
+              <a href="/scholar/7852364119085330663"><span itemprop="scholarAuthors">Ong et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2003">2003</time>
+            
+          </td>
+          <td itemprop="title">A no-reference quality metric for measuring image blur</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US7728909B2/en">
+                <span itemprop="publicationNumber">US7728909B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2010-06-01">2010-06-01</time>
+            
+            
+          </td>
+          <td itemprop="title">Method and system for estimating motion and compensating for perceived motion blur in digital video 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US20020186894A1/en">
+                <span itemprop="publicationNumber">US20020186894A1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2002-12-12">2002-12-12</time>
+            
+            
+          </td>
+          <td itemprop="title">Adaptive spatio-temporal filter for human vision system models 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US20030219172A1/en">
+                <span itemprop="publicationNumber">US20030219172A1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2003-11-27">2003-11-27</time>
+            
+            
+          </td>
+          <td itemprop="title">Method and system for estimating sharpness metrics based on local edge kurtosis 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US8698910B2/en">
+                <span itemprop="publicationNumber">US8698910B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2014-04-15">2014-04-15</time>
+            
+            
+          </td>
+          <td itemprop="title">Apparatus, camera, method, and computer-readable storage medium for generating advice for capturing an image 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US6930752B2/en">
+                <span itemprop="publicationNumber">US6930752B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2005-08-16">2005-08-16</time>
+            
+            
+          </td>
+          <td itemprop="title">Image processing method and apparatus 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/JP4053422B2/en">
+                <span itemprop="publicationNumber">JP4053422B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2008-02-27">2008-02-27</time>
+            
+            
+          </td>
+          <td itemprop="title">Method for reducing the influence of halo in interpolation by motion compensation 
+     </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/EP2987134B1/en">
+                <span itemprop="publicationNumber">EP2987134B1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2019-10-02">2019-10-02</time>
+            
+            
+          </td>
+          <td itemprop="title">Generation of ghost-free high dynamic range images 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/JP2000357055A/en">
+                <span itemprop="publicationNumber">JP2000357055A</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2000-12-26">2000-12-26</time>
+            
+            
+          </td>
+          <td itemprop="title">Method and device for correcting projection image and machine readable medium 
+     </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US9087262B2/en">
+                <span itemprop="publicationNumber">US9087262B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2015-07-21">2015-07-21</time>
+            
+            
+          </td>
+          <td itemprop="title">Sharpness estimation in document and scene images 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/TWI489857B/en">
+                <span itemprop="publicationNumber">TWI489857B</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2015-06-21">2015-06-21</time>
+            
+            
+          </td>
+          <td itemprop="title">Techniques for generating robust stereo images 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/KR101060488B1/en">
+                <span itemprop="publicationNumber">KR101060488B1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2011-08-30">2011-08-30</time>
+            
+            
+          </td>
+          <td itemprop="title">Optimal Image Selection Method and Device 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/EP2077663A1/en">
+                <span itemprop="publicationNumber">EP2077663A1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2009-07-08">2009-07-08</time>
+            
+            
+          </td>
+          <td itemprop="title">Image display device and method, and image processing device and method 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/WO2004109634A1/en">
+                <span itemprop="publicationNumber">WO2004109634A1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2004-12-16">2004-12-16</time>
+            
+            
+          </td>
+          <td itemprop="title">Method and system for evaluating moving image quality of displays 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Legal Events</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Code</th>
+          <th>Title</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2012-04-12">2012-04-12</time></td>
+          <td itemprop="code">AS</td>
+          <td itemprop="title">Assignment</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Owner name</strong>:
+              <span itemprop="value">USA AS REPRESENTED BY THE ADMINISTRATOR OF THE NAS</span>
+            </p>
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">ASSIGNMENT OF ASSIGNORS INTEREST;ASSIGNOR:WATSON, ANDREW B.;REEL/FRAME:028038/0231</span>
+            </p>
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Effective date</strong>:
+              <span itemprop="value">20120329</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2012-06-22">2012-06-22</time></td>
+          <td itemprop="code">AS</td>
+          <td itemprop="title">Assignment</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Owner name</strong>:
+              <span itemprop="value">USA AS REPRESENTED BY THE ADMINISTRATOR OF THE NAS</span>
+            </p>
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">ASSIGNMENT OF ASSIGNORS INTEREST;ASSIGNOR:AHUMADA, ALBERT J.;REEL/FRAME:028430/0840</span>
+            </p>
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Effective date</strong>:
+              <span itemprop="value">20120611</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2014-02-26">2014-02-26</time></td>
+          <td itemprop="code">STCF</td>
+          <td itemprop="title">Information on status: patent grant</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">PATENTED CASE</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2017-09-15">2017-09-15</time></td>
+          <td itemprop="code">MAFP</td>
+          <td itemprop="title">Maintenance fee payment</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">PAYMENT OF MAINTENANCE FEE, 4TH YEAR, LARGE ENTITY (ORIGINAL EVENT CODE: M1551)</span>
+            </p>
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Year of fee payment</strong>:
+              <span itemprop="value">4</span>
+            </p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+</article>
+
+    </search-app>
+    <script type="text/javascript" src="//www.gstatic.com/feedback/api.js"></script>
+    <script async="" defer="" src="//www.google.com/insights/consumersurveys/async_survey?site=cxkjf7ipxgbnnjy6k35ezcvbbe"></script>
+  </body>
+</html>

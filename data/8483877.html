@@ -1,0 +1,3712 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>US8483877B2 - Workspace safe operation of a force- or impedance-controlled robot 
+        - Google Patents</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="referrer" content="origin-when-crossorigin">
+    <link rel="canonical" href="https://patents.google.com/patent/US8483877B2/en">
+    <meta name="description" content="
+     A method of controlling a robotic manipulator of a force- or impedance-controlled robot within an unstructured workspace includes imposing a saturation limit on a static force applied by the manipulator to its surrounding environment, and may include determining a contact force between the manipulator and an object in the unstructured workspace, and executing a dynamic reflex when the contact force exceeds a threshold to thereby alleviate an inertial impulse not addressed by the saturation limited static force. The method may include calculating a required reflex torque to be imparted by a joint actuator to a robotic joint. A robotic system includes a robotic manipulator having an unstructured workspace and a controller that is electrically connected to the manipulator, and which controls the manipulator using force- or impedance-based commands. The controller, which is also disclosed herein, automatically imposes the saturation limit and may execute the dynamic reflex noted above. 
+   
+   ">
+    
+    <meta name="DC.type" content="patent">
+    
+    <meta name="DC.title" content="Workspace safe operation of a force- or impedance-controlled robot 
+       ">
+    
+    <meta name="DC.date" content="2010-09-03" scheme="dateSubmitted">
+    
+    <meta name="DC.description" content="
+     A method of controlling a robotic manipulator of a force- or impedance-controlled robot within an unstructured workspace includes imposing a saturation limit on a static force applied by the manipulator to its surrounding environment, and may include determining a contact force between the manipulator and an object in the unstructured workspace, and executing a dynamic reflex when the contact force exceeds a threshold to thereby alleviate an inertial impulse not addressed by the saturation limited static force. The method may include calculating a required reflex torque to be imparted by a joint actuator to a robotic joint. A robotic system includes a robotic manipulator having an unstructured workspace and a controller that is electrically connected to the manipulator, and which controls the manipulator using force- or impedance-based commands. The controller, which is also disclosed herein, automatically imposes the saturation limit and may execute the dynamic reflex noted above. 
+   
+   ">
+    
+    <meta name="citation_patent_application_number" content="US:12/875,254">
+    
+    <meta name="citation_pdf_url" content="https://patentimages.storage.googleapis.com/f9/56/80/30f31b264c8eb3/US8483877.pdf">
+    
+    <meta name="citation_patent_number" content="US:8483877">
+    
+    <meta name="DC.date" content="2013-07-09" scheme="issue">
+    
+    <meta name="DC.contributor" content="Muhammad E. Abdallah" scheme="inventor">
+    
+    <meta name="DC.contributor" content="Brian Hargrave" scheme="inventor">
+    
+    <meta name="DC.contributor" content="John D. Yamokoski" scheme="inventor">
+    
+    <meta name="DC.contributor" content="Philip A. Strawser" scheme="inventor">
+    
+    <meta name="DC.contributor" content="GM Global Technology Operations LLC" scheme="assignee">
+    
+    <meta name="DC.contributor" content="National Aeronautics and Space Administration (NASA)" scheme="assignee">
+    
+    <meta name="DC.relation" content="JP:H04343690:A" scheme="references">
+    
+    <meta name="DC.relation" content="JP:H06246673:A" scheme="references">
+    
+    <meta name="DC.relation" content="JP:H08118275:A" scheme="references">
+    
+    <meta name="DC.relation" content="US:5994864" scheme="references">
+    
+    <meta name="DC.relation" content="JP:H09179632:A" scheme="references">
+    
+    <meta name="DC.relation" content="US:6298283" scheme="references">
+    
+    <meta name="DC.relation" content="JP:2003159674:A" scheme="references">
+    
+    <meta name="DC.relation" content="US:7102311" scheme="references">
+    
+    <meta name="DC.relation" content="US:6956345" scheme="references">
+    
+    <meta name="DC.relation" content="US:20080046122:A1" scheme="references">
+    
+    <meta name="DC.relation" content="JP:2005059161:A" scheme="references">
+    
+    <meta name="DC.relation" content="JP:2005100143:A" scheme="references">
+    
+    <meta name="DC.relation" content="JP:2006123012:A" scheme="references">
+    
+    <meta name="DC.relation" content="DE:102005054575:B3" scheme="references">
+    
+    <meta name="DC.relation" content="US:20070142823:A1" scheme="references">
+    
+    <meta name="DC.relation" content="US:20070255454:A1" scheme="references">
+    
+    <meta name="citation_reference" content="Albu-Schaffer, A.; Ott, C.; Hirzinger, G.; &#34;A Unified Passivity-based Control Framework for Position, Torque and Impedance Control of Flexible Joint Robots&#34; In: The International Journal of Robotics Research, 2007; 26, pp. 23-39, SAGE Publications, Germany." scheme="references">
+    
+    <meta name="citation_reference" content="Beong-Sang Kim et al, &#34;Double Actuator Unit with Planetary Gear Train for a Safe Manipulator&#34;, 2007 IEEE International Conference on Robotics and Automation, Roma, Italy, Apr. 10-14, 2007, pp. 1146-1151." scheme="references">
+    
+    <meta name="citation_reference" content="Diftler, M.A.; Ambrose, R.O.; Tyree, K.S.; Goza, S.M.; Huber, E.L.; &#34;A Mobile Autonomous Humanoid Assistant&#34; In: 2004 4th IEEE/RAS International Conference on Humanoid Robots, vol. 1, pp. 133-148, Houston, Texas." scheme="references">
+    
+    <meta name="citation_reference" content="Diftler, M.A.; Platt Jr, R.; Culbert, C.J.; Bluethmann, W.J.; &#34;Evolution of the NASA/DARPA Robonaut Control System&#34; In: Proceedings of the 2003 IEEE International Conference on Robotics & Automation, Sep. 14-19, 2003, pp. 2543-2548, Taiwan." scheme="references">
+    
+    <meta name="citation_reference" content="Gill A. Pratt and Matthew M. Williamson, &#34;Series Elastic Actuators&#34;, IEEE 1995, pp. 399-406." scheme="references">
+    
+    <meta name="citation_reference" content="http://robotics.nasa.gov/courses/fall2002/event/oct1/NASA-Robotics-20021001.htm." scheme="references">
+    
+    <meta name="citation_reference" content="http://robotics.nasa.gov/courses/fall2002/event/oct1/NASA—Robotics—20021001.htm." scheme="references">
+    
+    <meta name="citation_reference" content="Nicolas Lauzier and Clement Gosselin, &#34;Performance Indices for Collaborative Serial Robots with Optimally Adjusted Series Clutch Actuators&#34;, Proceedings of the ASME 2010 International Design Engineering Technical Conferences & Computers and Information in Engineering Conference, Aug. 15-18, 2010." scheme="references">
+    
+    <meta name="citation_reference" content="Nicolas Lauzier et al, &#34;2DOF Cartesian Force Limiting Device for Safe Physical Human-Robot Interaction&#34;, 2009 IEEE International Conference on Robotics and Automation, Kobe International Conference Center, Kobe, Japan, May 12-17, 2009, pp. 253-258." scheme="references">
+    
+    <meta name="citation_reference" content="Zaier, R; Nagashima, F.; &#34;Motion Pattern Generator and Reflex System for Humanoid Robots&#34; In: Proceedings of the 2006 IEEE/RSJ International Conference on Intelligent Robots and Systems, Oct. 9-15, 2006, pp. 840-845, China." scheme="references">
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,400italic,500,500italic,700">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Product+Sans">
+    <style>
+      body { transition: none; }
+    </style>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-27188110-4', 'auto');
+
+      version = 'patent-search.search_20191120_RC00';
+
+      function sendFeedback() {
+        userfeedback.api.startFeedback({
+          'productId': '713680',
+          'bucket': 'patent-search-web',
+          'productVersion': version,
+        });
+      }
+
+      window.experiments = {};
+      window.experiments.patentCountries = "ae,ag,al,am,ao,ap,ar,at,au,aw,az,ba,bb,bd,be,bf,bg,bh,bj,bn,bo,br,bw,bx,by,bz,ca,cf,cg,ch,ci,cl,cm,cn,co,cr,cs,cu,cy,cz,dd,de,dj,dk,dm,do,dz,ea,ec,ee,eg,em,ep,es,fi,fr,ga,gb,gc,gd,ge,gh,gm,gn,gq,gr,gt,gw,hk,hn,hr,hu,ib,id,ie,il,in,ir,is,it,jo,jp,ke,kg,kh,km,kn,kp,kr,kw,kz,la,lc,li,lk,lr,ls,lt,lu,lv,ly,ma,mc,md,me,mg,mk,ml,mn,mo,mr,mt,mw,mx,my,mz,na,ne,ng,ni,nl,no,nz,oa,om,pa,pe,pg,ph,pl,pt,py,qa,ro,rs,ru,rw,sa,sc,sd,se,sg,si,sk,sl,sm,sn,st,su,sv,sy,sz,td,tg,th,tj,tm,tn,tr,tt,tw,tz,ua,ug,us,uy,uz,vc,ve,vn,wo,yu,za,zm,zw";
+      
+      
+      window.profilePicture = "";
+
+      window.Polymer = {
+        dom: 'shady',
+        lazyRegister: true,
+      };
+    </script>
+
+    <script src="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/webcomponentsjs/webcomponents-lite.min.js"></script>
+    
+    <link rel="import" href="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/search-app-vulcanized.html">
+    
+  </head>
+  <body unresolved>
+    
+    <script src="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/search-app-vulcanized.js"></script>
+    
+    <search-app>
+      
+      
+
+      <article class="result" itemscope itemtype="http://schema.org/ScholarlyArticle">
+  <h1 itemprop="pageTitle">US8483877B2 - Workspace safe operation of a force- or impedance-controlled robot 
+        - Google Patents</h1>
+  <span itemprop="title">Workspace safe operation of a force- or impedance-controlled robot 
+       </span>
+
+  <meta itemprop="type" content="patent">
+  <a href="https://patentimages.storage.googleapis.com/f9/56/80/30f31b264c8eb3/US8483877.pdf" itemprop="pdfLink">Download PDF</a>
+  <h2>Info</h2>
+
+  <dl>
+    <dt>Publication number</dt>
+    <dd itemprop="publicationNumber">US8483877B2</dd>
+    <meta itemprop="numberWithoutCodes" content="8483877">
+    <meta itemprop="kindCode" content="B2">
+    <meta itemprop="publicationDescription" content="Patent ( having previously published pre-grant publication)">
+    
+    <span>US8483877B2</span>
+    
+    <span>US12/875,254</span>
+    
+    <span>US87525410A</span>
+    
+    <span>US8483877B2</span>
+    
+    <span>US 8483877 B2</span>
+    
+    <span>US8483877 B2</span>
+    
+    <span>US 8483877B2</span>
+    
+    <span>  </span>
+    
+    <span> </span>
+    
+    <span> </span>
+    
+    <span>US 87525410 A</span>
+    
+    <span>US87525410 A</span>
+    
+    <span>US 87525410A</span>
+    
+    <span>US 8483877 B2</span>
+    
+    <span>US8483877 B2</span>
+    
+    <span>US 8483877B2</span>
+    
+
+    <dt>Authority</dt>
+    <dd itemprop="countryCode">US</dd>
+    <dd itemprop="countryName">United States</dd>
+
+    <dt>Prior art keywords</dt>
+    
+    <dd itemprop="priorArtKeywords" repeat>robotic</dd>
+    <dd itemprop="priorArtKeywords" repeat>robotic manipulator</dd>
+    <dd itemprop="priorArtKeywords" repeat>force</dd>
+    <dd itemprop="priorArtKeywords" repeat>joint</dd>
+    <dd itemprop="priorArtKeywords" repeat>manipulator</dd>
+
+    <dt>Prior art date</dt>
+    <dd><time itemprop="priorArtDate" datetime="2010-09-03">2010-09-03</time></dd>
+
+    <dt>Legal status (The legal status is an assumption and is not a legal conclusion. Google has not performed a legal analysis and makes no representation as to the accuracy of the status listed.)</dt>
+    <dd itemprop="legalStatusIfi" itemscope>
+      <span itemprop="status">Active</span>, expires <time itemprop="expiration" datetime="2031-07-29">2031-07-29</time>
+    </dd>
+  </dl>
+
+  <dt>Application number</dt>
+  <dd itemprop="applicationNumber">US12/875,254</dd>
+
+  
+
+  <dt>Other versions</dt>
+  <dd itemprop="directAssociations" itemscope repeat>
+    
+    <a href="/patent/US20120059515A1/en">
+      <span itemprop="publicationNumber">US20120059515A1</span>
+      (<span itemprop="primaryLanguage">en</span>
+    </a>
+  </dd>
+
+  <dt>Inventor</dt>
+  <dd itemprop="inventor" repeat>Muhammad E. Abdallah</dd>
+  <dd itemprop="inventor" repeat>Brian Hargrave</dd>
+  <dd itemprop="inventor" repeat>John D. Yamokoski</dd>
+  <dd itemprop="inventor" repeat>Philip A. Strawser</dd>
+  <dt>Current Assignee (The listed assignees may be inaccurate. Google has not performed a legal analysis and makes no representation or warranty as to the accuracy of the list.)</dt>
+  <dd itemprop="assigneeCurrent" repeat>
+    GM Global Technology Operations LLC
+  </dd><dd itemprop="assigneeCurrent" repeat>
+    National Aeronautics and Space Administration (NASA)
+  </dd>
+
+  <dt>Original Assignee</dt>
+  <dd itemprop="assigneeOriginal" repeat>GM Global Technology Operations LLC</dd><dd itemprop="assigneeOriginal" repeat>National Aeronautics and Space Administration (NASA)</dd>
+
+  <dt>Priority date (The priority date is an assumption and is not a legal conclusion. Google has not performed a legal analysis and makes no representation as to the accuracy of the date listed.)</dt>
+  <dd><time itemprop="priorityDate" datetime="2010-09-03">2010-09-03</time></dd>
+
+  <dt>Filing date</dt>
+  <dd><time itemprop="filingDate" datetime="2010-09-03">2010-09-03</time></dd>
+
+  <dt>Publication date</dt>
+  <dd><time itemprop="publicationDate" datetime="2013-07-09">2013-07-09</time></dd>
+
+  
+
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2010-09-03">2010-09-03</time>
+    <span itemprop="title">Application filed by GM Global Technology Operations LLC, National Aeronautics and Space Administration (NASA)</span>
+    <span itemprop="type">filed</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    <span itemprop="assigneeSearch">GM Global Technology Operations LLC</span>
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2010-09-03">2010-09-03</time>
+    <span itemprop="title">Priority to US12/875,254</span>
+    <span itemprop="type">priority</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    <span itemprop="documentId">patent/US8483877B2/en</span>
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2010-09-03">2010-09-03</time>
+    <span itemprop="title">Assigned to GM GLOBAL TECHNOLOGY OPERATIONS, INC.</span>
+    <span itemprop="type">reassignment</span>
+    
+    
+    
+    
+    <span itemprop="assigneeSearch">GM GLOBAL TECHNOLOGY OPERATIONS, INC.</span>
+    
+    
+    <span itemprop="description" repeat>ASSIGNMENT OF ASSIGNORS INTEREST (SEE DOCUMENT FOR DETAILS).</span>
+    
+    <span itemprop="description" repeat>Assignors: ABDALLAH, MUHAMMAD E.</span>
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2010-11-08">2010-11-08</time>
+    <span itemprop="title">Assigned to WILMINGTON TRUST COMPANY</span>
+    <span itemprop="type">reassignment</span>
+    
+    
+    
+    
+    <span itemprop="assigneeSearch">WILMINGTON TRUST COMPANY</span>
+    
+    
+    <span itemprop="description" repeat>SECURITY AGREEMENT</span>
+    
+    <span itemprop="description" repeat>Assignors: GM GLOBAL TECHNOLOGY OPERATIONS, INC.</span>
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2011-02-10">2011-02-10</time>
+    <span itemprop="title">Assigned to GM Global Technology Operations LLC</span>
+    <span itemprop="type">reassignment</span>
+    
+    
+    
+    
+    <span itemprop="assigneeSearch">GM Global Technology Operations LLC</span>
+    
+    
+    <span itemprop="description" repeat>CHANGE OF NAME (SEE DOCUMENT FOR DETAILS).</span>
+    
+    <span itemprop="description" repeat>Assignors: GM GLOBAL TECHNOLOGY OPERATIONS, INC.</span>
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2012-03-08">2012-03-08</time>
+    <span itemprop="title">Publication of US20120059515A1</span>
+    <span itemprop="type">publication</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    <span itemprop="documentId">patent/US20120059515A1/en</span>
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2013-07-09">2013-07-09</time>
+    <span itemprop="title">Publication of US8483877B2</span>
+    <span itemprop="type">publication</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    <span itemprop="documentId">patent/US8483877B2/en</span>
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2013-07-09">2013-07-09</time>
+    <span itemprop="title">Application granted</span>
+    <span itemprop="type">granted</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2014-11-07">2014-11-07</time>
+    <span itemprop="title">Assigned to GM Global Technology Operations LLC</span>
+    <span itemprop="type">reassignment</span>
+    
+    
+    
+    
+    <span itemprop="assigneeSearch">GM Global Technology Operations LLC</span>
+    
+    
+    <span itemprop="description" repeat>RELEASE BY SECURED PARTY (SEE DOCUMENT FOR DETAILS).</span>
+    
+    <span itemprop="description" repeat>Assignors: WILMINGTON TRUST COMPANY</span>
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2019-11-26">2019-11-26</time>
+    <span itemprop="title">Application status is Active</span>
+    <span itemprop="type">legal-status</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2031-07-29">2031-07-29</time>
+    <span itemprop="title">Adjusted expiration</span>
+    <span itemprop="type">legal-status</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+
+  <h2>Links</h2>
+
+  <ul>
+    
+          <li itemprop="links" itemscope repeat>
+            <meta itemprop="id" content="usptoLink">
+            <a href="http://patft.uspto.gov/netacgi/nph-Parser?Sect1=PTO1&Sect2=HITOFF&p=1&u=/netahtml/PTO/srchnum.html&r=1&f=G&l=50&d=PALL&s1=8483877.PN." itemprop="url" target="_blank"><span itemprop="text">USPTO</span></a>
+          </li>
+        <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="usptoAssignmentLink">
+          <a href="https://assignment.uspto.gov/patent/index.html#/patent/search/resultFilter?searchInput=8483877" itemprop="url" target="_blank"><span itemprop="text">USPTO Assignment</span></a>
+        </li>
+
+    <li itemprop="links" itemscope repeat>
+        <meta itemprop="id" content="espacenetLink">
+        <a href="http://worldwide.espacenet.com/publicationDetails/biblio?CC=US&amp;NR=8483877B2&amp;KC=B2&amp;FT=D" itemprop="url" target="_blank"><span itemprop="text">Espacenet</span></a>
+      </li>
+      
+
+    
+
+    
+      <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="globalDossierLink">
+          <a href="http://globaldossier.uspto.gov/#/result/patent/US/8483877/1" itemprop="url" target="_blank"><span itemprop="text">Global Dossier</span></a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="stackexchangeLink">
+          <a href="https://patents.stackexchange.com/questions/tagged/US8483877" itemprop="url"><span itemprop="text">Discuss</span></a>
+        </li>
+      
+  </ul>
+
+  
+  <ul itemprop="concept" itemscope>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000011514</span>
+      <span itemprop="name">reflex</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>abstract</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">37</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000003068</span>
+      <span itemprop="name">static</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>abstract</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">29</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001276</span>
+      <span itemprop="name">controlling effects</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>abstract</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">5</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">241000222356</span>
+      <span itemprop="name">Coriolus</span>
+      <span itemprop="domain">Species</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">4</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000004044</span>
+      <span itemprop="name">response</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">241000282414</span>
+      <span itemprop="name">Homo sapiens</span>
+      <span itemprop="domain">Species</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">9</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">210000001503</span>
+      <span itemprop="name">Joints</span>
+      <span itemprop="domain">Anatomy</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">9</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">210000003811</span>
+      <span itemprop="name">Fingers</span>
+      <span itemprop="domain">Anatomy</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">5</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000004422</span>
+      <span itemprop="name">calculation algorithm</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">5</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">210000003813</span>
+      <span itemprop="name">Thumb</span>
+      <span itemprop="domain">Anatomy</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">4</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">210000001624</span>
+      <span itemprop="name">Hip</span>
+      <span itemprop="domain">Anatomy</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">3</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000003993</span>
+      <span itemprop="name">interaction</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">3</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000015654</span>
+      <span itemprop="name">memory</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">3</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000000272</span>
+      <span itemprop="name">proprioceptive</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">3</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">210000002310</span>
+      <span itemprop="name">Elbow Joint</span>
+      <span itemprop="domain">Anatomy</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">210000004247</span>
+      <span itemprop="name">Hand</span>
+      <span itemprop="domain">Anatomy</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">210000000323</span>
+      <span itemprop="name">Shoulder Joint</span>
+      <span itemprop="domain">Anatomy</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000006399</span>
+      <span itemprop="name">behavior</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000000694</span>
+      <span itemprop="name">effects</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000000670</span>
+      <span itemprop="name">limiting</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">210000001145</span>
+      <span itemprop="name">Finger Joint</span>
+      <span itemprop="domain">Anatomy</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">240000005511</span>
+      <span itemprop="name">Pisonia aculeata</span>
+      <span itemprop="domain">Species</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">210000000707</span>
+      <span itemprop="name">Wrist</span>
+      <span itemprop="domain">Anatomy</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">210000003857</span>
+      <span itemprop="name">Wrist Joint</span>
+      <span itemprop="domain">Anatomy</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000000872</span>
+      <span itemprop="name">buffers</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000003750</span>
+      <span itemprop="name">conditioning</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000002079</span>
+      <span itemprop="name">cooperative</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000018109</span>
+      <span itemprop="name">developmental process</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000005225</span>
+      <span itemprop="name">electronics</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000004438</span>
+      <span itemprop="name">eyesight</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001965</span>
+      <span itemprop="name">increased</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000002452</span>
+      <span itemprop="name">interceptive</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000002955</span>
+      <span itemprop="name">isolation</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000011295</span>
+      <span itemprop="name">pitch</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001603</span>
+      <span itemprop="name">reducing</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001105</span>
+      <span itemprop="name">regulatory</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001953</span>
+      <span itemprop="name">sensory</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+  </ul>
+  
+
+  <section>
+    <h2>Images</h2>
+    <ul>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/40/9c/f1/92da2700c70f9f/US08483877-20130709-D00000.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/c4/0c/56/0073bf85eae706/US08483877-20130709-D00000.png">
+        <ul>
+          <li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="10">
+            <meta itemprop="label" content="robotic system">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1590">
+              <meta itemprop="top" content="237">
+              <meta itemprop="right" content="1650">
+              <meta itemprop="bottom" content="289">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="100">
+            <meta itemprop="label" content="algorithm">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="443">
+              <meta itemprop="top" content="440">
+              <meta itemprop="right" content="529">
+              <meta itemprop="bottom" content="492">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="11">
+            <meta itemprop="label" content="robot">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1260">
+              <meta itemprop="top" content="124">
+              <meta itemprop="right" content="1330">
+              <meta itemprop="bottom" content="177">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="12">
+            <meta itemprop="label" content="controller">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="455">
+              <meta itemprop="top" content="355">
+              <meta itemprop="right" content="525">
+              <meta itemprop="bottom" content="408">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="13">
+            <meta itemprop="label" content="arrow">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="450">
+              <meta itemprop="top" content="571">
+              <meta itemprop="right" content="509">
+              <meta itemprop="bottom" content="622">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="14">
+            <meta itemprop="label" content="fingers">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="119">
+              <meta itemprop="top" content="1453">
+              <meta itemprop="right" content="195">
+              <meta itemprop="bottom" content="1506">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="14">
+            <meta itemprop="label" content="fingers">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1718">
+              <meta itemprop="top" content="1323">
+              <meta itemprop="right" content="1777">
+              <meta itemprop="bottom" content="1374">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="16">
+            <meta itemprop="label" content="head">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1103">
+              <meta itemprop="top" content="94">
+              <meta itemprop="right" content="1162">
+              <meta itemprop="bottom" content="145">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="17">
+            <meta itemprop="label" content="arrows">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="233">
+              <meta itemprop="top" content="1011">
+              <meta itemprop="right" content="319">
+              <meta itemprop="bottom" content="1062">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="18">
+            <meta itemprop="label" content="torso">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="718">
+              <meta itemprop="top" content="1069">
+              <meta itemprop="right" content="788">
+              <meta itemprop="bottom" content="1122">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="20">
+            <meta itemprop="label" content="waist">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1187">
+              <meta itemprop="top" content="1325">
+              <meta itemprop="right" content="1253">
+              <meta itemprop="bottom" content="1376">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="21">
+            <meta itemprop="label" content="arrows">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1182">
+              <meta itemprop="top" content="1413">
+              <meta itemprop="right" content="1243">
+              <meta itemprop="bottom" content="1466">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="22">
+            <meta itemprop="label" content="arms">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="386">
+              <meta itemprop="top" content="684">
+              <meta itemprop="right" content="445">
+              <meta itemprop="bottom" content="735">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="22">
+            <meta itemprop="label" content="arms">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1548">
+              <meta itemprop="top" content="684">
+              <meta itemprop="right" content="1617">
+              <meta itemprop="bottom" content="737">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="24">
+            <meta itemprop="label" content="more hands">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="562">
+              <meta itemprop="top" content="1359">
+              <meta itemprop="right" content="633">
+              <meta itemprop="bottom" content="1414">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="24">
+            <meta itemprop="label" content="more hands">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1597">
+              <meta itemprop="top" content="893">
+              <meta itemprop="right" content="1666">
+              <meta itemprop="bottom" content="945">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="26">
+            <meta itemprop="label" content="opposable thumbs">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="187">
+              <meta itemprop="top" content="1187">
+              <meta itemprop="right" content="252">
+              <meta itemprop="bottom" content="1237">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="26">
+            <meta itemprop="label" content="opposable thumbs">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1292">
+              <meta itemprop="top" content="1185">
+              <meta itemprop="right" content="1360">
+              <meta itemprop="bottom" content="1236">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="28">
+            <meta itemprop="label" content="power supply">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="778">
+              <meta itemprop="top" content="364">
+              <meta itemprop="right" content="835">
+              <meta itemprop="bottom" content="415">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="30">
+            <meta itemprop="label" content="work tool">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="775">
+              <meta itemprop="top" content="1461">
+              <meta itemprop="right" content="845">
+              <meta itemprop="bottom" content="1514">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="50">
+            <meta itemprop="label" content="torque command signal">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="685">
+              <meta itemprop="top" content="365">
+              <meta itemprop="right" content="760">
+              <meta itemprop="bottom" content="416">
+            </span>
+          </li>
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/d7/ea/6e/61634eb1c426d2/US08483877-20130709-D00001.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/34/51/db/75112c07a5ad1b/US08483877-20130709-D00001.png">
+        <ul>
+          <li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="10">
+            <meta itemprop="label" content="robotic system">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1642">
+              <meta itemprop="top" content="265">
+              <meta itemprop="right" content="1703">
+              <meta itemprop="bottom" content="318">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="100">
+            <meta itemprop="label" content="algorithm">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="495">
+              <meta itemprop="top" content="468">
+              <meta itemprop="right" content="590">
+              <meta itemprop="bottom" content="520">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="100">
+            <meta itemprop="label" content="algorithm">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1481">
+              <meta itemprop="top" content="1869">
+              <meta itemprop="right" content="1569">
+              <meta itemprop="bottom" content="1923">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="102">
+            <meta itemprop="label" content="step">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="750">
+              <meta itemprop="top" content="1912">
+              <meta itemprop="right" content="834">
+              <meta itemprop="bottom" content="1963">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="104">
+            <meta itemprop="label" content="step">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="750">
+              <meta itemprop="top" content="2215">
+              <meta itemprop="right" content="834">
+              <meta itemprop="bottom" content="2266">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="106">
+            <meta itemprop="label" content="step">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="750">
+              <meta itemprop="top" content="2563">
+              <meta itemprop="right" content="835">
+              <meta itemprop="bottom" content="2615">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="11">
+            <meta itemprop="label" content="robot">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1320">
+              <meta itemprop="top" content="150">
+              <meta itemprop="right" content="1381">
+              <meta itemprop="bottom" content="203">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="12">
+            <meta itemprop="label" content="controller">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="506">
+              <meta itemprop="top" content="382">
+              <meta itemprop="right" content="572">
+              <meta itemprop="bottom" content="438">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="13">
+            <meta itemprop="label" content="arrow">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="503">
+              <meta itemprop="top" content="596">
+              <meta itemprop="right" content="563">
+              <meta itemprop="bottom" content="648">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="14">
+            <meta itemprop="label" content="fingers">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="178">
+              <meta itemprop="top" content="1479">
+              <meta itemprop="right" content="238">
+              <meta itemprop="bottom" content="1531">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="14">
+            <meta itemprop="label" content="fingers">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1779">
+              <meta itemprop="top" content="1348">
+              <meta itemprop="right" content="1832">
+              <meta itemprop="bottom" content="1401">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="16">
+            <meta itemprop="label" content="head">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1163">
+              <meta itemprop="top" content="121">
+              <meta itemprop="right" content="1222">
+              <meta itemprop="bottom" content="172">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="17">
+            <meta itemprop="label" content="arrows">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="281">
+              <meta itemprop="top" content="1037">
+              <meta itemprop="right" content="380">
+              <meta itemprop="bottom" content="1089">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="18">
+            <meta itemprop="label" content="torso">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="772">
+              <meta itemprop="top" content="1095">
+              <meta itemprop="right" content="847">
+              <meta itemprop="bottom" content="1147">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="20">
+            <meta itemprop="label" content="waist">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1242">
+              <meta itemprop="top" content="1352">
+              <meta itemprop="right" content="1311">
+              <meta itemprop="bottom" content="1404">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="21">
+            <meta itemprop="label" content="arrows">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1234">
+              <meta itemprop="top" content="1441">
+              <meta itemprop="right" content="1300">
+              <meta itemprop="bottom" content="1492">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="22">
+            <meta itemprop="label" content="arms">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1606">
+              <meta itemprop="top" content="712">
+              <meta itemprop="right" content="1671">
+              <meta itemprop="bottom" content="761">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="22">
+            <meta itemprop="label" content="arms">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="439">
+              <meta itemprop="top" content="709">
+              <meta itemprop="right" content="505">
+              <meta itemprop="bottom" content="760">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="24">
+            <meta itemprop="label" content="more hands">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="622">
+              <meta itemprop="top" content="1387">
+              <meta itemprop="right" content="691">
+              <meta itemprop="bottom" content="1440">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="24">
+            <meta itemprop="label" content="more hands">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1653">
+              <meta itemprop="top" content="915">
+              <meta itemprop="right" content="1718">
+              <meta itemprop="bottom" content="974">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="26">
+            <meta itemprop="label" content="opposable thumbs">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1352">
+              <meta itemprop="top" content="1211">
+              <meta itemprop="right" content="1426">
+              <meta itemprop="bottom" content="1261">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="26">
+            <meta itemprop="label" content="opposable thumbs">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="245">
+              <meta itemprop="top" content="1212">
+              <meta itemprop="right" content="320">
+              <meta itemprop="bottom" content="1264">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="28">
+            <meta itemprop="label" content="power supply">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="835">
+              <meta itemprop="top" content="389">
+              <meta itemprop="right" content="895">
+              <meta itemprop="bottom" content="442">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="30">
+            <meta itemprop="label" content="work tool">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="830">
+              <meta itemprop="top" content="1489">
+              <meta itemprop="right" content="895">
+              <meta itemprop="bottom" content="1539">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="50">
+            <meta itemprop="label" content="torque command signal">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="738">
+              <meta itemprop="top" content="390">
+              <meta itemprop="right" content="817">
+              <meta itemprop="bottom" content="443">
+            </span>
+          </li>
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/fe/68/9b/e9836dd7821169/US08483877-20130709-D00002.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/22/6a/8d/ec507214d07880/US08483877-20130709-D00002.png">
+        <ul>
+          <li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="2">
+            <meta itemprop="id" content="11">
+            <meta itemprop="label" content="robot">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="353">
+              <meta itemprop="top" content="790">
+              <meta itemprop="right" content="409">
+              <meta itemprop="bottom" content="842">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="2">
+            <meta itemprop="id" content="34">
+            <meta itemprop="label" content="spring torque block">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="346">
+              <meta itemprop="top" content="2156">
+              <meta itemprop="right" content="428">
+              <meta itemprop="bottom" content="2220">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="2">
+            <meta itemprop="id" content="35">
+            <meta itemprop="label" content="saturation limit block">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="347">
+              <meta itemprop="top" content="1934">
+              <meta itemprop="right" content="395">
+              <meta itemprop="bottom" content="1990">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="2">
+            <meta itemprop="id" content="36">
+            <meta itemprop="label" content="torque block">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="603">
+              <meta itemprop="top" content="2160">
+              <meta itemprop="right" content="682">
+              <meta itemprop="bottom" content="2221">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="2">
+            <meta itemprop="id" content="56">
+            <meta itemprop="label" content="joint position">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1419">
+              <meta itemprop="top" content="2496">
+              <meta itemprop="right" content="1474">
+              <meta itemprop="bottom" content="2551">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="2">
+            <meta itemprop="id" content="64">
+            <meta itemprop="label" content="various signals">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="410">
+              <meta itemprop="top" content="1626">
+              <meta itemprop="right" content="490">
+              <meta itemprop="bottom" content="1688">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="2">
+            <meta itemprop="id" content="70">
+            <meta itemprop="label" content="compensation signal">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="921">
+              <meta itemprop="top" content="1848">
+              <meta itemprop="right" content="990">
+              <meta itemprop="bottom" content="1909">
+            </span>
+          </li>
+        </ul>
+      </li>
+      </ul>
+  </section>
+
+  <section>
+    <h2>Classifications</h2>
+    
+    <ul>
+      <li>
+        <ul itemprop="cpcs" itemscope repeat>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">B</span>&mdash;<span itemprop="Description">PERFORMING OPERATIONS; TRANSPORTING</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">B25</span>&mdash;<span itemprop="Description">HAND TOOLS; PORTABLE POWER-DRIVEN TOOLS; MANIPULATORS</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">B25J</span>&mdash;<span itemprop="Description">MANIPULATORS; CHAMBERS PROVIDED WITH MANIPULATION DEVICES</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">B25J9/00</span>&mdash;<span itemprop="Description">Programme-controlled manipulators</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">B25J9/16</span>&mdash;<span itemprop="Description">Programme controls</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">B25J9/1628</span>&mdash;<span itemprop="Description">Programme controls characterised by the control loop</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">B25J9/1633</span>&mdash;<span itemprop="Description">Programme controls characterised by the control loop compliant, force, torque control, e.g. combined with position control</span>
+            <meta itemprop="Leaf" content="true">
+            
+            <meta itemprop="FirstCode" content="true">
+          </li>
+          </ul>
+      </li>
+      <li>
+        <ul itemprop="cpcs" itemscope repeat>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G</span>&mdash;<span itemprop="Description">PHYSICS</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G05</span>&mdash;<span itemprop="Description">CONTROLLING; REGULATING</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G05B</span>&mdash;<span itemprop="Description">CONTROL OR REGULATING SYSTEMS IN GENERAL; FUNCTIONAL ELEMENTS OF SUCH SYSTEMS; MONITORING OR TESTING ARRANGEMENTS FOR SUCH SYSTEMS OR ELEMENTS</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G05B2219/00</span>&mdash;<span itemprop="Description">Program-control systems</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G05B2219/30</span>&mdash;<span itemprop="Description">Nc systems</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G05B2219/39</span>&mdash;<span itemprop="Description">Robotics, robotics to robotics hand</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G05B2219/39505</span>&mdash;<span itemprop="Description">Control of gripping, grasping, contacting force, force distribution</span>
+            <meta itemprop="Leaf" content="true">
+            <meta itemprop="Additional" content="true">
+            
+          </li>
+          </ul>
+      </li>
+      </ul>
+  </section>
+
+  <section itemprop="abstract" itemscope>
+    <h2>Abstract</h2>
+    
+    <div itemprop="content" html><abstract mxw-id="PA117184893" lang="EN" load-source="patent-office">
+    <div num="p-0001" class="abstract">A method of controlling a robotic manipulator of a force- or impedance-controlled robot within an unstructured workspace includes imposing a saturation limit on a static force applied by the manipulator to its surrounding environment, and may include determining a contact force between the manipulator and an object in the unstructured workspace, and executing a dynamic reflex when the contact force exceeds a threshold to thereby alleviate an inertial impulse not addressed by the saturation limited static force. The method may include calculating a required reflex torque to be imparted by a joint actuator to a robotic joint. A robotic system includes a robotic manipulator having an unstructured workspace and a controller that is electrically connected to the manipulator, and which controls the manipulator using force- or impedance-based commands. The controller, which is also disclosed herein, automatically imposes the saturation limit and may execute the dynamic reflex noted above.</div>
+  </abstract>
+  </div>
+  </section>
+
+  <section itemprop="description" itemscope>
+    <h2>Description</h2>
+    
+    <div itemprop="content" html><div mxw-id="PDES60185238" lang="EN" load-source="patent-office" class="description">
+    
+    <heading>STATEMENT REGARDING FEDERALLY SPONSORED RESEARCH OR DEVELOPMENT</heading>
+    <p num="p-0002">This invention was made with government support under NASA Space Act Agreement number SAA-AT-07-003. The invention described herein may be manufactured and used by or for the U.S. Government for U.S. Government (i.e., non-commercial) purposes without the payment of royalties thereon or therefor.</p>
+    
+    
+    <heading>TECHNICAL FIELD</heading>
+    <p num="p-0003">The present invention relates to the automatic control of a force- or impedance-controlled robot in an operating environment in which a robotic manipulator of the robot may come into unexpected direct physical contact with an object and/or an operator within its workspace.</p>
+    <heading>BACKGROUND</heading>
+    <p num="p-0004">Robots are automated devices which are able to manipulate objects using a series of links. The links are interconnected by one or more actuator-driven robotic joints. Each joint in a typical robot represents at least one independent control variable, i.e., a degree of freedom. End-effectors are the particular manipulators used to perform a task at hand, such as grasping a work tool. Therefore, precise motion control of the robot by controlling its various robotic manipulators may be organized by the required level of task specification. The levels include object-level control, which describes the ability to control the behavior of an object held in a single or a cooperative grasp of the robot, end-effector control, i.e., control of the various manipulators such as robotic fingers and thumbs, and joint-level control. Collectively, the various control levels achieve the required mobility, dexterity, and work task-related functionality.</p>
+    <p num="p-0005">Dexterous robots may be used where a direct interaction is required with devices or systems specifically designed for human use, i.e., devices requiring human-like levels of dexterity to properly manipulate. The use of dexterous robots may also be preferred where a direct interaction is required with human operators, as the motion of the robot can be programmed to approximate human motion. Such robots are typically configured to operate in a well-defined or structured workspace. However, in certain evolving applications the designated workspace is relatively confined and/or unstructured, and may be shared with human operators. In such an operating environment there is an increased likelihood that contact will occur in the workspace between the robotic manipulator and an object and/or human operator.</p>
+    <heading>SUMMARY</heading>
+    <p num="p-0006">Accordingly, a method is disclosed herein for control of a force- or impedance-controlled dexterous robot within a robotic system. Such a robot may have one or more robotic manipulators. Each manipulator operates via a force- or impedance-based control framework within an unstructured workspace. As used herein, the terms “force-based” and “impedance-based” refer to the control of a robot relying on respective force or impedance commands and feedback signals in order to move and apply forces through the various robotic joints and manipulators of the robot.</p>
+    <p num="p-0007">The present method at all times automatically imposes a saturation limit on a static force/torque commanded by a given robotic manipulator to its surrounding environment. Hence, should the robotic manipulator unexpectedly contact an object in its workspace, the static force applied by the manipulator is limited or bounded. Upon contact with the object, the robotic manipulator proceeds with its assigned operating task without “fighting” through the object after the object is encountered. This phase of the present control strategy does not rely on detecting the contact, but instead uses only proprioceptive sensing as disclosed herein to limit the static force at all times.</p>
+    <p num="p-0008">Although the static force is bounded or saturation limited, due to momentum of the system when the robotic manipulator is in motion, the manipulator can impart a larger dynamic force at the moment of contact. Another phase of the control strategy may therefore include automatically executing a predetermined dynamic reflex upon a threshold contact force with the object. The dynamic reflex alleviates any inertial impulse of the contact that is not already addressed by the saturation-limited static force. The dynamic reflex can rely on either dynamic modeling and/or exteroceptive sensing in order to detect the contact, i.e., physically sensing the contact such that the robot receives and responds to stimuli originating from outside of its structure in order to identify the contact. In this manner the robot can reduce the inertial impact to its manipulator which otherwise is addressed only by reducing the mass and/or top speed of the manipulator.</p>
+    <p num="p-0009">A method is disclosed herein for controlling a force- or impedance-controlled robot having a robotic manipulator and operating within an unstructured workspace. The method includes automatically imposing a saturation limit on a static force applied by the robotic manipulator to its surrounding environment such that the static force cannot at any time exceed the saturation limit.</p>
+    <p num="p-0010">The saturation limit may be defined with respect to at least one of a torque in a joint of the robotic manipulator and a Cartesian force and moment at a selected point on the robotic manipulator. The method may further include determining a contact force between the robotic manipulator and an object when the robotic manipulator makes contact with the object in the unstructured workspace, and automatically executing a dynamic reflex of the manipulator when the contact force exceeds a calibrated threshold.</p>
+    <p num="p-0011">A robotic system as set forth herein includes a controller and a force- or impedance-controlled robot having a robotic manipulator and an unstructured workspace. The controller imposes a saturation limit on a static force applied by the manipulator to its surrounding environment such that the static force cannot at any time exceed the saturation limit.</p>
+    <p num="p-0012">A controller for a force- or impedance-controlled robot is also disclosed herein. The robot operates in an unstructured workspace and has a robotic manipulator. The controller includes a host machine programmed to automatically impose a saturation limit on a static force applied by the robotic manipulator to its surrounding environment, such that the static force cannot at any time exceed the saturation limit.</p>
+    <p num="p-0013">The above features and advantages and other features and advantages of the present invention are readily apparent from the following detailed description of the best modes for carrying out the invention when taken in connection with the accompanying drawings.</p>
+    
+    
+    <description-of-drawings>
+      <heading>BRIEF DESCRIPTION OF THE DRAWINGS</heading>
+      <p num="p-0014"> <figref idrefs="DRAWINGS">FIG. 1</figref> is a schematic illustration of a robotic system having a force- or impedance-controlled dexterous robot with robotic manipulators controlled as disclosed herein;</p>
+      <p num="p-0015"> <figref idrefs="DRAWINGS">FIG. 2</figref> is a logic control block diagram providing a control strategy for the robotic system shown in <figref idrefs="DRAWINGS">FIG. 1</figref>; and</p>
+      <p num="p-0016"> <figref idrefs="DRAWINGS">FIG. 3</figref> is a flow chart describing a method for controlling the force- or impedance-controlled robot of <figref idrefs="DRAWINGS">FIG. 1</figref>.</p>
+    </description-of-drawings>
+    
+    
+    <heading>DESCRIPTION</heading>
+    <p num="p-0017">With reference to the drawings, wherein like reference numbers refer to the same or similar components throughout the several views, and beginning with <figref idrefs="DRAWINGS">FIG. 1</figref>, a robotic system <b>10</b> is shown having a dexterous robot <b>11</b>, shown here in a humanoid embodiment, that is controlled via an electronic control unit or controller <b>12</b>. Robot <b>11</b> is controlled using force- or impedance-based commands and feedback as noted above.</p>
+    <p num="p-0018">Controller <b>12</b> provides a control strategy for the robot <b>11</b> using an algorithm <b>100</b> as described below with reference to <figref idrefs="DRAWINGS">FIGS. 2 and 3</figref>. The control strategy provides a static compliance phase (control phase I) at all times, and may also provide an additional dynamic reflex phase (control phase II) to help ensure the safe operation of the robot <b>11</b> within an unstructured workspace. The control phase(s) are executed by controller <b>12</b> via a joint torque command signal <b>50</b> calculated as set forth below and explained with reference to <figref idrefs="DRAWINGS">FIG. 2</figref>.</p>
+    <p num="p-0019">As used herein, the term “unstructured” refers to an operating environment or workspace which is at least partially undefined and/or shared with human operators or other objects, particularly where the objects/operators have an undeterminable or an unpredictable position. Such a workspace is defined in contrast to a typical structured robotic workspace having well-defined or clearly demarcated boundaries. Structured workspaces allow objects having a highly regulated position and dimensions to be present within its boundaries, but do not permit human operators to be present within these boundaries. Evolving flexible automation may entail using a robot in workspaces which are largely unstructured and/or are commonly shared with human operators, e.g., space exploration-based or industrial-based applications. In such applications, a dexterous robot can execute certain work tasks requiring human-like levels of dexterity with a changing environment.</p>
+    <p num="p-0020">The robot <b>11</b> of <figref idrefs="DRAWINGS">FIG. 1</figref> may be adapted to perform automated tasks with multiple degrees of freedom (DOF), and to perform other interactive tasks or control other integrated system components, e.g., clamping, lighting, relays, etc. According to one possible embodiment, the robot <b>11</b> may have a plurality of independently- and interdependently-moveable actuator-driven robotic joints, such as but not limited to a shoulder joint, the position of which is generally indicated by arrow <b>13</b>, an elbow joint that is generally (arrow <b>15</b>), a wrist joint (arrow <b>17</b>), a neck joint (arrow <b>19</b>), and a waist joint (arrow <b>21</b>), as well as the various finger joints (arrow <b>23</b>) positioned between the phalanges of each robotic finger <b>14</b>.</p>
+    <p num="p-0021">Each robotic joint may have one or more DOF. For example, certain compliant joints such as the shoulder joint (arrow <b>13</b>) and the elbow joint (arrow <b>15</b>) may have at least two DOF in the form of pitch and roll. Likewise, the neck joint (arrow <b>17</b>) may have at least three DOF, while the waist and wrist (arrows <b>21</b> and <b>17</b>, respectively) may have one or more DOF. Depending on task complexity, the robot <b>11</b> may move with over 42 DOF. Each robotic joint contains and is internally driven by one or more actuators, e.g., joint motors, linear actuators, rotary actuators, and the like.</p>
+    <p num="p-0022">The robot <b>11</b> may include components such as a head <b>16</b>, torso <b>18</b>, waist <b>20</b>, arms <b>22</b>, hands <b>24</b>, fingers <b>14</b>, and opposable thumbs <b>26</b>, with the various joints noted above being disposed within or between these components. The robot <b>11</b> may also include a task-suitable fixture or base (not shown) such as legs, treads, or another moveable or fixed base depending on the particular application or intended use of the robot. A power supply <b>28</b> may be integrally mounted to the robot <b>11</b>, e.g., a rechargeable battery pack carried or worn on the back of the torso <b>18</b> or another suitable energy supply, or which may be attached remotely through a tethering cable, to provide sufficient electrical energy to the various joints for movement of the same.</p>
+    <p num="p-0023">The controller <b>12</b> provides precise motion control of the robot <b>11</b>, including control over the fine and gross movements needed for manipulating an object or work tool <b>30</b> that may be grasped by the fingers <b>14</b> and thumb <b>26</b> of one or more hands <b>24</b>. The controller <b>12</b> is able to independently control each robotic joint and other integrated system components in isolation from the other joints and system components, as well as to interdependently control a number of the joints to fully coordinate the actions of the multiple joints in performing a relatively complex work task.</p>
+    <p num="p-0024">Still referring to <figref idrefs="DRAWINGS">FIG. 1</figref>, the controller <b>12</b> may be embodied as a server or a host machine having one or multiple digital computers or data processing devices, each having one or more microprocessors or central processing units (CPU), read only memory (ROM), random access memory (RAM), electrically-erasable programmable read only memory (EEPROM), a high-speed clock, analog-to-digital (A/D) circuitry, digital-to-analog (D/A) circuitry, and any required input/output (I/O) circuitry and devices, as well as signal conditioning and buffer electronics. Individual control algorithms resident in the controller <b>12</b> or readily accessible by the controller may be stored in ROM or other suitable memory and automatically executed to provide the respective control functionality.</p>
+    <p num="p-0025">Referring to <figref idrefs="DRAWINGS">FIG. 2</figref>, a schematic control block diagram <b>32</b> describes the basic operating principles of controller <b>12</b> of <figref idrefs="DRAWINGS">FIG. 1</figref>, which as noted above provides a control strategy for static compliance (control phase I) and, if so desired, for a dynamic reflex (control phase II). That is, the robot <b>11</b> of <figref idrefs="DRAWINGS">FIG. 1</figref> is a force- or impedance-controlled robot, and therefore its behavior may be modeled as a mass spring-damper system. One may use a force- or an impedance-based control framework to specify desired stiffness, damping, and inertial properties of the system as:
+<br/>
+<i>m{umlaut over (x)}+b{dot over (x)}+kΔx=F </i>
+<br/>
+where k is the spring constant, m is the mass being acted upon, b is a calibrated constant, F is the applied force to the mass, and Δx is the difference between an actual position and a desired position (x) of the mass. Force- or impedance-based control can provide robustness to a physical interaction between a robot and its surrounding environment, and provides flexibility for diverse manipulation tasks.
+</p>
+    <p num="p-0026">Block diagram <b>32</b> provides closed-loop control of the robot <b>11</b> of <figref idrefs="DRAWINGS">FIG. 1</figref> using various logic blocks and signal processing nodes. Beginning with node <b>48</b>, this particular node receives a desired joint position <b>41</b>, e.g., a desired joint angle (q<sub>des</sub>), and a measured joint position <b>56</b>, e.g., a measured joint angle (q) of a given robotic joint, and calculates the difference, e.g., (q<sub>des</sub>−q). The difference is transmitted as a position error signal <b>60</b> to a spring torque block <b>34</b>, which calculates a required “spring” joint torque <b>62</b> which is proportional to the value of the position error signal <b>60</b>.</p>
+    <p num="p-0027">The required spring joint torque <b>62</b> constitutes the static torque/force applied by a given robotic manipulator to its surrounding environment. This signal is transmitted from spring torque block <b>34</b> to a limiting block <b>35</b>, which provides upper and lower bounds or saturation limits to the spring joint torque <b>62</b>. Proprioceptive sensing may be used to determine force applied by the robot <b>11</b>. As used herein, the term proprioceptive refers to a sensory modality providing feedback solely on the status of the robot <b>11</b> internally, i.e., a sense indicating whether the robotic is moving with a required effort, as well as where the various parts of the robot are located in relation to each other. External force sensing or detection of the contact force, i.e., exteroceptive sensing, is not required for this phase. The saturation-limited torque is transmitted as a torque signal <b>64</b> to another signal processing node <b>51</b>, the function of which is described below.</p>
+    <p num="p-0028">Block diagram <b>32</b> also includes a damping torque block <b>36</b>, a dynamic compensation block <b>38</b>, a gravity compensation block <b>40</b>, and a contact detection block <b>42</b>. Blocks <b>38</b>, <b>40</b>, and <b>42</b> receive the measured joint position <b>56</b> as an input and separately generate different output signals. Damping torque block <b>36</b> receives the measured joint position <b>58</b> and provides an output torque signal <b>68</b>. Signal <b>68</b> is proportional to the value Bq′, where B is a calibrated proportionality constant and q′ is the time derivative of the joint angle. Dynamic compensation block <b>38</b> generates a compensation signal <b>70</b> which models dynamic forces, especially the Coriolus force, and compensates as needed.</p>
+    <p num="p-0029">As is understood in the art, a Coriolus force is generated by the Coriolus effect acting on any object in motion in a rotating reference frame. It is proportional to the speed of rotation and of the reference frame, and to the object&#39;s speed in the same reference frame, and it acts in a direction perpendicular to the rotation axis and to the velocity of the moving body in the rotating frame. Gravity compensation block <b>40</b> models the effects of gravity acting on the robot <b>11</b>, and transmits this value as gravity compensation signal <b>72</b>, which is ultimately subtracted by the processing node <b>51</b>.</p>
+    <p num="p-0030">Signal processing node <b>51</b> calculates a preliminary torque signal <b>66</b> as a function of the various signals <b>64</b>, <b>68</b>, <b>70</b>, and <b>72</b> from the respective blocks <b>35</b>, <b>36</b>, <b>38</b>, and <b>40</b> as described above. The preliminary torque signal <b>66</b> is fed forward to a signal processing node <b>53</b>, which ultimately calculates a joint torque command signal <b>50</b> for control of the robot <b>11</b>. Node <b>53</b> calculates the joint torque command signal <b>50</b> as a function of the preliminary torque signal <b>66</b> and a reflex torque signal <b>78</b> from a reflex torque block <b>46</b>.</p>
+    <p num="p-0031">Still referring to <figref idrefs="DRAWINGS">FIG. 2</figref>, controller <b>12</b> may use contact detection block <b>42</b> to detect an external contact by modeling the dynamics of a particular robotic manipulator and/or by physically sensing an external force generated by an unexpected contact between the robot <b>11</b> and an object encountered in its unstructured workspace. Exteroceptive sensing may be used to detect such contact, with the term “exteroceptive” referring to detection of the contact force from outside of the robot <b>11</b> using such means as vision sensing, load cells, range-finding, etc. It may accept such inputs as the measured joint positions <b>56</b> and a sensed or measured external force <b>54</b>, with the arrow of force <b>54</b> in <figref idrefs="DRAWINGS">FIG. 2</figref> indicating that this value may be fed forward for use by the controller <b>12</b> as needed.</p>
+    <p num="p-0032">A contact force signal <b>74</b> from block <b>42</b> may be processed via a threshold comparison block <b>44</b> to generate a reflex command signal <b>76</b>. When a reflex torque is required, i.e., when the external force of the contact detected at block <b>42</b> exceeds the threshold force of block <b>44</b>, the reflex torque block <b>46</b> initiates a desired reflex response, which is transmitted to node <b>53</b> as the reflex torque signal <b>78</b>. The actual desired reflex can take on many forms, such as generating a torque to pull back from the contact.</p>
+    <p num="p-0033">Node <b>53</b> then calculates the joint torque command signal <b>50</b> as a function of the preliminary joint torque <b>66</b> and the reflex torque signal <b>78</b>. Robot <b>11</b> is commanded via joint torque command signal <b>50</b> to produce the required force joint torque. It may feedback any sensed or measured values for the measured external force <b>54</b> and joint position <b>56</b>.</p>
+    <p num="p-0034">The control law as expressed in <figref idrefs="DRAWINGS">FIG. 2</figref> is formulated in the joint-space of the robot <b>11</b> of <figref idrefs="DRAWINGS">FIG. 1</figref>, i.e., with respect to the joint degrees-of-freedom (DOF) of the robot. That is, the saturation limit described by <figref idrefs="DRAWINGS">FIG. 2</figref> is defined with respect to at least one of a joint torque and a Cartesian force and moment at a selected point on the robotic manipulator of the robot <b>11</b>. In the latter case, control may be formulated in the operational space of the robot <b>11</b>, i.e., with respect to the Cartesian DOF of an end-effector of the robot. In such a case, the saturation limits apply to the Cartesian forces/moments applied by the robot <b>11</b> rather than to the joint torques.</p>
+    <p num="p-0035">Referring to <figref idrefs="DRAWINGS">FIG. 3</figref>, algorithm <b>100</b> provides one possible way of executing the control strategy set forth above. Algorithm <b>100</b> begins with step <b>102</b>, wherein the controller <b>12</b> of <figref idrefs="DRAWINGS">FIG. 1</figref> automatically imposes a saturation limit on the static force that can be applied by a given manipulator of the robot <b>11</b>, i.e., by a finger, thumb, hand, or other manipulator, such that this limit cannot be exceeded at any time. In other words, the controller <b>12</b> automatically saturates the virtual “spring force” in an impedance-based framework as noted above, e.g., limiting joint torques via the saturation limit block <b>35</b> described above. The robot <b>11</b> will comply with its environment without fighting through obstacles it might happen to contact in its workspace. Step <b>102</b> provides inherent workspace safety, as it is always running and does not require contact or proximity detection.</p>
+    <p num="p-0036">At step <b>104</b>, the controller <b>12</b> may also determine if a threshold contact force is present. For example, the contact detection block <b>42</b> of <figref idrefs="DRAWINGS">FIG. 2</figref> may be used to detect a contact between the robot <b>11</b> and an object using modeling dynamics and/or by sensing the contact force as noted above. The comparison block <b>44</b> can be used to make the threshold decision and to communicate the decision within the controller <b>12</b> as to whether or not a dynamic reflex should be initiated.</p>
+    <p num="p-0037">At step <b>106</b>, the controller <b>12</b> imposes a dynamic reflex on the robot <b>11</b>. Due to inertia, the robot <b>11</b> will impart a higher dynamic force upon contact with an object in its workspace. If the contact force exceeds a threshold, controller <b>12</b> initiates the calibrated reflex via reflex block <b>46</b>. The algorithm <b>100</b> proceeds to step <b>108</b>.</p>
+    <p num="p-0038">At step <b>108</b>, the controller <b>12</b> discontinues the dynamic reflex and switches back to only the static compliance of step <b>102</b>. That is, while controller <b>12</b> continues to monitor contact in the workspace, it defaults to control phase I, i.e., static monitoring per block <b>34</b>.</p>
+    <p num="p-0039">Using algorithm <b>100</b> when executed according to logic diagram <b>32</b> of <figref idrefs="DRAWINGS">FIG. 2</figref>, safe operation is enabled in an unstructured work environment shared between dexterous robots such as the robot <b>11</b>, human operators, and any unfixtured objects. The impedance framework with the continuous static compliance ensures that compliance is always in operation, without the need for awareness of the environment. The optional dynamic reflex phase can be used to reduce the contact force occurring with fast motion of the robot <b>11</b> to within a calibrated control bandwidth.</p>
+    <p num="p-0040">While the best modes for carrying out the invention have been described in detail, those familiar with the art to which this invention relates will recognize various alternative designs and embodiments for practicing the invention within the scope of the appended claims.</p>
+    
+  </div>
+  </div>
+  </section>
+
+  <section itemprop="claims" itemscope>
+    <h2>Claims (<span itemprop="count">14</span>)</h2>
+    
+    <div itemprop="content" html><div mxw-id="PCLM53137564" lang="EN" load-source="patent-office" class="claims">
+    <claim-statement>The invention claimed is:</claim-statement>
+    <div class="claim"> <div id="CLM-00001" num="00001" class="claim">
+      <div class="claim-text">1. A method of controlling a force- or impedance-controlled robot having a controller and a robotic manipulator, wherein the robotic manipulator includes a robotic joint that is moveable via a joint actuator, and wherein the robot operates within an unstructured workspace, the method comprising:
+<div class="claim-text">proprioceptively sensing a static force applied by the robotic manipulator to its surrounding environment;</div>
+<div class="claim-text">automatically imposing, via the controller, a saturation limit on the static force applied by the robotic manipulator to its surrounding environment at all times such that the static force cannot at any time exceed the saturation limit;</div>
+<div class="claim-text">calculating a reflex torque to be imparted by the joint actuator to the robotic joint in response to contact between the robotic manipulator and the object in the unstructured workspace;</div>
+<div class="claim-text">determining a contact force between the robotic manipulator and an object when the robotic manipulator makes contact with the object; and</div>
+<div class="claim-text">automatically applying the calculated reflex torque to the robotic joint via the joint actuator as a dynamic reflex when the contact force exceeds a calibrated threshold.</div>
+</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00002" num="00002" class="claim">
+      <div class="claim-text">2. The method of <claim-ref idref="CLM-00001">claim 1</claim-ref>, wherein the saturation limit is defined with respect to at least one of a torque in the robotic joint of the robotic manipulator and a Cartesian force and moment at a selected point on the robotic manipulator.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00003" num="00003" class="claim">
+      <div class="claim-text">3. The method of <claim-ref idref="CLM-00001">claim 1</claim-ref>, further comprising identifying the contact with the object using at least one of: modeling dynamics of the robotic manipulator and sensing when the contact force exceeds the calibrated threshold.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00004" num="00004" class="claim">
+      <div class="claim-text">4. The method of <claim-ref idref="CLM-00001">claim 1</claim-ref>, further comprising using exteroceptive sensing to sense the contact force.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00005" num="00005" class="claim">
+      <div class="claim-text">5. The method of <claim-ref idref="CLM-00001">claim 1</claim-ref>, further comprising discontinuing the dynamic reflex when the contact force decreases below the calibrated threshold.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00006" num="00006" class="claim">
+      <div class="claim-text">6. The method of <claim-ref idref="CLM-00001">claim 1</claim-ref>, further comprising:
+<div class="claim-text">automatically compensating for a gravitational force and a Coriolus force acting on the robotic manipulator in calculating the reflex torque.</div>
+</div>
+    </div>
+    </div> <div class="claim"> <div id="CLM-00007" num="00007" class="claim">
+      <div class="claim-text">7. A robotic system comprising:
+<div class="claim-text">a force- or impedance-controlled robot having a robotic manipulator and an unstructured workspace, wherein the robotic manipulator includes a robotic joint that is moveable via a joint actuator; and</div>
+<div class="claim-text">a controller that is electrically connected to the robotic manipulator and adapted to control the robotic manipulator using force- or impedance-based commands;</div>
+<div class="claim-text">wherein the controller is configured to:
+<div class="claim-text">proprioceptively sense a static force applied by the robotic manipulator to its surrounding environment, and imposes a saturation limit on the static force applied by the manipulator to its surrounding environment at all times such that the static force cannot at any time exceed the saturation limit;</div>
+<div class="claim-text">calculate a reflex torque to be imparted by the joint actuator to the robotic joint when the robotic manipulator contacts an object in the unstructured workspace; and</div>
+<div class="claim-text">command the calculated reflex torque as a dynamic reflex of the robotic manipulator when the robotic manipulator contacts the object in the unstructured workspace with a contact force that exceeds a calibrated threshold.</div>
+</div>
+</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00008" num="00008" class="claim">
+      <div class="claim-text">8. The robotic system of <claim-ref idref="CLM-00007">claim 7</claim-ref>, wherein the saturation limit is defined with respect to at least one of a torque in the robotic joint of the robotic manipulator, and a Cartesian force and moment on a selected point on the robotic manipulator.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00009" num="00009" class="claim">
+      <div class="claim-text">9. The robotic system of <claim-ref idref="CLM-00007">claim 7</claim-ref>, wherein the controller identifies a contact between the robotic manipulator and the object using at least one of:
+<div class="claim-text">modeling of dynamics of the robotic manipulator and sensing when the contact force exceeds the calibrated threshold.</div>
+</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00010" num="00010" class="claim">
+      <div class="claim-text">10. The robotic system of <claim-ref idref="CLM-00007">claim 7</claim-ref>, wherein the controller automatically discontinues the dynamic reflex when the contact force decreases below the calibrated threshold.</div>
+    </div>
+    </div> <div class="claim"> <div id="CLM-00011" num="00011" class="claim">
+      <div class="claim-text">11. A controller for a force- or impedance-controlled robot operating in an unstructured workspace and having a robotic manipulator, wherein the robotic manipulator includes a robotic joint that is moveable via a joint actuator, and wherein the controller includes a host machine that is programmed to:
+<div class="claim-text">proprioceptively sense a static force applied by the robotic manipulator to its surrounding environment;</div>
+<div class="claim-text">automatically impose a saturation limit on the static force applied by the robotic manipulator to its surrounding environment at all times, such that the static force cannot at any time exceed the saturation limit;</div>
+<div class="claim-text">calculate a reflex torque to be imparted by the joint actuator to the robotic joint in the event the robotic manipulator contacts an object in the unstructured workspace; and</div>
+<div class="claim-text">command the calculated reflex torque as a dynamic reflex when the robotic manipulator contacts the object with a contact force that exceeds a calibrated threshold.</div>
+</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00012" num="00012" class="claim">
+      <div class="claim-text">12. The controller of <claim-ref idref="CLM-00011">claim 11</claim-ref>, wherein the saturation limit is defined with respect to at least one of a torque in the robotic joint of the robotic manipulator and a Cartesian force and moment at a selected point on the robotic manipulator.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00013" num="00013" class="claim">
+      <div class="claim-text">13. The controller of <claim-ref idref="CLM-00011">claim 11</claim-ref>, wherein the host machine is further programmed to identify contact between the robotic manipulator and the object using at least one of: modeling dynamics of the robotic manipulator and sensing when the contact force exceeds the calibrated threshold.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00014" num="00014" class="claim">
+      <div class="claim-text">14. The controller of <claim-ref idref="CLM-00011">claim 11</claim-ref>, wherein the controller discontinues the dynamic reflex when the contact force decreases below the calibrated threshold. </div>
+    </div>
+  </div> </div>
+  </div>
+  </section>
+
+  <section itemprop="application" itemscope>
+
+    <section itemprop="metadata" itemscope>
+        <span itemprop="applicationNumber">US12/875,254</span>
+        <span itemprop="priorityDate">2010-09-03</span>
+        <span itemprop="filingDate">2010-09-03</span>
+        <span itemprop="title">Workspace safe operation of a force- or impedance-controlled robot 
+       </span>
+        <span itemprop="ifiStatus">Active</span>
+        <span itemprop="ifiExpiration">2031-07-29</span>
+        <a href="/patent/US8483877B2/en">
+            <span itemprop="representativePublication">US8483877B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+        </a>
+    </section>
+
+    <h2>Priority Applications (1)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                    <th>Title</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="priorityApps" itemscope repeat>
+                <td>
+                   <span itemprop="applicationNumber">US12/875,254</span>
+                   
+                   <a href="/patent/US8483877B2/en">
+                        <span itemprop="representativePublication">US8483877B2</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                <td itemprop="priorityDate">2010-09-03</td>
+                <td itemprop="filingDate">2010-09-03</td>
+                <td itemprop="title">Workspace safe operation of a force- or impedance-controlled robot 
+       </td>
+              </tr>
+           </tbody>
+       </table>
+
+    <h2>Applications Claiming Priority (4)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                    <th>Title</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="appsClaimingPriority" itemscope repeat>
+                <td>
+                   <span itemprop="applicationNumber">US12/875,254</span>
+                   <a href="/patent/US8483877B2/en">
+                        <span itemprop="representativePublication">US8483877B2</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                <td itemprop="priorityDate">2010-09-03</td>
+                <td itemprop="filingDate">2010-09-03</td>
+                <td itemprop="title">Workspace safe operation of a force- or impedance-controlled robot 
+       </td>
+              </tr><tr itemprop="appsClaimingPriority" itemscope repeat>
+                <td>
+                   <span itemprop="applicationNumber">JP2011140512A</span>
+                   <a href="/patent/JP2012056074A/en">
+                        <span itemprop="representativePublication">JP2012056074A</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                <td itemprop="priorityDate">2010-09-03</td>
+                <td itemprop="filingDate">2011-06-24</td>
+                <td itemprop="title">Workspace safe operation of a force- or impedance-controlled robot 
+       </td>
+              </tr><tr itemprop="appsClaimingPriority" itemscope repeat>
+                <td>
+                   <span itemprop="applicationNumber">DE201110110902</span>
+                   <a href="/patent/DE102011110902B4/en">
+                        <span itemprop="representativePublication">DE102011110902B4</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                <td itemprop="priorityDate">2010-09-03</td>
+                <td itemprop="filingDate">2011-08-18</td>
+                <td itemprop="title">Safe operation of a force or impedance controlled robot in the workspace 
+       </td>
+              </tr><tr itemprop="appsClaimingPriority" itemscope repeat>
+                <td>
+                   <span itemprop="applicationNumber">JP2013138927A</span>
+                   <a href="/patent/JP2013223921A/en">
+                        <span itemprop="representativePublication">JP2013223921A</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                <td itemprop="priorityDate">2010-09-03</td>
+                <td itemprop="filingDate">2013-07-02</td>
+                <td itemprop="title">Workspace safe operation of force-controlled or impedance-controlled robot 
+       </td>
+              </tr>
+           </tbody>
+       </table>
+
+    
+
+    
+
+    <h2>Publications (2)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Publication Number</th>
+                    <th>Publication Date</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="pubs" itemscope repeat>
+                <td>
+                   <span itemprop="publicationNumber">US20120059515A1</span>
+                   
+                   <a href="/patent/US20120059515A1/en">US20120059515A1
+                       (<span itemprop="primaryLanguage">en</span>)
+                   </a>
+                </td>
+                <td itemprop="publicationDate">2012-03-08</td>
+              </tr><tr itemprop="pubs" itemscope repeat>
+                <td>
+                   <span itemprop="publicationNumber">US8483877B2</span>
+                   
+                   <span itemprop="thisPatent">true</span>
+                   <a href="/patent/US8483877B2/en">US8483877B2
+                       (<span itemprop="primaryLanguage">en</span>)
+                   </a>
+                </td>
+                <td itemprop="publicationDate">2013-07-09</td>
+              </tr>
+           </tbody>
+        </table>
+
+  </section>
+
+  <section itemprop="family" itemscope>
+    <h1>Family</h1>
+    <h2>ID=45595611</h2>
+
+    <h2>Family Applications (1)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Title</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="applications" itemscope repeat>
+                <td>
+                    <span itemprop="applicationNumber">US12/875,254</span>
+                    <span itemprop="ifiStatus">Active</span>
+                    <span itemprop="ifiExpiration">2031-07-29</span>
+                    <a href="/patent/US8483877B2/en">
+                        <span itemprop="representativePublication">US8483877B2</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                </td>
+                <td itemprop="priorityDate">2010-09-03</td>
+                <td itemprop="filingDate">2010-09-03</td>
+                <td itemprop="title">Workspace safe operation of a force- or impedance-controlled robot 
+       </td>
+              </tr>
+           </tbody>
+        </table>
+
+    
+
+    
+
+    <h2>Country Status (3)</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Country</th>
+            <th>Link</th>
+          </tr>
+        </thead>
+        <tbody>
+        <tr itemprop="countryStatus" itemscope repeat>
+            <td>
+              <span itemprop="countryCode">US</span>
+                (<span itemprop="num">1</span>)
+              <meta itemprop="thisCountry" content="true">
+            </td>
+            <td>
+              <a href="/patent/US8483877B2/en">
+                <span itemprop="representativePublication">US8483877B2</span>
+                  (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            </td>
+          </tr><tr itemprop="countryStatus" itemscope repeat>
+            <td>
+              <span itemprop="countryCode">JP</span>
+                (<span itemprop="num">2</span>)
+              
+            </td>
+            <td>
+              <a href="/patent/JP2012056074A/en">
+                <span itemprop="representativePublication">JP2012056074A</span>
+                  (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            </td>
+          </tr><tr itemprop="countryStatus" itemscope repeat>
+            <td>
+              <span itemprop="countryCode">DE</span>
+                (<span itemprop="num">1</span>)
+              
+            </td>
+            <td>
+              <a href="/patent/DE102011110902B4/en">
+                <span itemprop="representativePublication">DE102011110902B4</span>
+                  (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+    <h2>Cited By (3)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US9346165B1/en">
+              <span itemprop="publicationNumber">US9346165B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2014-06-02</td>
+          <td itemprop="publicationDate">2016-05-24</td>
+          <td><span itemprop="assigneeOriginal">Google Inc.</span></td>
+          <td itemprop="title">Robotic devices with multi-degree of freedom (DOF) load cell for shear beam sensing 
+       </td>
+        </tr><tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US9840886B1/en">
+              <span itemprop="publicationNumber">US9840886B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2016-06-22</td>
+          <td itemprop="publicationDate">2017-12-12</td>
+          <td><span itemprop="assigneeOriginal">Onesubsea Ip Uk Limited</span></td>
+          <td itemprop="title">Robotic manipulators for subsea, topside, and onshore operations 
+       </td>
+        </tr><tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/EP3280569A4/en">
+              <span itemprop="publicationNumber">EP3280569A4</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2015-04-07</td>
+          <td itemprop="publicationDate">2019-01-23</td>
+          <td><span itemprop="assigneeOriginal">Mobile Tool Management, Inc.</span></td>
+          <td itemprop="title">System and method for adjusting end-effector actuation based on relative position with respect to gravitational force 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Families Citing this family (5)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US8661928B1/en">
+              <span itemprop="publicationNumber">US8661928B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2008-06-20</td>
+          <td itemprop="publicationDate">2014-03-04</td>
+          <td><span itemprop="assigneeOriginal">Wowwee Group Limited</span></td>
+          <td itemprop="title">Method and system for articulating the upper limbs of a humanoid 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/JP5905443B2/en">
+              <span itemprop="publicationNumber">JP5905443B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2013-12-25</td>
+          <td itemprop="publicationDate">2016-04-20</td>
+          <td><span itemprop="assigneeOriginal">ファナック株式会社</span></td>
+          <td itemprop="title">External force determination method and external force determination device for human cooperative industrial robot 
+     </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/JP6034895B2/en">
+              <span itemprop="publicationNumber">JP6034895B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2015-02-20</td>
+          <td itemprop="publicationDate">2016-11-30</td>
+          <td><span itemprop="assigneeOriginal">ファナック株式会社</span></td>
+          <td itemprop="title">Human cooperative robot system that retracts the robot according to external force 
+     </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/GB2549072A/en">
+              <span itemprop="publicationNumber">GB2549072A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2016-03-24</td>
+          <td itemprop="publicationDate">2017-10-11</td>
+          <td><span itemprop="assigneeOriginal">Cambridge Medical Robotics Ltd</span></td>
+          <td itemprop="title">Robot control 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US10386938B2/en">
+              <span itemprop="publicationNumber">US10386938B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2017-09-18</td>
+          <td itemprop="publicationDate">2019-08-20</td>
+          <td><span itemprop="assigneeOriginal">Google Llc</span></td>
+          <td itemprop="title">Tracking of location and orientation of a virtual controller in a virtual reality system 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Citations (16)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/JPH04343690A/en">
+              <span itemprop="publicationNumber">JPH04343690A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1991-05-22</td>
+          <td itemprop="publicationDate">1992-11-30</td>
+          <td><span itemprop="assigneeOriginal">Nippon Telegr &amp; Teleph Corp &lt;Ntt&gt;</span></td>
+          <td itemprop="title">Joint friction compensating method for multi-joint manipulator 
+     </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/JPH06246673A/en">
+              <span itemprop="publicationNumber">JPH06246673A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1993-02-24</td>
+          <td itemprop="publicationDate">1994-09-06</td>
+          <td><span itemprop="assigneeOriginal">Yaskawa Electric Corp</span></td>
+          <td itemprop="title">Compliance control device for robot 
+     </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/JPH08118275A/en">
+              <span itemprop="publicationNumber">JPH08118275A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1994-10-19</td>
+          <td itemprop="publicationDate">1996-05-14</td>
+          <td><span itemprop="assigneeOriginal">Toyota Central Res &amp; Dev Lab Inc</span></td>
+          <td itemprop="title">Controller for manipulator 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/JPH09179632A/en">
+              <span itemprop="publicationNumber">JPH09179632A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1995-12-23</td>
+          <td itemprop="publicationDate">1997-07-11</td>
+          <td><span itemprop="assigneeOriginal">Yaskawa Electric Corp</span></td>
+          <td itemprop="title">Flexible controller for robot 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5994864A/en">
+              <span itemprop="publicationNumber">US5994864A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1995-09-11</td>
+          <td itemprop="publicationDate">1999-11-30</td>
+          <td><span itemprop="assigneeOriginal">Kabushiki Kaisha Yaskawa Denki</span></td>
+          <td itemprop="title">Robot controller 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6298283B1/en">
+              <span itemprop="publicationNumber">US6298283B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1999-03-26</td>
+          <td itemprop="publicationDate">2001-10-02</td>
+          <td><span itemprop="assigneeOriginal">Fanuc Ltd.</span></td>
+          <td itemprop="title">Industrial robot 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/JP2003159674A/en">
+              <span itemprop="publicationNumber">JP2003159674A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2001-11-21</td>
+          <td itemprop="publicationDate">2003-06-03</td>
+          <td><span itemprop="assigneeOriginal">Sony Corp</span></td>
+          <td itemprop="title">Robot system, external force detecting method and program for the system, and calibration method and program for the system 
+     </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/JP2005059161A/en">
+              <span itemprop="publicationNumber">JP2005059161A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2003-08-18</td>
+          <td itemprop="publicationDate">2005-03-10</td>
+          <td><span itemprop="assigneeOriginal">Matsushita Electric Ind Co Ltd</span></td>
+          <td itemprop="title">Robot control device 
+     </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/JP2005100143A/en">
+              <span itemprop="publicationNumber">JP2005100143A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2003-09-25</td>
+          <td itemprop="publicationDate">2005-04-14</td>
+          <td><span itemprop="assigneeOriginal">Kobe Steel Ltd</span></td>
+          <td itemprop="title">Control method and control device for motor-driven device 
+     </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6956345B2/en">
+              <span itemprop="publicationNumber">US6956345B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2002-12-18</td>
+          <td itemprop="publicationDate">2005-10-18</td>
+          <td><span itemprop="assigneeOriginal">Sony Corporation</span></td>
+          <td itemprop="title">Robot apparatus, and load absorbing apparatus and method 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/JP2006123012A/en">
+              <span itemprop="publicationNumber">JP2006123012A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2004-10-26</td>
+          <td itemprop="publicationDate">2006-05-18</td>
+          <td><span itemprop="assigneeOriginal">Matsushita Electric Ind Co Ltd</span></td>
+          <td itemprop="title">Robot control method 
+     </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7102311B2/en">
+              <span itemprop="publicationNumber">US7102311B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2002-02-18</td>
+          <td itemprop="publicationDate">2006-09-05</td>
+          <td><span itemprop="assigneeOriginal">Kawasaki Jukogyo Kabushiki Kaisha</span></td>
+          <td itemprop="title">Drive control method and drive controller 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/DE102005054575B3/en">
+              <span itemprop="publicationNumber">DE102005054575B3</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2005-11-16</td>
+          <td itemprop="publicationDate">2007-04-26</td>
+          <td><span itemprop="assigneeOriginal">Deutsches Zentrum für Luft- und Raumfahrt e.V.</span></td>
+          <td itemprop="title">Robot arm regulating method, for medical engineering, involves utilizing redundancy of hinges to optimize quality factor to adjust hinges at angle that is perpendicular to instrument axis, where force caused by regulating hinges is zero 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20070142823A1/en">
+              <span itemprop="publicationNumber">US20070142823A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2005-12-20</td>
+          <td itemprop="publicationDate">2007-06-21</td>
+          <td><span itemprop="assigneeOriginal">Intuitive Surgical Inc.</span></td>
+          <td itemprop="title">Control system for reducing internally generated frictional and inertial resistance to manual positioning of a surgical manipulator 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20070255454A1/en">
+              <span itemprop="publicationNumber">US20070255454A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2006-04-27</td>
+          <td itemprop="publicationDate">2007-11-01</td>
+          <td><span itemprop="assigneeOriginal">Honda Motor Co., Ltd.</span></td>
+          <td itemprop="title">Control Of Robots From Human Motion Descriptors 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20080046122A1/en">
+              <span itemprop="publicationNumber">US20080046122A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2003-06-30</td>
+          <td itemprop="publicationDate">2008-02-21</td>
+          <td><span itemprop="assigneeOriginal">Intuitive Surgical, Inc.</span></td>
+          <td itemprop="title">Maximum torque driving of robotic surgical tools in robotic surgical systems 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Family Cites Families (2)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="backwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/JP4240517B2/en">
+              <span itemprop="publicationNumber">JP4240517B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1999-05-20</td>
+          <td itemprop="publicationDate">2009-03-18</td>
+          <td><span itemprop="assigneeOriginal">株式会社安川電機</span></td>
+          <td itemprop="title">Servo motor and abnormal load detection control method for articulated robot 
+       </td>
+        </tr><tr itemprop="backwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/JP4756618B2/en">
+              <span itemprop="publicationNumber">JP4756618B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2001-03-21</td>
+          <td itemprop="publicationDate">2011-08-24</td>
+          <td><span itemprop="assigneeOriginal">株式会社ダイヘン</span></td>
+          <td itemprop="title">Collision detection / stop control method for articulated robots 
+     </td>
+        </tr>
+      </tbody>
+    </table>
+
+    
+    <ul>
+      
+      <li itemprop="applicationsByYear" itemscope repeat>
+        <span itemprop="year">2010</span>
+        <ul>
+          
+          <li itemprop="application" itemscope repeat>
+            <span itemprop="filingDate">2010-09-03</span>
+            <span itemprop="countryCode">US</span>
+            <span itemprop="applicationNumber">US12/875,254</span>
+            <a href="/patent/US8483877B2/en"><span itemprop="documentId">patent/US8483877B2/en</span></a>
+            <span itemprop="legalStatusCat">active</span>
+            <span itemprop="legalStatus">Active</span>
+            
+            <span itemprop="thisApp" content="true" bool></span>
+            
+          </li>
+          
+        </ul>
+      </li>
+      
+      <li itemprop="applicationsByYear" itemscope repeat>
+        <span itemprop="year">2011</span>
+        <ul>
+          
+          <li itemprop="application" itemscope repeat>
+            <span itemprop="filingDate">2011-06-24</span>
+            <span itemprop="countryCode">JP</span>
+            <span itemprop="applicationNumber">JP2011140512A</span>
+            <a href="/patent/JP2012056074A/en"><span itemprop="documentId">patent/JP2012056074A/en</span></a>
+            <span itemprop="legalStatusCat">active</span>
+            <span itemprop="legalStatus">Pending</span>
+            
+          </li>
+          
+          <li itemprop="application" itemscope repeat>
+            <span itemprop="filingDate">2011-08-18</span>
+            <span itemprop="countryCode">DE</span>
+            <span itemprop="applicationNumber">DE201110110902</span>
+            <a href="/patent/DE102011110902B4/en"><span itemprop="documentId">patent/DE102011110902B4/en</span></a>
+            <span itemprop="legalStatusCat">active</span>
+            <span itemprop="legalStatus">Active</span>
+            
+          </li>
+          
+        </ul>
+      </li>
+      
+      <li itemprop="applicationsByYear" itemscope repeat>
+        <span itemprop="year">2013</span>
+        <ul>
+          
+          <li itemprop="application" itemscope repeat>
+            <span itemprop="filingDate">2013-07-02</span>
+            <span itemprop="countryCode">JP</span>
+            <span itemprop="applicationNumber">JP2013138927A</span>
+            <a href="/patent/JP2013223921A/en"><span itemprop="documentId">patent/JP2013223921A/en</span></a>
+            <span itemprop="legalStatusCat">active</span>
+            <span itemprop="legalStatus">Pending</span>
+            
+          </li>
+          
+        </ul>
+      </li>
+      
+    </ul>
+    
+
+    </section>
+
+  <section>
+    <h2>Patent Citations (16)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/JPH04343690A/en">
+              <span itemprop="publicationNumber">JPH04343690A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1991-05-22</td>
+          <td itemprop="publicationDate">1992-11-30</td>
+          <td><span itemprop="assigneeOriginal">Nippon Telegr &amp; Teleph Corp &lt;Ntt&gt;</span></td>
+          <td itemprop="title">Joint friction compensating method for multi-joint manipulator 
+     </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/JPH06246673A/en">
+              <span itemprop="publicationNumber">JPH06246673A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1993-02-24</td>
+          <td itemprop="publicationDate">1994-09-06</td>
+          <td><span itemprop="assigneeOriginal">Yaskawa Electric Corp</span></td>
+          <td itemprop="title">Compliance control device for robot 
+     </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/JPH08118275A/en">
+              <span itemprop="publicationNumber">JPH08118275A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1994-10-19</td>
+          <td itemprop="publicationDate">1996-05-14</td>
+          <td><span itemprop="assigneeOriginal">Toyota Central Res &amp; Dev Lab Inc</span></td>
+          <td itemprop="title">Controller for manipulator 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5994864A/en">
+              <span itemprop="publicationNumber">US5994864A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1995-09-11</td>
+          <td itemprop="publicationDate">1999-11-30</td>
+          <td><span itemprop="assigneeOriginal">Kabushiki Kaisha Yaskawa Denki</span></td>
+          <td itemprop="title">Robot controller 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/JPH09179632A/en">
+              <span itemprop="publicationNumber">JPH09179632A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1995-12-23</td>
+          <td itemprop="publicationDate">1997-07-11</td>
+          <td><span itemprop="assigneeOriginal">Yaskawa Electric Corp</span></td>
+          <td itemprop="title">Flexible controller for robot 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6298283B1/en">
+              <span itemprop="publicationNumber">US6298283B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1999-03-26</td>
+          <td itemprop="publicationDate">2001-10-02</td>
+          <td><span itemprop="assigneeOriginal">Fanuc Ltd.</span></td>
+          <td itemprop="title">Industrial robot 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/JP2003159674A/en">
+              <span itemprop="publicationNumber">JP2003159674A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2001-11-21</td>
+          <td itemprop="publicationDate">2003-06-03</td>
+          <td><span itemprop="assigneeOriginal">Sony Corp</span></td>
+          <td itemprop="title">Robot system, external force detecting method and program for the system, and calibration method and program for the system 
+     </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7102311B2/en">
+              <span itemprop="publicationNumber">US7102311B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2002-02-18</td>
+          <td itemprop="publicationDate">2006-09-05</td>
+          <td><span itemprop="assigneeOriginal">Kawasaki Jukogyo Kabushiki Kaisha</span></td>
+          <td itemprop="title">Drive control method and drive controller 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6956345B2/en">
+              <span itemprop="publicationNumber">US6956345B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2002-12-18</td>
+          <td itemprop="publicationDate">2005-10-18</td>
+          <td><span itemprop="assigneeOriginal">Sony Corporation</span></td>
+          <td itemprop="title">Robot apparatus, and load absorbing apparatus and method 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20080046122A1/en">
+              <span itemprop="publicationNumber">US20080046122A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2003-06-30</td>
+          <td itemprop="publicationDate">2008-02-21</td>
+          <td><span itemprop="assigneeOriginal">Intuitive Surgical, Inc.</span></td>
+          <td itemprop="title">Maximum torque driving of robotic surgical tools in robotic surgical systems 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/JP2005059161A/en">
+              <span itemprop="publicationNumber">JP2005059161A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2003-08-18</td>
+          <td itemprop="publicationDate">2005-03-10</td>
+          <td><span itemprop="assigneeOriginal">Matsushita Electric Ind Co Ltd</span></td>
+          <td itemprop="title">Robot control device 
+     </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/JP2005100143A/en">
+              <span itemprop="publicationNumber">JP2005100143A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2003-09-25</td>
+          <td itemprop="publicationDate">2005-04-14</td>
+          <td><span itemprop="assigneeOriginal">Kobe Steel Ltd</span></td>
+          <td itemprop="title">Control method and control device for motor-driven device 
+     </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/JP2006123012A/en">
+              <span itemprop="publicationNumber">JP2006123012A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2004-10-26</td>
+          <td itemprop="publicationDate">2006-05-18</td>
+          <td><span itemprop="assigneeOriginal">Matsushita Electric Ind Co Ltd</span></td>
+          <td itemprop="title">Robot control method 
+     </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/DE102005054575B3/en">
+              <span itemprop="publicationNumber">DE102005054575B3</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2005-11-16</td>
+          <td itemprop="publicationDate">2007-04-26</td>
+          <td><span itemprop="assigneeOriginal">Deutsches Zentrum für Luft- und Raumfahrt e.V.</span></td>
+          <td itemprop="title">Robot arm regulating method, for medical engineering, involves utilizing redundancy of hinges to optimize quality factor to adjust hinges at angle that is perpendicular to instrument axis, where force caused by regulating hinges is zero 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20070142823A1/en">
+              <span itemprop="publicationNumber">US20070142823A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2005-12-20</td>
+          <td itemprop="publicationDate">2007-06-21</td>
+          <td><span itemprop="assigneeOriginal">Intuitive Surgical Inc.</span></td>
+          <td itemprop="title">Control system for reducing internally generated frictional and inertial resistance to manual positioning of a surgical manipulator 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20070255454A1/en">
+              <span itemprop="publicationNumber">US20070255454A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2006-04-27</td>
+          <td itemprop="publicationDate">2007-11-01</td>
+          <td><span itemprop="assigneeOriginal">Honda Motor Co., Ltd.</span></td>
+          <td itemprop="title">Control Of Robots From Human Motion Descriptors 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Non-Patent Citations (10)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Albu-Schaffer, A.; Ott, C.; Hirzinger, G.; "<a href='http://scholar.google.com/scholar?q="A+Unified+Passivity-based+Control+Framework+for+Position%2C+Torque+and+Impedance+Control+of+Flexible+Joint+Robots"'>A Unified Passivity-based Control Framework for Position, Torque and Impedance Control of Flexible Joint Robots</a>" In: The International Journal of Robotics Research, 2007; 26, pp. 23-39, SAGE Publications, Germany.</span>
+            
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Beong-Sang Kim et al, "<a href='http://scholar.google.com/scholar?q="Double+Actuator+Unit+with+Planetary+Gear+Train+for+a+Safe+Manipulator"'>Double Actuator Unit with Planetary Gear Train for a Safe Manipulator</a>", 2007 IEEE International Conference on Robotics and Automation, Roma, Italy, Apr. 10-14, 2007, pp. 1146-1151.</span>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Diftler, M.A.; Ambrose, R.O.; Tyree, K.S.; Goza, S.M.; Huber, E.L.; "<a href='http://scholar.google.com/scholar?q="A+Mobile+Autonomous+Humanoid+Assistant"'>A Mobile Autonomous Humanoid Assistant</a>" In: 2004 4th IEEE/RAS International Conference on Humanoid Robots, vol. 1, pp. 133-148, Houston, Texas.</span>
+            
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Diftler, M.A.; Platt Jr, R.; Culbert, C.J.; Bluethmann, W.J.; "<a href='http://scholar.google.com/scholar?q="Evolution+of+the+NASA%2FDARPA+Robonaut+Control+System"'>Evolution of the NASA/DARPA Robonaut Control System</a>" In: Proceedings of the 2003 IEEE International Conference on Robotics &amp; Automation, Sep. 14-19, 2003, pp. 2543-2548, Taiwan.</span>
+            
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Gill A. Pratt and Matthew M. Williamson, "<a href='http://scholar.google.com/scholar?q="Series+Elastic+Actuators"'>Series Elastic Actuators</a>", IEEE 1995, pp. 399-406.</span>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">http://robotics.nasa.gov/courses/fall2002/event/oct1/NASA-Robotics-20021001.htm.</span>
+            
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">http://robotics.nasa.gov/courses/fall2002/event/oct1/NASA—Robotics—20021001.htm.</span>
+            
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Nicolas Lauzier and Clement Gosselin, "<a href='http://scholar.google.com/scholar?q="Performance+Indices+for+Collaborative+Serial+Robots+with+Optimally+Adjusted+Series+Clutch+Actuators"'>Performance Indices for Collaborative Serial Robots with Optimally Adjusted Series Clutch Actuators</a>", Proceedings of the ASME 2010 International Design Engineering Technical Conferences &amp; Computers and Information in Engineering Conference, Aug. 15-18, 2010.</span>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Nicolas Lauzier et al, "<a href='http://scholar.google.com/scholar?q="2DOF+Cartesian+Force+Limiting+Device+for+Safe+Physical+Human-Robot+Interaction"'>2DOF Cartesian Force Limiting Device for Safe Physical Human-Robot Interaction</a>", 2009 IEEE International Conference on Robotics and Automation, Kobe International Conference Center, Kobe, Japan, May 12-17, 2009, pp. 253-258.</span>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Zaier, R; Nagashima, F.; "<a href='http://scholar.google.com/scholar?q="Motion+Pattern+Generator+and+Reflex+System+for+Humanoid+Robots"'>Motion Pattern Generator and Reflex System for Humanoid Robots</a>" In: Proceedings of the 2006 IEEE/RSJ International Conference on Intelligent Robots and Systems, Oct. 9-15, 2006, pp. 840-845, China.</span>
+            
+            
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <h2>Cited By (3)</h2>
+  <table>
+    <caption>* Cited by examiner, † Cited by third party</caption>
+    <thead>
+      <tr>
+        <th>Publication number</th>
+        <th>Priority date</th>
+        <th>Publication date</th>
+        <th>Assignee</th>
+        <th>Title</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US9346165B1/en">
+            <span itemprop="publicationNumber">US9346165B1</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2014-06-02</td>
+        <td itemprop="publicationDate">2016-05-24</td>
+        <td><span itemprop="assigneeOriginal">Google Inc.</span></td>
+        <td itemprop="title">Robotic devices with multi-degree of freedom (DOF) load cell for shear beam sensing 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/EP3280569A4/en">
+            <span itemprop="publicationNumber">EP3280569A4</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2015-04-07</td>
+        <td itemprop="publicationDate">2019-01-23</td>
+        <td><span itemprop="assigneeOriginal">Mobile Tool Management, Inc.</span></td>
+        <td itemprop="title">System and method for adjusting end-effector actuation based on relative position with respect to gravitational force 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US9840886B1/en">
+            <span itemprop="publicationNumber">US9840886B1</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          
+          
+        </td>
+        <td itemprop="priorityDate">2016-06-22</td>
+        <td itemprop="publicationDate">2017-12-12</td>
+        <td><span itemprop="assigneeOriginal">Onesubsea Ip Uk Limited</span></td>
+        <td itemprop="title">Robotic manipulators for subsea, topside, and onshore operations 
+       </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <section>
+    <h2>Also Published As</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Publication date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="docdbFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/DE102011110902B4/en">
+              <span itemprop="publicationNumber">DE102011110902B4</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+          </td>
+          <td itemprop="publicationDate">2015-03-26</td>
+        </tr><tr itemprop="docdbFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/JP2013223921A/en">
+              <span itemprop="publicationNumber">JP2013223921A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+          </td>
+          <td itemprop="publicationDate">2013-10-31</td>
+        </tr><tr itemprop="docdbFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20120059515A1/en">
+              <span itemprop="publicationNumber">US20120059515A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+          </td>
+          <td itemprop="publicationDate">2012-03-08</td>
+        </tr><tr itemprop="docdbFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/DE102011110902A1/en">
+              <span itemprop="publicationNumber">DE102011110902A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+          </td>
+          <td itemprop="publicationDate">2012-03-08</td>
+        </tr><tr itemprop="docdbFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/JP2012056074A/en">
+              <span itemprop="publicationNumber">JP2012056074A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+          </td>
+          <td itemprop="publicationDate">2012-03-22</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Similar Documents</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Publication</th>
+          <th>Publication Date</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="137333744243252867">
+              <a href="/scholar/137333744243252867"><span itemprop="scholarAuthors">Namiki et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2003">2003</time>
+            
+          </td>
+          <td itemprop="title">Development of a high-speed multifingered hand system and its application to catching</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="4032494524480365568">
+              <a href="/scholar/4032494524480365568"><span itemprop="scholarAuthors">Diftler et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2011">2011</time>
+            
+          </td>
+          <td itemprop="title">Robonaut 2-the first humanoid robot in space</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="744708061948548017">
+              <a href="/scholar/744708061948548017"><span itemprop="scholarAuthors">Bluethmann et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2003">2003</time>
+            
+          </td>
+          <td itemprop="title">Robonaut: A robot designed to work with humans in space</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="5513747178838015605">
+              <a href="/scholar/5513747178838015605"><span itemprop="scholarAuthors">Bergamasco et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1994">1994</time>
+            
+          </td>
+          <td itemprop="title">An arm exoskeleton system for teleoperation and virtual environments applications</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US20090069942A1/en">
+                <span itemprop="publicationNumber">US20090069942A1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2009-03-12">2009-03-12</time>
+            
+            
+          </td>
+          <td itemprop="title">Robot apparatus and method of controlling the same 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/CN101947787B/en">
+                <span itemprop="publicationNumber">CN101947787B</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2012-12-05">2012-12-05</time>
+            
+            
+          </td>
+          <td itemprop="title">Hierarchical robot control system and method for controlling selected degrees-of-freedom of an object using multiple manipulators 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/EP2905111B1/en">
+                <span itemprop="publicationNumber">EP2905111B1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2019-04-24">2019-04-24</time>
+            
+            
+          </td>
+          <td itemprop="title">Method for programming an industrial robot and associated industrial robot 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/JP4715863B2/en">
+                <span itemprop="publicationNumber">JP4715863B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2011-07-06">2011-07-06</time>
+            
+            
+          </td>
+          <td itemprop="title">Actuator control apparatus, actuator control method, actuator, robot apparatus, and computer program 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/JP2010149274A5/en">
+                <span itemprop="publicationNumber">JP2010149274A5</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2013-11-07">2013-11-07</time>
+            
+            
+          </td>
+          <td itemprop="title"></td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US20130096719A1/en">
+                <span itemprop="publicationNumber">US20130096719A1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2013-04-18">2013-04-18</time>
+            
+            
+          </td>
+          <td itemprop="title">Method for dynamic optimization of a robot control interface 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="4692434463455244009">
+              <a href="/scholar/4692434463455244009"><span itemprop="scholarAuthors">Lee et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2013">2013</time>
+            
+          </td>
+          <td itemprop="title">Relative impedance control for dual-arm robots performing asymmetric bimanual tasks</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/EP1972415A1/en">
+                <span itemprop="publicationNumber">EP1972415A1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2008-09-24">2008-09-24</time>
+            
+            
+          </td>
+          <td itemprop="title">Robots with collision avoidance functionality 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="2678846426456530235">
+              <a href="/scholar/2678846426456530235"><span itemprop="scholarAuthors">Grunwald et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2003">2003</time>
+            
+          </td>
+          <td itemprop="title">Programming by touch: The different way of human-robot interaction</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="14675169751274194772">
+              <a href="/scholar/14675169751274194772"><span itemprop="scholarAuthors">Griffin et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2005">2005</time>
+            
+          </td>
+          <td itemprop="title">Feedback strategies for telemanipulation with shared control of object handling forces</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="13948262123425282258">
+              <a href="/scholar/13948262123425282258"><span itemprop="scholarAuthors">Schraft et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2005">2005</time>
+            
+          </td>
+          <td itemprop="title">Powermate-a safe and intuitive robot assistant for handling and assembly tasks</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="7372250365806221802">
+              <a href="/scholar/7372250365806221802"><span itemprop="scholarAuthors">Lacevic et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2010">2010</time>
+            
+          </td>
+          <td itemprop="title">Kinetostatic danger field-a novel safety assessment for human-robot interaction</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="9018744320137352663">
+              <a href="/scholar/9018744320137352663"><span itemprop="scholarAuthors">Lens et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2010">2010</time>
+            
+          </td>
+          <td itemprop="title">Biorob-arm: A quickly deployable and intrinsically safe, light-weight robot arm for service robotics applications</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/JPWO2007111252A1/en">
+                <span itemprop="publicationNumber">JPWO2007111252A1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2009-08-13">2009-08-13</time>
+            
+            
+          </td>
+          <td itemprop="title">Manipulator control method and control system 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="5150457987859917078">
+              <a href="/scholar/5150457987859917078"><span itemprop="scholarAuthors">Sadeghian et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2013">2013</time>
+            
+          </td>
+          <td itemprop="title">Task-space control of robot manipulators with null-space compliance</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/DE102009014074B4/en">
+                <span itemprop="publicationNumber">DE102009014074B4</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2018-12-06">2018-12-06</time>
+            
+            
+          </td>
+          <td itemprop="title">Robot and method for controlling a cooperative work of the robot 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="473340259608580112">
+              <a href="/scholar/473340259608580112"><span itemprop="scholarAuthors">Jain et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2010">2010</time>
+            
+          </td>
+          <td itemprop="title">Pulling open doors and drawers: Coordinating an omni-directional base and a compliant arm with equilibrium point control</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/JP4508164B2/en">
+                <span itemprop="publicationNumber">JP4508164B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2010-07-21">2010-07-21</time>
+            
+            
+          </td>
+          <td itemprop="title">Articulated robot and its control program 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/EP2895305B1/en">
+                <span itemprop="publicationNumber">EP2895305B1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2017-12-20">2017-12-20</time>
+            
+            
+          </td>
+          <td itemprop="title">Constraining robotic manipulators with redundant degrees of freedom 
+     </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="1318539948858872586">
+              <a href="/scholar/1318539948858872586"><span itemprop="scholarAuthors">Sun et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2002">2002</time>
+            
+          </td>
+          <td itemprop="title">Manipulating rigid payloads with multiple robots using compliant grippers</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="2006374920322917906">
+              <a href="/scholar/2006374920322917906"><span itemprop="scholarAuthors">Li et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2016">2016</time>
+            
+          </td>
+          <td itemprop="title">Adaptive human–robot interaction control for robots driven by series elastic actuators</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Legal Events</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Code</th>
+          <th>Title</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2010-09-03">2010-09-03</time></td>
+          <td itemprop="code">AS</td>
+          <td itemprop="title">Assignment</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Owner name</strong>:
+              <span itemprop="value">GM GLOBAL TECHNOLOGY OPERATIONS, INC., MICHIGAN</span>
+            </p>
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">ASSIGNMENT OF ASSIGNORS INTEREST;ASSIGNOR:ABDALLAH, MUHAMMAD E.;REEL/FRAME:024936/0963</span>
+            </p>
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Effective date</strong>:
+              <span itemprop="value">20100809</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2010-11-08">2010-11-08</time></td>
+          <td itemprop="code">AS</td>
+          <td itemprop="title">Assignment</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Owner name</strong>:
+              <span itemprop="value">WILMINGTON TRUST COMPANY, DELAWARE</span>
+            </p>
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">SECURITY AGREEMENT;ASSIGNOR:GM GLOBAL TECHNOLOGY OPERATIONS, INC.;REEL/FRAME:025324/0658</span>
+            </p>
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Effective date</strong>:
+              <span itemprop="value">20101027</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2011-02-10">2011-02-10</time></td>
+          <td itemprop="code">AS</td>
+          <td itemprop="title">Assignment</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Owner name</strong>:
+              <span itemprop="value">GM GLOBAL TECHNOLOGY OPERATIONS LLC, MICHIGAN</span>
+            </p>
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">CHANGE OF NAME;ASSIGNOR:GM GLOBAL TECHNOLOGY OPERATIONS, INC.;REEL/FRAME:025781/0333</span>
+            </p>
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Effective date</strong>:
+              <span itemprop="value">20101202</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2013-06-19">2013-06-19</time></td>
+          <td itemprop="code">STCF</td>
+          <td itemprop="title">Information on status: patent grant</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">PATENTED CASE</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2014-11-07">2014-11-07</time></td>
+          <td itemprop="code">AS</td>
+          <td itemprop="title">Assignment</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Owner name</strong>:
+              <span itemprop="value">GM GLOBAL TECHNOLOGY OPERATIONS LLC, MICHIGAN</span>
+            </p>
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">RELEASE BY SECURED PARTY;ASSIGNOR:WILMINGTON TRUST COMPANY;REEL/FRAME:034287/0159</span>
+            </p>
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Effective date</strong>:
+              <span itemprop="value">20141017</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2016-12-29">2016-12-29</time></td>
+          <td itemprop="code">FPAY</td>
+          <td itemprop="title">Fee payment</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Year of fee payment</strong>:
+              <span itemprop="value">4</span>
+            </p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+</article>
+
+    </search-app>
+    <script type="text/javascript" src="//www.gstatic.com/feedback/api.js"></script>
+    <script async="" defer="" src="//www.google.com/insights/consumersurveys/async_survey?site=cxkjf7ipxgbnnjy6k35ezcvbbe"></script>
+  </body>
+</html>

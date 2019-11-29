@@ -1,0 +1,2435 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>US7890311B2 - Method of simulating flow-through area of a pressure regulator 
+        - Google Patents</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="referrer" content="origin-when-crossorigin">
+    <link rel="canonical" href="https://patents.google.com/patent/US7890311B2/en">
+    <meta name="description" content="
+     The flow-through area of a pressure regulator positioned in a branch of a simulated fluid flow network is generated. A target pressure is defined downstream of the pressure regulator. A projected flow-through area is generated as a non-linear function of (i) target pressure, (ii) flow-through area of the pressure regulator for a current time step and a previous time step, and (iii) pressure at the downstream location for the current time step and previous time step. A simulated flow-through area for the next time step is generated as a sum of (i) flow-through area for the current time step, and (ii) a difference between the projected flow-through area and the flow-through area for the current time step multiplied by a user-defined rate control parameter. These steps are repeated for a sequence of time steps until the pressure at the downstream location is approximately equal to the target pressure. 
+   
+   ">
+    
+    <meta name="DC.type" content="patent">
+    
+    <meta name="DC.title" content="Method of simulating flow-through area of a pressure regulator 
+       ">
+    
+    <meta name="DC.date" content="2005-07-07" scheme="dateSubmitted">
+    
+    <meta name="DC.description" content="
+     The flow-through area of a pressure regulator positioned in a branch of a simulated fluid flow network is generated. A target pressure is defined downstream of the pressure regulator. A projected flow-through area is generated as a non-linear function of (i) target pressure, (ii) flow-through area of the pressure regulator for a current time step and a previous time step, and (iii) pressure at the downstream location for the current time step and previous time step. A simulated flow-through area for the next time step is generated as a sum of (i) flow-through area for the current time step, and (ii) a difference between the projected flow-through area and the flow-through area for the current time step multiplied by a user-defined rate control parameter. These steps are repeated for a sequence of time steps until the pressure at the downstream location is approximately equal to the target pressure. 
+   
+   ">
+    
+    <meta name="citation_patent_application_number" content="US:11/177,664">
+    
+    <meta name="citation_pdf_url" content="https://patentimages.storage.googleapis.com/c8/aa/58/077e71db0d983e/US7890311.pdf">
+    
+    <meta name="citation_patent_number" content="US:7890311">
+    
+    <meta name="DC.date" content="2011-02-15" scheme="issue">
+    
+    <meta name="DC.contributor" content="Neal E. Hass" scheme="inventor">
+    
+    <meta name="DC.contributor" content="Paul A. Schallhorn" scheme="inventor">
+    
+    <meta name="DC.contributor" content="National Aeronautics and Space Administration (NASA)" scheme="assignee">
+    
+    <meta name="DC.relation" content="US:4003405" scheme="references">
+    
+    <meta name="DC.relation" content="US:4860707" scheme="references">
+    
+    <meta name="DC.relation" content="US:6748349" scheme="references">
+    
+    <meta name="DC.relation" content="US:7266427" scheme="references">
+    
+    <meta name="DC.relation" content="US:20050273204:A1" scheme="references">
+    
+    <meta name="DC.relation" content="US:7096093" scheme="references">
+    
+    <meta name="DC.relation" content="US:7076414" scheme="references">
+    
+    <meta name="DC.relation" content="US:20030144766:A1" scheme="references">
+    
+    <meta name="DC.relation" content="US:20070288180:A1" scheme="references">
+    
+    <meta name="DC.relation" content="US:20050246090:A1" scheme="references">
+    
+    <meta name="citation_reference" content="&#34;A Generalized Fluid System Simulation Program to Model Flow Distribution in Fluid Networks&#34; by Alok Majumdar, John W. Bailey, Paul Schallhorn and Todd Steadman; Draft paper for 34 th AIAA/ASME/SAE/ASEE Joint Propulsion Conference, Jul. 13-15, 1998, Cleveland, Ohio; pp. 1-14." scheme="references">
+    
+    <meta name="citation_reference" content="&#34;Modelling and dynamics of single-stage pressure relief valve with directional damping&#34; by K. Dasgupta a,, R. Karmakar; Simulation Modelling Practice and Theory 10 (2002) pp. 51-67; www.elsevier.nl/locate/simpat." scheme="references">
+    
+    <meta name="citation_reference" content="&#34;Pressure regulator valve by Bondgraph&#34; by Katsuya Suzuki a, Ikuo Nakamura b, J.U. Thoma c;Simulation Practice and Theory 7 (1999) pp. 603-611; www.elsevier.nl/locate/simpra." scheme="references">
+    
+    <meta name="citation_reference" content="El Golli Rami, Bezian Jean-Jacques, Grenouilleau Pascal, Menu Francois, Stability study and modelling of a pressure regulating station, Internatioanl Journal of Pressure Vessels and Piping, vol. 82, Issue 1, Jan. 2005, pp. 51-60, ISSN 0308-0161." scheme="references">
+    
+    <meta name="citation_reference" content="Interfacing A General Purpose Fluid Network Flow Program With the Sinda/G Thermal Analysis Program by Paul Schallhorn and Daniel Popok 2000 pp. 1-12." scheme="references">
+    
+    <meta name="citation_reference" content="P.A. Schallhom, &#34;Development of a Pressure Regulator Option for the Generalized Fluid System Simulation Program (GFSSP),&#34; Report No. MG-02-111, NASA MSFC Contract No. NAS8-00187, Feb. 2002." scheme="references">
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,400italic,500,500italic,700">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Product+Sans">
+    <style>
+      body { transition: none; }
+    </style>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-27188110-4', 'auto');
+
+      version = 'patent-search.search_20191120_RC00';
+
+      function sendFeedback() {
+        userfeedback.api.startFeedback({
+          'productId': '713680',
+          'bucket': 'patent-search-web',
+          'productVersion': version,
+        });
+      }
+
+      window.experiments = {};
+      window.experiments.patentCountries = "ae,ag,al,am,ao,ap,ar,at,au,aw,az,ba,bb,bd,be,bf,bg,bh,bj,bn,bo,br,bw,bx,by,bz,ca,cf,cg,ch,ci,cl,cm,cn,co,cr,cs,cu,cy,cz,dd,de,dj,dk,dm,do,dz,ea,ec,ee,eg,em,ep,es,fi,fr,ga,gb,gc,gd,ge,gh,gm,gn,gq,gr,gt,gw,hk,hn,hr,hu,ib,id,ie,il,in,ir,is,it,jo,jp,ke,kg,kh,km,kn,kp,kr,kw,kz,la,lc,li,lk,lr,ls,lt,lu,lv,ly,ma,mc,md,me,mg,mk,ml,mn,mo,mr,mt,mw,mx,my,mz,na,ne,ng,ni,nl,no,nz,oa,om,pa,pe,pg,ph,pl,pt,py,qa,ro,rs,ru,rw,sa,sc,sd,se,sg,si,sk,sl,sm,sn,st,su,sv,sy,sz,td,tg,th,tj,tm,tn,tr,tt,tw,tz,ua,ug,us,uy,uz,vc,ve,vn,wo,yu,za,zm,zw";
+      
+      
+      window.profilePicture = "";
+
+      window.Polymer = {
+        dom: 'shady',
+        lazyRegister: true,
+      };
+    </script>
+
+    <script src="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/webcomponentsjs/webcomponents-lite.min.js"></script>
+    
+    <link rel="import" href="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/search-app-vulcanized.html">
+    
+  </head>
+  <body unresolved>
+    
+    <script src="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/search-app-vulcanized.js"></script>
+    
+    <search-app>
+      
+      
+
+      <article class="result" itemscope itemtype="http://schema.org/ScholarlyArticle">
+  <h1 itemprop="pageTitle">US7890311B2 - Method of simulating flow-through area of a pressure regulator 
+        - Google Patents</h1>
+  <span itemprop="title">Method of simulating flow-through area of a pressure regulator 
+       </span>
+
+  <meta itemprop="type" content="patent">
+  <a href="https://patentimages.storage.googleapis.com/c8/aa/58/077e71db0d983e/US7890311.pdf" itemprop="pdfLink">Download PDF</a>
+  <h2>Info</h2>
+
+  <dl>
+    <dt>Publication number</dt>
+    <dd itemprop="publicationNumber">US7890311B2</dd>
+    <meta itemprop="numberWithoutCodes" content="7890311">
+    <meta itemprop="kindCode" content="B2">
+    <meta itemprop="publicationDescription" content="Patent ( having previously published pre-grant publication)">
+    
+    <span>US7890311B2</span>
+    
+    <span>US11/177,664</span>
+    
+    <span>US17766405A</span>
+    
+    <span>US7890311B2</span>
+    
+    <span>US 7890311 B2</span>
+    
+    <span>US7890311 B2</span>
+    
+    <span>US 7890311B2</span>
+    
+    <span>  </span>
+    
+    <span> </span>
+    
+    <span> </span>
+    
+    <span>US 17766405 A</span>
+    
+    <span>US17766405 A</span>
+    
+    <span>US 17766405A</span>
+    
+    <span>US 7890311 B2</span>
+    
+    <span>US7890311 B2</span>
+    
+    <span>US 7890311B2</span>
+    
+
+    <dt>Authority</dt>
+    <dd itemprop="countryCode">US</dd>
+    <dd itemprop="countryName">United States</dd>
+
+    <dt>Prior art keywords</dt>
+    
+    <dd itemprop="priorArtKeywords" repeat>area</dd>
+    <dd itemprop="priorArtKeywords" repeat>flow</dd>
+    <dd itemprop="priorArtKeywords" repeat>pressure</dd>
+    <dd itemprop="priorArtKeywords" repeat>time step</dd>
+    <dd itemprop="priorArtKeywords" repeat>step</dd>
+
+    <dt>Prior art date</dt>
+    <dd><time itemprop="priorArtDate" datetime="2005-07-07">2005-07-07</time></dd>
+
+    <dt>Legal status (The legal status is an assumption and is not a legal conclusion. Google has not performed a legal analysis and makes no representation as to the accuracy of the status listed.)</dt>
+    <dd itemprop="legalStatusIfi" itemscope>
+      <span itemprop="status">Expired - Fee Related</span>, expires <time itemprop="expiration" datetime="2029-12-15">2029-12-15</time>
+    </dd>
+  </dl>
+
+  <dt>Application number</dt>
+  <dd itemprop="applicationNumber">US11/177,664</dd>
+
+  
+
+  <dt>Other versions</dt>
+  <dd itemprop="directAssociations" itemscope repeat>
+    
+    <a href="/patent/US20090287460A1/en">
+      <span itemprop="publicationNumber">US20090287460A1</span>
+      (<span itemprop="primaryLanguage">en</span>
+    </a>
+  </dd>
+
+  <dt>Inventor</dt>
+  <dd itemprop="inventor" repeat>Neal E. Hass</dd>
+  <dd itemprop="inventor" repeat>Paul A. Schallhorn</dd>
+  <dt>Current Assignee (The listed assignees may be inaccurate. Google has not performed a legal analysis and makes no representation or warranty as to the accuracy of the list.)</dt>
+  <dd itemprop="assigneeCurrent" repeat>
+    National Aeronautics and Space Administration (NASA)
+  </dd>
+
+  <dt>Original Assignee</dt>
+  <dd itemprop="assigneeOriginal" repeat>National Aeronautics and Space Administration (NASA)</dd>
+
+  <dt>Priority date (The priority date is an assumption and is not a legal conclusion. Google has not performed a legal analysis and makes no representation as to the accuracy of the date listed.)</dt>
+  <dd><time itemprop="priorityDate" datetime="2005-07-07">2005-07-07</time></dd>
+
+  <dt>Filing date</dt>
+  <dd><time itemprop="filingDate" datetime="2005-07-07">2005-07-07</time></dd>
+
+  <dt>Publication date</dt>
+  <dd><time itemprop="publicationDate" datetime="2011-02-15">2011-02-15</time></dd>
+
+  
+
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2005-07-07">2005-07-07</time>
+    <span itemprop="title">Application filed by National Aeronautics and Space Administration (NASA)</span>
+    <span itemprop="type">filed</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    <span itemprop="assigneeSearch">National Aeronautics and Space Administration (NASA)</span>
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2005-07-07">2005-07-07</time>
+    <span itemprop="title">Priority to US11/177,664</span>
+    <span itemprop="type">priority</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    <span itemprop="documentId">patent/US7890311B2/en</span>
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2005-08-10">2005-08-10</time>
+    <span itemprop="title">Assigned to UNITED STATES OF AMERICA AS REPRESENTED BY THE ADMINSTRATOR OF THE NATIONAL AERONAUTICS AND SPACE ADMINISTRATION</span>
+    <span itemprop="type">reassignment</span>
+    
+    
+    
+    
+    <span itemprop="assigneeSearch">UNITED STATES OF AMERICA AS REPRESENTED BY THE ADMINSTRATOR OF THE NATIONAL AERONAUTICS AND SPACE ADMINISTRATION</span>
+    
+    
+    <span itemprop="description" repeat>ASSIGNMENT OF ASSIGNORS INTEREST (SEE DOCUMENT FOR DETAILS).</span>
+    
+    <span itemprop="description" repeat>Assignors: HASS, NEAL E., SCHALLHORN, PAUL A.</span>
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2009-11-19">2009-11-19</time>
+    <span itemprop="title">Publication of US20090287460A1</span>
+    <span itemprop="type">publication</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    <span itemprop="documentId">patent/US20090287460A1/en</span>
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2011-02-15">2011-02-15</time>
+    <span itemprop="title">Application granted</span>
+    <span itemprop="type">granted</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2011-02-15">2011-02-15</time>
+    <span itemprop="title">Publication of US7890311B2</span>
+    <span itemprop="type">publication</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    <span itemprop="documentId">patent/US7890311B2/en</span>
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2019-11-26">2019-11-26</time>
+    <span itemprop="title">Application status is Expired - Fee Related</span>
+    <span itemprop="type">legal-status</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2029-12-15">2029-12-15</time>
+    <span itemprop="title">Adjusted expiration</span>
+    <span itemprop="type">legal-status</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+
+  <h2>Links</h2>
+
+  <ul>
+    
+          <li itemprop="links" itemscope repeat>
+            <meta itemprop="id" content="usptoLink">
+            <a href="http://patft.uspto.gov/netacgi/nph-Parser?Sect1=PTO1&Sect2=HITOFF&p=1&u=/netahtml/PTO/srchnum.html&r=1&f=G&l=50&d=PALL&s1=7890311.PN." itemprop="url" target="_blank"><span itemprop="text">USPTO</span></a>
+          </li>
+        <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="usptoAssignmentLink">
+          <a href="https://assignment.uspto.gov/patent/index.html#/patent/search/resultFilter?searchInput=7890311" itemprop="url" target="_blank"><span itemprop="text">USPTO Assignment</span></a>
+        </li>
+
+    <li itemprop="links" itemscope repeat>
+        <meta itemprop="id" content="espacenetLink">
+        <a href="http://worldwide.espacenet.com/publicationDetails/biblio?CC=US&amp;NR=7890311B2&amp;KC=B2&amp;FT=D" itemprop="url" target="_blank"><span itemprop="text">Espacenet</span></a>
+      </li>
+      
+
+    
+
+    
+      <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="globalDossierLink">
+          <a href="http://globaldossier.uspto.gov/#/result/patent/US/7890311/1" itemprop="url" target="_blank"><span itemprop="text">Global Dossier</span></a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="stackexchangeLink">
+          <a href="https://patents.stackexchange.com/questions/tagged/US7890311" itemprop="url"><span itemprop="text">Discuss</span></a>
+        </li>
+      
+  </ul>
+
+  
+  <ul itemprop="concept" itemscope>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000010932</span>
+      <span itemprop="name">platinum</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">6</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001276</span>
+      <span itemprop="name">controlling effects</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000000047</span>
+      <span itemprop="name">products</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000004088</span>
+      <span itemprop="name">simulation</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">25</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001052</span>
+      <span itemprop="name">transient</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">6</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000004044</span>
+      <span itemprop="name">response</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">5</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001976</span>
+      <span itemprop="name">improved</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">4</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001105</span>
+      <span itemprop="name">regulatory</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">4</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000033228</span>
+      <span itemprop="name">biological regulation</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">3</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000003247</span>
+      <span itemprop="name">decreasing</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001965</span>
+      <span itemprop="name">increased</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">206010035148</span>
+      <span itemprop="name">Plague</span>
+      <span itemprop="domain">Diseases</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000004458</span>
+      <span itemprop="name">analytical methods</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000018109</span>
+      <span itemprop="name">developmental process</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000002708</span>
+      <span itemprop="name">enhancing</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001747</span>
+      <span itemprop="name">exhibited</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000002529</span>
+      <span itemprop="name">flux</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000012010</span>
+      <span itemprop="name">growth</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000000034</span>
+      <span itemprop="name">methods</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000003278</span>
+      <span itemprop="name">mimic</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000006011</span>
+      <span itemprop="name">modification</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000004048</span>
+      <span itemprop="name">modification</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000002829</span>
+      <span itemprop="name">reduced</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000035945</span>
+      <span itemprop="name">sensitivity</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+  </ul>
+  
+
+  <section>
+    <h2>Images</h2>
+    <ul>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/ec/3e/97/46b81f9f713f89/US07890311-20110215-D00000.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/ab/75/8d/c245de28906693/US07890311-20110215-D00000.png">
+        <ul>
+          <li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="100">
+            <meta itemprop="label" content="curve">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="318">
+              <meta itemprop="top" content="339">
+              <meta itemprop="right" content="382">
+              <meta itemprop="bottom" content="372">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="102">
+            <meta itemprop="label" content="curve">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="352">
+              <meta itemprop="top" content="492">
+              <meta itemprop="right" content="412">
+              <meta itemprop="bottom" content="521">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="200">
+            <meta itemprop="label" content="curve">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="149">
+              <meta itemprop="top" content="382">
+              <meta itemprop="right" content="219">
+              <meta itemprop="bottom" content="421">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="200">
+            <meta itemprop="label" content="curve">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="482">
+              <meta itemprop="top" content="1255">
+              <meta itemprop="right" content="544">
+              <meta itemprop="bottom" content="1283">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="202">
+            <meta itemprop="label" content="curve">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="310">
+              <meta itemprop="top" content="1239">
+              <meta itemprop="right" content="366">
+              <meta itemprop="bottom" content="1268">
+            </span>
+          </li>
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/61/aa/16/68298bae22312f/US07890311-20110215-D00001.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/d9/a3/3e/f4a4e0d2abd0d3/US07890311-20110215-D00001.png">
+        <ul>
+          <li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="100">
+            <meta itemprop="label" content="curve">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="224">
+              <meta itemprop="top" content="592">
+              <meta itemprop="right" content="289">
+              <meta itemprop="bottom" content="623">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="100">
+            <meta itemprop="label" content="curve">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="392">
+              <meta itemprop="top" content="402">
+              <meta itemprop="right" content="450">
+              <meta itemprop="bottom" content="435">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="102">
+            <meta itemprop="label" content="curve">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="426">
+              <meta itemprop="top" content="555">
+              <meta itemprop="right" content="482">
+              <meta itemprop="bottom" content="587">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="200">
+            <meta itemprop="label" content="curve">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="222">
+              <meta itemprop="top" content="448">
+              <meta itemprop="right" content="289">
+              <meta itemprop="bottom" content="480">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="200">
+            <meta itemprop="label" content="curve">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="553">
+              <meta itemprop="top" content="1425">
+              <meta itemprop="right" content="614">
+              <meta itemprop="bottom" content="1456">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="1">
+            <meta itemprop="id" content="202">
+            <meta itemprop="label" content="curve">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="381">
+              <meta itemprop="top" content="1410">
+              <meta itemprop="right" content="440">
+              <meta itemprop="bottom" content="1440">
+            </span>
+          </li>
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/07/6c/93/ffabd815052bc9/US07890311-20110215-D00002.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/7c/5d/3b/4f20a31b181435/US07890311-20110215-D00002.png">
+        <ul>
+          <li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="2">
+            <meta itemprop="id" content="100">
+            <meta itemprop="label" content="curve">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="177">
+              <meta itemprop="top" content="409">
+              <meta itemprop="right" content="234">
+              <meta itemprop="bottom" content="437">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="2">
+            <meta itemprop="id" content="200">
+            <meta itemprop="label" content="curve">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="176">
+              <meta itemprop="top" content="59">
+              <meta itemprop="right" content="237">
+              <meta itemprop="bottom" content="90">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="2">
+            <meta itemprop="id" content="200">
+            <meta itemprop="label" content="curve">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="158">
+              <meta itemprop="top" content="1535">
+              <meta itemprop="right" content="214">
+              <meta itemprop="bottom" content="1566">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="2">
+            <meta itemprop="id" content="302">
+            <meta itemprop="label" content="curves">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="376">
+              <meta itemprop="top" content="310">
+              <meta itemprop="right" content="441">
+              <meta itemprop="bottom" content="347">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="2">
+            <meta itemprop="id" content="402">
+            <meta itemprop="label" content="curves">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="344">
+              <meta itemprop="top" content="719">
+              <meta itemprop="right" content="416">
+              <meta itemprop="bottom" content="755">
+            </span>
+          </li>
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/42/9e/87/0e2022b86d29fd/US07890311-20110215-D00003.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/cb/86/17/cec1b33d973b8d/US07890311-20110215-D00003.png">
+        <ul>
+          
+        </ul>
+      </li>
+      </ul>
+  </section>
+
+  <section>
+    <h2>Classifications</h2>
+    
+    <ul>
+      <li>
+        <ul itemprop="cpcs" itemscope repeat>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G</span>&mdash;<span itemprop="Description">PHYSICS</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06</span>&mdash;<span itemprop="Description">COMPUTING; CALCULATING; COUNTING</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06F</span>&mdash;<span itemprop="Description">ELECTRIC DIGITAL DATA PROCESSING</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06F17/00</span>&mdash;<span itemprop="Description">Digital computing or data processing equipment or methods, specially adapted for specific functions</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06F17/50</span>&mdash;<span itemprop="Description">Computer-aided design</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06F17/5009</span>&mdash;<span itemprop="Description">Computer-aided design using simulation</span>
+            <meta itemprop="Leaf" content="true">
+            
+            <meta itemprop="FirstCode" content="true">
+          </li>
+          </ul>
+      </li>
+      <li>
+        <ul itemprop="cpcs" itemscope repeat>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G</span>&mdash;<span itemprop="Description">PHYSICS</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06</span>&mdash;<span itemprop="Description">COMPUTING; CALCULATING; COUNTING</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06F</span>&mdash;<span itemprop="Description">ELECTRIC DIGITAL DATA PROCESSING</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06F2217/00</span>&mdash;<span itemprop="Description">Indexing scheme relating to computer aided design [CAD]</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06F2217/16</span>&mdash;<span itemprop="Description">Numerical modeling</span>
+            <meta itemprop="Leaf" content="true">
+            <meta itemprop="Additional" content="true">
+            
+          </li>
+          </ul>
+      </li>
+      </ul>
+  </section>
+
+  <section itemprop="abstract" itemscope>
+    <h2>Abstract</h2>
+    
+    <div itemprop="content" html><abstract mxw-id="PA83096716" lang="EN" load-source="patent-office">
+    <div num="p-0001" class="abstract">The flow-through area of a pressure regulator positioned in a branch of a simulated fluid flow network is generated. A target pressure is defined downstream of the pressure regulator. A projected flow-through area is generated as a non-linear function of (i) target pressure, (ii) flow-through area of the pressure regulator for a current time step and a previous time step, and (iii) pressure at the downstream location for the current time step and previous time step. A simulated flow-through area for the next time step is generated as a sum of (i) flow-through area for the current time step, and (ii) a difference between the projected flow-through area and the flow-through area for the current time step multiplied by a user-defined rate control parameter. These steps are repeated for a sequence of time steps until the pressure at the downstream location is approximately equal to the target pressure.</div>
+  </abstract>
+  </div>
+  </section>
+
+  <section itemprop="description" itemscope>
+    <h2>Description</h2>
+    
+    <div itemprop="content" html><div mxw-id="PDES40726160" lang="EN" load-source="patent-office" class="description">
+    
+    <heading>ORIGIN OF THE INVENTION</heading>
+    <p num="p-0002">The invention was made by employees of the United States Government and may be manufactured and used by or for the Government for governmental purposes without the payment of any royalties thereon or therefor.</p>
+    
+    
+    <heading>BACKGROUND OF THE INVENTION</heading>
+    <p num="p-0003">1. Field of the Invention</p>
+    <p num="p-0004">This invention relates to flow control device simulation. More specifically, the invention is a method of simulating the flow-through area of a pressure regulator based on a projected flow pressure downstream of the pressure regulator.</p>
+    <p num="p-0005">2. Description of the Related Art</p>
+    <p num="p-0006">Complex flow networks are frequently modeled so that fluid flow through such a network can be simulated. For example, nodes and branches can be used to model a flow network in a space that can be one, two, or three-dimensional. Nodes are positions within the flow network where fluid properties (e.g., pressure, density, etc.) are either known or calculated. Branches are portions of the flow network where flow conditions (e.g., geometry, flow rate, etc.) are known or calculated. One type of branch feature that requires modeling and simulation is a pressure regulator branch.</p>
+    <p num="p-0007">An actual pressure regulator is essentially a mechanical balance device. A feedback loop from the pressure regulator&#39;s output senses pressure downstream of the device. The sensed pressure is then used to drive the device&#39;s balance. When the sensed downstream pressure is less than a target pressure value, the balance is driven to increase the regulator&#39;s flow-through area. An increased flow-through area increases the flow rate into the downstream volume resulting in an increased sensed pressure. When sensed downstream pressure is greater than the target pressure value, the balance is driven to decrease the regulator&#39;s flow-through area. A decreased flow-through area decreases the flow rate to the downstream volume resulting in a decreased sensed pressure. If no flow rate is required, the flow-through area goes to zero once the sensed downstream volume is brought up to the target pressure value. If the sensed pressure never reaches the target pressure value, the flow-through area will eventually go to a user-specified maximum value. The rate at which a pressure regulator responds is a function of the downstream volume, the pressure difference between the target pressure value and the sensed pressure, and the stiffness of the balance.</p>
+    <p num="p-0008">An existing method for simulating a pressure regulator&#39;s flow-through area is based on a backwards-looking approach that uses the rate of area change in the recent past, a target regulation pressure, and a relaxation factor to determine the new flow-through area. The method is disclosed in detail in “Development of a Pressure Regulator Option for the Generalized Fluid System Simulation Program (GFSSP),” P. A. Schallhorn, Report No. MG-02-111, NASA MSFC Contract No. NAS8-00187, February 2002. Briefly, this method has an initial condition for flow-through area that is 50% of a user-specified maximum flow-through area. Further, this method zeroes the flow-through area when computed (downstream) pressure exceeds a target pressure. The disadvantages of this method include a false or forced start-up condition that leads to excessive start-up transients. The method also leads to numerically-unstable pressure regulation in highly transient systems due to area solutions that bounce around from zero to near convergence. However, neither of these situations is particularly demonstrative of the response of an actual pressure regulator.</p>
+    <heading>SUMMARY OF THE INVENTION</heading>
+    <p num="p-0009">Accordingly, it is an object of the present invention to provide a method of simulating the flow-through area of a pressure regulator.</p>
+    <p num="p-0010">Another object of the present invention is to provide a method that simulates flow-through area of a pressure regulator that more accurately depicts the start-up and transient responses of an actual pressure regulator.</p>
+    <p num="p-0011">Other objects and advantages of the present invention will become more obvious hereinafter in the specification and drawings.</p>
+    <p num="p-0012">In accordance with the present invention, a method is provided for simulating the flow-through area of a pressure regulator positioned in a branch of a simulated fluid flow network. A target pressure P<sub>T </sub>is defined at a location along the branch that is downstream of the pressure regulator. A projected flow-through area A′ for a next time step (t+1) in a sequence of time steps is generated as follows</p>
+    <p num="p-0013"> <maths id="MATH-US-00001" num="00001"> <math overflow="scroll"> <mrow> <msup> <mi>A</mi> <mi>′</mi> </msup> <mo>=</mo> <mrow> <mrow> <mo>(</mo> <mrow> <msub> <mi>A</mi> <mi>t</mi> </msub> <mo>+</mo> <mrow> <mrow> <mi>d</mi> <mo>⁢</mo> <mstyle> <mspace width="0.3em" height="0.3ex"> </mspace> </mstyle> <mo>⁢</mo> <mi>A</mi> </mrow> <mo>⋆</mo> <mrow> <mo>(</mo> <mfrac> <mrow> <mi>d</mi> <mo>⁢</mo> <mstyle> <mspace width="0.3em" height="0.3ex"> </mspace> </mstyle> <mo>⁢</mo> <mi>P</mi> </mrow> <mrow> <mo>(</mo> <mrow> <msub> <mi>P</mi> <mi>t</mi> </msub> <mo>-</mo> <msub> <mi>P</mi> <mi>T</mi> </msub> <mo>+</mo> <mn>0.01</mn> </mrow> <mo>)</mo> </mrow> </mfrac> <mo>)</mo> </mrow> </mrow> </mrow> <mo>)</mo> </mrow> <mo>⋆</mo> <msup> <mrow> <mo>(</mo> <mfrac> <msub> <mi>P</mi> <mi>T</mi> </msub> <msub> <mi>P</mi> <mi>t</mi> </msub> </mfrac> <mo>)</mo> </mrow> <mn>3</mn> </msup> <mo>⋆</mo> <msup> <mrow> <mo>(</mo> <mrow> <mrow> <mi>e</mi> <mo>⁢</mo> <msup> <mo>(</mo> <mrow> <mrow> <mo>(</mo> <mfrac> <msub> <mi>P</mi> <mi>T</mi> </msub> <msub> <mi>P</mi> <mi>t</mi> </msub> </mfrac> <mo>)</mo> </mrow> <mo>-</mo> <mn>1</mn> </mrow> </msup> <mo>)</mo> </mrow> <mo>-</mo> <mrow> <mo>(</mo> <mfrac> <mrow> <mo>ⅆ</mo> <mi>P</mi> </mrow> <mrow> <mo>(</mo> <mrow> <msub> <mi>P</mi> <mi>T</mi> </msub> <mo>-</mo> <mrow> <mo>ⅆ</mo> <mi>P</mi> </mrow> </mrow> <mo>)</mo> </mrow> </mfrac> <mo>)</mo> </mrow> </mrow> <mo>)</mo> </mrow> <mn>3</mn> </msup> </mrow> </mrow> </math> </maths> <br/>
+where
+</p>
+    <p num="p-0014">A<sub>t </sub>is a flow-through area of the pressure regulator for a current time step t,</p>
+    <p num="p-0015">dA is (A<sub>t</sub>−A<sub>t−1</sub>),</p>
+    <p num="p-0016">P<sub>t </sub>is pressure at the downstream location for the current time step t, and</p>
+    <p num="p-0017">dP is (P<sub>t</sub>−P<sub>t−1</sub>).</p>
+    <p num="h-0004">Next, a simulated flow-through area A<sub>SIM </sub>for is generated for the next time step (t+1) as follows
+<br/>
+<i>A</i> <sub>SIM</sub> <i>=A</i> <sub>t−1</sub> <i>+R</i>(<i>A′−A</i> <sub>t−1</sub>)
+<br/>
+where R is a user-defined rate control parameter. The steps of generating are repeated until the pressure at the downstream location is approximately equal to the target pressure.
+</p>
+    
+    
+    <description-of-drawings>
+      <heading>BRIEF DESCRIPTION OF THE DRAWINGS</heading>
+      <p num="p-0018"> <figref idrefs="DRAWINGS">FIG. 1</figref> is a graph of downstream pressure versus time for a first test simulation comparison between a prior art pressure regulator simulation scheme and that of the present invention;</p>
+      <p num="p-0019"> <figref idrefs="DRAWINGS">FIG. 2</figref> is a graph of pressure regulator flow-through area versus time for the first test simulation comparison between a prior art pressure regulator simulation scheme and that of the present invention;</p>
+      <p num="p-0020"> <figref idrefs="DRAWINGS">FIG. 3</figref> is a graph of downstream pressure versus time for a second test simulation comparison between a prior art pressure regulator simulation scheme and that of the present invention;</p>
+      <p num="p-0021"> <figref idrefs="DRAWINGS">FIG. 4</figref> is a graph of downstream pressure versus time for a third test simulation comparison between a prior art pressure regulator simulation scheme and that of the present invention; and</p>
+      <p num="p-0022"> <figref idrefs="DRAWINGS">FIG. 5</figref> is a graph of downstream pressure versus time for a fourth test simulation comparison between a prior art pressure regulator simulation scheme and that of the present invention.</p>
+    </description-of-drawings>
+    
+    
+    <heading>DETAILED DESCRIPTION OF THE INVENTION</heading>
+    <p num="p-0023">In an effort to correct the problems that plague existing pressure regulator simulation schemes, the present invention applies a new prediction scheme. Observations and analysis of the start-up transients and time step changes to pressure regulated systems (from both blowdown and psuedo-infinite source experiments) indicate that a pressure regulator operates like a critically damped mechanical device (i.e., a spring-mass damped system) producing a variation of flow-through area. The present invention is based on the premise that the solution of the flow-through area must be a function of the difference between the target pressure and the current pressure at a location downstream of the pressure regulator.</p>
+    <p num="p-0024">In general, the present invention is a forward-looking approach to pressure regulator simulation that generates a new flow-through area for a (modeled) pressure regulator in a non-linear fashion using a target pressure, recent flow-through areas of the pressure regulator, and recent pressures in the flow system at a location downstream of the pressure regulator. The present invention predicts or projects what the pressure regulator&#39;s flow-through area will be at a next time step, and then uses a user-controlled percentage of a difference between the projected flow-through area and the current flow-through area to modify the current flow-through area.</p>
+    <p num="p-0025">The present invention is designed to operate in a fluid flow network simulation system in which the fluid flow network includes branches through which a fluid flow is simulated. More specifically, the method simulates flow-through area of a pressure regulator positioned in a branch of the fluid flow network. A target pressure PT is defined at a location along the branch that is downstream of the pressure regulator. The initial condition of the regulator area (i.e., A<sub>0</sub>) is set to the maximum area of the component as specified by the user. This is based on the premise that when a regulator senses a downstream pressure that is orders of magnitude less than the target pressure, the regulator will try to assume a fully open position. A projected flow-through area A′ is generated for a next time step (t+1) in a sequence of time steps according to the following relationship</p>
+    <p num="p-0026"> <maths id="MATH-US-00002" num="00002"> <math overflow="scroll"> <mrow> <msup> <mi>A</mi> <mi>′</mi> </msup> <mo>=</mo> <mrow> <mrow> <mo>(</mo> <mrow> <msub> <mi>A</mi> <mi>t</mi> </msub> <mo>+</mo> <mstyle> <mspace width="0.3em" height="0.3ex"> </mspace> </mstyle> <mo>⁢</mo> <mrow> <mrow> <mi>d</mi> <mo>⁢</mo> <mstyle> <mspace width="0.3em" height="0.3ex"> </mspace> </mstyle> <mo>⁢</mo> <mi>A</mi> </mrow> <mo>⋆</mo> <mrow> <mo>(</mo> <mfrac> <mrow> <mi>d</mi> <mo>⁢</mo> <mstyle> <mspace width="0.3em" height="0.3ex"> </mspace> </mstyle> <mo>⁢</mo> <mi>P</mi> </mrow> <mrow> <mo>(</mo> <mrow> <msub> <mi>P</mi> <mi>t</mi> </msub> <mo>-</mo> <msub> <mi>P</mi> <mi>T</mi> </msub> <mo>+</mo> <mn>0.01</mn> </mrow> <mo>)</mo> </mrow> </mfrac> <mo>)</mo> </mrow> </mrow> </mrow> <mo>)</mo> </mrow> <mo>⋆</mo> <msup> <mrow> <mo>(</mo> <mfrac> <msub> <mi>P</mi> <mi>T</mi> </msub> <msub> <mi>P</mi> <mi>t</mi> </msub> </mfrac> <mo>)</mo> </mrow> <mn>3</mn> </msup> <mo>⋆</mo> <msup> <mrow> <mo>(</mo> <mrow> <mrow> <mi>e</mi> <mo>⁢</mo> <msup> <mo>(</mo> <mrow> <mrow> <mo>(</mo> <mfrac> <msub> <mi>P</mi> <mi>T</mi> </msub> <msub> <mi>P</mi> <mi>t</mi> </msub> </mfrac> <mo>)</mo> </mrow> <mo>-</mo> <mn>1</mn> </mrow> </msup> <mo>)</mo> </mrow> <mo>-</mo> <mrow> <mo>(</mo> <mfrac> <mrow> <mo>ⅆ</mo> <mi>P</mi> </mrow> <mrow> <mo>(</mo> <mrow> <msub> <mi>P</mi> <mi>T</mi> </msub> <mo>-</mo> <mrow> <mo>ⅆ</mo> <mi>P</mi> </mrow> </mrow> <mo>)</mo> </mrow> </mfrac> <mo>)</mo> </mrow> </mrow> <mo>)</mo> </mrow> <mn>3</mn> </msup> </mrow> </mrow> </math> </maths> <br/>
+where
+</p>
+    <p num="p-0027">A<sub>t </sub>is a flow-through area of the pressure regulator for a current time step t,</p>
+    <p num="p-0028">dA is a differential area defined as (A<sub>t</sub>−A<sub>t−1</sub>),</p>
+    <p num="p-0029">P<sub>t </sub>is the “sensed” pressure at the downstream location for the current time step t, and</p>
+    <p num="p-0030">dP is a differential pressure defined as (P<sub>t</sub>−P<sub>t−1</sub>).</p>
+    <p num="h-0007">Following the determination of the projected flow-through area A′ for the next time step (t+1), a simulated flow-through area A<sub>SIM </sub>is generated for the next time step (t+1) according to the following relationship
+<br/>
+<i>A</i> <sub>SIM</sub> <i>=A</i> <sub>t−1</sub> <i>+R</i>(<i>A′−A</i> <sub>t−1</sub>)
+<br/>
+where R is a user-defined rate control parameter.
+<br/>
+The process of generating A′ and A<sub>SIM </sub>is repeated for sequential time steps until the sensed pressure at the downstream location is approximately equal to the target pressure P<sub>T</sub>.
+</p>
+    <p num="p-0031">The function of the various components of the projected flow-through area A′ can be described briefly as follows:</p>
+    <p num="p-0032">(i) The first term is a differential area term that is added to the current area At acts as an accelerator or decelerator when the difference between the sensed downstream pressure P<sub>t </sub>and the target pressure P<sub>T </sub>is so small that the function cannot otherwise compute a small enough area change to maintain the pressure regulation. In essence, this term helps to stabilize the solution when the solution is very near convergence.</p>
+    <p num="p-0033">(ii) The second term is a ratio of the target pressure P<sub>T </sub>to current sensed pressure P<sub>t</sub>. This term accelerates or decelerates the flow-through area change when the sensed pressure P<sub>t </sub>is far away from the target pressure P<sub>T</sub>. The power term (e.g., 3 in the illustrated example) on this ratio controls the overall rate of flow-through area change while also permitting the rate to be positive (i.e., accelerate the rate) or negative (i.e., decelerate the rate). Tests of the present invention indicated that the power term should be at least 3, although parametrics run on the power term also indicated that no substantial improvements were achieved when the power term was greater than 3.</p>
+    <p num="p-0034">(iii) The third term is a differential term having an exponential term and a first order damping term. The exponential term provides for non-linear rates of change (i.e., either growth or attenuation) that allows the projected flow-through area A′ to behave like an actual pressure regulator. The term subtracted from the exponential term is a first order damping term that prevents significant flow-through area overshoot when the difference between the target pressure P<sub>T </sub>and the differential pressure dP is very large. The power term (e.g., 3 in the illustrated example) on this differential term is what is necessary to make the damping aspect of the function effective. As was the case with the first term, tests revealed that the third term&#39;s power term should be at least 3, although parametrics run on the power term also indicated that no substantial improvements were achieved when the power term was greater than 3.</p>
+    <p num="p-0035">In terms of the simulated flow-through area A<sub>SIM</sub>, the relaxation factor R is a user-defined rate control/restriction parameter (i.e., less than or equal to 1) that allows the user to further control flow-through area rates of changes. For systems that undergo significantly large orders of magnitude changes between (i) current and target pressures, (ii) possible area changes that are several orders of magnitude, and/or (iii) large time steps, adjusting the relaxation factor R can further enhance the rate of change to better mimic the response of an actual pressure regulator. For example, R will be larger for large mass flow systems because larger changes are expected between two sequential time steps, but R will be smaller for smaller mass flow systems where mass flow flux is expected to be relatively small between two sequential time steps.</p>
+    <p num="p-0036">When compared to the previously-referenced, prior art pressure regulator simulation scheme, the present invention is an improvement thereover as evidenced by the following four case studies. In the first case, a simple flow network model is defined by a 600 psia source that is regulated down to 40 psia and then vented to atmospheric conditions through a 10 foot length of 0.1 inch tubing. A graph of the downstream sensed pressure versus time is shown in <figref idrefs="DRAWINGS">FIG. 1</figref> where curve <b>100</b> depicts the simulation results using the prior art simulation scheme and curve <b>102</b> depicts the simulation results using the present invention. <figref idrefs="DRAWINGS">FIG. 2</figref> depicts a graph of the pressure regulator&#39;s flow-through area where curve <b>200</b> depicts the simulation results using the prior art simulation scheme and curve <b>202</b> depicts the simulation results using the present invention. As is clearly evidenced by the graphs, the present invention&#39;s results are greatly improved over the prior art with respect to rate of convergence and stability.</p>
+    <p num="p-0037">A second case involves a flow network model defined by two pressure regulators operating in parallel with a 600 psia source. One regulator was set to regulate at 50 psia and the other was set to regulate at 27.5 psia. Both vent independently to atmospheric conditions through 10 foot tubes having 0.1 inch diameters. Referring to <figref idrefs="DRAWINGS">FIG. 3</figref>, curves <b>300</b> and <b>400</b> depict the results generated by the prior art for the regulators at 50 and 27.5 psia, respectively, while curves <b>302</b> and <b>402</b> depict the results generated by the present invention for the regulators at 50 and 27.5 psia, respectively. From this, it is clear that the results arrived at using the present invention&#39;s scheme exhibit improved convergence rate and stability when compared to the results arrived at using the prior art scheme.</p>
+    <p num="p-0038">A third case involves a flow network model defined by a 2200 psia source regulated down to 250 psia. The flow was then fed through a solenoid valve which was initially open, then closed after 0.25 seconds, and then re-opened at 0.5 seconds. The flow was vented to atmospheric conditions through a 1 foot long tube having a 0.2 inch diameter. Referring to <figref idrefs="DRAWINGS">FIG. 4</figref>, the convergence rate and stability of the sensed pressure upon the re-opening of the valve provided by the present invention (curve <b>502</b>) is greatly improved when compared to the results using the prior art scheme (curve <b>500</b>).</p>
+    <p num="p-0039">A fourth case involves a flow network model defined by a 2200 psia source regulated down to 250 psia. Downstream of the regulator, a solenoid valve was vented to atmospheric conditions through a 1 foot long tube having a 0.2 inch diameter. The solenoid valve was initially opened and then closed at 0.25 seconds. The solenoid was then cycled open and closed at 25 Hz to obtain frequency response sensitivity information from the pressure regulator model. As shown in <figref idrefs="DRAWINGS">FIG. 5</figref>, only the present invention&#39;s results (curve <b>602</b>) shows convergence and stability as the results based on the prior art simulation scheme (curve <b>600</b>) never stabilize.</p>
+    <p num="p-0040">The advantages of the present invention are numerous. The present method does not require knowledge of the mechanical intricacies of a pressure regulator. Rather, only flow-through area and pressure are used to simulate pressure regulator operation. Test cases using the method have shown that the simulation responses more realistically represent how a pressure regulator converges to a solution of flow-through area for transient systems. Start-up transients are greatly reduced and solution stability is greatly improved compared to the prior art pressure regulator simulation method.</p>
+    <p num="p-0041">Although the invention has been described relative to a specific embodiment thereof, there are numerous variations and modifications that will be readily apparent to those skilled in the art in light of the above teachings. It is therefore to be understood that, within the scope of the appended claims, the invention may be practiced other than as specifically described.</p>
+    
+  </div>
+  </div>
+  </section>
+
+  <section itemprop="claims" itemscope>
+    <h2>Claims (<span itemprop="count">8</span>)</h2>
+    
+    <div itemprop="content" html><div mxw-id="PCLM34866260" lang="EN" load-source="patent-office" class="claims">
+    <div class="claim"> <div id="CLM-00001" num="00001" class="claim">
+      <div class="claim-text">1. A method of simulating flow-through area of a pressure regulator positioned in a branch of a fluid flow network, said method comprising the steps of:
+<div class="claim-text">defining a target pressure at a location along the branch that is downstream of the pressure regulator;</div>
+<div class="claim-text">generating a projected flow-through area for a next time step in a sequence of time steps, said projected flow-through area being a non-linear function of (i) said target pressure, (ii) a flow-through area of the pressure regulator for a current time step and a previous time step, and (iii) pressure at said location for said current time step and said previous time step, wherein said step of generating said projected flow-through area includes the step of generating a sum by adding said flow-through area for said current time step to a differential area term, said differential area term defined as the product of (i) a difference between said flow-through area for said current time step and said flow-through area for said previous time step, and (ii) a pressure ratio, wherein said pressure ratio is defined as a difference between said pressure at said location for said current time step and said pressure at said location for said previous time step relative to a difference between said pressure at said location for said current time step and said target pressure, and wherein said step of generating said projected flow-through area includes the step of controlling a rate of change of said projected flow-through area by multiplying said sum by a ratio of said target pressure to said pressure at said location for said current time step;</div>
+<div class="claim-text">generating a simulated flow-through area for said next time step as a sum of (i) said flow-through area for said current time step, and (ii) a difference between said projected flow-through area and said flow-through area for said current time step multiplied by a user-defined rate control parameter; and</div>
+<div class="claim-text">repeating said steps of generating for a next sequential time step from said sequence of time steps until said pressure at said location is approximately equal to said target pressure, wherein said simulated flow-through area becomes said flow-through area for said current time step when performing said steps of generating for said next sequential time step.</div>
+</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00002" num="00002" class="claim">
+      <div class="claim-text">2. A method according to <claim-ref idref="CLM-00001">claim 1</claim-ref> wherein said ratio is raised to a power prior to said step of multiplying.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00003" num="00003" class="claim">
+      <div class="claim-text">3. A method according to <claim-ref idref="CLM-00002">claim 2</claim-ref> wherein said power is at least the power of 3.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00004" num="00004" class="claim">
+      <div class="claim-text">4. A method according to <claim-ref idref="CLM-00001">claim 1</claim-ref> wherein said step of controlling includes the step of further multiplying said sum by an exponential term that includes an exponent based on said ratio.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00005" num="00005" class="claim">
+      <div class="claim-text">5. A method according to <claim-ref idref="CLM-00004">claim 4</claim-ref> wherein said exponential term is raised to a power prior to said step of further multiplying.</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00006" num="00006" class="claim">
+      <div class="claim-text">6. A method according to <claim-ref idref="CLM-00005">claim 5</claim-ref> wherein said power is at least the power of 3.</div>
+    </div>
+    </div> <div class="claim"> <div id="CLM-00007" num="00007" class="claim">
+      <div class="claim-text">7. A method of simulating flow-through area of a pressure regulator positioned in a branch of a fluid flow network, said method comprising the steps of:
+<div class="claim-text">defining a target pressure P<sub>T </sub>at a location along the branch that is downstream of the pressure regulator;</div>
+<div class="claim-text">generating a projected flow-through area A′ for a next time step (t+1) in a sequence of time steps as follows</div>
+</div>
+      <div class="claim-text">
+        <maths id="MATH-US-00003" num="00003">
+          <math overflow="scroll">
+            <mrow>
+              <msup>
+                <mi>A</mi>
+                <mi>′</mi>
+              </msup>
+              <mo>=</mo>
+              <mrow>
+                <mrow>
+                  <mo>(</mo>
+                  <mrow>
+                    <msub>
+                      <mi>A</mi>
+                      <mi>t</mi>
+                    </msub>
+                    <mo>+</mo>
+                    <mrow>
+                      <mrow>
+                        <mi>d</mi>
+                        <mo>⁢</mo>
+                        <mstyle>
+                          <mspace width="0.3em" height="0.3ex"> </mspace>
+                        </mstyle>
+                        <mo>⁢</mo>
+                        <mi>A</mi>
+                      </mrow>
+                      <mo>⋆</mo>
+                      <mrow>
+                        <mo>(</mo>
+                        <mfrac>
+                          <mrow>
+                            <mi>d</mi>
+                            <mo>⁢</mo>
+                            <mstyle>
+                              <mspace width="0.3em" height="0.3ex"> </mspace>
+                            </mstyle>
+                            <mo>⁢</mo>
+                            <mi>P</mi>
+                          </mrow>
+                          <mrow>
+                            <mo>(</mo>
+                            <mrow>
+                              <msub>
+                                <mi>P</mi>
+                                <mi>t</mi>
+                              </msub>
+                              <mo>-</mo>
+                              <msub>
+                                <mi>P</mi>
+                                <mi>T</mi>
+                              </msub>
+                              <mo>+</mo>
+                              <mn>0.01</mn>
+                            </mrow>
+                            <mo>)</mo>
+                          </mrow>
+                        </mfrac>
+                        <mo>)</mo>
+                      </mrow>
+                    </mrow>
+                  </mrow>
+                  <mo>)</mo>
+                </mrow>
+                <mo>⋆</mo>
+                <msup>
+                  <mrow>
+                    <mo>(</mo>
+                    <mfrac>
+                      <msub>
+                        <mi>P</mi>
+                        <mi>T</mi>
+                      </msub>
+                      <msub>
+                        <mi>P</mi>
+                        <mi>t</mi>
+                      </msub>
+                    </mfrac>
+                    <mo>)</mo>
+                  </mrow>
+                  <mn>3</mn>
+                </msup>
+                <mo>⋆</mo>
+                <msup>
+                  <mrow>
+                    <mo>(</mo>
+                    <mrow>
+                      <mrow>
+                        <mi>e</mi>
+                        <mo>⁢</mo>
+                        <msup>
+                          <mo>(</mo>
+                          <mrow>
+                            <mrow>
+                              <mo>(</mo>
+                              <mfrac>
+                                <msub>
+                                  <mi>P</mi>
+                                  <mi>T</mi>
+                                </msub>
+                                <msub>
+                                  <mi>P</mi>
+                                  <mi>t</mi>
+                                </msub>
+                              </mfrac>
+                              <mo>)</mo>
+                            </mrow>
+                            <mo>-</mo>
+                            <mn>1</mn>
+                          </mrow>
+                        </msup>
+                        <mo>)</mo>
+                      </mrow>
+                      <mo>-</mo>
+                      <mrow>
+                        <mo>(</mo>
+                        <mfrac>
+                          <mrow>
+                            <mo>ⅆ</mo>
+                            <mi>P</mi>
+                          </mrow>
+                          <mrow>
+                            <mo>(</mo>
+                            <mrow>
+                              <msub>
+                                <mi>P</mi>
+                                <mi>T</mi>
+                              </msub>
+                              <mo>-</mo>
+                              <mrow>
+                                <mo>ⅆ</mo>
+                                <mi>P</mi>
+                              </mrow>
+                            </mrow>
+                            <mo>)</mo>
+                          </mrow>
+                        </mfrac>
+                        <mo>)</mo>
+                      </mrow>
+                    </mrow>
+                    <mo>)</mo>
+                  </mrow>
+                  <mn>3</mn>
+                </msup>
+              </mrow>
+            </mrow>
+          </math>
+        </maths>
+      </div>
+      <div class="claim-text">where
+<div class="claim-text">A<sub>t </sub>is a flow-through area of the pressure regulator for a current time step t, dA is (A<sub>t</sub>−A<sub>t−1</sub>), P<sub>t </sub>is pressure at said location for said current time step t, and dP is (P<sub>t</sub>−P<sub>t−1</sub>); generating a simulated flow-through area A<sub>SIM </sub>for said next time step (t+1) as follows
+<div class="claim-text"> <br/>A<sub>SIM</sub>=A<sub>t−1</sub>+R(A′−A<sub>t−1</sub>)
+</div>
+</div>
+<div class="claim-text"> where R is a user-defined rate control parameter; and</div>
+<div class="claim-text">repeating said steps of generating until said pressure at said location is approximately equal to said target pressure.</div>
+</div>
+    </div>
+    </div> <div class="claim-dependent"> <div id="CLM-00008" num="00008" class="claim">
+      <div class="claim-text">8. A method according to <claim-ref idref="CLM-00007">claim 7</claim-ref> further comprising the step of setting an initial flow-through area A<sub>0 </sub>to a maximum value allowed for the flow-through area of the pressure regulator.</div>
+    </div>
+  </div> </div>
+  </div>
+  </section>
+
+  <section itemprop="application" itemscope>
+
+    <section itemprop="metadata" itemscope>
+        <span itemprop="applicationNumber">US11/177,664</span>
+        <span itemprop="priorityDate">2005-07-07</span>
+        <span itemprop="filingDate">2005-07-07</span>
+        <span itemprop="title">Method of simulating flow-through area of a pressure regulator 
+       </span>
+        <span itemprop="ifiStatus">Expired - Fee Related</span>
+        
+        <a href="/patent/US7890311B2/en">
+            <span itemprop="representativePublication">US7890311B2</span>
+            (<span itemprop="primaryLanguage">en</span>)
+        </a>
+    </section>
+
+    <h2>Priority Applications (1)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                    <th>Title</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="priorityApps" itemscope repeat>
+                <td>
+                   <span itemprop="applicationNumber">US11/177,664</span>
+                   
+                   <a href="/patent/US7890311B2/en">
+                        <span itemprop="representativePublication">US7890311B2</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                <td itemprop="priorityDate">2005-07-07</td>
+                <td itemprop="filingDate">2005-07-07</td>
+                <td itemprop="title">Method of simulating flow-through area of a pressure regulator 
+       </td>
+              </tr>
+           </tbody>
+       </table>
+
+    <h2>Applications Claiming Priority (1)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                    <th>Title</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="appsClaimingPriority" itemscope repeat>
+                <td>
+                   <span itemprop="applicationNumber">US11/177,664</span>
+                   <a href="/patent/US7890311B2/en">
+                        <span itemprop="representativePublication">US7890311B2</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                <td itemprop="priorityDate">2005-07-07</td>
+                <td itemprop="filingDate">2005-07-07</td>
+                <td itemprop="title">Method of simulating flow-through area of a pressure regulator 
+       </td>
+              </tr>
+           </tbody>
+       </table>
+
+    
+
+    
+
+    <h2>Publications (2)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Publication Number</th>
+                    <th>Publication Date</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="pubs" itemscope repeat>
+                <td>
+                   <span itemprop="publicationNumber">US20090287460A1</span>
+                   
+                   <a href="/patent/US20090287460A1/en">US20090287460A1
+                       (<span itemprop="primaryLanguage">en</span>)
+                   </a>
+                </td>
+                <td itemprop="publicationDate">2009-11-19</td>
+              </tr><tr itemprop="pubs" itemscope repeat>
+                <td>
+                   <span itemprop="publicationNumber">US7890311B2</span>
+                   
+                   <span itemprop="thisPatent">true</span>
+                   <a href="/patent/US7890311B2/en">US7890311B2
+                       (<span itemprop="primaryLanguage">en</span>)
+                   </a>
+                </td>
+                <td itemprop="publicationDate">2011-02-15</td>
+              </tr>
+           </tbody>
+        </table>
+
+  </section>
+
+  <section itemprop="family" itemscope>
+    <h1>Family</h1>
+    <h2>ID=41316970</h2>
+
+    <h2>Family Applications (1)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Title</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="applications" itemscope repeat>
+                <td>
+                    <span itemprop="applicationNumber">US11/177,664</span>
+                    <span itemprop="ifiStatus">Expired - Fee Related</span>
+                    
+                    <a href="/patent/US7890311B2/en">
+                        <span itemprop="representativePublication">US7890311B2</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                </td>
+                <td itemprop="priorityDate">2005-07-07</td>
+                <td itemprop="filingDate">2005-07-07</td>
+                <td itemprop="title">Method of simulating flow-through area of a pressure regulator 
+       </td>
+              </tr>
+           </tbody>
+        </table>
+
+    
+
+    
+
+    <h2>Country Status (1)</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Country</th>
+            <th>Link</th>
+          </tr>
+        </thead>
+        <tbody>
+        <tr itemprop="countryStatus" itemscope repeat>
+            <td>
+              <span itemprop="countryCode">US</span>
+                (<span itemprop="num">1</span>)
+              <meta itemprop="thisCountry" content="true">
+            </td>
+            <td>
+              <a href="/patent/US7890311B2/en">
+                <span itemprop="representativePublication">US7890311B2</span>
+                  (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+    
+
+    
+
+    <h2>Citations (8)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US4003405A/en">
+              <span itemprop="publicationNumber">US4003405A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1975-03-26</td>
+          <td itemprop="publicationDate">1977-01-18</td>
+          <td><span itemprop="assigneeOriginal">Canadian Patents And Development Limited</span></td>
+          <td itemprop="title">Apparatus for regulating the flow rate of a fluid 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US4860707A/en">
+              <span itemprop="publicationNumber">US4860707A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1987-04-21</td>
+          <td itemprop="publicationDate">1989-08-29</td>
+          <td><span itemprop="assigneeOriginal">Toyota Jidosha Kabushiki Kaisha</span></td>
+          <td itemprop="title">Non-linear feedback controller for internal combustion engine 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20030144766A1/en">
+              <span itemprop="publicationNumber">US20030144766A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2002-01-30</td>
+          <td itemprop="publicationDate">2003-07-31</td>
+          <td><span itemprop="assigneeOriginal">Lawrence Megan</span></td>
+          <td itemprop="title">Control for pipeling gas distribution system 
+     </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6748349B1/en">
+              <span itemprop="publicationNumber">US6748349B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1999-05-07</td>
+          <td itemprop="publicationDate">2004-06-08</td>
+          <td><span itemprop="assigneeOriginal">The United States Of America As Represented By The Administrator Of The National Aeronautics And Space Administration</span></td>
+          <td itemprop="title">Generalized fluid system simulation program 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20050246090A1/en">
+              <span itemprop="publicationNumber">US20050246090A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2003-04-09</td>
+          <td itemprop="publicationDate">2005-11-03</td>
+          <td><span itemprop="assigneeOriginal">Siemens Aktiengesellschaft</span></td>
+          <td itemprop="title">Method for controlling a combustion engine 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20050273204A1/en">
+              <span itemprop="publicationNumber">US20050273204A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2000-02-14</td>
+          <td itemprop="publicationDate">2005-12-08</td>
+          <td><span itemprop="assigneeOriginal">Invensys Systems, Inc., A Massachusetts Corporation</span></td>
+          <td itemprop="title">Intelligent valve flow linearization 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7076414B2/en">
+              <span itemprop="publicationNumber">US7076414B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2001-02-26</td>
+          <td itemprop="publicationDate">2006-07-11</td>
+          <td><span itemprop="assigneeOriginal">Sri Sports Limited</span></td>
+          <td itemprop="title">Gas flow simulation method 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20070288180A1/en">
+              <span itemprop="publicationNumber">US20070288180A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2002-07-19</td>
+          <td itemprop="publicationDate">2007-12-13</td>
+          <td><span itemprop="assigneeOriginal">Celerity, Inc.</span></td>
+          <td itemprop="title">Methods and apparatus for pressure compensation in a mass flow controller 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+
+    
+
+    
+    <ul>
+      
+      <li itemprop="applicationsByYear" itemscope repeat>
+        <span itemprop="year">2005</span>
+        <ul>
+          
+          <li itemprop="application" itemscope repeat>
+            <span itemprop="filingDate">2005-07-07</span>
+            <span itemprop="countryCode">US</span>
+            <span itemprop="applicationNumber">US11/177,664</span>
+            <a href="/patent/US7890311B2/en"><span itemprop="documentId">patent/US7890311B2/en</span></a>
+            <span itemprop="legalStatusCat">not_active</span>
+            <span itemprop="legalStatus">Expired - Fee Related</span>
+            
+            <span itemprop="thisApp" content="true" bool></span>
+            
+          </li>
+          
+        </ul>
+      </li>
+      
+    </ul>
+    
+
+    </section>
+
+  <section>
+    <h2>Patent Citations (10)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US4003405A/en">
+              <span itemprop="publicationNumber">US4003405A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1975-03-26</td>
+          <td itemprop="publicationDate">1977-01-18</td>
+          <td><span itemprop="assigneeOriginal">Canadian Patents And Development Limited</span></td>
+          <td itemprop="title">Apparatus for regulating the flow rate of a fluid 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US4860707A/en">
+              <span itemprop="publicationNumber">US4860707A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1987-04-21</td>
+          <td itemprop="publicationDate">1989-08-29</td>
+          <td><span itemprop="assigneeOriginal">Toyota Jidosha Kabushiki Kaisha</span></td>
+          <td itemprop="title">Non-linear feedback controller for internal combustion engine 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6748349B1/en">
+              <span itemprop="publicationNumber">US6748349B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1999-05-07</td>
+          <td itemprop="publicationDate">2004-06-08</td>
+          <td><span itemprop="assigneeOriginal">The United States Of America As Represented By The Administrator Of The National Aeronautics And Space Administration</span></td>
+          <td itemprop="title">Generalized fluid system simulation program 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7266427B2/en">
+              <span itemprop="publicationNumber">US7266427B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2000-02-14</td>
+          <td itemprop="publicationDate">2007-09-04</td>
+          <td><span itemprop="assigneeOriginal">Invensys Systems, Inc.</span></td>
+          <td itemprop="title">Intelligent valve flow linearization 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20050273204A1/en">
+              <span itemprop="publicationNumber">US20050273204A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2000-02-14</td>
+          <td itemprop="publicationDate">2005-12-08</td>
+          <td><span itemprop="assigneeOriginal">Invensys Systems, Inc., A Massachusetts Corporation</span></td>
+          <td itemprop="title">Intelligent valve flow linearization 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7096093B1/en">
+              <span itemprop="publicationNumber">US7096093B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2000-02-14</td>
+          <td itemprop="publicationDate">2006-08-22</td>
+          <td><span itemprop="assigneeOriginal">Invensys Systems, Inc.</span></td>
+          <td itemprop="title">Intelligent valve flow linearization 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7076414B2/en">
+              <span itemprop="publicationNumber">US7076414B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2001-02-26</td>
+          <td itemprop="publicationDate">2006-07-11</td>
+          <td><span itemprop="assigneeOriginal">Sri Sports Limited</span></td>
+          <td itemprop="title">Gas flow simulation method 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20030144766A1/en">
+              <span itemprop="publicationNumber">US20030144766A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2002-01-30</td>
+          <td itemprop="publicationDate">2003-07-31</td>
+          <td><span itemprop="assigneeOriginal">Lawrence Megan</span></td>
+          <td itemprop="title">Control for pipeling gas distribution system 
+     </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20070288180A1/en">
+              <span itemprop="publicationNumber">US20070288180A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2002-07-19</td>
+          <td itemprop="publicationDate">2007-12-13</td>
+          <td><span itemprop="assigneeOriginal">Celerity, Inc.</span></td>
+          <td itemprop="title">Methods and apparatus for pressure compensation in a mass flow controller 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20050246090A1/en">
+              <span itemprop="publicationNumber">US20050246090A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2003-04-09</td>
+          <td itemprop="publicationDate">2005-11-03</td>
+          <td><span itemprop="assigneeOriginal">Siemens Aktiengesellschaft</span></td>
+          <td itemprop="title">Method for controlling a combustion engine 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Non-Patent Citations (6)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">"<a href='http://scholar.google.com/scholar?q="A+Generalized+Fluid+System+Simulation+Program+to+Model+Flow+Distribution+in+Fluid+Networks"'>A Generalized Fluid System Simulation Program to Model Flow Distribution in Fluid Networks</a>" by Alok Majumdar, John W. Bailey, Paul Schallhorn and Todd Steadman; Draft paper for 34 th AIAA/ASME/SAE/ASEE Joint Propulsion Conference, Jul. 13-15, 1998, Cleveland, Ohio; pp. 1-14.</span>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">"<a href='http://scholar.google.com/scholar?q="Modelling+and+dynamics+of+single-stage+pressure+relief+valve+with+directional+damping"'>Modelling and dynamics of single-stage pressure relief valve with directional damping</a>" by K. Dasgupta a,, R. Karmakar; Simulation Modelling Practice and Theory 10 (2002) pp. 51-67; www.elsevier.nl/locate/simpat.</span>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">"<a href='http://scholar.google.com/scholar?q="Pressure+regulator+valve+by+Bondgraph"'>Pressure regulator valve by Bondgraph</a>" by Katsuya Suzuki a, Ikuo Nakamura b, J.U. Thoma c;Simulation Practice and Theory 7 (1999) pp. 603-611; www.elsevier.nl/locate/simpra.</span>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">El Golli Rami, Bezian Jean-Jacques, Grenouilleau Pascal, Menu Francois, Stability study and modelling of a pressure regulating station, Internatioanl Journal of Pressure Vessels and Piping, vol. 82, Issue 1, Jan. 2005, pp. 51-60, ISSN 0308-0161.</span>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Interfacing A General Purpose Fluid Network Flow Program With the Sinda/G Thermal Analysis Program by Paul Schallhorn and Daniel Popok 2000 pp. 1-12.</span>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">P.A. Schallhom, "<a href='http://scholar.google.com/scholar?q="Development+of+a+Pressure+Regulator+Option+for+the+Generalized+Fluid+System+Simulation+Program+%28GFSSP%29%2C"'>Development of a Pressure Regulator Option for the Generalized Fluid System Simulation Program (GFSSP),</a>" Report No. MG-02-111, NASA MSFC Contract No. NAS8-00187, Feb. 2002.</span>
+            
+            
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  
+
+  <section>
+    <h2>Also Published As</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Publication date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="docdbFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20090287460A1/en">
+              <span itemprop="publicationNumber">US20090287460A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+          </td>
+          <td itemprop="publicationDate">2009-11-19</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Similar Documents</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Publication</th>
+          <th>Publication Date</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="16373942193459904633">
+              <a href="/scholar/16373942193459904633"><span itemprop="scholarAuthors">Kwok et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2006">2006</time>
+            
+          </td>
+          <td itemprop="title">A novel hysteretic model for magnetorheological fluid dampers and parameter identification using particle swarm optimization</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="17361002529359207187">
+              <a href="/scholar/17361002529359207187"><span itemprop="scholarAuthors">Brayton et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1980">1980</time>
+            
+          </td>
+          <td itemprop="title">Constructive stability and asymptotic stability of dynamical systems</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="2427306817428549836">
+              <a href="/scholar/2427306817428549836"><span itemprop="scholarAuthors">Linde et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1998">1998</time>
+            
+          </td>
+          <td itemprop="title">Heliosphere in the magnetized local interstellar medium: Results of a three‐dimensional MHD simulation</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="1322035243853515861">
+              <a href="/scholar/1322035243853515861"><span itemprop="scholarAuthors">Tan et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2005">2005</time>
+            
+          </td>
+          <td itemprop="title">Analysis and control of a nonlinear boiler-turbine unit</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="6587287151270419334">
+              <a href="/scholar/6587287151270419334"><span itemprop="scholarAuthors">Sworder et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1983">1983</time>
+            
+          </td>
+          <td itemprop="title">An LQ-solution to a control problem associated with a solar thermal central receiver</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="8121499087343755207">
+              <a href="/scholar/8121499087343755207"><span itemprop="scholarAuthors">Hanks et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1993">1993</time>
+            
+          </td>
+          <td itemprop="title">Benchmarks, test beds, controlled experimentation, and the design of agent architectures</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="12282584563890120139">
+              <a href="/scholar/12282584563890120139"><span itemprop="scholarAuthors">Mathey et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2006">2006</time>
+            
+          </td>
+          <td itemprop="title">Assessment of the vortex method for large eddy simulation inlet conditions</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/CA2254733C/en">
+                <span itemprop="publicationNumber">CA2254733C</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2002-02-19">2002-02-19</time>
+            
+            
+          </td>
+          <td itemprop="title">Method and apparatus for dynamic and steady-state modeling over a desired path between two end points 
+     </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="14541850926810644656">
+              <a href="/scholar/14541850926810644656"><span itemprop="scholarAuthors">Hissam et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2002">2002</time>
+            
+          </td>
+          <td itemprop="title">Packaging predictable assembly</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US6047221A/en">
+                <span itemprop="publicationNumber">US6047221A</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2000-04-04">2000-04-04</time>
+            
+            
+          </td>
+          <td itemprop="title">Method for steady-state identification based upon identified dynamics 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="15199512124869573194">
+              <a href="/scholar/15199512124869573194"><span itemprop="scholarAuthors">Liu et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2006">2006</time>
+            
+          </td>
+          <td itemprop="title">Delay-dependent robust stabilisation of discrete-time systems with time-varying delay</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="11917572603798632635">
+              <a href="/scholar/11917572603798632635"><span itemprop="scholarAuthors">Kushner</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1990">1990</time>
+            
+          </td>
+          <td itemprop="title">Numerical methods for stochastic control problems in continuous time</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="4811098208175601110">
+              <a href="/scholar/4811098208175601110"><span itemprop="scholarAuthors">Rannacher et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1998">1998</time>
+            
+          </td>
+          <td itemprop="title">A posteriori error control in finite element methods via duality techniques: Application to perfect plasticity</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US20060184477A1/en">
+                <span itemprop="publicationNumber">US20060184477A1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2006-08-17">2006-08-17</time>
+            
+            
+          </td>
+          <td itemprop="title">Method and apparatus for optimizing a system model with gain constraints using a non-linear programming optimizer 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="14007555334673063585">
+              <a href="/scholar/14007555334673063585"><span itemprop="scholarAuthors">Johnson et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2007">2007</time>
+            
+          </td>
+          <td itemprop="title">Semiactive damping of stay cables</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="16180269259386206507">
+              <a href="/scholar/16180269259386206507"><span itemprop="scholarAuthors">Van Doren et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2006">2006</time>
+            
+          </td>
+          <td itemprop="title">Reduced-order optimal control of water flooding using proper orthogonal decomposition</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="2888043514097699266">
+              <a href="/scholar/2888043514097699266"><span itemprop="scholarAuthors">Lopes et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2009">2009</time>
+            
+          </td>
+          <td itemprop="title">Experimental and numerical investigation of non-predictive phase-control strategies for a point-absorbing wave energy converter</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US8055358B2/en">
+                <span itemprop="publicationNumber">US8055358B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2011-11-08">2011-11-08</time>
+            
+            
+          </td>
+          <td itemprop="title">Multi-objective predictive process optimization with concurrent process simulation 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="1413022080881441785">
+              <a href="/scholar/1413022080881441785"><span itemprop="scholarAuthors">Siegel et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2008">2008</time>
+            
+          </td>
+          <td itemprop="title">Low-dimensional modelling of a transient cylinder wake using double proper orthogonal decomposition</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US7065511B2/en">
+                <span itemprop="publicationNumber">US7065511B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2006-06-20">2006-06-20</time>
+            
+            
+          </td>
+          <td itemprop="title">Non-linear dynamic predictive device 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="469477668251056740">
+              <a href="/scholar/469477668251056740"><span itemprop="scholarAuthors">Keuneke</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1991">1991</time>
+            
+          </td>
+          <td itemprop="title">Device representation-the significance of functional knowledge</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US20110153103A1/en">
+                <span itemprop="publicationNumber">US20110153103A1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2011-06-23">2011-06-23</time>
+            
+            
+          </td>
+          <td itemprop="title">Systems and methods for predictive building energy monitoring 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="1555008373102488295">
+              <a href="/scholar/1555008373102488295"><span itemprop="scholarAuthors">Kaasa et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2012">2012</time>
+            
+          </td>
+          <td itemprop="title">Simplified hydraulics model used for intelligent estimation of downhole pressure for a managed-pressure-drilling control system</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="2378129564368772787">
+              <a href="/scholar/2378129564368772787"><span itemprop="scholarAuthors">Cheung et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2005">2005</time>
+            
+          </td>
+          <td itemprop="title">Extension of EPANET for pressure driven demand modeling in water distribution system</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/BRPI0706804A2/en">
+                <span itemprop="publicationNumber">BRPI0706804A2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2011-04-05">2011-04-05</time>
+            
+            
+          </td>
+          <td itemprop="title">computer-readable methods, systems, and media for optimizing real-time production of oil and gas fields using a proxy simulator 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Legal Events</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Code</th>
+          <th>Title</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2005-08-10">2005-08-10</time></td>
+          <td itemprop="code">AS</td>
+          <td itemprop="title">Assignment</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Owner name</strong>:
+              <span itemprop="value">UNITED STATES OF AMERICA AS REPRESENTED BY THE ADM</span>
+            </p>
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">ASSIGNMENT OF ASSIGNORS INTEREST;ASSIGNORS:HASS, NEAL E.;SCHALLHORN, PAUL A.;REEL/FRAME:016878/0922;SIGNING DATES FROM 20050713 TO 20050805</span>
+            </p>
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Owner name</strong>:
+              <span itemprop="value">UNITED STATES OF AMERICA AS REPRESENTED BY THE ADM</span>
+            </p>
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">ASSIGNMENT OF ASSIGNORS INTEREST;ASSIGNORS:HASS, NEAL E.;SCHALLHORN, PAUL A.;SIGNING DATES FROM 20050713 TO 20050805;REEL/FRAME:016878/0922</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2014-08-14">2014-08-14</time></td>
+          <td itemprop="code">FPAY</td>
+          <td itemprop="title">Fee payment</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Year of fee payment</strong>:
+              <span itemprop="value">4</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2019-03-25">2019-03-25</time></td>
+          <td itemprop="code">LAPS</td>
+          <td itemprop="title">Lapse for failure to pay maintenance fees</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">PATENT EXPIRED FOR FAILURE TO PAY MAINTENANCE FEES (ORIGINAL EVENT CODE: EXP.); ENTITY STATUS OF PATENT OWNER: LARGE ENTITY</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2019-03-25">2019-03-25</time></td>
+          <td itemprop="code">STCH</td>
+          <td itemprop="title">Information on status: patent discontinuation</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">PATENT EXPIRED DUE TO NONPAYMENT OF MAINTENANCE FEES UNDER 37 CFR 1.362</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2019-04-16">2019-04-16</time></td>
+          <td itemprop="code">FP</td>
+          <td itemprop="title">Expired due to failure to pay maintenance fee</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Effective date</strong>:
+              <span itemprop="value">20190215</span>
+            </p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+</article>
+
+    </search-app>
+    <script type="text/javascript" src="//www.gstatic.com/feedback/api.js"></script>
+    <script async="" defer="" src="//www.google.com/insights/consumersurveys/async_survey?site=cxkjf7ipxgbnnjy6k35ezcvbbe"></script>
+  </body>
+</html>
