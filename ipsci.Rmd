@@ -131,14 +131,14 @@ for (patnum in nasa_patent_numbers) {
 print("Downloads complete.")
 ```
 
-### extract patent data from Google HTML
+### select relevant patent data from Google HTML
 ```{r}
 # explore downloaded data
 raw.html <- read_html("data/6918970.html")
 # title
 raw.html %>% html_nodes("body search-app article h1") %>% html_text() %>% .[[1]]
 # prior art keywords
-raw.html %>% html_nodes("[itemprop='priorArtKeywords']") %>% html_text()
+raw.html %>% html_nodes("[itemprop='priorArtKeywords']") %>% html_text() 
 # inventors
 raw.html %>% html_nodes("[itemprop='inventor']") %>% html_text()
 # current assignee
@@ -168,27 +168,66 @@ filter(str_detect(raw.html %>% html_nodes(xpath="/html/body/search-app/article/s
 #print(raw.html %>% html_nodes(xpath="/html/body/search-app/article/section/table") %>% html_table())[[2]]
 ```
 
-### 
+### clean and transform selected data into dataframe
 ```{r}
-#raw.html <- read_html("data/5827531.html")
-# title
-#raw.html %>% html_nodes("body search-app article h1") %>% html_text() %>% .[[1]]
-# abstract
-#raw.html %>% html_nodes("abstract") %>% html_text()
+# create object with all filenames
 files <- list.files(path="sample_data", pattern="*.html", full.names=TRUE, recursive=FALSE)
 
-a <- lapply(files, function(x) {
+# create lists of extracted data
+# title
+raw.title <- lapply(files, function(x) {
   raw.html <- read_html(x, header=TRUE) # load file
   # apply function
   raw.html %>% html_nodes("body search-app article h1") %>% html_text() %>% .[[1]] %>% str_remove(" \n        - Google Patents")
 })
-b <- lapply(files, function(x) {
+# abstract
+raw.abstract <- lapply(files, function(x) {
   raw.html <- read_html(x, header=TRUE) # load file
   # apply function
   raw.html %>% html_nodes("abstract") %>% html_text()
 })
 
+# description > origin of the invention
+raw.origin <- lapply(files, function(x) {
+  raw.html <- read_html(x, header=TRUE) # load file
+  # apply function
+  raw.html %>% html_nodes("body search-app article section div div p") %>% html_text() %>% .[[1]]
+})
+
+# description > background of the invention > field of the invention
+raw.background <- lapply(files, function(x) {
+  raw.html <- read_html(x, header=TRUE) # load file
+  # apply function
+  raw.html %>% html_nodes("body search-app article section div div p") %>% html_text() %>% .[[3]]
+})
+
+# cited by (count) 
+# todo: why is this returning NULL?
+cited_by <- lapply(files, function(x) {
+  raw.html <- read_html(x, header=TRUE) # load file
+  # apply function
+  cited_by <- raw.html %>% html_nodes(xpath="/html/body/search-app/article/table") %>% html_table() 
+})
+count.cited_by <- lapply(cited_by, function(x) {
+  # apply function
+  nrow(cited_by[[1]])
+})
+count.cited_by
+
+# not necessary, but makes lists nicer to read
+raw.title <- unlist(raw.title, recursive = FALSE)
+raw.abstract <- unlist(raw.abstract, recursive = FALSE)
+raw.origin <- unlist(raw.origin, recursive = FALSE)
+raw.background <- unlist(raw.background, recursive = FALSE)
+
+# get "appId" with regex
+app_num <- unlist(str_extract_all(raw.title, "[A-Z]{2,}[0-9]{7,}[A-Z]+[0-9]+"))
+
+# remove "appId" from "title" 
+title <- str_remove(raw.title, app_num)
+title <- str_remove(title, " - ") # this could be less greedy
+
 # bind lists into dataframe and name columns
-raw.df <- setNames(do.call(rbind.data.frame, Map('c', a, b)), c("title", "abstract"))
+raw.df <- setNames(do.call(rbind.data.frame, Map('c', app_num, title, raw.abstract, raw.origin, raw.background)), c("appId", "title", "abstract", "origin", "background"))
 raw.df
 ```
