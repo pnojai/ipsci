@@ -177,10 +177,18 @@ filter(str_detect(raw.html %>% html_nodes(xpath="/html/body/search-app/article/s
 #raw.html %>% html_nodes("abstract") %>% html_text()
 files <- list.files(path="sample_data", pattern="*.html", full.names=TRUE, recursive=FALSE)
 
-lapply(files, function(x) {
+a <- lapply(files, function(x) {
   raw.html <- read_html(x, header=TRUE) # load file
   # apply function
-  a <- raw.html %>% html_nodes("body search-app article h1") %>% html_text() %>% .[[1]] %>% str_remove(" \n        - Google Patents")
-  b <- raw.html %>% html_nodes("abstract") %>% html_text()
+  raw.html %>% html_nodes("body search-app article h1") %>% html_text() %>% .[[1]] %>% str_remove(" \n        - Google Patents")
 })
+b <- lapply(files, function(x) {
+  raw.html <- read_html(x, header=TRUE) # load file
+  # apply function
+  raw.html %>% html_nodes("abstract") %>% html_text()
+})
+
+# bind lists into dataframe and name columns
+raw.df <- setNames(do.call(rbind.data.frame, Map('c', a, b)), c("title", "abstract"))
+raw.df
 ```
