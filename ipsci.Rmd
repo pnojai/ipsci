@@ -159,6 +159,28 @@ raw.html %>% html_nodes("body search-app article section div div p") %>% html_te
 # cited by 
 raw.html %>% html_nodes(xpath="/html/body/search-app/article/table") %>% html_table()
 # cited by (count) nrow()
-raw.html %>% html_nodes(xpath="/html/body/search-app/article/table") %>% html_table() 
+cited_by <- raw.html %>% html_nodes(xpath="/html/body/search-app/article/table") %>% html_table() 
+nrow(cited_by[[1]])
+# patent citations 
+raw.html %>% html_nodes(xpath="/html/body/search-app/article/section/table") %>% html_table()
+raw.html %>% html_nodes(xpath="/html/body/search-app/article/section/h2") %>% html_text()
+filter(str_detect(raw.html %>% html_nodes(xpath="/html/body/search-app/article/section/h2") %>% html_text(), "Patent Citations"))
+#print(raw.html %>% html_nodes(xpath="/html/body/search-app/article/section/table") %>% html_table())[[2]]
 ```
 
+### 
+```{r}
+#raw.html <- read_html("data/5827531.html")
+# title
+#raw.html %>% html_nodes("body search-app article h1") %>% html_text() %>% .[[1]]
+# abstract
+#raw.html %>% html_nodes("abstract") %>% html_text()
+files <- list.files(path="sample_data", pattern="*.html", full.names=TRUE, recursive=FALSE)
+
+lapply(files, function(x) {
+  raw.html <- read_html(x, header=TRUE) # load file
+  # apply function
+  a <- raw.html %>% html_nodes("body search-app article h1") %>% html_text() %>% .[[1]] %>% str_remove(" \n        - Google Patents")
+  b <- raw.html %>% html_nodes("abstract") %>% html_text()
+})
+```
