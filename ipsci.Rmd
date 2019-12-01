@@ -29,6 +29,7 @@ library(XML)      # Dealing with text in xml.
 library(httr)     # Wrapper for the curl package.
 library(jsonlite) # Getting and formatting JSON.
 library(rvest)    # Download and manipulate HTML.
+library(rjson)    # Work with JSON format
 ```
 
 ## NASA Patents
@@ -98,6 +99,20 @@ for (app in nasa_patents$Application_SN_uspto) {
 }
 
 print("Downloads complete.")
+```
+
+### select relevant patent data from USPTO
+```{r}
+# explore downloaded data
+raw.json <- fromJSON(file = "data/US09822470.json")
+print(raw.json)
+# title
+title.json <- raw.json$title
+# appID
+appId.json <- raw.json$applicationNumber
+# inventor
+inventor.json <- raw.json$inventor
+#
 ```
 
 ### Google
@@ -208,11 +223,14 @@ cited_by <- lapply(files, function(x) {
   # apply function
   cited_by <- raw.html %>% html_nodes(xpath="/html/body/search-app/article/table") %>% html_table() 
 })
+cited_by
 count.cited_by <- lapply(cited_by, function(x) {
   # apply function
-  nrow(cited_by[[1]])
+  count.cited_by <- nrow(x[[1]])
+  print(count.cited_by)
 })
 count.cited_by
+
 
 # not necessary, but makes lists nicer to read
 raw.title <- unlist(raw.title, recursive = FALSE)
