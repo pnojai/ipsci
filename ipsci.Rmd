@@ -1,10 +1,7 @@
 ---
 title: "ipsci"
-<<<<<<< HEAD
 author: "Jai Jeffryes"
-=======
 author: "Jai Jeffryes, Tamiko Jenkins, Nicholas Chung"
->>>>>>> nc_dev
 date: "11/22/2019"
 output: 
   html_document:
@@ -32,11 +29,8 @@ library(fulltext) # Text mining of open access journals.
 library(XML)      # Dealing with text in xml.
 library(httr)     # Wrapper for the curl package.
 library(jsonlite) # Getting and formatting JSON.
-<<<<<<< HEAD
-=======
 library(rvest)    # Download and manipulate HTML.
 library(rjson)    # Work with JSON format.
->>>>>>> nc_dev
 ```
 
 ## NASA Patents
@@ -104,12 +98,6 @@ for (patnum in nasa_patent_numbers) {
 print("Downloads complete.")
 ```
 
-<<<<<<< HEAD
-## Appendix
-### USPTO
-We didn't use the USPTO source. We acquired patent data from Google, instead. This code chunk for this acquistion is disabled because I don't understand what it retrieves, but I'll keep the code in case I can use it later.
-
-=======
 ### select relevant patent data from Google HTML
 ```{r}
 # explore downloaded data
@@ -209,14 +197,14 @@ raw.df <- setNames(do.call(rbind.data.frame, Map('c', app_num, title, raw.abstra
 raw.df
 ```
 
+### write to file for easy access
 ```{r}
 write.csv(raw.df,"data/patent_text.csv", row.names = FALSE)
 ```
 
 ## Appendix
 ### USPTO
-The code chunk for this acquistion is disabled because I don't understand what it retrieves, but I'll keep the code in case I can use it.
->>>>>>> nc_dev
+We didn't use the USPTO source. We acquired patent data from Google, instead. This code chunk for this acquistion is disabled because I don't understand what it retrieves, but I'll keep the code in case I can use it later.
 ```{r get_uspto, eval=FALSE}
 # Curl
 # curl -X GET --header 'Accept: application/json' 'https://developer.uspto.gov/ibd-api/v1/patent/application?applicationNumber=US14202699%2CUS12795356&start=0&rows=100'
@@ -249,8 +237,6 @@ for (app in nasa_patents$Application_SN_uspto) {
 
 print("Downloads complete.")
 ```
-<<<<<<< HEAD
-=======
 
 ### Google Patents
 Other attributes explored
@@ -269,4 +255,3 @@ raw.html %>% html_nodes("[itemprop='filingDate']") %>% html_text() # which one t
 raw.html %>% html_nodes("[itemprop='cpcs']") %>% html_text() # what does it mean?
 
 ```
->>>>>>> nc_dev
