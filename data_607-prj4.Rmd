@@ -1,0 +1,133 @@
+---
+title: "project 4"
+author: "Nicholas Chung"
+date: "11/23/2019"
+output: 
+  html_document:
+    toc: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+# load packages
+library(rplos)    # API to PLOS for journals.
+library(readr)    # Reading rectangular data.
+library(plyr)     # Wrangling data.
+library(dplyr)    # Wrangling data.
+library(tibble)   # Tidier table object.
+library(tidyr)    # Tidying data,
+library(stringr)  # Manipulating strings. Using RegEx.
+library(tm)       # Text mining.
+library(fulltext) # Text mining of open access journals.
+library(XML)      # Dealing with text in xml.
+library(jsonlite) # Getting and formatting JSON.
+library(httr)
+```
+
+# patent data collection
+
+## USPTO
+Patent grant full text data (no images) (JAN 1976 - present) (1976 - 2001 Automated Patent System (APS) format is Green Book)
+Contains (JAN 2002 - present) the full text of each patent grant issued weekly (Tuesdays) (excludes images/drawings and reexaminations). The file format is eXtensible Markup Language (XML) in accordance with the Patent Grant International Common Element (ICE) Document Type Definition (DTD).
+
+# XML
+```{r}
+# load data from xml file
+#uspto.xml <- xmlParse("data/ipg191119.xml")
+#uspto.xml <- xmlToDataFrame(uspto.xml, stringsAsFactors = FALSE)
+#uspto.xml
+lines <- readLines("data/ipg191119.xml")
+start <- grep('<?xml version="1.0" encoding="UTF-8"?>', lines, fixed = T)
+end <- c(start[-1]-1, length(lines))
+get.xml <- function(i) {
+  txt <- paste(lines[start[i]:end[i]], collapse = "\n")
+  #print(i)
+  xmlTreeParse(txt, asText = T)
+}
+docs <- lapply(1:10, get.xml)
+#class(docs[[1]])
+docs[[1]]
+#sapply(docs,function(doc) xmlValue(doc["//invention-title"][[1]]))
+```
+
+## Retrieve patent data
+USPTO API
+
+```{r getpat}
+# Curl
+# curl -X GET --header 'Accept: application/json' 'https://developer.uspto.gov/ibd-api/v1/patent/application?applicationNumber=US14202699%2CUS12795356&start=0&rows=100'
+# Request URL
+# https://developer.uspto.gov/ibd-api/v1/patent/application?applicationNumber=US14202699%2CUS12795356&start=0&rows=100
+get_patent_application <- function(app_num) {
+  file_path <- file.path("data", str_c(app_num, ".json"))
+  
+  if (!file.exists(file_path)) {
+    req_url <- "https://developer.uspto.gov/ibd-api/v1/patent/application?start=0&rows=100"
+    req_url <- str_replace(string = req_url,
+                           pattern = "APPSTUB",
+                           replacement = as.character(app_num))
+    print(str_c("Downloading application ",
+                as.character(app_num), "..."))
+    
+    raw.result <- GET(url = req_url)
+    print(raw.result)
+    patent_application <- fromJSON(req_url)
+    print(patent_application)
+    stream_out(x = patent_application[["response"]][["docs"]],
+               file(file_path))
+    
+    print(file_path)
+  }
+}
+
+#req_url <- "https://developer.uspto.gov/ibd-api/v1/patent/application?start=99&rows=100"
+    #req_url <- str_replace(string = req_url,
+                           #pattern = "APPSTUB",
+                           #replacement = as.character(app_num))
+    #print(str_c("Downloading application ",
+    #            as.character(app_num), "..."))
+   
+#aw.result <- GET(url = req_url)
+#raw.content <- rawToChar(raw.result$content)
+#json.content <- fromJSON(raw.content)
+#for (i in json.content$response$docs) {
+#  print(i)
+#}
+#print(json.content$response)
+#pages <- json.content$response$numFound
+
+#for (i in 1:10) {
+#  print(json.content$response$docs[[i]]$applicant)
+#}
+content.list <- list()
+rows = 100
+for (i in 1:4) {
+  url <- paste0("https://developer.uspto.gov/ibd-api/v1/patent/application?start=", i, "&rows=", rows)
+  #print(url)
+  raw.result <- GET(url = url)
+  raw.content <- rawToChar(raw.result$content)
+  json.content <- fromJSON(raw.content)
+  #print(length(json.content))
+  for (i in json.content$response$docs$applicationNumber) {
+    #print(i)
+    print(i)
+  }
+#  print(json.content$response)
+  #print(json.content$response$docs[[i]]$applicant)
+}
+print(length(content.list))
+```
+
+## NASA
+this dataset shows information pertaining to NASA held and pending patents.
+
+# API
+```{r}
+# 
+#https://data.nasa.gov/resource/gquh-watm.json
+url <- "https://data.nasa.gov/resource/nasa-patents.json"
+raw.result <- GET(url = url)
+raw.result
+```
+
+# Observations
