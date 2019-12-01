@@ -1,6 +1,7 @@
 ---
 title: "ipsci"
 author: "Jai Jeffryes"
+author: "Jai Jeffryes, Tamiko Jenkins, Nicholas Chung"
 date: "11/22/2019"
 output: 
   html_document:
@@ -28,6 +29,8 @@ library(fulltext) # Text mining of open access journals.
 library(XML)      # Dealing with text in xml.
 library(httr)     # Wrapper for the curl package.
 library(jsonlite) # Getting and formatting JSON.
+library(rvest)    # Download and manipulate HTML.
+library(rjson)    # Work with JSON format.
 ```
 
 ## NASA Patents
@@ -95,10 +98,113 @@ for (patnum in nasa_patent_numbers) {
 print("Downloads complete.")
 ```
 
+### select relevant patent data from Google HTML
+```{r}
+# explore downloaded data
+raw.html <- read_html("data/6918970.html")
+# title
+raw.html %>% html_nodes("body search-app article h1") %>% html_text() %>% .[[1]]
+# abstract
+raw.html %>% html_nodes("abstract") %>% html_text()
+# description > origin of the invention
+raw.html %>% html_nodes("body search-app article section div div p") %>% html_text() %>% .[[1]]
+# description > background of the invention > field of the invention
+raw.html %>% html_nodes("body search-app article section div div p") %>% html_text() %>% .[[3]]
+# cited by 
+raw.html %>% html_nodes(xpath="/html/body/search-app/article/table") %>% html_table()
+# cited by (count) nrow()
+cited_by <- raw.html %>% html_nodes(xpath="/html/body/search-app/article/table") %>% html_table() 
+nrow(cited_by[[1]])
+# patent citations 
+raw.html %>% html_nodes(xpath="/html/body/search-app/article/section/table") %>% html_table()
+raw.html %>% html_nodes(xpath="/html/body/search-app/article/section/h2") %>% html_text()
+filter(str_detect(raw.html %>% html_nodes(xpath="/html/body/search-app/article/section/h2") %>% html_text(), "Patent Citations"))
+#print(raw.html %>% html_nodes(xpath="/html/body/search-app/article/section/table") %>% html_table())[[2]]
+```
+
+#todo: the Google patent retrieval function above returns 2 files with "404" in the title, where the filename includes a comma. We need to either update the retrieval function OR update the function below to ignore those files. For now, the below function works when you manually remove the two "bad" files, but please note that this won't run smoothly without this workaround otherwise. Nich will look into this. 
+
+### clean and transform selected data into dataframe
+```{r}
+# create object with all filenames
+files <- list.files(path="data", pattern="*.html", full.names=TRUE, recursive=FALSE)
+
+# create lists of extracted data
+# title
+raw.title <- lapply(files, function(x) {
+  raw.html <- read_html(x, header=TRUE) # load file
+  # apply function
+  raw.html %>% html_nodes("body search-app article h1") %>% html_text() %>% .[[1]] %>% str_remove(" \n        - Google Patents")
+})
+# abstract
+raw.abstract <- lapply(files, function(x) {
+  raw.html <- read_html(x, header=TRUE) # load file
+  # apply function
+  raw.html %>% html_nodes("abstract") %>% html_text()
+})
+
+# description > origin of the invention
+raw.origin <- lapply(files, function(x) {
+  raw.html <- read_html(x, header=TRUE) # load file
+  # apply function
+  raw.html %>% html_nodes("body search-app article section div div p") %>% html_text() %>% .[[1]]
+})
+
+# description > background of the invention > field of the invention
+raw.background <- lapply(files, function(x) {
+  raw.html <- read_html(x, header=TRUE) # load file
+  # apply function
+  raw.html %>% html_nodes("body search-app article section div div p") %>% html_text() %>% .[[3]]
+})
+```
+
+### section to answer question, "how many other patents does a patent reference ('count.citations'), and how many other patents reference it ('count.cited_by')?" This question is a analagous to, "how many shoulders does a given patent stand on?"
+```{r}
+# cited by (count) 
+# todo: why is this returning NULL?
+cited_by <- lapply(files, function(x) {
+  raw.html <- read_html(x, header=TRUE) # load file
+  # apply function
+  cited_by <- raw.html %>% html_nodes(xpath="/html/body/search-app/article/table") %>% html_table() 
+})
+cited_by
+count.cited_by <- lapply(cited_by, function(x) {
+  # apply function
+  count.cited_by <- nrow(x[[1]])
+  print(count.cited_by)
+})
+count.cited_by
+
+```
+
+### clean text and output to df
+```{r}
+# not necessary, but makes lists nicer to read
+raw.title <- unlist(raw.title, recursive = FALSE)
+raw.abstract <- unlist(raw.abstract, recursive = FALSE)
+raw.origin <- unlist(raw.origin, recursive = FALSE)
+raw.background <- unlist(raw.background, recursive = FALSE)
+
+# get "appId" with regex
+app_num <- unlist(str_extract_all(raw.title, "[A-Z]{2,}[0-9]{7,}[A-Z]+[0-9]+"))
+
+# remove "appId" from "title" 
+title <- str_remove(raw.title, app_num)
+title <- str_remove(title, " - ") # this could be less greedy
+
+# bind lists into dataframe and name columns
+raw.df <- setNames(do.call(rbind.data.frame, Map('c', app_num, title, raw.abstract, raw.origin, raw.background)), c("appId", "title", "abstract", "origin", "background"))
+raw.df
+```
+
+### write to file for easy access
+```{r}
+write.csv(raw.df,"data/patent_text.csv", row.names = FALSE)
+```
+
 ## Appendix
 ### USPTO
 We didn't use the USPTO source. We acquired patent data from Google, instead. This code chunk for this acquistion is disabled because I don't understand what it retrieves, but I'll keep the code in case I can use it later.
-
 ```{r get_uspto, eval=FALSE}
 # Curl
 # curl -X GET --header 'Accept: application/json' 'https://developer.uspto.gov/ibd-api/v1/patent/application?applicationNumber=US14202699%2CUS12795356&start=0&rows=100'
@@ -130,4 +236,22 @@ for (app in nasa_patents$Application_SN_uspto) {
 }
 
 print("Downloads complete.")
+```
+
+### Google Patents
+Other attributes explored
+```{r}
+# prior art keywords
+raw.html %>% html_nodes("[itemprop='priorArtKeywords']") %>% html_text() 
+# inventors
+raw.html %>% html_nodes("[itemprop='inventor']") %>% html_text()
+# current assignee
+raw.html %>% html_nodes("[itemprop='assigneeCurrent']") %>% html_text()
+# original assignee
+#raw.html %>% html_nodes("[itemprop='assigneeOriginal']") %>% html_text() # lots of noise; need to parse later
+# filing date
+raw.html %>% html_nodes("[itemprop='filingDate']") %>% html_text() # which one to select?
+# classifications
+raw.html %>% html_nodes("[itemprop='cpcs']") %>% html_text() # what does it mean?
+
 ```
