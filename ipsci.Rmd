@@ -101,11 +101,7 @@ print("Downloads complete.")
 ### select relevant patent data from Google HTML
 ```{r}
 # explore downloaded data
-<<<<<<< HEAD
-raw.html <- read_html("data/RE43,880.html")
-=======
 raw.html <- read_html("data/8675922.html")
->>>>>>> nc_dev
 # title
 raw.html %>% html_nodes("body search-app article h1") %>% html_text() %>% .[[1]]
 # abstract
@@ -165,7 +161,6 @@ raw.background <- lapply(files, function(x) {
 # todo: make sure it works across all dataframes; try incorporating Tommy's snippet
 =======
 # todo: deuglify the regex
->>>>>>> nc_dev
 ```{r}
 # cited by (count) 
 cited_by <- lapply(files, function(x) {
@@ -198,9 +193,6 @@ citations <- lapply(files, function(x) {
   # apply function
   raw.html %>% html_nodes(xpath="/html/body/search-app/article/section/h2") %>% html_text() %>% str_subset(pattern = "Patent Citations")
 })
-<<<<<<< HEAD
-count.cited_by
-=======
 
 # drop Non-Patent Citations
 citations <- lapply(citations, function(x) {
@@ -226,7 +218,6 @@ count.citations <- lapply(count.citations, function(x)
   # remove after digit
   x %>% as.integer()
 )
->>>>>>> nc_dev
 ```
 
 ### clean text and output to df
