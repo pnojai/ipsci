@@ -272,7 +272,7 @@ Use html for now, instead of google bigquery api
 
 ```{r}
 library(rvest)
-html_u <- read_html(file.path("data", "paft_uspto_8293178.html"))
+#html_u <- read_html(file.path("data", "paft_uspto_8293178.html"))
 html_g <- read_html(file.path("data", "8293178.html"))
 html_g
 ```
@@ -329,7 +329,22 @@ section_ids
 #https://stackoverflow.com/questions/43598427/r-how-to-extract-items-from-xml-nodeset
 #number=rep(1: (section_nodes)),
 
-text_df <- tibble(section_ids=section_ids, text=sections_text)
+
+#TODO: combine
+sections_text <- section_nodes %>% 
+    html_text() %>% 
+    str_trim(side = "both") %>%
+    str_replace_all('(\\s){2,}', '\\1') %>% 
+    str_replace_all('(\\r\\n|\\n){2}', '\\1') %>% 
+    str_replace_all('[^A-z ]', '')
+    #substr(start = nchar(body_text)-700, stop = nchar(body_text))
+#        strsplit(split = "\n") %>%
+#        unlist() %>%
+#        .[. != ""]
+sections_text
+
+
+text_df <- tibble(document=section_ids, terms=sections_text)
 
 text_df
 
@@ -344,7 +359,8 @@ sections_text <- section_nodes %>%
     html_text() %>% 
     str_trim(side = "both") %>%
     str_replace_all('(\\s){2,}', '\\1') %>% 
-    str_replace_all('(\\r\\n|\\n){2}', '\\1')
+    str_replace_all('(\\r\\n|\\n){2}', '\\1') %>% 
+    str_replace_all('[^A-z ]', '')
     #substr(start = nchar(body_text)-700, stop = nchar(body_text))
 #        strsplit(split = "\n") %>%
 #        unlist() %>%
@@ -354,7 +370,71 @@ sections_text
 ```
 
 
- 
+Demo of LDA
+https://www.kaggle.com/rtatman/nlp-in-r-topic-modelling#Unsupervised-topic-modeling-with-LDA
+```{r}
+# read in the libraries we're going to use
+library(tidyverse) # general utility & workflow functions
+library(tidytext) # tidy implimentation of NLP methods
+library(topicmodels) # for LDA topic modelling 
+library(tm) # general text mining functions, making document term matrixes
+library(SnowballC) # for stemming
+
+
+
+# of topics, using LDA
+top_terms_by_topic_LDA <- function(input_text, # should be a columm from a dataframe
+                                   plot = T, # return a plot? TRUE by defult
+                                   number_of_topics = 4) # number of topics (4 by default)
+{    
+    # create a corpus (type of object expected by tm) and document term matrix
+    Corpus <- Corpus(VectorSource(input_text)) # make a corpus object
+    DTM <- DocumentTermMatrix(Corpus) # get the count of words/document
+
+    # remove any empty rows in our document term matrix (if there are any 
+    # we'll get an error when we try to run our LDA)
+    unique_indexes <- unique(DTM$i) # get the index of each unique value
+    DTM <- DTM[unique_indexes,] # get a subset of only those indexes
+    
+    # preform LDA & get the words/topic in a tidy text format
+    lda <- LDA(DTM, k = number_of_topics, control = list(seed = 1234))
+    topics <- tidy(lda, matrix = "beta")
+
+    # get the top ten terms for each topic
+    top_terms <- topics  %>% # take the topics data frame and..
+      group_by(topic) %>% # treat each topic as a different group
+      top_n(10, beta) %>% # get the top 10 most informative words
+      ungroup() %>% # ungroup
+      arrange(topic, -beta) # arrange words in descending informativeness
+
+    # if the user asks for a plot (TRUE by default)
+    if(plot == T){
+        # plot the top ten terms for each topic in order
+        top_terms %>% # take the top terms
+          mutate(term = reorder(term, beta)) %>% # sort terms by beta value 
+          ggplot(aes(term, beta, fill = factor(topic))) + # plot beta by theme
+          geom_col(show.legend = FALSE) + # as a bar plot
+          facet_wrap(~ topic, scales = "free") + # which each topic in a seperate plot
+          labs(x = NULL, y = "Beta") + # no x label, change y label 
+          coord_flip() # turn bars sideways
+    }else{ 
+        # if the user does not request a plot
+        # return a list of sorted terms instead
+        return(top_terms)
+    }
+}
+
+
+
+
+```
+
+
+```{r}
+
+
+top_terms_by_topic_LDA(text_df$terms, number_of_topics = 5)
+```
 
 
 Ref:
@@ -434,6 +514,9 @@ recipe(~ ., data = data) %>%
   step_tfidf(text)
 ```
 Ref:
+https://www.cbinsights.com/research/team-blog/patent-analytics-is-here/
+https://medium.com/@glmack/patent-language-processing-fc99b57c0cd5
+https://www.kaggle.com/rtatman/nlp-in-r-topic-modelling#Unsupervised-topic-modeling-with-LDA
 https://tidymodels.github.io/textrecipes/
 https://tidymodels.github.io/textrecipes/articles/cookbook---using-more-complex-recipes-involving-text.html
 
@@ -442,6 +525,46 @@ gganimate extends the grammar of graphics as implemented by ggplot2 to include t
 Also https://www.tidyverse.org/blog/2019/07/ragg-0-1-0/
 
 More ideas on innovation https://www.patentsview.org/web/#viz/comparisons&cmp=all/state/numDesc/2019
+https://tidymodels.github.io/textrecipes/articles/cookbook---using-more-complex-recipes-involving-text.html
+https://www.rdocumentation.org/packages/naniar/versions/0.4.2
+http://naniar.njtierney.com/articles/getting-started-w-naniar.html#modelling-missingness
+https://arxiv.org/ftp/arxiv/papers/1703/1703.09570.pdf
+https://bookdown.org/martin_monkman/DataScienceResources_book/textanalysis.html
+https://cran.r-project.org/web/packages/monkeylearn/index.html
+https://cran.r-project.org/web/packages/tidytext/index.html
+https://cran.r-project.org/web/packages/tidytext/vignettes/tf_idf.html
+https://cran.r-project.org/web/packages/tidytext/vignettes/topic_modeling.html
+https://www.r-bloggers.com/an-overview-of-the-nlp-ecosystem-in-r-nlproc-textasdata/
+https://cran.r-project.org/web/views/NaturalLanguageProcessing.html
+https://cran.r-project.org/web/packages/tidytext/tidytext.pdf
+https://cran.r-project.org/web/views/NaturalLanguageProcessing.html
+https://cran.r-project.org/web/packages/quanteda/index.html
+https://cran.r-project.org/web/packages/quanteda/vignettes/quickstart.html
+
+https://patents.google.com/patent/US8293178
+https://www.google.com/search?q=Tidyverse&rlz=1C1CHBF_enUS856US856&oq=tidyverse&aqs=chrome.0.69i59j69i60l2j69i61j69i60l2.1725j0j9&sourceid=chrome&ie=UTF-8
+https://www.google.com/search?q=tidy+text+html_node&rlz=1C1CHBF_enUS856US856&oq=tidy+text+html_node&aqs=chrome..69i57.4167j0j4&sourceid=chrome&ie=UTF-8
+https://rvest.tidyverse.org/reference/html_nodes.html
+https://rdrr.io/cran/rvest/man/html_text.html
+https://stackoverflow.com/questions/32127921/rvest-how-to-select-a-specific-css-node-by-id
+https://www.google.com/search?newwindow=1&rlz=1C1CHBF_enUS856US856&sxsrf=ACYBGNT_8s7EwgDHvkYMtRsh36MJ08tp3g:1575057943095&q=%22concatenate%22+html_text+from+html_node&sa=X&ved=2ahUKEwjzncuJnJDmAhVMh-AKHWY8C0EQ5t4CMAB6BAgMEAk&biw=1920&bih=930
+https://georgejmount.com/writecodereadquoteswritecode/
+https://github.com/yusuzech/r-web-scraping-cheat-sheet/blob/master/README.md
+https://rstudioblog.wordpress.com/2014/11/24/rvest-easy-web-scraping-with-r/
+https://stackoverflow.com/questions/36709184/build-data-frame-from-multiple-rvest-elements 
+https://rddj.info/
+https://cloud.r-project.org/web/packages/hunspell/vignettes/intro.html
+https://juliasilge.com/blog/life-changing-magic/
+https://rud.is/projects/clinton_emails_01.html
+ 
+https://cran.r-project.org/web/packages/tidytext/vignettes/tidytext.html
+https://www.tidytextmining.com/tidytext.html
+https://yulab-smu.github.io/treedata-book/chapter2.html
+http://www.stat.columbia.edu/~gelman/research/published/abandon_final.pdf
+
+https://stackoverflow.com/questions/43598427/r-how-to-extract-items-from-xml-nodeset
+
+
 ```{r}
 
 ```
