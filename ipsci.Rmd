@@ -1,6 +1,5 @@
 ---
 title: "ipsci"
-author: "Jai Jeffryes"
 author: "Jai Jeffryes, Tamiko Jenkins, Nicholas Chung"
 date: "11/22/2019"
 output: 
@@ -100,7 +99,8 @@ print("Downloads complete.")
 ```
 
 ### select relevant patent data from Google HTML
-```{r}
+Exploratory chunk disabled.
+```{r, eval=FALSE}
 # explore downloaded data
 raw.html <- read_html("data/8675922.html")
 # title
@@ -124,7 +124,8 @@ raw.html %>% html_nodes(xpath="/html/body/search-app/article/section/h2") %>% ht
 ```
 
 ### clean and transform selected data into dataframe
-```{r}
+Executed, variables serialized, chunk disabled.
+```{r, eval=FALSE}
 # create object with all filenames
 files <- list.files(path="data", pattern="[0-9]{5,}.html", full.names=TRUE, recursive=FALSE)
 
@@ -162,7 +163,10 @@ raw.background <- lapply(files, function(x) {
 # todo: make sure it works across all dataframes; try incorporating Tommy's snippet
 =======
 # todo: deuglify the regex
-```{r}
+
+Executed, variables serialized, chunk disabled.
+
+```{r, eval=FALSE}
 # cited by (count) 
 cited_by <- lapply(files, function(x) {
   raw.html <- read_html(x, header=TRUE) # load file
@@ -222,7 +226,9 @@ count.citations <- lapply(count.citations, function(x)
 ```
 
 ### clean text and output to df
-```{r}
+Executed, variables serialized, chunk disabled.
+
+```{r, eval=FALSE}
 # not necessary, but makes lists nicer to read
 # todo: make consistent
 raw.title <- unlist(raw.title, recursive = FALSE)
@@ -245,8 +251,25 @@ raw.df
 ```
 
 ### write to file for easy access
-```{r}
+```{r, eval=FALSE}
 write.csv(raw.df,"data/patent_text.csv", row.names = FALSE)
+saveRDS(count.citations, file.path("data", "count.citations.RDS"))
+saveRDS(count.cited_by, file.path("data", "raw.html.RDS"))
+saveRDS(raw.html, file.path("data", "count.cited_by.RDS"))
+saveRDS(raw.df, file.path("data", "raw.df.RDS"))
+saveRDS(app_num, file.path("data", "app_num.RDS"))
+saveRDS(citations, file.path("data", "citations.RDS"))
+saveRDS(cited_by, file.path("data", "cited_by.RDS"))
+saveRDS(raw.abstract, file.path("data", "raw.abstract.RDS"))
+saveRDS(raw.background, file.path("data", "raw.background.RDS"))
+saveRDS(raw.origin, file.path("data", "raw.origin.RDS"))
+saveRDS(raw.title, file.path("data", "raw.title.RDS"))
+saveRDS(title, file.path("data", "title.RDS"))
+```
+
+### read patent text
+```{r, eval=TRUE}
+raw.df <- read.csv("data/patent_text.csv")
 ```
 
 ## Appendix
@@ -287,7 +310,7 @@ print("Downloads complete.")
 
 ### Google Patents
 Other attributes explored
-```{r}
+```{r, eval=FALSE}
 # prior art keywords
 raw.html %>% html_nodes("[itemprop='priorArtKeywords']") %>% html_text() 
 # inventors
@@ -301,4 +324,56 @@ raw.html %>% html_nodes("[itemprop='filingDate']") %>% html_text() # which one t
 # classifications
 raw.html %>% html_nodes("[itemprop='cpcs']") %>% html_text() # what does it mean?
 
+```
+
+### Research papers
+Explore PLOS
+
+```{r}
+# All the fields you can query.
+plosfields
+
+# All the journals.
+journalnamekey()
+
+# Search for an author. Return the research paper ID and title.
+searchplos(q = "author:sulzer", fl = "id, title")
+
+# Query on a keyword. Return ID, date, title, and abstract.
+p <- searchplos(q = "synuclein",
+                fl = c("id", "publication_date", "title", "abstract"),
+                limit = 20)
+
+# The number of hits.
+p$meta
+
+# The data.
+p$data
+```
+### Explore one patent at a time
+- appId: US6226553B1
+- title: US5689004ADiamines containing pendent phenylethynyl groups
+
+```{r}
+p <- searchplos(q = "body:phenylethynyl",
+                fl = c("id", "publication_date", "title", "abstract"))
+
+# The number of hits.
+p$meta
+
+# The data.
+p$data
+```
+
+- appId: US6261844B1
+- title: US5730806AGas-liquid supersonic cleaning and cleaning verification spray system
+```{r}
+p <- searchplos(q = "body:liquid supersonic cleaning",
+                fl = c("id", "publication_date", "title", "abstract"))
+
+# The number of hits.
+p$meta
+
+# The data.
+p$data
 ```
