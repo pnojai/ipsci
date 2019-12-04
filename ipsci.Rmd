@@ -24,6 +24,7 @@ library(dplyr)    # Wrangling data.
 library(tibble)   # Tidier table object.
 library(tidyr)    # Tidying data,
 library(stringr)  # Manipulating strings. Using RegEx.
+library(purrr)
 library(tm)       # Text mining.
 library(fulltext) # Text mining of open access journals.
 library(XML)      # Dealing with text in xml.
@@ -101,7 +102,7 @@ print("Downloads complete.")
 ### select relevant patent data from Google HTML
 ```{r}
 # explore downloaded data
-raw.html <- read_html("data/RE43,880.html")
+raw.html <- read_html("data/8675922.html")
 # title
 raw.html %>% html_nodes("body search-app article h1") %>% html_text() %>% .[[1]]
 # abstract
@@ -157,30 +158,79 @@ raw.background <- lapply(files, function(x) {
 ```
 
 ### section to answer question, "how many other patents does a patent reference ('count.citations'), and how many other patents reference it ('count.cited_by')?" This question is a analagous to, "how many shoulders does a given patent stand on?"
+<<<<<<< HEAD
 # todo: make sure it works across all dataframes; try incorporating Tommy's snippet
+=======
+# todo: deuglify the regex
 ```{r}
 # cited by (count) 
 cited_by <- lapply(files, function(x) {
   raw.html <- read_html(x, header=TRUE) # load file
   # apply function
-  cited_by <- raw.html %>% html_nodes(xpath="/html/body/search-app/article/table") %>% html_table() 
+  raw.html %>% html_nodes(xpath="/html/body/search-app/article/section/h2") %>% html_text() %>% str_subset(pattern = "Cited")
 })
-cited_by
-count.cited_by <- lapply(cited_by, function(x) {
+
+# clean output
+cited_by <- as.character(cited_by)
+
+# cited by (count) 
+count.cited_by <- lapply(cited_by, function(x) 
+  # remove up to digit
+  x %>% str_remove("\\D+")
+)
+count.cited_by <- lapply(count.cited_by, function(x) 
+  # remove after digit
+  x %>% str_remove("\\)$")
+)
+
+count.cited_by <- lapply(count.cited_by, function(x) 
+  # remove after digit
+  x %>% as.integer()
+)
+
+# citations (count) 
+citations <- lapply(files, function(x) {
+  raw.html <- read_html(x, header=TRUE) # load file
   # apply function
-  count.cited_by <- nrow(x[[1]])
-  print(count.cited_by)
+  raw.html %>% html_nodes(xpath="/html/body/search-app/article/section/h2") %>% html_text() %>% str_subset(pattern = "Patent Citations")
 })
-count.cited_by
+
+# drop Non-Patent Citations
+citations <- lapply(citations, function(x) {
+  # apply function
+  str_detect(x, "Non-") %>%
+                  discard(x, .)
+})
+
+# clean output
+citations <- as.character(citations)
+
+# cited by (count) 
+count.citations <- lapply(citations, function(x) 
+  # remove up to digit
+  x %>% str_remove("\\D+")
+)
+count.citations <- lapply(count.citations, function(x) 
+  # remove after digit
+  x %>% str_remove("\\)$")
+)
+
+count.citations <- lapply(count.citations, function(x) 
+  # remove after digit
+  x %>% as.integer()
+)
 ```
 
 ### clean text and output to df
 ```{r}
 # not necessary, but makes lists nicer to read
+# todo: make consistent
 raw.title <- unlist(raw.title, recursive = FALSE)
 raw.abstract <- unlist(raw.abstract, recursive = FALSE)
 raw.origin <- unlist(raw.origin, recursive = FALSE)
 raw.background <- unlist(raw.background, recursive = FALSE)
+count.citations %>% unlist(recursive = FALSE)
+count.cited_by %>% unlist(recursive = FALSE)
 
 # get "appId" with regex
 app_num <- unlist(str_extract_all(raw.title, "[A-Z]{2,}[0-9]{7,}[A-Z]+[0-9]+"))
@@ -190,7 +240,7 @@ title <- str_remove(raw.title, app_num)
 title <- str_remove(title, " - ") # this could be less greedy
 
 # bind lists into dataframe and name columns
-raw.df <- setNames(do.call(rbind.data.frame, Map('c', app_num, title, raw.abstract, raw.origin, raw.background)), c("appId", "title", "abstract", "origin", "background"))
+raw.df <- setNames(do.call(rbind.data.frame, Map('c', app_num, title, raw.abstract, raw.origin, raw.background, count.cited_by, count.citations)), c("appId", "title", "abstract", "origin", "background", "citedBy", "citations"))
 raw.df
 ```
 
