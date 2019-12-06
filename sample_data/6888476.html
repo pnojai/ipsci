@@ -1,0 +1,2209 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>US6888476B1 - Control method for video guidance sensor system 
+        - Google Patents</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="referrer" content="origin-when-crossorigin">
+    <link rel="canonical" href="https://patents.google.com/patent/US6888476B1/en">
+    <meta name="description" content="
+     A method is provided for controlling operations in a video guidance sensor system wherein images of laser output signals transmitted by the system and returned from a target are captured and processed by the system to produce data used in tracking of the target. Six modes of operation are provided as follows: (i) a reset mode; (ii) a diagnostic mode; (iii) a standby mode; (iv) an acquisition mode; (v) a tracking mode; and (vi) a spot mode wherein captured images of returned laser signals are processed to produce data for all spots found in the image. The method provides for automatic transition to the standby mode from the reset mode after integrity checks are performed and from the diagnostic mode to the reset mode after diagnostic operations are carried out. Further, acceptance of reset and diagnostic commands is permitted only when the system is in the standby mode. The method also provides for automatic transition from the acquisition mode to the tracking mode when an acceptable target is found. 
+   
+   ">
+    
+    <meta name="DC.type" content="patent">
+    
+    <meta name="DC.title" content="Control method for video guidance sensor system 
+       ">
+    
+    <meta name="DC.date" content="2003-07-03" scheme="dateSubmitted">
+    
+    <meta name="DC.description" content="
+     A method is provided for controlling operations in a video guidance sensor system wherein images of laser output signals transmitted by the system and returned from a target are captured and processed by the system to produce data used in tracking of the target. Six modes of operation are provided as follows: (i) a reset mode; (ii) a diagnostic mode; (iii) a standby mode; (iv) an acquisition mode; (v) a tracking mode; and (vi) a spot mode wherein captured images of returned laser signals are processed to produce data for all spots found in the image. The method provides for automatic transition to the standby mode from the reset mode after integrity checks are performed and from the diagnostic mode to the reset mode after diagnostic operations are carried out. Further, acceptance of reset and diagnostic commands is permitted only when the system is in the standby mode. The method also provides for automatic transition from the acquisition mode to the tracking mode when an acceptable target is found. 
+   
+   ">
+    
+    <meta name="citation_patent_application_number" content="US:10/615,369">
+    
+    <meta name="citation_pdf_url" content="https://patentimages.storage.googleapis.com/96/50/a8/a43af5418c1f23/US6888476.pdf">
+    
+    <meta name="citation_patent_number" content="US:6888476">
+    
+    <meta name="DC.date" content="2005-05-03" scheme="issue">
+    
+    <meta name="DC.contributor" content="Richard T. Howard" scheme="inventor">
+    
+    <meta name="DC.contributor" content="Michael L. Book" scheme="inventor">
+    
+    <meta name="DC.contributor" content="Thomas C. Bryan" scheme="inventor">
+    
+    <meta name="DC.contributor" content="National Aeronautics and Space Administration (NASA)" scheme="assignee">
+    
+    <meta name="DC.relation" content="US:5007736" scheme="references">
+    
+    <meta name="DC.relation" content="US:6427780" scheme="references">
+    
+    <meta name="DC.relation" content="US:6091345" scheme="references">
+    
+    <meta name="citation_reference" content="R. T. Howard, M.L. Book, T.C. Bryan, &#34;Video-based Sensor for Tracking 3 Dimensional Targets,&#34; Europto Conference, p. 9, (Sep. 28, 2000)." scheme="references">
+    
+    <meta name="citation_reference" content="R. T. Howard, T. C. Bryan, M. L. Book, &#34;Active Sensor System for Automatic Rendezvous and Docking,&#34; p. 10." scheme="references">
+    
+    <meta name="citation_reference" content="R. T. Howard, T. C. Bryan, M. L. Book, &#34;The Video Guidance Sensor: Space, Air, Ground and Sea,&#34; GN&C Conference, p. 14, (Nov. 2, 2000)." scheme="references">
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,400italic,500,500italic,700">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Product+Sans">
+    <style>
+      body { transition: none; }
+    </style>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-27188110-4', 'auto');
+
+      version = 'patent-search.search_20191120_RC00';
+
+      function sendFeedback() {
+        userfeedback.api.startFeedback({
+          'productId': '713680',
+          'bucket': 'patent-search-web',
+          'productVersion': version,
+        });
+      }
+
+      window.experiments = {};
+      window.experiments.patentCountries = "ae,ag,al,am,ao,ap,ar,at,au,aw,az,ba,bb,bd,be,bf,bg,bh,bj,bn,bo,br,bw,bx,by,bz,ca,cf,cg,ch,ci,cl,cm,cn,co,cr,cs,cu,cy,cz,dd,de,dj,dk,dm,do,dz,ea,ec,ee,eg,em,ep,es,fi,fr,ga,gb,gc,gd,ge,gh,gm,gn,gq,gr,gt,gw,hk,hn,hr,hu,ib,id,ie,il,in,ir,is,it,jo,jp,ke,kg,kh,km,kn,kp,kr,kw,kz,la,lc,li,lk,lr,ls,lt,lu,lv,ly,ma,mc,md,me,mg,mk,ml,mn,mo,mr,mt,mw,mx,my,mz,na,ne,ng,ni,nl,no,nz,oa,om,pa,pe,pg,ph,pl,pt,py,qa,ro,rs,ru,rw,sa,sc,sd,se,sg,si,sk,sl,sm,sn,st,su,sv,sy,sz,td,tg,th,tj,tm,tn,tr,tt,tw,tz,ua,ug,us,uy,uz,vc,ve,vn,wo,yu,za,zm,zw";
+      
+      
+      window.profilePicture = "";
+
+      window.Polymer = {
+        dom: 'shady',
+        lazyRegister: true,
+      };
+    </script>
+
+    <script src="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/webcomponentsjs/webcomponents-lite.min.js"></script>
+    
+    <link rel="import" href="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/search-app-vulcanized.html">
+    
+  </head>
+  <body unresolved>
+    
+    <script src="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/search-app-vulcanized.js"></script>
+    
+    <search-app>
+      
+      
+
+      <article class="result" itemscope itemtype="http://schema.org/ScholarlyArticle">
+  <h1 itemprop="pageTitle">US6888476B1 - Control method for video guidance sensor system 
+        - Google Patents</h1>
+  <span itemprop="title">Control method for video guidance sensor system 
+       </span>
+
+  <meta itemprop="type" content="patent">
+  <a href="https://patentimages.storage.googleapis.com/96/50/a8/a43af5418c1f23/US6888476.pdf" itemprop="pdfLink">Download PDF</a>
+  <h2>Info</h2>
+
+  <dl>
+    <dt>Publication number</dt>
+    <dd itemprop="publicationNumber">US6888476B1</dd>
+    <meta itemprop="numberWithoutCodes" content="6888476">
+    <meta itemprop="kindCode" content="B1">
+    <meta itemprop="publicationDescription" content="Patent ( no pre-grant publication)">
+    
+    <span>US6888476B1</span>
+    
+    <span>US10/615,369</span>
+    
+    <span>US61536903A</span>
+    
+    <span>US6888476B1</span>
+    
+    <span>US 6888476 B1</span>
+    
+    <span>US6888476 B1</span>
+    
+    <span>US 6888476B1</span>
+    
+    <span>  </span>
+    
+    <span> </span>
+    
+    <span> </span>
+    
+    <span>US 61536903 A</span>
+    
+    <span>US61536903 A</span>
+    
+    <span>US 61536903A</span>
+    
+    <span>US 6888476 B1</span>
+    
+    <span>US6888476 B1</span>
+    
+    <span>US 6888476B1</span>
+    
+
+    <dt>Authority</dt>
+    <dd itemprop="countryCode">US</dd>
+    <dd itemprop="countryName">United States</dd>
+
+    <dt>Prior art keywords</dt>
+    
+    <dd itemprop="priorArtKeywords" repeat>mode</dd>
+    <dd itemprop="priorArtKeywords" repeat>target</dd>
+    <dd itemprop="priorArtKeywords" repeat>tracking</dd>
+    <dd itemprop="priorArtKeywords" repeat>system</dd>
+    <dd itemprop="priorArtKeywords" repeat>reset</dd>
+
+    <dt>Prior art date</dt>
+    <dd><time itemprop="priorArtDate" datetime="2003-07-03">2003-07-03</time></dd>
+
+    <dt>Legal status (The legal status is an assumption and is not a legal conclusion. Google has not performed a legal analysis and makes no representation as to the accuracy of the status listed.)</dt>
+    <dd itemprop="legalStatusIfi" itemscope>
+      <span itemprop="status">Expired - Fee Related</span>, expires <time itemprop="expiration" datetime="2023-07-21">2023-07-21</time>
+    </dd>
+  </dl>
+
+  <dt>Application number</dt>
+  <dd itemprop="applicationNumber">US10/615,369</dd>
+
+  
+
+  
+
+  <dt>Inventor</dt>
+  <dd itemprop="inventor" repeat>Richard T. Howard</dd>
+  <dd itemprop="inventor" repeat>Michael L. Book</dd>
+  <dd itemprop="inventor" repeat>Thomas C. Bryan</dd>
+  <dt>Current Assignee (The listed assignees may be inaccurate. Google has not performed a legal analysis and makes no representation or warranty as to the accuracy of the list.)</dt>
+  <dd itemprop="assigneeCurrent" repeat>
+    National Aeronautics and Space Administration (NASA)
+  </dd>
+
+  <dt>Original Assignee</dt>
+  <dd itemprop="assigneeOriginal" repeat>National Aeronautics and Space Administration (NASA)</dd>
+
+  <dt>Priority date (The priority date is an assumption and is not a legal conclusion. Google has not performed a legal analysis and makes no representation as to the accuracy of the date listed.)</dt>
+  <dd><time itemprop="priorityDate" datetime="2003-07-03">2003-07-03</time></dd>
+
+  <dt>Filing date</dt>
+  <dd><time itemprop="filingDate" datetime="2003-07-03">2003-07-03</time></dd>
+
+  <dt>Publication date</dt>
+  <dd><time itemprop="publicationDate" datetime="2005-05-03">2005-05-03</time></dd>
+
+  
+
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2003-07-03">2003-07-03</time>
+    <span itemprop="title">Application filed by National Aeronautics and Space Administration (NASA)</span>
+    <span itemprop="type">filed</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    <span itemprop="assigneeSearch">National Aeronautics and Space Administration (NASA)</span>
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2003-07-03">2003-07-03</time>
+    <span itemprop="title">Priority to US10/615,369</span>
+    <span itemprop="type">priority</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    <span itemprop="documentId">patent/US6888476B1/en</span>
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2003-07-03">2003-07-03</time>
+    <span itemprop="title">Assigned to NATIONAL AERONAUTICS AND SPACE ADMINISTRATION</span>
+    <span itemprop="type">reassignment</span>
+    
+    
+    
+    
+    <span itemprop="assigneeSearch">NATIONAL AERONAUTICS AND SPACE ADMINISTRATION</span>
+    
+    
+    <span itemprop="description" repeat>ASSIGNMENT OF ASSIGNORS INTEREST (SEE DOCUMENT FOR DETAILS).</span>
+    
+    <span itemprop="description" repeat>Assignors: BOOK, MICHAEL L., BRYAN, THOMAS C., HOWARD, RICHARD T.</span>
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2005-05-03">2005-05-03</time>
+    <span itemprop="title">Application granted</span>
+    <span itemprop="type">granted</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2005-05-03">2005-05-03</time>
+    <span itemprop="title">Publication of US6888476B1</span>
+    <span itemprop="type">publication</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    <span itemprop="documentId">patent/US6888476B1/en</span>
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2019-11-26">2019-11-26</time>
+    <span itemprop="title">Application status is Expired - Fee Related</span>
+    <span itemprop="type">legal-status</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2023-07-21">2023-07-21</time>
+    <span itemprop="title">Adjusted expiration</span>
+    <span itemprop="type">legal-status</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+
+  <h2>Links</h2>
+
+  <ul>
+    
+          <li itemprop="links" itemscope repeat>
+            <meta itemprop="id" content="usptoLink">
+            <a href="http://patft.uspto.gov/netacgi/nph-Parser?Sect1=PTO1&Sect2=HITOFF&p=1&u=/netahtml/PTO/srchnum.html&r=1&f=G&l=50&d=PALL&s1=6888476.PN." itemprop="url" target="_blank"><span itemprop="text">USPTO</span></a>
+          </li>
+        <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="usptoAssignmentLink">
+          <a href="https://assignment.uspto.gov/patent/index.html#/patent/search/resultFilter?searchInput=6888476" itemprop="url" target="_blank"><span itemprop="text">USPTO Assignment</span></a>
+        </li>
+
+    <li itemprop="links" itemscope repeat>
+        <meta itemprop="id" content="espacenetLink">
+        <a href="http://worldwide.espacenet.com/publicationDetails/biblio?CC=US&amp;NR=6888476B1&amp;KC=B1&amp;FT=D" itemprop="url" target="_blank"><span itemprop="text">Espacenet</span></a>
+      </li>
+      
+
+    
+
+    
+      <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="globalDossierLink">
+          <a href="http://globaldossier.uspto.gov/#/result/patent/US/6888476/1" itemprop="url" target="_blank"><span itemprop="text">Global Dossier</span></a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="stackexchangeLink">
+          <a href="https://patents.stackexchange.com/questions/tagged/US6888476" itemprop="url"><span itemprop="text">Discuss</span></a>
+        </li>
+      
+  </ul>
+
+  
+  <ul itemprop="concept" itemscope>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001276</span>
+      <span itemprop="name">controlling effects</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>abstract</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">4</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000000034</span>
+      <span itemprop="name">methods</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">11</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000000875</span>
+      <span itemprop="name">corresponding</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">9</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000004044</span>
+      <span itemprop="name">response</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000010432</span>
+      <span itemprop="name">diamond</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">5</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000010304</span>
+      <span itemprop="name">firing</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">5</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000003032</span>
+      <span itemprop="name">molecular docking</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">5</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000002104</span>
+      <span itemprop="name">routine</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">5</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001976</span>
+      <span itemprop="name">improved</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">3</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000005225</span>
+      <span itemprop="name">electronics</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000003287</span>
+      <span itemprop="name">optical</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000003044</span>
+      <span itemprop="name">adaptive</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000003570</span>
+      <span itemprop="name">air</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000003247</span>
+      <span itemprop="name">decreasing</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000005516</span>
+      <span itemprop="name">engineering processes</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000003384</span>
+      <span itemprop="name">imaging method</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000010912</span>
+      <span itemprop="name">leaf</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000015654</span>
+      <span itemprop="name">memory</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000004048</span>
+      <span itemprop="name">modification</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000006011</span>
+      <span itemprop="name">modification</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000003860</span>
+      <span itemprop="name">storage</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000007514</span>
+      <span itemprop="name">turning</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+  </ul>
+  
+
+  <section>
+    <h2>Images</h2>
+    <ul>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/51/85/a5/50176513d2d7e6/US06888476-20050503-D00000.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/aa/8d/be/6a19ee69d22837/US06888476-20050503-D00000.png">
+        <ul>
+          <li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="1">
+            <meta itemprop="label" content="automatic transition">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1096">
+              <meta itemprop="top" content="554">
+              <meta itemprop="right" content="1109">
+              <meta itemprop="bottom" content="595">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="1">
+            <meta itemprop="label" content="automatic transition">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="620">
+              <meta itemprop="top" content="554">
+              <meta itemprop="right" content="641">
+              <meta itemprop="bottom" content="595">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="1">
+            <meta itemprop="label" content="automatic transition">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="948">
+              <meta itemprop="top" content="1025">
+              <meta itemprop="right" content="967">
+              <meta itemprop="bottom" content="1063">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="2">
+            <meta itemprop="label" content="reset command">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1076">
+              <meta itemprop="top" content="729">
+              <meta itemprop="right" content="1123">
+              <meta itemprop="bottom" content="776">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="3">
+            <meta itemprop="label" content="standby command">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1508">
+              <meta itemprop="top" content="387">
+              <meta itemprop="right" content="1546">
+              <meta itemprop="bottom" content="433">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="3">
+            <meta itemprop="label" content="standby command">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1820">
+              <meta itemprop="top" content="874">
+              <meta itemprop="right" content="1845">
+              <meta itemprop="bottom" content="912">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="4">
+            <meta itemprop="label" content="command">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1563">
+              <meta itemprop="top" content="553">
+              <meta itemprop="right" content="1596">
+              <meta itemprop="bottom" content="602">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="6">
+            <meta itemprop="label" content="signal">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="2041">
+              <meta itemprop="top" content="554">
+              <meta itemprop="right" content="2073">
+              <meta itemprop="bottom" content="602">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="7">
+            <meta itemprop="label" content="spot command">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1660">
+              <meta itemprop="top" content="285">
+              <meta itemprop="right" content="1698">
+              <meta itemprop="bottom" content="338">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="0">
+            <meta itemprop="id" content="8">
+            <meta itemprop="label" content="diagnostic command">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1294">
+              <meta itemprop="top" content="812">
+              <meta itemprop="right" content="1327">
+              <meta itemprop="bottom" content="862">
+            </span>
+          </li>
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/23/40/c3/7f8a81e14d1832/US06888476-20050503-D00001.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/9f/48/70/e0559ec8df3320/US06888476-20050503-D00001.png">
+        <ul>
+          
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/3f/d2/3d/8a5462a2e765bf/US06888476-20050503-D00002.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/fd/38/7e/b9e5a2edab6212/US06888476-20050503-D00002.png">
+        <ul>
+          
+        </ul>
+      </li>
+      <li itemprop="images" itemscope repeat>
+        <img itemprop="thumbnail" src="https://patentimages.storage.googleapis.com/d1/0f/29/701cb08225e7ef/US06888476-20050503-D00003.png">
+        <meta itemprop="full" content="https://patentimages.storage.googleapis.com/96/44/b5/2fba132cb70e51/US06888476-20050503-D00003.png">
+        <ul>
+          <li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="3">
+            <meta itemprop="id" content="1">
+            <meta itemprop="label" content="automatic transition">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="641">
+              <meta itemprop="top" content="1831">
+              <meta itemprop="right" content="660">
+              <meta itemprop="bottom" content="1868">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="3">
+            <meta itemprop="id" content="24">
+            <meta itemprop="label" content="start">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1045">
+              <meta itemprop="top" content="86">
+              <meta itemprop="right" content="1164">
+              <meta itemprop="bottom" content="162">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="3">
+            <meta itemprop="id" content="26">
+            <meta itemprop="label" content="decision diamond">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1115">
+              <meta itemprop="top" content="298">
+              <meta itemprop="right" content="1182">
+              <meta itemprop="bottom" content="344">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="3">
+            <meta itemprop="id" content="28">
+            <meta itemprop="label" content="decision diamond">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1048">
+              <meta itemprop="top" content="588">
+              <meta itemprop="right" content="1114">
+              <meta itemprop="bottom" content="638">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="3">
+            <meta itemprop="id" content="30">
+            <meta itemprop="label" content="block">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="462">
+              <meta itemprop="top" content="930">
+              <meta itemprop="right" content="536">
+              <meta itemprop="bottom" content="981">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="3">
+            <meta itemprop="id" content="32">
+            <meta itemprop="label" content="block">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1161">
+              <meta itemprop="top" content="1118">
+              <meta itemprop="right" content="1230">
+              <meta itemprop="bottom" content="1170">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="3">
+            <meta itemprop="id" content="34">
+            <meta itemprop="label" content="decision diamond">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1010">
+              <meta itemprop="top" content="1569">
+              <meta itemprop="right" content="1079">
+              <meta itemprop="bottom" content="1615">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="3">
+            <meta itemprop="id" content="36">
+            <meta itemprop="label" content="block">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="435">
+              <meta itemprop="top" content="1602">
+              <meta itemprop="right" content="495">
+              <meta itemprop="bottom" content="1655">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="3">
+            <meta itemprop="id" content="38">
+            <meta itemprop="label" content="block">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1511">
+              <meta itemprop="top" content="1589">
+              <meta itemprop="right" content="1574">
+              <meta itemprop="bottom" content="1639">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="3">
+            <meta itemprop="id" content="4">
+            <meta itemprop="label" content="command">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1127">
+              <meta itemprop="top" content="1826">
+              <meta itemprop="right" content="1157">
+              <meta itemprop="bottom" content="1871">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="3">
+            <meta itemprop="id" content="40">
+            <meta itemprop="label" content="decision diamond">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1041">
+              <meta itemprop="top" content="1916">
+              <meta itemprop="right" content="1114">
+              <meta itemprop="bottom" content="1965">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="3">
+            <meta itemprop="id" content="42">
+            <meta itemprop="label" content="block">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="675">
+              <meta itemprop="top" content="1896">
+              <meta itemprop="right" content="739">
+              <meta itemprop="bottom" content="1944">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="3">
+            <meta itemprop="id" content="44">
+            <meta itemprop="label" content="block">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1643">
+              <meta itemprop="top" content="1900">
+              <meta itemprop="right" content="1712">
+              <meta itemprop="bottom" content="1952">
+            </span>
+          </li><li itemprop="callouts" itemscope repeat>
+            <meta itemprop="figurePage" content="3">
+            <meta itemprop="id" content="46">
+            <meta itemprop="label" content="block">
+            
+            <span itemprop="bounds" itemscope>
+              <meta itemprop="left" content="1099">
+              <meta itemprop="top" content="2063">
+              <meta itemprop="right" content="1194">
+              <meta itemprop="bottom" content="2114">
+            </span>
+          </li>
+        </ul>
+      </li>
+      </ul>
+  </section>
+
+  <section>
+    <h2>Classifications</h2>
+    
+    <ul>
+      <li>
+        <ul itemprop="cpcs" itemscope repeat>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G</span>&mdash;<span itemprop="Description">PHYSICS</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G01</span>&mdash;<span itemprop="Description">MEASURING; TESTING</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G01S</span>&mdash;<span itemprop="Description">RADIO DIRECTION-FINDING; RADIO NAVIGATION; DETERMINING DISTANCE OR VELOCITY BY USE OF RADIO WAVES; LOCATING OR PRESENCE-DETECTING BY USE OF THE REFLECTION OR RERADIATION OF RADIO WAVES; ANALOGOUS ARRANGEMENTS USING OTHER WAVES</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G01S3/00</span>&mdash;<span itemprop="Description">Direction-finders for determining the direction from which infrasonic, sonic, ultrasonic, or electromagnetic waves, or particle emission, not having a directional significance, are being received</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G01S3/78</span>&mdash;<span itemprop="Description">Direction-finders for determining the direction from which infrasonic, sonic, ultrasonic, or electromagnetic waves, or particle emission, not having a directional significance, are being received using electromagnetic waves other than radio waves</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G01S3/782</span>&mdash;<span itemprop="Description">Systems for determining direction or deviation from predetermined direction</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G01S3/785</span>&mdash;<span itemprop="Description">Systems for determining direction or deviation from predetermined direction using adjustment of orientation of directivity characteristics of a detector or detector system to give a desired condition of signal derived from that detector or detector system</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G01S3/786</span>&mdash;<span itemprop="Description">Systems for determining direction or deviation from predetermined direction using adjustment of orientation of directivity characteristics of a detector or detector system to give a desired condition of signal derived from that detector or detector system the desired condition being maintained automatically, i.e. tracking systems</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G01S3/7864</span>&mdash;<span itemprop="Description">T.V. type tracking systems</span>
+            <meta itemprop="Leaf" content="true">
+            
+            <meta itemprop="FirstCode" content="true">
+          </li>
+          </ul>
+      </li>
+      <li>
+        <ul itemprop="cpcs" itemscope repeat>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G</span>&mdash;<span itemprop="Description">PHYSICS</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G01</span>&mdash;<span itemprop="Description">MEASURING; TESTING</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G01S</span>&mdash;<span itemprop="Description">RADIO DIRECTION-FINDING; RADIO NAVIGATION; DETERMINING DISTANCE OR VELOCITY BY USE OF RADIO WAVES; LOCATING OR PRESENCE-DETECTING BY USE OF THE REFLECTION OR RERADIATION OF RADIO WAVES; ANALOGOUS ARRANGEMENTS USING OTHER WAVES</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G01S17/00</span>&mdash;<span itemprop="Description">Systems using the reflection or reradiation of electromagnetic waves other than radio waves, e.g. lidar systems</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G01S17/02</span>&mdash;<span itemprop="Description">Systems using the reflection of electromagnetic waves other than radio waves</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G01S17/06</span>&mdash;<span itemprop="Description">Systems determining position data of a target</span>
+            <meta itemprop="Leaf" content="true">
+            
+            
+          </li>
+          </ul>
+      </li>
+      <li>
+        <ul itemprop="cpcs" itemscope repeat>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G</span>&mdash;<span itemprop="Description">PHYSICS</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G01</span>&mdash;<span itemprop="Description">MEASURING; TESTING</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G01S</span>&mdash;<span itemprop="Description">RADIO DIRECTION-FINDING; RADIO NAVIGATION; DETERMINING DISTANCE OR VELOCITY BY USE OF RADIO WAVES; LOCATING OR PRESENCE-DETECTING BY USE OF THE REFLECTION OR RERADIATION OF RADIO WAVES; ANALOGOUS ARRANGEMENTS USING OTHER WAVES</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G01S17/00</span>&mdash;<span itemprop="Description">Systems using the reflection or reradiation of electromagnetic waves other than radio waves, e.g. lidar systems</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G01S17/88</span>&mdash;<span itemprop="Description">Lidar systems specially adapted for specific applications</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G01S17/93</span>&mdash;<span itemprop="Description">Lidar systems specially adapted for specific applications for anti-collision purposes</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G01S17/933</span>&mdash;<span itemprop="Description">Lidar systems specially adapted for specific applications for anti-collision purposes between aircrafts or spacecrafts; between aircrafts or spacecrafts and fixed obstacles</span>
+            <meta itemprop="Leaf" content="true">
+            <meta itemprop="Additional" content="true">
+            
+          </li>
+          </ul>
+      </li>
+      </ul>
+  </section>
+
+  <section itemprop="abstract" itemscope>
+    <h2>Abstract</h2>
+    
+    <div itemprop="content" html><abstract mxw-id="PA50818559" lang="EN" load-source="patent-office">
+    <div num="p-0001" class="abstract">A method is provided for controlling operations in a video guidance sensor system wherein images of laser output signals transmitted by the system and returned from a target are captured and processed by the system to produce data used in tracking of the target. Six modes of operation are provided as follows: (i) a reset mode; (ii) a diagnostic mode; (iii) a standby mode; (iv) an acquisition mode; (v) a tracking mode; and (vi) a spot mode wherein captured images of returned laser signals are processed to produce data for all spots found in the image. The method provides for automatic transition to the standby mode from the reset mode after integrity checks are performed and from the diagnostic mode to the reset mode after diagnostic operations are carried out. Further, acceptance of reset and diagnostic commands is permitted only when the system is in the standby mode. The method also provides for automatic transition from the acquisition mode to the tracking mode when an acceptable target is found.</div>
+  </abstract>
+  </div>
+  </section>
+
+  <section itemprop="description" itemscope>
+    <h2>Description</h2>
+    
+    <div itemprop="content" html><div mxw-id="PDES15861546" lang="EN" load-source="patent-office" class="description">
+
+  <heading>ORIGIN OF THE INVENTION</heading>
+  <p num="p-0002">This invention was made by employees of the United States Government and may be manufactured and used by or for the Government for governmental purposes without the payment of any royalties.</p>
+
+
+  <heading>FIELD OF THE INVENTION</heading>
+  <p num="p-0003">The present invention relates to a video guidance sensor system for space vehicles and, more particularly, relates to a software-based control method for such a system.</p>
+  <heading>BACKGROUND OF THE INVENTION</heading>
+  <p num="p-0004">Prior techniques used in determining the range between two spacecraft vehicles for automatic rendezvous and docking of such, include vehicle radar, man in loop estimates, global positioning systems, lasers, loran, and video guidance sensor systems for processing optical images in determining range. The video guidance sensor system approach, which is of particular importance here, is based on the concept of using captured and processed images to determine the relative positions and attitudes of a video guidance sensor and target.</p>
+  <p num="p-0005">One prior art video guidance sensor system uses a pair of lasers of predetermined wavelengths to illuminate a target. The target includes a pattern of filtered retroreflectors to reflect light. The filtered retroreflectors pass one wavelength of light and absorb the other. Two successive pictures or images are taken of the reflected light and the two images are then subtracted one from the other, thereby allowing for target spots to be easily tracked. Such a system is described, for example, in R. Howard, T. Bryan, M. Book, and J. Jackson, “<i>Active Sensor System for Automatic Rendezvous and Docking</i>,” SPIE Aerosense Conference, 1997, which is hereby incorporated by reference.</p>
+  <p num="p-0006">Another prior art video guidance sensor system uses a CMOS imaging chip and a digital signal processor (DSP) in order to provide higher-speed target tracking and higher-speed image processing. The high-speed tracking rates result in a more robust and flexible video guidance sensor. Because of these faster tracking rates, the video guidance sensor system can track faster moving objects or provide more data about slower moving objects. Such a system is described, for example, in R. Howard, M. Book and T. Bryan, “<i>Video</i>-<i>based sensor for tracking </i>3-<i>dimensional targets</i>,” Atmospheric Propagation, Adaptive Systems, &amp; Laser Radar Technology for Remote Sensing, SPIE Volume 4167, Europto Conference, September 2000, and in R. Howard, T. Bryan, and M. Book, “<i>The Video Guidance Sensor: Space, Air, Ground and Sea</i>,” GN&amp;C Conference, 2000, which are also hereby incorporated by reference.</p>
+  <p num="p-0007">An improved video guidance system is described in R. Howard, T. Bryan and M. Book, “<i>An Advanced Sensor for Automated Docking</i>,” Proceedings of Digital Avionics Systems Conference (October, 2001), which is also hereby incorporated by reference. The basic components of the overall docking system include an on-board computer, control software for calculating the correct thruster firings necessary to achieve docking, a sensor for long-range (rendezvous) operations, a sensor for short range (proximity) operations, and grapple mechanism or fixture for allowing the system to be attached to the target vehicle. The video guidance sensor serves as the short range sensor and must be able to handle the transition from rendezvous to proximity operations and to pick up where the rendezvous sensor leaves off.</p>
+  <p num="p-0008">The improved video guidance sensor is generally based on the tracking of “spots” on known targets as explained below. By tracking only spots, a large amount of image processing/scene interpretation is avoided, and because the spots occupy known positions on the target, the sensor can easily determine relative position and attitude data based on the centroids of the spots.</p>
+  <p num="p-0009">The basic video guidance sensor system consists of the sensor and the target. The sensor is the active part and includes a pair of laser illuminators which illuminate the target and an image processor which processes the return images. In one preferred embodiment, the target is an arrangement of corner-cube retro-reflectors with associated optical filters.</p>
+  <p num="p-0010">The improved video guidance sensor currently uses lasers of two different wavelengths to illuminate the target. One of the wavelengths passes through the filters in front of the retro-reflectors on the target while the other wavelength is absorbed by the filters. The system essentially functions by taking a picture of the target illuminated by the foreground lasers and then taking a picture of the target illuminated by the background lasers. The second picture is subtracted from the first, thereby producing a very low-noise image with some bright spots at the target reflector locations. After the image subtraction, the processor (DSP) processes the resulting intensity data, essentially by assembling the pixels in the image which are above a preset threshold into “blobs.” The blobs are then screened for size, the centroids of the blobs are computed and the relation between the positions of the blobs is used to determine whether there is a match between the blob pattern and the known target pattern.</p>
+  <p num="p-0011">Once the target “spots” are picked out of all of the blobs, tracking windows are established around the target spots and the relative positions and attitudes between the sensor and the target are computed. When the target is close enough to the sensor, tracking windows are established around each of the target spots. The acquisition cycle or mode requires processing the entire image to find the target. The use of tracking windows has the advantage that once the target has been acquired, only the area around the target spots must be processed each cycle, so that processing time is decreased.</p>
+  <heading>SUMMARY OF THE INVENTION</heading>
+  <p num="p-0012">According to the invention, a software-based control method is provided for controlling implementation of, and transitioning between, a plurality of different modes of operation of a video guidance sensor system. After the overall system software performs basic functional testing upon powerup, the software-based method of the invention checks, for correctness, allowable commands for six different modes of operation. If a particular command checks out, the commanded mode proceeds. As discussed below, an “acquire” or “acquisition” mode, wherein a target with an acceptable range is sought, and a “track” or “tracking” mode, wherein the acquired target is tracked, are the primary modes of operation for the video guidance sensor system.</p>
+  <p num="p-0013">In accordance with the invention, there is provided a method for controlling operations in a video guidance sensor system wherein images of laser output signals transmitted by the system and returned from a target are captured and processed by the system to produce data used in tracking of the target, the target including a predetermined pattern of light reflectors so that a captured image of the target includes a pattern of light spots corresponding to the pattern of light reflectors, the method providing for performance of each of the following modes of operation in response to a corresponding mode command:
+</p> <ul> <li id="ul0001-0001" num="0000"> <ul> <li id="ul0002-0001" num="0013">(i) a reset mode wherein program integrity checks are performed and an output produced;</li> <li id="ul0002-0002" num="0014">(ii) a diagnostic mode wherein diagnostic operations are carried out and a known output is obtained from a previously synthesized image;</li> <li id="ul0002-0003" num="0015">(iii) a standby mode wherein status data is output at a fixed rate;</li> <li id="ul0002-0004" num="0016">(iv) an acquisition mode wherein range information is included in a corresponding acquisition mode command and an attempt is made, based on captured images of returned laser signals, to find a target pattern within a range window centered around an estimated range;</li> <li id="ul0002-0005" num="0017">(v) a tracking mode wherein images of a target pattern are captured and data relevant to that target is output; and</li> <li id="ul0002-0006" num="0018">(vi) a spot mode wherein captured images of returned laser signals are processed to produce data for all spots found in the image,</li> <li id="ul0002-0007" num="0019">and the method providing for automatic transition to the standby mode from the reset mode after the integrity checks are performed and from the diagnostic mode to the reset mode after the diagnostic operations are carried out, and</li> <li id="ul0002-0008" num="0020">the method permitting acceptance of acquisition, spot, reset and diagnostic commands only when the system is in the standby mode, and</li> <li id="ul0002-0009" num="0021">the method further providing for automatic transition from the acquisition mode to the tracking mode when an acceptable target pattern is found.</li> </ul> </li> </ul>
+
+  <p num="p-0014">In one preferred implementation, two different rates of tracking are provided in the tracking mode, and the tracking rate to be used is determined as part of an acquisition mode command. In an alternative preferred implementation, the tracking rate to be used is determined based on a separate tracking command.</p>
+  <p num="p-0015">Preferably, entry into the reset mode is limited to one of (i) powering up the video guidance sensor system and (ii) the system undergoing a soft reboot.</p>
+  <p num="p-0016">Advantageously, in each of the modes, an output is produced which includes analog data corresponding to temperature and voltage levels of system hardware.</p>
+  <p num="p-0017">In one advantageous implementation, the method is carried out using two different digital signal processors. Preferably, one of the processors (the command processor) receives said mode commands from an external source, processes the commands and passes the commands to the other of the processors (the image processor) and the other of said processors carries out image processing required by some of the commands.</p>
+  <p num="p-0018">Further features and advantages of the present invention will be set forth in, or apparent from, the detailed description of preferred embodiments thereof which follows.</p>
+
+
+  <description-of-drawings>
+    <heading>BRIEF DESCRIPTION OF THE DRAWINGS</heading>
+    <p num="p-0019"> <figref idrefs="DRAWINGS">FIG. 1</figref> is state transition diagram illustrating transition relationships between the modes of operation of the video guidance sensor system;</p>
+    <p num="p-0020"> <figref idrefs="DRAWINGS">FIG. 2</figref> is the main flow chart for the command processor of the system; and</p>
+    <p num="p-0021"> <figref idrefs="DRAWINGS">FIG. 3</figref> is the main flowchart for the image processor of the system.</p>
+  </description-of-drawings>
+
+
+  <heading>DETAILED DESCRIPTION OF THE PREFERRED EMBODIMENTS</heading>
+  <p num="p-0022">In general, the overall video guidance sensor software is designed to perform the communications and control for the sensor electronics hardware. In a specific implementation, the hardware includes two digital signal processors (DSPs), a Texas Instruments F240 and a TMS320VC33 (C33). The hardware also includes RAM and ROM for the two processors, two field-programmable gate arrays (FPGAs), image storage memory and camera and laser control electronics. Broadly speaking, the video guidance sensor software receives commands from an external source through a serial interface, checks the commands for correctness, implements the commands and returns the data appropriate for the command received. In the specific embodiment under consideration, the F240 processor receives and processes the commands and then passes the appropriate data to the C33 whose main function is to carry out the image processing necessary for some of the commands.</p>
+  <p num="p-0023">As indicated above, an important function of the software of the invention is to process commands for and to control transitioning between six different modes of operation as follows: (i) reset; (ii) diagnostic; (iii) standby; (iv) acquisition; (v) track; and (vi) reset. Of these, diagnostic and reset are one-time events, i.e., when the software is commanded to do one of these modes, the software performs the indicated action and then automatically transitions into another mode. In each of the six modes, a part of the data output in that mode includes sixteen bytes of analog data corresponding to various temperatures and voltage levels in the system hardware.</p>
+  <p num="p-0024">Briefly considering the various modes, in the reset mode, the software performs some basic integrity checks and outputs the integrity checks as well as the software version number. As indicated above, this is a one-time event in that after doing the above, the software automatically transitions into the standby mode. The reset mode is reached only after the entire video guidance sensor system is powered up or undergoes a soft reboot. When the system is commanded to reset, the system performs a soft reboot and comes up in the reset mode.</p>
+  <p num="p-0025">Turning to the diagnostics mode, when commanded to do diagnostics, the software runs two diagnostic routines which involve firing the lasers, measuring output power and firing time, processing synthesized images and producing a known output from the synthesized images. This process was generally described above. After the routines are run, the software transitions automatically into the reset mode, by rebooting the entire system.</p>
+  <p num="p-0026">In the standby mode, the software outputs data as to its status at a predetermined rate which is 5 Hz in an exemplary embodiment. The reset and diagnostic commands are only accepted when the system is in the standby mode.</p>
+  <p num="p-0027">When the system is commanded into the acquisition mode, a range estimate is included in the command. The overall software then provides for firing of the lasers, grabbing of the return images and processing of the images. Based on the processed images the software attempts to find a target pattern within a predetermined percentage of the estimated range (±30% in an exemplary implementation). This process also occurs at a predetermined rate (e.g., 5 HZ, as above) and data is output that describes those target spots, if any, that are picked up by the sensor. If an acceptable target pattern is found, the software automatically transitions into the track mode.</p>
+  <p num="p-0028">In the track or tracking mode, the sensor software again provides for firing the lasers, grabbing the returned images, processing the images and outputting the data relevant to the particular target. This data typically comprises range, bearing, attitude, and information about the spots. In the implementation being considered here, the sensor has two rates of tracking, viz., 5 Hz and 25 Hz. The tracking rate is given as part of the acquisition command or in a separate track command. The latter is only valid if the video guidance sensor system is already in the track mode.</p>
+  <p num="p-0029">In the spot mode, the software provides for firing the lasers, grabbing images, processing the images and, in this case, outputting the data for the spots found in the image. This is again done at a fixed (5 Hz) rate. This mode is especially useful because many parameters of target acquisition can be varied, something that is necessary for calibration purposes on the ground.</p>
+  <p num="p-0030">Referring to <figref idrefs="DRAWINGS">FIG. 1</figref>, a state transition diagram is shown for the six modes of operation. The reset, diagnostics, standby, spot, acquisition and tracking modes are indicated at A, B, C, D, E and F, respectively. A further “powerup” or “watchdog timer” mode of operation is indicated at G. A watchdog timer timeout will transition from initial “power up” to any of the other modes.</p>
+  <p num="p-0031">The commands or other signals are as follows: automatic, denoted <b>1</b>; reset command, denoted <b>2</b>; standby command, denoted <b>3</b>; acquire command, denoted <b>4</b>; target not found, denoted <b>5</b>; target found, denoted <b>6</b>; spot command, denoted <b>7</b>; and diagnostic command, denoted <b>8</b>.</p>
+  <p num="p-0032">As discussed above and is indicated in <figref idrefs="DRAWINGS">FIG. 1</figref>, the automatic transition <b>1</b> is between powerup G and reset mode A, reset mode A and standby mode C and diagnostic mode B and reset mode A. Thus, for example, as discussed hereinbefore, the reset mode A automatically transitions into the standby mode C, and the diagnostic mode B, after all routines are run, automatically transitions into the reset mode A.</p>
+  <p num="p-0033">The reset command <b>2</b> represents the transition between the standby mode C and the reset mode A, while the standby command <b>3</b> represents the transition to the standby mode B from the spot mode D, the tracking mode F or the acquisition mode E, indicating a return to the standby mode C when the mode operations or routines for these modes are completed.</p>
+  <p num="p-0034">The “acquire target” command <b>4</b> represents a transition to the acquisition mode E from the standby mode C, the spot mode D or the tracking mode F.</p>
+  <p num="p-0035">The “target not found” signal represents the transition from the tracking mode F to acquisition mode E when no target is found during the tracking mode while, similarly, the “target found” signal <b>6</b> represents the transition between the acquisition mode G and the tracking mode F when a target is found.</p>
+  <p num="p-0036">The spot command <b>7</b> represents the transition from the standby mode C or the acquisition mode E to the spot mode D.</p>
+  <p num="p-0037">The diagnostic command <b>8</b> represents the transition from the standby mode C to the diagnostic mode B.</p>
+  <p num="p-0038">Referring to <figref idrefs="DRAWINGS">FIG. 2</figref>, the re is shown the main flow chart for the above-mentioned F240 processor. As shown, the process proceeds from start <b>10</b>, to an “initialize everything” block <b>12</b> wherein the system is initialized to a “mode?” decision diamond <b>14</b> which determines the proper mode. Blocks <b>16</b> to <b>21</b> respectively represent the operations and routines for the reset, standby, diagnostic, spot, acquisition and track modes described above.</p>
+  <p num="p-0039">Referring to <figref idrefs="DRAWINGS">FIG. 3</figref>, there is shown the main flowchart for the image (C33) processor. As indicated above, the chief function of this processor is to carry out the image processing necessary for some of the commands. As illustrated, from start <b>24</b>, the process proceeds to a “any command packet?” decision diamond <b>26</b> and, if there is a command, to “mode?” decision diamond <b>28</b>. As shown, three modes are possible, viz., standby, tracking and spot or acquire.</p>
+  <p num="p-0040">For the standby mode, the program checksum is calculated and the standby packet is send, as indicated by block <b>30</b>.</p>
+  <p num="p-0041">In the spot (spot or acquire) mode, spots for the entire image are processed (“handled”), as indicated by block <b>32</b>, and in a manner generally as described above in the introductory portion of this patent application.</p>
+  <p num="p-0042">In the tracking mode, a “range?” decision diamond <b>34</b> has its output routed to one of a long-range target tracking operation, indicated by block <b>36</b>, a short-range target racking operation, indicated by block <b>38</b> and “in-between” operation, which routes the output to an “overmode?” decision diamond <b>40</b>. The latter provides three possibilities, viz., tracking of a long-range while finding a short-range target, as indicated by block <b>42</b>, tracking a short-range target while finding a long-range target, indicated by block <b>44</b>, and tracking both targets, indicated by block <b>46</b>.</p>
+  <p num="p-0043">Although the invention has been described above in relation to preferred embodiments thereof, it will be understood by those skilled in the art that variations and modifications can be effected in these preferred embodiments without departing from the scope and spirit of the invention.</p>
+
+</div>
+  </div>
+  </section>
+
+  <section itemprop="claims" itemscope>
+    <h2>Claims (<span itemprop="count">7</span>)</h2>
+    
+    <div itemprop="content" html><div mxw-id="PCLM8839002" lang="EN" load-source="patent-office" class="claims">
+  <div class="claim"> <div id="CLM-00001" num="00001" class="claim">
+    <div class="claim-text">1. A method for controlling operations in a video guidance sensor system wherein images of laser output signals transmitted by the system and returned from a target are captured and processed by the system to produce data used in tracking of the target, said target including a predetermined pattern of light reflectors so that a captured image of the target includes a pattern of light spots corresponding to the pattern of light reflectors, said method providing for performance of each of the following modes of operation in response to a corresponding mode command:
+<div class="claim-text">(i) a reset mode wherein program integrity checks are performed and an output produced; </div>
+<div class="claim-text">(ii) a diagnostic mode wherein diagnostic operations are carried out and a known output is obtained from captured images of a previously synthesized image; </div>
+<div class="claim-text">(iii) a standby mode wherein status data is output at a fixed rate; </div>
+<div class="claim-text">(iv) an acquisition mode wherein range information is included in a corresponding acquisition mode command and an attempt is made, based on captured images of returned laser signals, to find a target pattern within a range window centered around an estimated range; </div>
+<div class="claim-text">(v) a tracking mode wherein images of a target are captured and data relevant to that target is output; and </div>
+<div class="claim-text">(vi) a spot mode wherein captured images of returned laser signals are processed to produce data for all spots found in the image, </div>
+<div class="claim-text">and the method providing for automatic transition to the standby mode from said reset mode after said integrity checks are performed and from said diagnostic mode to said reset mode after said diagnostic operations are carried out, and </div>
+<div class="claim-text">said method permitting acceptance of acquisition, spot, reset and diagnostic commands only when the system is in the standby mode, and </div>
+<div class="claim-text">said method further providing for automatic transition from said acquisition mode to the tracking mode when an acceptable target is found. </div>
+</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00002" num="00002" class="claim">
+    <div class="claim-text">2. A method according to <claim-ref idref="CLM-00001">claim 1</claim-ref> wherein two different rates of tracking are provided in the tracking mode, and the tracking rate to be used is determined as part of an acquisition mode command.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00003" num="00003" class="claim">
+    <div class="claim-text">3. A method according to <claim-ref idref="CLM-00001">claim 1</claim-ref> wherein two different rates of tracking are provided in the tracking mode, and the tracking rate to be used is determined based on a separate tracking command.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00004" num="00004" class="claim">
+    <div class="claim-text">4. A method according to <claim-ref idref="CLM-00001">claim 1</claim-ref> wherein entry into the reset mode is limited to one of (i) powering up the video guidance sensor system and (ii) the system undergoing a soft reboot.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00005" num="00005" class="claim">
+    <div class="claim-text">5. A method according to <claim-ref idref="CLM-00001">claim 1</claim-ref> wherein in each of said modes an output is produced which includes analog data corresponding to temperature and voltage levels of system hardware.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00006" num="00006" class="claim">
+    <div class="claim-text">6. A method according to <claim-ref idref="CLM-00001">claim 1</claim-ref> wherein the method is carried out using two different digital signal processors or microprocessors.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00007" num="00007" class="claim">
+    <div class="claim-text">7. A method according to <claim-ref idref="CLM-00006">claim 6</claim-ref> wherein one of said processors receives said mode commands from an external source, processes said commands and passes the commands to the other of said processors and the other of said processors carries out image processing required by some of said commands.</div>
+  </div>
+</div> </div>
+  </div>
+  </section>
+
+  <section itemprop="application" itemscope>
+
+    <section itemprop="metadata" itemscope>
+        <span itemprop="applicationNumber">US10/615,369</span>
+        <span itemprop="priorityDate">2003-07-03</span>
+        <span itemprop="filingDate">2003-07-03</span>
+        <span itemprop="title">Control method for video guidance sensor system 
+       </span>
+        <span itemprop="ifiStatus">Expired - Fee Related</span>
+        
+        <a href="/patent/US6888476B1/en">
+            <span itemprop="representativePublication">US6888476B1</span>
+            (<span itemprop="primaryLanguage">en</span>)
+        </a>
+    </section>
+
+    <h2>Priority Applications (1)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                    <th>Title</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="priorityApps" itemscope repeat>
+                <td>
+                   <span itemprop="applicationNumber">US10/615,369</span>
+                   
+                   <a href="/patent/US6888476B1/en">
+                        <span itemprop="representativePublication">US6888476B1</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                <td itemprop="priorityDate">2003-07-03</td>
+                <td itemprop="filingDate">2003-07-03</td>
+                <td itemprop="title">Control method for video guidance sensor system 
+       </td>
+              </tr>
+           </tbody>
+       </table>
+
+    <h2>Applications Claiming Priority (1)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                    <th>Title</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="appsClaimingPriority" itemscope repeat>
+                <td>
+                   <span itemprop="applicationNumber">US10/615,369</span>
+                   <a href="/patent/US6888476B1/en">
+                        <span itemprop="representativePublication">US6888476B1</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                <td itemprop="priorityDate">2003-07-03</td>
+                <td itemprop="filingDate">2003-07-03</td>
+                <td itemprop="title">Control method for video guidance sensor system 
+       </td>
+              </tr>
+           </tbody>
+       </table>
+
+    
+
+    
+
+    <h2>Publications (1)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Publication Number</th>
+                    <th>Publication Date</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="pubs" itemscope repeat>
+                <td>
+                   <span itemprop="publicationNumber">US6888476B1</span>
+                   
+                   <span itemprop="thisPatent">true</span>
+                   <a href="/patent/US6888476B1/en">US6888476B1
+                       (<span itemprop="primaryLanguage">en</span>)
+                   </a>
+                </td>
+                <td itemprop="publicationDate">2005-05-03</td>
+              </tr>
+           </tbody>
+        </table>
+
+  </section>
+
+  <section itemprop="family" itemscope>
+    <h1>Family</h1>
+    <h2>ID=34520402</h2>
+
+    <h2>Family Applications (1)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Title</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="applications" itemscope repeat>
+                <td>
+                    <span itemprop="applicationNumber">US10/615,369</span>
+                    <span itemprop="ifiStatus">Expired - Fee Related</span>
+                    
+                    <a href="/patent/US6888476B1/en">
+                        <span itemprop="representativePublication">US6888476B1</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                </td>
+                <td itemprop="priorityDate">2003-07-03</td>
+                <td itemprop="filingDate">2003-07-03</td>
+                <td itemprop="title">Control method for video guidance sensor system 
+       </td>
+              </tr>
+           </tbody>
+        </table>
+
+    
+
+    
+
+    <h2>Country Status (1)</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Country</th>
+            <th>Link</th>
+          </tr>
+        </thead>
+        <tbody>
+        <tr itemprop="countryStatus" itemscope repeat>
+            <td>
+              <span itemprop="countryCode">US</span>
+                (<span itemprop="num">1</span>)
+              <meta itemprop="thisCountry" content="true">
+            </td>
+            <td>
+              <a href="/patent/US6888476B1/en">
+                <span itemprop="representativePublication">US6888476B1</span>
+                  (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+    
+
+    
+
+    <h2>Citations (3)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5007736A/en">
+              <span itemprop="publicationNumber">US5007736A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1978-02-14</td>
+          <td itemprop="publicationDate">1991-04-16</td>
+          <td><span itemprop="assigneeOriginal">Thomson-Csf</span></td>
+          <td itemprop="title">System for target designation by laser 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6091345A/en">
+              <span itemprop="publicationNumber">US6091345A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1998-12-10</td>
+          <td itemprop="publicationDate">2000-07-18</td>
+          <td><span itemprop="assigneeOriginal">The United States Of America As Represented By The Administrator Of The National Aeronautics And Space Administration</span></td>
+          <td itemprop="title">Synchronized target subsystem for automated docking systems 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6427780B1/en">
+              <span itemprop="publicationNumber">US6427780B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1997-11-14</td>
+          <td itemprop="publicationDate">2002-08-06</td>
+          <td><span itemprop="assigneeOriginal">Kabushiki Kaisha Topcon</span></td>
+          <td itemprop="title">Communication system for surveying instrument 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+
+    
+
+    
+    <ul>
+      
+      <li itemprop="applicationsByYear" itemscope repeat>
+        <span itemprop="year">2003</span>
+        <ul>
+          
+          <li itemprop="application" itemscope repeat>
+            <span itemprop="filingDate">2003-07-03</span>
+            <span itemprop="countryCode">US</span>
+            <span itemprop="applicationNumber">US10/615,369</span>
+            <a href="/patent/US6888476B1/en"><span itemprop="documentId">patent/US6888476B1/en</span></a>
+            <span itemprop="legalStatusCat">not_active</span>
+            <span itemprop="legalStatus">Expired - Fee Related</span>
+            
+            <span itemprop="thisApp" content="true" bool></span>
+            
+          </li>
+          
+        </ul>
+      </li>
+      
+    </ul>
+    
+
+    </section>
+
+  <section>
+    <h2>Patent Citations (3)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5007736A/en">
+              <span itemprop="publicationNumber">US5007736A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1978-02-14</td>
+          <td itemprop="publicationDate">1991-04-16</td>
+          <td><span itemprop="assigneeOriginal">Thomson-Csf</span></td>
+          <td itemprop="title">System for target designation by laser 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6427780B1/en">
+              <span itemprop="publicationNumber">US6427780B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1997-11-14</td>
+          <td itemprop="publicationDate">2002-08-06</td>
+          <td><span itemprop="assigneeOriginal">Kabushiki Kaisha Topcon</span></td>
+          <td itemprop="title">Communication system for surveying instrument 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6091345A/en">
+              <span itemprop="publicationNumber">US6091345A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1998-12-10</td>
+          <td itemprop="publicationDate">2000-07-18</td>
+          <td><span itemprop="assigneeOriginal">The United States Of America As Represented By The Administrator Of The National Aeronautics And Space Administration</span></td>
+          <td itemprop="title">Synchronized target subsystem for automated docking systems 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Non-Patent Citations (3)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">R. T. Howard, M.L. Book, T.C. Bryan, "<a href='http://scholar.google.com/scholar?q="Video-based+Sensor+for+Tracking+3+Dimensional+Targets%2C"'>Video-based Sensor for Tracking 3 Dimensional Targets,</a>" Europto Conference, p. 9, (Sep. 28, 2000).</span>
+            
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">R. T. Howard, T. C. Bryan, M. L. Book, "<a href='http://scholar.google.com/scholar?q="Active+Sensor+System+for+Automatic+Rendezvous+and+Docking%2C"'>Active Sensor System for Automatic Rendezvous and Docking,</a>" p. 10.</span>
+            
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">R. T. Howard, T. C. Bryan, M. L. Book, "<a href='http://scholar.google.com/scholar?q="The+Video+Guidance+Sensor%3A+Space%2C+Air%2C+Ground+and+Sea%2C"'>The Video Guidance Sensor: Space, Air, Ground and Sea,</a>" GN&amp;C Conference, p. 14, (Nov. 2, 2000).</span>
+            
+            
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  
+
+  
+
+  <section>
+    <h2>Similar Documents</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Publication</th>
+          <th>Publication Date</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/JP2758063B2/en">
+                <span itemprop="publicationNumber">JP2758063B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="1998-05-25">1998-05-25</time>
+            
+            
+          </td>
+          <td itemprop="title">  Searching tracking device and the search tracking method  </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US6362875B1/en">
+                <span itemprop="publicationNumber">US6362875B1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2002-03-26">2002-03-26</time>
+            
+            
+          </td>
+          <td itemprop="title">Machine vision system and method for inspection, homing, guidance and docking with respect to remote objects 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/EP2071353B1/en">
+                <span itemprop="publicationNumber">EP2071353B1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2019-08-07">2019-08-07</time>
+            
+            
+          </td>
+          <td itemprop="title">System and methods for autonomous tracking and surveillance 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="696930173554269975">
+              <a href="/scholar/696930173554269975"><span itemprop="scholarAuthors">Achtelik et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2009">2009</time>
+            
+          </td>
+          <td itemprop="title">Stereo vision and laser odometry for autonomous helicopters in GPS-denied indoor environments</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US10331952B2/en">
+                <span itemprop="publicationNumber">US10331952B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2019-06-25">2019-06-25</time>
+            
+            
+          </td>
+          <td itemprop="title">System and method for determining an orientation and position of an object 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US20040125207A1/en">
+                <span itemprop="publicationNumber">US20040125207A1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2004-07-01">2004-07-01</time>
+            
+            
+          </td>
+          <td itemprop="title">Robust stereo-driven video-based surveillance 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US7216036B2/en">
+                <span itemprop="publicationNumber">US7216036B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2007-05-08">2007-05-08</time>
+            
+            
+          </td>
+          <td itemprop="title">Integrated inertial stellar attitude sensor 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/EP1920271B1/en">
+                <span itemprop="publicationNumber">EP1920271B1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2012-02-22">2012-02-22</time>
+            
+            
+          </td>
+          <td itemprop="title">Multi-sensors and differential absorption lidar data fusion 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/EP2286397B1/en">
+                <span itemprop="publicationNumber">EP2286397B1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2011-10-26">2011-10-26</time>
+            
+            
+          </td>
+          <td itemprop="title">Controlling an imaging apparatus over a delayed communication link 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US6678395B2/en">
+                <span itemprop="publicationNumber">US6678395B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2004-01-13">2004-01-13</time>
+            
+            
+          </td>
+          <td itemprop="title">Video search and rescue device 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US9854147B2/en">
+                <span itemprop="publicationNumber">US9854147B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2017-12-26">2017-12-26</time>
+            
+            
+          </td>
+          <td itemprop="title">Method and system for performing adaptive image acquisition 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/KR20090031346A/en">
+                <span itemprop="publicationNumber">KR20090031346A</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2009-03-25">2009-03-25</time>
+            
+            
+          </td>
+          <td itemprop="title">Distributed jammer system 
+     </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/JP2007116666A/en">
+                <span itemprop="publicationNumber">JP2007116666A</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2007-05-10">2007-05-10</time>
+            
+            
+          </td>
+          <td itemprop="title">Surveillance camera apparatus and surveillance camera system 
+     </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US20160291593A1/en">
+                <span itemprop="publicationNumber">US20160291593A1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2016-10-06">2016-10-06</time>
+            
+            
+          </td>
+          <td itemprop="title">Scanning environments and tracking unmanned aerial vehicles 
+     </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/JP6514681B2/en">
+                <span itemprop="publicationNumber">JP6514681B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2019-05-15">2019-05-15</time>
+            
+            
+          </td>
+          <td itemprop="title">Method, system and apparatus for multi-perceptive stereo vision for robots 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/EP1035399A1/en">
+                <span itemprop="publicationNumber">EP1035399A1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2000-09-13">2000-09-13</time>
+            
+            
+          </td>
+          <td itemprop="title">Dual mode semi-active laser/laser radar seeker 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US20140293266A1/en">
+                <span itemprop="publicationNumber">US20140293266A1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2014-10-02">2014-10-02</time>
+            
+            
+          </td>
+          <td itemprop="title">Local Alignment and Positioning Device and Method 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="12719975235580687989">
+              <a href="/scholar/12719975235580687989"><span itemprop="scholarAuthors">Nguyen et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2003">2003</time>
+            
+          </td>
+          <td itemprop="title">Autonomous communication relays for tactical robots</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/EP1008831B1/en">
+                <span itemprop="publicationNumber">EP1008831B1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2004-10-27">2004-10-27</time>
+            
+            
+          </td>
+          <td itemprop="title">Outdoor range finder 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US6414712B1/en">
+                <span itemprop="publicationNumber">US6414712B1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2002-07-02">2002-07-02</time>
+            
+            
+          </td>
+          <td itemprop="title">Vehicle navigational system and signal processing method for said navigational system 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US4896962A/en">
+                <span itemprop="publicationNumber">US4896962A</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="1990-01-30">1990-01-30</time>
+            
+            
+          </td>
+          <td itemprop="title">System for measuring the angular displacement of an object 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US8072581B1/en">
+                <span itemprop="publicationNumber">US8072581B1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2011-12-06">2011-12-06</time>
+            
+            
+          </td>
+          <td itemprop="title">Laser range finding system using variable field of illumination flash lidar 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US6577906B1/en">
+                <span itemprop="publicationNumber">US6577906B1</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2003-06-10">2003-06-10</time>
+            
+            
+          </td>
+          <td itemprop="title">Distributed optimization system and method 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US8855846B2/en">
+                <span itemprop="publicationNumber">US8855846B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2014-10-07">2014-10-07</time>
+            
+            
+          </td>
+          <td itemprop="title">System and method for onboard vision processing 
+       </td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            <meta itemprop="isPatent" content="true">
+              
+              
+              <a href="/patent/US9868208B2/en">
+                <span itemprop="publicationNumber">US9868208B2</span>
+                (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            
+            
+          </td>
+          <td>
+            <time itemprop="publicationDate" datetime="2018-01-16">2018-01-16</time>
+            
+            
+          </td>
+          <td itemprop="title">Apparatus and methods for controlling attention of a robot 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Legal Events</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Code</th>
+          <th>Title</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2003-07-03">2003-07-03</time></td>
+          <td itemprop="code">AS</td>
+          <td itemprop="title">Assignment</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Owner name</strong>:
+              <span itemprop="value">NATIONAL AERONAUTICS AND SPACE ADMINISTRATION, DIS</span>
+            </p>
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">ASSIGNMENT OF ASSIGNORS INTEREST;ASSIGNORS:HOWARD, RICHARD T.;BOOK, MICHAEL L.;BRYAN, THOMAS C.;REEL/FRAME:014270/0591</span>
+            </p>
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Effective date</strong>:
+              <span itemprop="value">20030701</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2008-08-22">2008-08-22</time></td>
+          <td itemprop="code">FPAY</td>
+          <td itemprop="title">Fee payment</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Year of fee payment</strong>:
+              <span itemprop="value">4</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2012-09-26">2012-09-26</time></td>
+          <td itemprop="code">FPAY</td>
+          <td itemprop="title">Fee payment</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Year of fee payment</strong>:
+              <span itemprop="value">8</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2016-12-09">2016-12-09</time></td>
+          <td itemprop="code">REMI</td>
+          <td itemprop="title">Maintenance fee reminder mailed</td>
+          <td>
+            
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2017-05-03">2017-05-03</time></td>
+          <td itemprop="code">LAPS</td>
+          <td itemprop="title">Lapse for failure to pay maintenance fees</td>
+          <td>
+            
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2017-05-29">2017-05-29</time></td>
+          <td itemprop="code">STCH</td>
+          <td itemprop="title">Information on status: patent discontinuation</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">PATENT EXPIRED DUE TO NONPAYMENT OF MAINTENANCE FEES UNDER 37 CFR 1.362</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2017-06-20">2017-06-20</time></td>
+          <td itemprop="code">FP</td>
+          <td itemprop="title">Expired due to failure to pay maintenance fee</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Effective date</strong>:
+              <span itemprop="value">20170503</span>
+            </p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+</article>
+
+    </search-app>
+    <script type="text/javascript" src="//www.gstatic.com/feedback/api.js"></script>
+    <script async="" defer="" src="//www.google.com/insights/consumersurveys/async_survey?site=cxkjf7ipxgbnnjy6k35ezcvbbe"></script>
+  </body>
+</html>

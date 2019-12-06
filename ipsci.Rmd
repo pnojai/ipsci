@@ -17,6 +17,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ```{r packages}
+# todo: install if not found
 library(rplos)    # API to PLOS for journals.
 library(readr)    # Reading rectangular data.
 library(plyr)     # Wrangling data.
@@ -31,6 +32,8 @@ library(httr)     # Wrapper for the curl package.
 library(jsonlite) # Getting and formatting JSON.
 library(rvest)    # Download and manipulate HTML.
 library(rjson)    # Work with JSON format.
+library(ggplot2)
+library(purrr)
 ```
 
 ## NASA Patents
@@ -101,9 +104,11 @@ print("Downloads complete.")
 ### select relevant patent data from Google HTML
 ```{r}
 # explore downloaded data
-raw.html <- read_html("data/8675922.html")
+raw.html <- read_html("data/6020587.html")
 # title
 raw.html %>% html_nodes("body search-app article h1") %>% html_text() %>% .[[1]]
+# filing date
+raw.html %>% html_nodes("[itemprop='filingDate']") %>% html_text() %>% .[[2]]
 # abstract
 raw.html %>% html_nodes("abstract") %>% html_text()
 # description > origin of the invention
@@ -114,7 +119,7 @@ raw.html %>% html_nodes("body search-app article section div div p") %>% html_te
 raw.html %>% html_nodes(xpath="/html/body/search-app/article/table") %>% html_table()
 # cited by (count) nrow()
 cited_by <- raw.html %>% html_nodes(xpath="/html/body/search-app/article/table") %>% html_table() 
-nrow(cited_by[[1]])
+#nrow(cited_by[[1]])
 # patent citations 
 raw.html %>% html_nodes(xpath="/html/body/search-app/article/section/table") %>% html_table()
 raw.html %>% html_nodes(xpath="/html/body/search-app/article/section/h2") %>% html_text()
@@ -132,7 +137,7 @@ files <- list.files(path="data", pattern="[0-9]{5,}.html", full.names=TRUE, recu
 raw.title <- lapply(files, function(x) {
   raw.html <- read_html(x, header=TRUE) # load file
   # apply function
-  raw.html %>% html_nodes("body search-app article h1") %>% html_text() %>% .[[1]] %>% str_remove(" \n        - Google Patents")
+  raw.html %>% html_nodes("body search-app article h1") %>% html_text() %>% .[[1]] %>% str_remove(" \\n +\\- [[:alpha:]]{6,} [[:alpha:]]{6,}")
 })
 # abstract
 raw.abstract <- lapply(files, function(x) {
@@ -140,14 +145,18 @@ raw.abstract <- lapply(files, function(x) {
   # apply function
   raw.html %>% html_nodes("abstract") %>% html_text()
 })
-
+# prior art date as proxy for filing date that includes support 1899 example
+filing.date <- lapply(files, function(x) {
+  raw.html <- read_html(x, header=TRUE) # load file
+  # apply function
+  raw.html %>% html_nodes("[itemprop='priorArtDate']") %>% html_text() %>% .[[1]]
+})
 # description > origin of the invention
 raw.origin <- lapply(files, function(x) {
   raw.html <- read_html(x, header=TRUE) # load file
   # apply function
   raw.html %>% html_nodes("body search-app article section div div p") %>% html_text() %>% .[[1]]
 })
-
 # description > background of the invention > field of the invention
 raw.background <- lapply(files, function(x) {
   raw.html <- read_html(x, header=TRUE) # load file
@@ -222,27 +231,59 @@ count.citations <- lapply(count.citations, function(x)
 # not necessary, but makes lists nicer to read
 # todo: make consistent
 raw.title <- unlist(raw.title, recursive = FALSE)
+#raw.title
 raw.abstract <- unlist(raw.abstract, recursive = FALSE)
 raw.origin <- unlist(raw.origin, recursive = FALSE)
+filing.date <- filing.date %>% unlist(recursive = FALSE)
 raw.background <- unlist(raw.background, recursive = FALSE)
 count.citations %>% unlist(recursive = FALSE)
 count.cited_by %>% unlist(recursive = FALSE)
 
 # get "appId" with regex
-app_num <- unlist(str_extract_all(raw.title, "[A-Z]{2,}[0-9]{7,}[A-Z]+[0-9]+"))
+app_num <- unlist(str_extract_all(raw.title, "[A-Z]{2,}[0-9]{6,}[A-Z]+[0-9]?"))
 
 # remove "appId" from "title" 
-title <- str_remove(raw.title, app_num)
-title <- str_remove(title, " - ") # this could be less greedy
+raw.title <- str_remove(raw.title, app_num)
+#raw.title
+raw.title <- str_remove(raw.title, " - ") # this could be less greedy
+#raw.title
 
 # bind lists into dataframe and name columns
-raw.df <- setNames(do.call(rbind.data.frame, Map('c', app_num, title, raw.abstract, raw.origin, raw.background, count.cited_by, count.citations)), c("appId", "title", "abstract", "origin", "background", "citedBy", "citations"))
+raw.df <- setNames(do.call(rbind.data.frame, Map('c', app_num, raw.title, raw.abstract, raw.origin, raw.background, count.cited_by, count.citations, filing.date)), c("appId", "title", "abstract", "origin", "background", "citedBy", "citations", "filingDate"))
 raw.df
 ```
 
 ### write to file for easy access
 ```{r}
 write.csv(raw.df,"data/patent_text.csv", row.names = FALSE)
+raw.df <- read.csv("data/patent_text.csv")
+```
+
+### EDA and data transformation for visualization
+```{r}
+ggplot(raw.df, aes(x=filingDate, y=citedBy)) + geom_point()
+
+# deal with dates, then get date quartiles for facet plotting
+#lct <- Sys.getlocale("LC_TIME"); Sys.setlocale("LC_TIME", "C")
+#raw.df$filingDate <- raw.df$filingDate %>% strptime(format = "%y-%m-%d")
+#raw.df$filingDate <- raw.df$filingDate %>% as.Date(format = "%y/%m/%d")
+#Sys.setlocale("LC_TIME", lct)
+```
+
+```{r}
+#qplot(raw.df$citedBy, geom="histogram")
+#qplot(raw.df$citations, geom="histogram")
+#ggplot(data=raw.df, aes(raw.df$citedBy)) + geom_histogram()
+
+# Histogram with density plot
+p1 <- ggplot(raw.df, aes(x=citedBy)) + 
+ geom_histogram(aes(y=..density..), colour="black", fill="white") +
+ geom_density(alpha=.2, fill="#99badd") + 
+facet_grid()
+p2 <- ggplot(raw.df, aes(x=citations)) + 
+ geom_histogram(aes(y=..density..), colour="black", fill="white")+
+ geom_density(alpha=.2, fill="#FF6666") 
+multiplot(p1, p2, cols = 2)
 ```
 
 ## Appendix

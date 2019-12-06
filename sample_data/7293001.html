@@ -1,0 +1,3370 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <title>US7293001B1 - Hybrid neural network and support vector machine method for optimization 
+        - Google Patents</title>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8">
+    <meta name="referrer" content="origin-when-crossorigin">
+    <link rel="canonical" href="https://patents.google.com/patent/US7293001B1/en">
+    <meta name="description" content="
+     System and method for optimization of a design associated with a response function, using a hybrid neural net and support vector machine (NN/SVM) analysis to minimize or maximize an objective function, optionally subject to one or more constraints. As a first example, the NN/SVM analysis is applied iteratively to design of an aerodynamic component, such as an airfoil shape, where the objective function measures deviation from a target pressure distribution on the perimeter of the aerodynamic component. As a second example, the NN/SVM analysis is applied to data classification of a sequence of data points in a multidimensional space. The NN/SVM analysis is also applied to data regression. 
+   
+   ">
+    
+    <meta name="DC.type" content="patent">
+    
+    <meta name="DC.title" content="Hybrid neural network and support vector machine method for optimization 
+       ">
+    
+    <meta name="DC.date" content="2005-11-14" scheme="dateSubmitted">
+    
+    <meta name="DC.description" content="
+     System and method for optimization of a design associated with a response function, using a hybrid neural net and support vector machine (NN/SVM) analysis to minimize or maximize an objective function, optionally subject to one or more constraints. As a first example, the NN/SVM analysis is applied iteratively to design of an aerodynamic component, such as an airfoil shape, where the objective function measures deviation from a target pressure distribution on the perimeter of the aerodynamic component. As a second example, the NN/SVM analysis is applied to data classification of a sequence of data points in a multidimensional space. The NN/SVM analysis is also applied to data regression. 
+   
+   ">
+    
+    <meta name="citation_patent_application_number" content="US:11/274,744">
+    
+    <meta name="citation_pdf_url" content="https://patentimages.storage.googleapis.com/1f/ae/10/7078b55a3a4da5/US7293001B1.pdf">
+    
+    <meta name="citation_patent_number" content="US:7293001">
+    
+    <meta name="DC.date" content="2007-11-06" scheme="issue">
+    
+    <meta name="DC.contributor" content="Man Mohan Rai" scheme="inventor">
+    
+    <meta name="DC.contributor" content="National Aeronautics and Space Administration (NASA)" scheme="assignee">
+    
+    <meta name="DC.relation" content="US:4885686" scheme="references">
+    
+    <meta name="DC.relation" content="US:4924386" scheme="references">
+    
+    <meta name="DC.relation" content="US:5136538" scheme="references">
+    
+    <meta name="DC.relation" content="US:20010031076:A1" scheme="references">
+    
+    <meta name="DC.relation" content="US:7043462" scheme="references">
+    
+    <meta name="DC.relation" content="US:20030040904:A1" scheme="references">
+    
+    <meta name="DC.relation" content="US:20030078850:A1" scheme="references">
+    
+    <meta name="citation_reference" content="J. A. K. Suykens et al, Recurrent Least Squares Support Vector Machines, July 2000, IEEE, 1057-7122/00, 1109-1114." scheme="references">
+    
+    <meta name="citation_reference" content="J. H. Conway et al, Voronoi Regions of Lattices, Second Moments of Polytopes, and Quantization, Mar. 1982, IEEE, 0018-9448/82/0300-0211, 211-226." scheme="references">
+    
+    <meta name="citation_reference" content="M. M. Rai and N. K. Madavan, &#34;Aerodynamic Design Using Neural Networks&#34;, AIAA Jour., vol. 38 (2000) pp. 173-182." scheme="references">
+    
+    <meta name="citation_reference" content="Pascal Vincent et al, A Neural Support Vector Network Architecture with Adaptive Kernels, 2000, IEEE, 0-7695-0619-4, 5187-5192." scheme="references">
+    
+    <meta name="citation_reference" content="V. N. Vapnik, &#34;An Overview of Statistical Learning Theory&#34;, IEEE Trans. on Neural Networks, vol. 10 (1999) pp. 988-999." scheme="references">
+    
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:400,400italic,500,500italic,700">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Product+Sans">
+    <style>
+      body { transition: none; }
+    </style>
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+      ga('create', 'UA-27188110-4', 'auto');
+
+      version = 'patent-search.search_20191120_RC00';
+
+      function sendFeedback() {
+        userfeedback.api.startFeedback({
+          'productId': '713680',
+          'bucket': 'patent-search-web',
+          'productVersion': version,
+        });
+      }
+
+      window.experiments = {};
+      window.experiments.patentCountries = "ae,ag,al,am,ao,ap,ar,at,au,aw,az,ba,bb,bd,be,bf,bg,bh,bj,bn,bo,br,bw,bx,by,bz,ca,cf,cg,ch,ci,cl,cm,cn,co,cr,cs,cu,cy,cz,dd,de,dj,dk,dm,do,dz,ea,ec,ee,eg,em,ep,es,fi,fr,ga,gb,gc,gd,ge,gh,gm,gn,gq,gr,gt,gw,hk,hn,hr,hu,ib,id,ie,il,in,ir,is,it,jo,jp,ke,kg,kh,km,kn,kp,kr,kw,kz,la,lc,li,lk,lr,ls,lt,lu,lv,ly,ma,mc,md,me,mg,mk,ml,mn,mo,mr,mt,mw,mx,my,mz,na,ne,ng,ni,nl,no,nz,oa,om,pa,pe,pg,ph,pl,pt,py,qa,ro,rs,ru,rw,sa,sc,sd,se,sg,si,sk,sl,sm,sn,st,su,sv,sy,sz,td,tg,th,tj,tm,tn,tr,tt,tw,tz,ua,ug,us,uy,uz,vc,ve,vn,wo,yu,za,zm,zw";
+      
+      
+      window.profilePicture = "";
+
+      window.Polymer = {
+        dom: 'shady',
+        lazyRegister: true,
+      };
+    </script>
+
+    <script src="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/webcomponentsjs/webcomponents-lite.min.js"></script>
+    
+    <link rel="import" href="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/search-app-vulcanized.html">
+    
+  </head>
+  <body unresolved>
+    
+    <script src="//www.gstatic.com/patent-search/frontend/patent-search.search_20191120_RC00/scs/compiled_dir/search-app-vulcanized.js"></script>
+    
+    <search-app>
+      
+      
+
+      <article class="result" itemscope itemtype="http://schema.org/ScholarlyArticle">
+  <h1 itemprop="pageTitle">US7293001B1 - Hybrid neural network and support vector machine method for optimization 
+        - Google Patents</h1>
+  <span itemprop="title">Hybrid neural network and support vector machine method for optimization 
+       </span>
+
+  <meta itemprop="type" content="patent">
+  <a href="https://patentimages.storage.googleapis.com/1f/ae/10/7078b55a3a4da5/US7293001B1.pdf" itemprop="pdfLink">Download PDF</a>
+  <h2>Info</h2>
+
+  <dl>
+    <dt>Publication number</dt>
+    <dd itemprop="publicationNumber">US7293001B1</dd>
+    <meta itemprop="numberWithoutCodes" content="7293001">
+    <meta itemprop="kindCode" content="B1">
+    <meta itemprop="publicationDescription" content="Patent ( no pre-grant publication)">
+    
+    <span>US7293001B1</span>
+    
+    <span>US11/274,744</span>
+    
+    <span>US27474405A</span>
+    
+    <span>US7293001B1</span>
+    
+    <span>US 7293001 B1</span>
+    
+    <span>US7293001 B1</span>
+    
+    <span>US 7293001B1</span>
+    
+    <span>  </span>
+    
+    <span> </span>
+    
+    <span> </span>
+    
+    <span>US 27474405 A</span>
+    
+    <span>US27474405 A</span>
+    
+    <span>US 27474405A</span>
+    
+    <span>US 7293001 B1</span>
+    
+    <span>US7293001 B1</span>
+    
+    <span>US 7293001B1</span>
+    
+
+    <dt>Authority</dt>
+    <dd itemprop="countryCode">US</dd>
+    <dd itemprop="countryName">United States</dd>
+
+    <dt>Prior art keywords</dt>
+    
+    <dd itemprop="priorArtKeywords" repeat>p0</dd>
+    <dd itemprop="priorArtKeywords" repeat>design</dd>
+    <dd itemprop="priorArtKeywords" repeat>selected</dd>
+    <dd itemprop="priorArtKeywords" repeat>nn</dd>
+    <dd itemprop="priorArtKeywords" repeat>obj</dd>
+
+    <dt>Prior art date</dt>
+    <dd><time itemprop="priorArtDate" datetime="2002-01-07">2002-01-07</time></dd>
+
+    <dt>Legal status (The legal status is an assumption and is not a legal conclusion. Google has not performed a legal analysis and makes no representation as to the accuracy of the status listed.)</dt>
+    <dd itemprop="legalStatusIfi" itemscope>
+      <span itemprop="status">Expired - Fee Related</span>
+    </dd>
+  </dl>
+
+  <dt>Application number</dt>
+  <dd itemprop="applicationNumber">US11/274,744</dd>
+
+  
+
+  
+
+  <dt>Inventor</dt>
+  <dd itemprop="inventor" repeat>Man Mohan Rai</dd>
+  <dt>Current Assignee (The listed assignees may be inaccurate. Google has not performed a legal analysis and makes no representation or warranty as to the accuracy of the list.)</dt>
+  <dd itemprop="assigneeCurrent" repeat>
+    National Aeronautics and Space Administration (NASA)
+  </dd>
+
+  <dt>Original Assignee</dt>
+  <dd itemprop="assigneeOriginal" repeat>National Aeronautics and Space Administration (NASA)</dd>
+
+  <dt>Priority date (The priority date is an assumption and is not a legal conclusion. Google has not performed a legal analysis and makes no representation as to the accuracy of the date listed.)</dt>
+  <dd><time itemprop="priorityDate" datetime="2002-01-07">2002-01-07</time></dd>
+
+  <dt>Filing date</dt>
+  <dd><time itemprop="filingDate" datetime="2005-11-14">2005-11-14</time></dd>
+
+  <dt>Publication date</dt>
+  <dd><time itemprop="publicationDate" datetime="2007-11-06">2007-11-06</time></dd>
+
+  
+
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2002-01-07">2002-01-07</time>
+    <span itemprop="title">Priority to US10/043,044</span>
+    <span itemprop="type">priority</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    <span itemprop="documentId">patent/US6961719B1/en</span>
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2005-11-14">2005-11-14</time>
+    <span itemprop="title">Application filed by National Aeronautics and Space Administration (NASA)</span>
+    <span itemprop="type">filed</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    <span itemprop="assigneeSearch">National Aeronautics and Space Administration (NASA)</span>
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2005-11-14">2005-11-14</time>
+    <span itemprop="title">Priority to US11/274,744</span>
+    <span itemprop="type">priority</span>
+    
+    
+    
+    <span itemprop="documentId">patent/US7293001B1/en</span>
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2007-11-06">2007-11-06</time>
+    <span itemprop="title">Application granted</span>
+    <span itemprop="type">granted</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2007-11-06">2007-11-06</time>
+    <span itemprop="title">Publication of US7293001B1</span>
+    <span itemprop="type">publication</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    <span itemprop="documentId">patent/US7293001B1/en</span>
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2019-12-05">2019-12-05</time>
+    <span itemprop="title">Application status is Expired - Fee Related</span>
+    <span itemprop="type">legal-status</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+  <dd itemprop="events" itemscope repeat>
+    <time itemprop="date" datetime="2022-01-07">2022-01-07</time>
+    <span itemprop="title">Anticipated expiration</span>
+    <span itemprop="type">legal-status</span>
+    
+    <span itemprop="critical" content="true" bool>Critical</span>
+    
+    
+    
+    
+    
+  </dd>
+  
+
+  <h2>Links</h2>
+
+  <ul>
+    
+          <li itemprop="links" itemscope repeat>
+            <meta itemprop="id" content="usptoLink">
+            <a href="http://patft.uspto.gov/netacgi/nph-Parser?Sect1=PTO1&Sect2=HITOFF&p=1&u=/netahtml/PTO/srchnum.html&r=1&f=G&l=50&d=PALL&s1=7293001.PN." itemprop="url" target="_blank"><span itemprop="text">USPTO</span></a>
+          </li>
+        <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="usptoAssignmentLink">
+          <a href="https://assignment.uspto.gov/patent/index.html#/patent/search/resultFilter?searchInput=7293001" itemprop="url" target="_blank"><span itemprop="text">USPTO Assignment</span></a>
+        </li>
+
+    <li itemprop="links" itemscope repeat>
+        <meta itemprop="id" content="espacenetLink">
+        <a href="http://worldwide.espacenet.com/publicationDetails/biblio?CC=US&amp;NR=7293001B1&amp;KC=B1&amp;FT=D" itemprop="url" target="_blank"><span itemprop="text">Espacenet</span></a>
+      </li>
+      
+
+    
+
+    
+      <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="globalDossierLink">
+          <a href="http://globaldossier.uspto.gov/#/result/patent/US/7293001/1" itemprop="url" target="_blank"><span itemprop="text">Global Dossier</span></a>
+        </li>
+      
+
+      
+
+      
+
+      
+
+      <li itemprop="links" itemscope repeat>
+          <meta itemprop="id" content="stackexchangeLink">
+          <a href="https://patents.stackexchange.com/questions/tagged/US7293001" itemprop="url"><span itemprop="text">Discuss</span></a>
+        </li>
+      
+  </ul>
+
+  
+  <ul itemprop="concept" itemscope>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000005457</span>
+      <span itemprop="name">optimization</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>abstract</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="sections" repeat>title</span>
+      
+      <span itemprop="count">19</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001537</span>
+      <span itemprop="name">neural</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>abstract</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="sections" repeat>title</span>
+      
+      <span itemprop="count">23</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000004458</span>
+      <span itemprop="name">analytical methods</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>abstract</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">45</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000009826</span>
+      <span itemprop="name">distribution</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>abstract</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">16</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000000875</span>
+      <span itemprop="name">corresponding</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">13</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000004044</span>
+      <span itemprop="name">response</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">10</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000005094</span>
+      <span itemprop="name">computer simulation</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001419</span>
+      <span itemprop="name">dependent</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>claims</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000005316</span>
+      <span itemprop="name">response function</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>abstract</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000010410</span>
+      <span itemprop="name">layers</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">26</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000000034</span>
+      <span itemprop="name">methods</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">17</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000000047</span>
+      <span itemprop="name">products</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">12</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000000203</span>
+      <span itemprop="name">mixtures</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">9</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001721</span>
+      <span itemprop="name">combination</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">6</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000000926</span>
+      <span itemprop="name">separation method</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">6</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">239000007787</span>
+      <span itemprop="name">solids</span>
+      <span itemprop="domain">Substances</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">6</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000003213</span>
+      <span itemprop="name">activating</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">5</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001965</span>
+      <span itemprop="name">increased</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">5</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000009396</span>
+      <span itemprop="name">hybridization</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">4</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000013016</span>
+      <span itemprop="name">learning</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">4</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000004088</span>
+      <span itemprop="name">simulation</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">4</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000003190</span>
+      <span itemprop="name">augmentative</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">3</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000014509</span>
+      <span itemprop="name">gene expression</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">3</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000035945</span>
+      <span itemprop="name">sensitivity</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">3</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000007792</span>
+      <span itemprop="name">addition</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000006399</span>
+      <span itemprop="name">behavior</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000004422</span>
+      <span itemprop="name">calculation algorithm</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000018109</span>
+      <span itemprop="name">developmental process</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000000694</span>
+      <span itemprop="name">effects</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000009472</span>
+      <span itemprop="name">formulation</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000036961</span>
+      <span itemprop="name">partial</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000000611</span>
+      <span itemprop="name">regression analysis</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">2</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000003416</span>
+      <span itemprop="name">augmentation</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000004364</span>
+      <span itemprop="name">calculation methods</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000000295</span>
+      <span itemprop="name">complement</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">150000001875</span>
+      <span itemprop="name">compounds</span>
+      <span itemprop="domain">Chemical class</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000002596</span>
+      <span itemprop="name">correlated</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001747</span>
+      <span itemprop="name">exhibited</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001976</span>
+      <span itemprop="name">improved</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000004519</span>
+      <span itemprop="name">manufacturing process</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000005192</span>
+      <span itemprop="name">partition</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000000737</span>
+      <span itemprop="name">periodic</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000002829</span>
+      <span itemprop="name">reduced</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001603</span>
+      <span itemprop="name">reducing</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">238000005070</span>
+      <span itemprop="name">sampling</span>
+      <span itemprop="domain">Methods</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+    <li itemprop="match" itemscope repeat>
+      <span itemprop="id">230000001131</span>
+      <span itemprop="name">transforming</span>
+      <span itemprop="domain">Effects</span>
+      <span itemprop="svg_large"></span>
+      <span itemprop="svg_small"></span>
+      <span itemprop="smiles"></span>
+      <span itemprop="inchi_key"></span>
+      <span itemprop="similarity">0</span>
+      
+      <span itemprop="sections" repeat>description</span>
+      
+      <span itemprop="count">1</span>
+    </li>
+  
+  </ul>
+  
+
+  
+
+  <section>
+    <h2>Classifications</h2>
+    
+    <ul>
+      <li>
+        <ul itemprop="cpcs" itemscope repeat>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G</span>&mdash;<span itemprop="Description">PHYSICS</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06</span>&mdash;<span itemprop="Description">COMPUTING; CALCULATING; COUNTING</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06N</span>&mdash;<span itemprop="Description">COMPUTER SYSTEMS BASED ON SPECIFIC COMPUTATIONAL MODELS</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06N3/00</span>&mdash;<span itemprop="Description">Computer systems based on biological models</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06N3/02</span>&mdash;<span itemprop="Description">Computer systems based on biological models using neural network models</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06N3/04</span>&mdash;<span itemprop="Description">Architectures, e.g. interconnection topology</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06N3/0454</span>&mdash;<span itemprop="Description">Architectures, e.g. interconnection topology using a combination of multiple neural nets</span>
+            <meta itemprop="Leaf" content="true">
+            
+            <meta itemprop="FirstCode" content="true">
+          </li>
+          </ul>
+      </li>
+      <li>
+        <ul itemprop="cpcs" itemscope repeat>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G</span>&mdash;<span itemprop="Description">PHYSICS</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06</span>&mdash;<span itemprop="Description">COMPUTING; CALCULATING; COUNTING</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06K</span>&mdash;<span itemprop="Description">RECOGNITION OF DATA; PRESENTATION OF DATA; RECORD CARRIERS; HANDLING RECORD CARRIERS</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06K9/00</span>&mdash;<span itemprop="Description">Methods or arrangements for reading or recognising printed or written characters or for recognising patterns, e.g. fingerprints</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06K9/62</span>&mdash;<span itemprop="Description">Methods or arrangements for recognition using electronic means</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06K9/6267</span>&mdash;<span itemprop="Description">Classification techniques</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06K9/6268</span>&mdash;<span itemprop="Description">Classification techniques relating to the classification paradigm, e.g. parametric or non-parametric approaches</span>
+            
+            
+            
+          </li>
+          <li itemprop="cpcs" itemscope repeat>
+            <span itemprop="Code">G06K9/6269</span>&mdash;<span itemprop="Description">Classification techniques relating to the classification paradigm, e.g. parametric or non-parametric approaches based on the distance between the decision surface and training patterns lying on the boundary of the class cluster, e.g. support vector machines</span>
+            <meta itemprop="Leaf" content="true">
+            
+            
+          </li>
+          </ul>
+      </li>
+      </ul>
+  </section>
+
+  <section itemprop="abstract" itemscope>
+    <h2>Abstract</h2>
+    
+    <div itemprop="content" html><abstract mxw-id="PA51223969" lang="EN" load-source="patent-office">
+    <div num="p-0001" class="abstract">System and method for optimization of a design associated with a response function, using a hybrid neural net and support vector machine (NN/SVM) analysis to minimize or maximize an objective function, optionally subject to one or more constraints. As a first example, the NN/SVM analysis is applied iteratively to design of an aerodynamic component, such as an airfoil shape, where the objective function measures deviation from a target pressure distribution on the perimeter of the aerodynamic component. As a second example, the NN/SVM analysis is applied to data classification of a sequence of data points in a multidimensional space. The NN/SVM analysis is also applied to data regression.</div>
+  </abstract>
+  </div>
+  </section>
+
+  <section itemprop="description" itemscope>
+    <h2>Description</h2>
+    
+    <div itemprop="content" html><div mxw-id="PDES16317006" lang="EN" load-source="patent-office" class="description">
+
+  <heading>ORIGIN OF THE INVENTION</heading>
+  <p num="p-0002">This application is a Divisional of U.S. Ser. No. 10/043,044 now U.S. Pat. No. 6,961,719, filed 7 Jan. 2002, issued 1 Nov. 2005. The invention disclosed herein was made by an employee of the U.S. Government and may be manufactured and used by or for the Government for governmental purposes without payment of any royalties for such manufacture and use.</p>
+
+
+  <heading>FIELD OF THE INVENTION</heading>
+  <p num="p-0003">This invention relates to design optimization, using a hybrid neural network and support vector machine approach to construct a response surface that models a selected objective function.</p>
+  <heading>BACKGROUND OF THE INVENTION</heading>
+  <p num="p-0004">Considerable advances have been made in the past two decades in developing advanced techniques for numerical simulation of fluid flows in aerodynamic configurations. These techniques are now mature enough to be used routinely, in conjunction with experimental results, in aerodynamic design. However, aerodynamic design optimization procedures that make efficient use of these advanced techniques are still being developed.</p>
+  <p num="p-0005">The design of aircraft components, such as a wing, a fuselage or an engine, involves obtaining an optimal component shape that can deliver the desired level of component performance, subject to one or more constraints (such as maximum weight or cost) that the component(s) must satisfy. Aerodynamic design can be formulated as an optimization problem that requires minimization of an objective function, subject to constraints. Many formal optimization methods have been developed and applied to aerodynamic design. These include inverse design methods, adjoint methods, sensitivity derivative-based methods and traditional response surface methodology (RSM).</p>
+  <p num="p-0006">Inverse design methods in aerodynamics are used to provide a component that responds in a pre-selected manner, for example, an aircraft wing that has a prescribed pressure distribution. The known inverse methods do not account for certain fluid parameters, such as viscosity, and are used in preliminary design only.</p>
+  <p num="p-0007">Adjoint methods provide a designer with the gradient of the objective function. One advantage of this method is that the gradient information is obtained very quickly. However, where several technical disciplines are applied simultaneously, it is often difficult to perform design optimization using this method; each discipline requires a different formulation. It is also difficult and expensive to quickly evaluate the effects of engineering tradeoffs, where the applicable constraints may be changed several times. It is also not possible to use existing experimental data or partial or unstructured data in the design process.</p>
+  <p num="p-0008">A sensitivity derivative-based method typically requires that a multiplicity of solutions, with one parameter varied at a time, be obtained to compute a gradient of the objective function. The number of computations required grows linearly with the number of design parameters considered for optimization, and this method quickly becomes computationally expensive. This method is also sensitive to noise present in the design data sets. As with an adjoint method, it is not possible to use existing experimental data or partial or unstructured data in the design process.</p>
+  <p num="p-0009">RSM provides a framework for obtaining an optimal design, using statistical procedures, such as regression analysis and design of experiments. Traditional RSM uses low-degree regression polynomials in the relevant design variables to model the variation of an objective function. The polynomial model is then analyzed to obtain an optimal design. Several polynomial models may have to be constructed to provide an adequate view of the design space. Addition of higher degree polynomials will increase the computational cost and will build in higher sensitivity to noise in the data used.</p>
+  <p num="p-0010">Artificial neural networks (“neural nets” herein) have been widely used in fields such as aerodynamic engineering, for modeling and analysis of flow control, estimation of aerodynamic coefficients, grid generation and data interpolation. Neural nets have been used in RSM-based design optimization, to replace or complement a polynomial-based regression analysis. Current applications of neural nets are limited to simple designs involving only a few design parameters. The number of data sets required for adequate modeling may increase geometrically or exponentially with the number of design parameters examined. A neural net analysis requires that the design space be populated with sufficiently dense simulation and/or experimental data. Use of sparse data may result in an inaccurate representation of the objective function in design space. On the other hand, inefficient use of design data in populating the design space can result in excessive simulation costs. Capacity control is critical to obtain good generalization capability. In some preceding work, this problem was alleviated by using a neural net to represent the functional behavior with respect to only those variables that result in complex, as opposed to simple, variations of the objective function; the functional behavior of the remaining variables was modeled using low degree polynomials. This requires a priori knowledge to partition the design variables into two sets.</p>
+  <p num="p-0011"> <figref idrefs="DRAWINGS">FIG. 1</figref> graphically illustrates results of applying a simple NN analysis to a one-parameter model, namely, an approximation to the second degree polynomial y=2·(0.5−x)<sup>2 </sup>at each of 3 pairs of training values (curve A) and at each of 5 pairs of training values (curve B). Use of more than the minimum number (3) of training pairs clearly improves the fit over the domain of the variable x. It is theoretically possible that only Q+1 spaced apart training value pairs are needed to completely specify a Qth degree polynomial (for example, Q=6). However, because of the presence of noise, the theoretical minimum number of training value pairs is seldom sufficient to provide an acceptable fit.</p>
+  <p num="p-0012">Use of neural network (NN) analysis of a physical object, in order to optimize response of the object in a specified physical environment, is well known. An example is optimization of a turbine blade shape, in two or three dimensions, in order to reproduce an idealized pressure distribution along the blade surface, as disclosed by Rai and Madavan in “Aerodynamic Design Using Neural Networks”, AIAA Jour., vol. 38 (2000) pp. 173-182. NN analysis is suitable for multidimensional interpolation of data that lack structure and provides a natural structure in which a succession of numerical solutions of increasing complexity, or increasing fidelity to a real world environment, can be represented and optimized. NN analysis is especially useful when multiple design objectives need to be met.</p>
+  <p num="p-0013">A feed-forward neural net is a nonlinear estimation technique. One difficulty associated with use of a feed-forward neural net arises from the need for nonlinear optimization to determine connection weights between input, intermediate and output variables. The training process can be very expensive when large amounts of data need to be modeled.</p>
+  <p num="p-0014">In response to this, a support vector machine (SVM) approach, originally applied in statistical learning theory, has been developed and applied. Support vector machine analysis allows use of a feature space with a large dimension, through use of a mapping from input space into feature space and use of a dual formulation of the governing equations and constraints. One advantage of an SVM approach is that the objective function (which is to be minimized to obtain the coefficients that define the SVM model) is convex so that any local minimum is also a global minimum; this is not true for many neural net models. However, an underlying feature space (polynomial, Gaussian, etc.) must be specified in a conventional SVM approach, and data resampling is required to implement model hybridization. Hybridization is more naturally, and less expensively, applied in a neural net analysis.</p>
+  <p num="p-0015">What is needed is a machine learning algorithm that combines the desirable features of NN analysis and of SVM analysis and does not require intimate a priori familiarity with operational details of the object to be optimized. Preferably, the method should automatically provide a characterization of many or all of the aspects in feature space needed for the analysis.</p>
+  <heading>SUMMARY OF THE INVENTION</heading>
+  <p num="p-0016">The invention meets these needs by providing a hybrid of NN analysis and SVM analysis, referred to as NN/SVM analysis herein. In one embodiment, NN/SVM analysis begins with a group of associated, independent input space coordinates (parameter values), maps these coordinates into a feature space of appropriately higher dimension that includes a computed set of combinations (e.g., powers) of the input space coordinates with the assistance of the input and hidden layers of an NN, constructs an inner product formalism for the coordinates in feature space, obtains a solution to a minimization problem to compute Lagrange multiplier values that define the SVM, and returns to input space to complete a solution of the problem.</p>
+
+
+  <description-of-drawings>
+    <heading>BRIEF DESCRIPTION OF THE DRAWINGS</heading>
+    <p num="p-0017"> <figref idrefs="DRAWINGS">FIG. 1</figref> graphically illustrates an improvement in match of a polynomial, where an increased number of training pairs is included in a simple NN analysis.</p>
+    <p num="p-0018"> <figref idrefs="DRAWINGS">FIG. 2</figref> is a schematic view of a three-layer feed-forward neural net in the prior art.</p>
+    <p num="p-0019"> <figref idrefs="DRAWINGS">FIG. 3</figref> is a schematic view of a two-layer feed-forward NN/SVM system according to the invention.</p>
+    <p num="p-0020"> <figref idrefs="DRAWINGS">FIG. 4</figref> is a flow chart of an overall procedure for practicing the invention using an NN/SVM system.</p>
+    <p num="p-0021"> <figref idrefs="DRAWINGS">FIGS. 5</figref>, <b>6</b> and <b>7</b> graphically illustrate generalization curves obtained for a fifth degree polynomial, a logarithm function and an exponential function, respectively, using a hybrid NN/SVM analysis and 11 training values.</p>
+    <p num="p-0022">FIGS. <b>8</b>A/<b>8</b>B/<b>8</b>C are a flow chart for an RSM procedure used in practicing the invention.</p>
+    <p num="p-0023">FIGS. <b>9</b>A<b>1</b>-<b>9</b>C<b>2</b> graphically illustrate evolution of an airfoil and corresponding pressure distribution obtained from an iterative NN/SVM analysis.</p>
+    <p num="p-0024">FIGS. <b>10</b> and <b>11</b>A/<b>11</b>B illustrate data classification in two dimensions.</p>
+    <p num="p-0025"> <figref idrefs="DRAWINGS">FIG. 12</figref> graphically illustrates data classification according to the invention.</p>
+  </description-of-drawings>
+
+
+  <heading>DESCRIPTION OF BEST MODES OF THE INVENTION</heading>
+  <p num="p-0026">Consider a feed-forward neural network <b>21</b> having an input layer with nodes <b>23</b>-<i>m </i>(m=1, . . . , 5), a hidden layer with nodes <b>25</b>-<i>n </i>(n=1, 2, 3), and an output node <b>26</b>, as illustrated schematically in <figref idrefs="DRAWINGS">FIG. 2</figref>. The first input layer node <b>23</b>-<b>1</b> has a bias input value 1, in appropriate units. The remaining nodes of the input layer are used to enter selected parameter values as input variables, expressed as a vector p=(p<sub>1</sub>, . . . , p<sub>M</sub>), with M≧1. Each node <b>25</b>-<i>n </i>of the hidden layer is associated with a nonlinear activation function</p>
+  <p num="p-0027"> <maths id="MATH-US-00001" num="00001"> <math overflow="scroll"> <mtable> <mtr> <mtd> <mrow> <msub> <mi>q</mi> <mi>n</mi> </msub> <mo>=</mo> <mrow> <msub> <mi>Φ</mi> <mi>n</mi> </msub> <mo>(</mo> <mrow> <munderover> <mo>∑</mo> <mrow> <mi>m</mi> <mo>=</mo> <mn>1</mn> </mrow> <mrow> <mstyle> <mspace width="0.6em" height="0.6ex"> </mspace> </mstyle> <mo>⁢</mo> <mi>M</mi> </mrow> </munderover> <mo>⁢</mo> <mrow> <msub> <mi>C</mi> <mi>nm</mi> </msub> <mo>·</mo> <msub> <mi>P</mi> <mi>m</mi> </msub> </mrow> </mrow> <mo>)</mo> </mrow> </mrow> </mtd> <mtd> <mrow> <mo>(</mo> <mn>1</mn> <mo>)</mo> </mrow> </mtd> </mtr> </mtable> </math> </maths> <br/>
+of a weighted sum of the parameter values p<sub>m</sub>, where C<sub>nm </sub>is a connection weight, which can be positive, negative or zero, linking an input node <b>23</b>-<i>m </i>with a hidden layer node <b>25</b>-<i>n</i>. The output of the network <b>21</b> is assumed for simplicity, initially, to be a single-valued scalar,
+</p>
+  <p num="p-0028">
+    <maths id="MATH-US-00002" num="00002">
+      <math overflow="scroll">
+        <mtable>
+          <mtr>
+            <mtd>
+              <mrow>
+                <mi>r</mi>
+                <mo>=</mo>
+                <mrow>
+                  <munderover>
+                    <mo>∑</mo>
+                    <mrow>
+                      <mi>n</mi>
+                      <mo>=</mo>
+                      <mn>1</mn>
+                    </mrow>
+                    <mi>N</mi>
+                  </munderover>
+                  <mo>⁢</mo>
+                  <mstyle>
+                    <mspace width="0.3em" height="0.3ex"> </mspace>
+                  </mstyle>
+                  <mo>⁢</mo>
+                  <mrow>
+                    <msub>
+                      <mi>D</mi>
+                      <mi>n</mi>
+                    </msub>
+                    <mo>·</mo>
+                    <mrow>
+                      <msub>
+                        <mi>q</mi>
+                        <mi>n</mi>
+                      </msub>
+                      <mo>.</mo>
+                    </mrow>
+                  </mrow>
+                </mrow>
+              </mrow>
+            </mtd>
+            <mtd>
+              <mrow>
+                <mo>(</mo>
+                <mn>2</mn>
+                <mo>)</mo>
+              </mrow>
+            </mtd>
+          </mtr>
+        </mtable>
+      </math>
+    </maths>
+  </p>
+  <p num="p-0029"> <figref idrefs="DRAWINGS">FIG. 2</figref> illustrates a conventional three-layer NN, with an input layer, a hidden layer and an output layer that receives and combines the resulting signals produced by the hidden layer.</p>
+  <p num="p-0030">It is known that NN approximations of the format set forth in Eqs. (1) and (2) are dense in the space of continuous functions when the activation functions Φ<sub>n </sub>are continuous sigmoidal functions (monotonically increasing functions, with a selected lower limit, such as 0, and a selected upper limit, such as 1). Three commonly used sigmoidal functions are
+<br/>
+Φ(<i>z</i>)=1/{1+exp(−<i>z</i>)},  (3A)
+<br/>
+Φ(<i>z</i>)=(1+tanh(<i>z</i>)}/2,  (3B)
+<br/>
+Φ(<i>z</i>)={(π+2·tan<sup>−</sup>(<i>z</i>)}/2π,  (3C)
+</p>
+  <p num="p-0031"> <maths id="MATH-US-00003" num="00003"> <math overflow="scroll"> <mtable> <mtr> <mtd> <mrow> <mi>z</mi> <mo>=</mo> <mrow> <munderover> <mo>∑</mo> <mrow> <mi>m</mi> <mo>=</mo> <mn>1</mn> </mrow> <mi>M</mi> </munderover> <mo>⁢</mo> <mstyle> <mspace width="0.3em" height="0.3ex"> </mspace> </mstyle> <mo>⁢</mo> <mrow> <msub> <mi>C</mi> <mi>nm</mi> </msub> <mo>·</mo> <mrow> <msub> <mi>p</mi> <mi>m</mi> </msub> <mo>.</mo> </mrow> </mrow> </mrow> </mrow> </mtd> <mtd> <mrow> <mo>(</mo> <mn>4</mn> <mo>)</mo> </mrow> </mtd> </mtr> </mtable> </math> </maths> <br/>
+Other sigmoidal functions can also be used here. In the context of design optimization, a trained NN represents a response surface, and the NN output is the objective function. In multiple objective optimization, different NNs can be used for different objective functions. A rapid training algorithm that determines the connection weights C<sub>nm </sub>and coefficients D<sub>n </sub>is also needed here.
+</p>
+  <p num="p-0032">The approach set forth in the preceding does reasonably well in an interpolative mode, that is, in regions where data points (parameter value vectors) are reasonably plentiful. However, this approach rarely does well in an extrapolative mode. In this latter situation, a precipitous drop in estimation accuracy may occur as one moves beyond the convex hull defined by the data point locations. In part, this is because the sigmoidal functions are not the most appropriate basis functions for most data modeling situations. Where the underlying function(s) is a polynomial in the parameter values, a more appropriate set of basis functions is a set of Legendre functions (if the parameter value domain is finite), or a set of Laguerre or Hermite functions (if the parameter value domain is infinite). Where the underlying function(s) is periodic in a parameter value, a Fourier series may be more appropriate to represent the variation of the function with that parameter.</p>
+  <p num="p-0033">Two well known approaches are available for reducing the disparity between an underlying function and an activation function. A first approach, relies on neural nets and uses appropriate functions of the primary variables as additional input signals for the input nodes. These functions simplify relationships between neural net input and output variables but require a priori knowledge of these relationships, including specification of all the important nonlinear terms in the variables. For example, a function of the (independent) parameter values x and y, such as
+<br/>
+<i>h</i>(<i>x,y</i>)=<i>a·x</i> <sup>2</sup> <i>+b·x·y+c·y</i> <sup>2</sup> <i>+d·x+e·y+f,</i>  (5)
+<br/>
+where a, b, c, d, e and f are constant coefficients, would be better approximated if the terms x, y, x<sup>2</sup>, x·y and y<sup>2 </sup>are all supplied to the input nodes of the network <b>21</b>. However, in a more general setting with many parameters, this leads to a very large number of input nodes and as-yet-undetermined connection weights C<sub>nm</sub>.
+</p>
+  <p num="p-0034">A second approach, referred to as a support vector machine (SVM), provides a nonlinear transformation from the input space variables p<sub>m </sub>into a feature space that contains the original variables p<sub>m </sub>and the important nonlinear combinations of such terms (e.g., (p<sub>1</sub>)<sup>2</sup>, (p<sub>1</sub>)(p<sub>2</sub>)<sup>3</sup>(p<sub>M</sub>)<sup>2 </sup>and exp(p<sub>2</sub>)) as coordinates. For the example function h(p<sub>1</sub>,p<sub>2</sub>) set forth in Eq. (5), the five appropriate feature space coordinates would be p<sub>1</sub>, p<sub>2</sub>, (p<sub>1</sub>)<sup>2</sup>, p<sub>1</sub>·p<sub>2 </sub>and (p<sub>2</sub>)<sup>2</sup>. Very high dimensional feature spaces can be handled efficiently using kernel functions for certain choices of feature space coordinates. The total mapping between the input space of individual variables (first power of each parameter p<sub>m</sub>) and the output space is a hyperplane in feature space. For a model that requires only linear terms and polynomial terms of total degree <b>2</b> (as in Eq. (5)), in the input space variables, the model can be constructed efficiently using kernel functions that can be used to define inner products between vectors in feature space. However, use of an SVM requires a priori knowledge of the functional relationships between input and output variables.</p>
+  <p num="p-0035">The mapping between the input space parameters and the output function is defined using a kernel function and certain Lagrange multipliers. The Lagrange multipliers are obtained by maximizing a function that is quadratic and convex in the multipliers, the advantage being that every local minimum is also a global minimum. By contrast, a neural net often exhibits numerous local minima of the training error(s) that may not be global minima. However, several of these local minima may provide acceptable training errors. The resulting multiplicity of acceptable weight vectors can be used to provide superior network generalization, using a process known as network hybridization. A hybrid network can be constructed from the individual trained networks, without requiring data re-sampling or similar expensive techniques.</p>
+  <p num="p-0036">An attractive feature of a neural net, vis-a-vis an SVM, is that the coordinates used in a feature space do not have to be specified (e.g., via kernel functions). However, use of an SVM, in contrast to use of a neural net, allows one to introduce features spaces with a large number of dimensions, without a corresponding increase in the number of coefficients.</p>
+  <p num="p-0037">A primary contribution of the present invention is to provide a mechanism, within the NN component, for determining at least the coordinate (parameter) combinations needed to adequately define the feature space for an SVM, without requiring detailed knowledge of the relationships between input parameters and the output function.</p>
+  <p num="p-0038"> <figref idrefs="DRAWINGS">FIG. 3</figref> is a schematic view of an NN/SVM system <b>31</b>, including an NN component and an SVM component, according to the invention. The system <b>31</b> includes input layer nodes <b>33</b>-<i>i </i>(i=1, . . . , 5) and hidden layer nodes <b>35</b>-<i>j </i>(=1, 2, 3). <figref idrefs="DRAWINGS">FIG. 3</figref> also indicates some of the connection weights associated with connections of the input layer terminals and the hidden layer terminals. More than one hidden layer can be provided. The hidden layer output signals are individually received at an SVM <b>37</b> for further processing, including computation of a training error. If the computed training error is too large, one or more of the connection weights is changed, and the (changed) connection weights are returned to the NN component input terminals for repetition of the procedure. Optionally, the SVM <b>37</b> receives one or more user-specified augmented inner product or kernel prescriptions (discussed in the following), including selected combinations of coordinates to be added, from an augmentation source <b>38</b>.</p>
+  <p num="p-0039"> <figref idrefs="DRAWINGS">FIG. 4</figref> is a flow chart illustrating an overall procedure according to the invention. In step <b>41</b>, the system provides (initial) values for connection weights C<sub>nm </sub>for the input layer-hidden layer connections. These weights may be randomly chosen. The input signals may be a vector of parameter values p=(p<sub>1</sub>, . . . , p<sub>M</sub>) (M=5 in <figref idrefs="DRAWINGS">FIG. 3</figref>) in parameter space. In step <b>42</b>, output signals from the hidden layer are computed to define the feature space for the SVM. The NN component of the system will provide appropriate combinations of the parameter space coordinates as new coordinates in a feature space for the SVM (e.g., u<sub>1</sub>=p<sub>1</sub>, u<sub>2</sub>=p<sub>2</sub>, u<sub>3</sub>=p<sub>1</sub> <sup>2</sup>, u<sub>4</sub>=p<sub>1</sub>·p<sub>2</sub>, u<sub>5</sub>=p<sub>2</sub> <sup>2</sup>, from Eq. (5))</p>
+  <p num="p-0040">In step <b>43</b>, feature space inner products that are required for the SVM are computed. In step <b>43</b>A, user-specified feature space coordinates and corresponding inner products and kernel functions are provided. Note that the feature space is a vector space with a corresponding inner product.</p>
+  <p num="p-0041">In step <b>44</b>, a Lagrange functional is defined and minimized, subject to constraints, to obtain Lagrange multiplier values for the SVM. See the Appendix for a discussion of a Lagrange functional and associated constraints. In step <b>45</b>, the NN connection weights and the Lagrange multiplier coefficients are incorporated and used to compute a training error associated with this choice of values within the NN/SVM.</p>
+  <p num="p-0042">In step <b>46</b>, the system determines if the training error is no greater than a specified threshold level. If the answer to the query in step <b>46</b> is “no”, the system changes at least one connection weight, in step <b>47</b>, preferably in a direction that is likely to reduce the training error, and repeats steps <b>42</b>-<b>46</b>. If the answer to the query in step <b>46</b> is “yes”, the system interprets the present set of connection weights and Lagrange multiplier values as an optimal solution of the problem, in step <b>48</b>.</p>
+  <p num="p-0043">Note that steps <b>42</b>-<b>48</b> can be embedded in an optimization loop, wherein the connection weights are changed according to the rules of the particular optimization method used.</p>
+  <p num="p-0044">The hybrid NN/SVM system relies on the following broadly stated actions: (1) provide initial random (or otherwise specified) connection weights for the NN; (2) use the activation function(s) and the connection weights associated with each hidden layer unit to construct inner products for the SVM; (3) use the inner products to compute the Lagrange multiplier values; (4) compute a training error associated with the present values of the connection weights and Lagrange multiplier values; (5) if the training error is too large, change at least one connection weight and repeat steps (2)-(4); (6) if the training error is not too large, accept the resulting values of the connection weights and the Lagrange multiplier values as optimal.</p>
+  <p num="p-0045">This method has several advantages over a conventional SVM approach. First, coordinates that must be specified a priori in the feature space for a conventional SVM are determined by the NN component in an NN/SVM system. The feature space coordinates are generated by the NN component to correspond to the data at hand. In other words, the feature space provided by the NN component evolves to match or correspond to the data. A feature space that evolves in this manner is referred to as “data-adaptive.” The feature space coordinates generated by the NN component can be easily augmented with additional user-specified feature space coordinates (parameter combinations) and kernel functions.</p>
+  <p num="p-0046">Second, use of activation functions that are nonlinear functions of the connection weights in the NN component reintroduces the possibility of multiple local minima and provides a possibility of hybridization without requiring data resampling.</p>
+  <p num="p-0047">The feature spaces generated by the NN hidden layer can be easily augmented with high-dimensional feature spaces without requiring a corresponding increase in the number of connection weights. For example, a polynomial kernel containing all monomials and binomials (degrees one and two) in the parameter space coordinates can be added to an inner product generated by the SVM component, without requiring any additional connection weights or Lagrange multiplier coefficients.</p>
+  <p num="p-0048">The NN/SVM system employs nonlinear optimization methods to obtain acceptable connection weights, but the weight vectors thus found are not necessarily unique. Many different weight vectors may provide acceptably low training errors for a given set of training data. This multiplicity of acceptable weight vectors can be used to advantage. If validation data are available, one can select the connection weight vector and resulting NN/SVM system with the smallest validation error. In aerodynamics, this requires additional simulations that can be computationally expensive.</p>
+  <p num="p-0049">If validation data are not available, multiple trained NNs or NN/SVM systems can be utilized by creating a hybrid NN/SVM. A weighted average of N output signals from trained NN/SVMs in a hybrid NN/SVM is formed as a new solution. Where the weights are equal, if errors for the N individual output solutions are uncorrelated and individually have zero mean, the least squares error of this new solution is approximately a factor of N less than the average of the least squares errors for the N individual solutions. When the errors for the N individual output solutions are partly correlated, the hybrid solution continues to produce a least squares error that is smaller than the average of the least squares errors for the N individual solutions, but the difference is not as large. The N trained NN/SVMs used to form a hybrid system need not have the same architecture or be trained using the same training set.</p>
+  <p num="p-0050"> <figref idrefs="DRAWINGS">FIG. 5</figref> graphically illustrates results of applying an NN/SVM analysis according to the invention to a six-parameter model, namely, an approximation to the fifth degree polynomial y=x(1−x<sup>2</sup>)(4−x<sup>2</sup>). Data are provided at each of 11 training locations (indicated by small circles on the curve) in the domain of the variable x. After a few iterations of an NN/SVM analysis, the 11 training values, (x<sub>k</sub>,y<sub>k</sub>)=(x<sub>k</sub>,x<sub>k</sub>(1−x<sub>k</sub> <sup>2</sup>)(4−x<sub>k</sub> <sup>2</sup>)), provide the solid curve as a generalization, using the NN/SVM analysis. The dashed curve (barely visible in <figref idrefs="DRAWINGS">FIG. 5</figref>) is a plot of the original fifth order polynomial.</p>
+  <p num="p-0051"> <figref idrefs="DRAWINGS">FIG. 6</figref> graphically illustrates similar results of an application of the NN/SVM analysis to a logarithm function, y=ln(x+4), using 11 training values. The solid curve is the generalization provided by the NN/SVM analysis.</p>
+  <p num="p-0052"> <figref idrefs="DRAWINGS">FIG. 7</figref> graphically illustrates similar results of an application of the NN/SVM analysis to an exponential function, y=6·exp(−0.5·x<sup>2</sup>), using 11 training values. The solid curve is the generalization provided by the NN/SVM analysis, using the 11 training values.</p>
+  <p num="p-0053">The generalization in each of <figref idrefs="DRAWINGS">FIGS. 5</figref>, <b>6</b> and <b>7</b> is vastly superior to corresponding generalizations provided by conventional approaches. In obtaining such a generalization, the same computer code can be used, with no change of parameters or other variables required.</p>
+  <p num="p-0054"> <figref idrefs="DRAWINGS">FIGS. 8A</figref>, <b>8</b>B and <b>8</b>C are a flow chart illustrating the application of a response surface methodology (RSM) used in this invention to obtain an optimal cross-sectional shape of an airfoil, as an example, where specified pressure values at selected locations on the airfoil perimeter are to be matched as closely as possible. In step <b>81</b>, a set of parameters, expressed here as a vector p=(p<sub>1</sub>, . . . , p<sub>M</sub>), is provided that adequately describes the airfoil cross-sectional shape (referred to as a “shape” herein), where M (≧1) is a selected positive integer. For example, the airfoil shape might be described by (1) first and second radii that approximate the shape of the airfoil at the leading edge and at the trailing edge, (2) four coefficients that describe a tension spline fit of the upper perimeter of the airfoil between the leading and trailing edge shapes, and (3) four coefficients that describe a tension spline fit of the lower perimeter of the airfoil between the leading and trailing edge shapes, a total of ten parameters. In a more general setting, the number M of parameters may range from 2 to 20 or more.</p>
+  <p num="p-0055">In step <b>82</b>, initial values of the parameters, p=p0, are provided from an initial approximation to the desired airfoil shape.</p>
+  <p num="p-0056">In step <b>83</b>, optimal data values P(r<sub>k</sub>;opt) (e.g., airfoil pressure values or airfoil heat transfer values) are provided at selected locations r<sub>k</sub>=(x<sub>k</sub>,y<sub>k</sub>,z<sub>k</sub>)(k=1, . . . , K) on the airfoil perimeter.</p>
+  <p num="p-0057">In step <b>84</b>, an equilateral M-simplex, denoted MS(p0), is constructed, with a centroid or other selected central location at p=p0, in M-dimensional parameter space, with vertices lying on a unit radius sphere. Each of the M+1 vertices of the M-simplex MS(p0) is connected to the centroid, p=p0, by a vector Δp(m) (m=1, . . . , M+1) in parameter space. More than the M+1 vertices can be selected and used within the M-simplex. For example, midpoints of each of the M(M+1)/2 simplex edges can be added to the M+1 vertices. These additional locations will provide a more accurate NN/SVM model.</p>
+  <p num="p-0058">In step <b>85</b>, a computational fluid dynamics (CFD) or other calculation is performed for an extended parameter value set, consisting of the parameter value vectors p=p0 and each of the M+1 M-simplex vertices, p=p<sub>vert</sub>=p0+Δp(m), to obtain a calculated pressure distribution P(r<sub>k</sub>;p<sub>vert</sub>) at each of the selected perimeter locations, r=r<sub>k </sub>for each of these parameter value sets. One hybrid NN/SVM is assigned to perform the analysis for all vertices in the M-simplex MS(p0) at each location r<sub>k</sub>. That is, a total of K NN/SVM systems are used to model the overall pressure dependence on the parameters p<sub>m</sub>. The calculated pressure distribution P(r<sub>k</sub>;p<sub>vert</sub>) and/or the airfoil can be replaced by any other suitable physical model, in aerodynamics or in any other technical field or discipline. Used together, the trained NN/SVM systems will provide the pressure distribution P(r<sub>k</sub>;p) for general parameter value vectors p.</p>
+  <p num="p-0059">In step <b>86</b>, a first objective function, such as</p>
+  <p num="p-0060"> <maths id="MATH-US-00004" num="00004"> <math overflow="scroll"> <mtable> <mtr> <mtd> <mrow> <mrow> <mrow> <mi>OBJ</mi> <mo>⁡</mo> <mrow> <mo>(</mo> <mrow> <mi>p</mi> <mo>;</mo> <mi>p0</mi> <mo>;</mo> <mn>1</mn> </mrow> <mo>)</mo> </mrow> </mrow> <mo>=</mo> <mrow> <munderover> <mo>∑</mo> <mrow> <mi>k</mi> <mo>=</mo> <mn>1</mn> </mrow> <mi>K</mi> </munderover> <mo>⁢</mo> <mstyle> <mspace width="0.3em" height="0.3ex"> </mspace> </mstyle> <mo>⁢</mo> <mrow> <msub> <mi>w</mi> <mi>k</mi> </msub> <mo>⁢</mo> <msup> <mrow> <mo>{</mo> <mrow> <mrow> <mi>P</mi> <mo>⁡</mo> <mrow> <mo>(</mo> <mrow> <msub> <mi>r</mi> <mi>k</mi> </msub> <mo>;</mo> <mi>p</mi> </mrow> <mo>)</mo> </mrow> </mrow> <mo>-</mo> <mrow> <mi>P</mi> <mo>⁡</mo> <mrow> <mo>(</mo> <mrow> <msub> <mi>r</mi> <mi>k</mi> </msub> <mo>;</mo> <mi>opt</mi> </mrow> <mo>)</mo> </mrow> </mrow> </mrow> <mo>}</mo> </mrow> <mn>2</mn> </msup> </mrow> </mrow> </mrow> <mo>,</mo> </mrow> </mtd> <mtd> <mrow> <mo>(</mo> <mrow> <mn>6</mn> <mo>⁢</mo> <mi>A</mi> </mrow> <mo>)</mo> </mrow> </mtd> </mtr> </mtable> </math> </maths> <br/>
+is introduced, where {w<sub>k</sub>} is a selected set of non-negative weight coefficients.
+</p>
+  <p num="p-0061">In step <b>87</b>, the minimum value of the first objective function OBJ(p;p0;1) and a corresponding parameter vector p=p(min) are determined for parameter vectors p within a selected sphere having a selected diameter or dilatation factor d, defined by |p−p0|≦d, with 1&lt;d≦10. The process is performed using a nonlinear optimization method. Other measures of extrapolation can also be used here.</p>
+  <p num="p-0062">In step <b>88</b>, the system calculates a second objective function, which may be the first objective function or (preferably) may be defined as</p>
+  <p num="p-0063"> <maths id="MATH-US-00005" num="00005"> <math overflow="scroll"> <mtable> <mtr> <mtd> <mrow> <mrow> <mrow> <mi>OBJ</mi> <mo>⁡</mo> <mrow> <mo>(</mo> <mrow> <mi>p</mi> <mo>;</mo> <mi>p0</mi> <mo>;</mo> <mn>2</mn> </mrow> <mo>)</mo> </mrow> </mrow> <mo>=</mo> <mrow> <munderover> <mo>∑</mo> <mrow> <mi>k</mi> <mo>=</mo> <mn>1</mn> </mrow> <mi>K</mi> </munderover> <mo>⁢</mo> <mstyle> <mspace width="0.3em" height="0.3ex"> </mspace> </mstyle> <mo>⁢</mo> <mrow> <msub> <mi>w</mi> <mi>k</mi> </msub> <mo>⁢</mo> <msup> <mrow> <mo>{</mo> <mrow> <mrow> <mi>P</mi> <mo>⁡</mo> <mrow> <mo>(</mo> <mrow> <msub> <mi>r</mi> <mi>k</mi> </msub> <mo>;</mo> <mi>p</mi> <mo>;</mo> <mi>CFD</mi> </mrow> <mo>)</mo> </mrow> </mrow> <mo>-</mo> <mrow> <mi>P</mi> <mo>⁡</mo> <mrow> <mo>(</mo> <mrow> <msub> <mi>r</mi> <mi>k</mi> </msub> <mo>;</mo> <mi>opt</mi> </mrow> <mo>)</mo> </mrow> </mrow> </mrow> <mo>}</mo> </mrow> <mn>2</mn> </msup> </mrow> </mrow> </mrow> <mo>,</mo> </mrow> </mtd> <mtd> <mrow> <mo>(</mo> <mrow> <mn>6</mn> <mo>⁢</mo> <mi>B</mi> </mrow> <mo>)</mo> </mrow> </mtd> </mtr> </mtable> </math> </maths> <br/>
+where P(r<sub>k</sub>;p;CFD) is a pressure value computed using a CFD simulation, for p=p(min) and p=p0. The system then determines if OBJ(p(min);p0;2)&lt;OBJ(p0;p0;2) for the intermediate minimum value parameter vector, p=p(min). One can use the first objective function OBJ(p;p0;1), defined in Eq. (6A), rather than the objective function OBJ(p;p0;2) defined in Eq. (6B), for this comparison, but the resulting inaccuracies may be large.
+</p>
+  <p num="p-0064">If the answer to the query in step <b>88</b> is “no” for the choice of dilatation factor d, the dilatation factor d is reduced to a smaller value d′ (1&lt;{circumflex over (d)}′&lt;d), in step <b>89</b>, and steps <b>88</b> and <b>89</b> are repeated until the approximation pressure values {P(r<sub>k</sub>,p)}<sub>k </sub>for the extrapolated parameter value set provide an improved approximation for the optimal values for the same airfoil perimeter locations, r=r<sub>k</sub>.</p>
+  <p num="p-0065">If the answer to the query in step <b>88</b> is “yes”, the system moves to step <b>90</b>, uses the (modified) objective function and uses the intermediate minimum-cost parameter value set, p=p(min), which may lie inside or outside the M-simplex MS(p0) in parameter space. Minimization of the objective function OBJ(p;p0) may include one or more constraints, which may be enforced using the well known method of penalty functions. The (modified) objective function definition in Eq. (6A) (or in Eq. (6B)) can be replaced by any other positive definite definition of an objective function, for example, by</p>
+  <p num="p-0066"> <maths id="MATH-US-00006" num="00006"> <math overflow="scroll"> <mtable> <mtr> <mtd> <mrow> <mrow> <mrow> <mi>OBJ</mi> <mo>⁡</mo> <mrow> <mo>(</mo> <mrow> <mi>p</mi> <mo>;</mo> <mi>p0</mi> </mrow> <mo>)</mo> </mrow> </mrow> <mo>=</mo> <mrow> <munderover> <mo>∑</mo> <mrow> <mi>k</mi> <mo>=</mo> <mn>1</mn> </mrow> <mi>K</mi> </munderover> <mo>⁢</mo> <mstyle> <mspace width="0.3em" height="0.3ex"> </mspace> </mstyle> <mo>⁢</mo> <mrow> <msub> <mi>w</mi> <mi>k</mi> </msub> <mo>⁢</mo> <msup> <mrow> <mo></mo> <mrow> <mrow> <mi>P</mi> <mo>⁡</mo> <mrow> <mo>(</mo> <mrow> <msub> <mi>r</mi> <mi>k</mi> </msub> <mo>;</mo> <mi>p</mi> </mrow> <mo>)</mo> </mrow> </mrow> <mo>-</mo> <mrow> <mi>P</mi> <mo>⁡</mo> <mrow> <mo>(</mo> <mrow> <msub> <mi>r</mi> <mi>k</mi> </msub> <mo>;</mo> <mi>opt</mi> </mrow> <mo>)</mo> </mrow> </mrow> </mrow> <mo></mo> </mrow> <mi>q</mi> </msup> </mrow> </mrow> </mrow> <mo>,</mo> </mrow> </mtd> <mtd> <mrow> <mo>(</mo> <mrow> <mn>6</mn> <mo>⁢</mo> <mi>C</mi> </mrow> <mo>)</mo> </mrow> </mtd> </mtr> </mtable> </math> </maths> <br/>
+where q is a selected positive number.
+</p>
+  <p num="p-0067">If the original parameter value set p has an insufficient number of parameters, this will become evident in the preceding calculations, and the (modified) objective function OBJ(p(min);p0) or OBJ(p(min);p0)* will not tend toward acceptably small numbers. In this situation, at least one additional parameter would be added to the parameter value set p and the procedure would be repeated. In effect, an NN/SVM procedure used in an RSM analysis will require addition of (one or more) parameters until the convergence toward a minimum value that is acceptable for an optimized design.</p>
+  <p num="p-0068">In step <b>91</b>, the system determines if the (modified) objective function OBJ(p(min);p0)* is no greater than a selected threshold number (e.g., 1 or 10<sup>−4</sup>, in appropriate units). If the answer to the query in step <b>91</b> is “no”, a new M-simplex MS(p′0) is formulated, in step <b>92</b>, with p′0=p(min) as the new center, and steps <b>85</b>-<b>90</b> are repeated at least once. Each time, a new parameter value set, p=p(min), is determined that approximately minimizes the objective function OBJ(p;p′0).</p>
+  <p num="p-0069">If the answer to the query in step <b>91</b> is “yes”, the system interprets the resulting parameter set, p=p(min), and the design described by this parameter set as optimal, in step <b>93</b>. The method set forth in steps <b>81</b>-<b>93</b> is referred to herein as a response surface method.</p>
+  <p num="p-0070">FIGS. <b>9</b>A<b>1</b>-<b>9</b>C<b>2</b> illustrate a sequence of partly-optimized designs for an airfoil, obtained using the invention, and compare each such design shape and corresponding airfoil pressure distribution to an target airfoil design shape and corresponding target airfoil pressure distribution. The objective function is defined as mean square error between resulting and target pressure distribution at a sequence of selected locations on the airfoil perimeter. One begins in FIG. <b>9</b>A<b>1</b> with a curvilinear shape of approximately uniform thickness, which provides a pressure distribution p along the airfoil perimeter as illustrated graphically in FIG. <b>9</b>A<b>2</b>. FIGS. <b>9</b>B<b>1</b> and <b>9</b>C<b>1</b> illustrate the results of second and fourth iterative applications of an NN/SVM analysis according to the invention, and FIGS. <b>9</b>B<b>2</b> and <b>9</b>C<b>2</b> graphically illustrate the pressure distributions corresponding to FIGS. <b>9</b>B<b>1</b> and <b>9</b>C<b>1</b>, respectively. Each iteration brings the resulting airfoil shape and pressure distribution closer to the target shape and target pressure distribution. After a fourth iteration of the NN/SVM analysis, the airfoil shape, shown in FIG. <b>9</b>C<b>1</b>, produces a pressure distribution, shown in FIG. <b>9</b>C<b>2</b>, that nearly precisely matches the target airfoil pressure distribution. Computations for this iterative sequence required about 8 minutes on a 16-processor SGI Origin computer.</p>
+  <p num="p-0071">In a second embodiment, NN/SVM analysis is applied to data classification in a multi-dimensional vector space. In data classification, a discrimination mechanism must be determined that divides the data points into (at least) a first set of data points that satisfy a selected criterion, and a second set of data points that either do not satisfy the (first) criterion or that satisfy an inconsistent second criterion. <figref idrefs="DRAWINGS">FIG. 10</figref> illustrates a collection of first set data points (“x”) and second set data points (“o”) in two (parameter) dimensions that are easily separated by a linear function of the two parameter coordinates, namely
+<br/>
+<i>f</i> <sub>1</sub>(<i>x,y</i>)=<i>a·x+b·y−c=</i>0,  (7)
+<br/>
+where a, b and c are selected real values, with at least one of a and b being non-zero: All data points in the first data set and in the second data set lie on opposite sides of the line (hyperplane) f<sub>1</sub>(x,y)=0. Here, the data point separation is straightforward.
+</p>
+  <p num="p-0072"> <figref idrefs="DRAWINGS">FIGS. 11A and 11B</figref> illustrate a collection of first set data points (“x”) and second set data points (“o”) that cannot be separated using a linear function of the two coordinates. An appropriate separation function may be
+<br/> <i>f</i> <sub>2</sub>(<i>x,y</i>)=(<i>a·x+b·y−c</i>)<sup>2</sup>±(<i>d·x+e−g)</i> <sup>2</sup>=1,  (8)<br/>
+where a·d+b·e=0 and a, b, c, d, e and g are selected real values, not all zero. The choice of the plus (+) sign in Eq. (8) produces an ellipse, and the choice of a minus (−) sign in Eq. (8) produces a hyperbola. In this instance, one set of appropriate coordinates for hyperplane separation in feature space is
+<br/> <i>u</i> <sub>1</sub> <i>=x,</i>  (9A)<br/> <i>u</i> <sub>2</sub> <i>=y,</i>  (9B)<br/> <i>u</i> <sub>3</sub>=(<i>a·x+b·y−c</i>)<sup>2</sup>,  (9C)<br/> <i>u</i> <sub>4</sub>=(<i>d·x+e·y−g)</i> <sup>2</sup>,  (9D)<br/>
+in which the separating hyperplane in feature space becomes
+<br/> <i>u</i> <sub>3</sub> <i>±u</i> <sub>4</sub>−1=0.  (10)</p>
+  <p num="p-0073">The power of an SVM resides, in part, in its use of a qth order polynomial kernel (as an example) for vectors α and β, such as
+<br/>
+<i>K</i>(α,β)=(α·β+1)<sup>q</sup>,  (11)
+<br/>
+where q is a selected positive integer (e.g., q=2), rather than requiring an a priori definition of the polynomial terms to be used, as in Eqs. (9A)-(9D).
+</p>
+  <p num="p-0074">An advantage of the present invention, using NN/SVM analysis, over a conventional SVM analysis is that the kernel, such as the one given in Eq. (11), and the associated feature space need not be specified a priori; the appropriate feature space is automatically generated by the NN component of the NN/SVM system during the training process.</p>
+  <p num="p-0075"> <figref idrefs="DRAWINGS">FIG. 12</figref> illustrates an application of the NN/SVM system to data classification, with M=2. Two classes of data that are separable, indicated as crosses and squares, are provided for the system. The exact boundary between the two classes is defined by first and second intersecting ellipses in two dimensions, with the major axes being oriented at 45° and at 135° relative to an x-axis in an (x,y) region ρ defined by
+<br/>ρ={(<i>x,y</i>)|0<i>≦x≦</i>2.5, 0<i>≦y≦</i>2.5}.  (12)<br/>
+Four hundred data points were randomly generated in this region and were first classified according to the exact boundaries. The boundaries were then removed, and only the locations of the data points were provided to the NN/SVM system. The resulting decision boundary generated by the NN/SVM system is shown as a solid line in <figref idrefs="DRAWINGS">FIG. 12</figref>. More generally, if M-parameter data points are provided, with M≧2, the data separation surface or hyperplane will have dimension at most M−1.
+</p>
+  <p num="p-0076">The NN/SVM system provides a perfect classification of the original data, with zero mis-assignments, without requiring any specification of kernel functions or feature spaces. Where the solid boundary line and the dotted boundary lines differ, no data points were located in the intervening regions between these boundaries. Provision of additional data points in one or more of these intervening regions would provide a resulting (solid) NN/SVM boundary line that is closer to the exact (dotted) boundary line.</p>
+  <p num="p-0077">If r is a ratio of the sum of the absolute value of the intervening regions corresponding to the boundary lines mismatch, and the area of the square (6.25 units<sup>2 </sup>in <figref idrefs="DRAWINGS">FIG. 12</figref>), the ratio r is a very small number that will tend toward zero as the number of data points (assumed to be approximately uniformly distributed) increases without bound. Additionally, r (defined as a percentage) represents the number of misclassifications (also expressed as a percentage) that an NN/SVM-generated boundary will produce on a very large test set.</p>
+  <heading>Appendix</heading>
+  <p num="p-0078">Examples of an NN analysis and of an SVM analysis are presented here. The invention is not limited to a particular NN analysis or to a particular SVM analysis.</p>
+  <p num="p-0079">Consider an object, represented by a group of coordinates x=(x<sup>1</sup>, x<sup>2</sup>, . . . , x<sup>N</sup>), for which some physical feature or response of the object is to be optimized. The object may be a aircraft wing or turbine blade for which an ideal pressure distribution at specified locations on the object is to be achieved as closely as possible. The object may be a chemically reacting system with desired percentages of final compounds, for which total thermal energy output is minimized. The object may be represented at spaced apart locations or at spaced apart times by a group of independent coordinates, and an objective or cost function is presented, representing the response to be optimized. One or more constraints, either physical or numerical, are also set down, if desired.</p>
+  <p num="p-0080">In an NN analysis, one relevant problem is minimizing empirical risk over a sum of linear indicator or characteristic functions</p>
+  <p num="p-0081"> <maths id="MATH-US-00007" num="00007"> <math overflow="scroll"> <mtable> <mtr> <mtd> <mrow> <mrow> <mrow> <mi>f</mi> <mo>⁡</mo> <mrow> <mo>(</mo> <mrow> <mi>x</mi> <mo>,</mo> <mi>w</mi> </mrow> <mo>)</mo> </mrow> </mrow> <mo>=</mo> <mrow> <mi>θ</mi> <mo>⁢</mo> <mrow> <mo>{</mo> <mrow> <munderover> <mo>∑</mo> <mrow> <mi>i</mi> <mo>=</mo> <mn>1</mn> </mrow> <mi>N</mi> </munderover> <mo>⁢</mo> <mstyle> <mspace width="0.3em" height="0.3ex"> </mspace> </mstyle> <mo>⁢</mo> <mrow> <msub> <mi>w</mi> <mi>i</mi> </msub> <mo>.</mo> <msup> <mi>x</mi> <mi>i</mi> </msup> </mrow> </mrow> <mo>}</mo> </mrow> </mrow> </mrow> <mo>,</mo> </mrow> </mtd> <mtd> <mrow> <mo>(</mo> <mrow> <mi>A</mi> <mo>⁢</mo> <mstyle> <mtext>-</mtext> </mstyle> <mo>⁢</mo> <mn>1</mn> </mrow> <mo>)</mo> </mrow> </mtd> </mtr> </mtable> </math> </maths> <br/>
+where θ is an indicator or characteristic function, x is a coordinate vector and w is a vector of selected weight coefficients. Consider a training set of (N+1)-tuples (x<sub>1</sub>,y<sub>1</sub>), (x<sub>2</sub>,y<sub>2</sub>), . . . , (x<sub>K</sub>,y<sub>K</sub>), where each x<sub>j</sub>=(x<sub>j</sub> <sup>1</sup>, x<sub>j</sub> <sup>2</sup>, . . . , x<sub>j</sub> <sup>N</sup>) is an N-tuple representing a vector and y<sub>j </sub>is a scalar having only the values −1 or +1.
+</p>
+  <p num="p-0082">The indicator function θ(z) has only two values, 0 and 1, and is not generally differentiable with respect to a variable in its argument. The indicator function θ(z) in Eq. (A-1) is often replaced by a general sigmoid function S(z) that is differentiable with respect to z everywhere on the finite real line, is monotonically increasing with z, and satisfies
+<br/>
+Lim<sub>zØ−∞</sub> <i>S</i>(<i>z</i>)=0,  (A-2a)
+<br/>
+Lim<sub>zØ+∞</sub> <i>S</i>(<i>z</i>)=1.  (A-2b)
+<br/>
+Examples of suitable sigmoid functions include the following:
+<br/>
+<i>S</i>(<i>z</i>)=1/{1+exp(−α<i>z</i>)},
+<br/>
+<i>S</i>(<i>z</i>)={1+tanh(β·<i>z</i>+χ)]/2
+<br/>
+<i>S</i>(<i>z</i>)={π+2·tan<sup>−1</sup>(δ·<i>z+ε}/</i>2π,
+<br/>
+where α, β and δ are selected positive values. The indicator sum f(x,w) in Eq. (A-1) is replaced by a modified sigmoid sum
+</p>
+  <p num="p-0083"> <maths id="MATH-US-00008" num="00008"> <math overflow="scroll"> <mtable> <mtr> <mtd> <mrow> <mrow> <mi>G</mi> <mo>⁡</mo> <mrow> <mo>(</mo> <mrow> <mi>x</mi> <mo>,</mo> <mi>w</mi> </mrow> <mo>)</mo> </mrow> </mrow> <mo>=</mo> <mrow> <mi>S</mi> <mo>⁢</mo> <mrow> <mrow> <mo>{</mo> <mrow> <munderover> <mo>∑</mo> <mrow> <mi>i</mi> <mo>=</mo> <mn>1</mn> </mrow> <mi>N</mi> </munderover> <mo>⁢</mo> <mstyle> <mspace width="0.3em" height="0.3ex"> </mspace> </mstyle> <mo>⁢</mo> <mrow> <msub> <mi>w</mi> <mi>i</mi> </msub> <mo>.</mo> <msup> <mi>x</mi> <mi>i</mi> </msup> </mrow> </mrow> <mo>}</mo> </mrow> <mo>.</mo> </mrow> </mrow> </mrow> </mtd> <mtd> <mrow> <mo>(</mo> <mrow> <mi>A</mi> <mo>⁢</mo> <mstyle> <mtext>-</mtext> </mstyle> <mo>⁢</mo> <mn>3</mn> </mrow> <mo>)</mo> </mrow> </mtd> </mtr> </mtable> </math> </maths> <br/>
+where S is a selected linear or nonlinear function.
+</p>
+  <p num="p-0084">In order to minimize the empirical risk, one must determine the parameter values w<sub>i </sub>that minimize an empirical risk functional</p>
+  <p num="p-0085"> <maths id="MATH-US-00009" num="00009"> <math overflow="scroll"> <mtable> <mtr> <mtd> <mrow> <mrow> <mrow> <msub> <mi>R</mi> <mi>emp</mi> </msub> <mo>⁡</mo> <mrow> <mo>(</mo> <mi>w</mi> <mo>)</mo> </mrow> </mrow> <mo>=</mo> <mrow> <munderover> <mo>∑</mo> <mrow> <mi>j</mi> <mo>=</mo> <mn>1</mn> </mrow> <mi>K</mi> </munderover> <mo>⁢</mo> <mrow> <msup> <mrow> <mo>(</mo> <mrow> <msub> <mi>y</mi> <mi>j</mi> </msub> <mo>-</mo> <mrow> <mi>F</mi> <mo>⁡</mo> <mrow> <mo>(</mo> <mrow> <msub> <mi>x</mi> <mi>j</mi> </msub> <mo>,</mo> <mi>w</mi> </mrow> <mo>)</mo> </mrow> </mrow> </mrow> <mo>)</mo> </mrow> <mn>2</mn> </msup> <mo>/</mo> <mi>K</mi> </mrow> </mrow> </mrow> <mo>,</mo> </mrow> </mtd> <mtd> <mrow> <mo>(</mo> <mrow> <mi>A</mi> <mo>⁢</mo> <mstyle> <mtext>-</mtext> </mstyle> <mo>⁢</mo> <mn>4</mn> </mrow> <mo>)</mo> </mrow> </mtd> </mtr> </mtable> </math> </maths> <br/>
+which is differentiable in the vector components w. One may, for example, use a gradient search approach to minimize R<sub>emp</sub>(w). The search may converge to a local minimum, which may or may not be a global minimum for the empirical risk.
+</p>
+  <p num="p-0086">Assume, first, that the training data {(x<sub>j</sub>,y<sub>j</sub>)} can be separated by an optimal separating hyperplane, defined by
+<br/>
+(<i>w·x</i> <sub>j</sub>)−<i>g=</i>0,  (A-5)
+<br/>
+where g partly defines the hyperplane. A separating hyperplane satisfies
+<br/>
+(<i>w·x</i> <sub>j</sub>)−<i>g≧</i>1 (<i>y</i> <sub>j</sub>≧1),  (A-6a)
+<br/>
+(<i>w·x</i> <sub>j</sub>)−<i>g≦−</i>1 (<i>y</i> <sub>j</sub>≦−1).  (A-6b)
+<br/>
+An optimal separating hyperplane maximizes the functional
+<br/>
+Φ(<i>w</i>)=(<i>w·w</i>)/2,  (A-7)
+<br/>
+with respect to the vector values w and the value g, subject to the constraints in Eqs. (A-6a)-(A-6b). Unless indicated otherwise, all sums in the following are understood to be over the index j=1, . . . , K).
+</p>
+  <p num="p-0087">A solution to this optimization problem is given by a saddle point of a Lagrange functional</p>
+  <p num="p-0088"> <maths id="MATH-US-00010" num="00010"> <math overflow="scroll"> <mtable> <mtr> <mtd> <mrow> <mrow> <mi>L</mi> <mo>⁡</mo> <mrow> <mo>(</mo> <mrow> <mi>w</mi> <mo>,</mo> <mi>g</mi> <mo>,</mo> <mi>α</mi> </mrow> <mo>)</mo> </mrow> </mrow> <mo>=</mo> <mrow> <mrow> <mrow> <mo>(</mo> <mrow> <mi>w</mi> <mo>·</mo> <mi>w</mi> </mrow> <mo>)</mo> </mrow> <mo>/</mo> <mn>2</mn> </mrow> <mo>-</mo> <mrow> <munderover> <mo>∑</mo> <mrow> <mi>j</mi> <mo>=</mo> <mn>1</mn> </mrow> <mi>K</mi> </munderover> <mo>⁢</mo> <mrow> <msub> <mi>α</mi> <mi>j</mi> </msub> <mo>⁢</mo> <mrow> <mrow> <mo>{</mo> <mrow> <mrow> <mo>(</mo> <mrow> <mrow> <mo>(</mo> <mrow> <msub> <mi>x</mi> <mi>j</mi> </msub> <mo>·</mo> <mi>w</mi> </mrow> <mo>)</mo> </mrow> <mo>-</mo> <mi>g</mi> </mrow> <mo>)</mo> </mrow> <mo>·</mo> <mrow> <mo>(</mo> <mrow> <msub> <mi>y</mi> <mi>j</mi> </msub> <mo>-</mo> <mn>1</mn> </mrow> <mo>)</mo> </mrow> </mrow> <mo>}</mo> </mrow> <mo>.</mo> </mrow> </mrow> </mrow> </mrow> </mrow> </mtd> <mtd> <mrow> <mo>(</mo> <mrow> <mi>A</mi> <mo>⁢</mo> <mstyle> <mtext>-</mtext> </mstyle> <mo>⁢</mo> <mn>8</mn> </mrow> <mo>)</mo> </mrow> </mtd> </mtr> </mtable> </math> </maths> <br/>
+At a saddle point, the solutions (w,g,α) satisfy the relations
+<br/>∂<i>L/∂g</i>=0,  (A-9)<br/>∂<i>L/∂w</i>=0,  (A-10)<br/>
+with the associated constraint
+<br/>α<sub>j</sub>≧0,  (A-11)<br/>
+Equation (A-9) yields the constraint
+</p>
+  <p num="p-0089"> <maths id="MATH-US-00011" num="00011"> <math overflow="scroll"> <mtable> <mtr> <mtd> <mrow> <mrow> <munderover> <mo>∑</mo> <mrow> <mi>j</mi> <mo>=</mo> <mn>1</mn> </mrow> <mi>K</mi> </munderover> <mo>⁢</mo> <mrow> <msub> <mi>α</mi> <mi>j</mi> </msub> <mo>·</mo> <msub> <mi>y</mi> <mi>j</mi> </msub> </mrow> </mrow> <mo>=</mo> <mn>0.</mn> </mrow> </mtd> <mtd> <mrow> <mo>(</mo> <mrow> <mi>A</mi> <mo>⁢</mo> <mstyle> <mtext>-</mtext> </mstyle> <mo>⁢</mo> <mn>12</mn> </mrow> <mo>)</mo> </mrow> </mtd> </mtr> </mtable> </math> </maths> <br/>
+Equation (A-10) provides an expression for the parameter vector w of an optimal hyperplane as a linear combination of vectors in the training set
+<br/> <i>w=Σy</i> <sub>j</sub>·α<sub>j</sub> <i>·x</i> <sub>j</sub>,  (A-13)<br/>
+An optimal solution (w,g,α) must satisfy a Kuhn-Tucker condition
+<br/>α<sub>j</sub>{((<i>x</i> <sub>j</sub> <i>·w</i>)·(y<sub>j</sub>−1)=0 (1=1<i>, . . . , K</i>).  (A-14)<br/>
+Only some of the training vectors, referred to herein as “support vectors,” have non-zero coefficients in the expansion of the optimal solution vector w. More precisely, the expansion in Eq. (A-13) can be rewritten as
+<br/> <i>w=Σy</i> <sub>j</sub> <i>·α</i> <sub>j</sub> <i>·x</i> <sub>j</sub>.  (A-15)</p>
+  <p num="p-0090">support vectors</p>
+  <p num="h-0008">Substituting the optimal vector w back into Eq. (A-8) and taking into account the Kuhn-Tucker condition, the Lagrange functional to be minimized is re-expressed as</p>
+  <p num="p-0091"> <maths id="MATH-US-00012" num="00012"> <math overflow="scroll"> <mtable> <mtr> <mtd> <mrow> <mrow> <mi>L</mi> <mo>⁡</mo> <mrow> <mo>(</mo> <mi>α</mi> <mo>)</mo> </mrow> </mrow> <mo>=</mo> <mrow> <mrow> <munderover> <mo>∑</mo> <mrow> <mi>j</mi> <mo>=</mo> <mn>1</mn> </mrow> <mi>K</mi> </munderover> <mo>⁢</mo> <msub> <mi>α</mi> <mi>j</mi> </msub> </mrow> <mo>-</mo> <mrow> <mrow> <mo>(</mo> <mrow> <mn>1</mn> <mo>/</mo> <mn>2</mn> </mrow> <mo>)</mo> </mrow> <mo>⁢</mo> <mrow> <munderover> <mo>∑</mo> <mrow> <mi>i</mi> <mo>,</mo> <mrow> <mi>j</mi> <mo>=</mo> <mn>1</mn> </mrow> </mrow> <mi>K</mi> </munderover> <mo>⁢</mo> <mrow> <msub> <mi>α</mi> <mi>i</mi> </msub> <mo>·</mo> <msub> <mi>α</mi> <mi>j</mi> </msub> <mo>·</mo> <msub> <mi>y</mi> <mi>i</mi> </msub> <mo>·</mo> <msub> <mi>y</mi> <mi>j</mi> </msub> <mo>·</mo> <mrow> <mrow> <mo>(</mo> <mrow> <msub> <mi>x</mi> <mi>i</mi> </msub> <mo>·</mo> <msub> <mi>x</mi> <mi>j</mi> </msub> </mrow> <mo>)</mo> </mrow> <mo>.</mo> </mrow> </mrow> </mrow> </mrow> </mrow> </mrow> </mtd> <mtd> <mrow> <mo>(</mo> <mrow> <mi>A</mi> <mo>⁢</mo> <mstyle> <mtext>-</mtext> </mstyle> <mo>⁢</mo> <mn>16</mn> </mrow> <mo>)</mo> </mrow> </mtd> </mtr> </mtable> </math> </maths> <br/>
+This functional is to be maximized, subject to the constraints expressed in Eqs. (A-13) and (A-14). Substituting the expression for optimal parameter vector w into Eq. (A-14), one obtains
+<br/>(<i>w·x</i>)−<i>g=Σα</i> <sub>j</sub>·(<i>x</i> <sub>j</sub> <i>·x</i>)−<i>g=</i>0.  (A-17)</p>
+  <p num="p-0092">The preceding development assumes that the training set data {(x<sub>j</sub>,y<sub>j</sub>)} are separable by a hyperplane. If these data are not separable by a hyperplane, one introduces non-negative slack variables χ<sub>j</sub>(j=1, . . . , K) and a modified functional
+<br/>
+Φ(<i>w</i>)=(<i>w·w</i>)+<i>C·Σχ</i> <sub>j</sub>,  (A-18)
+<br/>
+subject to the constraints
+<br/>
+<i>y</i> <sub>j</sub>.((<i>w·x</i> <sub>j</sub>)−<i>g</i>)≧1−χ<sub>j</sub>,  (A-19)
+<br/>
+where the (positive) coefficient C corresponds to an inter-penetration of two or more groups of training set (N+1)-tuples into each other (thus, precluding separation by a hyperplane). Repeating the preceding analysis, where the functional Φ(w) replaces the term(w·w), an optimal solution (w,g,α) is found as before by maximizing a quadratic form, subject to the modified constraints
+<br/>
+Σα<sub>j</sub> <i>·y</i> <sub>j</sub>=0.,  (A-20a)
+<br/>
+0≦α<sub>j</sub> <i>≦C.</i>  (A-20b)
+<br/>
+Use of (only) hyperplanes in an input space is insufficient for certain classes of data. See the examples in <figref idrefs="DRAWINGS">FIGS. 11A and 11B</figref>.
+</p>
+  <p num="p-0093">In a support vector machine, input vectors are mapped into a high dimension feature space Z through a selected nonlinear mapping. In the space Z, an optimal separating hyperplane is constructed that maximizes a certain Δ-margin associated with hyperplane separation.</p>
+  <p num="p-0094">First, consider a mapping that allows one to construct decision polynomials of degree <b>2</b> in the input space. One creates a (quadratic) feature space Z having dimension M=N(N+3)/2, with coordinates
+<br/>
+<i>u</i> <sub>j</sub> <i>=x</i> <sup>j </sup>(<i>j=</i>1<i>, . . . , N: N </i>coordinates)  (A-21a)
+<br/>
+<i>u</i> <sub>j+N</sub> <i>=x</i> <sub>j</sub> <sup>2 </sup>(<i>j=</i>1<i>, . . . , N; N </i>coordinates)  (A-21b)
+<br/>
+<i>u</i> <sub>j+2N</sub> <i>=x</i> <sub>1</sub> <i>·x</i> <sub>2</sub> <i>, x</i> <sub>1</sub> <i>·x</i> <sub>3</sub> <i>, . . . , x</i> <sub>N−1</sub> <i>·x</i> <sub>N</sub>, (<i>N</i>(<i>N−</i>1)/2 coordinates).  (A-21c)
+<br/>
+A separating hyperplane constructed in the space Z is assumed to be a second degree polynomial in the input space coordinates x<sub>j</sub>=1, . . . , N).
+</p>
+  <p num="p-0095">By analogy, in order to construct a polynomial of degree k in the input coordinates, one must construct a space Z having of the order of N<sup>k </sup>coordinates, where one constructs an optimal separating hyperplane. For example, for k=4, the maximum number of coordinates needed in the space Z is
+<br/>
+max(<i>k=</i>4)=(<i>N+k</i>)!/{<i>N!k!}</i> <sub>k=</sub>4  (A-22)
+<br/>
+which is about 10<sup>8 </sup>coordinates for a modest size input space of N=100 independent coordinates.
+</p>
+  <p num="p-0096">For a quadratic feature space Z, one first determines a kernel function K of inner products according to
+<br/>
+(<i>u</i> <sub>L1</sub> <i>·u</i> <sub>L2</sub>)=<i>K</i>(<i>x</i> <sub>j1</sub> <i>,x</i> <sub>j2</sub>)=<i>K</i>(<i>x</i> <sub>j2</sub> <i>,x</i> <sub>j1</sub>)(<i>L</i>1<i>, L</i>2=1<i>, . . . ,N</i>(<i>N+</i>1)/2).  (A-23)
+<br/>
+One constructs nonlinear decision functions
+<br/>
+<i>I</i>(<i>x</i>)=sgn{Σα<sub>j</sub> <i>·K</i>(<i>x,x</i> <sub>j</sub>)+<i>b</i>0}  (A-24)
+</p>
+  <p num="p-0097">support vectors</p>
+  <p num="h-0009">that are equivalent to the decision function Φ(x) in Eq. (A-18). By analogy with the preceding, the coefficients aj are estimated by solving the equation
+<br/>
+<i>W</i>(α)=Σα<sub>j</sub>−(1/2) Σα<sub>i</sub>·α<sub>j</sub> <i>·x</i> <sub>i</sub> <i>·x</i> <sub>j</sub> <i>·K</i>(<i>x</i> <sub>i</sub> <i>,x</i> <sub>j</sub>),  (A-25)
+<br/>
+with the following constraint (or sequence of constraints) imposed:
+<br/>
+Σα<sub>j</sub> <i>·y</i> <sub>j</sub>=0,  (A-26a)
+<br/>
+α<sub>j</sub>≦0.  (A-26b)
+<br/>
+Mercer (1909) has proved that a one-to-one correspondence exists between the set of symmetric, positive definite functions κ(x,y) defined on the real line that satisfy
+<br/>
+∫∫κ(<i>x,y</i>)<i>f</i>(<i>x</i>)<i>f</i>(<i>y</i>)<i>dx dy≦</i>0  (A-27)
+<br/>
+for any L2-integrable function f(x) satisfying
+<br/>
+∫<sup>f</sup>(<i>x</i>)<sup>2</sup> <i>dx&lt;∞</i>  (A-28)
+<br/>
+and the set of inner products defined on that function space {f}. Thus, any kernel function K(x<sub>j1</sub>,x<sub>j2</sub>) satisfying conditions of the Mercer theorem can be used to construct an inner product of the type set forth in Eq. (A-23). Using different expressions for the kernel K(x<sub>j1</sub>,x<sub>j2</sub>), one can construct different learning machines with corresponding nonlinear decision functions.
+</p>
+  <p num="p-0098">For example, the kernel function
+<br/>
+<i>K</i>(<i>x′,x</i>″)={(<i>x′·x″)+</i>1}<sup>q</sup>,  (A-29)
+<br/>
+can be used to specify polynomials of degree up to q (preferably an integer).
+</p>
+  <p num="p-0099">Much of the preceding development is taken from V. N. Vapnik, “An Overview of Statistical Learning Theory”, IEEE Trans. Neural Networks, vol. 10 (1999), pp. 988-999. The present invention provides a hybrid approach in which the input layer and hidden layer(s) of an NN component are used to create a data-adaptive feature space for an SVM component. As indicated in the preceding, the combined NN/SVM analysis of the invention is not limited to the particular NN analysis or to the particular SVM analysis set forth in this Appendix.</p>
+
+</div>
+  </div>
+  </section>
+
+  <section itemprop="claims" itemscope>
+    <h2>Claims (<span itemprop="count">8</span>)</h2>
+    
+    <div itemprop="content" html><div mxw-id="PCLM9294462" lang="EN" load-source="patent-office" class="claims">
+  <div class="claim"> <div id="CLM-00001" num="00001" class="claim">
+    <div class="claim-text">1. A method for aerodynamic design optimization of an aerodynamic component, the method comprising:
+<div class="claim-text">providing a computer that is programmed:
+<div class="claim-text">(1) to provide a group of M parameters that define a design shape of a selected aerodynamic component, and to provide a vector p=p0 of initial values for each parameter in the group, where M is a selected integer ≧1;</div>
+<div class="claim-text">(2) to provide data point values and at least one numerical criterion for an optimal design at one or more selected location values of the aerodynamic component;</div>
+<div class="claim-text">(3) to provide an M-simplex in parameter space, centered at a vector location p=p0 and having a selected diameter d0;</div>
+<div class="claim-text">(4) to provide a design function f<sub>k </sub>at each location value k on the aerodynamic component, depending on the choice of the parameter vector p, for the parameter vector p0 and for each parameter vector corresponding to a vertex of the M-simplex, and for an expanded M-simplex centered at p0;</div>
+<div class="claim-text">(5) to provide a selected first objective function OBJ(p;p0;1), dependent upon the parameter vector p and upon a difference between the optimal design data point value and a first design function data point value at one or more of the location values;</div>
+<div class="claim-text">(6) to determine a parameter vector p=p(min) within the expanded M-simplex for which the first objective function attains a minimum value;</div>
+<div class="claim-text">(7) to compute a selected second objective function OBJ(p;p0;2) for p=p(min) and for p=p0;</div>
+<div class="claim-text">(8) when OBJ(p(min);p0;2) is not less than OBJ(p0;p0;2), to provide a modified expanded M-simplex, with a modified diameter d′ satisfying d0&lt;d′&lt;d and to repeat steps (6) and (7) at least once; and</div>
+<div class="claim-text">(9) when OBJ(p(min);p0;2) is less than OBJ(p0;p0;2), to determine if OBJ(p(min);p0;2) is no greater than a selected threshold value;</div>
+<div class="claim-text">(10) when OBJ(p(min);p0;2) is greater than the threshold value, to provide a substitute M-simplex, centered at p=p′0=p(min) with the selected diameter d0, and an expanded substitute M-simplex, centered at p′0 with the diameter d, and repeat steps (4), (5), (6), (7), (8) and (9) at least once; and</div>
+<div class="claim-text">(11) when OBJ(p(min);p0;2) is not greater than the threshold value, to interpret the parameter set p=p(min) as an optimal design set; and</div>
+<div class="claim-text">(12) constructing an aerodynamic component with a shape according to the optimal design set.</div>
+</div>
+</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00002" num="00002" class="claim">
+    <div class="claim-text">2. The method of <claim-ref idref="CLM-00001">claim 1</claim-ref>, further comprising choosing said first objective function to be</div>
+    <div class="claim-text">
+      <maths id="MATH-US-00013" num="00013">
+        <math overflow="scroll">
+          <mrow>
+            <mrow>
+              <mrow>
+                <mi>OBJ</mi>
+                <mo>⁡</mo>
+                <mrow>
+                  <mo>(</mo>
+                  <mrow>
+                    <mi>p</mi>
+                    <mo>;</mo>
+                    <mi>p0</mi>
+                  </mrow>
+                  <mo>)</mo>
+                </mrow>
+              </mrow>
+              <mo>=</mo>
+              <mrow>
+                <munderover>
+                  <mo>∑</mo>
+                  <mrow>
+                    <mi>k</mi>
+                    <mo>=</mo>
+                    <mn>1</mn>
+                  </mrow>
+                  <mi>K</mi>
+                </munderover>
+                <mo>⁢</mo>
+                <mstyle>
+                  <mspace width="0.3em" height="0.3ex"> </mspace>
+                </mstyle>
+                <mo>⁢</mo>
+                <mrow>
+                  <msub>
+                    <mi>w</mi>
+                    <mi>k</mi>
+                  </msub>
+                  <mo>⁢</mo>
+                  <msup>
+                    <mrow>
+                      <mo></mo>
+                      <mrow>
+                        <mrow>
+                          <msub>
+                            <mi>f</mi>
+                            <mi>k</mi>
+                          </msub>
+                          <mo>⁡</mo>
+                          <mrow>
+                            <mo>(</mo>
+                            <mrow>
+                              <msub>
+                                <mi>r</mi>
+                                <mi>k</mi>
+                              </msub>
+                              <mo>;</mo>
+                              <mi>p</mi>
+                            </mrow>
+                            <mo>)</mo>
+                          </mrow>
+                        </mrow>
+                        <mo>-</mo>
+                        <mrow>
+                          <msub>
+                            <mi>f</mi>
+                            <mi>k</mi>
+                          </msub>
+                          <mo>⁡</mo>
+                          <mrow>
+                            <mo>(</mo>
+                            <mrow>
+                              <msub>
+                                <mi>r</mi>
+                                <mi>k</mi>
+                              </msub>
+                              <mo>;</mo>
+                              <mi>opt</mi>
+                            </mrow>
+                            <mo>)</mo>
+                          </mrow>
+                        </mrow>
+                      </mrow>
+                      <mo></mo>
+                    </mrow>
+                    <mi>q</mi>
+                  </msup>
+                </mrow>
+              </mrow>
+            </mrow>
+            <mo>,</mo>
+          </mrow>
+        </math>
+      </maths>
+    </div>
+    <div class="claim-text">where r<sub>k </sub>is one of said selected location values, f<sub>k</sub>(r<sub>k</sub>;p) is one of said design function data point values, f<sub>k</sub>(r<sub>k</sub>;opt) is one of said optimal design data point values, w<sub>k </sub>is a selected non-negative weight coefficient, q is a selected positive number, and K is a selected positive integer.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00003" num="00003" class="claim">
+    <div class="claim-text">3. The method of <claim-ref idref="CLM-00001">claim 1</claim-ref>, further comprising choosing said first objective function to be the same as said second objective function.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00004" num="00004" class="claim">
+    <div class="claim-text">4. The method of <claim-ref idref="CLM-00001">claim 1</claim-ref>, wherein said second objective function depends upon said second design function, upon said parameter vector p and upon a difference between said optimal design data point value and a data point value computed using computer simulation of a response of said design, at one or more of said location values.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00005" num="00005" class="claim">
+    <div class="claim-text">5. The method of <claim-ref idref="CLM-00001">claim 1</claim-ref>, further comprising choosing said design function to correspond to pressure on an airfoil at said selected locations on a perimeter of the airfoil.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00006" num="00006" class="claim">
+    <div class="claim-text">6. The method of <claim-ref idref="CLM-00001">claim 1</claim-ref>, wherein said computer is further programmed:
+<div class="claim-text">(13) to provide data point values and at least a second numerical criterion for a second optimal design at one or more selected location values; and</div>
+<div class="claim-text">(14) to cause said computer to apply steps (1) and (3)-(11) of <claim-ref idref="CLM-00001">claim 1</claim-ref> to obtain an optimal set of design parameters for the second optimal design, where the second optimal design has selected third and fourth objective functions that are independent of said first and second objective functions.</div>
+</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00007" num="00007" class="claim">
+    <div class="claim-text">7. The method of <claim-ref idref="CLM-00001">claim 1</claim-ref>, further comprising selecting said aerodynamic component to be a turbine blade or compressor blade and said design to be a shape, viewed in plan view, of the blade.</div>
+  </div>
+  </div> <div class="claim-dependent"> <div id="CLM-00008" num="00008" class="claim">
+    <div class="claim-text">8. The method of <claim-ref idref="CLM-00001">claim 1</claim-ref>, further comprising selecting said aerodynamic component to be an aircraft wing and said design to be a shape, viewed in plan view, of the wing.</div>
+  </div>
+</div> </div>
+  </div>
+  </section>
+
+  <section itemprop="application" itemscope>
+
+    <section itemprop="metadata" itemscope>
+        <span itemprop="applicationNumber">US11/274,744</span>
+        <span itemprop="priorityDate">2002-01-07</span>
+        <span itemprop="filingDate">2005-11-14</span>
+        <span itemprop="title">Hybrid neural network and support vector machine method for optimization 
+       </span>
+        <span itemprop="ifiStatus">Expired - Fee Related</span>
+        
+        <a href="/patent/US7293001B1/en">
+            <span itemprop="representativePublication">US7293001B1</span>
+            (<span itemprop="primaryLanguage">en</span>)
+        </a>
+    </section>
+
+    <h2>Priority Applications (2)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                    <th>Title</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="priorityApps" itemscope repeat>
+                <td>
+                   <span itemprop="applicationNumber">US10/043,044</span>
+                   
+                   <a href="/patent/US6961719B1/en">
+                        <span itemprop="representativePublication">US6961719B1</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                <td itemprop="priorityDate">2002-01-07</td>
+                <td itemprop="filingDate">2002-01-07</td>
+                <td itemprop="title">Hybrid neural network and support vector machine method for optimization 
+       </td>
+              </tr><tr itemprop="priorityApps" itemscope repeat>
+                <td>
+                   <span itemprop="applicationNumber">US11/274,744</span>
+                   
+                   <a href="/patent/US7293001B1/en">
+                        <span itemprop="representativePublication">US7293001B1</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                <td itemprop="priorityDate">2002-01-07</td>
+                <td itemprop="filingDate">2005-11-14</td>
+                <td itemprop="title">Hybrid neural network and support vector machine method for optimization 
+       </td>
+              </tr>
+           </tbody>
+       </table>
+
+    <h2>Applications Claiming Priority (1)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                    <th>Title</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="appsClaimingPriority" itemscope repeat>
+                <td>
+                   <span itemprop="applicationNumber">US11/274,744</span>
+                   <a href="/patent/US7293001B1/en">
+                        <span itemprop="representativePublication">US7293001B1</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                <td itemprop="priorityDate">2002-01-07</td>
+                <td itemprop="filingDate">2005-11-14</td>
+                <td itemprop="title">Hybrid neural network and support vector machine method for optimization 
+       </td>
+              </tr>
+           </tbody>
+       </table>
+
+    <h2>Related Parent Applications (1)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Title</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="parentApps" itemscope repeat>
+                <td>
+                    <span itemprop="applicationNumber">US10/043,044</span>
+                    <span itemprop="relationType">Division</span>
+                    <a href="/patent/US6961719B1/en">
+                        <span itemprop="representativePublication">US6961719B1</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+
+                <td itemprop="">
+                <td itemprop="priorityDate">2002-01-07</td>
+                <td itemprop="filingDate">2002-01-07</td>
+                <td itemprop="title">Hybrid neural network and support vector machine method for optimization 
+       </td>
+              </tr>
+           </tbody>
+        </table>
+
+    
+
+    <h2>Publications (1)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Publication Number</th>
+                    <th>Publication Date</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="pubs" itemscope repeat>
+                <td>
+                   <span itemprop="publicationNumber">US7293001B1</span>
+                   
+                   <span itemprop="thisPatent">true</span>
+                   <a href="/patent/US7293001B1/en">US7293001B1
+                       (<span itemprop="primaryLanguage">en</span>)
+                   </a>
+                </td>
+                <td itemprop="publicationDate">2007-11-06</td>
+              </tr>
+           </tbody>
+        </table>
+
+  </section>
+
+  <section itemprop="family" itemscope>
+    <h1>Family</h1>
+    <h2>ID=35150881</h2>
+
+    <h2>Family Applications (2)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Title</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="applications" itemscope repeat>
+                <td>
+                    <span itemprop="applicationNumber">US10/043,044</span>
+                    <span itemprop="ifiStatus">Expired - Fee Related</span>
+                    
+                    <a href="/patent/US6961719B1/en">
+                        <span itemprop="representativePublication">US6961719B1</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                </td>
+                <td itemprop="priorityDate">2002-01-07</td>
+                <td itemprop="filingDate">2002-01-07</td>
+                <td itemprop="title">Hybrid neural network and support vector machine method for optimization 
+       </td>
+              </tr><tr itemprop="applications" itemscope repeat>
+                <td>
+                    <span itemprop="applicationNumber">US11/274,744</span>
+                    <span itemprop="ifiStatus">Expired - Fee Related</span>
+                    
+                    <a href="/patent/US7293001B1/en">
+                        <span itemprop="representativePublication">US7293001B1</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                </td>
+                <td itemprop="priorityDate">2002-01-07</td>
+                <td itemprop="filingDate">2005-11-14</td>
+                <td itemprop="title">Hybrid neural network and support vector machine method for optimization 
+       </td>
+              </tr>
+           </tbody>
+        </table>
+
+    <h2>Family Applications Before (1)</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Application Number</th>
+                    <th>Title</th>
+                    <th>Priority Date</th>
+                    <th>Filing Date</th>
+                </tr>
+            </thead>
+            <tbody>
+            <tr itemprop="beforeApplications" itemscope repeat>
+                <td>
+                    <span itemprop="applicationNumber">US10/043,044</span>
+                    <span itemprop="ifiStatus">Expired - Fee Related</span>
+                    
+                    <a href="/patent/US6961719B1/en">
+                        <span itemprop="representativePublication">US6961719B1</span>
+                          (<span itemprop="primaryLanguage">en</span>)
+                      </a>
+                </td>
+                <td itemprop="priorityDate">2002-01-07</td>
+                <td itemprop="filingDate">2002-01-07</td>
+                <td itemprop="title">Hybrid neural network and support vector machine method for optimization 
+       </td>
+              </tr>
+           </tbody>
+        </table>
+
+    
+
+    <h2>Country Status (1)</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Country</th>
+            <th>Link</th>
+          </tr>
+        </thead>
+        <tbody>
+        <tr itemprop="countryStatus" itemscope repeat>
+            <td>
+              <span itemprop="countryCode">US</span>
+                (<span itemprop="num">2</span>)
+              <meta itemprop="thisCountry" content="true">
+            </td>
+            <td>
+              <a href="/patent/US6961719B1/en">
+                <span itemprop="representativePublication">US6961719B1</span>
+                  (<span itemprop="primaryLanguage">en</span>)
+              </a>
+            </td>
+          </tr>
+      </tbody>
+    </table>
+
+    <h2>Cited By (4)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20100332195A1/en">
+              <span itemprop="publicationNumber">US20100332195A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2009-06-29</td>
+          <td itemprop="publicationDate">2010-12-30</td>
+          <td><span itemprop="assigneeOriginal">Fujitsu Limited</span></td>
+          <td itemprop="title">Multi-purpose optimization design support apparatus and method, and recording medium storing program 
+       </td>
+        </tr><tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20110054850A1/en">
+              <span itemprop="publicationNumber">US20110054850A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2009-08-31</td>
+          <td itemprop="publicationDate">2011-03-03</td>
+          <td><span itemprop="assigneeOriginal">Roach James T</span></td>
+          <td itemprop="title">Composite laminate construction method 
+       </td>
+        </tr><tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/CN103488847A/en">
+              <span itemprop="publicationNumber">CN103488847A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2013-10-08</td>
+          <td itemprop="publicationDate">2014-01-01</td>
+          <td><span itemprop="assigneeOriginal">北京航天长征飞行器研究所</span></td>
+          <td itemprop="title">Aerodynamic shape optimization method based on neural network integration 
+       </td>
+        </tr><tr itemprop="forwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/CN107506783A/en">
+              <span itemprop="publicationNumber">CN107506783A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2017-07-07</td>
+          <td itemprop="publicationDate">2017-12-22</td>
+          <td><span itemprop="assigneeOriginal">广东科学技术职业学院</span></td>
+          <td itemprop="title">A kind of COMPLEX MIXED intrusion detection algorithm 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Families Citing this family (15)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US9235655B2/en">
+              <span itemprop="publicationNumber">US9235655B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2004-05-21</td>
+          <td itemprop="publicationDate">2016-01-12</td>
+          <td><span itemprop="assigneeOriginal">Hewlett-Packard Development Company, L.P.</span></td>
+          <td itemprop="title">Task-based design evaluation 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7457788B2/en">
+              <span itemprop="publicationNumber">US7457788B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2004-06-10</td>
+          <td itemprop="publicationDate">2008-11-25</td>
+          <td><span itemprop="assigneeOriginal">Oracle International Corporation</span></td>
+          <td itemprop="title">Reducing number of computations in a neural network modeling several data sets 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US8438142B2/en">
+              <span itemprop="publicationNumber">US8438142B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2005-05-04</td>
+          <td itemprop="publicationDate">2013-05-07</td>
+          <td><span itemprop="assigneeOriginal">Google Inc.</span></td>
+          <td itemprop="title">Suggesting and refining user input based on original user input 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/JP4398916B2/en">
+              <span itemprop="publicationNumber">JP4398916B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2005-08-12</td>
+          <td itemprop="publicationDate">2010-01-13</td>
+          <td><span itemprop="assigneeOriginal">株式会社東芝</span></td>
+          <td itemprop="title">Probabilistic model generation apparatus and program 
+     </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/JP2007213403A/en">
+              <span itemprop="publicationNumber">JP2007213403A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2006-02-10</td>
+          <td itemprop="publicationDate">2007-08-23</td>
+          <td><span itemprop="assigneeOriginal">Denso Corp</span></td>
+          <td itemprop="title">Model derivation method, model derivation device and program 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20080154816A1/en">
+              <span itemprop="publicationNumber">US20080154816A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2006-10-31</td>
+          <td itemprop="publicationDate">2008-06-26</td>
+          <td><span itemprop="assigneeOriginal">Motorola, Inc.</span></td>
+          <td itemprop="title">Artificial neural network with adaptable infinite-logic nodes 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/JP5130934B2/en">
+              <span itemprop="publicationNumber">JP5130934B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2007-03-05</td>
+          <td itemprop="publicationDate">2013-01-30</td>
+          <td><span itemprop="assigneeOriginal">株式会社デンソー</span></td>
+          <td itemprop="title">Recognition system, information processing apparatus, design apparatus, and program 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7899652B2/en">
+              <span itemprop="publicationNumber">US7899652B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2007-08-31</td>
+          <td itemprop="publicationDate">2011-03-01</td>
+          <td><span itemprop="assigneeOriginal">Toyota Motor Engineering &amp; Manufacturing North America, Inc.</span></td>
+          <td itemprop="title">Linear programming support vector regression with wavelet kernel 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US8463591B1/en">
+              <span itemprop="publicationNumber">US8463591B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2009-07-31</td>
+          <td itemprop="publicationDate">2013-06-11</td>
+          <td><span itemprop="assigneeOriginal">Google Inc.</span></td>
+          <td itemprop="title">Efficient polynomial mapping of data for use with linear support vector machines 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US8738271B2/en">
+              <span itemprop="publicationNumber">US8738271B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2011-12-16</td>
+          <td itemprop="publicationDate">2014-05-27</td>
+          <td><span itemprop="assigneeOriginal">Toyota Motor Engineering &amp; Manufacturing North America, Inc.</span></td>
+          <td itemprop="title">Asymmetric wavelet kernel in support vector learning 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/CN104915490A/en">
+              <span itemprop="publicationNumber">CN104915490A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2015-06-02</td>
+          <td itemprop="publicationDate">2015-09-16</td>
+          <td><span itemprop="assigneeOriginal">南车青岛四方机车车辆股份有限公司</span></td>
+          <td itemprop="title">Method and device for pneumatically anti-designing motor train unit head type 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/CN107329936A/en">
+              <span itemprop="publicationNumber">CN107329936A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2016-04-29</td>
+          <td itemprop="publicationDate">2017-11-07</td>
+          <td><span itemprop="assigneeOriginal">北京中科寒武纪科技有限公司</span></td>
+          <td itemprop="title">A kind of apparatus and method for performing neural network computing and matrix/vector computing 
+     </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/CN107121650A/en">
+              <span itemprop="publicationNumber">CN107121650A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2017-05-04</td>
+          <td itemprop="publicationDate">2017-09-01</td>
+          <td><span itemprop="assigneeOriginal">南京大学</span></td>
+          <td itemprop="title">Atmospheric particulates heavy metal magnetics appraisal procedure based on SVMs technology 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/CN107909095A/en">
+              <span itemprop="publicationNumber">CN107909095A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2017-11-07</td>
+          <td itemprop="publicationDate">2018-04-13</td>
+          <td><span itemprop="assigneeOriginal">江苏大学</span></td>
+          <td itemprop="title">A kind of image-recognizing method based on deep learning 
+       </td>
+        </tr><tr itemprop="forwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/CN108169316A/en">
+              <span itemprop="publicationNumber">CN108169316A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2017-12-20</td>
+          <td itemprop="publicationDate">2018-06-15</td>
+          <td><span itemprop="assigneeOriginal">南京大学</span></td>
+          <td itemprop="title">Atmosphere heavy metal pollution appraisal procedure based on support vector machines and leaf magnetics 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Citations (7)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US4885686A/en">
+              <span itemprop="publicationNumber">US4885686A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1987-01-12</td>
+          <td itemprop="publicationDate">1989-12-05</td>
+          <td><span itemprop="assigneeOriginal">American Telephone And Telegraph At&amp;T Bell Laboratories</span></td>
+          <td itemprop="title">Methods and apparatus for efficient resource allocation 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US4924386A/en">
+              <span itemprop="publicationNumber">US4924386A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1987-07-13</td>
+          <td itemprop="publicationDate">1990-05-08</td>
+          <td><span itemprop="assigneeOriginal">American Telephone And Telegraph Company</span></td>
+          <td itemprop="title">Methods and apparatus for efficient resource allocation 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5136538A/en">
+              <span itemprop="publicationNumber">US5136538A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1987-09-04</td>
+          <td itemprop="publicationDate">1992-08-04</td>
+          <td><span itemprop="assigneeOriginal">At&amp;T Bell Laboratories</span></td>
+          <td itemprop="title">Preconditioned conjugate gradient system 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20010031076A1/en">
+              <span itemprop="publicationNumber">US20010031076A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2000-03-24</td>
+          <td itemprop="publicationDate">2001-10-18</td>
+          <td><span itemprop="assigneeOriginal">Renato Campanini</span></td>
+          <td itemprop="title">Method and apparatus for the automatic detection of microcalcifications in digital signals of mammary tissue 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20030040904A1/en">
+              <span itemprop="publicationNumber">US20030040904A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2001-08-27</td>
+          <td itemprop="publicationDate">2003-02-27</td>
+          <td><span itemprop="assigneeOriginal">Nec Research Institute, Inc.</span></td>
+          <td itemprop="title">Extracting classifying data in music from an audio bitstream 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20030078850A1/en">
+              <span itemprop="publicationNumber">US20030078850A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2001-09-05</td>
+          <td itemprop="publicationDate">2003-04-24</td>
+          <td><span itemprop="assigneeOriginal">Eric Hartman</span></td>
+          <td itemprop="title">Electronic marketplace system and method using a support vector machine 
+       </td>
+        </tr><tr itemprop="backwardReferencesOrig" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7043462B2/en">
+              <span itemprop="publicationNumber">US7043462B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2000-11-14</td>
+          <td itemprop="publicationDate">2006-05-09</td>
+          <td><span itemprop="assigneeOriginal">Honda Research Institute Europe Gmbh</span></td>
+          <td itemprop="title">Approximate fitness functions 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>Family Cites Families (14)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="backwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US4910765A/en">
+              <span itemprop="publicationNumber">US4910765A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1986-04-30</td>
+          <td itemprop="publicationDate">1990-03-20</td>
+          <td><span itemprop="assigneeOriginal">Ricoh Company, Ltd.</span></td>
+          <td itemprop="title">Communication terminal apparatus having a relaying function 
+       </td>
+        </tr><tr itemprop="backwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US4837798A/en">
+              <span itemprop="publicationNumber">US4837798A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1986-06-02</td>
+          <td itemprop="publicationDate">1989-06-06</td>
+          <td><span itemprop="assigneeOriginal">American Telephone And Telegraph Company</span></td>
+          <td itemprop="title">Communication system having unified messaging 
+       </td>
+        </tr><tr itemprop="backwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/JPH06319005A/en">
+              <span itemprop="publicationNumber">JPH06319005A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1993-01-13</td>
+          <td itemprop="publicationDate">1994-11-15</td>
+          <td><span itemprop="assigneeOriginal">Canon Inc</span></td>
+          <td itemprop="title">Method and device for distributing message 
+       </td>
+        </tr><tr itemprop="backwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5513126A/en">
+              <span itemprop="publicationNumber">US5513126A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1993-10-04</td>
+          <td itemprop="publicationDate">1996-04-30</td>
+          <td><span itemprop="assigneeOriginal">Xerox Corporation</span></td>
+          <td itemprop="title">Network having selectively accessible recipient prioritized communication channel profiles 
+       </td>
+        </tr><tr itemprop="backwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5740231A/en">
+              <span itemprop="publicationNumber">US5740231A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1994-09-16</td>
+          <td itemprop="publicationDate">1998-04-14</td>
+          <td><span itemprop="assigneeOriginal">Octel Communications Corporation</span></td>
+          <td itemprop="title">Network-based multimedia communications and directory system and method of operation 
+       </td>
+        </tr><tr itemprop="backwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5781186A/en">
+              <span itemprop="publicationNumber">US5781186A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1996-02-02</td>
+          <td itemprop="publicationDate">1998-07-14</td>
+          <td><span itemprop="assigneeOriginal">Lucent Technologies Inc.</span></td>
+          <td itemprop="title">Arrangement for specifying presentation of multimedia message components 
+       </td>
+        </tr><tr itemprop="backwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6034970A/en">
+              <span itemprop="publicationNumber">US6034970A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1996-05-31</td>
+          <td itemprop="publicationDate">2000-03-07</td>
+          <td><span itemprop="assigneeOriginal">Adaptive Micro Systems, Inc.</span></td>
+          <td itemprop="title">Intelligent messaging system and method for providing and updating a message using a communication device, such as a large character display 
+       </td>
+        </tr><tr itemprop="backwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5864870A/en">
+              <span itemprop="publicationNumber">US5864870A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1996-12-18</td>
+          <td itemprop="publicationDate">1999-01-26</td>
+          <td><span itemprop="assigneeOriginal">Unisys Corp.</span></td>
+          <td itemprop="title">Method for storing/retrieving files of various formats in an object database using a virtual multimedia file system 
+       </td>
+        </tr><tr itemprop="backwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5848415A/en">
+              <span itemprop="publicationNumber">US5848415A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1996-12-18</td>
+          <td itemprop="publicationDate">1998-12-08</td>
+          <td><span itemprop="assigneeOriginal">Unisys Corporation</span></td>
+          <td itemprop="title">Selective multiple protocol transport and dynamic format conversion in a multi-user network 
+       </td>
+        </tr><tr itemprop="backwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6212550B1/en">
+              <span itemprop="publicationNumber">US6212550B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1997-01-21</td>
+          <td itemprop="publicationDate">2001-04-03</td>
+          <td><span itemprop="assigneeOriginal">Motorola, Inc.</span></td>
+          <td itemprop="title">Method and system in a client-server for automatically converting messages from a first format to a second format compatible with a message retrieving device 
+       </td>
+        </tr><tr itemprop="backwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6119137A/en">
+              <span itemprop="publicationNumber">US6119137A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1997-01-30</td>
+          <td itemprop="publicationDate">2000-09-12</td>
+          <td><span itemprop="assigneeOriginal">Tumbleweed Communications Corp.</span></td>
+          <td itemprop="title">Distributed dynamic document conversion server 
+       </td>
+        </tr><tr itemprop="backwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6073165A/en">
+              <span itemprop="publicationNumber">US6073165A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1997-07-29</td>
+          <td itemprop="publicationDate">2000-06-06</td>
+          <td><span itemprop="assigneeOriginal">Jfax Communications, Inc.</span></td>
+          <td itemprop="title">Filtering computer network messages directed to a user&#39;s e-mail box based on user defined filters, and forwarding a filtered message to the user&#39;s receiver 
+       </td>
+        </tr><tr itemprop="backwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6167441A/en">
+              <span itemprop="publicationNumber">US6167441A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1997-11-21</td>
+          <td itemprop="publicationDate">2000-12-26</td>
+          <td><span itemprop="assigneeOriginal">International Business Machines Corporation</span></td>
+          <td itemprop="title">Customization of web pages based on requester type 
+       </td>
+        </tr><tr itemprop="backwardReferencesFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6157945A/en">
+              <span itemprop="publicationNumber">US6157945A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">1998-07-01</td>
+          <td itemprop="publicationDate">2000-12-05</td>
+          <td><span itemprop="assigneeOriginal">Ricoh Company, Ltd.</span></td>
+          <td itemprop="title">Digital communication device and method including a routing function 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+
+    
+    <ul>
+      
+      <li itemprop="applicationsByYear" itemscope repeat>
+        <span itemprop="year">2002</span>
+        <ul>
+          
+          <li itemprop="application" itemscope repeat>
+            <span itemprop="filingDate">2002-01-07</span>
+            <span itemprop="countryCode">US</span>
+            <span itemprop="applicationNumber">US10/043,044</span>
+            <a href="/patent/US6961719B1/en"><span itemprop="documentId">patent/US6961719B1/en</span></a>
+            <span itemprop="legalStatusCat">not_active</span>
+            <span itemprop="legalStatus">Expired - Fee Related</span>
+            
+          </li>
+          
+        </ul>
+      </li>
+      
+      <li itemprop="applicationsByYear" itemscope repeat>
+        <span itemprop="year">2005</span>
+        <ul>
+          
+          <li itemprop="application" itemscope repeat>
+            <span itemprop="filingDate">2005-11-14</span>
+            <span itemprop="countryCode">US</span>
+            <span itemprop="applicationNumber">US11/274,744</span>
+            <a href="/patent/US7293001B1/en"><span itemprop="documentId">patent/US7293001B1/en</span></a>
+            <span itemprop="legalStatusCat">not_active</span>
+            <span itemprop="legalStatus">Expired - Fee Related</span>
+            
+            <span itemprop="thisApp" content="true" bool></span>
+            
+          </li>
+          
+        </ul>
+      </li>
+      
+    </ul>
+    
+
+    </section>
+
+  <section>
+    <h2>Patent Citations (7)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Priority date</th>
+          <th>Publication date</th>
+          <th>Assignee</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US4885686A/en">
+              <span itemprop="publicationNumber">US4885686A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1987-01-12</td>
+          <td itemprop="publicationDate">1989-12-05</td>
+          <td><span itemprop="assigneeOriginal">American Telephone And Telegraph At&amp;T Bell Laboratories</span></td>
+          <td itemprop="title">Methods and apparatus for efficient resource allocation 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US4924386A/en">
+              <span itemprop="publicationNumber">US4924386A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1987-07-13</td>
+          <td itemprop="publicationDate">1990-05-08</td>
+          <td><span itemprop="assigneeOriginal">American Telephone And Telegraph Company</span></td>
+          <td itemprop="title">Methods and apparatus for efficient resource allocation 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US5136538A/en">
+              <span itemprop="publicationNumber">US5136538A</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">1987-09-04</td>
+          <td itemprop="publicationDate">1992-08-04</td>
+          <td><span itemprop="assigneeOriginal">At&amp;T Bell Laboratories</span></td>
+          <td itemprop="title">Preconditioned conjugate gradient system 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20010031076A1/en">
+              <span itemprop="publicationNumber">US20010031076A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2000-03-24</td>
+          <td itemprop="publicationDate">2001-10-18</td>
+          <td><span itemprop="assigneeOriginal">Renato Campanini</span></td>
+          <td itemprop="title">Method and apparatus for the automatic detection of microcalcifications in digital signals of mammary tissue 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US7043462B2/en">
+              <span itemprop="publicationNumber">US7043462B2</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+          <td itemprop="priorityDate">2000-11-14</td>
+          <td itemprop="publicationDate">2006-05-09</td>
+          <td><span itemprop="assigneeOriginal">Honda Research Institute Europe Gmbh</span></td>
+          <td itemprop="title">Approximate fitness functions 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20030040904A1/en">
+              <span itemprop="publicationNumber">US20030040904A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2001-08-27</td>
+          <td itemprop="publicationDate">2003-02-27</td>
+          <td><span itemprop="assigneeOriginal">Nec Research Institute, Inc.</span></td>
+          <td itemprop="title">Extracting classifying data in music from an audio bitstream 
+       </td>
+        </tr><tr itemprop="backwardReferences" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US20030078850A1/en">
+              <span itemprop="publicationNumber">US20030078850A1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+            
+            
+          </td>
+          <td itemprop="priorityDate">2001-09-05</td>
+          <td itemprop="publicationDate">2003-04-24</td>
+          <td><span itemprop="assigneeOriginal">Eric Hartman</span></td>
+          <td itemprop="title">Electronic marketplace system and method using a support vector machine 
+       </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Non-Patent Citations (5)</h2>
+    <table>
+      <caption>* Cited by examiner, † Cited by third party</caption>
+      <thead>
+        <tr>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">J. A. K. Suykens et al, Recurrent Least Squares Support Vector Machines, July 2000, IEEE, 1057-7122/00, 1109-1114.</span>
+            
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">J. H. Conway et al, Voronoi Regions of Lattices, Second Moments of Polytopes, and Quantization, Mar. 1982, IEEE, 0018-9448/82/0300-0211, 211-226.</span>
+            <span itemprop="examinerCited">*</span>
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">M. M. Rai and N. K. Madavan, "<a href='http://scholar.google.com/scholar?q="Aerodynamic+Design+Using+Neural+Networks"'>Aerodynamic Design Using Neural Networks</a>", AIAA Jour., vol. 38 (2000) pp. 173-182.</span>
+            
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">Pascal Vincent et al, A Neural Support Vector Network Architecture with Adaptive Kernels, 2000, IEEE, 0-7695-0619-4, 5187-5192.</span>
+            
+            
+          </td>
+        </tr><tr itemprop="detailedNonPatentLiterature" itemscope repeat>
+          <td>
+            <span itemprop="title">V. N. Vapnik, "<a href='http://scholar.google.com/scholar?q="An+Overview+of+Statistical+Learning+Theory"'>An Overview of Statistical Learning Theory</a>", IEEE Trans. on Neural Networks, vol. 10 (1999) pp. 988-999.</span>
+            
+            
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <h2>Cited By (4)</h2>
+  <table>
+    <caption>* Cited by examiner, † Cited by third party</caption>
+    <thead>
+      <tr>
+        <th>Publication number</th>
+        <th>Priority date</th>
+        <th>Publication date</th>
+        <th>Assignee</th>
+        <th>Title</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US20100332195A1/en">
+            <span itemprop="publicationNumber">US20100332195A1</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2009-06-29</td>
+        <td itemprop="publicationDate">2010-12-30</td>
+        <td><span itemprop="assigneeOriginal">Fujitsu Limited</span></td>
+        <td itemprop="title">Multi-purpose optimization design support apparatus and method, and recording medium storing program 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/US20110054850A1/en">
+            <span itemprop="publicationNumber">US20110054850A1</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2009-08-31</td>
+        <td itemprop="publicationDate">2011-03-03</td>
+        <td><span itemprop="assigneeOriginal">Roach James T</span></td>
+        <td itemprop="title">Composite laminate construction method 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/CN103488847A/en">
+            <span itemprop="publicationNumber">CN103488847A</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2013-10-08</td>
+        <td itemprop="publicationDate">2014-01-01</td>
+        <td><span itemprop="assigneeOriginal">北京航天长征飞行器研究所</span></td>
+        <td itemprop="title">Aerodynamic shape optimization method based on neural network integration 
+       </td>
+      </tr><tr itemprop="forwardReferences" itemscope repeat>
+        <td>
+          
+          
+          <a href="/patent/CN107506783A/en">
+            <span itemprop="publicationNumber">CN107506783A</span>
+            (<span itemprop="primaryLanguage">en</span>)
+          </a>
+          <span itemprop="examinerCited">*</span>
+          
+        </td>
+        <td itemprop="priorityDate">2017-07-07</td>
+        <td itemprop="publicationDate">2017-12-22</td>
+        <td><span itemprop="assigneeOriginal">广东科学技术职业学院</span></td>
+        <td itemprop="title">A kind of COMPLEX MIXED intrusion detection algorithm 
+       </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <section>
+    <h2>Also Published As</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Publication number</th>
+          <th>Publication date</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="docdbFamily" itemscope repeat>
+          <td>
+            
+            
+            <a href="/patent/US6961719B1/en">
+              <span itemprop="publicationNumber">US6961719B1</span>
+              (<span itemprop="primaryLanguage">en</span>)
+            </a>
+          </td>
+          <td itemprop="publicationDate">2005-11-01</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Similar Documents</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Publication</th>
+          <th>Publication Date</th>
+          <th>Title</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="17084845732255101832">
+              <a href="/scholar/17084845732255101832"><span itemprop="scholarAuthors">Yeung et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2007">2007</time>
+            
+          </td>
+          <td itemprop="title">Localized generalization error model and its application to architecture selection for radial basis function neural network</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="16553725693997814698">
+              <a href="/scholar/16553725693997814698"><span itemprop="scholarAuthors">Huang et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2004">2004</time>
+            
+          </td>
+          <td itemprop="title">An efficient sequential learning algorithm for growing and pruning RBF (GAP-RBF) networks</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="5275823297993125462">
+              <a href="/scholar/5275823297993125462"><span itemprop="scholarAuthors">Denoeux</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2000">2000</time>
+            
+          </td>
+          <td itemprop="title">A neural network classifier based on Dempster-Shafer theory</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="17858451153064440312">
+              <a href="/scholar/17858451153064440312"><span itemprop="scholarAuthors">Takagi</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1998">1998</time>
+            
+          </td>
+          <td itemprop="title">Interactive evolutionary computation</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="4931629012902756213">
+              <a href="/scholar/4931629012902756213"><span itemprop="scholarAuthors">Rohlf</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1970">1970</time>
+            
+          </td>
+          <td itemprop="title">Adaptive hierarchical clustering schemes</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="17031408546853345749">
+              <a href="/scholar/17031408546853345749"><span itemprop="scholarAuthors">Hansen et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2001">2001</time>
+            
+          </td>
+          <td itemprop="title">Completely derandomized self-adaptation in evolution strategies</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="9195523464894734528">
+              <a href="/scholar/9195523464894734528"><span itemprop="scholarAuthors">Obayashi et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2003">2003</time>
+            
+          </td>
+          <td itemprop="title">Visualization and data mining of Pareto solutions using self-organizing map</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="14478384192388108824">
+              <a href="/scholar/14478384192388108824"><span itemprop="scholarAuthors">Specht et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1994">1994</time>
+            
+          </td>
+          <td itemprop="title">Experience with adaptive probabilistic neural networks and adaptive general regression neural networks</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="257377035427477106">
+              <a href="/scholar/257377035427477106"><span itemprop="scholarAuthors">Vapnik</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1999">1999</time>
+            
+          </td>
+          <td itemprop="title">An overview of statistical learning theory</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="10007342309858550855">
+              <a href="/scholar/10007342309858550855"><span itemprop="scholarAuthors">Abe</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2012">2012</time>
+            
+          </td>
+          <td itemprop="title">Pattern classification: neuro-fuzzy methods and their comparison</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="4047677722279509122">
+              <a href="/scholar/4047677722279509122"><span itemprop="scholarAuthors">Runkler et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1999">1999</time>
+            
+          </td>
+          <td itemprop="title">Alternating cluster estimation: a new tool for clustering and function approximation</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="2641364302387362350">
+              <a href="/scholar/2641364302387362350"><span itemprop="scholarAuthors">Carpenter et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1993">1993</time>
+            
+          </td>
+          <td itemprop="title">A comparison of polynomial approximations and artificial neural nets as response surfaces</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="10961774172221257104">
+              <a href="/scholar/10961774172221257104"><span itemprop="scholarAuthors">Neal</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1992">1992</time>
+            
+          </td>
+          <td itemprop="title">Bayesian training of backpropagation networks by the hybrid Monte Carlo method</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="11152805525960962357">
+              <a href="/scholar/11152805525960962357"><span itemprop="scholarAuthors">Wainwright et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2005">2005</time>
+            
+          </td>
+          <td itemprop="title">A new class of upper bounds on the log partition function</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="7252049289965030360">
+              <a href="/scholar/7252049289965030360"><span itemprop="scholarAuthors">Sklansky et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2012">2012</time>
+            
+          </td>
+          <td itemprop="title">Pattern classifiers and trainable machines</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="6188917813925645308">
+              <a href="/scholar/6188917813925645308"><span itemprop="scholarAuthors">HUNTSBERGER et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1990">1990</time>
+            
+          </td>
+          <td itemprop="title">Parallel self-organizing feature maps for unsupervised pattern recognition</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="1102165436810521465">
+              <a href="/scholar/1102165436810521465"><span itemprop="scholarAuthors">Obayashi et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2000">2000</time>
+            
+          </td>
+          <td itemprop="title">Multiobjective evolutionary computation for supersonic wing-shape optimization</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="3703009703988120052">
+              <a href="/scholar/3703009703988120052"><span itemprop="scholarAuthors">Stokbro et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1990">1990</time>
+            
+          </td>
+          <td itemprop="title">Exploiting neurons with localized receptive fields to learn chaos</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="4820202775829919990">
+              <a href="/scholar/4820202775829919990"><span itemprop="scholarAuthors">Gens et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2014">2014</time>
+            
+          </td>
+          <td itemprop="title">Deep symmetry networks</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="11594319767366414688">
+              <a href="/scholar/11594319767366414688"><span itemprop="scholarAuthors">Zhou et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2006">2006</time>
+            
+          </td>
+          <td itemprop="title">Combining global and local surrogate models to accelerate evolutionary optimization</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="8833115993934749119">
+              <a href="/scholar/8833115993934749119"><span itemprop="scholarAuthors">Yu et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2007">2007</time>
+            
+          </td>
+          <td itemprop="title">Forecasting of hydrologic time series with ridge regression in feature space</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="13105579517302296903">
+              <a href="/scholar/13105579517302296903"><span itemprop="scholarAuthors">Frean</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1992">1992</time>
+            
+          </td>
+          <td itemprop="title">A&#34; thermal&#34; perceptron learning rule</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="5274510383876690789">
+              <a href="/scholar/5274510383876690789"><span itemprop="scholarAuthors">Li et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="2012">2012</time>
+            
+          </td>
+          <td itemprop="title">A novel chaotic particle swarm optimization based fuzzy clustering algorithm</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="4880365200693219911">
+              <a href="/scholar/4880365200693219911"><span itemprop="scholarAuthors">Marin et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1999">1999</time>
+            
+          </td>
+          <td itemprop="title">Macroevolutionary algorithms: a new optimization method on fitness landscapes</td>
+        </tr><tr itemprop="similarDocuments" itemscope repeat>
+          <td>
+            
+            <meta itemprop="isScholar" content="true">
+              <meta itemprop="scholarID" content="6600185550118029292">
+              <a href="/scholar/6600185550118029292"><span itemprop="scholarAuthors">Wang et al.</span></a>
+            
+          </td>
+          <td>
+            
+            <time itemprop="publicationDate" datetime="1997">1997</time>
+            
+          </td>
+          <td itemprop="title">Function approximation using fuzzy neural networks with robust learning algorithm</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <section>
+    <h2>Legal Events</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Code</th>
+          <th>Title</th>
+          <th>Description</th>
+        </tr>
+      </thead>
+      <tbody>
+        
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2011-04-07">2011-04-07</time></td>
+          <td itemprop="code">FPAY</td>
+          <td itemprop="title">Fee payment</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Year of fee payment</strong>:
+              <span itemprop="value">4</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2015-06-19">2015-06-19</time></td>
+          <td itemprop="code">REMI</td>
+          <td itemprop="title">Maintenance fee reminder mailed</td>
+          <td>
+            
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2015-11-06">2015-11-06</time></td>
+          <td itemprop="code">LAPS</td>
+          <td itemprop="title">Lapse for failure to pay maintenance fees</td>
+          <td>
+            
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2015-12-07">2015-12-07</time></td>
+          <td itemprop="code">STCH</td>
+          <td itemprop="title">Information on status: patent discontinuation</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Free format text</strong>:
+              <span itemprop="value">PATENT EXPIRED DUE TO NONPAYMENT OF MAINTENANCE FEES UNDER 37 CFR 1.362</span>
+            </p>
+          </td>
+        </tr>
+        <tr itemprop="legalEvents" itemscope repeat>
+          <td><time itemprop="date" datetime="2015-12-29">2015-12-29</time></td>
+          <td itemprop="code">FP</td>
+          <td itemprop="title">Expired due to failure to pay maintenance fee</td>
+          <td>
+            
+            <p itemprop="attributes" itemscope repeat>
+              <strong itemprop="label">Effective date</strong>:
+              <span itemprop="value">20151106</span>
+            </p>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+</article>
+
+    </search-app>
+    <script type="text/javascript" src="//www.gstatic.com/feedback/api.js"></script>
+    <script async="" defer="" src="//www.google.com/insights/consumersurveys/async_survey?site=cxkjf7ipxgbnnjy6k35ezcvbbe"></script>
+  </body>
+</html>
