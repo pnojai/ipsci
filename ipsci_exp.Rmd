@@ -1,7 +1,7 @@
 ---
 title: "ipsci"
-author: "Jai Jeffryes, Tamiko Jenkins, Nicholas Chung"
-date: "11/22/2019"
+author: "TJ"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
 output: 
   html_document:
     code_folding: hide
@@ -15,16 +15,14 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-```{r packages}
-#, message=FALSE, warning=FALSE}
+```{r packages, warning=FALSE}
 
 # Packages used in the ingestion of data
 library(httr)     # Wrapper for the curl package.
+library(fulltext) # Text mining of open access journals.
 library(XML)      # Dealing with text in xml.
 library(jsonlite) # Getting and formatting JSON. 
 library(rplos)    # API to PLOS for journals.
-library(rjson)    # Work with JSON format.
-library(fulltext) # Text mining of open access journals.
 
   
 # Special use case libraries
@@ -48,8 +46,6 @@ library(plyr)     # Wrangling data.
 library(tidyverse) # general utility & workflow functions 
 library(tidytext) # text analysis in R 
 library(lubridate) # working with times and dates   
-library(rvest)    # Download and manipulate HTML.
-library(purrr)
 
 #display
 library(kableExtra)
@@ -57,248 +53,6 @@ library(kableExtra)
 
 ```
  
-## NASA Patents
-- Data source: [NASA's Open Data Portal](https://data.nasa.gov/Raw-Data/NASA-Patents/gquh-watm). Includes column specification.
-- File: NASA_Patents.csv
-- Download date: 11/14/2019
-
-### Notes
-- Once you determine the data types of your columns,set the specifications and then use them for reading.
-- [`readr` blog post](https://blog.rstudio.com/2016/08/05/readr-1-0-0/). Illustrates the approach, although this syntax doesn't work anymore. The approach writes the specification to a file.
-- [readr - how to update col_spec object from spec()](https://stackoverflow.com/questions/39135129/readr-how-to-update-col-spec-object-from-spec). Greg H.'s answer on Stack Overflow doesn't require writing to a file. We use this approach. 
-
-```{r nasa}
-nasa_patents_fn <- "NASA_Patents.csv"
-
-# Specify datatypes.
-nasa_spec <- spec_csv(file = file.path("data", nasa_patents_fn))
-nasa_spec$cols[["Status"]] <- col_factor()
-nasa_spec$cols[["Patent Expiration Date"]] <- col_date("%m/%d/%Y")
-
-# Read patent file.
-nasa_patents <- readr::read_csv(file = file.path("data", nasa_patents_fn),
-                                col_types = nasa_spec)
-
-# In variable names, replace spaces.
-names(nasa_patents) <- str_replace_all(string = names(nasa_patents),
-                                       pattern = " ",
-                                       replacement = "_")
-
-# Transform the application number to USPTO format
-nasa_patents <- nasa_patents %>%
-  mutate(Application_SN_uspto = str_c("US",
-        str_replace_all(Application_SN, "[[:punct:]]", "")))
-```
-
-## Retrieve USPTO patent data
-```{r get_uspto_patent}
-# Example https://developer.uspto.gov/ibd-api/v1/patent/application?applicationNumber=US12795356'
- 
-is_na_patnum <- is.na(nasa_patents$Patent_Number)
-is_patnum <- nasa_patents$Patent_Number > 0
-
-nasa_patent_numbers <- nasa_patents$Patent_Number[!is_na_patnum & is_patnum]
-
-
-# Need to review contents of JSON files.
-for (app in nasa_patents$Application_SN_uspto) {
-  #get_patent_application_uspto(app)
-  url <- paste0('https://developer.uspto.gov/ibd-api/v1/patent/application?applicationNumber=',app)
-  path <- "data/uspto"
-  file_path <- file.path(path, str_c(app, ".html"))
-
-  if (!file.exists(file_path)) {
-    patent_application <- jsonlite::fromJSON(url)
-    #test
-    print(patent_application)
-    #  Bulk download not ideal
-    ##download.file(patent_application$response$docs$archiveUrl, file.path(path)) 
-    #  Instead use the following form to query for new HTML files 
-    #  http://patft.uspto.gov/netahtml/PTO/index.html
-    break
-  }
-  
-}
-
-
-print("Downloads complete.")
-```
-
-### select relevant patent data from Google HTML
-Exploratory chunk disabled.
-```{r, eval=FALSE}
-# explore downloaded data
-raw.html <- read_html("data/8675922.html")
-# title
-raw.html %>% html_nodes("body search-app article h1") %>% html_text() %>% .[[1]]
-# abstract
-raw.html %>% html_nodes("abstract") %>% html_text()
-# description > origin of the invention
-raw.html %>% html_nodes("body search-app article section div div p") %>% html_text() %>% .[[1]]
-# description > background of the invention > field of the invention
-raw.html %>% html_nodes("body search-app article section div div p") %>% html_text() %>% .[[3]]
-# cited by 
-raw.html %>% html_nodes(xpath="/html/body/search-app/article/table") %>% html_table()
-# cited by (count) nrow()
-cited_by <- raw.html %>% html_nodes(xpath="/html/body/search-app/article/table") %>% html_table() 
-nrow(cited_by[[1]])
-# patent citations 
-raw.html %>% html_nodes(xpath="/html/body/search-app/article/section/table") %>% html_table()
-raw.html %>% html_nodes(xpath="/html/body/search-app/article/section/h2") %>% html_text()
-#filter(str_detect(raw.html %>% html_nodes(xpath="/html/body/search-app/article/section/h2") %>% html_text(), "Patent Citations"))
-#print(raw.html %>% html_nodes(xpath="/html/body/search-app/article/section/table") %>% html_table())[[2]]
-```
-
-### clean and transform selected data into dataframe
-Executed, variables serialized, chunk disabled.
-```{r, eval=FALSE}
-# create object with all filenames
-files <- list.files(path="data", pattern="[0-9]{5,}.html", full.names=TRUE, recursive=FALSE)
-
-# create lists of extracted data
-# title
-raw.title <- lapply(files, function(x) {
-  raw.html <- read_html(x, header=TRUE) # load file
-  # apply function
-  raw.html %>% html_nodes("body search-app article h1") %>% html_text() %>% .[[1]] %>% str_remove(" \n        - Google Patents")
-})
-# abstract
-raw.abstract <- lapply(files, function(x) {
-  raw.html <- read_html(x, header=TRUE) # load file
-  # apply function
-  raw.html %>% html_nodes("abstract") %>% html_text()
-})
-
-# description > origin of the invention
-raw.origin <- lapply(files, function(x) {
-  raw.html <- read_html(x, header=TRUE) # load file
-  # apply function
-  raw.html %>% html_nodes("body search-app article section div div p") %>% html_text() %>% .[[1]]
-})
-
-# description > background of the invention > field of the invention
-raw.background <- lapply(files, function(x) {
-  raw.html <- read_html(x, header=TRUE) # load file
-  # apply function
-  raw.html %>% html_nodes("body search-app article section div div p") %>% html_text() %>% .[[3]]
-})
-```
-
-### section to answer question, "how many other patents does a patent reference ('count.citations'), and how many other patents reference it ('count.cited_by')?" This question is a analagous to, "how many shoulders does a given patent stand on?"
-<<<<<<< HEAD
-# todo: make sure it works across all dataframes; try incorporating Tommy's snippet
-=======
-# todo: deuglify the regex
-
-Executed, variables serialized, chunk disabled.
-
-```{r, eval=FALSE}
-# cited by (count) 
-cited_by <- lapply(files, function(x) {
-  raw.html <- read_html(x, header=TRUE) # load file
-  # apply function
-  raw.html %>% html_nodes(xpath="/html/body/search-app/article/section/h2") %>% html_text() %>% str_subset(pattern = "Cited")
-})
-
-# clean output
-cited_by <- as.character(cited_by)
-
-# cited by (count) 
-count.cited_by <- lapply(cited_by, function(x) 
-  # remove up to digit
-  x %>% str_remove("\\D+")
-)
-count.cited_by <- lapply(count.cited_by, function(x) 
-  # remove after digit
-  x %>% str_remove("\\)$")
-)
-
-count.cited_by <- lapply(count.cited_by, function(x) 
-  # remove after digit
-  x %>% as.integer()
-)
-
-# citations (count) 
-citations <- lapply(files, function(x) {
-  raw.html <- read_html(x, header=TRUE) # load file
-  # apply function
-  raw.html %>% html_nodes(xpath="/html/body/search-app/article/section/h2") %>% html_text() %>% str_subset(pattern = "Patent Citations")
-})
-
-# drop Non-Patent Citations
-citations <- lapply(citations, function(x) {
-  # apply function
-  str_detect(x, "Non-") %>%
-                  discard(x, .)
-})
-
-# clean output
-citations <- as.character(citations)
-
-# cited by (count) 
-count.citations <- lapply(citations, function(x) 
-  # remove up to digit
-  x %>% str_remove("\\D+")
-)
-count.citations <- lapply(count.citations, function(x) 
-  # remove after digit
-  x %>% str_remove("\\)$")
-)
-
-count.citations <- lapply(count.citations, function(x) 
-  # remove after digit
-  x %>% as.integer()
-)
-```
-
-### clean text and output to df
-Executed, variables serialized, chunk disabled.
-
-```{r, eval=FALSE}
-# not necessary, but makes lists nicer to read
-# todo: make consistent
-raw.title <- unlist(raw.title, recursive = FALSE)
-raw.abstract <- unlist(raw.abstract, recursive = FALSE)
-raw.origin <- unlist(raw.origin, recursive = FALSE)
-raw.background <- unlist(raw.background, recursive = FALSE)
-count.citations %>% unlist(recursive = FALSE)
-count.cited_by %>% unlist(recursive = FALSE)
-
-# get "appId" with regex
-app_num <- unlist(str_extract_all(raw.title, "[A-Z]{2,}[0-9]{7,}[A-Z]+[0-9]+"))
-
-# remove "appId" from "title" 
-title <- str_remove(raw.title, app_num)
-title <- str_remove(title, " - ") # this could be less greedy
-
-# bind lists into dataframe and name columns
-raw.df <- setNames(do.call(rbind.data.frame, Map('c', app_num, title, raw.abstract, raw.origin, raw.background, count.cited_by, count.citations)), c("appId", "title", "abstract", "origin", "background", "citedBy", "citations"))
-raw.df
-```
-
-### write to file for easy access
-```{r, eval=FALSE}
-write.csv(raw.df,"data/patent_text.csv", row.names = FALSE)
-saveRDS(count.citations, file.path("data", "count.citations.RDS"))
-saveRDS(count.cited_by, file.path("data", "raw.html.RDS"))
-saveRDS(raw.html, file.path("data", "count.cited_by.RDS"))
-saveRDS(raw.df, file.path("data", "raw.df.RDS"))
-saveRDS(app_num, file.path("data", "app_num.RDS"))
-saveRDS(citations, file.path("data", "citations.RDS"))
-saveRDS(cited_by, file.path("data", "cited_by.RDS"))
-saveRDS(raw.abstract, file.path("data", "raw.abstract.RDS"))
-saveRDS(raw.background, file.path("data", "raw.background.RDS"))
-saveRDS(raw.origin, file.path("data", "raw.origin.RDS"))
-saveRDS(raw.title, file.path("data", "raw.title.RDS"))
-saveRDS(title, file.path("data", "title.RDS"))
-```
-
-### read patent text
-```{r, eval=TRUE}
-raw.df <- read.csv("data/patent_text.csv")
-```
-
-
 # Explore and Transform the Data
 
 Examine the patent text files and view the text sections. We note 932 observations, 8 variables, and 2 integer classes and 6 character classes. 
@@ -762,140 +516,6 @@ Reference:
 
 
  
-
-
-# Appendix
-
-
-## Retrieve USPTO patent data
-The code chunk for the USPTO acquistion shall be used when documents beyond the Google archive are needed.
-
-```{r a_get_uspto_patent}
-
-library(jsonlite)
-
-# Example https://developer.uspto.gov/ibd-api/v1/patent/application?applicationNumber=US12795356'
- 
-# Requires nasa_patents objects
-
-for (app in nasa_patents$Application_SN_uspto) {
-  #get_patent_application_uspto(app)
-  url <- paste0('https://developer.uspto.gov/ibd-api/v1/patent/application?applicationNumber=',app)
-  path <- "data/uspto"
-  file_path <- file.path(path, str_c(app, ".html"))
-
-  if (!file.exists(file_path)) {
-    patent_application <- jsonlite::fromJSON(url)
-    #test
-    print(patent_application)
-    
-    #  Bulk download not ideal, disable download from USPTO
-    ##download.file(patent_application$response$docs$archiveUrl, file.path(path)) 
-    
-    #  Instead use the following form to query for new HTML files 
-    #  http://patft.uspto.gov/netahtml/PTO/index.html
-    #  Example: http://patft.uspto.gov/netacgi/nph-Parser?Sect1=PTO1&Sect2=HITOFF&d=PALL&p=1&u=%2Fnetahtml%2FPTO%2Fsrchnum.htm&r=1&f=G&l=50&s1=5963949.PN.&OS=PN/5963949&RS=PN/5963949
-    break
-  }
-  
-}
-
-print("Downloads complete.")
-```
-
-
-## View Patents View Information (for instance, the Abstract)
-
-```{r a_get_patentsview}
-
-library(patentsview) 
-
-retrvble_flds <- get_fields(endpoint = "patents")
-head(retrvble_flds)
-
-
-result <- search_pv(
-  query = qry_funs$eq(patent_number = "8293178"),
-  fields = get_fields(endpoint = "patents", groups = c("patents", "inventors"))
-)
-
-result
-result$data$patents$patent_abstract
-```
-
-
-
-### Google Patents
-Other attributes explored
-```{r, a_explore_google_patent, eval=FALSE}
-# prior art keywords
-raw.html %>% html_nodes("[itemprop='priorArtKeywords']") %>% html_text() 
-# inventors
-raw.html %>% html_nodes("[itemprop='inventor']") %>% html_text()
-# current assignee
-raw.html %>% html_nodes("[itemprop='assigneeCurrent']") %>% html_text()
-# original assignee
-#raw.html %>% html_nodes("[itemprop='assigneeOriginal']") %>% html_text() # lots of noise; need to parse later
-# filing date
-raw.html %>% html_nodes("[itemprop='filingDate']") %>% html_text() # which one to select?
-# classifications
-raw.html %>% html_nodes("[itemprop='cpcs']") %>% html_text() # what does it mean?
-
-```
-
-### Research papers
-Explore PLOS
-
-```{r a_explore_plos}
-# All the fields you can query.
-plosfields
-
-# All the journals.
-journalnamekey()
-
-# Search for an author. Return the research paper ID and title.
-searchplos(q = "author:sulzer", fl = "id, title")
-
-# Query on a keyword. Return ID, date, title, and abstract.
-p <- searchplos(q = "synuclein",
-                fl = c("id", "publication_date", "title", "abstract"),
-                limit = 20)
-
-# The number of hits.
-p$meta
-
-# The data.
-p$data
-```
-
-### Explore one patent at a time
-- appId: US6226553B1
-- title: US5689004ADiamines containing pendent phenylethynyl groups
-
-```{r a_explore_one_patent}
-p <- searchplos(q = "body:phenylethynyl",
-                fl = c("id", "publication_date", "title", "abstract"))
-
-# The number of hits.
-p$meta
-
-# The data.
-p$data
-```
-
-
-- appId: US6261844B1
-- title: US5730806AGas-liquid supersonic cleaning and cleaning verification spray system
-```{r a_search_plos}
-p <- searchplos(q = "body:liquid supersonic cleaning",
-                fl = c("id", "publication_date", "title", "abstract"))
-
-# The number of hits.
-p$meta
-
-# The data.
-p$data
-```
 
 
  
