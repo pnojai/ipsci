@@ -309,6 +309,8 @@ abstract_lda
 ```{r}
 #Free memory
 gc(abstract_dtm)
+gc(tb_titles)
+gc(tb_abstracts) 
 ```
 
 ### Arrange the LDA and Visualize top words per topic
@@ -370,7 +372,7 @@ ggplot(lda_gamma, aes(gamma, fill = as.factor(topic))) +
 ### Experimenting with LDA
 Trying another strategy, we can boost the number of topics and then extract the top term per document. Other strategies include creating bi- or tri-grams or combining TF-IDF and other Keywords such as those available in tidytextmining from NASA with the LDA topics or associated words. 
 
-Here we try to increase the topics to 200 (roughly 1/8 of the documents). 
+Here we try to increase the topics to 100 (roughly 1/8 of the documents). 
 ```{r}
 gc(abstract_lda)
 abstract_lda <- LDA(abstract_dtm, k = 100, control = list(seed = 1234))
@@ -378,38 +380,70 @@ abstract_lda
 ```
 
 
-```{r}
+### Find the top one term per LDA topic
+```{r warning=FALSE, message=FALSE, fig.align=center, fig.width=10, fig.height=10}
 topics <- tidy(abstract_lda, matrix = "beta") 
+topics %>%
+  mutate(term = reorder_within(term, beta, topic)) %>%
+  group_by(topic, term) %>%    
+  arrange(desc(beta)) %>%  
+  ungroup() %>%
+  ggplot(aes(term, beta, fill = as.factor(topic))) +
+  geom_col(show.legend = FALSE) +
+  coord_flip() +
+  scale_x_reordered() +
+  labs(title = "Top 3 terms in each LDA topic",
+       x = NULL, y = expression(beta)) +
+  facet_wrap(~ topic, ncol = 4, scales = "free")
 
-top_terms <- topics  %>% # 
-      group_by(topic) %>%  
-      top_n(5, beta) %>% 
-      ungroup() %>% 
-      arrange(topic, -beta) 
-    
-abstract_one_term_topic <- top_terms[seq(1,nrow(top_terms),10),]
-    
-head(one_term)
+
 ```
 
 
-```{r fig.width=10, fig.height=20}
-top_terms %>%  
-  mutate(term = reorder(term, beta)) %>%  
-  ggplot(aes(term, beta, fill = factor(topic))) +  
-  geom_col(show.legend = FALSE) +  
-  facet_wrap(~ topic, scales = "free") +  
-  labs(x = NULL, y = "Beta") +  
-  coord_flip()  
+```{r}
+abs_topics_term <- topics %>%
+  group_by(topic) %>% 
+  filter(beta == max(beta)) %>% 
+  slice(1) %>% 
+  ungroup() 
+head(abs_topics_term,n=5)
+ 
 ```
+
+
+ 
 
 ### Merge with dataset and extract to csv
 Merge
-```{r}
-doc_topic_terms <- abstract_one_term_topic %>% transmute(docId=docId, topic=topic, term=term) 
-patents_topic_terms <- merge(doc_topic_terms, patents, by='docId')
 
-kable(head(patents_topic_terms, n=2))
+```{r}
+abs_topic_docs <- tidy(abstract_lda, matrix = "gamma")
+abs_topic_docs <- abs_topic_docs %>% 
+  mutate(docId=as.integer(document)) %>%
+  select(., -document) %>% 
+  group_by(docId) %>% 
+  filter(gamma == max(gamma)) %>% 
+  slice(1) %>% 
+  ungroup() 
+head(abs_topic_docs)
+```
+
+
+```{r} 
+p<-inner_join(patents, abs_topic_docs, by = c("docId")) 
+
+
+
+```
+
+
+```{r} 
+subset(abs_topics_term, topic==p$docId)$term
+```
+
+
+```{r} 
+subset(abs_topics_term, topic==1)$term
 ```
 
 Extract
