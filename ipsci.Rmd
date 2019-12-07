@@ -102,7 +102,7 @@ head(patents$title, n=1)
 ### Titles and Abstracts
 
 1. Extract document ids, titles and abstracts and convert to tibble in order to use tidy text methods
-2. Replace common European characters with tilde's into transliaterated roman characters (e.g. â is a)
+2. Replace common European characters into transliterated roman characters (e.g. â is a)
 3. Replace upper with lower case characters
 4. Tokenize the title and abstract variables into words
 5. Remove default English stopword from those words
@@ -158,18 +158,18 @@ appId: A unique patent number 'r'
 citedBy: Other papers citing this paper, provided by Google
 citation: Number of other papers this paper cites
 filingDate: The date the patent was filed in yyyy-mm-dd format (for instance a specific version)
-title: The patent title with the prepanded phrase " - Google Patents" removed
+title: The patent title with the prepended phrase " - Google Patents" removed
 title_nchar [patent_stats]: the number of characters in the title
-title_nmeans [patent_stats]: the average number of charecters over all of the titles in all patents
+title_nmeans [patent_stats]: the average number of characters over all of the titles in all patents
 abstract: a summary of the patent abstract
 abstract_nchar: the number of characters in the abstract
-abstract_nmeans: the average number of charecters over all of the abstracts in all patents
+abstract_nmeans: the average number of characters over all of the abstracts in all patents
 origin: a summary of how the patent originated
 origin_nchar [patent_stats]: the number of characters in the origin
-origin_nmeans [patent_stats]: the average number of charecters over all of the origins in all patents
+origin_nmeans [patent_stats]: the average number of characters over all of the origins in all patents
 background: a summary of the patent background
 background_nchar [patent_stats]: the number of characters in the background
-background_nmeans [patent_stats]: the average number of charecters over all of the backgrounds in all patents
+background_nmeans [patent_stats]: the average number of characters over all of the backgrounds in all patents
 
 
 References:
@@ -340,7 +340,7 @@ top_abstract_terms %>%
  
 ### Review performance of Abstract LDA per document
 
-Our LDA shows low probablity for a large number of documents. 
+Our LDA shows low probability for a large number of documents. 
 
 ```{r message=FALSE}
 lda_gamma <- tidy(abstract_desc_lda, matrix = "gamma")
@@ -367,7 +367,7 @@ ggplot(lda_gamma, aes(gamma, fill = as.factor(topic))) +
 
 ## TF-IDF 
 
-Measures the importance of a word within the corpus, potentially surfacing not unique words to the document (tf) but those that are not very frequent in the corpus (IDF). We investigate thi potentially more reliable method (given the small dataset (corpus)) until we are able to exapnd or augment the LDA topic analysis and then test it. 
+Measures the importance of a word within the corpus, potentially surfacing not unique words to the document (tf) but those that are not very frequent in the corpus (IDF). We investigate this potentially more reliable method (given the small dataset (corpus)) until we are able to expand or augment the LDA topic analysis and then test it. 
 
 ### Visualize the top TD-IDF words in the corpus
 ```{r message=FALSE}
