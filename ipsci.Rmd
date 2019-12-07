@@ -34,6 +34,7 @@ library(rvest)    # Download and manipulate HTML.
 library(rjson)    # Work with JSON format.
 library(ggplot2)
 library(purrr)
+library(cowplot)  # ggplot2 add-on for pretty graphs.
 ```
 
 ## NASA Patents
@@ -262,36 +263,83 @@ raw.df$filingDate <- as.Date(raw.df$filingDate, format = "%Y-%m-%d")
 
 ### EDA and data transformation for visualization
 ```{r}
-ggplot(raw.df, aes(x=filingDate, y=citedBy)) + geom_point()
-date.df <- as.Date(raw.df$filingDate, format = "%Y-%m-%d")
-probs <- 1:4/4
-# date quartiles 
-date.df <- as.Date(quantile(unclass(date.df), probs), origin = "1970-01-01")
-date.df <- mutate_if(raw.df, is.factor, as.Date)
-date.df
-# todo: plot facets, patent cited/citations across date quartiles
-str(raw.df) # check structure
-str(date.df)
+# drop outlier date 
+raw.df <- raw.df %>% 
+  subset(filingDate != as.Date("1891-12-08"))
 
-raw.df %>% 
-  select(citations, title, filingDate) %>%
-  filter(filingDate >= as.Date("2007-12-14"))
+# date quartiles 
+quartile <- (max(raw.df$filingDate) - min(raw.df$filingDate)) / 4 
+q1 <- min(raw.df$filingDate) + quartile
+q2 <- min(raw.df$filingDate) + (quartile*2)
+q3 <- min(raw.df$filingDate) + (quartile*3)
+q4 <- max(raw.df$filingDate)
+
+# citation count per patent filed between 2006 and 2012
+citations4 <- raw.df %>% 
+  select(citations, citedBy, title, filingDate) %>%
+  filter(filingDate >= as.Date(q3) & filingDate <= as.Date(q4))
+
+# citation count per patent filed between 2000 and 2006
+citations3 <- raw.df %>% 
+  select(citations, citedBy, title, filingDate) %>%
+  filter(filingDate >= as.Date(q2) & filingDate <= as.Date(q3))
+
+# citation count per patent filed between 1994 and 2000
+citations2 <- raw.df %>% 
+  select(citations, citedBy, title, filingDate) %>%
+  filter(filingDate >= as.Date(q1) & filingDate <= as.Date(q2))
+
+# citation count per patent filed before 1994
+citations1 <- raw.df %>% 
+  select(citations, citedBy, title, filingDate) %>%
+  filter(filingDate <= as.Date(q1))
 ```
 
 ```{r}
-#qplot(raw.df$citedBy, geom="histogram")
-#qplot(raw.df$citations, geom="histogram")
-#ggplot(data=raw.df, aes(raw.df$citedBy)) + geom_histogram()
+# patent density -- which years most patents?
+ggplot(raw.df, aes(x=filingDate)) + 
+  geom_histogram(aes(y=..density..), colour="black", fill="white") +
+  geom_density(alpha=.2, fill="#FF6666") +
+  ggtitle("Patent density by year") +
+  xlab("year") + ylab("density")
 
-# Histogram with density plot
-p1 <- ggplot(raw.df, aes(x=citedBy)) + 
- geom_histogram(aes(y=..density..), colour="black", fill="white") +
- geom_density(alpha=.2, fill="#99badd") + 
-facet_grid()
-p2 <- ggplot(raw.df, aes(x=citations)) + 
- geom_histogram(aes(y=..density..), colour="black", fill="white")+
- geom_density(alpha=.2, fill="#FF6666") 
-multiplot(p1, p2, cols = 2)
+# citations and citedBy count over all years
+c1 <- ggplot(raw.df, aes(x=filingDate, y=citedBy)) + 
+  geom_point() +
+  ggtitle("(n) cited by other patents by year") +
+  xlab("year") + ylab("cited by")
+c2 <- ggplot(raw.df, aes(x=filingDate, y=citations)) + 
+  geom_point() +
+  ggtitle("(n) citations by year") +
+  xlab("year") + ylab("citations")
+plot_grid(c1, c2, labels = c('A', 'B'), label_size = 12)
+
+# citations count by year quartiles (zoomed in)
+p1 <- ggplot(citations1, aes(x=filingDate, y=citations)) + 
+  geom_point() +
+  #stat_summary(fun.data=mean_cl_normal) + 
+  #geom_smooth(method='lm', formula= y~x) +
+  ggtitle("(n) citation counts, 2006-2012") +
+  xlab("year") + ylab("citations")
+p2 <- ggplot(citations2, aes(x=filingDate, y=citations)) + 
+  geom_point() +
+  #stat_summary(fun.data=mean_cl_normal) + 
+  #geom_smooth(method='lm', formula= y~x) +
+  ggtitle("(n) citation counts, 2000-2006") +
+  xlab("year") + ylab("citations")
+p3 <- ggplot(citations3, aes(x=filingDate, y=citations)) + 
+  geom_point() +
+  #stat_summary(fun.data=mean_cl_normal) + 
+  #geom_smooth(method='lm', formula= y~x) +
+  ggtitle("(n) citation counts, 1994-2000") +
+  xlab("year") + ylab("citations")
+p4 <- ggplot(citations4, aes(x=filingDate, y=citations)) + 
+  geom_point() +
+  #stat_summary(fun.data=mean_cl_normal) + 
+  #geom_smooth(method='lm', formula= y~x) +
+  ggtitle("(n) citation counts, pre-1994") +
+  xlab("year") + ylab("citations")
+plot_grid(p1, p2, p3, p4, labels = c('A', 'B', 'C', 'D'), label_size = 12)
 ```
 
 ## Appendix
