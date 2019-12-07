@@ -23,7 +23,6 @@ library(httr)     # Wrapper for the curl package.
 library(XML)      # Dealing with text in xml.
 library(jsonlite) # Getting and formatting JSON. 
 library(rplos)    # API to PLOS for journals.
-<<<<<<< HEAD
 library(readr)    # Reading rectangular data.
 library(plyr)     # Wrangling data.
 library(dplyr)    # Wrangling data.
@@ -32,48 +31,66 @@ library(tidyr)    # Tidying data,
 library(stringr)  # Manipulating strings. Using RegEx.
 library(purrr)
 library(tm)       # Text mining.
-=======
 library(rjson)    # Work with JSON format.
->>>>>>> tj_dev
 library(fulltext) # Text mining of open access journals.
 
-  
 # Special use case libraries
-
 library(stats)
 library(topicmodels) # for LDA topic modelling 
-library(tm) # general text mining functions, making document term matrixes
 library(SnowballC) # for stemming
-library(tm)       # Text mining.
 
-
-# Tidy tools
-library(plyr)     # Wrangling data. 
-#In tidyverse
-#library(dplyr) # SQL-style data processing
-#library(tidyr)    # Tidying data, 
-#library(readr) # reading and writing delimited text files
-#library(tibble)   # Tidier table object.
-#library(stringr)  # Manipulating strings. Using RegEx.
-# read in the libraries we're going to use
 library(tidyverse) # general utility & workflow functions 
 library(tidytext) # text analysis in R 
 library(lubridate) # working with times and dates   
 library(rvest)    # Download and manipulate HTML.
-library(purrr)
 
 #display
 library(kableExtra)
-
-
 ```
+
+## Proposal
+Assessment of the state of science is a requirement for
+research. Assessment of intellectual property is a requirement for
+capitalization of knowledge for profit. This project explores tools
+for surveying patent data and research data in order to develop
+methods for making these assessments.
  
+The project begins with an examination of data from NASA, whose open
+data portal includes a dataset of NASA patents. The format is a
+delimited text file. The data include a patent case number and
+title. Exploration of this dataset may include unsupervised learning
+to yield topics of patents.
+ 
+The World Intellectual Property Organization (WIPO) publishes The WIPO
+Manual on Open Source Patent Analytics with instruction for data
+interrogation useful for subsequent parts of this project. The project
+will continue with a more detailed exploration of patent cases opened
+by NASA or another science-focused organization with a view to revealing more topics from within patent case data other than the title of the case, perhaps from the patent application, for example.
+ 
+There are at least two data sources for patent data. The primary data
+source is the U.S. Patent and Trademark Office (USPTO), whose Open
+Data Portal publishes many datasets in various formats. USPTO also
+supplies APIs for patent data retrieval. Besides these APIs, there is
+at least one potentially useful third party API called PatentsView.
+ 
+One resource for research publications is the Public Library of
+Science (PLOS), who publish open access peer reviewed articles. The
+inventory of articles seems limited, but appears to enable an
+introduction to searching for research papers for which we will utilize the R package, `rplos`, a programmatic interface to the Solr based search API
+provided by PLOS. Solr is an open source search platform built on
+Apache Lucerne.
+
+Our research topic is quantification and characterization of NASA innovation through inspection of NASA's patents. For example, we expect to count patents which cite NASA patents (quantification) and to mine topics from NASA patents (characterization). We will report and visualize these findings.
+
+The motivation for this project relates to methods for Information
+Retrieval and the team’s collective interest and experience in startup and scientific industries. Efficient topic modelling can form the foundation of a number of advanced NLP techniques such as Word sense disambiguation, Natural Text Generation, and automatic Summarization on its own. A number of derivative analysis are possible based on NLP, including studies combining our results with industry or innovation metrics.
+
 ## NASA Patents
 - Data source: [NASA's Open Data Portal](https://data.nasa.gov/Raw-Data/NASA-Patents/gquh-watm). Includes column specification.
 - File: NASA_Patents.csv
 - Download date: 11/14/2019
 
-### Notes
+### Data preparation notes
 - Once you determine the data types of your columns,set the specifications and then use them for reading.
 - [`readr` blog post](https://blog.rstudio.com/2016/08/05/readr-1-0-0/). Illustrates the approach, although this syntax doesn't work anymore. The approach writes the specification to a file.
 - [readr - how to update col_spec object from spec()](https://stackoverflow.com/questions/39135129/readr-how-to-update-col-spec-object-from-spec). Greg H.'s answer on Stack Overflow doesn't require writing to a file. We use this approach. 
@@ -196,9 +213,7 @@ raw.background <- lapply(files, function(x) {
 ```
 
 ### section to answer question, "how many other patents does a patent reference ('count.citations'), and how many other patents reference it ('count.cited_by')?" This question is a analagous to, "how many shoulders does a given patent stand on?"
-<<<<<<< HEAD
 # todo: make sure it works across all dataframes; try incorporating Tommy's snippet
-=======
 # todo: deuglify the regex
 
 Executed, variables serialized, chunk disabled.
@@ -288,6 +303,8 @@ raw.df
 ```
 
 ### write to file for easy access
+Chunk disabled. Execute by hand if refreshing the CSV is necessary.
+
 ```{r, eval=FALSE}
 write.csv(raw.df,"data/patent_text.csv", row.names = FALSE)
 saveRDS(count.citations, file.path("data", "count.citations.RDS"))
@@ -302,21 +319,12 @@ saveRDS(raw.background, file.path("data", "raw.background.RDS"))
 saveRDS(raw.origin, file.path("data", "raw.origin.RDS"))
 saveRDS(raw.title, file.path("data", "raw.title.RDS"))
 saveRDS(title, file.path("data", "title.RDS"))
-<<<<<<< HEAD
-```
-
-### read patent text
-```{r, eval=TRUE}
-raw.df <- read.csv("data/patent_text.csv")
-=======
->>>>>>> tj_dev
 ```
 
 ### read patent text
 ```{r, eval=TRUE}
 raw.df <- read.csv("data/patent_text.csv")
 ```
-
 
 # Explore and Transform the Data
 
@@ -350,10 +358,7 @@ References
 2. https://tibble.tidyverse.org/reference/add_column.html
 3. https://www.r-bloggers.com/the-notin-operator/
 
-
-
 ## String-focused transformations
-
 
 ### Remove third-party additions to text
 ```{r}
@@ -389,8 +394,6 @@ patents <- patents %>%
   mutate_if(is.character, str_squish)
 head(patents)
 ```
-
-
 
 ## Data-focused transformations
  
@@ -783,8 +786,7 @@ Reference:
  
 
 
-# Appendix
-
+# Appendices
 
 ## Retrieve USPTO patent data
 The code chunk for the USPTO acquistion shall be used when documents beyond the Google archive are needed.
@@ -846,11 +848,7 @@ result$data$patents$patent_abstract
 
 ### Google Patents
 Other attributes explored
-<<<<<<< HEAD
-```{r, eval=FALSE}
-=======
 ```{r, a_explore_google_patent, eval=FALSE}
->>>>>>> tj_dev
 # prior art keywords
 raw.html %>% html_nodes("[itemprop='priorArtKeywords']") %>% html_text() 
 # inventors
@@ -869,11 +867,7 @@ raw.html %>% html_nodes("[itemprop='cpcs']") %>% html_text() # what does it mean
 ### Research papers
 Explore PLOS
 
-<<<<<<< HEAD
-```{r}
-=======
 ```{r a_explore_plos}
->>>>>>> tj_dev
 # All the fields you can query.
 plosfields
 
@@ -894,19 +888,11 @@ p$meta
 # The data.
 p$data
 ```
-<<<<<<< HEAD
-=======
-
->>>>>>> tj_dev
 ### Explore one patent at a time
 - appId: US6226553B1
 - title: US5689004ADiamines containing pendent phenylethynyl groups
 
-<<<<<<< HEAD
-```{r}
-=======
 ```{r a_explore_one_patent}
->>>>>>> tj_dev
 p <- searchplos(q = "body:phenylethynyl",
                 fl = c("id", "publication_date", "title", "abstract"))
 
@@ -917,16 +903,10 @@ p$meta
 p$data
 ```
 
-<<<<<<< HEAD
 - appId: US6261844B1
 - title: US5730806AGas-liquid supersonic cleaning and cleaning verification spray system
-```{r}
-=======
 
-- appId: US6261844B1
-- title: US5730806AGas-liquid supersonic cleaning and cleaning verification spray system
 ```{r a_search_plos}
->>>>>>> tj_dev
 p <- searchplos(q = "body:liquid supersonic cleaning",
                 fl = c("id", "publication_date", "title", "abstract"))
 
@@ -935,12 +915,40 @@ p$meta
 
 # The data.
 p$data
-<<<<<<< HEAD
-```
-=======
 ```
 
+## Resources
+### Collaboration
+- [Work Breakdown Structure](https://docs.google.com/spreadsheets/d/11siAxFAxaqqPvVJ5Qvedzgi_2dRuKNJpJ_qdjGm2p10/edit#gid=999682295).
 
- 
+### References
+- [The WIPO Manual on Open Source Patent Analytics](https://wipo-analytics.github.io). An end-to-end guide for information retrieval for patents and research papers.
+- [How AI Can Tame the Scientific Literature](https://www.nature.com/articles/d41586-018-06617-5). Survey of Iris.ai, Semantic Scholar from the Allen Institute for Artificial Intelligence, Microsoft Academic, etc. Iris.ai sources CORE.
 
->>>>>>> tj_dev
+### Agencies and services
+- [WIPO](https://www.wipo.int/portal/en/index.html). The World Intellectual Property Organization.
+- [Public Library of Science](https://www.plos.org). PLOS. 200K+ open access peer-reviewed journal articles.
+- [CORE](https://core.ac.uk). Claims to be the largest aggregator of open access research papers, with an inventory of 135M+. Provides APIs for text mining.
+- [rOpenSci](https://ropensci.org). Non-profit that addresses reproducibility of scientific data retrieval. A raft of R packages for working with scientific data sources and supporting research. Leadership includes Jenny Bryan and advisors include Hadley Wickham. Blog, tutorials, and videos.
+- [Allen Institute for Artificial Intelligence](https://allenai.org). Semantic Scholar, etc.
+- [One World Analytics](http://oneworldanalytics.com). Analyzes social and environmental issues using text mining, statistics, geographic mapping and network visualisation.
+
+### NASA
+- [NASA's Open Data Portal](https://data.nasa.gov).
+- [NASA Patents](https://data.nasa.gov/Raw-Data/NASA-Patents/gquh-watm).
+
+### US patent data
+- [USPTO Open Data Portal](https://developer.uspto.gov). United States Patent and Trademark Office data products. Bulk downloads, APIs, analytics, etc.
+- [PatentsView](http://www.patentsview.org/). Secondary source, with dataset downloads and APIs.
+
+### R packages
+- `rplos` [Vignette](https://cran.r-project.org/web/packages/rplos/rplos.pdf). Interface to the Solr based search [API](http://api.plos.org/) for PLOS journals. Functions search for articles, retrieve articles, make plots, do faceted searches, highlight searches, and present results of highlighted searches in a browser.
+- `fulltext` [Vignette](https://ropensci.org/tutorials/fulltext_tutorial/). Facilitates text mining with an emphasis on open access journals. The vignette provides examples.
+
+### APIs
+- [PLOS API](http://api.plos.org/). Documentation, articles, frequently asked questions.
+
+### Examples
+- [PLos Article Classification](https://github.com/akud/PLoS-Article-Classification). A Python project on GitHub using machine learning to classify scientific articles by subject.
+- [Open NASA Data from API to Data Analysis](https://www.youtube.com/watch?v=JoaQctLP2Cg). YouTube video by Noemi Derzsy, NASA Datanaut, from the 2017 NYC SpaceApps Conference. Easy introduction to data obtainable from NASA.
+- [Mosaic Knowledge Graphs](https://mosaickg.apps.allenai.org). Allen Institute. Graph network analysis of text.
