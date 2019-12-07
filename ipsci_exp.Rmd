@@ -379,23 +379,21 @@ abstract_lda <- LDA(abstract_dtm, k = 100, control = list(seed = 1234))
 abstract_lda
 ```
 
-
+#Fix-----------
 ### Find the top one term per LDA topic
 ```{r warning=FALSE, message=FALSE, fig.align=center, fig.width=10, fig.height=10}
 topics <- tidy(abstract_lda, matrix = "beta") 
-topics %>%
-  mutate(term = reorder_within(term, beta, topic)) %>%
-  group_by(topic, term) %>%    
-  arrange(desc(beta)) %>%  
+topics %>%  
+  mutate(term = reorder(term, beta)) %>% 
+  # Need to limit number of terms 
+  group_by(term) %>%
+  top_n(3, beta) %>%
   ungroup() %>%
-  ggplot(aes(term, beta, fill = as.factor(topic))) +
-  geom_col(show.legend = FALSE) +
-  coord_flip() +
-  scale_x_reordered() +
-  labs(title = "Top 3 terms in each LDA topic",
-       x = NULL, y = expression(beta)) +
-  facet_wrap(~ topic, ncol = 4, scales = "free")
-
+  ggplot(aes(term, beta, fill = factor(topic))) +  
+  geom_col(show.legend = FALSE) +  
+  facet_wrap(~ topic, scales = "free") +  
+  labs(x = NULL, y = "Beta") +  
+  coord_flip()  
 
 ```
 
@@ -416,42 +414,47 @@ head(abs_topics_term,n=5)
 ### Merge with dataset and extract to csv
 Merge
 
+Get one topic per document
 ```{r}
 abs_topic_docs <- tidy(abstract_lda, matrix = "gamma")
-abs_topic_docs <- abs_topic_docs %>% 
+topics_ <- abs_topic_docs %>% 
   mutate(docId=as.integer(document)) %>%
   select(., -document) %>% 
   group_by(docId) %>% 
   filter(gamma == max(gamma)) %>% 
   slice(1) %>% 
-  ungroup() 
-head(abs_topic_docs)
+  ungroup()
+```
+
+Get one term per topic
+```{r}
+terms_ <- subset(abs_topics_term, topic==topics_$docId, -beta)  
+
+topic_terms <- inner_join(topics_, terms_, by = "topic")
 ```
 
 
-```{r} 
-p<-inner_join(patents, abs_topic_docs, by = c("docId")) 
-
-
-
+Check for errors
+```{r}
+# Rewrite
+any(is.na(topic_terms))
 ```
 
-
-```{r} 
-subset(abs_topics_term, topic==p$docId)$term
+Merge to patent document df
+```{r}
+patent_topics <- merge(patents, topic_terms, by = "docId") %>% 
+  group_by(docId) %>% arrange(., docId)
+head(patent_topics)
 ```
 
-
-```{r} 
-subset(abs_topics_term, topic==1)$term
-```
+ 
 
 Extract
 ```{r}
-write.csv(patents_topic_terms,"data/patents_topic_terms.csv")
+#write.csv(patents_topic_terms,"data/patents_topic_terms.csv")
 ```
 
-
+#------------End fix
 
 
 Reference:
