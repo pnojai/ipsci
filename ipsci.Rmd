@@ -168,6 +168,12 @@ raw.background <- lapply(files, function(x) {
 
 ### section to answer question, "how many other patents does a patent reference ('count.citations'), and how many other patents reference it ('count.cited_by')?" This question is a analagous to, "how many shoulders does a given patent stand on?"
 # todo: deuglify the regex
+
+We observe that each patent includes citations to reference other patents, as well as those other patents that cite it. We then ask if it might be possible to identify counts of each to demonstrate, for instance:
+* a rough proxy metric of the referenciblity of each patent (how much more or less is a given patent cited?)
+* the count of citations over time
+
+This analysis will help us begin to answer the question, "how, and to what extent, do patents build on other patents?" Subsequent analysis should account for patent density across time.
 ```{r}
 # cited by (count) 
 cited_by <- lapply(files, function(x) {
@@ -341,6 +347,9 @@ p4 <- ggplot(citations4, aes(x=filingDate, y=citations)) +
   xlab("year") + ylab("citations")
 plot_grid(p1, p2, p3, p4, labels = c('A', 'B', 'C', 'D'), label_size = 12)
 ```
+
+## Findings
+NASA patents appear to have peaked in count between 2005 and 2008.  
 
 ## Appendix
 ### USPTO
