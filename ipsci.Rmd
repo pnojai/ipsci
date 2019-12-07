@@ -15,11 +15,10 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-```{r packages}
+```{r packages, warning=FALSE}
 library(rplos)    # API to PLOS for journals.
 library(readr)    # Reading rectangular data.
-library(plyr)     # Wrangling data.
-library(dplyr)    # Wrangling data.
+library(plyr)     # Wrangling data. 
 library(tibble)   # Tidier table object.
 library(tidyr)    # Tidying data,
 library(stringr)  # Manipulating strings. Using RegEx.
@@ -28,544 +27,131 @@ library(fulltext) # Text mining of open access journals.
 library(XML)      # Dealing with text in xml.
 library(httr)     # Wrapper for the curl package.
 library(jsonlite) # Getting and formatting JSON.
-```
 
-## NASA Patents
-- Data source: [NASA's Open Data Portal](https://data.nasa.gov/Raw-Data/NASA-Patents/gquh-watm). Includes column specification.
-- File: NASA_Patents.csv
-- Download date: 11/14/2019
 
-### Notes
-- Once you determine the data types of your columns,set the specifications and then use them for reading.
-- [`readr` blog post](https://blog.rstudio.com/2016/08/05/readr-1-0-0/). Illustrates the approach, although this syntax doesn't work anymore. The approach writes the specification to a file.
-- [readr - how to update col_spec object from spec()](https://stackoverflow.com/questions/39135129/readr-how-to-update-col-spec-object-from-spec). Greg H.'s answer on Stack Overflow doesn't require writing to a file. We use this approach. 
-
-```{r nasa}
-nasa_patents_fn <- "NASA_Patents.csv"
-
-# Specify datatypes.
-nasa_spec <- spec_csv(file = file.path("data", nasa_patents_fn))
-nasa_spec$cols[["Status"]] <- col_factor()
-nasa_spec$cols[["Patent Expiration Date"]] <- col_date("%m/%d/%Y")
-
-# Read patent file.
-nasa_patents <- readr::read_csv(file = file.path("data", nasa_patents_fn),
-                                col_types = nasa_spec)
-
-# In variable names, replace spaces.
-names(nasa_patents) <- str_replace_all(string = names(nasa_patents),
-                                       pattern = " ",
-                                       replacement = "_")
-
-# Transform the application number to USPTO format
-nasa_patents <- nasa_patents %>%
-  mutate(Application_SN_uspto = str_c("US",
-        str_replace_all(Application_SN, "[[:punct:]]", "")))
-```
-
-## Retrieve patent data
-### USPTO
-The code chunk for this acquistion is disabled because I don't understand what it retrieves, but I'll keep the code in case I can use it.
-```{r get_uspto, eval=FALSE}
-# Curl
-# curl -X GET --header 'Accept: application/json' 'https://developer.uspto.gov/ibd-api/v1/patent/application?applicationNumber=US14202699%2CUS12795356&start=0&rows=100'
-# Request URL
-# https://developer.uspto.gov/ibd-api/v1/patent/application?applicationNumber=US14202699%2CUS12795356&start=0&rows=100
-
-get_patent_application_uspto <- function(app_num) {
-  file_path <- file.path("data", str_c(app_num, ".json"))
-  
-  if (!file.exists(file_path)) {
-    req_url <- "https://developer.uspto.gov/ibd-api/v1/patent/application?APPSTUB"
-    req_url <- str_replace(string = req_url,
-                           pattern = "APPSTUB",
-                           replacement = as.character(app_num))
-    print(req_url)
-    print(str_c("Downloading application ",
-                as.character(app_num), "..."))
-    
-    patent_application <- fromJSON(req_url)
-    print(patent_application$response)
-    #stream_out(x = patent_application[["response"]][["docs"]],
-    #           file(file_path))
-    
-    #print(file_path)
-  }
-}
-
-# Need to review contents of JSON files.
-for (app in nasa_patents$Application_SN_uspto) {
-  #get_patent_application_uspto(app)
-  patent_application <- fromJSON('https://developer.uspto.gov/ibd-api/v1/patent/application?applicationNumber=US12795356')
-  print(patent_application)
-  download.file(patent_application$response$docs$archiveUrl, file.path("data")) 
-  break
-}
-
-print("Downloads complete.")
-```
-
-### Google
-```{r get_google_patent}
-get_patent_google <- function(pat_num) {
-  file_path <- file.path("data", str_c(pat_num, ".html"))
-
-  if (!file.exists(file_path)) {
-    req_url <- "https://patents.google.com/patent/USPATNUMSTUB"
-    req_url <- str_replace(string = req_url,
-                           pattern = "PATNUMSTUB",
-                           replacement = as.character(pat_num))
-    print(str_c("Downloading patent ",
-                as.character(pat_num), "..."))
-    
-    r <- GET(req_url, write_disk(file_path))
-    warn_for_status(r)
-  }
-}
-
-# Filter missing patent numbers
-is_na_patnum <- is.na(nasa_patents$Patent_Number)
-is_patnum <- nasa_patents$Patent_Number > 0
-
-nasa_patent_numbers <- nasa_patents$Patent_Number[!is_na_patnum & is_patnum]
-
-for (patnum in nasa_patent_numbers) {
-   get_patent_google(patnum)
-}
-
-print("Downloads complete.")
-```
-
-
-## Try out Patents View
-
-```{r}
-library(patentsview)
-library(tidyr)
-
-retrvble_flds <- get_fields(endpoint = "patents")
-head(retrvble_flds)
-
-
-# Get patent
-#query = qry_funs$eq(patent_number = "8293178")
-#query = '{"_gte":{"patent_number":"82931781"}}'
-
-result <- search_pv(
-  query = qry_funs$eq(patent_number = "8293178"),
-  fields = get_fields(endpoint = "patents", groups = c("patents", "inventors"))
-)
-
-
-#Abstract
-result
-result$data$patents$patent_abstract
-
-
-#%>% 
-#  tidyr::unnest() %>%
-#  head()
-
-```
-
- 
-
-# Try out sample code on patentsview for geo queries
-
-```{r}
-
-# Write a query:
-query <- with_qfuns( # with_qfuns is basically just: with(qry_funs, ...)
-  and(
-    begins(cpc_subgroup_id = 'H04L63/02'),
-    gte(patent_year = 2007)
-  )
-)
-
-# Create a list of fields:
-fields <- c(
-  c("patent_number", "patent_year"),
-  get_fields(endpoint = "patents", groups = c("assignees", "cpcs"))
-)
-
-# Send HTTP request to API's server:
-pv_res <- search_pv(query = query, fields = fields, all_pages = TRUE)
-library(leaflet)
-library(htmltools)
-library(dplyr)
-library(tidyr)
-
-data <-
-  pv_res$data$patents %>%
-    unnest(assignees) %>%
-    select(assignee_id, assignee_organization, patent_number,
-           assignee_longitude, assignee_latitude) %>%
-    group_by_at(vars(-matches("pat"))) %>%
-    mutate(num_pats = n()) %>%
-    ungroup() %>%
-    select(-patent_number) %>%
-    distinct() %>%
-    mutate(popup = paste0("<font color='Black'>",
-                          htmlEscape(assignee_organization), "<br><br>Patents:",
-                          num_pats, "</font>")) %>%
-    mutate_at(vars(matches("_l")), as.numeric) %>%
-    filter(!is.na(assignee_id))
-
-leaflet(data) %>%
-  addProviderTiles(providers$CartoDB.DarkMatterNoLabels) %>%
-  addCircleMarkers(lng = ~assignee_longitude, lat = ~assignee_latitude,
-                   popup = ~popup, ~sqrt(num_pats), color = "yellow")
-```
-
-Ref
-https://ropensci.org/blog/2017/09/19/patentsview/
-https://www.patentsview.org/web/#viz/locations
-https://raw.githubusercontent.com/ropensci/patentsview/483be92df486211bb2e6b54d64d5d7aacef40ab3/inst/site/vignettes/top-assignees.Rmd
-
-## Section beginning Methods
-
-
-"The tidyverse is an opinionated collection of R packages designed for data science. All packages share an underlying design philosophy, grammar, and data structures."
-
-
-The core tidyverse:
- *  ggplot2 is a system for declaratively creating graphics, based on The Grammar of Graphics.  
- *  dplyr provides a grammar of data manipulation, providing a consistent set of verbs that solve the most common data manipulation challenges.  
- *  tidyr provides a set of functions that help you get to tidy data.  
- *  readr provides a fast and friendly way to read rectangular data (like csv, tsv, and fwf).  
- *  purrr enhances R’s functional programming (FP) toolkit by providing a complete and consistent set of tools for working with functions and vectors. 
- *  tibble is a modern re-imagining of the data frame, keeping what time has proven to be effective, and throwing out what it has not. Tibbles are data.frames that are lazy and surly.
- *  stringr provides a cohesive set of functions designed to make working with strings as easy as possible.  
- *  forcats provides a suite of useful tools that solve common problems with factors.
-
-More specialised usage or Tidyverse-adjacent:
- *  readr, for reading flat files 
- *  readxl for .xls and .xlsx sheets.
- *  haven for SPSS, Stata, and SAS data.
- *  googledrive package allows you to interact with files on Google Drive from R.
- *  jsonlite for JSON.
- *  xml2 for XML.
- *  httr for web APIs.
- *  rvest for web scraping.
- *  DBI for relational databases. 
- *  lubridate for dates and date-times.
- *  hms for time-of-day values.
- *  blob for storing blob (binary) data. 
- *  magrittr provides the pipe, %>% used throughout the tidyverse. It also provide a number of more specialised piping operators (like %$% and %<>%) that can be useful in other places.
- *  glue provides an alternative to paste() that makes it easier to combine data and strings.
- *  Modelling within the tidyverse is largely a work in progress. This work will largely replace the modelr package used in R4DS.
- *  You may also find broom to be useful: it turns models into tidy data which you can then wrangle and visualise using the tools you already know.
-
-
-Ref:
-TODO: add notes on this section
-tidyverse.org
-https://rstudio.com/resources/webinars/the-grammar-and-graphics-of-data-science/
-
-
-## Exploration of raw data
-Compare uspto and google (focus on google for now (it is deprecated so may be missing files))
-Use html for now, instead of google bigquery api
-#>US8293178B2 - Chemochromic detector for sensing gas leakage and process for producing the same 
-#https://patents.google.com/patent/US8293178
-#http://patft.uspto.gov/netacgi/nph-Parser?Sect1=PTO1&Sect2=HITOFF&d=PALL&p=1&u=%2Fnetahtml%2FPTO%2Fsrchnum.htm&r=1&f=G&l=50&s1=8293178.PN.&OS=PN/8293178&RS=PN/8293178 (a link explaining the quality of patentsview, uspto, and google patent capabilities and information outlining the uspot full text API is here https://developer.uspto.gov/api-catalog/patentsview -- TODO: add to FAQ)
-
-```{r}
-library(rvest)
-#html_u <- read_html(file.path("data", "paft_uspto_8293178.html"))
-html_g <- read_html(file.path("data", "8293178.html"))
-html_g
-```
-
-```{r}
-library(magrittr) #for pipes
-library(dplyr) #for pull function
-library(rvest) #get html nodes
-library(xml2) #pull html data
-library(selectr) #for xpath element
-library(tibble)
-library(purrr) #for map functions
-library(datapasta) #for recreating tibble's with ease
-#Sample Data
-sample_data <- tibble::tibble(
-  name = c("test"),
-  link = c("https://patents.google.com/patent/US8293178"
-  )
-)
-```
-
- 
-https://towardsdatascience.com/functions-with-r-and-rvest-a-laymens-guide-acda42325a77
-### Tests
-```{r}
-title <- html_g %>%
-        html_nodes("h1") %>%
-        html_text()
-title
-claim <- html_g %>% html_nodes("div.claim") 
-claim
-divs <- html_g %>%
-        html_nodes('div') %>% 
-        html_text()
-```
-
-
-```{r} 
-library(tidytext) 
-library(tidyr)
-library(stringr)
-
-
-
-section_nodes <- html_g %>% html_nodes("section")
-
-head(section_nodes)
-
-section_ids <- section_nodes %>% html_attr("itemprop") 
-#section_ids <- html_g %>% html_nodes(xpath="section//h2")
-section_ids
-
-
-#https://stackoverflow.com/questions/43598427/r-how-to-extract-items-from-xml-nodeset
-#number=rep(1: (section_nodes)),
-
-
-#TODO: combine
-sections_text <- section_nodes %>% 
-    html_text() %>% 
-    str_trim(side = "both") %>%
-    str_replace_all('(\\s){2,}', '\\1') %>% 
-    str_replace_all('(\\r\\n|\\n){2}', '\\1') %>% 
-    str_replace_all('[^A-z ]', '')
-    #substr(start = nchar(body_text)-700, stop = nchar(body_text))
-#        strsplit(split = "\n") %>%
-#        unlist() %>%
-#        .[. != ""]
-sections_text
-
-
-text_df <- tibble(document=section_ids, terms=sections_text)
-
-text_df
-
-
-```
-
-```{r}
-
-
-#TODO: combine
-sections_text <- section_nodes %>% 
-    html_text() %>% 
-    str_trim(side = "both") %>%
-    str_replace_all('(\\s){2,}', '\\1') %>% 
-    str_replace_all('(\\r\\n|\\n){2}', '\\1') %>% 
-    str_replace_all('[^A-z ]', '')
-    #substr(start = nchar(body_text)-700, stop = nchar(body_text))
-#        strsplit(split = "\n") %>%
-#        unlist() %>%
-#        .[. != ""]
-sections_text
-
-```
-
-
-Demo of LDA
-https://www.kaggle.com/rtatman/nlp-in-r-topic-modelling#Unsupervised-topic-modeling-with-LDA
-```{r}
 # read in the libraries we're going to use
-library(tidyverse) # general utility & workflow functions
-library(tidytext) # tidy implimentation of NLP methods
+library(tidyverse) # general utility & workflow functions 
 library(topicmodels) # for LDA topic modelling 
 library(tm) # general text mining functions, making document term matrixes
 library(SnowballC) # for stemming
 
+  
+# load required packages
+library(readr) # reading and writing delimited text files
+library(dplyr) # SQL-style data processing
+library(tidytext) # text analysis in R
+library(stringr) # working with text strings
+library(lubridate) # working with times and dates
+library(jsonlite) # reading and writing JSON
+library(tidyr) # data reshaping
 
 
-# of topics, using LDA
-top_terms_by_topic_LDA <- function(input_text, # should be a columm from a dataframe
-                                   plot = T, # return a plot? TRUE by defult
-                                   number_of_topics = 4) # number of topics (4 by default)
-{    
-    # create a corpus (type of object expected by tm) and document term matrix
-    Corpus <- Corpus(VectorSource(input_text)) # make a corpus object
-    DTM <- DocumentTermMatrix(Corpus) # get the count of words/document
-
-    # remove any empty rows in our document term matrix (if there are any 
-    # we'll get an error when we try to run our LDA)
-    unique_indexes <- unique(DTM$i) # get the index of each unique value
-    DTM <- DTM[unique_indexes,] # get a subset of only those indexes
-    
-    # preform LDA & get the words/topic in a tidy text format
-    lda <- LDA(DTM, k = number_of_topics, control = list(seed = 1234))
-    topics <- tidy(lda, matrix = "beta")
-
-    # get the top ten terms for each topic
-    top_terms <- topics  %>% # take the topics data frame and..
-      group_by(topic) %>% # treat each topic as a different group
-      top_n(10, beta) %>% # get the top 10 most informative words
-      ungroup() %>% # ungroup
-      arrange(topic, -beta) # arrange words in descending informativeness
-
-    # if the user asks for a plot (TRUE by default)
-    if(plot == T){
-        # plot the top ten terms for each topic in order
-        top_terms %>% # take the top terms
-          mutate(term = reorder(term, beta)) %>% # sort terms by beta value 
-          ggplot(aes(term, beta, fill = factor(topic))) + # plot beta by theme
-          geom_col(show.legend = FALSE) + # as a bar plot
-          facet_wrap(~ topic, scales = "free") + # which each topic in a seperate plot
-          labs(x = NULL, y = "Beta") + # no x label, change y label 
-          coord_flip() # turn bars sideways
-    }else{ 
-        # if the user does not request a plot
-        # return a list of sorted terms instead
-        return(top_terms)
-    }
-}
-
-
+library(stats)
 
 
 ```
 
+
+# Explore the Data
+
+Examine the patent text files and view the text sections. We note 932 observations, 8 variables, and 2 integer classes and 6 character classes. 
+```{r}
+patents <- read.csv("data/patent_text.csv", header = TRUE, stringsAsFactors = FALSE)
+glimpse(patents)
+kable(head(patents, n=2))
+
+```
+
+
+## String-focused transformations
+
+### Check to make sure we are not operating on empty data. We are not. 
+```{r}
+nrow(patents) == sum(complete.cases(patents))
+```
+
+### Track our documents in case we need to make extra rows for each word
 
 ```{r}
+#patents <- patents %>%    
+  #mutate(docId=as.integer(row.names(.)))
+`%notin%` <- Negate(`%in%`)
+if('docId' %notin% colnames(.)) patents<-add_column(patents, docId=as.integer(row.names(patents)), .before = 1)
+head(patents, n=1)
+```
+References
+1. https://github.com/tidyverse/dplyr/issues/2047
+2. https://tibble.tidyverse.org/reference/add_column.html
+3. https://www.r-bloggers.com/the-notin-operator/
 
 
-top_terms_by_topic_LDA(text_df$terms, number_of_topics = 5)
+### Normalize white-space
+Remove leading, trailing and intermediate excess whitespace
+```{r} 
+patents <- patents %>%
+ mutate_if(is.character, str_squish)
 ```
 
 
-Ref:
-idea, use nasa highlights via tesseract to analyze https://www.techbriefs.com/dl/HOT100/MonSys.pdf
-option, do a 1 level crawl into cited by or related patents https://patents.google.com/patent/US7383238B1/en#citedBy
-html_node basics https://bradleyboehmke.github.io/2015/12/scraping-html-text.html
-uspto html structure ideas https://en.wikipedia.org/wiki/User:Jrincayc/Patent_utils
-another option for patent search https://cloud.google.com/blog/products/gcp/google-patents-public-datasets-connecting-public-paid-and-private-patent-data
-patentsview (todo: put research here)
+### Remove third-party additions to text
+```{r}
+head(patents$title, n=1)
+patents <- patents %>%
+  #head(n=1) %>%
+  mutate(title = str_remove_all(title, " - Google Patents"))
+head(patents$title, n=1)
+```
 
+## Data-focused transformations
  
- 
-More tidy http://vita.had.co.nz/papers/tidy-data.pdf
-Advanced:
-https://rddj.info/
-https://cloud.r-project.org/web/packages/hunspell/vignettes/intro.html
-https://juliasilge.com/blog/life-changing-magic/
-https://rud.is/projects/clinton_emails_01.html
-
-
-
-
-
-
-
-## Just some notes
-
+### Character statistics
 ```{r}
-require("devtools")
-#install_github("tidymodels/textrecipes")
-
+patents_stats <- patents %>% 
+  rowwise() %>% 
+  transmute(title = title, title_nchar = nchar(title), title_nmeans= nchar(title),
+            abstract=abstract, abstract_nchar = nchar(abstract), abstract_nmeans= nchar(abstract),
+            origin = origin, origin_nchar = nchar(origin), origin_nmeans= nchar(origin),
+            background = background, background_nchar = nchar(background), background_nmeans= nchar(background)) %>%
+  mutate(title_nmeans=colMeans(.[3]), 
+         abs_nmeans=colMeans(.[6]), 
+         origin_nmeans=colMeans(.[9]), 
+         background_nmeans=colMeans(.[12])) %>%
+  cbind(select(patents, -c(title, abstract, origin, background)),.)
+head(patents_stats, n=2)
 ```
 
-
-
-
-
+### Dates
 
 ```{r}
-library(recipes)
-library(textrecipes)
-
-data(okc_text)
-o<-data(okc_text)
-okc_rec <- recipe(~ ., data = okc_text) %>%
-  step_tokenize(essay0, essay1)
-okc_text
+patents_stats <- patents_stats %>%
+  rowwise() %>%
+  mutate(filingDate=ymd(filingDate))
+head(patents_stats, n=1)
 ```
 
-
-```{r}
-okc_rec <- recipe(~ ., data = okc_text) %>%
-  step_tokenize(essay0, essay1) %>% # Tokenizes to words by default
-  step_stopwords(essay0, essay1) %>% # Uses the english snowball list by default
-  step_tokenfilter(essay0, essay1, max_tokens = 100) %>%
-  step_tfidf(essay0, essay1)
-   
-okc_obj <- okc_rec %>%
-  prep(training = okc_text)
-   
-str(bake(okc_obj, okc_text), list.len = 15)
-```
-
-```{r}
-recipe(~ ., data = data) %>%
-  step_tokenize(text) %>%
-  step_stem(text) %>%
-  step_stopwords(text) %>%
-  step_topwords(text) %>%
-  step_tf(text)
-
-# or
-
-recipe(~ ., data = data) %>%
-  step_tokenize(text) %>%
-  step_stem(text) %>%
-  step_tfidf(text)
-```
-Ref:
-https://www.cbinsights.com/research/team-blog/patent-analytics-is-here/
-https://medium.com/@glmack/patent-language-processing-fc99b57c0cd5
-https://www.kaggle.com/rtatman/nlp-in-r-topic-modelling#Unsupervised-topic-modeling-with-LDA
-https://tidymodels.github.io/textrecipes/
-https://tidymodels.github.io/textrecipes/articles/cookbook---using-more-complex-recipes-involving-text.html
-
-gganimate extends the grammar of graphics as implemented by ggplot2 to include the description of animation. It does this by providing a range of new grammar classes that can be added to the plot object in order to customise how it should change with time.
-
-Also https://www.tidyverse.org/blog/2019/07/ragg-0-1-0/
-
-More ideas on innovation https://www.patentsview.org/web/#viz/comparisons&cmp=all/state/numDesc/2019
-https://tidymodels.github.io/textrecipes/articles/cookbook---using-more-complex-recipes-involving-text.html
-https://www.rdocumentation.org/packages/naniar/versions/0.4.2
-http://naniar.njtierney.com/articles/getting-started-w-naniar.html#modelling-missingness
-https://arxiv.org/ftp/arxiv/papers/1703/1703.09570.pdf
-https://bookdown.org/martin_monkman/DataScienceResources_book/textanalysis.html
-https://cran.r-project.org/web/packages/monkeylearn/index.html
-https://cran.r-project.org/web/packages/tidytext/index.html
-https://cran.r-project.org/web/packages/tidytext/vignettes/tf_idf.html
-https://cran.r-project.org/web/packages/tidytext/vignettes/topic_modeling.html
-https://www.r-bloggers.com/an-overview-of-the-nlp-ecosystem-in-r-nlproc-textasdata/
-https://cran.r-project.org/web/views/NaturalLanguageProcessing.html
-https://cran.r-project.org/web/packages/tidytext/tidytext.pdf
-https://cran.r-project.org/web/views/NaturalLanguageProcessing.html
-https://cran.r-project.org/web/packages/quanteda/index.html
-https://cran.r-project.org/web/packages/quanteda/vignettes/quickstart.html
-
-https://patents.google.com/patent/US8293178
-https://www.google.com/search?q=Tidyverse&rlz=1C1CHBF_enUS856US856&oq=tidyverse&aqs=chrome.0.69i59j69i60l2j69i61j69i60l2.1725j0j9&sourceid=chrome&ie=UTF-8
-https://www.google.com/search?q=tidy+text+html_node&rlz=1C1CHBF_enUS856US856&oq=tidy+text+html_node&aqs=chrome..69i57.4167j0j4&sourceid=chrome&ie=UTF-8
-https://rvest.tidyverse.org/reference/html_nodes.html
-https://rdrr.io/cran/rvest/man/html_text.html
-https://stackoverflow.com/questions/32127921/rvest-how-to-select-a-specific-css-node-by-id
-https://www.google.com/search?newwindow=1&rlz=1C1CHBF_enUS856US856&sxsrf=ACYBGNT_8s7EwgDHvkYMtRsh36MJ08tp3g:1575057943095&q=%22concatenate%22+html_text+from+html_node&sa=X&ved=2ahUKEwjzncuJnJDmAhVMh-AKHWY8C0EQ5t4CMAB6BAgMEAk&biw=1920&bih=930
-https://georgejmount.com/writecodereadquoteswritecode/
-https://github.com/yusuzech/r-web-scraping-cheat-sheet/blob/master/README.md
-https://rstudioblog.wordpress.com/2014/11/24/rvest-easy-web-scraping-with-r/
-https://stackoverflow.com/questions/36709184/build-data-frame-from-multiple-rvest-elements 
-https://rddj.info/
-https://cloud.r-project.org/web/packages/hunspell/vignettes/intro.html
-https://juliasilge.com/blog/life-changing-magic/
-https://rud.is/projects/clinton_emails_01.html
- 
-https://cran.r-project.org/web/packages/tidytext/vignettes/tidytext.html
-https://www.tidytextmining.com/tidytext.html
-https://yulab-smu.github.io/treedata-book/chapter2.html
-http://www.stat.columbia.edu/~gelman/research/published/abandon_final.pdf
-
-https://stackoverflow.com/questions/43598427/r-how-to-extract-items-from-xml-nodeset
+## Final Data Definitions
+docId: A unique patent document data record in our sample (NASA)
+appId: A unique patent number 'r'
+citedBy: Other papers citing this paper, provided by Google
+citation: Number of other papers this paper cites
+filingDate: The date the patent was filed in yyyy-mm-dd format (for instance a specific version)
+title: The patent title with the prepanded phrase " - Google Patents" removed
+title_nchar: the number of characters in the title
+title_nmeans: the average number of charecters over all of the titles in all patents
+abstract: a summary of the patent abstract
+abstract_nchar: the number of characters in the abstract
+abstract_nmeans: the average number of charecters over all of the abstracts in all patents
+origin: a summary of how the patent originated
+origin_nchar: the number of characters in the origin
+origin_nmeans: the average number of charecters over all of the origins in all patents
+background: a summary of the patent background
+background_nchar: the number of characters in the background
+background_nmeans: the average number of charecters over all of the backgrounds in all patents
 
 
-```{r}
-
-```
+References:
+1. https://dplyr.tidyverse.org/reference/mutate.html#grouped-tibbles
+2. https://dplyr.tidyverse.org/reference/summarise.html
+3. https://github.com/tidyverse/dplyr/issues/2838
+4. https://stackoverflow.com/questions/43897844/r-move-column-to-last-using-dplyr
 
