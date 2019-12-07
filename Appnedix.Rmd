@@ -1,0 +1,188 @@
+---
+title: "Appendix"
+output: html_notebook
+---
+
+
+Remove when merging
+vvvvvvv
+
+```{r packages, warning=FALSE}
+library(rplos)    # API to PLOS for journals.
+library(readr)    # Reading rectangular data.
+library(plyr)     # Wrangling data.
+library(dplyr)    # Wrangling data.
+library(tibble)   # Tidier table object.
+library(tidyr)    # Tidying data,
+library(stringr)  # Manipulating strings. Using RegEx.
+library(purrr)
+library(tm)       # Text mining.
+library(fulltext) # Text mining of open access journals.
+library(XML)      # Dealing with text in xml.
+library(httr)     # Wrapper for the curl package.
+library(jsonlite) # Getting and formatting JSON.
+library(rvest)    # Download and manipulate HTML.
+library(rjson)    # Work with JSON format.
+```
+
+
+```{r nasa, warning=FALSE, message=FALSE}
+
+nasa_patents_fn <- "NASA_Patents.csv"
+
+# Specify datatypes.
+nasa_spec <- spec_csv(file = file.path("data", nasa_patents_fn))
+nasa_spec$cols[["Status"]] <- col_factor()
+nasa_spec$cols[["Patent Expiration Date"]] <- col_date("%m/%d/%Y")
+
+# Read patent file.
+nasa_patents <- readr::read_csv(file = file.path("data", nasa_patents_fn),
+                                col_types = nasa_spec)
+
+# In variable names, replace spaces.
+names(nasa_patents) <- str_replace_all(string = names(nasa_patents),
+                                       pattern = " ",
+                                       replacement = "_")
+
+# Transform the application number to USPTO format
+nasa_patents <- nasa_patents %>%
+  mutate(Application_SN_uspto = str_c("US",
+        str_replace_all(Application_SN, "[[:punct:]]", "")))
+```
+
+^^^^
+Remove when merging
+
+
+# Appendix
+
+
+## Retrieve USPTO patent data
+The code chunk for the USPTO acquistion shall be used when documents beyond the Google archive are needed.
+
+```{r a_get_uspto_patent}
+
+library(jsonlite)
+
+# Example https://developer.uspto.gov/ibd-api/v1/patent/application?applicationNumber=US12795356'
+ 
+# Requires nasa_patents objects
+
+for (app in nasa_patents$Application_SN_uspto) {
+  #get_patent_application_uspto(app)
+  url <- paste0('https://developer.uspto.gov/ibd-api/v1/patent/application?applicationNumber=',app)
+  path <- "data/uspto"
+  file_path <- file.path(path, str_c(app, ".html"))
+
+  if (!file.exists(file_path)) {
+    patent_application <- jsonlite::fromJSON(url)
+    #test
+    print(patent_application)
+    
+    #  Bulk download not ideal, disable download from USPTO
+    ##download.file(patent_application$response$docs$archiveUrl, file.path(path)) 
+    
+    #  Instead use the following form to query for new HTML files 
+    #  http://patft.uspto.gov/netahtml/PTO/index.html
+    #  Example: http://patft.uspto.gov/netacgi/nph-Parser?Sect1=PTO1&Sect2=HITOFF&d=PALL&p=1&u=%2Fnetahtml%2FPTO%2Fsrchnum.htm&r=1&f=G&l=50&s1=5963949.PN.&OS=PN/5963949&RS=PN/5963949
+    break
+  }
+  
+}
+
+print("Downloads complete.")
+```
+
+
+## View Patents View Information (for instance, the Abstract)
+
+```{r a_get_patentsview}
+
+library(patentsview) 
+
+retrvble_flds <- get_fields(endpoint = "patents")
+head(retrvble_flds)
+
+
+result <- search_pv(
+  query = qry_funs$eq(patent_number = "8293178"),
+  fields = get_fields(endpoint = "patents", groups = c("patents", "inventors"))
+)
+
+result
+result$data$patents$patent_abstract
+```
+
+
+
+### Google Patents
+Other attributes explored
+```{r, a_explore_google_patent eval=FALSE}
+# prior art keywords
+raw.html %>% html_nodes("[itemprop='priorArtKeywords']") %>% html_text() 
+# inventors
+raw.html %>% html_nodes("[itemprop='inventor']") %>% html_text()
+# current assignee
+raw.html %>% html_nodes("[itemprop='assigneeCurrent']") %>% html_text()
+# original assignee
+#raw.html %>% html_nodes("[itemprop='assigneeOriginal']") %>% html_text() # lots of noise; need to parse later
+# filing date
+raw.html %>% html_nodes("[itemprop='filingDate']") %>% html_text() # which one to select?
+# classifications
+raw.html %>% html_nodes("[itemprop='cpcs']") %>% html_text() # what does it mean?
+
+```
+
+### Research papers
+Explore PLOS
+
+```{r a_explore_plos}
+# All the fields you can query.
+plosfields
+
+# All the journals.
+journalnamekey()
+
+# Search for an author. Return the research paper ID and title.
+searchplos(q = "author:sulzer", fl = "id, title")
+
+# Query on a keyword. Return ID, date, title, and abstract.
+p <- searchplos(q = "synuclein",
+                fl = c("id", "publication_date", "title", "abstract"),
+                limit = 20)
+
+# The number of hits.
+p$meta
+
+# The data.
+p$data
+```
+
+### Explore one patent at a time
+- appId: US6226553B1
+- title: US5689004ADiamines containing pendent phenylethynyl groups
+
+```{r a_explore_one_patent}
+p <- searchplos(q = "body:phenylethynyl",
+                fl = c("id", "publication_date", "title", "abstract"))
+
+# The number of hits.
+p$meta
+
+# The data.
+p$data
+```
+
+
+- appId: US6261844B1
+- title: US5730806AGas-liquid supersonic cleaning and cleaning verification spray system
+```{r a_search_plos}
+p <- searchplos(q = "body:liquid supersonic cleaning",
+                fl = c("id", "publication_date", "title", "abstract"))
+
+# The number of hits.
+p$meta
+
+# The data.
+p$data
+```
