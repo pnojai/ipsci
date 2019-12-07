@@ -109,15 +109,18 @@ head(patents$title, n=1)
 6. Normalize white-space: Remove leading, trailing and intermediate excess whitespace
 7. Remove numbers
 Hold off on punctuation (contractions, dashes) and stemming until analysis
+8. We note some words to remove after visualizing the text
 
 ```{r} 
 patents <- patents %>%
   mutate(title=iconv(title, to='ASCII//TRANSLIT')) %>%
   mutate(title=tolower(title)) %>%
   mutate(title=str_replace_all(title,'\\w*\\d\\w*','')) %>%
+  mutate(title=str_replace_all(title,'apparatus|control|device|include.*|provide.*|methods*|systems*','')) %>%
   mutate(abstract=iconv(abstract, to='ASCII//TRANSLIT')) %>%
   mutate(abstract=tolower(abstract)) %>%
   mutate(abstract=str_replace_all(abstract,'\\w*\\d\\w*','')) %>%
+  mutate(abstract=str_replace_all(abstract,'apparatus|control|device|include.*|provide.*|methods*|systems*','')) %>%
   mutate_if(is.character, str_squish)
 head(patents)
 ```
