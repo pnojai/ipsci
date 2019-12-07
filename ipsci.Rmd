@@ -256,18 +256,22 @@ raw.df
 ### write to file for easy access
 ```{r}
 write.csv(raw.df,"data/patent_text.csv", row.names = FALSE)
-raw.df <- read.csv("data/patent_text.csv")
+raw.df <- read.csv("data/patent_text.csv", as.is = TRUE)
+raw.df$filingDate <- as.Date(raw.df$filingDate, format = "%Y-%m-%d")
 ```
 
 ### EDA and data transformation for visualization
 ```{r}
 ggplot(raw.df, aes(x=filingDate, y=citedBy)) + geom_point()
-
-# deal with dates, then get date quartiles for facet plotting
-#lct <- Sys.getlocale("LC_TIME"); Sys.setlocale("LC_TIME", "C")
-#raw.df$filingDate <- raw.df$filingDate %>% strptime(format = "%y-%m-%d")
-#raw.df$filingDate <- raw.df$filingDate %>% as.Date(format = "%y/%m/%d")
-#Sys.setlocale("LC_TIME", lct)
+date.df <- as.Date(raw.df$filingDate, format = "%Y-%m-%d")
+probs <- 1:4/4
+# date quartiles 
+date.df <- as.Date(quantile(unclass(date.df), probs), origin = "1970-01-01")
+date.df <- mutate_if(raw.df, is.factor, as.Date)
+date.df
+# todo: plot facets, patent cited/citations across date quartiles
+str(raw.df) # check structure
+str(date.df)
 ```
 
 ```{r}
