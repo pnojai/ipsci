@@ -865,9 +865,9 @@ raw.html %>% html_nodes("[itemprop='cpcs']") %>% html_text() # what does it mean
 ```
 
 ### Research papers
-Explore PLOS
+Explore PLOS. Commentary in code chunk. Unhide to review.
 
-```{r a_explore_plos}
+```{r explore_plos}
 # All the fields you can query.
 plosfields
 
@@ -891,8 +891,9 @@ p$data
 ### Explore one patent at a time
 - appId: US6226553B1
 - title: US5689004ADiamines containing pendent phenylethynyl groups
+- search: Find papers whose body contains the term "phenylethynyl".
 
-```{r a_explore_one_patent}
+```{r explore_one_patent_1}
 p <- searchplos(q = "body:phenylethynyl",
                 fl = c("id", "publication_date", "title", "abstract"))
 
@@ -905,8 +906,9 @@ p$data
 
 - appId: US6261844B1
 - title: US5730806AGas-liquid supersonic cleaning and cleaning verification spray system
+- search: - search: Find papers whose body contains the term "liquid supersonic cleaning."
 
-```{r a_search_plos}
+```{r explore_one_patent_2}
 p <- searchplos(q = "body:liquid supersonic cleaning",
                 fl = c("id", "publication_date", "title", "abstract"))
 
@@ -915,6 +917,24 @@ p$meta
 
 # The data.
 p$data
+```
+### Title terms
+Search for papers whose bodies contain the top words from NASA patent titles.
+
+```{r explore_title_terms}
+top_title_words <- title_words %>% top_n(10)
+top_title_words <- top_title_words$word
+
+for (word in top_title_words) {
+  q <-  paste0("body:", word)
+  p <- searchplos(q = q,
+                  fl = c("id", "publication_date", "title", "abstract"))
+  
+  print(paste0("Search term: ", word))
+  print(paste0("Count: ", p$meta$numFound))
+  print(paste0("Sample of documents found..."))
+  print(head(p$data), n = 5)
+}
 ```
 
 ## Resources
