@@ -15,79 +15,64 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-```{r packages}
-
+```{r packages, message=FALSE}
 # Packages used in the ingestion of data
-library(httr)     # Wrapper for the curl package.
-library(XML)      # Dealing with text in xml.
-library(jsonlite) # Getting and formatting JSON. 
-# todo: install if not found
-library(rplos)    # API to PLOS for journals.
-library(readr)    # Reading rectangular data.
-library(plyr)     # Wrangling data.
-library(dplyr)    # Wrangling data.
-library(tibble)   # Tidier table object.
-library(tidyr)    # Tidying data,
-library(stringr)  # Manipulating strings. Using RegEx.
+library(httr)         # Wrapper for the curl package
+library(XML)          # Dealing with text in xml
+library(jsonlite)     # Getting and formatting JSON 
+library(rplos)        # API to PLOS for journals
+library(readr)        # Reading rectangular data
+library(plyr)         # Wrangling data
+library(dplyr)        # Wrangling data
+library(tibble)       # Tidier table object
+library(tidyr)        # Tidying data
+library(stringr)      # Manipulating strings using RegEx
 library(purrr)
-library(tm)       # Text mining.
-library(rjson)    # Work with JSON format.
-library(fulltext) # Text mining of open access journals.
+library(tm)           # Text mining
+library(rjson)        # Work with JSON format
+library(fulltext)     # Text mining of open access journals
 
-# Special use case libraries
+# Packages used for special use cases
 library(stats)
-library(topicmodels) # for LDA topic modelling 
-library(SnowballC) # for stemming
+library(topicmodels)  # for LDA topic modelling 
+library(SnowballC)    # for stemming
+library(tidyverse)    # general utility & workflow functions 
+library(tidytext)     # text analysis in R 
+library(lubridate)    # working with times and dates   
+library(rvest)        # Download and manipulate HTML
 
-library(tidyverse) # general utility & workflow functions 
-library(tidytext) # text analysis in R 
-library(lubridate) # working with times and dates   
-library(rvest)    # Download and manipulate HTML.
-
-#display
-library(kableExtra)
-library(rjson)    # Work with JSON format.
-library(ggplot2)
-library(purrr)
-library(cowplot)  # ggplot2 add-on for pretty graphs.
+# Packages used to prettify and produce visualizations
+library(kableExtra)   #
+library(rjson)        # Work with JSON format
+library(ggplot2)      # graphs library
+library(purrr)        #
+library(cowplot)      # ggplot2 add-on for pretty graphs
 ```
 
 ## Proposal
-Assessment of the state of science is a requirement for
-research. Assessment of intellectual property is a requirement for
-capitalization of knowledge for profit. This project explores tools
-for surveying patent data and research data in order to develop
+Assessment of the state of science is a requirement for research. Assessment of intellectual property is a requirement for
+capitalization of knowledge for profit. This project explores tools for surveying patent data and research data in order to develop
 methods for making these assessments.
  
-The project begins with an examination of data from NASA, whose open
-data portal includes a dataset of NASA patents. The format is a
-delimited text file. The data include a patent case number and
-title. Exploration of this dataset may include unsupervised learning
+The project begins with an examination of data from NASA, whose open data portal includes a dataset of NASA patents. The format is a
+delimited text file. The data include a patent case number and title. Exploration of this dataset may include unsupervised learning
 to yield topics of patents.
  
-The World Intellectual Property Organization (WIPO) publishes The WIPO
-Manual on Open Source Patent Analytics with instruction for data
-interrogation useful for subsequent parts of this project. The project
-will continue with a more detailed exploration of patent cases opened
+The World Intellectual Property Organization (WIPO) publishes The WIPO Manual on Open Source Patent Analytics with instruction for data
+interrogation useful for subsequent parts of this project. The project will continue with a more detailed exploration of patent cases opened
 by NASA or another science-focused organization with a view to revealing more topics from within patent case data other than the title of the case, perhaps from the patent application, for example.
  
-There are at least two data sources for patent data. The primary data
-source is the U.S. Patent and Trademark Office (USPTO), whose Open
-Data Portal publishes many datasets in various formats. USPTO also
-supplies APIs for patent data retrieval. Besides these APIs, there is
+There are at least two data sources for patent data. The primary data source is the U.S. Patent and Trademark Office (USPTO), whose Open
+Data Portal publishes many datasets in various formats. USPTO also supplies APIs for patent data retrieval. Besides these APIs, there is
 at least one potentially useful third party API called PatentsView.
  
-One resource for research publications is the Public Library of
-Science (PLOS), who publish open access peer reviewed articles. The
-inventory of articles seems limited, but appears to enable an
-introduction to searching for research papers for which we will utilize the R package, `rplos`, a programmatic interface to the Solr based search API
-provided by PLOS. Solr is an open source search platform built on
+One resource for research publications is the Public Library of Science (PLOS), who publish open access peer reviewed articles. The
+inventory of articles seems limited, but appears to enable an introduction to searching for research papers for which we will utilize the R package, `rplos`, a programmatic interface to the Solr based search API provided by PLOS. Solr is an open source search platform built on
 Apache Lucerne.
 
 Our research topic is quantification and characterization of NASA innovation through inspection of NASA's patents. For example, we expect to count patents which cite NASA patents (quantification) and to mine topics from NASA patents (characterization). We will report and visualize these findings.
 
-The motivation for this project relates to methods for Information
-Retrieval and the team’s collective interest and experience in startup and scientific industries. Efficient topic modelling can form the foundation of a number of advanced NLP techniques such as Word sense disambiguation, Natural Text Generation, and automatic Summarization on its own. A number of derivative analysis are possible based on NLP, including studies combining our results with industry or innovation metrics.
+The motivation for this project relates to methods for Information Retrieval and the team’s collective interest and experience in startup and scientific industries. Efficient topic modelling can form the foundation of a number of advanced NLP techniques such as Word sense disambiguation, Natural Text Generation, and automatic Summarization on its own. A number of derivative analysis are possible based on NLP, including studies combining our results with industry or innovation metrics.
 
 ## NASA Patents
 - Data source: [NASA's Open Data Portal](https://data.nasa.gov/Raw-Data/NASA-Patents/gquh-watm). Includes column specification.
@@ -125,12 +110,9 @@ nasa_patents <- nasa_patents %>%
 ## Retrieve USPTO patent data
 ```{r get_uspto_patent}
 # Example https://developer.uspto.gov/ibd-api/v1/patent/application?applicationNumber=US12795356'
- 
 is_na_patnum <- is.na(nasa_patents$Patent_Number)
 is_patnum <- nasa_patents$Patent_Number > 0
-
 nasa_patent_numbers <- nasa_patents$Patent_Number[!is_na_patnum & is_patnum]
-
 
 # Need to review contents of JSON files.
 for (app in nasa_patents$Application_SN_uspto) {
@@ -149,9 +131,7 @@ for (app in nasa_patents$Application_SN_uspto) {
     #  http://patft.uspto.gov/netahtml/PTO/index.html
     break
   }
-  
 }
-
 
 print("Downloads complete.")
 ```
@@ -175,17 +155,13 @@ raw.html %>% html_nodes("body search-app article section div div p") %>% html_te
 raw.html %>% html_nodes(xpath="/html/body/search-app/article/table") %>% html_table()
 # cited by (count) nrow()
 cited_by <- raw.html %>% html_nodes(xpath="/html/body/search-app/article/table") %>% html_table() 
-#nrow(cited_by[[1]])
 # patent citations 
 raw.html %>% html_nodes(xpath="/html/body/search-app/article/section/table") %>% html_table()
 raw.html %>% html_nodes(xpath="/html/body/search-app/article/section/h2") %>% html_text()
-#filter(str_detect(raw.html %>% html_nodes(xpath="/html/body/search-app/article/section/h2") %>% html_text(), "Patent Citations"))
-#print(raw.html %>% html_nodes(xpath="/html/body/search-app/article/section/table") %>% html_table())[[2]]
 ```
 
 ### clean and transform selected data into dataframe
-Executed, variables serialized, chunk disabled.
-```{r, eval=FALSE}
+```{r}
 # create object with all filenames
 files <- list.files(path="data", pattern="[0-9]{5,}.html", full.names=TRUE, recursive=FALSE)
 
@@ -224,16 +200,13 @@ raw.background <- lapply(files, function(x) {
 
 ### section to answer question, "how many other patents does a patent reference ('count.citations'), and how many other patents reference it ('count.cited_by')?" This question is a analagous to, "how many shoulders does a given patent stand on?"
 # todo: make sure it works across all dataframes; try incorporating Tommy's snippet
-# todo: deuglify the regex
 
-Executed, variables serialized, chunk disabled.
-
-```{r, eval=FALSE}
 We observe that each patent includes citations to reference other patents, as well as those other patents that cite it. We then ask if it might be possible to identify counts of each to demonstrate, for instance:
 * a rough proxy metric of the referenciblity of each patent (how much more or less is a given patent cited?)
 * the count of citations over time
 
 This analysis will help us begin to answer the question, "how, and to what extent, do patents build on other patents?" Subsequent analysis should account for patent density across time.
+
 ```{r}
 # cited by (count) 
 cited_by <- lapply(files, function(x) {
@@ -294,38 +267,30 @@ count.citations <- lapply(count.citations, function(x)
 ```
 
 ### clean text and output to df
-Executed, variables serialized, chunk disabled.
-
-```{r, eval=FALSE}
+```{r}
 # not necessary, but makes lists nicer to read
-# todo: make consistent
 raw.title <- unlist(raw.title, recursive = FALSE)
-#raw.title
 raw.abstract <- unlist(raw.abstract, recursive = FALSE)
 raw.origin <- unlist(raw.origin, recursive = FALSE)
 filing.date <- filing.date %>% unlist(recursive = FALSE)
 raw.background <- unlist(raw.background, recursive = FALSE)
-count.citations %>% unlist(recursive = FALSE)
-count.cited_by %>% unlist(recursive = FALSE)
+count.citations <- count.citations %>% unlist(recursive = FALSE)
+count.cited_by <- count.cited_by %>% unlist(recursive = FALSE)
 
 # get "appId" with regex
 app_num <- unlist(str_extract_all(raw.title, "[A-Z]{2,}[0-9]{6,}[A-Z]+[0-9]?"))
 
 # remove "appId" from "title" 
 raw.title <- str_remove(raw.title, app_num)
-#raw.title
 raw.title <- str_remove(raw.title, " - ") # this could be less greedy
-#raw.title
 
 # bind lists into dataframe and name columns
 raw.df <- setNames(do.call(rbind.data.frame, Map('c', app_num, raw.title, raw.abstract, raw.origin, raw.background, count.cited_by, count.citations, filing.date)), c("appId", "title", "abstract", "origin", "background", "citedBy", "citations", "filingDate"))
-raw.df
+head(raw.df, 5)
 ```
 
 ### write to file for easy access
-Chunk disabled. Execute by hand if refreshing the CSV is necessary.
-
-```{r, eval=FALSE}
+```{r, eval=TRUE}
 write.csv(raw.df,"data/patent_text.csv", row.names = FALSE)
 saveRDS(count.citations, file.path("data", "count.citations.RDS"))
 saveRDS(count.cited_by, file.path("data", "raw.html.RDS"))
@@ -341,496 +306,10 @@ saveRDS(raw.title, file.path("data", "raw.title.RDS"))
 saveRDS(title, file.path("data", "title.RDS"))
 ```
 
-### read patent text
-```{r, eval=TRUE}
-raw.df <- read.csv("data/patent_text.csv")
-```
-
-# Explore and Transform the Data
-
-Examine the patent text files and view the text sections. We note 932 observations, 8 variables, and 2 integer classes and 6 character classes. 
-```{r}
-patents <- read.csv("data/patent_text.csv", header = TRUE, stringsAsFactors = FALSE)
-glimpse(patents)
-kable(head(patents, n=2))
-
-```
-
-
-## Data integrity
-Check to make sure we are not operating on empty data. 
-We are not. 
-```{r}
-nrow(patents) == sum(complete.cases(patents))
-```
-
-Track our documents in case we need to make extra rows for each word
-
-```{r}
-#patents <- patents %>%    
-  #mutate(docId=as.integer(row.names(.)))
-`%notin%` <- Negate(`%in%`)
-if('docId' %notin% colnames(.)) patents<-add_column(patents, docId=as.integer(row.names(patents)), .before = 1)
-head(patents, n=1)
-```
-References
-1. https://github.com/tidyverse/dplyr/issues/2047
-2. https://tibble.tidyverse.org/reference/add_column.html
-3. https://www.r-bloggers.com/the-notin-operator/
-
-## String-focused transformations
-
-### Remove third-party additions to text
-```{r}
-head(patents$title, n=1)
-patents <- patents %>%
-  #head(n=1) %>%
-  mutate(title = str_remove_all(title, " - Google Patents"))
-head(patents$title, n=1)
-```
-
-### Titles and Abstracts
-
-1. Extract document ids, titles and abstracts and convert to tibble in order to use tidy text methods
-2. Replace common European characters into transliterated roman characters (e.g. â is a)
-3. Replace upper with lower case characters
-4. Tokenize the title and abstract variables into words
-5. Remove default English stopword from those words
-6. Normalize white-space: Remove leading, trailing and intermediate excess whitespace
-7. Remove numbers
-Hold off on punctuation (contractions, dashes) and stemming until analysis, and because key terms are more sensitive to these changes
-8. We note some words to remove after visualizing the text
-
-```{r} 
-patents <- patents %>%
-  mutate(title=iconv(title, to='ASCII//TRANSLIT')) %>%
-  mutate(title=tolower(title)) %>%
-  mutate(title=str_replace_all(title,'\\w*\\d\\w*','')) %>%
-  mutate(title=str_replace_all(title,'apparatus|article|control|device|include.*|provide.*|methods*|systems*','')) %>%
-  mutate(abstract=iconv(abstract, to='ASCII//TRANSLIT')) %>%
-  mutate(abstract=tolower(abstract)) %>%
-  mutate(abstract=str_replace_all(abstract,'\\w*\\d\\w*','')) %>%
-  mutate(abstract=str_replace_all(abstract,'apparatus|article|control|device|include.*|provide.*|methods*|systems*','')) %>%
-  mutate_if(is.character, str_squish)
-head(patents)
-```
-
-## Data-focused transformations
- 
-### Character statistics
-```{r}
-patents_stats <- patents %>% 
-  rowwise() %>% 
-  transmute(title = title, title_nchar = nchar(title), title_nmeans= nchar(title),
-            abstract=abstract, abstract_nchar = nchar(abstract), abstract_nmeans= nchar(abstract),
-            origin = origin, origin_nchar = nchar(origin), origin_nmeans= nchar(origin),
-            background = background, background_nchar = nchar(background), background_nmeans= nchar(background)) %>%
-  mutate(title_nmeans=colMeans(.[3]), 
-         abs_nmeans=colMeans(.[6]), 
-         origin_nmeans=colMeans(.[9]), 
-         background_nmeans=colMeans(.[12])) %>%
-  cbind(select(patents, -c(title, abstract, origin, background)),.)
-head(patents_stats, n=2)
-```
-
-### Dates
-Store the dates in date format yyyy-mm-dd.
-```{r}
-patents_stats <- patents_stats %>%
-  rowwise() %>%
-  mutate(filingDate=ymd(filingDate))
-head(patents_stats, n=1)
-```
-
-
-## Final Data Definitions
-docId: A unique patent document data record in our sample (NASA)
-appId: A unique patent number 'r'
-citedBy: Other papers citing this paper, provided by Google
-citation: Number of other papers this paper cites
-filingDate: The date the patent was filed in yyyy-mm-dd format (for instance a specific version)
-title: The patent title with the prepended phrase " - Google Patents" removed
-title_nchar [patent_stats]: the number of characters in the title
-title_nmeans [patent_stats]: the average number of characters over all of the titles in all patents
-abstract: a summary of the patent abstract
-abstract_nchar: the number of characters in the abstract
-abstract_nmeans: the average number of characters over all of the abstracts in all patents
-origin: a summary of how the patent originated
-origin_nchar [patent_stats]: the number of characters in the origin
-origin_nmeans [patent_stats]: the average number of characters over all of the origins in all patents
-background: a summary of the patent background
-background_nchar [patent_stats]: the number of characters in the background
-background_nmeans [patent_stats]: the average number of characters over all of the backgrounds in all patents
-
-
-References:
-1. https://dplyr.tidyverse.org/reference/mutate.html#grouped-tibbles
-2. https://dplyr.tidyverse.org/reference/summarise.html
-3. https://github.com/tidyverse/dplyr/issues/2838
-4. https://stackoverflow.com/questions/43897844/r-move-column-to-last-using-dplyr
-
-
-
-
-# Data Analysis
-After looking into the patent stats, and transforming the data, we choose title and abstract for our Data Analysis.
-
-## Perform Word Tokenization specific to our type of analysis
-
-### Title word operations
-```{r message=FALSE}
-tb_titles <- patents %>%
-  select(., c(docId, title)) %>%
-  as_tibble() %>%
-  unnest_tokens(word, title) %>%
-  anti_join(stop_words)
-```
-
-### Abstract word operations
-```{r message=FALSE}
-tb_abstracts <- patents %>%
-  select(., c(docId, abstract)) %>%
-  as_tibble() %>%
-  unnest_tokens(word, abstract) %>%
-  anti_join(stop_words)
-```
-
-
-
-## Show Basic Word statistics
-1. Note the most frequent words over all patents
-2. Note the most frequent words per patent
-
-### Most frequent words in titles
-```{r message=FALSE}
-title_words <- tb_titles %>%
-  count(word, sort = TRUE)
-
-title_words %>%
-  top_n(10) %>%
-  mutate(word = reorder(word, n)) %>%
-  ggplot(aes(word, n, fill=word)) +
-  geom_col() +
-  xlab(NULL) +
-  coord_flip() +
-  ylab("Word Frequency") +
-  ggtitle("Most Common Title Words") 
-
-#head(title_words, 5)
-```
-
-
-### Most frequent words in each title
-
-```{r message=FALSE}
-title_word_counts <- tb_titles %>%
-  count(docId, word, sort = TRUE)%>%
-  ungroup()
-
-head(title_word_counts, 5)
-
-```
-
-
-### Most frequent words in Abstracts
-```{r message=FALSE}
-abstract_words <- tb_abstracts %>%
-  count(word, sort = TRUE)
-
-abstract_words %>%
-  top_n(10) %>%
-  mutate(word = reorder(word, n)) %>%
-  ggplot(aes(word, n, fill=word)) +
-  geom_col() +
-  xlab(NULL) +
-  coord_flip() +
-  ylab("Word Frequency") +
-  ggtitle("Most Common Abstract Words") 
-
-#head(abstract_words, 5)
-```
-
-### Most frequent words in each Abstract
-
-```{r message=FALSE}
-abstract_word_counts <- tb_abstracts %>%
-  count(docId, word, sort = TRUE)%>%
-  ungroup()
-
-head(abstract_word_counts, 5)
-
-```
-
-References:
-1. https://stackoverflow.com/questions/20495598/replace-accented-characters-in-r-with-non-accented-counterpart-utf-8-encoding
-2. https://www.tidytextmining.com/tidytext.html
-
-## Cast to Document Term Matrix
-
-### Title DTM
-```{r}
-title_dtm <- title_word_counts %>%
-  cast_dtm(docId, word, n)
-
-title_dtm
-```
-
-
-### Abstract DTM
-```{r}
-abstract_dtm <- abstract_word_counts %>%
-  cast_dtm(docId, word, n)
-
-abstract_dtm
-```
-
-## Perform Abstract LDA and Visualize
-
-### Build the LDA
-```{r}
-#Disable to avoid unintentional overwrites
-abstract_lda <- LDA(abstract_dtm, k = 24, control = list(seed = 1234))
-abstract_lda
-```
-
-
-```{r}
-#Free memory
-gc(abstract_dtm)
-gc(tb_titles)
-gc(tb_abstracts) 
-```
-
-### Arrange the LDA and Visualize top words per topic
-```{r}
-tidy_abstract_lda <- tidy(abstract_lda)
-
-top_abstract_terms <- tidy_abstract_lda %>%
-  group_by(topic) %>%
-  top_n(10, beta) %>%
-  ungroup() %>%
-  arrange(topic, -beta)
-```
- 
- 
- 
-```{r fig.width=10, fig.height=20}
-top_abstract_terms %>%
-  mutate(term = reorder_within(term, beta, topic)) %>%
-  group_by(topic, term) %>%    
-  arrange(desc(beta)) %>%  
-  ungroup() %>%
-  ggplot(aes(term, beta, fill = as.factor(topic))) +
-  geom_col(show.legend = FALSE) +
-  coord_flip() +
-  scale_x_reordered() +
-  labs(title = "Top 10 terms in each LDA topic",
-       x = NULL, y = expression(beta)) +
-  facet_wrap(~ topic, ncol = 4, scales = "free")
-
-```
-
- 
-### Review performance of Abstract LDA per document
-
-Our LDA shows an even distribution of probability across many documents. 
-
-```{r message=FALSE}
-lda_gamma <- tidy(abstract_lda, matrix = "gamma")
-
-
-ggplot(lda_gamma, aes(gamma)) +
-  geom_histogram() +
-  scale_y_log10() +
-  labs(title = "Distribution of probabilities for all topics",
-       y = "Number of documents", x = expression(gamma))
-```
-
-
-```{r warning=FALSE, message=FALSE, fig.align=center, fig.width=10, fig.height=10}
-ggplot(lda_gamma, aes(gamma, fill = as.factor(topic))) +
-  geom_histogram(show.legend = FALSE) +
-  facet_wrap(~ topic, ncol = 4) +
-  scale_y_log10() +
-  labs(title = "Distribution of probability for each topic",
-       y = "Number of documents", x = expression(gamma))
-
-```
-
-### Experimenting with LDA
-Trying another strategy, we can boost the number of topics and then extract the top term per document. Other strategies include creating bi- or tri-grams or combining TF-IDF and other Keywords such as those available in tidytextmining from NASA with the LDA topics or associated words. 
-
-Here we try to increase the topics to 100 (roughly 1/8 of the documents). 
-```{r}
-gc(abstract_lda)
-abstract_lda <- LDA(abstract_dtm, k = 100, control = list(seed = 1234))
-abstract_lda
-```
-
-#Fix-----------
-### Find the top one term per LDA topic
-```{r warning=FALSE, message=FALSE, fig.align=center, fig.width=10, fig.height=10}
-topics <- tidy(abstract_lda, matrix = "beta") 
-topics %>%  
-  mutate(term = reorder(term, beta)) %>% 
-  # Need to limit number of terms 
-  group_by(term) %>%
-  top_n(3, beta) %>%
-  ungroup() %>%
-  ggplot(aes(term, beta, fill = factor(topic))) +  
-  geom_col(show.legend = FALSE) +  
-  facet_wrap(~ topic, scales = "free") +  
-  labs(x = NULL, y = "Beta") +  
-  coord_flip()  
-
-```
-
-
-```{r}
-abs_topics_term <- topics %>%
-  group_by(topic) %>% 
-  filter(beta == max(beta)) %>% 
-  slice(1) %>% 
-  ungroup() 
-head(abs_topics_term,n=5)
- 
-```
-
-
- 
-
-### Merge with dataset and extract to csv
-Merge
-
-Get one topic per document
-```{r}
-abs_topic_docs <- tidy(abstract_lda, matrix = "gamma")
-topics_ <- abs_topic_docs %>% 
-  mutate(docId=as.integer(document)) %>%
-  select(., -document) %>% 
-  group_by(docId) %>% 
-  filter(gamma == max(gamma)) %>% 
-  slice(1) %>% 
-  ungroup()
-```
-
-Get one term per topic
-```{r}
-terms_ <- subset(abs_topics_term, topic==topics_$docId, -beta)  
-
-topic_terms <- inner_join(topics_, terms_, by = "topic")
-```
-
-
-Check for errors
-```{r}
-# Rewrite
-any(is.na(topic_terms))
-```
-
-Merge to patent document df
-```{r}
-patent_topics <- merge(patents, topic_terms, by = "docId") %>% 
-  group_by(docId) %>% arrange(., docId)
-head(patent_topics)
-```
-
- 
-
-Extract
-```{r}
-#write.csv(patents_topic_terms,"data/patents_topic_terms.csv")
-```
-
-#------------End fix
-
-
-Reference:
-1. https://www.tidytextmining.com/tidytext.html
-2. https://www.kaggle.com/rtatman/nlp-in-r-topic-modelling#Unsupervised-topic-modeling-with-LDA
-
-
-## TF-IDF 
-
-Measures the importance of a word within the corpus, potentially surfacing not unique words to the document (tf) but those that are not very frequent in the corpus (IDF). We investigate this potentially more reliable method (given the small dataset (corpus)) until we are able to expand or augment the LDA topic analysis and then test it. 
-
-### Visualize the top TD-IDF words in the corpus
-```{r message=FALSE}
-abstracts_tf_idf <- tb_abstracts %>% 
-  count(docId, word, sort = TRUE) %>%
-  ungroup() %>%
-  bind_tf_idf(word, docId, n) 
-
- 
-abstracts_tf_idf %>% 
-  top_n(10) %>%
-  ggplot(aes(word, tf_idf, fill=word)) +
-  geom_col() +
-  xlab(NULL) +
-  coord_flip() +
-  ylab("Word TF-IDF") +
-  ggtitle("Sample of Most Relevant, Unique Abstract Words in Corpus") 
-
-```
-
-### Find the top one TF-IDF term per document
-```{r}
-doc_abs_tf_idf <- abstracts_tf_idf %>%
-  group_by(docId) %>% 
-  filter(tf_idf == max(tf_idf)) %>% 
-  slice(1) %>% 
-  ungroup() 
-head(doc_abs_tf_idf,n=5)
-```
-
-
-### Merge with dataset and extract to csv
-Merge
-```{r}
-doc_terms <- doc_abs_tf_idf %>% transmute(docId=docId, term=word) 
-patents_terms <- merge(doc_terms, patents, by='docId')
-
-kable(head(patents_terms, n=2))
-```
-Extract
-```{r}
-write.csv(patents_terms,"data/patents_terms.csv")
-```
-
-
-
-Reference:
-1. https://www.tidytextmining.com/tidytext.html 
-
-
- 
-
-
-# Appendices
-
-## Retrieve USPTO patent data
-The code chunk for the USPTO acquistion shall be used when documents beyond the Google archive are needed.
-
-```{r a_get_uspto_patent}
-
-library(jsonlite)
-
-# Example https://developer.uspto.gov/ibd-api/v1/patent/application?applicationNumber=US12795356'
- 
-# Requires nasa_patents objects
-
-for (app in nasa_patents$Application_SN_uspto) {
-  #get_patent_application_uspto(app)
-  url <- paste0('https://developer.uspto.gov/ibd-api/v1/patent/application?applicationNumber=',app)
-  path <- "data/uspto"
-  file_path <- file.path(path, str_c(app, ".html"))
-raw.df <- read.csv("data/patent_text.csv", as.is = TRUE)
-raw.df$filingDate <- as.Date(raw.df$filingDate, format = "%Y-%m-%d")
-}
-```
-
 ### EDA and data transformation for visualization
 ```{r}
+raw.df$filingDate <- as.Date(raw.df$filingDate, format = "%Y-%m-%d")
+
 # drop outlier date 
 raw.df <- raw.df %>% 
   subset(filingDate != as.Date("1891-12-08"))
@@ -910,10 +389,449 @@ p4 <- ggplot(citations4, aes(x=filingDate, y=citations)) +
 plot_grid(p1, p2, p3, p4, labels = c('A', 'B', 'C', 'D'), label_size = 12)
 ```
 
-## Findings
-NASA patents appear to have peaked in count between 2005 and 2008.  
+### read patent text
+```{r, eval=TRUE}
+raw.df <- read.csv("data/patent_text.csv")
+```
 
-## Appendix
+# Explore and Transform the Data
+Examine the patent text files and view the text sections. We note 932 observations, 8 variables, and 2 integer classes and 6 character classes. 
+```{r}
+patents <- read.csv("data/patent_text.csv", header = TRUE, stringsAsFactors = FALSE)
+glimpse(patents)
+kable(head(patents, n=2))
+```
+
+## Data integrity
+Check to make sure we are not operating on empty data. We are not. 
+```{r}
+nrow(patents) == sum(complete.cases(patents))
+```
+
+Track our documents in case we need to make extra rows for each word
+```{r}
+#patents <- patents %>%    
+  #mutate(docId=as.integer(row.names(.)))
+`%notin%` <- Negate(`%in%`)
+if('docId' %notin% colnames(.)) patents<-add_column(patents, docId=as.integer(row.names(patents)), .before = 1)
+head(patents, n=1)
+```
+References
+1. https://github.com/tidyverse/dplyr/issues/2047
+2. https://tibble.tidyverse.org/reference/add_column.html
+3. https://www.r-bloggers.com/the-notin-operator/
+
+## String-focused transformations
+
+### Remove third-party additions to text
+```{r}
+head(patents$title, n=1)
+patents <- patents %>%
+  #head(n=1) %>%
+  mutate(title = str_remove_all(title, " - Google Patents"))
+head(patents$title, n=1)
+```
+
+### Titles and Abstracts
+
+1. Extract document ids, titles and abstracts and convert to tibble in order to use tidy text methods
+2. Replace common European characters into transliterated roman characters (e.g. â is a)
+3. Replace upper with lower case characters
+4. Tokenize the title and abstract variables into words
+5. Remove default English stopword from those words
+6. Normalize white-space: Remove leading, trailing and intermediate excess whitespace
+7. Remove numbers
+Hold off on punctuation (contractions, dashes) and stemming until analysis, and because key terms are more sensitive to these changes
+8. We note some words to remove after visualizing the text
+
+```{r} 
+patents <- patents %>%
+  mutate(title=iconv(title, to='ASCII//TRANSLIT')) %>%
+  mutate(title=tolower(title)) %>%
+  mutate(title=str_replace_all(title,'\\w*\\d\\w*','')) %>%
+  mutate(title=str_replace_all(title,'apparatus|article|control|device|include.*|provide.*|methods*|systems*','')) %>%
+  mutate(abstract=iconv(abstract, to='ASCII//TRANSLIT')) %>%
+  mutate(abstract=tolower(abstract)) %>%
+  mutate(abstract=str_replace_all(abstract,'\\w*\\d\\w*','')) %>%
+  mutate(abstract=str_replace_all(abstract,'apparatus|article|control|device|include.*|provide.*|methods*|systems*','')) %>%
+  mutate_if(is.character, str_squish)
+head(patents)
+```
+
+## Data-focused transformations
+ 
+### Character statistics
+```{r}
+patents_stats <- patents %>% 
+  rowwise() %>% 
+  transmute(title = title, title_nchar = nchar(title), title_nmeans= nchar(title),
+            abstract=abstract, abstract_nchar = nchar(abstract), abstract_nmeans= nchar(abstract),
+            origin = origin, origin_nchar = nchar(origin), origin_nmeans= nchar(origin),
+            background = background, background_nchar = nchar(background), background_nmeans= nchar(background)) %>%
+  mutate(title_nmeans=colMeans(.[3]), 
+         abs_nmeans=colMeans(.[6]), 
+         origin_nmeans=colMeans(.[9]), 
+         background_nmeans=colMeans(.[12])) %>%
+  cbind(select(patents, -c(title, abstract, origin, background)),.)
+head(patents_stats, n=2)
+```
+
+### Dates
+Store the dates in date format yyyy-mm-dd.
+```{r}
+patents_stats <- patents_stats %>%
+  rowwise() %>%
+  mutate(filingDate=ymd(filingDate))
+head(patents_stats, n=1)
+```
+
+
+## Final Data Definitions
+* docId: A unique patent document data record in our sample (NASA)
+* appId: A unique patent number 'r'
+* citedBy: Other papers citing this paper, provided by Google
+* citation: Number of other papers this paper cites
+* filingDate: The date the patent was filed in yyyy-mm-dd format (for instance a specific version)
+* title: The patent title with the prepended phrase " - Google Patents" removed
+* title_nchar [patent_stats]: the number of characters in the title
+* title_nmeans [patent_stats]: the average number of characters over all of the titles in all patents
+* abstract: a summary of the patent abstract
+* abstract_nchar: the number of characters in the abstract
+* abstract_nmeans: the average number of characters over all of the abstracts in all patents
+* origin: a summary of how the patent originated
+* origin_nchar [patent_stats]: the number of characters in the origin
+* origin_nmeans [patent_stats]: the average number of characters over all of the origins in all patents
+* background: a summary of the patent background
+* background_nchar [patent_stats]: the number of characters in the background
+* background_nmeans [patent_stats]: the average number of characters over all of the backgrounds in all patents
+
+References:
+1. https://dplyr.tidyverse.org/reference/mutate.html#grouped-tibbles
+2. https://dplyr.tidyverse.org/reference/summarise.html
+3. https://github.com/tidyverse/dplyr/issues/2838
+4. https://stackoverflow.com/questions/43897844/r-move-column-to-last-using-dplyr
+
+# Data Analysis
+After looking into the patent stats, and transforming the data, we choose title and abstract for our Data Analysis.
+
+## Perform Word Tokenization specific to our type of analysis
+
+### Title word operations
+```{r message=FALSE}
+tb_titles <- patents %>%
+  select(., c(docId, title)) %>%
+  as_tibble() %>%
+  unnest_tokens(word, title) %>%
+  anti_join(stop_words)
+```
+
+### Abstract word operations
+```{r message=FALSE}
+tb_abstracts <- patents %>%
+  select(., c(docId, abstract)) %>%
+  as_tibble() %>%
+  unnest_tokens(word, abstract) %>%
+  anti_join(stop_words)
+```
+
+## Show Basic Word statistics
+1. Note the most frequent words over all patents
+2. Note the most frequent words per patent
+
+### Most frequent words in titles
+```{r message=FALSE}
+title_words <- tb_titles %>%
+  count(word, sort = TRUE)
+
+title_words %>%
+  top_n(10) %>%
+  mutate(word = reorder(word, n)) %>%
+  ggplot(aes(word, n, fill=word)) +
+  geom_col() +
+  xlab(NULL) +
+  coord_flip() +
+  ylab("Word Frequency") +
+  ggtitle("Most Common Title Words") 
+
+head(title_words, 5)
+```
+
+### Most frequent words in each title
+```{r message=FALSE}
+title_word_counts <- tb_titles %>%
+  count(docId, word, sort = TRUE)%>%
+  ungroup()
+
+head(title_word_counts, 5)
+```
+
+### Most frequent words in Abstracts
+```{r message=FALSE}
+abstract_words <- tb_abstracts %>%
+  count(word, sort = TRUE)
+
+abstract_words %>%
+  top_n(10) %>%
+  mutate(word = reorder(word, n)) %>%
+  ggplot(aes(word, n, fill=word)) +
+  geom_col() +
+  xlab(NULL) +
+  coord_flip() +
+  ylab("Word Frequency") +
+  ggtitle("Most Common Abstract Words") 
+
+head(abstract_words, 5)
+```
+
+### Most frequent words in each Abstract
+```{r message=FALSE}
+abstract_word_counts <- tb_abstracts %>%
+  count(docId, word, sort = TRUE)%>%
+  ungroup()
+
+head(abstract_word_counts, 5)
+```
+
+References:
+1. https://stackoverflow.com/questions/20495598/replace-accented-characters-in-r-with-non-accented-counterpart-utf-8-encoding
+2. https://www.tidytextmining.com/tidytext.html
+
+## Cast to Document Term Matrix
+
+### Title DTM
+```{r}
+title_dtm <- title_word_counts %>%
+  cast_dtm(docId, word, n)
+
+title_dtm
+```
+
+### Abstract DTM
+```{r}
+abstract_dtm <- abstract_word_counts %>%
+  cast_dtm(docId, word, n)
+
+abstract_dtm
+```
+
+## Perform Abstract LDA and Visualize
+
+### Build the LDA
+```{r}
+# Disable to avoid unintentional overwrites
+abstract_lda <- LDA(abstract_dtm, k = 24, control = list(seed = 1234))
+abstract_lda
+```
+
+```{r}
+# Free memory
+gc(abstract_dtm)
+gc(tb_titles)
+gc(tb_abstracts) 
+```
+
+### Arrange the LDA and Visualize top words per topic
+```{r}
+tidy_abstract_lda <- tidy(abstract_lda)
+
+top_abstract_terms <- tidy_abstract_lda %>%
+  group_by(topic) %>%
+  top_n(10, beta) %>%
+  ungroup() %>%
+  arrange(topic, -beta)
+```
+ 
+```{r fig.width=10, fig.height=20}
+top_abstract_terms %>%
+  mutate(term = reorder_within(term, beta, topic)) %>%
+  group_by(topic, term) %>%    
+  arrange(desc(beta)) %>%  
+  ungroup() %>%
+  ggplot(aes(term, beta, fill = as.factor(topic))) +
+  geom_col(show.legend = FALSE) +
+  coord_flip() +
+  scale_x_reordered() +
+  labs(title = "Top 10 terms in each LDA topic",
+       x = NULL, y = expression(beta)) +
+  facet_wrap(~ topic, ncol = 4, scales = "free")
+
+```
+
+### Review performance of Abstract LDA per document
+Our LDA shows an even distribution of probability across many documents. 
+```{r message=FALSE}
+lda_gamma <- tidy(abstract_lda, matrix = "gamma")
+
+ggplot(lda_gamma, aes(gamma)) +
+  geom_histogram() +
+  scale_y_log10() +
+  labs(title = "Distribution of probabilities for all topics",
+       y = "Number of documents", x = expression(gamma))
+```
+
+```{r warning=FALSE, message=FALSE, fig.align='center', fig.width=10, fig.height=10}
+ggplot(lda_gamma, aes(gamma, fill = as.factor(topic))) +
+  geom_histogram(show.legend = FALSE) +
+  facet_wrap(~ topic, ncol = 4) +
+  scale_y_log10() +
+  labs(title = "Distribution of probability for each topic",
+       y = "Number of documents", x = expression(gamma))
+```
+
+### Experimenting with LDA
+Trying another strategy, we can boost the number of topics and then extract the top term per document. Other strategies include creating bi- or tri-grams or combining TF-IDF and other Keywords such as those available in tidytextmining from NASA with the LDA topics or associated words. 
+
+Here we try to increase the topics to 100 (roughly 1/8 of the documents). 
+```{r}
+gc(abstract_lda)
+abstract_lda <- LDA(abstract_dtm, k = 100, control = list(seed = 1234))
+abstract_lda
+```
+
+#Fix-----------
+### Find the top one term per LDA topic
+```{r warning=FALSE, message=FALSE, fig.align='center', fig.width=10, fig.height=10}
+topics <- tidy(abstract_lda, matrix = "beta") 
+topics %>%  
+  mutate(term = reorder(term, beta)) %>% 
+  # Need to limit number of terms 
+  group_by(term) %>%
+  top_n(3, beta) %>%
+  ungroup() %>%
+  ggplot(aes(term, beta, fill = factor(topic))) +  
+  geom_col(show.legend = FALSE) +  
+  facet_wrap(~ topic, scales = "free") +  
+  labs(x = NULL, y = "Beta") +  
+  coord_flip()  
+```
+
+
+```{r}
+abs_topics_term <- topics %>%
+  group_by(topic) %>% 
+  filter(beta == max(beta)) %>% 
+  slice(1) %>% 
+  ungroup() 
+head(abs_topics_term,n=5)
+```
+
+### Merge with dataset and extract to csv
+Merge and get one topic per document
+```{r}
+abs_topic_docs <- tidy(abstract_lda, matrix = "gamma")
+topics_ <- abs_topic_docs %>% 
+  mutate(docId=as.integer(document)) %>%
+  select(., -document) %>% 
+  group_by(docId) %>% 
+  filter(gamma == max(gamma)) %>% 
+  slice(1) %>% 
+  ungroup()
+
+abs_topic_docs
+topics_
+```
+
+Get one term per topic
+```{r}
+terms_ <- subset(abs_topics_term, topic==topics_$docId, -beta) # get subset of relevant attrs 
+topic_terms <- inner_join(topics_, terms_, by = "topic") # join subset and df of topic per doc by "topic"
+terms_
+topic_terms
+```
+
+Check for errors
+```{r}
+# Rewrite
+any(is.na(topic_terms))
+```
+
+Merge to patent document df
+```{r}
+patent_topics <- merge(patents, topic_terms, by = "docId") %>% 
+  group_by(docId) %>% arrange(., docId)
+head(patent_topics)
+```
+
+Extract
+```{r}
+#write.csv(patents_topic_terms,"data/patents_topic_terms.csv")
+```
+
+#------------End fix
+
+Reference:
+1. https://www.tidytextmining.com/tidytext.html
+2. https://www.kaggle.com/rtatman/nlp-in-r-topic-modelling#Unsupervised-topic-modeling-with-LDA
+
+
+## TF-IDF 
+
+Measures the importance of a word within the corpus, potentially surfacing not unique words to the document (tf) but those that are not very frequent in the corpus (IDF). We investigate this potentially more reliable method (given the small dataset (corpus)) until we are able to expand or augment the LDA topic analysis and then test it. 
+
+### Visualize the top TD-IDF words in the corpus
+```{r message=FALSE}
+abstracts_tf_idf <- tb_abstracts %>% 
+  count(docId, word, sort = TRUE) %>%
+  ungroup() %>%
+  bind_tf_idf(word, docId, n) 
+
+abstracts_tf_idf %>% 
+  top_n(10) %>%
+  ggplot(aes(word, tf_idf, fill=word)) +
+  geom_col() +
+  xlab(NULL) +
+  coord_flip() +
+  ylab("Word TF-IDF") +
+  ggtitle("Sample of Most Relevant, Unique Abstract Words in Corpus") 
+```
+
+### Find the top one TF-IDF term per document
+```{r}
+doc_abs_tf_idf <- abstracts_tf_idf %>%
+  group_by(docId) %>% 
+  filter(tf_idf == max(tf_idf)) %>% 
+  slice(1) %>% 
+  ungroup() 
+head(doc_abs_tf_idf,n=5)
+```
+
+
+### Merge with dataset and extract to csv
+Merge
+```{r}
+doc_terms <- doc_abs_tf_idf %>% transmute(docId=docId, term=word) 
+patents_terms <- merge(doc_terms, patents, by='docId')
+
+kable(head(patents_terms, n=2))
+```
+Extract
+```{r}
+write.csv(patents_terms,"data/patents_terms.csv")
+```
+
+Reference:
+1. https://www.tidytextmining.com/tidytext.html 
+
+
+# Appendices
+
+## Retrieve USPTO patent data
+The code chunk for the USPTO acquistion shall be used when documents beyond the Google archive are needed.
+
+```{r a_get_uspto_patent}
+# Example https://developer.uspto.gov/ibd-api/v1/patent/application?applicationNumber=US12795356'
+# Requires nasa_patents objects
+
+for (app in nasa_patents$Application_SN_uspto) {
+  #get_patent_application_uspto(app)
+  url <- paste0('https://developer.uspto.gov/ibd-api/v1/patent/application?applicationNumber=',app)
+  path <- "data/uspto"
+  file_path <- file.path(path, str_c(app, ".html"))
+raw.df <- read.csv("data/patent_text.csv", as.is = TRUE)
+raw.df$filingDate <- as.Date(raw.df$filingDate, format = "%Y-%m-%d")
+}
+```
+
 ### USPTO
 We didn't use the USPTO source. We acquired patent data from Google, instead. This code chunk for this acquistion is disabled because I don't understand what it retrieves, but I'll keep the code in case I can use it later.
 ```{r get_uspto, eval=FALSE}
@@ -945,7 +863,6 @@ print("Downloads complete.")
 ## View Patents View Information (for instance, the Abstract)
 
 ```{r a_get_patentsview}
-
 library(patentsview) 
 
 retrvble_flds <- get_fields(endpoint = "patents")
@@ -978,7 +895,6 @@ raw.html %>% html_nodes("[itemprop='assigneeCurrent']") %>% html_text()
 raw.html %>% html_nodes("[itemprop='filingDate']") %>% html_text() # which one to select?
 # classifications
 raw.html %>% html_nodes("[itemprop='cpcs']") %>% html_text() # what does it mean?
-
 ```
 
 ### Research papers
@@ -1035,9 +951,9 @@ p$meta
 # The data.
 p$data
 ```
+
 ### Title terms
 Search for papers whose bodies contain the top words from NASA patent titles.
-
 ```{r explore_title_terms}
 top_title_words <- title_words %>% top_n(10)
 top_title_words <- top_title_words$word
