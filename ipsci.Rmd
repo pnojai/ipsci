@@ -16,12 +16,12 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ```{r packages}
-#, message=FALSE, warning=FALSE}
 
 # Packages used in the ingestion of data
 library(httr)     # Wrapper for the curl package.
 library(XML)      # Dealing with text in xml.
 library(jsonlite) # Getting and formatting JSON. 
+# todo: install if not found
 library(rplos)    # API to PLOS for journals.
 library(readr)    # Reading rectangular data.
 library(plyr)     # Wrangling data.
@@ -46,6 +46,11 @@ library(rvest)    # Download and manipulate HTML.
 
 #display
 library(kableExtra)
+library(rjson)    # Work with JSON format.
+library(ggplot2)
+library(purrr)
+library(cowplot)  # ggplot2 add-on for pretty graphs.
+>>>>>>> nc_dev
 ```
 
 ## Proposal
@@ -156,9 +161,11 @@ print("Downloads complete.")
 Exploratory chunk disabled.
 ```{r, eval=FALSE}
 # explore downloaded data
-raw.html <- read_html("data/8675922.html")
+raw.html <- read_html("data/6020587.html")
 # title
 raw.html %>% html_nodes("body search-app article h1") %>% html_text() %>% .[[1]]
+# filing date
+raw.html %>% html_nodes("[itemprop='filingDate']") %>% html_text() %>% .[[2]]
 # abstract
 raw.html %>% html_nodes("abstract") %>% html_text()
 # description > origin of the invention
@@ -169,7 +176,7 @@ raw.html %>% html_nodes("body search-app article section div div p") %>% html_te
 raw.html %>% html_nodes(xpath="/html/body/search-app/article/table") %>% html_table()
 # cited by (count) nrow()
 cited_by <- raw.html %>% html_nodes(xpath="/html/body/search-app/article/table") %>% html_table() 
-nrow(cited_by[[1]])
+#nrow(cited_by[[1]])
 # patent citations 
 raw.html %>% html_nodes(xpath="/html/body/search-app/article/section/table") %>% html_table()
 raw.html %>% html_nodes(xpath="/html/body/search-app/article/section/h2") %>% html_text()
@@ -188,7 +195,7 @@ files <- list.files(path="data", pattern="[0-9]{5,}.html", full.names=TRUE, recu
 raw.title <- lapply(files, function(x) {
   raw.html <- read_html(x, header=TRUE) # load file
   # apply function
-  raw.html %>% html_nodes("body search-app article h1") %>% html_text() %>% .[[1]] %>% str_remove(" \n        - Google Patents")
+  raw.html %>% html_nodes("body search-app article h1") %>% html_text() %>% .[[1]] %>% str_remove(" \\n +\\- [[:alpha:]]{6,} [[:alpha:]]{6,}")
 })
 # abstract
 raw.abstract <- lapply(files, function(x) {
@@ -196,14 +203,18 @@ raw.abstract <- lapply(files, function(x) {
   # apply function
   raw.html %>% html_nodes("abstract") %>% html_text()
 })
-
+# prior art date as proxy for filing date that includes support 1899 example
+filing.date <- lapply(files, function(x) {
+  raw.html <- read_html(x, header=TRUE) # load file
+  # apply function
+  raw.html %>% html_nodes("[itemprop='priorArtDate']") %>% html_text() %>% .[[1]]
+})
 # description > origin of the invention
 raw.origin <- lapply(files, function(x) {
   raw.html <- read_html(x, header=TRUE) # load file
   # apply function
   raw.html %>% html_nodes("body search-app article section div div p") %>% html_text() %>% .[[1]]
 })
-
 # description > background of the invention > field of the invention
 raw.background <- lapply(files, function(x) {
   raw.html <- read_html(x, header=TRUE) # load file
@@ -219,6 +230,12 @@ raw.background <- lapply(files, function(x) {
 Executed, variables serialized, chunk disabled.
 
 ```{r, eval=FALSE}
+We observe that each patent includes citations to reference other patents, as well as those other patents that cite it. We then ask if it might be possible to identify counts of each to demonstrate, for instance:
+* a rough proxy metric of the referenciblity of each patent (how much more or less is a given patent cited?)
+* the count of citations over time
+
+This analysis will help us begin to answer the question, "how, and to what extent, do patents build on other patents?" Subsequent analysis should account for patent density across time.
+```{r}
 # cited by (count) 
 cited_by <- lapply(files, function(x) {
   raw.html <- read_html(x, header=TRUE) # load file
@@ -284,21 +301,25 @@ Executed, variables serialized, chunk disabled.
 # not necessary, but makes lists nicer to read
 # todo: make consistent
 raw.title <- unlist(raw.title, recursive = FALSE)
+#raw.title
 raw.abstract <- unlist(raw.abstract, recursive = FALSE)
 raw.origin <- unlist(raw.origin, recursive = FALSE)
+filing.date <- filing.date %>% unlist(recursive = FALSE)
 raw.background <- unlist(raw.background, recursive = FALSE)
 count.citations %>% unlist(recursive = FALSE)
 count.cited_by %>% unlist(recursive = FALSE)
 
 # get "appId" with regex
-app_num <- unlist(str_extract_all(raw.title, "[A-Z]{2,}[0-9]{7,}[A-Z]+[0-9]+"))
+app_num <- unlist(str_extract_all(raw.title, "[A-Z]{2,}[0-9]{6,}[A-Z]+[0-9]?"))
 
 # remove "appId" from "title" 
-title <- str_remove(raw.title, app_num)
-title <- str_remove(title, " - ") # this could be less greedy
+raw.title <- str_remove(raw.title, app_num)
+#raw.title
+raw.title <- str_remove(raw.title, " - ") # this could be less greedy
+#raw.title
 
 # bind lists into dataframe and name columns
-raw.df <- setNames(do.call(rbind.data.frame, Map('c', app_num, title, raw.abstract, raw.origin, raw.background, count.cited_by, count.citations)), c("appId", "title", "abstract", "origin", "background", "citedBy", "citations"))
+raw.df <- setNames(do.call(rbind.data.frame, Map('c', app_num, raw.title, raw.abstract, raw.origin, raw.background, count.cited_by, count.citations, filing.date)), c("appId", "title", "abstract", "origin", "background", "citedBy", "citations", "filingDate"))
 raw.df
 ```
 
@@ -804,6 +825,103 @@ for (app in nasa_patents$Application_SN_uspto) {
   url <- paste0('https://developer.uspto.gov/ibd-api/v1/patent/application?applicationNumber=',app)
   path <- "data/uspto"
   file_path <- file.path(path, str_c(app, ".html"))
+raw.df <- read.csv("data/patent_text.csv", as.is = TRUE)
+raw.df$filingDate <- as.Date(raw.df$filingDate, format = "%Y-%m-%d")
+```
+
+### EDA and data transformation for visualization
+```{r}
+# drop outlier date 
+raw.df <- raw.df %>% 
+  subset(filingDate != as.Date("1891-12-08"))
+
+# date quartiles 
+quartile <- (max(raw.df$filingDate) - min(raw.df$filingDate)) / 4 
+q1 <- min(raw.df$filingDate) + quartile
+q2 <- min(raw.df$filingDate) + (quartile*2)
+q3 <- min(raw.df$filingDate) + (quartile*3)
+q4 <- max(raw.df$filingDate)
+
+# citation count per patent filed between 2006 and 2012
+citations4 <- raw.df %>% 
+  select(citations, citedBy, title, filingDate) %>%
+  filter(filingDate >= as.Date(q3) & filingDate <= as.Date(q4))
+
+# citation count per patent filed between 2000 and 2006
+citations3 <- raw.df %>% 
+  select(citations, citedBy, title, filingDate) %>%
+  filter(filingDate >= as.Date(q2) & filingDate <= as.Date(q3))
+
+# citation count per patent filed between 1994 and 2000
+citations2 <- raw.df %>% 
+  select(citations, citedBy, title, filingDate) %>%
+  filter(filingDate >= as.Date(q1) & filingDate <= as.Date(q2))
+
+# citation count per patent filed before 1994
+citations1 <- raw.df %>% 
+  select(citations, citedBy, title, filingDate) %>%
+  filter(filingDate <= as.Date(q1))
+```
+
+```{r}
+# patent density -- which years most patents?
+ggplot(raw.df, aes(x=filingDate)) + 
+  geom_histogram(aes(y=..density..), colour="black", fill="white") +
+  geom_density(alpha=.2, fill="#FF6666") +
+  ggtitle("Patent density by year") +
+  xlab("year") + ylab("density")
+
+# citations and citedBy count over all years
+c1 <- ggplot(raw.df, aes(x=filingDate, y=citedBy)) + 
+  geom_point() +
+  ggtitle("(n) cited by other patents by year") +
+  xlab("year") + ylab("cited by")
+c2 <- ggplot(raw.df, aes(x=filingDate, y=citations)) + 
+  geom_point() +
+  ggtitle("(n) citations by year") +
+  xlab("year") + ylab("citations")
+plot_grid(c1, c2, labels = c('A', 'B'), label_size = 12)
+
+# citations count by year quartiles (zoomed in)
+p1 <- ggplot(citations1, aes(x=filingDate, y=citations)) + 
+  geom_point() +
+  #stat_summary(fun.data=mean_cl_normal) + 
+  #geom_smooth(method='lm', formula= y~x) +
+  ggtitle("(n) citation counts, 2006-2012") +
+  xlab("year") + ylab("citations")
+p2 <- ggplot(citations2, aes(x=filingDate, y=citations)) + 
+  geom_point() +
+  #stat_summary(fun.data=mean_cl_normal) + 
+  #geom_smooth(method='lm', formula= y~x) +
+  ggtitle("(n) citation counts, 2000-2006") +
+  xlab("year") + ylab("citations")
+p3 <- ggplot(citations3, aes(x=filingDate, y=citations)) + 
+  geom_point() +
+  #stat_summary(fun.data=mean_cl_normal) + 
+  #geom_smooth(method='lm', formula= y~x) +
+  ggtitle("(n) citation counts, 1994-2000") +
+  xlab("year") + ylab("citations")
+p4 <- ggplot(citations4, aes(x=filingDate, y=citations)) + 
+  geom_point() +
+  #stat_summary(fun.data=mean_cl_normal) + 
+  #geom_smooth(method='lm', formula= y~x) +
+  ggtitle("(n) citation counts, pre-1994") +
+  xlab("year") + ylab("citations")
+plot_grid(p1, p2, p3, p4, labels = c('A', 'B', 'C', 'D'), label_size = 12)
+```
+
+## Findings
+NASA patents appear to have peaked in count between 2005 and 2008.  
+
+## Appendix
+### USPTO
+We didn't use the USPTO source. We acquired patent data from Google, instead. This code chunk for this acquistion is disabled because I don't understand what it retrieves, but I'll keep the code in case I can use it later.
+```{r get_uspto, eval=FALSE}
+# Curl
+# curl -X GET --header 'Accept: application/json' 'https://developer.uspto.gov/ibd-api/v1/patent/application?applicationNumber=US14202699%2CUS12795356&start=0&rows=100'
+# Request URL
+# https://developer.uspto.gov/ibd-api/v1/patent/application?applicationNumber=US14202699%2CUS12795356&start=0&rows=100
+>>>>>>> nc_dev
 
   if (!file.exists(file_path)) {
     patent_application <- jsonlite::fromJSON(url)
