@@ -449,13 +449,13 @@ patents <- patents %>%
   mutate(title=iconv(title, to='ASCII//TRANSLIT')) %>%
   mutate(title=tolower(title)) %>%
   mutate(title=str_replace_all(title,'\\w*\\d\\w*','')) %>%
-  mutate(title=str_replace_all(title,'apparatus|article|control|device|include.*|provide.*|methods*|systems*','')) %>%
+  mutate(title=str_replace_all(title,'\\b(apparatus|article|control|device|include.*|provide*|methods*|systems*)\\b','')) %>%
   mutate(abstract=iconv(abstract, to='ASCII//TRANSLIT')) %>%
   mutate(abstract=tolower(abstract)) %>%
   mutate(abstract=str_replace_all(abstract,'\\w*\\d\\w*','')) %>%
-  mutate(abstract=str_replace_all(abstract,'apparatus|article|control|device|include.*|provide.*|methods*|systems*','')) %>%
+  mutate(abstract=str_replace_all(abstract,'\\b(apparatus|article|control|device|include.*|provide.*|methods*|systems*)\\b','')) %>%
   mutate_if(is.character, str_squish)
-head(patents)
+head(patents, n=2)
 ```
 
 ## Data-focused transformations
