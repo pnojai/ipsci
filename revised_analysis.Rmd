@@ -1,0 +1,400 @@
+---
+title: "ipsci - Abstract Analysis Presentation Review"
+author: "Jai Jeffryes, Tamiko Jenkins, Nicholas Chung"
+date: "12/14/2019"
+output: 
+  html_document:
+    code_folding: hide
+    highlight: pygments
+    theme: flatly
+    toc: yes
+    toc_float: yes
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r packages, message=FALSE}
+# Packages used in the ingestion of data 
+library(readr)        # Reading rectangular data 
+
+# Packages used for special use cases 
+library(topicmodels)  # for LDA topic modelling 
+library(SnowballC)    # for stemming
+library(tidyverse)    # general utility & workflow functions 
+library(tidytext)     # text analysis in R 
+library(lubridate)    # working with times and dates   
+library(rvest)        # Download and manipulate HTML
+
+# Packages used to prettify and produce visualizations
+library(kableExtra)   # tables
+library(ggplot2)      # graphs library 
+```
+
+# Text Analysis 
+
+## View Data
+Examine the patent text files and view the text sections. We note 932 observations, 8 variables, and 2 integer classes and 6 character classes. 
+```{r view}
+patents <- read.csv("data/patent_text.csv", header = TRUE, stringsAsFactors = FALSE)
+glimpse(patents)
+head(patents, n=2)
+```
+
+## Data integrity
+Check to make sure we are not operating on empty data. We are not. 
+```{r integrity}
+nrow(patents) == sum(complete.cases(patents))
+```
+
+Track our documents in case we need to make extra rows for each word
+```{r Track}
+#patents <- patents %>%    
+  #mutate(docId=as.integer(row.names(.)))
+`%notin%` <- Negate(`%in%`)
+if('docId' %notin% colnames(patents)) patents<-add_column(patents, docId=as.integer(row.names(patents)), .before = 1)
+head(patents, n=1)
+```
+ 
+## Transformations
+
+### Remove third-party additions to text
+```{r third}
+head(patents$title, n=1)
+patents <- patents %>%
+  #head(n=1) %>%
+  mutate(title = str_remove_all(title, " - Google Patents"))
+head(patents$title, n=1)
+```
+
+
+### Clean
+```{r clean}
+patents <- patents %>%
+  mutate(title=iconv(title, to='ASCII//TRANSLIT')) %>%
+  mutate(title=tolower(title)) %>%
+  mutate(title=str_replace_all(title,'\\w*\\d\\w*','')) %>%
+  mutate(title=str_replace_all(title,'\\b(apparatus|article|control|device|includ.*|provid*|methods*|system*)\\b','')) %>%
+  mutate(abstract=iconv(abstract, to='ASCII//TRANSLIT')) %>%
+  mutate(abstract=tolower(abstract)) %>%
+  mutate(abstract=str_replace_all(abstract,'\\w*\\d\\w*','')) %>%
+  mutate(abstract=str_replace_all(abstract,'\\b(apparatus|article|control|device|includ.*|provid*|methods*|system*)\\b','')) %>%
+  mutate_if(is.character, str_squish)
+head(patents, n=2)
+```
+
+
+
+### Word operations
+```{r words, message=FALSE}
+tb_abstracts <- patents %>%
+  select(., c(docId, abstract)) %>%
+  as_tibble() %>%
+  unnest_tokens(word, abstract) %>%
+  anti_join(stop_words)
+head(tb_abstracts, 10)
+```
+
+### Stop words and Tokenization
+
+```{r tokens}
+tb_abstracts <- patents %>%
+  select(., c(docId, abstract)) %>%
+  as_tibble() %>%
+  unnest_tokens(word, abstract) %>%
+  anti_join(stop_words)
+head(tb_abstracts, 10)
+```
+
+### Document Term Matrix
+
+```{r counts}
+abstract_word_counts <- tb_abstracts %>%
+  count(docId, word, sort = TRUE)%>%
+  ungroup()
+
+head(abstract_word_counts %>% arrange(docId) %>% group_by(docId) %>% filter(n==max(n)) %>% ungroup(), 10)
+```
+
+
+```{r dtm}
+abstract_dtm <- abstract_word_counts %>%
+  cast_dtm(docId, word, n)
+
+abstract_dtm
+```
+
+### LDA Model
+
+```{r lda}
+abstract_lda <- LDA(abstract_dtm, k = 60, control = list(seed = 1234))
+abstract_lda
+```
+
+ 
+#### Beta of Top Term per Topic
+```{r beta}
+topic_beta <- tidy(abstract_lda, matrix = "beta")
+#head(topic_beta) %>% arrange(topic, -beta)
+
+top_terms <- topic_beta %>%
+  group_by(topic) %>%
+  top_n(1, beta) %>%
+  ungroup() %>%
+  arrange(topic, -beta)
+top_terms
+
+```
+
+#### Gamma of Top Topic per Document
+
+```{r gamma}
+topic_gamma <- tidy(abstract_lda, matrix = "gamma")
+topic_gamma$document <- as.integer(topic_gamma$document)
+#topic_gamma %>% arrange(document,desc(gamma)) %>%   head(5)
+ 
+
+term_document <- topic_gamma %>% 
+  group_by(document) %>%
+  top_n(1, gamma) %>%
+  ungroup() %>%
+  arrange(document, gamma)
+
+term_document
+```
+
+
+
+### Summarize Data
+
+#### Join patents by document ids, topic gammas, term betas, and td_ifd
+```{r join}
+topic_terms <- inner_join(term_document, top_terms, by = "topic") 
+topic_terms <- topic_terms %>% rename(docId=document)
+
+patent_topics <- merge(patents, topic_terms, by = "docId")  
+#head(patent_topics)
+
+
+summary <- patent_topics %>% select(docId, topic, gamma, term, beta, abstract, citedBy, citations)
+
+#head(summary)
+ 
+abstracts_tf_idf <- tb_abstracts %>% 
+  count(docId, word, sort = TRUE) %>%
+  ungroup() %>%
+  bind_tf_idf(word, docId, n) 
+
+doc_abs_tf_idf <- abstracts_tf_idf %>%
+  group_by(docId) %>% 
+  filter(tf_idf == max(tf_idf)) %>% 
+  slice(1) %>% 
+  ungroup() 
+
+#head(doc_abs_tf_idf)
+ 
+summary <- doc_abs_tf_idf %>% rename(td_idf_word=word, raw_freq=n) %>% 
+  merge(summary, .) %>% 
+  select(., -c(abstract, citedBy, citations), c(abstract, citations, citedBy))
+  
+#head(summary)
+```
+
+
+### Extract
+```{r extract}
+write.csv(summary,"data/patent_abstract_summary.csv")
+```
+
+
+## Visualize
+
+
+### Frequency
+
+#### Corpus Word Frequency
+
+```{r corpus-wf, warning=FALSE, message=FALSE}
+
+corpus_word_counts <- tb_abstracts %>%
+  count(word, sort = TRUE)  
+
+corpus_word_counts %>% 
+  top_n(10, n) %>%
+  mutate(word = reorder(word, n)) %>%
+  ggplot(aes(word, n, fill=word)) +
+  geom_col() +
+  xlab(NULL) +
+  ylab("Word Frequency") +
+  ggtitle("Corpus Word Frequency") +
+  coord_flip() +
+  guides(fill = guide_legend(reverse=TRUE)) 
+
+head(corpus_word_counts,n=2)
+ 
+```
+
+
+ 
+#### Document Word Frequency
+
+```{r abstract-wf}
+filter_abstract_word_counts <- tb_abstracts %>%
+  count(docId, word, sort = TRUE)  %>%   
+  group_by(docId) %>%
+  arrange(docId, n) %>%   
+  slice(1:5)  %>% 
+  ungroup()
+
+
+filter_abstract_word_counts[11:19,]
+ 
+```
+
+
+  
+
+```{r filter-wc}
+filter_abstract_word_counts %>%  
+  filter(docId<6) %>%
+  ggplot(aes(word, n, fill = as.factor(docId))) +
+  geom_col(show.legend = FALSE) +
+  coord_flip() +
+  scale_x_reordered() +
+  labs(title = "Document Word Frequency",
+       x = NULL, y = expression(n)) +
+  facet_wrap(~ docId, ncol = 4, scales = "free")
+ 
+
+```
+
+
+### LDA
+
+#### Corpus LDA Terms per Topic
+
+```{r lda-vis, messages=FALSE}
+tidy_abstract_lda <- tidy(abstract_lda)
+ 
+
+filter_tidy_abstract_lda <- tidy_abstract_lda %>% 
+  arrange(topic, desc(beta)) %>%
+  group_by(topic) %>% 
+  filter(topic<6) %>%
+  top_n(5) %>%
+  ungroup() 
+  
+filter_tidy_abstract_lda %>%
+  mutate(topic = as.factor(topic),
+         term = fct_reorder(term, beta)) %>%
+  ggplot(aes(term, beta, fill = topic)) +
+  geom_col(show.legend = FALSE) +
+  facet_wrap(~topic, ncol=3, scales = "free") +
+  coord_flip() + 
+  scale_x_reordered() +
+  labs(y =  expression(beta),
+       x = NULL,
+       title = "Corpus LDA terms per topic")
+
+ 
+
+head(filter_tidy_abstract_lda, n=2)
+```
+ 
+
+
+
+#### Top Document LDA Terms
+```{r lda-doc-vis}
+topic_beta <- tidy(abstract_lda, matrix = "beta")
+#head(topic_beta) %>% arrange(topic, beta)
+ 
+top_terms <- topic_beta %>%
+  group_by(topic) %>%
+  top_n(1, beta) %>%
+  ungroup() %>%
+  arrange(topic, -beta)
+#top_terms
+
+topic_gamma <- tidy(abstract_lda, matrix = "gamma") 
+#topic_gamma %>% arrange(document,desc(gamma)) %>%   head(5)
+ 
+ 
+term_document <- topic_gamma %>% 
+  mutate(docId = as.integer(topic_gamma$document)) %>%
+  group_by(docId) %>%
+  top_n(5, gamma) %>%
+  filter(docId<6) %>%
+  ungroup() %>%
+  arrange(docId,- gamma)
+
+#term_document
+
+topic_terms_doc <- inner_join(term_document, top_terms, by = "topic")
+
+
+  
+topic_terms_doc %>%
+  mutate(docId = as.factor(document),
+         term = fct_reorder(term, gamma)) %>%
+  ggplot(aes(term, gamma, fill = document)) +
+  geom_col(show.legend = FALSE) +
+  facet_wrap(~document, ncol=3, scales = "free") +
+  coord_flip() + 
+  scale_x_reordered() +
+  labs(y =  expression(gamma),
+       x = NULL,
+       title = "Top Document LDA Terms")
+
+
+head(topic_terms_doc, n=3)
+```
+
+
+#### Top Document TD-IDF Terms
+
+```{r tdidf-vis} 
+filter_abstracts_tf_idf <- abstracts_tf_idf %>% 
+  arrange(docId, desc(n)) %>%
+  group_by(docId) %>% 
+  filter(docId<6) %>%
+  top_n(5) %>%
+  ungroup()
+   
+
+  
+filter_abstracts_tf_idf %>%
+  mutate(docId = as.factor(docId),
+         term = fct_reorder(word, n)) %>%
+  ggplot(aes(term, n, fill = docId)) +
+  geom_col(show.legend = FALSE) +
+  facet_wrap(~docId, ncol=3, scales = "free") +
+  coord_flip() + 
+  scale_x_reordered() +
+  labs(y =  expression(n),
+       x = NULL,
+       title = "Top Document TD-IDF Terms")
+```
+
+
+
+
+## Review
+
+
+```{r review-sum, out.width="100%"}
+head(summary, n=5) %>%
+  select(abstract, everything()) %>%
+  kable() %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed", "responsive")) %>%
+  column_spec(1, width = "50em")   
+
+```
+
+
+### Session info
+```{r session}
+sessionInfo(package = NULL)
+```
+
